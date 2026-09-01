@@ -73,28 +73,44 @@ def publish_timed_bundle(
     packets: list[dict[str, Any]],
     bind: str,
     subscriber_warmup_s: float,
+    fault: str = "none",
+    fault_offset: int = 120,
+    stale_delay_ms: int = 250,
 ) -> dict[str, Any]:
     if not bind.startswith("tcp://127.0.0.1:"):
         raise ValueError("timed PICO replay is restricted to localhost TCP")
     if subscriber_warmup_s < 0.1:
         raise ValueError("subscriber warmup must be at least 0.1 seconds")
+    if fault not in {"none", "timeout", "gap", "stale"}:
+        raise ValueError("unsupported diagnostic transport fault")
+    if fault != "none" and not 2 <= fault_offset < len(packets):
+        raise ValueError("fault offset must leave two startup packets and precede stream end")
+    if stale_delay_ms <= 100:
+        raise ValueError("stale delay must exceed the 100 ms live freshness gate")
     first_summary = validate_reference_terms(packets[0])
     context = zmq.Context(io_threads=1)
     socket = context.socket(zmq.PUB)
     socket.setsockopt(zmq.LINGER, 1000)
     socket.bind(bind)
     schedule_slips_ns: list[int] = []
+    published_count = 0
     started_ns = time.monotonic_ns()
     try:
         time.sleep(subscriber_warmup_s)
         first_control_ns = time.monotonic_ns() + CONTROL_PERIOD_NS
-        for packet in packets:
+        for offset, packet in enumerate(packets):
+            if fault == "timeout" and offset == fault_offset:
+                break
+            if fault == "gap" and offset == fault_offset:
+                continue
             rebased = rebase_reference_packet_time(
                 packet,
                 first_control_index=first_summary["control_index"],
                 first_control_monotonic_ns=first_control_ns,
             )
             deadline_ns = int(rebased["control_monotonic_ns"])
+            if fault == "stale" and offset == fault_offset:
+                time.sleep(stale_delay_ms / 1000.0)
             while True:
                 remaining_ns = deadline_ns - time.monotonic_ns()
                 if remaining_ns <= 0:
@@ -103,6 +119,7 @@ def publish_timed_bundle(
             sent_ns = time.monotonic_ns()
             schedule_slips_ns.append(sent_ns - deadline_ns)
             socket.send_json(rebased)
+            published_count += 1
         time.sleep(0.1)
     finally:
         socket.close()
@@ -112,7 +129,9 @@ def publish_timed_bundle(
         "schema_version": 1,
         "kind": "g1_true23_saved_pico_timed_zmq_replay",
         "bind": bind,
-        "packet_count": len(packets),
+        "packet_count": published_count,
+        "source_packet_count": len(packets),
+        "published_packet_count": published_count,
         "first_control_source_frame_index": first_summary["control_index"],
         "last_control_source_frame_index": validate_reference_terms(packets[-1])["control_index"],
         "control_period_ns": CONTROL_PERIOD_NS,
@@ -121,6 +140,9 @@ def publish_timed_bundle(
         "wall_duration_ns": finished_ns - started_ns,
         "values_rebased": ["pico_anchor_monotonic_ns", "control_monotonic_ns"],
         "pose_and_reference_values_unchanged": True,
+        "diagnostic_fault": fault,
+        "diagnostic_fault_offset": None if fault == "none" else fault_offset,
+        "diagnostic_stale_delay_ms": stale_delay_ms if fault == "stale" else None,
         "passed": True,
         "authorization": {
             "localhost_only": True,
@@ -136,6 +158,9 @@ def main() -> int:
     parser.add_argument("--packets", type=Path, required=True)
     parser.add_argument("--bind", default="tcp://127.0.0.1:5557")
     parser.add_argument("--subscriber-warmup-s", type=float, default=2.0)
+    parser.add_argument("--fault", choices=("none", "timeout", "gap", "stale"), default="none")
+    parser.add_argument("--fault-offset", type=int, default=120)
+    parser.add_argument("--stale-delay-ms", type=int, default=250)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     packets = load_reference_packets(args.packets)
@@ -143,6 +168,9 @@ def main() -> int:
         packets=packets,
         bind=args.bind,
         subscriber_warmup_s=args.subscriber_warmup_s,
+        fault=args.fault,
+        fault_offset=args.fault_offset,
+        stale_delay_ms=args.stale_delay_ms,
     )
     report["saved_packet_bundle"] = str(args.packets.resolve())
     report["saved_packet_bundle_sha256"] = _sha256_file(args.packets.resolve())

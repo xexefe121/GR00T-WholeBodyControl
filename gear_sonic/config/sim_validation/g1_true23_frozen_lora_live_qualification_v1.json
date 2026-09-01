@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "kind": "g1_true23_frozen_lora_live_qualification_v1",
+  "candidate": {
+    "decoder_sha256": "44d1fb2701f1e65460f1c2c23f676bce4f1d4a44b3b112798dc5034af37946b8",
+    "decoder_report_sha256": "02197e5682a9bddc8f11aa6fa9c32ba909b97ec7d1c316c9a0d660cba2d25b7d",
+    "candidate_summary_sha256": "ed3f5513ed7da8625195b37b674163d64948697d311722ad936be3f4668db801",
+    "physical_dof": 23,
+    "decoder_output_dof": 23,
+    "source_29dof_physics_used": false
+  },
+  "nominal_live_localhost": {
+    "completed_transitions": 684,
+    "first_control_source_frame_index": 10,
+    "last_control_source_frame_index": 693,
+    "maximum_reference_age_ns": 30000000,
+    "minimum_base_height_m": 0.7125911075229105,
+    "maximum_base_tilt_rad": 0.3398783893618383,
+    "fallback_active": false,
+    "passed": true
+  },
+  "original_true23_live_localhost": {
+    "completed_transitions": 684,
+    "maximum_reference_age_ns": 24768764,
+    "minimum_base_height_m": 0.6705756580488557,
+    "maximum_base_tilt_rad": 0.3647679567269848,
+    "fallback_active": false,
+    "safety_fallback_enabled": false,
+    "passed": true
+  },
+  "transport_faults": {
+    "fault_transition": 120,
+    "fallback_hold_transitions": 100,
+    "timeout_trigger": "transport_timeout",
+    "gap_trigger": "transport_gap",
+    "stale_trigger": "transport_stale",
+    "minimum_fallback_base_height_m": 0.7483551713445772,
+    "maximum_fallback_base_tilt_rad": 0.1590596856443856,
+    "all_passed": true
+  },
+  "software_live_teleop_ready": true,
+  "live_pico_tracking_ready": false,
+  "live_pico_to_mujoco_ready": false,
+  "physical_robot_teleop_ready": false,
+  "authorization": {
+    "simulator_only": true,
+    "localhost_only": true,
+    "dds_opened": false,
+    "robot_channel_opened": false,
+    "hardware_authorized": false,
+    "robot_commands_published": false
+  },
+  "blocking_gate": "live_pico_tracking_health"
+}

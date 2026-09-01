@@ -141,6 +141,26 @@ Selected parity artifacts are:
 - parity summary: `.../parity_plus_0p002.json`, SHA-256 `ce289eb88a17ce8cd1f92e885d3297b800a62814da07e21c0c464b343e1ab06c`;
 - preservation ledger: `.../candidate.plus_0p002.summary.json`.
 
+## Live-transport parity and failover
+
+The selected residual decoder now runs in a dedicated localhost live consumer
+with its decoder, report, and candidate summary all pinned by SHA-256. The
+authentic `walk001` packet clip was replayed through the exact ZMQ boundary at
+50 Hz. Candidate and original true23 both completed 684/684 transitions with
+no fallback. Candidate minimum height was 0.7126 m versus 0.6706 m original;
+maximum tilt was 0.3399 rad versus 0.3648 rad original; maximum reference age
+was 30.0 ms versus 24.77 ms original.
+
+Unlike the original run, whose safety fallback was disabled, the selected
+runtime keeps the balance fallback enabled. The prior fixed 0.25 rad tilt
+trigger falsely interrupted the known-good walk envelope, so this profile uses
+a 0.50 rad trigger while retaining the 1.0 rad hard physical gate. Timeout,
+gap, and stale injection at live transition 120 each latched the corresponding
+transport trigger and held stable balance for another 100 transitions.
+
+See [Selected true23 frozen-LoRA live PICO test](g1_true23_frozen_lora_live_teleop.md)
+for the real-headset commands and remaining hardware boundary.
+
 ## Limits
 
 This is strong evidence for this eight-motion suite and one authentic saved
@@ -148,10 +168,13 @@ PICO packet clip, not a universal behavior claim. Deep crouch remains
 unresolved. The frozen encoder/FSQ also cannot recover information it never
 encoded. The referee here is the CPU MuJoCo reference implementation against
 the MuJoCo-Warp training backend; it is an independent execution backend, not
-a wholly different physics engine. Live headset freshness was not exercised.
-Hardware and deployment remain unauthorized. A broader held-out corpus, a
-truly separate physics engine, live transport qualification, and hardware
-safety qualification are still required before any promotion decision.
+a wholly different physics engine. Live localhost freshness and transport were
+exercised, including watchdog faults. A currently connected real headset was
+not available: the read-only health probe verified software hashes but found
+no headset or trackers. Hardware and deployment remain unauthorized. A
+broader held-out corpus, a truly separate physics engine, a real-headset
+sustained session, and hardware safety qualification are still required before
+any promotion decision.
 
 Method source: [SONIC Transfer project](https://sonic-agibot-x2.github.io/sonic-transfer/)
 and its linked paper.

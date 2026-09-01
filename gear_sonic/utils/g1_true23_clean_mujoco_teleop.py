@@ -98,6 +98,16 @@ LINEAR_VELOCITY_JUMP_TRIGGER_MPS = 0.25
 VERTICAL_VELOCITY_JUMP_TRIGGER_MPS = 0.15
 ANGULAR_VELOCITY_JUMP_TRIGGER_RADPS = 0.35
 FALLBACK_TILT_TRIGGER_RAD = 0.25
+FALLBACK_TRIGGERS = (
+    "linear_velocity_jump",
+    "vertical_velocity_jump",
+    "angular_velocity_jump",
+    "base_tilt",
+    "transport_timeout",
+    "transport_stale",
+    "transport_gap",
+    "transport_payload",
+)
 BALANCED_UPPER_BODY_ARM_BLEND = 0.40
 BALANCED_UPPER_BODY_FIRST_HARDWARE_INDEX = 15
 NATIVE_TO_IL29 = np.asarray(NATIVE_IL23_TO_CANONICAL_IL29, dtype=np.int64)
@@ -591,9 +601,21 @@ class SupervisedCleanTrue23MujocoController(CleanTrue23MujocoController):
         physics_path: Path,
         policy: CleanSonicPolicy,
         fallback_policy: UnitreeZeroVelocityFallbackPolicy,
+        minimum_base_height_m: float = MINIMUM_BASE_HEIGHT_M,
+        maximum_base_tilt_rad: float = MAXIMUM_BASE_TILT_RAD,
+        fallback_tilt_trigger_rad: float = FALLBACK_TILT_TRIGGER_RAD,
     ) -> None:
-        super().__init__(model_path=model_path, physics_path=physics_path, policy=policy)
+        if not 0.0 < fallback_tilt_trigger_rad <= maximum_base_tilt_rad:
+            raise ValueError("fallback tilt trigger must be inside the physical tilt gate")
+        super().__init__(
+            model_path=model_path,
+            physics_path=physics_path,
+            policy=policy,
+            minimum_base_height_m=minimum_base_height_m,
+            maximum_base_tilt_rad=maximum_base_tilt_rad,
+        )
         self.fallback_policy = fallback_policy
+        self.fallback_tilt_trigger_rad = fallback_tilt_trigger_rad
         self.fallback_active = False
         self.fallback_trigger: str | None = None
         self.fallback_transition: int | None = None
@@ -627,9 +649,18 @@ class SupervisedCleanTrue23MujocoController(CleanTrue23MujocoController):
             trigger = "vertical_velocity_jump"
         elif angular_jump >= ANGULAR_VELOCITY_JUMP_TRIGGER_RADPS:
             trigger = "angular_velocity_jump"
-        elif tilt >= FALLBACK_TILT_TRIGGER_RAD:
+        elif tilt >= self.fallback_tilt_trigger_rad:
             trigger = "base_tilt"
         else:
+            return
+        self.activate_fallback(trigger)
+
+    def activate_fallback(self, trigger: str) -> None:
+        """Latch the reviewed balance policy for a physical or transport fault."""
+
+        if trigger not in FALLBACK_TRIGGERS:
+            raise ValueError(f"unsupported fallback trigger: {trigger}")
+        if self.fallback_active:
             return
         self.fallback_policy.activate(np.asarray(self.data.qpos[7:], dtype=np.float64))
         self.fallback_active = True
