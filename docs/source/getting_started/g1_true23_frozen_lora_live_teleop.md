@@ -118,8 +118,8 @@ Reviewed duration, wireless B/R2 or L2 release, and app/process cancellation
 stop policy motion without dumping the robot: the controller snapshots the
 current 23-joint pose, writes 250 positive-gain zero-feedforward hold packets,
 quiesces the writer, closes LowCmd, re-selects the captured Unitree service,
-calls `SwitchToInternalCtrl(LAST)`, and then requires 100 consecutive exact
-mode/FSM samples over ten seconds. Stale policy/state/source and inference
+calls `SwitchToInternalCtrl(WALKRUN)`, and then requires 100 consecutive
+non-zero-torque standing-mode samples over ten seconds. Stale policy/state/source and inference
 faults use the same return. This shutdown contract still requires a new
 physical qualification before any live-teleop readiness claim.
 Final-boundary validation rejects every post-release command whose controlled
@@ -171,11 +171,18 @@ The robot physically entered damp after exit even though the motion service
 reported `ai / 801 / 0`; a later read-only probe still returned those same
 values while the robot was visibly damped. `SelectMode("ai")` therefore proves
 service selection, not transfer from external/user control back to Unitree's
-internal controller. Current Unitree SDK adds the separate
-`SwitchToInternalCtrl(LAST)` API for this handback. The controller now calls
-that API and requires ten seconds of consecutive exact observations. This fix
-has robot-free coverage only. Do not use any earlier dance evidence as physical
-qualification.
+internal controller. Current Unitree SDK adds a separate
+`SwitchToInternalCtrl` API for this handback.
+
+The next one-second physical run
+`live_dance.handofffix_1s_retry1_20260902_052042.execution.jsonl` proved that
+the `LAST` selector is unsafe on this firmware: after the RPC, the service was
+`ai` but its FSM settled at 0 (zero torque). The controller now requests
+explicit `WALKRUN`, rejects pre-release state unless it is standing FSM 500 or
+801, and accepts post-handoff standing only at captured FSM 801 or Unitree
+stand FSM 500. Evidence records the actually observed post-handoff FSM instead
+of copying the captured value. This correction has robot-free coverage only;
+do not use that failed run as physical qualification.
 
 Run the no-robot lifecycle qualification from WSL after rebuilding
 `true23_active_gantry_core_harness` and `g1_true23_active_gantry`:
@@ -190,7 +197,7 @@ python3 -m gear_sonic.scripts.qualify_g1_true23_active_lifecycle_no_robot \
 This command launches neither controller nor publisher. It opens no DDS or
 LowCmd channel. Pass requires nine lifecycle scenarios, 4,000 positive-gain
 recovery frames, injected 101/290/500 ms stalls, zero published damping frames,
-exact mode/FSM matching, and a compiled/source surface audit that forbids the
+explicit WALKRUN handback with standing FSM 500/801, and a compiled/source surface audit that forbids the
 old damping-tail code.
 
 Future physical readiness order is strict:
@@ -198,7 +205,7 @@ Future physical readiness order is strict:
 1. Robot-free lifecycle report passes.
 2. Read-only PICO health and hardware shadow pass; no LowCmd.
 3. Separate bounded ownership-handoff smoke proves captured standing mode
-   returns after positive-gain hold, `SwitchToInternalCtrl(LAST)`, and a
+   returns after positive-gain hold, `SwitchToInternalCtrl(WALKRUN)`, and a
    ten-second no-write stability window.
 4. One-second then five-second gantry dance pass with zero damping packets and
    exact mode/FSM restore in execution evidence.

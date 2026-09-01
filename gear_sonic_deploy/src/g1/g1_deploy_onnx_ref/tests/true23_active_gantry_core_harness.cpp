@@ -779,6 +779,18 @@ void TestRobotFreeNoDumpLifecycleMatrix(Runner& runner) {
   runner.Check(active::ExactMotionModeRestored(
                    "ai", 801, 0, "ai", 801, 0),
                "mode handoff accepts exact captured service/FSM");
+  runner.Check(active::WalkrunMotionModeRestored(
+                   "ai", 801, "ai", 801, 0) &&
+                   active::WalkrunMotionModeRestored(
+                       "ai", 801, "ai", 500, 0),
+               "WALKRUN handoff accepts captured AI or Unitree stand FSM");
+  runner.Check(!active::WalkrunMotionModeRestored(
+                    "ai", 801, "ai", 0, 0) &&
+                   !active::WalkrunMotionModeRestored(
+                       "ai", 801, "ai", 1, 0) &&
+                   !active::WalkrunMotionModeRestored(
+                       "ai", 801, "normal", 500, 0),
+               "WALKRUN handoff rejects zero-torque, damp, and wrong service");
   active::MotionRestoreStabilityGate restore_gate(100);
   for (int sample = 0; sample < 99; ++sample) {
     runner.Check(!restore_gate.Observe(true),

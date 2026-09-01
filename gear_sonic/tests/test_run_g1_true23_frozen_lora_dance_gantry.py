@@ -72,7 +72,7 @@ def _passing_execution_records() -> list[dict]:
         writer_quiesced_before_select=True,
         lowcmd_publisher_closed_before_select=True,
         select_mode_attempts=1,
-        internal_control_handoff="last",
+        internal_control_handoff="walkrun",
         internal_control_attempts=1,
         restore_poll_attempts=2,
         stable_restore_samples=100,
@@ -96,7 +96,7 @@ def _passing_execution_records() -> list[dict]:
         writer_quiesced_before_restore=True,
         lowcmd_publisher_closed_before_restore=True,
         restore_select_mode_attempts=1,
-        restore_internal_control_handoff="last",
+        restore_internal_control_handoff="walkrun",
         restore_internal_control_attempts=1,
         restore_poll_attempts=2,
         stable_restore_samples=100,
@@ -197,6 +197,24 @@ def test_direct_execution_validator_accepts_hold_first_startup(
         duration_seconds=1,
     )
     assert terminal["startup_damping_frames"] == 0
+
+
+def test_direct_execution_validator_accepts_explicit_walkrun_fsm(
+    tmp_path: Path,
+) -> None:
+    records = _passing_execution_records()
+    records[11]["restored_fsm_id"] = 500
+    records[12]["restored_locomotion_fsm_id"] = 500
+    evidence = tmp_path / "execution.jsonl"
+    _write_jsonl(evidence, records)
+
+    terminal = validate_direct_dance_execution_evidence(
+        evidence,
+        authorization_id="gantry-session-1",
+        duration_seconds=1,
+    )
+
+    assert terminal["restored_locomotion_fsm_id"] == 500
 
 
 def test_direct_execution_validator_accepts_reacquisition_diagnostics(

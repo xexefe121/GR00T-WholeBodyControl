@@ -1797,7 +1797,7 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
             motion_gate.get("captured_pre_release_fsm_id"),
             "captured_pre_release_fsm_id",
         )
-        == 1
+        not in {500, 801}
         or not isinstance(motion_gate.get("captured_pre_release_fsm_mode"), int)
         or motion_gate.get("pre_release_lowcmd_writes") != 0
         or motion_gate.get("first_post_release_command")
@@ -1921,9 +1921,8 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
         or restored.get("restored_name")
         != motion_gate.get("captured_pre_release_name")
         or restored.get("restored_fsm_id")
-        != motion_gate.get("captured_pre_release_fsm_id")
-        or restored.get("restored_fsm_mode")
-        != motion_gate.get("captured_pre_release_fsm_mode")
+        not in {motion_gate.get("captured_pre_release_fsm_id"), 500}
+        or _integer(restored.get("restored_fsm_mode"), "restored_fsm_mode") < 0
         or _integer(restored.get("normal_return_hold_frames"), "normal_return_hold_frames") < 250
         or restored.get("required_normal_return_hold_frames") != 250
         or restored.get("startup_damping_frames") != 0
@@ -1931,7 +1930,7 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
         or restored.get("writer_quiesced_before_select") is not True
         or restored.get("lowcmd_publisher_closed_before_select") is not True
         or _integer(restored.get("select_mode_attempts"), "select_mode_attempts") < 0
-        or restored.get("internal_control_handoff") != "last"
+        or restored.get("internal_control_handoff") != "walkrun"
         or _integer(
             restored.get("internal_control_attempts"),
             "internal_control_attempts",
@@ -2060,7 +2059,7 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
         or terminal.get("lowcmd_publisher_closed_before_restore") is not True
         or terminal.get("restore_select_mode_attempts")
         != restored.get("select_mode_attempts")
-        or terminal.get("restore_internal_control_handoff") != "last"
+        or terminal.get("restore_internal_control_handoff") != "walkrun"
         or terminal.get("restore_internal_control_attempts")
         != restored.get("internal_control_attempts")
         or terminal.get("restore_poll_attempts")

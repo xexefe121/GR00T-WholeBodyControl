@@ -251,7 +251,7 @@ def validate_direct_dance_execution_evidence(
         or restored.get("writer_quiesced_before_select") is not True
         or restored.get("lowcmd_publisher_closed_before_select") is not True
         or not isinstance(restored.get("select_mode_attempts"), int)
-        or restored.get("internal_control_handoff") != "last"
+        or restored.get("internal_control_handoff") != "walkrun"
         or not isinstance(restored.get("internal_control_attempts"), int)
         or restored.get("internal_control_attempts", 0) < 1
         or not isinstance(restored.get("restore_poll_attempts"), int)
@@ -261,11 +261,11 @@ def validate_direct_dance_execution_evidence(
         or not restored.get("restored_name")
         or restored.get("restored_name")
         != motion_release.get("captured_pre_release_name")
-        or motion_release.get("captured_pre_release_fsm_id") == 1
+        or motion_release.get("captured_pre_release_fsm_id") not in {500, 801}
         or restored.get("restored_fsm_id")
-        != motion_release.get("captured_pre_release_fsm_id")
-        or restored.get("restored_fsm_mode")
-        != motion_release.get("captured_pre_release_fsm_mode")
+        not in {motion_release.get("captured_pre_release_fsm_id"), 500}
+        or not isinstance(restored.get("restored_fsm_mode"), int)
+        or restored.get("restored_fsm_mode", -1) < 0
         or terminal.get("final_fault") != "none"
         or terminal.get("stop_reason")
         != "reviewed_post_arm_duration_complete"
@@ -278,7 +278,7 @@ def validate_direct_dance_execution_evidence(
         or terminal.get("lowcmd_publisher_closed_before_restore") is not True
         or terminal.get("restore_select_mode_attempts")
         != restored.get("select_mode_attempts")
-        or terminal.get("restore_internal_control_handoff") != "last"
+        or terminal.get("restore_internal_control_handoff") != "walkrun"
         or terminal.get("restore_internal_control_attempts")
         != restored.get("internal_control_attempts")
         or terminal.get("restore_poll_attempts")

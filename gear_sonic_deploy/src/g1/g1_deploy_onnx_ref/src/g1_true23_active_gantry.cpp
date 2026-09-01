@@ -794,9 +794,9 @@ ReleasedMotionMode ReleaseMotionModeAfterGate() {
         "motion-mode pre-release name is empty; exact restoration unavailable");
   }
   const auto [fsm_id, fsm_mode] = ReadLocomotionFsm();
-  if (fsm_id == 1) {
+  if (fsm_id != 500 && fsm_id != 801) {
     throw std::runtime_error(
-        "pre-release locomotion FSM is damped (fsm_id=1); normal standing required");
+        "pre-release locomotion FSM is not normal standing (expected 500 or 801)");
   }
   const ReleasedMotionMode released{.form = form,
                                     .name = name,
@@ -820,10 +820,14 @@ struct MotionRestoreResult {
   int internal_control_attempts = 0;
   int poll_attempts = 0;
   int stable_samples = 0;
+  std::string observed_form;
+  std::string observed_name;
+  int observed_fsm_id = -1;
+  int observed_fsm_mode = -1;
 };
 
-MotionRestoreResult RestoreMotionModeAfterNormalHold(
-    const ReleasedMotionMode& released) {
+void RestoreMotionModeAfterNormalHold(
+    const ReleasedMotionMode& released, MotionRestoreResult& result) {
   auto client =
       std::make_unique<unitree::robot::b2::MotionSwitcherClient>();
   client->SetTimeout(3.0F);
@@ -841,34 +845,44 @@ MotionRestoreResult RestoreMotionModeAfterNormalHold(
   bool internal_control_accepted = false;
   active::MotionRestoreStabilityGate stability_gate(
       kMotionRestoreStableSamples);
-  MotionRestoreResult result;
   for (int attempt = 0; attempt < kMotionRestorePollLimit; ++attempt) {
+    result.poll_attempts = attempt + 1;
     form.clear();
     name.clear();
     const bool mode_read = client->CheckMode(form, name) == 0;
+    if (mode_read) {
+      result.observed_form = form;
+      result.observed_name = name;
+    }
     if (mode_read && name == released.name) {
       mode_selected = true;
       if (!internal_control_accepted) {
         ++result.internal_control_attempts;
         internal_control_accepted =
             locomotion.SwitchToInternalCtrl(
-                unitree::robot::g1::InternalFsmMode::LAST) == 0;
+                unitree::robot::g1::InternalFsmMode::WALKRUN) == 0;
       }
       int fsm_id = -1;
       int fsm_mode = -1;
-      const bool exact_restore =
-          internal_control_accepted && locomotion.GetFsmId(fsm_id) == 0 &&
-          locomotion.GetFsmMode(fsm_mode) == 0 &&
-          active::ExactMotionModeRestored(
-              released.name, released.locomotion_fsm_id,
-              released.locomotion_fsm_mode, name, fsm_id, fsm_mode);
-      if (stability_gate.Observe(exact_restore)) {
-        result.poll_attempts = attempt + 1;
-        result.stable_samples = stability_gate.consecutive_samples();
-        return result;
+      const bool fsm_read = locomotion.GetFsmId(fsm_id) == 0 &&
+                            locomotion.GetFsmMode(fsm_mode) == 0;
+      if (fsm_read) {
+        result.observed_fsm_id = fsm_id;
+        result.observed_fsm_mode = fsm_mode;
       }
+      const bool walkrun_restored =
+          internal_control_accepted && fsm_read &&
+          active::WalkrunMotionModeRestored(
+              released.name, released.locomotion_fsm_id, name, fsm_id,
+              fsm_mode);
+      if (stability_gate.Observe(walkrun_restored)) {
+        result.stable_samples = stability_gate.consecutive_samples();
+        return;
+      }
+      result.stable_samples = stability_gate.consecutive_samples();
     } else {
       stability_gate.Observe(false);
+      result.stable_samples = 0;
       internal_control_accepted = false;
       if (mode_read && (!select_rpc_accepted || attempt % 5 == 0)) {
         ++result.select_mode_attempts;
@@ -885,11 +899,11 @@ MotionRestoreResult RestoreMotionModeAfterNormalHold(
   }
   if (!internal_control_accepted) {
     throw std::runtime_error(
-        "SwitchToInternalCtrl(LAST) RPC failed after motion-mode selection");
+        "SwitchToInternalCtrl(WALKRUN) RPC failed after motion-mode selection");
   }
   throw std::runtime_error(
       mode_selected
-          ? "internal control did not remain in captured locomotion FSM for 10 seconds"
+          ? "WALKRUN internal control did not remain in standing FSM 500/801 for 10 seconds"
           : "motion mode did not return to captured pre-release mode");
 }
 
@@ -1943,10 +1957,7 @@ int Run(const Arguments& arguments) {
   bool publisher_write_failed = false;
   bool writer_quiesced_before_restore = false;
   bool lowcmd_publisher_closed_before_restore = false;
-  int restore_select_mode_attempts = 0;
-  int restore_internal_control_attempts = 0;
-  int restore_poll_attempts = 0;
-  int restore_stable_samples = 0;
+  MotionRestoreResult motion_restore_result;
   std::uint64_t accepted_inference_frames = 0;
   std::int64_t maximum_inference_duration_ns = 0;
   std::int64_t maximum_packet_age_ns = 0;
@@ -2572,20 +2583,16 @@ int Run(const Arguments& arguments) {
         }
         publisher.reset();
         lowcmd_publisher_closed_before_restore = !publisher;
-        const auto restore =
-            RestoreMotionModeAfterNormalHold(released_motion_mode);
-        restore_select_mode_attempts = restore.select_mode_attempts;
-        restore_internal_control_attempts = restore.internal_control_attempts;
-        restore_poll_attempts = restore.poll_attempts;
-        restore_stable_samples = restore.stable_samples;
+        RestoreMotionModeAfterNormalHold(released_motion_mode,
+                                         motion_restore_result);
         motion_mode_restored.store(true, std::memory_order_release);
         motion_mode_released.store(false, std::memory_order_release);
         execution_evidence.AppendEvent(
             "emergency_motion_mode_restored",
-            {{"restored_form", released_motion_mode.form},
-             {"restored_name", released_motion_mode.name},
-             {"restored_fsm_id", released_motion_mode.locomotion_fsm_id},
-             {"restored_fsm_mode", released_motion_mode.locomotion_fsm_mode},
+            {{"restored_form", motion_restore_result.observed_form},
+             {"restored_name", motion_restore_result.observed_name},
+             {"restored_fsm_id", motion_restore_result.observed_fsm_id},
+             {"restored_fsm_mode", motion_restore_result.observed_fsm_mode},
              {"normal_return_hold_frames",
               normal_return_hold_frames.load()},
              {"damping_frames_after_stop", damping_frames_after_stop},
@@ -2594,12 +2601,15 @@ int Run(const Arguments& arguments) {
              {"writer_quiesced_before_select", true},
              {"lowcmd_publisher_closed_before_select",
               lowcmd_publisher_closed_before_restore},
-              {"select_mode_attempts", restore_select_mode_attempts},
-              {"internal_control_handoff", "last"},
+              {"select_mode_attempts",
+               motion_restore_result.select_mode_attempts},
+              {"internal_control_handoff", "walkrun"},
               {"internal_control_attempts",
-               restore_internal_control_attempts},
-              {"restore_poll_attempts", restore_poll_attempts},
-              {"stable_restore_samples", restore_stable_samples},
+               motion_restore_result.internal_control_attempts},
+              {"restore_poll_attempts",
+               motion_restore_result.poll_attempts},
+              {"stable_restore_samples",
+               motion_restore_result.stable_samples},
               {"required_stable_restore_samples",
                kMotionRestoreStableSamples}});
       } catch (const std::exception& error) {
@@ -2622,20 +2632,16 @@ int Run(const Arguments& arguments) {
         }
         publisher.reset();
         lowcmd_publisher_closed_before_restore = !publisher;
-        const auto restore =
-            RestoreMotionModeAfterNormalHold(released_motion_mode);
-        restore_select_mode_attempts = restore.select_mode_attempts;
-        restore_internal_control_attempts = restore.internal_control_attempts;
-        restore_poll_attempts = restore.poll_attempts;
-        restore_stable_samples = restore.stable_samples;
+        RestoreMotionModeAfterNormalHold(released_motion_mode,
+                                         motion_restore_result);
         motion_mode_restored.store(true, std::memory_order_release);
         motion_mode_released.store(false, std::memory_order_release);
         execution_evidence.AppendEvent(
             "motion_mode_restored",
-            {{"restored_form", released_motion_mode.form},
-             {"restored_name", released_motion_mode.name},
-             {"restored_fsm_id", released_motion_mode.locomotion_fsm_id},
-             {"restored_fsm_mode", released_motion_mode.locomotion_fsm_mode},
+            {{"restored_form", motion_restore_result.observed_form},
+             {"restored_name", motion_restore_result.observed_name},
+             {"restored_fsm_id", motion_restore_result.observed_fsm_id},
+             {"restored_fsm_mode", motion_restore_result.observed_fsm_mode},
              {"normal_return_hold_frames",
               normal_return_hold_frames.load()},
              {"required_normal_return_hold_frames",
@@ -2645,12 +2651,15 @@ int Run(const Arguments& arguments) {
              {"writer_quiesced_before_select", true},
              {"lowcmd_publisher_closed_before_select",
               lowcmd_publisher_closed_before_restore},
-              {"select_mode_attempts", restore_select_mode_attempts},
-              {"internal_control_handoff", "last"},
+              {"select_mode_attempts",
+               motion_restore_result.select_mode_attempts},
+              {"internal_control_handoff", "walkrun"},
               {"internal_control_attempts",
-               restore_internal_control_attempts},
-              {"restore_poll_attempts", restore_poll_attempts},
-              {"stable_restore_samples", restore_stable_samples},
+               motion_restore_result.internal_control_attempts},
+              {"restore_poll_attempts",
+               motion_restore_result.poll_attempts},
+              {"stable_restore_samples",
+               motion_restore_result.stable_samples},
               {"required_stable_restore_samples",
                kMotionRestoreStableSamples}});
         stop_threads.store(true, std::memory_order_release);
@@ -2696,8 +2705,8 @@ int Run(const Arguments& arguments) {
           static_cast<std::uint64_t>(kNormalReturnHoldCycles) &&
       writer_quiesced_before_restore && motion_mode_restored.load() &&
       lowcmd_publisher_closed_before_restore &&
-      restore_internal_control_attempts >= 1 &&
-      restore_stable_samples >= kMotionRestoreStableSamples &&
+      motion_restore_result.internal_control_attempts >= 1 &&
+      motion_restore_result.stable_samples >= kMotionRestoreStableSamples &&
       damping_frames_after_stop == 0;
   const bool safe_terminal_fault = fault == active::Fault::None;
   const auto first_write_ns = first_policy_write_ns.load();
@@ -2745,10 +2754,10 @@ int Run(const Arguments& arguments) {
       {"normal_return_hold_frames", normal_return_hold_frames.load()},
       {"required_normal_return_hold_frames", kNormalReturnHoldCycles},
       {"motion_mode_restored", motion_mode_restored.load()},
-      {"restored_motion_mode_form", released_motion_mode.form},
-      {"restored_motion_mode_name", released_motion_mode.name},
-      {"restored_locomotion_fsm_id", released_motion_mode.locomotion_fsm_id},
-      {"restored_locomotion_fsm_mode", released_motion_mode.locomotion_fsm_mode},
+      {"restored_motion_mode_form", motion_restore_result.observed_form},
+      {"restored_motion_mode_name", motion_restore_result.observed_name},
+      {"restored_locomotion_fsm_id", motion_restore_result.observed_fsm_id},
+      {"restored_locomotion_fsm_mode", motion_restore_result.observed_fsm_mode},
       {"maximum_target_delta_from_state_rad",
        maximum_target_delta_from_state_rad},
       {"maximum_target_slew_rad", maximum_target_slew_rad},
@@ -2766,12 +2775,13 @@ int Run(const Arguments& arguments) {
       {"writer_quiesced_before_restore", writer_quiesced_before_restore},
       {"lowcmd_publisher_closed_before_restore",
        lowcmd_publisher_closed_before_restore},
-      {"restore_select_mode_attempts", restore_select_mode_attempts},
-      {"restore_internal_control_handoff", "last"},
+      {"restore_select_mode_attempts",
+       motion_restore_result.select_mode_attempts},
+      {"restore_internal_control_handoff", "walkrun"},
       {"restore_internal_control_attempts",
-       restore_internal_control_attempts},
-      {"restore_poll_attempts", restore_poll_attempts},
-      {"stable_restore_samples", restore_stable_samples},
+       motion_restore_result.internal_control_attempts},
+      {"restore_poll_attempts", motion_restore_result.poll_attempts},
+      {"stable_restore_samples", motion_restore_result.stable_samples},
       {"required_stable_restore_samples", kMotionRestoreStableSamples},
       {"publisher_write_count", publisher_write_count.load()},
       {"accepted_inference_frames", accepted_inference_frames},

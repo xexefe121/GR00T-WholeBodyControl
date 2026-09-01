@@ -163,7 +163,7 @@ def _fixture(tmp_path: Path) -> tuple[argparse.Namespace, list[dict[str, object]
             "writer_quiesced_before_select": True,
             "lowcmd_publisher_closed_before_select": True,
             "select_mode_attempts": 1,
-            "internal_control_handoff": "last",
+            "internal_control_handoff": "walkrun",
             "internal_control_attempts": 1,
             "restore_poll_attempts": 2,
             "stable_restore_samples": 100,
@@ -209,7 +209,7 @@ def _fixture(tmp_path: Path) -> tuple[argparse.Namespace, list[dict[str, object]
             "writer_quiesced_before_restore": True,
             "lowcmd_publisher_closed_before_restore": True,
             "restore_select_mode_attempts": 1,
-            "restore_internal_control_handoff": "last",
+            "restore_internal_control_handoff": "walkrun",
             "restore_internal_control_attempts": 1,
             "restore_poll_attempts": 2,
             "stable_restore_samples": 100,
@@ -801,6 +801,17 @@ def test_active_execution_evidence_accepts_exact_success(tmp_path: Path) -> None
     result = validate_active(args)
     assert result["policy_command_frames"] == 100
     assert result["damping_frames_after_stop"] == 0
+
+
+def test_active_execution_evidence_accepts_explicit_walkrun_fsm(
+    tmp_path: Path,
+) -> None:
+    args, records = _fixture(tmp_path)
+    records[-2]["restored_fsm_id"] = 500
+    records[-1]["restored_locomotion_fsm_id"] = 500
+    _write_jsonl(args.evidence, records)
+
+    assert validate_active(args)["policy_command_frames"] == 100
 
 
 def test_active_execution_evidence_accepts_frozen_live_duration(

@@ -927,6 +927,16 @@ inline bool ExactMotionModeRestored(
          observed_fsm_mode == expected_fsm_mode;
 }
 
+inline bool WalkrunMotionModeRestored(
+    std::string_view expected_service, int captured_fsm_id,
+    std::string_view observed_service, int observed_fsm_id,
+    int observed_fsm_mode) {
+  return !expected_service.empty() && observed_service == expected_service &&
+         observed_fsm_mode >= 0 && observed_fsm_id != 0 &&
+         observed_fsm_id != 1 &&
+         (observed_fsm_id == captured_fsm_id || observed_fsm_id == 500);
+}
+
 class MotionRestoreStabilityGate {
  public:
   explicit MotionRestoreStabilityGate(int required_samples)

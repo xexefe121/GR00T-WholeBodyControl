@@ -33,9 +33,9 @@ REQUIRED_SOURCE = (
     "publisher.reset()",
     "lowcmd_publisher_closed_before_select",
     "value.BeginSoftwareFaultReturnHold(recovery_ns)",
-    "RestoreMotionModeAfterNormalHold(released_motion_mode)",
+    "RestoreMotionModeAfterNormalHold(released_motion_mode,",
     "SwitchToInternalCtrl(",
-    "InternalFsmMode::LAST",
+    "InternalFsmMode::WALKRUN",
     "kMotionRestoreStableSamples",
 )
 
@@ -132,7 +132,7 @@ def qualify(repository_root: Path) -> dict[str, object]:
             "operator_stop_tested": True,
             "deadman_release_tested": True,
             "writer_failure_boundary_tested": True,
-            "exact_mode_restore_match_tested": True,
+            "walkrun_standing_restore_match_tested": True,
             "internal_control_handoff_audited": True,
             "ten_second_restore_stability_gate_tested": True,
             "writer_quiescence_before_mode_rpc_tested": True,
