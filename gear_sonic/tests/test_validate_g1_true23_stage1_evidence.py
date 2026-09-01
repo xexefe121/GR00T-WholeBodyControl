@@ -163,7 +163,11 @@ def _fixture(tmp_path: Path) -> tuple[argparse.Namespace, list[dict[str, object]
             "writer_quiesced_before_select": True,
             "lowcmd_publisher_closed_before_select": True,
             "select_mode_attempts": 1,
+            "internal_control_handoff": "last",
+            "internal_control_attempts": 1,
             "restore_poll_attempts": 2,
+            "stable_restore_samples": 100,
+            "required_stable_restore_samples": 100,
         }
     )
     complete = common("session_complete", 12)
@@ -205,7 +209,11 @@ def _fixture(tmp_path: Path) -> tuple[argparse.Namespace, list[dict[str, object]
             "writer_quiesced_before_restore": True,
             "lowcmd_publisher_closed_before_restore": True,
             "restore_select_mode_attempts": 1,
+            "restore_internal_control_handoff": "last",
+            "restore_internal_control_attempts": 1,
             "restore_poll_attempts": 2,
+            "stable_restore_samples": 100,
+            "required_stable_restore_samples": 100,
             "publisher_write_count": 375,
             "accepted_inference_frames": 100,
             "maximum_inference_duration_ns": 1_000_000,
@@ -827,6 +835,41 @@ def test_active_execution_evidence_accepts_wireless_normal_return(
     _write_jsonl(args.evidence, records)
     result = validate_active(args)
     assert result["damping_frames_after_stop"] == 0
+
+
+def test_active_execution_evidence_accepts_reacquisition_diagnostic(
+    tmp_path: Path,
+) -> None:
+    args, records = _fixture(tmp_path)
+    records.insert(
+        10,
+        {
+            "schema_version": 1,
+            "kind": "g1_true23_stage1_gantry_execution_evidence",
+            "event": "pre_arm_causal_reacquisition",
+            "authorization_id": args.authorization_id,
+            "monotonic_ns": 0,
+            "frame_index": 1339,
+            "reason": "lowstate_covered_range_invalid",
+        },
+    )
+    for index, record in enumerate(records):
+        record["monotonic_ns"] = index + 1
+    _write_jsonl(args.evidence, records)
+
+    assert validate_active(args)["policy_command_frames"] == 100
+
+
+def test_active_execution_evidence_rejects_transient_restore(
+    tmp_path: Path,
+) -> None:
+    args, records = _fixture(tmp_path)
+    records[-2]["stable_restore_samples"] = 1
+    records[-1]["stable_restore_samples"] = 1
+    _write_jsonl(args.evidence, records)
+
+    with pytest.raises(EvidenceError, match="restoration contract failed"):
+        validate_active(args)
 
 
 @pytest.mark.parametrize(

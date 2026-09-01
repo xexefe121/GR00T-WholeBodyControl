@@ -1552,11 +1552,17 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
         "session_complete",
     ]
     events = [record.get("event") for record in records]
-    if events != expected_events:
+    diagnostic_events = {"pre_arm_causal_reacquisition"}
+    operational_records = [
+        record for record in records if record.get("event") not in diagnostic_events
+    ]
+    if [record.get("event") for record in operational_records] != expected_events:
         _reject("active evidence event sequence is not exact successful sequence")
-    authorization_id = records[0].get("authorization_id")
+    authorization_id = operational_records[0].get("authorization_id")
+    restored_index = events.index("motion_mode_restored")
     previous_ns = 0
-    for record, event in zip(records, expected_events, strict=True):
+    for index, record in enumerate(records):
+        event = record.get("event")
         _common(record, kind=_ACTIVE_KIND, event=event)
         if record.get("authorization_id") != authorization_id:
             _reject("active evidence authorization_id changed")
@@ -1564,6 +1570,28 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
         if monotonic_ns <= previous_ns:
             _reject("active evidence monotonic time did not advance")
         previous_ns = monotonic_ns
+        if event in diagnostic_events:
+            _exact(
+                record,
+                {
+                    "schema_version",
+                    "kind",
+                    "event",
+                    "authorization_id",
+                    "monotonic_ns",
+                    "frame_index",
+                    "reason",
+                },
+                "active diagnostic",
+            )
+            if (
+                index >= restored_index
+                or not isinstance(record.get("frame_index"), int)
+                or record.get("reason")
+                not in {"lowstate_coverage_timeout", "lowstate_covered_range_invalid"}
+            ):
+                _reject("active diagnostic evidence is invalid")
+    records = operational_records
     start = records[0]
     _exact(
         start,
@@ -1880,7 +1908,11 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
             "writer_quiesced_before_select",
             "lowcmd_publisher_closed_before_select",
             "select_mode_attempts",
+            "internal_control_handoff",
+            "internal_control_attempts",
             "restore_poll_attempts",
+            "stable_restore_samples",
+            "required_stable_restore_samples",
         },
         "motion_mode_restored",
     )
@@ -1899,7 +1931,16 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
         or restored.get("writer_quiesced_before_select") is not True
         or restored.get("lowcmd_publisher_closed_before_select") is not True
         or _integer(restored.get("select_mode_attempts"), "select_mode_attempts") < 0
+        or restored.get("internal_control_handoff") != "last"
+        or _integer(
+            restored.get("internal_control_attempts"),
+            "internal_control_attempts",
+        )
+        < 1
         or _integer(restored.get("restore_poll_attempts"), "restore_poll_attempts") < 1
+        or _integer(restored.get("stable_restore_samples"), "stable_restore_samples")
+        < 100
+        or restored.get("required_stable_restore_samples") != 100
     ):
         _reject("motion mode restoration contract failed")
 
@@ -1948,7 +1989,11 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
             "writer_quiesced_before_restore",
             "lowcmd_publisher_closed_before_restore",
             "restore_select_mode_attempts",
+            "restore_internal_control_handoff",
+            "restore_internal_control_attempts",
             "restore_poll_attempts",
+            "stable_restore_samples",
+            "required_stable_restore_samples",
             "publisher_write_count",
             "accepted_inference_frames",
             "maximum_inference_duration_ns",
@@ -2015,8 +2060,14 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
         or terminal.get("lowcmd_publisher_closed_before_restore") is not True
         or terminal.get("restore_select_mode_attempts")
         != restored.get("select_mode_attempts")
+        or terminal.get("restore_internal_control_handoff") != "last"
+        or terminal.get("restore_internal_control_attempts")
+        != restored.get("internal_control_attempts")
         or terminal.get("restore_poll_attempts")
         != restored.get("restore_poll_attempts")
+        or terminal.get("stable_restore_samples")
+        != restored.get("stable_restore_samples")
+        or terminal.get("required_stable_restore_samples") != 100
     ):
         _reject("active terminal does not prove successful actuation and safe stop")
     target_delta = _number(

@@ -72,7 +72,11 @@ def _passing_execution_records() -> list[dict]:
         writer_quiesced_before_select=True,
         lowcmd_publisher_closed_before_select=True,
         select_mode_attempts=1,
+        internal_control_handoff="last",
+        internal_control_attempts=1,
         restore_poll_attempts=2,
+        stable_restore_samples=100,
+        required_stable_restore_samples=100,
     )
     records[12].update(
         passed=True,
@@ -92,7 +96,11 @@ def _passing_execution_records() -> list[dict]:
         writer_quiesced_before_restore=True,
         lowcmd_publisher_closed_before_restore=True,
         restore_select_mode_attempts=1,
+        restore_internal_control_handoff="last",
+        restore_internal_control_attempts=1,
         restore_poll_attempts=2,
+        stable_restore_samples=100,
+        required_stable_restore_samples=100,
         damping_frames_after_stop=0,
         required_damping_frames_after_stop=0,
         normal_return_hold_frames=250,
@@ -271,6 +279,23 @@ def test_direct_execution_validator_rejects_post_dance_dump(
     records[12]["damping_frames_after_stop"] = 250
     evidence = tmp_path / "execution.jsonl"
     _write_jsonl(evidence, records)
+    with pytest.raises(ValueError, match="terminal evidence did not pass"):
+        validate_direct_dance_execution_evidence(
+            evidence,
+            authorization_id="gantry-session-1",
+            duration_seconds=1,
+        )
+
+
+def test_direct_execution_validator_rejects_transient_mode_restore(
+    tmp_path: Path,
+) -> None:
+    records = _passing_execution_records()
+    records[11]["stable_restore_samples"] = 1
+    records[12]["stable_restore_samples"] = 1
+    evidence = tmp_path / "execution.jsonl"
+    _write_jsonl(evidence, records)
+
     with pytest.raises(ValueError, match="terminal evidence did not pass"):
         validate_direct_dance_execution_evidence(
             evidence,

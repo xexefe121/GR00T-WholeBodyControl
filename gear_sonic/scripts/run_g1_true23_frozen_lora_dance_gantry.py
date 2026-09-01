@@ -251,8 +251,13 @@ def validate_direct_dance_execution_evidence(
         or restored.get("writer_quiesced_before_select") is not True
         or restored.get("lowcmd_publisher_closed_before_select") is not True
         or not isinstance(restored.get("select_mode_attempts"), int)
+        or restored.get("internal_control_handoff") != "last"
+        or not isinstance(restored.get("internal_control_attempts"), int)
+        or restored.get("internal_control_attempts", 0) < 1
         or not isinstance(restored.get("restore_poll_attempts"), int)
         or restored.get("restore_poll_attempts", 0) < 1
+        or restored.get("stable_restore_samples", 0) < 100
+        or restored.get("required_stable_restore_samples") != 100
         or not restored.get("restored_name")
         or restored.get("restored_name")
         != motion_release.get("captured_pre_release_name")
@@ -273,8 +278,14 @@ def validate_direct_dance_execution_evidence(
         or terminal.get("lowcmd_publisher_closed_before_restore") is not True
         or terminal.get("restore_select_mode_attempts")
         != restored.get("select_mode_attempts")
+        or terminal.get("restore_internal_control_handoff") != "last"
+        or terminal.get("restore_internal_control_attempts")
+        != restored.get("internal_control_attempts")
         or terminal.get("restore_poll_attempts")
         != restored.get("restore_poll_attempts")
+        or terminal.get("stable_restore_samples")
+        != restored.get("stable_restore_samples")
+        or terminal.get("required_stable_restore_samples") != 100
         or terminal.get("damping_frames_after_stop") != 0
         or terminal.get("required_damping_frames_after_stop") != 0
         or terminal.get("rejected_non_positive_gain_commands") != 0

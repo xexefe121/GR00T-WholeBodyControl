@@ -117,10 +117,11 @@ the hash-bound frozen-LoRA dance, gantry-only, and at most five seconds.
 Reviewed duration, wireless B/R2 or L2 release, and app/process cancellation
 stop policy motion without dumping the robot: the controller snapshots the
 current 23-joint pose, writes 250 positive-gain zero-feedforward hold packets,
-restores the exact Unitree motion mode captured before release, verifies that
-mode is active, and only then closes LowCmd. Stale policy/state/source and
-inference faults use the same return. If the command writer itself fails, the
-main thread immediately re-selects and verifies the captured Unitree mode.
+quiesces the writer, closes LowCmd, re-selects the captured Unitree service,
+calls `SwitchToInternalCtrl(LAST)`, and then requires 100 consecutive exact
+mode/FSM samples over ten seconds. Stale policy/state/source and inference
+faults use the same return. This shutdown contract still requires a new
+physical qualification before any live-teleop readiness claim.
 Final-boundary validation rejects every post-release command whose controlled
 joints lack positive `kp`/`kd`; the controller never publishes a synthesized
 `kp=0` damping tail. Physical e-stop remains the independent hard-stop path.
@@ -162,8 +163,19 @@ It still failed qualification because `SelectMode("ai")` ran while the LowCmd
 writer remained active, and Unitree rejected the ownership-transfer RPC. The
 follow-up interlock now requests handoff, waits for the writer to quiesce,
 closes the LowCmd publisher, retries `SelectMode`, and requires exact
-`ai / 801 / 0` before success. That change has robot-free coverage only; no
-later physical run has validated it.
+`ai / 801 / 0` before success.
+
+The later bounded run
+`live_dance.rerun_1s_20260902_041120.execution.jsonl` invalidated that check.
+The robot physically entered damp after exit even though the motion service
+reported `ai / 801 / 0`; a later read-only probe still returned those same
+values while the robot was visibly damped. `SelectMode("ai")` therefore proves
+service selection, not transfer from external/user control back to Unitree's
+internal controller. Current Unitree SDK adds the separate
+`SwitchToInternalCtrl(LAST)` API for this handback. The controller now calls
+that API and requires ten seconds of consecutive exact observations. This fix
+has robot-free coverage only. Do not use any earlier dance evidence as physical
+qualification.
 
 Run the no-robot lifecycle qualification from WSL after rebuilding
 `true23_active_gantry_core_harness` and `g1_true23_active_gantry`:
@@ -186,7 +198,8 @@ Future physical readiness order is strict:
 1. Robot-free lifecycle report passes.
 2. Read-only PICO health and hardware shadow pass; no LowCmd.
 3. Separate bounded ownership-handoff smoke proves captured standing mode
-   returns after positive-gain hold.
+   returns after positive-gain hold, `SwitchToInternalCtrl(LAST)`, and a
+   ten-second no-write stability window.
 4. One-second then five-second gantry dance pass with zero damping packets and
    exact mode/FSM restore in execution evidence.
 5. Only then run one-second live PICO teleop with deadman, followed by longer

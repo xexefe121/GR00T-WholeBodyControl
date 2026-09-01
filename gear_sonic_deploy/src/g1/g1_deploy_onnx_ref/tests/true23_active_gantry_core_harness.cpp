@@ -779,6 +779,16 @@ void TestRobotFreeNoDumpLifecycleMatrix(Runner& runner) {
   runner.Check(active::ExactMotionModeRestored(
                    "ai", 801, 0, "ai", 801, 0),
                "mode handoff accepts exact captured service/FSM");
+  active::MotionRestoreStabilityGate restore_gate(100);
+  for (int sample = 0; sample < 99; ++sample) {
+    runner.Check(!restore_gate.Observe(true),
+                 "mode handoff waits for full stable observation window");
+  }
+  runner.Check(restore_gate.Observe(true),
+               "mode handoff accepts 100 consecutive exact samples");
+  runner.Check(!restore_gate.Observe(false) &&
+                   restore_gate.consecutive_samples() == 0,
+               "mode handoff resets stability on delayed mismatch");
   runner.Check(!active::ExactMotionModeRestored(
                    "ai", 801, 0, "", 801, 0) &&
                    !active::ExactMotionModeRestored(

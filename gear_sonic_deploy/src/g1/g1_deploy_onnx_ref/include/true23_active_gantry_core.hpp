@@ -927,6 +927,30 @@ inline bool ExactMotionModeRestored(
          observed_fsm_mode == expected_fsm_mode;
 }
 
+class MotionRestoreStabilityGate {
+ public:
+  explicit MotionRestoreStabilityGate(int required_samples)
+      : required_samples_(required_samples) {}
+
+  bool Observe(bool exact_restore) {
+    consecutive_samples_ = exact_restore ? consecutive_samples_ + 1 : 0;
+    return ready();
+  }
+
+  [[nodiscard]] bool ready() const {
+    return required_samples_ > 0 &&
+           consecutive_samples_ >= required_samples_;
+  }
+
+  [[nodiscard]] int consecutive_samples() const {
+    return consecutive_samples_;
+  }
+
+ private:
+  int required_samples_ = 0;
+  int consecutive_samples_ = 0;
+};
+
 // Cross-thread ownership barrier. Unitree SelectMode must not race a live
 // LowCmd writer: request handoff, let writer finish its current positive-gain
 // packet and close its loop, then permit the motion-service RPC.
