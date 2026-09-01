@@ -144,7 +144,8 @@ std::string Usage(std::string_view executable) {
       " [--frozen-lora-dance]"
       " [--validate-only | --network <interface>"
       " --pico-endpoint <tcp://host:port> --execute-stage-one"
-      " --evidence <new.jsonl> --post-arm-duration-seconds <20..30>"
+      " --evidence <new.jsonl> --post-arm-duration-seconds"
+      " <causal:20..30|frozen-dance:1..10>"
       " --gantry-authorize " +
       std::string(active::kGantryAuthorizationPhrase) +
       "]"
@@ -549,9 +550,16 @@ class StateMonitor {
     return proprio_;
   }
 
-  CausalJoinAttempt TryJoinCausalReference(
-      const live::CausalPicoReferenceTerms& reference) const {
-    std::lock_guard lock(mutex_);
+  CausalJoinAttempt WaitJoinCausalReference(
+      const live::CausalPicoReferenceTerms& reference,
+      std::chrono::steady_clock::time_point deadline) {
+    std::unique_lock lock(mutex_);
+    condition_.wait_until(lock, deadline, [&] {
+      return causal_history_.Covers(
+                 reference.pico_anchor_monotonic_ns,
+                 reference.control_monotonic_ns) ||
+             core_.stopped() || g_stop_requested != 0;
+    });
     if (!causal_history_.Covers(
             reference.pico_anchor_monotonic_ns,
             reference.control_monotonic_ns)) {
@@ -666,12 +674,15 @@ class ZmqSocket {
       throw std::runtime_error("cannot create PICO ZMQ subscriber");
     }
     constexpr int timeout_ms = 10;
-    constexpr int conflate = 1;
+    constexpr int receive_hwm = 1000;
+    constexpr int linger_ms = 0;
     if (zmq_setsockopt(socket_, ZMQ_SUBSCRIBE, "", 0) != 0 ||
         zmq_setsockopt(socket_, ZMQ_RCVTIMEO, &timeout_ms,
                        sizeof(timeout_ms)) != 0 ||
-        zmq_setsockopt(socket_, ZMQ_CONFLATE, &conflate,
-                       sizeof(conflate)) != 0 ||
+        zmq_setsockopt(socket_, ZMQ_RCVHWM, &receive_hwm,
+                       sizeof(receive_hwm)) != 0 ||
+        zmq_setsockopt(socket_, ZMQ_LINGER, &linger_ms,
+                       sizeof(linger_ms)) != 0 ||
         zmq_connect(socket_, endpoint.c_str()) != 0) {
       throw std::runtime_error("cannot configure/connect PICO ZMQ subscriber");
     }
@@ -1745,6 +1756,9 @@ int Run(const Arguments& arguments) {
   std::string inference_error;
   std::string writer_error;
   bool publisher_write_failed = false;
+  std::uint64_t accepted_inference_frames = 0;
+  std::int64_t maximum_inference_duration_ns = 0;
+  std::int64_t maximum_packet_age_ns = 0;
 
   std::jthread inference_thread([&](std::stop_token stop_token) {
     try {
@@ -1774,14 +1788,24 @@ int Run(const Arguments& arguments) {
         }
         const auto now = NowNs();
         const auto age = now - source_monotonic_ns;
+        maximum_packet_age_ns = std::max(maximum_packet_age_ns, age);
         if (age < -active::kFutureClockToleranceNs ||
             age > active::kPolicyFreshnessNs) {
+          inference_error =
+              "pico_age_out_of_range frame=" + std::to_string(frame_index) +
+              " age_ns=" + std::to_string(age);
+          std::cerr << "PICO/inference fault: " << inference_error << '\n';
           monitor.WithCore([](active::GantrySafetyCore& value) {
             value.ObservePicoTermsFailure();
           });
           break;
         }
         if (last_frame.has_value() && frame_index != *last_frame + 1U) {
+          inference_error =
+              "pico_frame_discontinuity previous=" +
+              std::to_string(*last_frame) + " current=" +
+              std::to_string(frame_index);
+          std::cerr << "PICO/inference fault: " << inference_error << '\n';
           monitor.WithCore([](active::GantrySafetyCore& value) {
             value.ObservePicoFrameRegression();
           });
@@ -1790,6 +1814,11 @@ int Run(const Arguments& arguments) {
         if (last_source_monotonic_ns.has_value() &&
             source_monotonic_ns !=
                 *last_source_monotonic_ns + active::kShadowControlPeriodNs) {
+          inference_error =
+              "pico_timestamp_discontinuity previous=" +
+              std::to_string(*last_source_monotonic_ns) + " current=" +
+              std::to_string(source_monotonic_ns);
+          std::cerr << "PICO/inference fault: " << inference_error << '\n';
           monitor.WithCore([](active::GantrySafetyCore& value) {
             value.ObservePicoTermsFailure();
           });
@@ -1801,13 +1830,26 @@ int Run(const Arguments& arguments) {
         live::TimedProprioSample proprio;
         std::array<float, true23::kEncoderInputDim> encoder_input{};
         if (causal_reference_artifact) {
-          const auto attempt = monitor.TryJoinCausalReference(
-              *causal_reference);
+          const auto attempt = monitor.WaitJoinCausalReference(
+              *causal_reference,
+              std::chrono::steady_clock::now() +
+                  std::chrono::milliseconds(35));
           if (attempt.status == CausalJoinStatus::AwaitingCoverage) {
-            continue;
+            inference_error =
+                "lowstate_coverage_timeout frame=" +
+                std::to_string(frame_index);
+            std::cerr << "PICO/inference fault: " << inference_error << '\n';
+            monitor.WithCore([](active::GantrySafetyCore& value) {
+              value.ObservePicoTermsFailure();
+            });
+            break;
           }
           if (attempt.status != CausalJoinStatus::Ready ||
               !attempt.joined.has_value()) {
+            inference_error =
+                "lowstate_covered_range_invalid frame=" +
+                std::to_string(frame_index);
+            std::cerr << "PICO/inference fault: " << inference_error << '\n';
             monitor.WithCore([](active::GantrySafetyCore& value) {
               value.ObservePicoTermsFailure();
             });
@@ -1836,6 +1878,10 @@ int Run(const Arguments& arguments) {
         history.Push(live::BuildProprioFrame(source));
         if (!real_history_gate.Observe(frame_index)) {
           if (real_history_gate.rejected()) {
+            inference_error =
+                "real_proprio_warmup_rejected frame=" +
+                std::to_string(frame_index);
+            std::cerr << "PICO/inference fault: " << inference_error << '\n';
             monitor.WithCore([](active::GantrySafetyCore& value) {
               value.ObservePicoFrameRegression();
             });
@@ -1844,11 +1890,16 @@ int Run(const Arguments& arguments) {
           continue;
         }
         if (!history.ready()) {
+          inference_error =
+              "proprio_history_not_ready frame=" +
+              std::to_string(frame_index);
+          std::cerr << "PICO/inference fault: " << inference_error << '\n';
           monitor.WithCore([](active::GantrySafetyCore& value) {
             value.ObservePicoTermsFailure();
           });
           break;
         }
+        const auto inference_started_ns = NowNs();
         const auto live_token =
             encoder.Run<true23::kEncoderInputDim,
                         true23::kEncoderOutputDim>(encoder_input);
@@ -1872,12 +1923,19 @@ int Run(const Arguments& arguments) {
             ? live::RawNativeActionToAppliedSafeNativeAction(decoder_action)
                   .applied_safe_native_action
             : decoder_action;
+        const auto produced_ns = NowNs();
+        maximum_inference_duration_ns = std::max(
+            maximum_inference_duration_ns,
+            produced_ns - inference_started_ns);
         bool policy_ready = false;
         monitor.WithCore([&](active::GantrySafetyCore& value) {
           value.SubmitPolicy(
-              {.native_action = action, .produced_monotonic_ns = now}, now);
-          policy_ready = value.policy_ready_for_arm(now);
+              {.native_action = action,
+               .produced_monotonic_ns = produced_ns},
+              produced_ns);
+          policy_ready = value.policy_ready_for_arm(produced_ns);
         });
+        ++accepted_inference_frames;
         if (policy_ready &&
             !first_policy_ready_for_arm.load(std::memory_order_relaxed)) {
           execution_evidence.AppendEvent(
@@ -2128,6 +2186,9 @@ int Run(const Arguments& arguments) {
       {"inference_error", inference_error},
       {"writer_error", writer_error},
       {"publisher_write_failed", publisher_write_failed},
+      {"accepted_inference_frames", accepted_inference_frames},
+      {"maximum_inference_duration_ns", maximum_inference_duration_ns},
+      {"maximum_packet_age_ns", maximum_packet_age_ns},
   };
   if (!armed_transition_observed) {
     execution_evidence.Finalize("session_no_actuation", terminal);

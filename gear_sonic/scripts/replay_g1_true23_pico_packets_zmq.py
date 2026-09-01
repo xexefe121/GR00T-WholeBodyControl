@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import copy
+import ctypes
 import hashlib
 import json
 import os
@@ -54,6 +55,25 @@ class WslMonotonicClock:
             raise RuntimeError("WSL clock bridge exited")
         return int(output.strip())
 
+    def estimate_offset_ns(self, samples: int = 25) -> tuple[int, int]:
+        """Map local monotonic time into WSL using the lowest-RTT sample."""
+
+        if samples < 3:
+            raise ValueError("WSL clock calibration needs at least three samples")
+        measurements: list[tuple[int, int]] = []
+        for _ in range(samples):
+            before = time.perf_counter_ns()
+            remote = self.now_ns()
+            after = time.perf_counter_ns()
+            round_trip = after - before
+            measurements.append((round_trip, remote - ((before + after) // 2)))
+        best_round_trip, offset = min(measurements)
+        if best_round_trip > 20_000_000:
+            raise RuntimeError("WSL monotonic calibration round trip exceeds 20 ms")
+        # Keep reference timestamps safely behind receipt time despite midpoint
+        # asymmetry. Two milliseconds is tiny versus the 100 ms freshness gate.
+        return offset - 2_000_000, best_round_trip
+
     def close(self) -> None:
         self.process.terminate()
         try:
@@ -65,51 +85,11 @@ class WslMonotonicClock:
 def estimate_wsl_monotonic_offset_ns(samples: int = 5) -> tuple[int, int]:
     """Estimate WSL steady-clock minus local steady-clock using lowest RTT."""
 
-    if samples < 3:
-        raise ValueError("WSL clock calibration needs at least three samples")
-    measurements: list[tuple[int, int]] = []
-    process = subprocess.Popen(
-        [
-            "wsl.exe",
-            "-e",
-            "python3",
-            "-u",
-            "-c",
-            (
-                "import sys,time;"
-                "[(print(time.monotonic_ns(),flush=True)) for _ in sys.stdin]"
-            ),
-        ],
-        stdin=subprocess.PIPE,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.DEVNULL,
-        text=True,
-        bufsize=1,
-    )
+    bridge = WslMonotonicClock()
     try:
-        if process.stdin is None or process.stdout is None:
-            raise RuntimeError("WSL clock calibration pipe creation failed")
-        for _ in range(samples):
-            before = time.monotonic_ns()
-            process.stdin.write("sample\n")
-            process.stdin.flush()
-            output = process.stdout.readline()
-            after = time.monotonic_ns()
-            if not output:
-                raise RuntimeError("WSL clock calibration process exited")
-            remote = int(output.strip())
-            round_trip = after - before
-            measurements.append((round_trip, remote - ((before + after) // 2)))
+        return bridge.estimate_offset_ns(samples)
     finally:
-        process.terminate()
-        try:
-            process.wait(timeout=2)
-        except subprocess.TimeoutExpired:
-            process.kill()
-    best_round_trip, offset = min(measurements)
-    if best_round_trip > 20_000_000:
-        raise RuntimeError("WSL monotonic calibration round trip exceeds 20 ms")
-    return offset, best_round_trip
+        bridge.close()
 
 
 def _sha256_file(path: Path) -> str:
@@ -162,6 +142,38 @@ def rebase_reference_packet_time(
     return rebased
 
 
+def repeat_reference_packets(
+    packets: list[dict[str, Any]], repeat_count: int
+) -> list[dict[str, Any]]:
+    """Repeat immutable reference values with fresh contiguous source indices."""
+
+    if not 1 <= repeat_count <= 100:
+        raise ValueError("repeat count must be between 1 and 100")
+    if repeat_count == 1:
+        return packets
+    cycle_frames = len(packets)
+    repeated: list[dict[str, Any]] = []
+    for cycle in range(repeat_count):
+        frame_delta = cycle * cycle_frames
+        for packet in packets:
+            clone = copy.deepcopy(packet)
+            clone["control_source_frame_index"] = (
+                int(clone["control_source_frame_index"]) + frame_delta
+            )
+            clone["pico_anchor_source_frame_index"] = (
+                int(clone["pico_anchor_source_frame_index"]) + frame_delta
+            )
+            validate_reference_terms(clone)
+            repeated.append(clone)
+    for previous, current in zip(repeated, repeated[1:], strict=False):
+        if (
+            int(current["control_source_frame_index"])
+            != int(previous["control_source_frame_index"]) + 1
+        ):
+            raise ValueError("repeated PICO packet indices are not contiguous")
+    return repeated
+
+
 def publish_timed_bundle(
     *,
     packets: list[dict[str, Any]],
@@ -188,14 +200,22 @@ def publish_timed_bundle(
     socket = context.socket(zmq.PUB)
     socket.setsockopt(zmq.LINGER, 1000)
     socket.bind(bind)
+    windows_timer_period_active = False
+    if os.name == "nt":
+        result = ctypes.windll.winmm.timeBeginPeriod(1)  # type: ignore[attr-defined]
+        if result != 0:
+            socket.close()
+            context.term()
+            raise RuntimeError("Windows 1 ms timer period request failed")
+        windows_timer_period_active = True
     schedule_slips_ns: list[int] = []
     published_count = 0
     first_published_control_ns: int | None = None
     last_published_control_ns: int | None = None
-    started_ns = time.monotonic_ns()
+    started_ns = time.perf_counter_ns()
     try:
         time.sleep(subscriber_warmup_s)
-        first_schedule_ns = time.monotonic_ns() + CONTROL_PERIOD_NS
+        first_schedule_ns = time.perf_counter_ns() + CONTROL_PERIOD_NS
         first_control_ns = (
             timestamp_now_ns() + CONTROL_PERIOD_NS
             if timestamp_now_ns is not None
@@ -213,25 +233,32 @@ def publish_timed_bundle(
             )
             if fault == "stale" and offset == fault_offset:
                 time.sleep(stale_delay_ms / 1000.0)
+            if timestamp_now_ns is not None:
+                local_before_ns = time.perf_counter_ns()
+                remote_now_ns = timestamp_now_ns()
+                local_after_ns = time.perf_counter_ns()
+                local_sample_ns = (local_before_ns + local_after_ns) // 2
+                local_deadline_ns = local_sample_ns + deadline_ns - remote_now_ns
+            else:
+                remote_now_ns = 0
+                local_sample_ns = 0
+                local_deadline_ns = deadline_ns
             while True:
-                clock_now_ns = (
-                    timestamp_now_ns()
-                    if timestamp_now_ns is not None
-                    else time.monotonic_ns()
-                )
-                remaining_ns = deadline_ns - clock_now_ns
+                remaining_ns = local_deadline_ns - time.perf_counter_ns()
                 if remaining_ns <= 0:
                     break
-                time.sleep(min(remaining_ns / 1_000_000_000, 0.002))
+                if remaining_ns > 2_000_000:
+                    time.sleep((remaining_ns - 1_000_000) / 1_000_000_000)
             rebased = rebase_reference_packet_time(
                 packet,
                 first_control_index=first_summary["control_index"],
                 first_control_monotonic_ns=first_control_ns,
             )
+            local_sent_ns = time.perf_counter_ns()
             sent_ns = (
-                timestamp_now_ns()
+                remote_now_ns + local_sent_ns - local_sample_ns
                 if timestamp_now_ns is not None
-                else time.monotonic_ns()
+                else local_sent_ns
             )
             schedule_slips_ns.append(sent_ns - deadline_ns)
             socket.send_json(rebased)
@@ -245,7 +272,9 @@ def publish_timed_bundle(
     finally:
         socket.close()
         context.term()
-    finished_ns = time.monotonic_ns()
+        if windows_timer_period_active:
+            ctypes.windll.winmm.timeEndPeriod(1)  # type: ignore[attr-defined]
+    finished_ns = time.perf_counter_ns()
     return {
         "schema_version": 1,
         "kind": "g1_true23_saved_pico_timed_zmq_replay",
@@ -263,6 +292,7 @@ def publish_timed_bundle(
         "wall_duration_ns": finished_ns - started_ns,
         "values_rebased": ["pico_anchor_monotonic_ns", "control_monotonic_ns"],
         "timestamp_clock_offset_ns": timestamp_offset_ns,
+        "windows_high_resolution_timer": windows_timer_period_active,
         "pose_and_reference_values_unchanged": True,
         "diagnostic_fault": fault,
         "diagnostic_fault_offset": None if fault == "none" else fault_offset,
@@ -286,13 +316,32 @@ def main() -> int:
     parser.add_argument("--fault-offset", type=int, default=120)
     parser.add_argument("--stale-delay-ms", type=int, default=250)
     parser.add_argument("--timestamp-clock", choices=("local", "wsl"), default="local")
+    parser.add_argument("--repeat-count", type=int, default=1)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    packets = load_reference_packets(args.packets)
+    source_packets = load_reference_packets(args.packets)
+    packets = repeat_reference_packets(source_packets, args.repeat_count)
     clock_offset_ns = 0
     calibration_round_trip_ns = None
-    clock_bridge = WslMonotonicClock() if args.timestamp_clock == "wsl" else None
-    try:
+    if args.timestamp_clock == "wsl":
+        clock_bridge = WslMonotonicClock()
+        try:
+            clock_offset_ns, calibration_round_trip_ns = (
+                clock_bridge.estimate_offset_ns()
+            )
+            report = publish_timed_bundle(
+                packets=packets,
+                bind=args.bind,
+                subscriber_warmup_s=args.subscriber_warmup_s,
+                fault=args.fault,
+                fault_offset=args.fault_offset,
+                stale_delay_ms=args.stale_delay_ms,
+                timestamp_offset_ns=clock_offset_ns,
+                timestamp_now_ns=clock_bridge.now_ns,
+            )
+        finally:
+            clock_bridge.close()
+    else:
         report = publish_timed_bundle(
             packets=packets,
             bind=args.bind,
@@ -301,13 +350,11 @@ def main() -> int:
             fault_offset=args.fault_offset,
             stale_delay_ms=args.stale_delay_ms,
             timestamp_offset_ns=clock_offset_ns,
-            timestamp_now_ns=None if clock_bridge is None else clock_bridge.now_ns,
         )
-    finally:
-        if clock_bridge is not None:
-            clock_bridge.close()
     report["timestamp_clock"] = args.timestamp_clock
     report["timestamp_clock_calibration_round_trip_ns"] = calibration_round_trip_ns
+    report["source_bundle_packet_count"] = len(source_packets)
+    report["repeat_count"] = args.repeat_count
     report["saved_packet_bundle"] = str(args.packets.resolve())
     report["saved_packet_bundle_sha256"] = _sha256_file(args.packets.resolve())
     _exclusive_json(args.output, report)

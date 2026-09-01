@@ -161,6 +161,33 @@ transport trigger and held stable balance for another 100 transitions.
 See [Selected true23 frozen-LoRA live PICO test](g1_true23_frozen_lora_live_teleop.md)
 for the real-headset commands and remaining hardware boundary.
 
+## Physical gantry qualification state
+
+On 2026-09-01, the selected residual decoder passed a fresh read-only G1
+shadow on the physical 23-DoF robot: 100/100 accepted causal action frames,
+mode-machine 4, no CRC rejection, and no position, slew, freshness, or
+inference-deadline violation. The immutable evidence SHA-256 is
+`c74d18e54c812912b2130d25352e5545b6a577b8985a6c5efe80ac52c5458aa6`.
+
+The Windows-to-WSL replay boundary now samples the WSL clock once per packet,
+uses a temporary 1 ms Windows timer period, and preserves exact 20 ms source
+timestamps. The qualifying publisher's maximum schedule slip was 1.65 ms and
+mean slip was 0.78 ms. The active subscriber uses a bounded queue rather than
+conflation, waits up to 35 ms for the exact q9/q10 LowState bracket while
+retaining the 40 ms state-freshness gate, and records packet age and inference
+latency in terminal evidence. A causal repeat option can extend saved-clip
+rehearsals without repeating or regressing source indices.
+
+The physical active path passed artifact verification, stable advancing
+LowState, motion-mode release, LowCmd publisher creation, and fresh-policy
+readiness. It wrote damping commands only. No wireless A rising edge was
+observed, so zero armed policy commands were written and no physical dance was
+claimed. L2 deadman, A rising-edge arm, B/R2 stop, app/physical e-stop, joint
+limits, target-rate limits, stale-policy damping, and the gantry-only promotion
+remain mandatory. This is stronger than the original v14 implementation,
+which had no promoted hardware command path, but physical motion parity is not
+proven until one bounded armed gantry session completes its evidence contract.
+
 ## Limits
 
 This is strong evidence for this eight-motion suite and one authentic saved

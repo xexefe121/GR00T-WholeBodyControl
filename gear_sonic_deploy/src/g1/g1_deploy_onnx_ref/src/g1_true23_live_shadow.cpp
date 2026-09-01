@@ -1647,7 +1647,7 @@ int RunNative124(const Arguments& arguments) {
 
       const auto joined = monitor.WaitForJoin(
           reference,
-          std::chrono::steady_clock::now() + std::chrono::milliseconds(10));
+          std::chrono::steady_clock::now() + std::chrono::milliseconds(20));
       const auto inference_started_ns = NowNs();
       const auto observation = live::BuildNative124Observation(
           reference, joined, previous_raw_action);
