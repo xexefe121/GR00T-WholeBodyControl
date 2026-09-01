@@ -1755,6 +1755,8 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
             "post_release_mode_name_empty",
             "captured_pre_release_form",
             "captured_pre_release_name",
+            "captured_pre_release_fsm_id",
+            "captured_pre_release_fsm_mode",
             "pre_release_lowcmd_writes",
             "first_post_release_command",
         },
@@ -1763,6 +1765,12 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
     if (
         motion_gate.get("post_release_mode_name_empty") is not True
         or not motion_gate.get("captured_pre_release_name")
+        or _integer(
+            motion_gate.get("captured_pre_release_fsm_id"),
+            "captured_pre_release_fsm_id",
+        )
+        == 1
+        or not isinstance(motion_gate.get("captured_pre_release_fsm_mode"), int)
         or motion_gate.get("pre_release_lowcmd_writes") != 0
         or motion_gate.get("first_post_release_command")
         != "sampled_posture_hold"
@@ -1863,6 +1871,8 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
             "monotonic_ns",
             "restored_form",
             "restored_name",
+            "restored_fsm_id",
+            "restored_fsm_mode",
             "normal_return_hold_frames",
             "required_normal_return_hold_frames",
             "startup_damping_frames",
@@ -1874,6 +1884,10 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
         not restored.get("restored_name")
         or restored.get("restored_name")
         != motion_gate.get("captured_pre_release_name")
+        or restored.get("restored_fsm_id")
+        != motion_gate.get("captured_pre_release_fsm_id")
+        or restored.get("restored_fsm_mode")
+        != motion_gate.get("captured_pre_release_fsm_mode")
         or _integer(restored.get("normal_return_hold_frames"), "normal_return_hold_frames") < 250
         or restored.get("required_normal_return_hold_frames") != 250
         or restored.get("startup_damping_frames") != 0
@@ -1897,6 +1911,7 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
             "pre_arm_hold_frames",
             "required_pre_arm_hold_frames",
             "startup_damping_frames",
+            "rejected_non_positive_gain_commands",
             "release_to_first_hold_write_ns",
             "maximum_first_hold_write_delay_ns",
             "armed_transition_observed",
@@ -1909,6 +1924,8 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
             "motion_mode_restored",
             "restored_motion_mode_form",
             "restored_motion_mode_name",
+            "restored_locomotion_fsm_id",
+            "restored_locomotion_fsm_mode",
             "maximum_target_delta_from_state_rad",
             "maximum_target_slew_rad",
             "maximum_abs_predicted_effort_nm",
@@ -1951,6 +1968,7 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
         or _integer(terminal.get("pre_arm_hold_frames"), "terminal pre_arm_hold_frames") < 25
         or terminal.get("required_pre_arm_hold_frames") != 25
         or terminal.get("startup_damping_frames") != 0
+        or terminal.get("rejected_non_positive_gain_commands") != 0
         or terminal.get("release_to_first_hold_write_ns") != first_hold_delay_ns
         or terminal.get("maximum_first_hold_write_delay_ns") != 20_000_000
         or terminal.get("armed_transition_observed") is not True
@@ -1966,6 +1984,10 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
         or terminal.get("required_normal_return_hold_frames") != 250
         or terminal.get("motion_mode_restored") is not True
         or terminal.get("restored_motion_mode_name") != restored.get("restored_name")
+        or terminal.get("restored_locomotion_fsm_id")
+        != restored.get("restored_fsm_id")
+        or terminal.get("restored_locomotion_fsm_mode")
+        != restored.get("restored_fsm_mode")
         or _number(
             terminal.get("maximum_abs_feedforward_tau_nm"),
             "maximum_abs_feedforward_tau_nm",

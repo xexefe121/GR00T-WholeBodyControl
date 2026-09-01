@@ -2,8 +2,9 @@
 //
 // Safety ordering is deliberate: immutable artifacts -> ONNX dry run -> DDS
 // LowState subscriber -> five advancing CRC-valid mode_machine==4 samples ->
-// motion-mode release -> LowCmd publisher.  Any fault is one-way and leaves
-// only a finite, zero-feedforward damping command.
+// motion-mode release -> LowCmd publisher.  After release, final-boundary
+// validation forbids every controlled-joint kp=0 packet. Recoverable exits
+// hold with positive gains and return ownership to captured Unitree mode.
 
 #include "true23_active_gantry_core.hpp"
 
@@ -83,7 +84,6 @@ inline constexpr std::string_view kFrozenLoraLiveQualificationSha256 =
 inline constexpr std::string_view kFrozenLoraPacketBundleSha256 =
     "237910ad5dfc370db9645e52f08ba0ca3b0f409a1383d692e1ce1937c5e3dc9d";
 inline constexpr int kStateGateTimeoutSeconds = 8;
-inline constexpr int kFaultDampingCycles = 250;
 inline constexpr int kNormalReturnHoldCycles = 250;
 inline constexpr int kMinimumPreArmHoldCycles = 25;
 inline constexpr std::int64_t kMaximumFirstHoldWriteDelayNs = 20'000'000;
@@ -838,8 +838,9 @@ void RestoreMotionModeAfterNormalHold(const ReleasedMotionMode& released) {
       int fsm_mode = -1;
       if (locomotion.GetFsmId(fsm_id) == 0 &&
           locomotion.GetFsmMode(fsm_mode) == 0 &&
-          fsm_id == released.locomotion_fsm_id &&
-          fsm_mode == released.locomotion_fsm_mode) {
+          active::ExactMotionModeRestored(
+              released.name, released.locomotion_fsm_id,
+              released.locomotion_fsm_mode, name, fsm_id, fsm_mode)) {
         return;
       }
     }
@@ -1872,9 +1873,11 @@ int Run(const Arguments& arguments) {
   std::atomic<std::uint64_t> startup_damping_frames{0};
   std::atomic<bool> motion_mode_restored{false};
   std::atomic<bool> software_return_requested{false};
+  std::atomic<bool> emergency_mode_restore_requested{false};
+  std::atomic<std::uint64_t> rejected_non_positive_gain_commands{0};
   std::int64_t motion_mode_released_ns = 0;
   std::uint64_t policy_command_frames = 0;
-  int damping_frames_after_stop = 0;
+  constexpr int damping_frames_after_stop = 0;
   double maximum_target_delta_from_state_rad = 0.0;
   double maximum_target_slew_rad = 0.0;
   double maximum_abs_predicted_effort_nm = 0.0;
@@ -2001,7 +2004,8 @@ int Run(const Arguments& arguments) {
                    {"reason", join_failure}});
               std::cerr << "[WAIT] " << join_failure << " frame="
                         << frame_index
-                        << "; damping while real-proprio history reacquires.\n";
+                        << "; Unitree mode retained while real-proprio history "
+                           "reacquires.\n";
               continue;
             }
             inference_error =
@@ -2118,51 +2122,28 @@ int Run(const Arguments& arguments) {
   });
 
   std::jthread writer_thread([&](std::stop_token stop_token) {
-    const auto enter_fail_safe = [&](std::string failure) {
+    const auto request_emergency_handoff = [&](std::string failure) {
       writer_error = std::move(failure);
+      bool positive_return_started = false;
       try {
-        monitor.WithCore([](active::GantrySafetyCore& value) {
-          value.ObserveInternalFailure();
+        const auto recovery_ns = NowNs();
+        monitor.WithCore([&](active::GantrySafetyCore& value) {
+          positive_return_started =
+              value.BeginSoftwareFaultReturnHold(recovery_ns);
         });
       } catch (...) {
-        writer_error += "; failed to latch internal safety fault";
+        writer_error += "; failed to start positive-gain return";
       }
-      auto damping_deadline_ns = NowNs();
-      constexpr int kMaximumDampingWriteAttempts =
-          kFaultDampingCycles + 25;
-      int successful_damping_writes = 0;
-      for (int attempt = 0;
-           attempt < kMaximumDampingWriteAttempts &&
-           successful_damping_writes < kFaultDampingCycles;
-           ++attempt) {
-        std::this_thread::sleep_until(
-            std::chrono::steady_clock::time_point(
-                std::chrono::nanoseconds(damping_deadline_ns)));
-        try {
-          monitor.WithCore([&](active::GantrySafetyCore& value) {
-            publisher->Write(ToLowCmd(value.BuildDampingCommand()));
-          });
-          publisher_write_count.fetch_add(1, std::memory_order_relaxed);
-          ++successful_damping_writes;
-          damping_frames_after_stop = successful_damping_writes;
-        } catch (const std::exception& damping_error) {
-          publisher_write_failed = true;
-          writer_error += "; fail-safe damping write failed: ";
-          writer_error += damping_error.what();
-          // Continue bounded retries: a transient failed write does not
-          // prove later damping writes will fail.
-        } catch (...) {
-          publisher_write_failed = true;
-          writer_error += "; fail-safe damping write failed: unknown exception";
-        }
-        damping_deadline_ns =
-            active::NextNoCatchUpWriterDeadlineNs(NowNs());
+      if (positive_return_started) {
+        software_return_requested.store(true, std::memory_order_release);
       }
-      stop_threads.store(true);
+      // Writer is no longer trustworthy. Never synthesize a damping tail.
+      // Main thread immediately re-selects captured Unitree service/FSM.
+      emergency_mode_restore_requested.store(true,
+                                             std::memory_order_release);
     };
     try {
       auto next_write_ns = NowNs();
-      int damping_cycles = 0;
       while (!stop_token.stop_requested() && !stop_threads.load()) {
         if (motion_mode_restored.load(std::memory_order_acquire)) {
           break;
@@ -2197,24 +2178,15 @@ int Run(const Arguments& arguments) {
               hold_before_build && !value.armed() &&
               !normal_return_before_build && fault == active::Fault::None;
           normal_return_hold_command =
-              normal_return_before_build && value.normal_return_active() &&
+              value.normal_return_active() &&
               fault == active::Fault::None;
-          if (pre_arm_hold_command || normal_return_hold_command) {
-            for (const int included : true23::kHardwareJointIds) {
-              const auto& joint =
-                  command[static_cast<std::size_t>(included)];
-              if (joint.mode != 1 || !(joint.kp > 0.0) ||
-                  joint.tau != 0.0 || !std::isfinite(joint.q)) {
-                startup_damping_frames.fetch_add(
-                    1, std::memory_order_relaxed);
-                value.ObserveInternalFailure();
-                command = value.BuildDampingCommand();
-                fault = value.fault();
-                pre_arm_hold_command = false;
-                normal_return_hold_command = false;
-                break;
-              }
-            }
+          pre_arm_hold_command =
+              pre_arm_hold_command && !normal_return_hold_command;
+          if (!active::IsPositiveGainRuntimeCommand(command)) {
+            rejected_non_positive_gain_commands.fetch_add(
+                1, std::memory_order_relaxed);
+            throw std::runtime_error(
+                "outgoing non-positive-gain LowCmd rejected before DDS");
           }
           try {
             publisher->Write(ToLowCmd(command));
@@ -2319,19 +2291,11 @@ int Run(const Arguments& arguments) {
                  {"feedforward_tau_zero", true}});
           }
         }
-        if (fault != active::Fault::None &&
-            ++damping_cycles > 0) {
-          damping_frames_after_stop = damping_cycles;
-          if (damping_cycles >= kFaultDampingCycles) {
-            stop_threads.store(true);
-            break;
-          }
-        }
       }
     } catch (const std::exception& error) {
-      enter_fail_safe(error.what());
+      request_emergency_handoff(error.what());
     } catch (...) {
-      enter_fail_safe("unknown command-writer exception");
+      request_emergency_handoff("unknown command-writer exception");
     }
   });
 
@@ -2526,6 +2490,34 @@ int Run(const Arguments& arguments) {
            {"damping_frames_before_return", damping_frames_after_stop}});
       normal_return_event_written = true;
     }
+    if (emergency_mode_restore_requested.load(std::memory_order_acquire) &&
+        !motion_restore_attempted) {
+      motion_restore_attempted = true;
+      if (stop_reason.empty()) {
+        stop_reason = "writer_emergency_mode_handoff";
+        stop_requested_ns = now_ns;
+      }
+      try {
+        RestoreMotionModeAfterNormalHold(released_motion_mode);
+        motion_mode_restored.store(true, std::memory_order_release);
+        motion_mode_released.store(false, std::memory_order_release);
+        execution_evidence.AppendEvent(
+            "emergency_motion_mode_restored",
+            {{"restored_form", released_motion_mode.form},
+             {"restored_name", released_motion_mode.name},
+             {"restored_fsm_id", released_motion_mode.locomotion_fsm_id},
+             {"restored_fsm_mode", released_motion_mode.locomotion_fsm_mode},
+             {"normal_return_hold_frames",
+              normal_return_hold_frames.load()},
+             {"damping_frames_after_stop", damping_frames_after_stop},
+             {"rejected_non_positive_gain_commands",
+              rejected_non_positive_gain_commands.load()}});
+      } catch (const std::exception& error) {
+        writer_error += std::string("; emergency motion-mode restore failed: ") +
+                        error.what();
+      }
+      stop_threads.store(true, std::memory_order_release);
+    }
     if (normal_return_active && !motion_restore_attempted &&
         normal_return_hold_frames.load(std::memory_order_acquire) >=
             static_cast<std::uint64_t>(kNormalReturnHoldCycles)) {
@@ -2620,6 +2612,8 @@ int Run(const Arguments& arguments) {
       {"pre_arm_hold_frames", pre_arm_hold_frames.load()},
       {"required_pre_arm_hold_frames", kMinimumPreArmHoldCycles},
       {"startup_damping_frames", startup_damping_frames.load()},
+      {"rejected_non_positive_gain_commands",
+       rejected_non_positive_gain_commands.load()},
       {"release_to_first_hold_write_ns", first_hold_delay_ns},
       {"maximum_first_hold_write_delay_ns",
        kMaximumFirstHoldWriteDelayNs},

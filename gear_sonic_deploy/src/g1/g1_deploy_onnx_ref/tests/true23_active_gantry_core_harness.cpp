@@ -649,6 +649,133 @@ void TestOperatorAndCommandSafety(Runner& runner) {
   }
 }
 
+void ArmLifecycleCore(active::GantrySafetyCore& core,
+                      std::int64_t start_ns,
+                      std::int64_t policy_ns) {
+  OpenGate(core, start_ns);
+  core.SubmitPolicy(ZeroPolicy(policy_ns), policy_ns);
+  if (!core.PreparePreArmHold(policy_ns)) {
+    return;
+  }
+  core.EnableOperatorArming();
+  core.ObserveOperator(
+      {.arm_edge = true, .deadman_held = true, .stop_requested = false},
+      policy_ns);
+}
+
+void TestRobotFreeNoDumpLifecycleMatrix(Runner& runner) {
+  const auto verify_return_stream = [&](active::GantrySafetyCore& core,
+                                        std::int64_t first_ns,
+                                        std::string_view scenario) {
+    runner.Check(core.normal_return_active() &&
+                     core.fault() == active::Fault::None,
+                 std::string(scenario) +
+                     " enters non-fault positive-gain return");
+    for (int frame = 0; frame < 500; ++frame) {
+      const auto command = core.BuildCommand(
+          first_ns + static_cast<std::int64_t>(frame) *
+                         active::kWriterPeriodNs);
+      runner.Check(active::IsPositiveGainRuntimeCommand(command),
+                   std::string(scenario) +
+                       " emits zero damping packets across 500 frames");
+    }
+  };
+
+  {
+    const auto start = 20'000'000'000LL;
+    const auto now = start + 20'000'000LL;
+    active::GantrySafetyCore core(ValidArtifact());
+    ArmLifecycleCore(core, start, now);
+    runner.Check(core.armed(), "normal completion fixture arms");
+    runner.Check(core.BeginNormalReturnHold(now + 1'000'000LL),
+                 "normal clip completion starts return");
+    verify_return_stream(core, now + 2'000'000LL, "normal completion");
+  }
+
+  {
+    const auto start = 21'000'000'000LL;
+    const auto now = start + 20'000'000LL;
+    active::GantrySafetyCore core(ValidArtifact());
+    ArmLifecycleCore(core, start, now);
+    // Reproduces end-of-clip racing a policy/state watchdog. Before fix,
+    // CheckWatchdogs started return, BeginNormalReturnHold returned false,
+    // and caller latched OperatorStop/damping.
+    const auto raced_stop = now + active::kPolicyFreshnessNs + 1;
+    runner.Check(core.BeginNormalReturnHold(raced_stop),
+                 "watchdog/end-of-clip race reports successful return");
+    verify_return_stream(core, raced_stop, "watchdog/end-of-clip race");
+  }
+
+  {
+    const auto start = 22'000'000'000LL;
+    const auto now = start + 20'000'000LL;
+    active::GantrySafetyCore core(ValidArtifact());
+    ArmLifecycleCore(core, start, now);
+    core.ObserveOperator(
+        {.arm_edge = false, .deadman_held = true, .stop_requested = true},
+        now + 1'000'000LL);
+    verify_return_stream(core, now + 2'000'000LL, "operator STOP");
+  }
+
+  {
+    const auto start = 23'000'000'000LL;
+    const auto now = start + 20'000'000LL;
+    active::GantrySafetyCore core(ValidArtifact());
+    ArmLifecycleCore(core, start, now);
+    core.ObserveOperator(
+        {.arm_edge = false, .deadman_held = false, .stop_requested = false},
+        now + 1'000'000LL);
+    verify_return_stream(core, now + 2'000'000LL, "deadman release");
+  }
+
+  for (const auto stall_ns : {101'000'000LL, 290'000'000LL,
+                              500'000'000LL}) {
+    const auto start = 24'000'000'000LL + stall_ns;
+    const auto now = start + 20'000'000LL;
+    active::GantrySafetyCore core(ValidArtifact());
+    ArmLifecycleCore(core, start, now);
+    const auto command = core.BuildCommand(now + stall_ns);
+    runner.Check(active::IsPositiveGainRuntimeCommand(command),
+                 "101-500 ms transport stall first recovery packet has "
+                 "positive gains");
+    verify_return_stream(core, now + stall_ns + active::kWriterPeriodNs,
+                         "101-500 ms transport stall");
+  }
+
+  {
+    const auto start = 26'000'000'000LL;
+    const auto now = start + 20'000'000LL;
+    active::GantrySafetyCore core(ValidArtifact());
+    ArmLifecycleCore(core, start, now);
+    runner.Check(core.BeginSoftwareFaultReturnHold(now + 1'000'000LL),
+                 "explicit publisher/inference fault starts return");
+    verify_return_stream(core, now + 2'000'000LL,
+                         "publisher/inference fault");
+  }
+
+  {
+    const auto start = 27'000'000'000LL;
+    const auto now = start + 20'000'000LL;
+    active::GantrySafetyCore core(ValidArtifact());
+    ArmLifecycleCore(core, start, now);
+    core.ObserveInternalFailure();
+    const auto damping = core.BuildCommand(now + 1'000'000LL);
+    runner.Check(!active::IsPositiveGainRuntimeCommand(damping),
+                 "final DDS boundary rejects core damping command");
+  }
+
+  runner.Check(active::ExactMotionModeRestored(
+                   "ai", 801, 0, "ai", 801, 0),
+               "mode handoff accepts exact captured service/FSM");
+  runner.Check(!active::ExactMotionModeRestored(
+                   "ai", 801, 0, "", 801, 0) &&
+                   !active::ExactMotionModeRestored(
+                       "ai", 801, 0, "ai", 1, 0) &&
+                   !active::ExactMotionModeRestored(
+                       "ai", 801, 0, "ai", 801, 1),
+               "mode handoff rejects empty, damped, or wrong FSM state");
+}
+
 void TestPolicyAndMapping(Runner& runner) {
   active::RealProprioWarmupGate warmup;
   for (std::uint64_t frame = 10; frame < 19; ++frame) {
@@ -837,6 +964,7 @@ int main() {
   TestFiveSampleMutationGate(runner);
   TestStateFaults(runner);
   TestOperatorAndCommandSafety(runner);
+  TestRobotFreeNoDumpLifecycleMatrix(runner);
   TestPolicyAndMapping(runner);
   TestHoldSmokeIsPolicyFreeAndGated(runner);
   TestNative124BindingAcquisitionAndStageOneCore(runner);
@@ -845,6 +973,9 @@ int main() {
               << " true23 active-gantry check(s) failed\n";
     return 1;
   }
-  std::cout << "true23 active gantry core harness: all checks passed\n";
+  std::cout
+      << "true23 active gantry core harness: all checks passed; "
+         "robot_free_lifecycle_scenarios=9 recovery_frames=4000 "
+         "published_damping_frames=0 dds_opened=false\n";
   return 0;
 }

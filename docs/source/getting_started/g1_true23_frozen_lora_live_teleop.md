@@ -89,6 +89,12 @@ tracking and holds the fallback policy.
 
 ## Physical G1 boundary
 
+**Current physical status: not ready for live teleop.** A dance session that
+returns the G1 in damped mode fails the same ownership/shutdown path used by
+teleop. No further physical dance or teleop run is a valid readiness test until
+the robot-free lifecycle gate below passes and a later bounded hardware handoff
+test proves the robot remains in the captured standing mode.
+
 The simulator consumer above remains read-only. Do not connect it to a robot
 publisher. Physical control uses the separate promoted C++ controller plus a
 fresh hardware shadow and gantry-only active sidecar.
@@ -101,8 +107,8 @@ lifecycle:
   and exact 20 ms timestamps, so the READY window does not expire.
 - `run_g1_true23_frozen_lora_live_gantry` starts the real PICO/SOMA causal
   producer first. It does not start the robot controller until publisher
-  evidence contains a fresh reference packet. Publisher loss is a transport
-  fault and ends in fail-safe damping.
+  evidence contains a fresh reference packet. Publisher loss starts a
+  positive-gain posture return and exact Unitree mode handoff.
 
 Both launchers keep the controller-attached console visible. Saved-clip dance
 uses a separately bound exact `DANCE` command and starts automatically only
@@ -112,9 +118,12 @@ Reviewed duration, wireless B/R2 or L2 release, and app/process cancellation
 stop policy motion without dumping the robot: the controller snapshots the
 current 23-joint pose, writes 250 positive-gain zero-feedforward hold packets,
 restores the exact Unitree motion mode captured before release, verifies that
-mode is active, and only then closes LowCmd. Physical e-stop, stale policy,
-state or source loss, a joint limit, or a command-write failure remains a true
-fault and uses the reviewed damping tail.
+mode is active, and only then closes LowCmd. Stale policy/state/source and
+inference faults use the same return. If the command writer itself fails, the
+main thread immediately re-selects and verifies the captured Unitree mode.
+Final-boundary validation rejects every post-release command whose controlled
+joints lack positive `kp`/`kd`; the controller never publishes a synthesized
+`kp=0` damping tail. Physical e-stop remains the independent hard-stop path.
 
 Real PICO live teleop retains the wireless deadman contract. After `[READY]`,
 hold L2 and press A once. `[REMOTE]` lines show every decoded L2, A, and STOP
@@ -138,6 +147,40 @@ readiness. Their controller released motion mode and emitted `kp=0` damping for
 about 22.75 seconds while policy history warmed, matching the observed dumped
 mode. Their later policy-packet counts do not prove a safe startup. Do not use
 either record as physical qualification.
+
+Later physical dance attempts that ended with the robot damped are also failed
+evidence. They exposed two remaining lifecycle bugs: a simultaneous
+watchdog/end-of-clip transition was misread as failed return and latched
+`OperatorStop`, and the writer exception handler intentionally emitted 250
+damping packets. Both paths are now removed, but this code change alone does
+not make live teleop physically ready.
+
+Run the no-robot lifecycle qualification from WSL after rebuilding
+`true23_active_gantry_core_harness` and `g1_true23_active_gantry`:
+
+```bash
+cd /mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof
+python3 -m gear_sonic.scripts.qualify_g1_true23_active_lifecycle_no_robot \
+  --repository-root . \
+  --output /tmp/g1_true23_active_lifecycle_no_robot.json
+```
+
+This command launches neither controller nor publisher. It opens no DDS or
+LowCmd channel. Pass requires nine lifecycle scenarios, 4,000 positive-gain
+recovery frames, injected 101/290/500 ms stalls, zero published damping frames,
+exact mode/FSM matching, and a compiled/source surface audit that forbids the
+old damping-tail code.
+
+Future physical readiness order is strict:
+
+1. Robot-free lifecycle report passes.
+2. Read-only PICO health and hardware shadow pass; no LowCmd.
+3. Separate bounded ownership-handoff smoke proves captured standing mode
+   returns after positive-gain hold.
+4. One-second then five-second gantry dance pass with zero damping packets and
+   exact mode/FSM restore in execution evidence.
+5. Only then run one-second live PICO teleop with deadman, followed by longer
+   sessions.
 
 The original `GR00T-WholeBodyControl` true23 implementation has the same
 startup defect: it releases motion mode and starts the writer before policy

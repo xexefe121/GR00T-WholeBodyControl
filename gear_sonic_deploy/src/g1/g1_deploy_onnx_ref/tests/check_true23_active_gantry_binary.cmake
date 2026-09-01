@@ -25,7 +25,10 @@ foreach(FORBIDDEN
     "disableCrcCheck"
     "--mode control"
     "g1_deploy_onnx_ref.cpp"
-    "SetFsmId(released.locomotion_fsm_id)")
+    "SetFsmId(released.locomotion_fsm_id)"
+    "publisher->Write(ToLowCmd(value.BuildDampingCommand()))"
+    "kFaultDampingCycles"
+    "fail-safe damping")
   string(FIND "${COMBINED_SURFACE}" "${FORBIDDEN}" FOUND_OFFSET)
   if(NOT FOUND_OFFSET EQUAL -1)
     message(FATAL_ERROR
@@ -97,15 +100,17 @@ foreach(SOURCE_REQUIRED
     "frame_index != *last_frame + 1U"
     "*last_source_monotonic_ns + active::kShadowControlPeriodNs"
     "NextNoCatchUpWriterDeadlineNs(completed_write_ns)"
-    "NextNoCatchUpWriterDeadlineNs(NowNs())"
     "first_policy_ready_for_arm.store(true, std::memory_order_release)"
     "stop_reason == \"reviewed_post_arm_duration_complete\""
-    "successful_damping_writes < kFaultDampingCycles"
     "monitor.WaitJoinCausalReference"
     "value.PreparePreArmHold(hold_prepare_ns)"
     "value.BeginNormalReturnHold(now_ns)"
     "value.BeginSoftwareFaultReturnHold(recovery_ns)"
     "RestoreMotionModeAfterNormalHold(released_motion_mode)"
+    "active::IsPositiveGainRuntimeCommand(command)"
+    "outgoing non-positive-gain LowCmd rejected before DDS"
+    "emergency_motion_mode_restored"
+    "writer_emergency_mode_handoff"
     "software_transport_normal_return"
     "!motion_mode_released.load(std::memory_order_acquire)"
     "startup_damping_frames.load(std::memory_order_acquire) == 0"

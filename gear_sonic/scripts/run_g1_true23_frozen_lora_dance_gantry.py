@@ -236,6 +236,11 @@ def validate_direct_dance_execution_evidence(
         or not restored.get("restored_name")
         or restored.get("restored_name")
         != motion_release.get("captured_pre_release_name")
+        or motion_release.get("captured_pre_release_fsm_id") == 1
+        or restored.get("restored_fsm_id")
+        != motion_release.get("captured_pre_release_fsm_id")
+        or restored.get("restored_fsm_mode")
+        != motion_release.get("captured_pre_release_fsm_mode")
         or terminal.get("final_fault") != "none"
         or terminal.get("stop_reason")
         != "reviewed_post_arm_duration_complete"
@@ -246,11 +251,16 @@ def validate_direct_dance_execution_evidence(
         or terminal.get("publisher_write_failed") is not False
         or terminal.get("damping_frames_after_stop") != 0
         or terminal.get("required_damping_frames_after_stop") != 0
+        or terminal.get("rejected_non_positive_gain_commands") != 0
         or terminal.get("normal_return_hold_frames", 0) < 250
         or terminal.get("required_normal_return_hold_frames") != 250
         or terminal.get("motion_mode_restored") is not True
         or terminal.get("restored_motion_mode_name")
         != restored.get("restored_name")
+        or terminal.get("restored_locomotion_fsm_id")
+        != restored.get("restored_fsm_id")
+        or terminal.get("restored_locomotion_fsm_mode")
+        != restored.get("restored_fsm_mode")
     ):
         raise ValueError("controller terminal evidence did not pass safe dance")
     return terminal

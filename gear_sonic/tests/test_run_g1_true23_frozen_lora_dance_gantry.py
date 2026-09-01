@@ -39,6 +39,8 @@ def _passing_execution_records() -> list[dict]:
     records[6].update(
         captured_pre_release_form="g1",
         captured_pre_release_name="normal",
+        captured_pre_release_fsm_id=801,
+        captured_pre_release_fsm_mode=0,
         pre_release_lowcmd_writes=0,
         first_post_release_command="sampled_posture_hold",
     )
@@ -61,6 +63,8 @@ def _passing_execution_records() -> list[dict]:
     records[11].update(
         restored_form="g1",
         restored_name="normal",
+        restored_fsm_id=801,
+        restored_fsm_mode=0,
         normal_return_hold_frames=250,
         required_normal_return_hold_frames=250,
         startup_damping_frames=0,
@@ -73,6 +77,7 @@ def _passing_execution_records() -> list[dict]:
         pre_arm_hold_gate_open=True,
         pre_arm_hold_frames=25,
         startup_damping_frames=0,
+        rejected_non_positive_gain_commands=0,
         release_to_first_hold_write_ns=2_000_000,
         maximum_abs_feedforward_tau_nm=0.0,
         final_fault="none",
@@ -86,6 +91,8 @@ def _passing_execution_records() -> list[dict]:
         required_normal_return_hold_frames=250,
         motion_mode_restored=True,
         restored_motion_mode_name="normal",
+        restored_locomotion_fsm_id=801,
+        restored_locomotion_fsm_mode=0,
     )
     return records
 
@@ -197,6 +204,21 @@ def test_direct_execution_validator_rejects_post_dance_dump(
     records = _passing_execution_records()
     records[11]["damping_frames_after_stop"] = 250
     records[12]["damping_frames_after_stop"] = 250
+    evidence = tmp_path / "execution.jsonl"
+    _write_jsonl(evidence, records)
+    with pytest.raises(ValueError, match="terminal evidence did not pass"):
+        validate_direct_dance_execution_evidence(
+            evidence,
+            authorization_id="gantry-session-1",
+            duration_seconds=1,
+        )
+
+
+def test_direct_execution_validator_rejects_blocked_dump_packet(
+    tmp_path: Path,
+) -> None:
+    records = _passing_execution_records()
+    records[12]["rejected_non_positive_gain_commands"] = 1
     evidence = tmp_path / "execution.jsonl"
     _write_jsonl(evidence, records)
     with pytest.raises(ValueError, match="terminal evidence did not pass"):

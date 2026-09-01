@@ -893,6 +893,39 @@ struct MotorSlotCommand {
 
 using MotorCommand = std::array<MotorSlotCommand, kMotorSlotCount>;
 
+// Runtime invariant after Unitree motion-mode release: every command written
+// for a controlled joint must retain positive position and damping gains.
+// This rejects damping/dump packets at the final boundary before DDS.
+inline bool IsPositiveGainRuntimeCommand(const MotorCommand& command) {
+  for (const int included : kHardwareJointIds) {
+    const auto& joint = command[static_cast<std::size_t>(included)];
+    if (joint.mode != 1 || !std::isfinite(joint.q) || joint.dq != 0.0 ||
+        !std::isfinite(joint.kp) || !(joint.kp > 0.0) ||
+        !std::isfinite(joint.kd) || !(joint.kd > 0.0) ||
+        joint.tau != 0.0) {
+      return false;
+    }
+  }
+  for (const int excluded : kExcludedHardwareJointIds) {
+    const auto& joint = command[static_cast<std::size_t>(excluded)];
+    if (joint.mode != 0 || !std::isfinite(joint.q) || joint.dq != 0.0 ||
+        joint.kp != 0.0 || !std::isfinite(joint.kd) ||
+        !(joint.kd > 0.0) || joint.tau != 0.0) {
+      return false;
+    }
+  }
+  return true;
+}
+
+inline bool ExactMotionModeRestored(
+    std::string_view expected_name, int expected_fsm_id,
+    int expected_fsm_mode, std::string_view observed_name,
+    int observed_fsm_id, int observed_fsm_mode) {
+  return !expected_name.empty() && observed_name == expected_name &&
+         observed_fsm_id == expected_fsm_id &&
+         observed_fsm_mode == expected_fsm_mode;
+}
+
 class RealProprioWarmupGate {
  public:
   bool Observe(std::uint64_t source_frame_index) {
@@ -1060,6 +1093,12 @@ class GantrySafetyCore {
       return true;
     }
     CheckWatchdogs(now_monotonic_ns);
+    // CheckWatchdogs may have already converted a simultaneous state/policy
+    // timeout into the same positive-gain return. Treat that as success;
+    // callers must never turn this race into OperatorStop/damping.
+    if (normal_return_active_) {
+      return true;
+    }
     if (fault_ != Fault::None || !armed_ || !mutation_surface_allowed_ ||
         !state_.has_value() ||
         !Fresh(last_advancing_state_ns_, now_monotonic_ns,

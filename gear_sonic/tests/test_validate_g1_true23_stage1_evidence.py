@@ -113,6 +113,8 @@ def _fixture(tmp_path: Path) -> tuple[argparse.Namespace, list[dict[str, object]
             "post_release_mode_name_empty": True,
             "captured_pre_release_form": "g1",
             "captured_pre_release_name": "normal",
+            "captured_pre_release_fsm_id": 801,
+            "captured_pre_release_fsm_mode": 0,
             "pre_release_lowcmd_writes": 0,
             "first_post_release_command": "sampled_posture_hold",
         }
@@ -152,6 +154,8 @@ def _fixture(tmp_path: Path) -> tuple[argparse.Namespace, list[dict[str, object]
         {
             "restored_form": "g1",
             "restored_name": "normal",
+            "restored_fsm_id": 801,
+            "restored_fsm_mode": 0,
             "normal_return_hold_frames": 250,
             "required_normal_return_hold_frames": 250,
             "startup_damping_frames": 0,
@@ -168,6 +172,7 @@ def _fixture(tmp_path: Path) -> tuple[argparse.Namespace, list[dict[str, object]
             "pre_arm_hold_frames": 25,
             "required_pre_arm_hold_frames": 25,
             "startup_damping_frames": 0,
+            "rejected_non_positive_gain_commands": 0,
             "release_to_first_hold_write_ns": 2_000_000,
             "maximum_first_hold_write_delay_ns": 20_000_000,
             "armed_transition_observed": True,
@@ -180,6 +185,8 @@ def _fixture(tmp_path: Path) -> tuple[argparse.Namespace, list[dict[str, object]
             "motion_mode_restored": True,
             "restored_motion_mode_form": "g1",
             "restored_motion_mode_name": "normal",
+            "restored_locomotion_fsm_id": 801,
+            "restored_locomotion_fsm_mode": 0,
             "maximum_target_delta_from_state_rad": 0.1,
             "maximum_target_slew_rad": 0.0005,
             "maximum_abs_predicted_effort_nm": 10.0,
@@ -821,6 +828,7 @@ def test_active_execution_evidence_accepts_wireless_normal_return(
         ("maximum_target_slew_rad", 0.000_501),
         ("publisher_write_failed", True),
         ("startup_damping_frames", 1),
+        ("rejected_non_positive_gain_commands", 1),
         ("pre_release_lowcmd_writes", 1),
     ],
 )
