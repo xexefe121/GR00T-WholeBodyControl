@@ -38,4 +38,4 @@ PYTHONPATH="/mnt/z/codex/GR00T-WholeBodyControl:/root/GR00T-WholeBodyControl/ext
   /usr/bin/python3 -c \
   "from gear_sonic.scripts.pico_g1_preflight import Checks,_probe_lowstate; c=Checks(); _probe_lowstate(c,'eth0',4.0,policy_profile='true23'); r=c.results[0]; print(r.status+': '+r.detail,flush=True); raise SystemExit(0 if r.status=='PASS' else 1)"
 
-bash /mnt/z/codex/GR00T-WholeBodyControl/install_scripts/run_g1_true23_v12_promoted_shadow.sh "$@"
+bash /mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/install_scripts/run_g1_true23_v12_promoted_shadow.sh "$@"
