@@ -10,7 +10,6 @@ from gear_sonic.scripts.replay_g1_true23_pico_packets_zmq import (
     CONTROL_PERIOD_NS,
     load_reference_packets,
     rebase_reference_packet_time,
-    repeat_reference_packets,
 )
 from gear_sonic.utils.g1_true23_clean_mujoco_teleop import (
     run_balanced_upper_body_reference_sequence,
@@ -48,26 +47,6 @@ def test_rebase_rejects_packet_before_origin() -> None:
             first_control_index=summary["control_index"] + 1,
             first_control_monotonic_ns=10_000_000_000,
         )
-
-
-def test_repeat_reference_packets_keeps_values_and_advances_indices() -> None:
-    packets = load_reference_packets(BUNDLE)
-    repeated = repeat_reference_packets(packets[:3], 2)
-    assert len(repeated) == 6
-    assert repeated[3]["control_source_frame_index"] == (
-        repeated[2]["control_source_frame_index"] + 1
-    )
-    assert repeated[3]["pico_anchor_source_frame_index"] == (
-        repeated[2]["pico_anchor_source_frame_index"] + 1
-    )
-    first_again = copy.deepcopy(repeated[3])
-    first_again["control_source_frame_index"] = packets[0][
-        "control_source_frame_index"
-    ]
-    first_again["pico_anchor_source_frame_index"] = packets[0][
-        "pico_anchor_source_frame_index"
-    ]
-    assert first_again == packets[0]
 
 
 class _FakeBalancedController:

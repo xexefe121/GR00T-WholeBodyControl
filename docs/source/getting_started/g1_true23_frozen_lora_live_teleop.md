@@ -89,10 +89,51 @@ tracking and holds the fallback policy.
 
 ## Physical G1 boundary
 
-This path is ready for live **PICO-to-MuJoCo** testing once the health probe
-passes. It is not a physical-robot deployment. There is deliberately no DDS,
-LowCmd, or robot-network option in the consumer. Physical G1 testing still
-requires a separate gantry qualification, hardware state watchdog, operator
-E-stop, command-rate and joint-limit enforcement, and an explicit promotion
-artifact. Do not bypass that boundary by connecting this simulator consumer
-to a robot command publisher.
+The simulator consumer above remains read-only. Do not connect it to a robot
+publisher. Physical control uses the separate promoted C++ controller plus a
+fresh hardware shadow and gantry-only active sidecar.
+
+Two managed Windows launchers now own the complete producer/controller
+lifecycle:
+
+- `run_g1_true23_frozen_lora_dance_gantry` replays the hash-bound original
+  SONIC dance clip. It repeats source values with new contiguous source indices
+  and exact 20 ms timestamps, so the READY window does not expire.
+- `run_g1_true23_frozen_lora_live_gantry` starts the real PICO/SOMA causal
+  producer first. It does not start the robot controller until publisher
+  evidence contains a fresh reference packet. Publisher loss sends SIGINT to
+  the controller and ends in fail-safe damping.
+
+Both launchers keep the controller-attached console visible. They do not
+auto-arm. After `[READY]`, hold L2 and press A once. L2 release, B/R2, app or
+physical e-stop, stale policy, state loss, source loss, a joint limit, or a
+command-write failure stops policy motion and writes the full reviewed damping
+tail.
+
+Example saved-dance launch after creating a fresh sidecar:
+
+```powershell
+python -m gear_sonic.scripts.run_g1_true23_frozen_lora_dance_gantry `
+  --repository-root Z:\codex\GR00T-WholeBodyControl-sonic-transfer-23dof `
+  --encoder Z:\codex\GR00T-WholeBodyControl\artifacts\g1_true23\causal_model_250_20260803\causal_model_250.encoder.onnx `
+  --decoder-report artifacts\g1_true23_frozen_lora\original_sonic_happy_residual_v1\candidate.plus_0p002.decoder.json `
+  --promotion artifacts\g1_true23_frozen_lora\physical_dance_v1\candidate.plus_0p002.dance_shadow_promotion.v2.json `
+  --active-promotion <fresh-active-sidecar.json> `
+  --live-shadow-evidence <fresh-shadow.jsonl> `
+  --packet-bundle artifacts\g1_true23_frozen_lora\physical_dance_v1\original_sonic_happy.true23.causal_packets.json `
+  --authorization-id <matching-id> `
+  --evidence <new-controller-evidence.jsonl> `
+  --publisher-evidence <new-publisher-evidence.json> `
+  --duration-seconds 5 `
+  --repeat-count 100 `
+  --gantry-authorize I_CONFIRM_G1_TRUE23_STAGE1_GANTRY
+```
+
+For live PICO, use `run_g1_true23_frozen_lora_live_gantry` with the same
+artifact arguments plus `--xrt-module-dir` and the installed hardened PICO APK
+SHA-256. Its pinned publisher Python defaults to the SOMA venv containing
+`pyzmq`; its raw capture worker remains `/usr/bin/python3` for the XRT binding
+ABI. A live-health probe on 2026-09-01 still reported no connected headset,
+trackers, calibration, or body stream. Saved-clip physical shadow passed, but
+live-headset physical teleoperation and an armed dance remain unproven until
+those external inputs are present and terminal execution evidence passes.

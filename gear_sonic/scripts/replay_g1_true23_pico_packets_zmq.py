@@ -184,6 +184,7 @@ def publish_timed_bundle(
     stale_delay_ms: int = 250,
     timestamp_offset_ns: int = 0,
     timestamp_now_ns: Callable[[], int] | None = None,
+    stop_file: Path | None = None,
 ) -> dict[str, Any]:
     if not bind.startswith("tcp://127.0.0.1:"):
         raise ValueError("timed PICO replay is restricted to localhost TCP")
@@ -212,9 +213,19 @@ def publish_timed_bundle(
     published_count = 0
     first_published_control_ns: int | None = None
     last_published_control_ns: int | None = None
+    last_published_source_frame_index: int | None = None
+    managed_stop_requested = False
     started_ns = time.perf_counter_ns()
     try:
-        time.sleep(subscriber_warmup_s)
+        warmup_deadline_ns = (
+            time.perf_counter_ns() + int(subscriber_warmup_s * 1_000_000_000)
+        )
+        while time.perf_counter_ns() < warmup_deadline_ns:
+            if stop_file is not None and stop_file.exists():
+                managed_stop_requested = True
+                break
+            remaining_s = (warmup_deadline_ns - time.perf_counter_ns()) / 1_000_000_000
+            time.sleep(min(max(remaining_s, 0.0), 0.05))
         first_schedule_ns = time.perf_counter_ns() + CONTROL_PERIOD_NS
         first_control_ns = (
             timestamp_now_ns() + CONTROL_PERIOD_NS
@@ -222,6 +233,11 @@ def publish_timed_bundle(
             else first_schedule_ns + timestamp_offset_ns
         )
         for offset, packet in enumerate(packets):
+            if managed_stop_requested or (
+                stop_file is not None and stop_file.exists()
+            ):
+                managed_stop_requested = True
+                break
             if fault == "timeout" and offset == fault_offset:
                 break
             if fault == "gap" and offset == fault_offset:
@@ -268,7 +284,11 @@ def publish_timed_bundle(
                 control_ns if first_published_control_ns is None else first_published_control_ns
             )
             last_published_control_ns = control_ns
-        time.sleep(0.1)
+            last_published_source_frame_index = int(
+                rebased["control_source_frame_index"]
+            )
+        if published_count > 0:
+            time.sleep(0.1)
     finally:
         socket.close()
         context.term()
@@ -285,14 +305,24 @@ def publish_timed_bundle(
         "first_published_control_monotonic_ns": first_published_control_ns,
         "last_published_control_monotonic_ns": last_published_control_ns,
         "first_control_source_frame_index": first_summary["control_index"],
-        "last_control_source_frame_index": validate_reference_terms(packets[-1])["control_index"],
+        "last_control_source_frame_index": last_published_source_frame_index,
+        "source_last_control_source_frame_index": validate_reference_terms(
+            packets[-1]
+        )["control_index"],
         "control_period_ns": CONTROL_PERIOD_NS,
-        "maximum_schedule_slip_ns": max(schedule_slips_ns),
-        "mean_schedule_slip_ns": sum(schedule_slips_ns) / len(schedule_slips_ns),
+        "maximum_schedule_slip_ns": (
+            max(schedule_slips_ns) if schedule_slips_ns else None
+        ),
+        "mean_schedule_slip_ns": (
+            sum(schedule_slips_ns) / len(schedule_slips_ns)
+            if schedule_slips_ns
+            else None
+        ),
         "wall_duration_ns": finished_ns - started_ns,
         "values_rebased": ["pico_anchor_monotonic_ns", "control_monotonic_ns"],
         "timestamp_clock_offset_ns": timestamp_offset_ns,
         "windows_high_resolution_timer": windows_timer_period_active,
+        "managed_stop_requested": managed_stop_requested,
         "pose_and_reference_values_unchanged": True,
         "diagnostic_fault": fault,
         "diagnostic_fault_offset": None if fault == "none" else fault_offset,
@@ -317,6 +347,7 @@ def main() -> int:
     parser.add_argument("--stale-delay-ms", type=int, default=250)
     parser.add_argument("--timestamp-clock", choices=("local", "wsl"), default="local")
     parser.add_argument("--repeat-count", type=int, default=1)
+    parser.add_argument("--stop-file", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     source_packets = load_reference_packets(args.packets)
@@ -338,6 +369,7 @@ def main() -> int:
                 stale_delay_ms=args.stale_delay_ms,
                 timestamp_offset_ns=clock_offset_ns,
                 timestamp_now_ns=clock_bridge.now_ns,
+                stop_file=args.stop_file,
             )
         finally:
             clock_bridge.close()
@@ -350,6 +382,7 @@ def main() -> int:
             fault_offset=args.fault_offset,
             stale_delay_ms=args.stale_delay_ms,
             timestamp_offset_ns=clock_offset_ns,
+            stop_file=args.stop_file,
         )
     report["timestamp_clock"] = args.timestamp_clock
     report["timestamp_clock_calibration_round_trip_ns"] = calibration_round_trip_ns
