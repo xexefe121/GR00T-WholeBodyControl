@@ -36,7 +36,7 @@ inline constexpr std::string_view kCausalReferenceTermsKind =
 inline constexpr std::string_view kCausalReferenceProfile =
     "true23_causal_step1_history_0p02s_v1";
 inline constexpr std::string_view kCausalReferenceContractSha256 =
-    "bd046467325fe7f7f585fd692f01223ed7a3b2742c51ed414072c98fe12806f7";
+    "e25aa962368c6dc8022d7574716f95c77f632fd255a7d010824ee5edc762669c";
 inline constexpr std::string_view kCausalDerivativeContract =
     "soma_il29_q_50hz_forward_difference_dq_v1";
 inline constexpr std::string_view kCausalRobotAnchorContract =
@@ -44,8 +44,13 @@ inline constexpr std::string_view kCausalRobotAnchorContract =
 inline constexpr int kSafeTargetDiagnosticSchemaVersion = 2;
 inline constexpr std::string_view kAppliedSafeNativeActionSemantics =
     "applied_safe_native_action";
+inline constexpr std::string_view kRawNativeActionSemantics =
+    "raw_native_action";
 inline constexpr std::string_view kSafeTargetTransformSha256 =
     "74f2277042da83e81ee8a37d90ba6e723bf6e0651ee9b9987ee7effc78fca516";
+inline constexpr std::string_view kExternalRawSafeTargetTransformSha256 =
+    "8313474d1050ca959152afebb2baaefdaad02ec53a1d1312b738192fdf4f449b";
+inline constexpr float kSafeTargetRawActionClip = 10.0F;
 inline constexpr std::size_t kCommandDim = 240;
 inline constexpr std::size_t kVrPositionDim = 9;
 inline constexpr std::size_t kVrOrientationDim = 12;
@@ -101,6 +106,23 @@ inline constexpr std::array<double, 23> kHardwareVelocityLimit = {
     32.0,
     37.0, 37.0, 37.0, 37.0, 37.0,
     37.0, 37.0, 37.0, 37.0, 37.0,
+};
+// Float32 capacities from g1_23dof_safe_target_transform.py v2. Keeping the
+// rounded float32 values here makes the native runtime operation-for-operation
+// equivalent to the transform used by training and MuJoCo qualification.
+inline constexpr std::array<float, 23> kSafeTargetPositiveCapacityHardware = {
+    2.90927505F, 2.78056502F, 2.46984005F, 2.05044675F, 0.804786503F,
+    0.223619998F, 2.90927505F, 0.337065011F, 2.46984005F, 2.05044675F,
+    0.804786503F, 0.223619998F, 2.3441999F, 2.17041993F, 1.84751499F,
+    2.3441999F, 1.32532001F, 1.76299798F, 2.17041993F, 1.58421504F,
+    2.3441999F, 1.32532001F, 1.76299798F,
+};
+inline constexpr std::array<float, 23> kSafeTargetNegativeCapacityHardware = {
+    1.93617499F, 0.337065011F, 2.46984005F, 0.595913649F, 0.427856505F,
+    0.223619998F, 1.93617499F, 2.78056502F, 2.46984005F, 0.595913649F,
+    0.427856505F, 0.223619998F, 2.3441999F, 2.9892199F, 1.58421504F,
+    2.3441999F, 1.47811997F, 1.76299798F, 2.9892199F, 1.84751499F,
+    2.3441999F, 1.47811997F, 1.76299798F,
 };
 inline constexpr std::array<double, 23> kPublicNative124ActionScale = {
     0.548, 0.548, 0.439, 0.351, 0.351, 0.439, 0.439, 0.548,
@@ -1048,6 +1070,43 @@ struct OutputAssessment {
   int target_slew_violations = 0;
 };
 
+struct SafeTargetTransformResult {
+  std::array<float, 23> applied_safe_native_action{};
+  std::array<float, 23> unbiased_hardware_target{};
+};
+
+// Exact external transform required by raw-action SONIC decoders. The
+// operation order and float32 intermediates match safe_target_transform_numpy:
+// clip native -> permute -> scale -> asymmetric tanh -> unscale -> unpermute.
+inline SafeTargetTransformResult RawNativeActionToAppliedSafeNativeAction(
+    const std::array<float, 23>& raw_native_action) {
+  if (!IsFinite(raw_native_action)) {
+    throw std::invalid_argument("raw native action is non-finite");
+  }
+  std::array<float, 23> clipped_native{};
+  for (std::size_t index = 0; index < clipped_native.size(); ++index) {
+    clipped_native[index] = std::clamp(
+        raw_native_action[index], -kSafeTargetRawActionClip,
+        kSafeTargetRawActionClip);
+  }
+  const auto raw_hardware = NativeToHardwareCompact(clipped_native);
+  std::array<float, 23> safe_hardware{};
+  SafeTargetTransformResult result;
+  for (std::size_t index = 0; index < safe_hardware.size(); ++index) {
+    const auto scale = static_cast<float>(kHardwareActionScale[index]);
+    const auto default_q = static_cast<float>(kHardwareDefaultQ[index]);
+    const auto delta = raw_hardware[index] * scale;
+    const auto capacity = delta >= 0.0F
+        ? kSafeTargetPositiveCapacityHardware[index]
+        : kSafeTargetNegativeCapacityHardware[index];
+    const auto safe_delta = capacity * std::tanh(delta / capacity);
+    result.unbiased_hardware_target[index] = default_q + safe_delta;
+    safe_hardware[index] = safe_delta / scale;
+  }
+  result.applied_safe_native_action = HardwareCompactToNative(safe_hardware);
+  return result;
+}
+
 // The V11 decoder already embeds the asymmetric tanh safe-target transform.
 // Deployment must therefore perform only the established native-to-hardware
 // permutation and affine target conversion. Applying tanh again would change
@@ -1123,15 +1182,25 @@ inline OutputAssessment AssessOutput(
     const std::array<float, 23>& native_action,
     const std::optional<std::array<float, 23>>&
         previous_native_action,
-    double dt_seconds) {
+    double dt_seconds,
+    double target_action_fraction = 1.0) {
   OutputAssessment result;
   result.finite = IsFinite(native_action);
   if (!result.finite) {
     return result;
   }
+  if (!std::isfinite(target_action_fraction) ||
+      target_action_fraction <= 0.0 || target_action_fraction > 1.0) {
+    throw std::invalid_argument("target action fraction is invalid");
+  }
   const auto hardware_action = NativeToHardwareCompact(native_action);
-  const auto hardware_targets =
-      AppliedSafeNativeActionToHardwareTargets(native_action);
+  std::array<double, 23> hardware_targets{};
+  for (std::size_t index = 0; index < hardware_targets.size(); ++index) {
+    hardware_targets[index] =
+        kHardwareDefaultQ[index] +
+        static_cast<double>(hardware_action[index]) *
+            kHardwareActionScale[index] * target_action_fraction;
+  }
   std::optional<std::array<double, 23>> previous_targets;
   if (previous_native_action.has_value()) {
     if (!IsFinite(*previous_native_action) ||
@@ -1139,8 +1208,15 @@ inline OutputAssessment AssessOutput(
       throw std::invalid_argument(
           "previous action or output sample period is invalid");
     }
-    previous_targets = AppliedSafeNativeActionToHardwareTargets(
-        *previous_native_action);
+    const auto previous_hardware_action =
+        NativeToHardwareCompact(*previous_native_action);
+    previous_targets.emplace();
+    for (std::size_t index = 0; index < previous_targets->size(); ++index) {
+      (*previous_targets)[index] =
+          kHardwareDefaultQ[index] +
+          static_cast<double>(previous_hardware_action[index]) *
+              kHardwareActionScale[index] * target_action_fraction;
+    }
     result.slew_checked = true;
   }
   for (std::size_t index = 0; index < hardware_action.size(); ++index) {

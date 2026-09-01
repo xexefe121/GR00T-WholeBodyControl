@@ -321,10 +321,71 @@ void TestOutputAssessment() {
           assessment.target_slew_violations == 0,
       "small output within physical bounds");
 
+  action.fill(0.0F);
+  previous.fill(0.0F);
+  action[0] = 5.0F;
+  const auto full_amplitude =
+      live::AssessOutput(action, previous, 0.02, 1.0);
+  const auto stage_one =
+      live::AssessOutput(action, previous, 0.02, 0.10);
+  Require(
+      full_amplitude.target_slew_violations > 0,
+      "full-amplitude target exposes slew spike");
+  Require(
+      stage_one.target_slew_violations == 0 &&
+          std::abs(stage_one.target_slew_ratio_max * 10.0 -
+                   full_amplitude.target_slew_ratio_max) < 1e-6,
+      "stage-one assessment applies exact ten-percent target envelope");
+
   action[0] = std::numeric_limits<float>::quiet_NaN();
   assessment =
       live::AssessOutput(action, previous, 0.02);
   Require(!assessment.finite, "non-finite output rejected");
+}
+
+void TestExternalRawSafeTargetTransformV2() {
+  const std::array<float, 23> raw = {
+      -12.0F, -5.0F, -2.0F, -1.0F, -0.5F, -0.1F, 0.0F, 0.1F,
+      0.5F, 1.0F, 2.0F, 5.0F, 12.0F, -3.25F, 4.75F, -9.0F,
+      8.0F, -0.25F, 0.75F, -6.0F, 3.0F, -7.0F, 9.0F,
+  };
+  const std::array<float, 23> expected_safe = {
+      -3.49639726F, -3.1319108F, -1.86507809F, -0.748520911F,
+      -0.499340951F, -0.099992767F, 0.0F, 0.0999834687F,
+      0.497943968F, 0.981512964F, 1.81686497F, 4.0591774F,
+      5.48507166F, -2.89902163F, 3.79421759F, -0.972401083F,
+      1.82847941F, -0.249539524F, 0.734875083F, -0.508227289F,
+      0.508219659F, -3.7705555F, 3.9180994F,
+  };
+  const std::array<float, 23> expected_target = {
+      -2.23501849F, -0.261982322F, 0.05499091F, 2.08971214F,
+      -0.790856481F, -0.223619998F, -2.03455091F, -0.174769327F,
+      0.273869187F, 2.58877516F, 0.441530913F, 0.22361666F,
+      -1.02579296F, 0.156003177F, 0.63186568F, -1.27556956F,
+      0.490202636F, -1.65904438F, 0.200000003F, 0.599420607F,
+      1.66945577F, 0.923345089F, 1.72396374F,
+  };
+  const auto transformed =
+      live::RawNativeActionToAppliedSafeNativeAction(raw);
+  for (std::size_t index = 0; index < raw.size(); ++index) {
+    Require(
+        std::abs(transformed.applied_safe_native_action[index] -
+                 expected_safe[index]) <= 2e-6F,
+        "raw safe-target applied-action parity");
+    Require(
+        std::abs(transformed.unbiased_hardware_target[index] -
+                 expected_target[index]) <= 2e-6F,
+        "raw safe-target hardware-target parity");
+  }
+  std::array<float, 23> non_finite{};
+  non_finite[7] = std::numeric_limits<float>::infinity();
+  bool rejected = false;
+  try {
+    (void)live::RawNativeActionToAppliedSafeNativeAction(non_finite);
+  } catch (const std::invalid_argument&) {
+    rejected = true;
+  }
+  Require(rejected, "raw safe-target rejects non-finite decoder output");
 }
 
 void TestNative124RejectedFrameDiagnosticGate() {
@@ -437,6 +498,7 @@ int main() {
     TestCausalReferenceJsonParser();
     TestTermMajorHistoryAndFixedSlots();
     TestOutputAssessment();
+    TestExternalRawSafeTargetTransformV2();
     TestNative124RejectedFrameDiagnosticGate();
     TestV11SafeOutputContractAndNoDoubleTransform();
     std::cout << "true23 live-shadow core harness: PASS\n";

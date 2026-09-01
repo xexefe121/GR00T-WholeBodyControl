@@ -88,6 +88,7 @@ struct LiveShadowEvidenceBinding {
   std::string promotion_sha256;
   std::string network;
   std::string pico_endpoint;
+  bool external_safe_target_transform_applied = false;
 };
 
 struct LiveShadowEvidenceSummary {
@@ -234,7 +235,8 @@ inline LiveShadowEvidenceSummary ValidateLiveShadowEvidenceJsonl(
       session.at("artifact_class") != "promoted_shadow" ||
       session.at("decoder_output_semantics") !=
           live::kAppliedSafeNativeActionSemantics ||
-      session.at("external_safe_target_transform_applied") != false ||
+      session.at("external_safe_target_transform_applied") !=
+          binding.external_safe_target_transform_applied ||
       session.at("encoder_sha256") != binding.encoder_sha256 ||
       session.at("decoder_sha256") != binding.decoder_sha256 ||
       session.at("metadata_sha256") != binding.metadata_sha256 ||
@@ -397,7 +399,8 @@ inline LiveShadowEvidenceSummary ValidateLiveShadowEvidenceJsonl(
                 "target_slew_violations") != 0 ||
         frame_record.at("decoder_output_semantics") !=
             live::kAppliedSafeNativeActionSemantics ||
-        frame_record.at("external_safe_target_transform_applied") != false ||
+        frame_record.at("external_safe_target_transform_applied") !=
+            binding.external_safe_target_transform_applied ||
         frame_record.at("sdk_derivatives_consumed") != false ||
         frame_record.at("accepted") != true) {
       reject("action frame numeric/safety contract failed");

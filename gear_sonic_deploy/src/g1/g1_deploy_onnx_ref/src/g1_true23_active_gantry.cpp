@@ -24,6 +24,7 @@
 #include <atomic>
 #include <chrono>
 #include <cerrno>
+#include <cmath>
 #include <condition_variable>
 #include <csignal>
 #include <cstdint>
@@ -55,6 +56,28 @@ using nlohmann::json;
 
 inline constexpr std::string_view kLowStateTopic = "rt/lowstate";
 inline constexpr std::string_view kLowCmdTopic = "rt/lowcmd";
+inline constexpr std::string_view kFrozenLoraKind =
+    "g1_true23_frozen_lora_happy_residual_diagnostic_decoder_onnx";
+inline constexpr std::string_view kFrozenLoraPromotionKind =
+    "g1_true23_frozen_lora_dance_shadow_admission_v1";
+inline constexpr std::string_view kFrozenLoraActivePromotionKind =
+    "g1_true23_frozen_lora_dance_gantry_active_promotion_v1";
+inline constexpr std::string_view kFrozenLoraEncoderSha256 =
+    "733353148bef1eb8dd83a96416b7a89f0b5c3530ceb9e0cec9c25fdb04f56ff2";
+inline constexpr std::string_view kFrozenLoraDecoderSha256 =
+    "44d1fb2701f1e65460f1c2c23f676bce4f1d4a44b3b112798dc5034af37946b8";
+inline constexpr std::string_view kFrozenLoraReportSha256 =
+    "02197e5682a9bddc8f11aa6fa9c32ba909b97ec7d1c316c9a0d660cba2d25b7d";
+inline constexpr std::string_view kFrozenLoraSummarySha256 =
+    "ed3f5513ed7da8625195b37b674163d64948697d311722ad936be3f4668db801";
+inline constexpr std::string_view kFrozenLoraHappyReportSha256 =
+    "bcd674314a48f86ce111ea13a5389ac0acf7a9549ffef6de9f45a059014a1a4f";
+inline constexpr std::string_view kFrozenLoraHappyTrajectorySha256 =
+    "b5d415dacfcd175da08fefeac54cabeb9387e912ec78f49e126a14d65913b697";
+inline constexpr std::string_view kFrozenLoraLiveQualificationSha256 =
+    "ab1b8493d20d5a4e92b2e432f7ab5eeb8c16862115ff3b9c579d7b1781216d35";
+inline constexpr std::string_view kFrozenLoraPacketBundleSha256 =
+    "237910ad5dfc370db9645e52f08ba0ca3b0f409a1383d692e1ce1937c5e3dc9d";
 inline constexpr int kStateGateTimeoutSeconds = 8;
 inline constexpr int kFaultDampingCycles = 250;
 [[gnu::used]] const char kCompiledCausalRuntimeSurface[] =
@@ -103,6 +126,7 @@ struct Arguments {
   std::string authorization_id;
   std::string gantry_authorization;
   int post_arm_duration_seconds = 0;
+  bool frozen_lora_dance = false;
   bool validate_only = false;
   bool execute_stage_one = false;
   bool help = false;
@@ -117,6 +141,7 @@ std::string Usage(std::string_view executable) {
       " --active-promotion <gantry-active-promotion.json>"
       " --live-shadow-evidence <passed-shadow.jsonl>"
       " --authorization-id <session-id>"
+      " [--frozen-lora-dance]"
       " [--validate-only | --network <interface>"
       " --pico-endpoint <tcp://host:port> --execute-stage-one"
       " --evidence <new.jsonl> --post-arm-duration-seconds <20..30>"
@@ -185,6 +210,8 @@ Arguments ParseArguments(int argc, char** argv) {
       }
     } else if (option == "--validate-only") {
       result.validate_only = true;
+    } else if (option == "--frozen-lora-dance") {
+      result.frozen_lora_dance = true;
     } else if (option == "--execute-stage-one") {
       result.execute_stage_one = true;
     } else {
@@ -231,12 +258,17 @@ Arguments ParseArguments(int argc, char** argv) {
   if (result.execution_evidence.empty()) {
     throw std::runtime_error("--evidence is required for stage-one execution");
   }
-  if (result.post_arm_duration_seconds <
-          active::kMinimumStageOnePostArmSeconds ||
-      result.post_arm_duration_seconds >
-          active::kMaximumStageOnePostArmSeconds) {
-    throw std::runtime_error(
-        "--post-arm-duration-seconds must be within reviewed 20..30 range");
+  const int minimum_duration = result.frozen_lora_dance
+                                   ? 1
+                                   : active::kMinimumStageOnePostArmSeconds;
+  const int maximum_duration = result.frozen_lora_dance
+                                   ? 10
+                                   : active::kMaximumStageOnePostArmSeconds;
+  if (result.post_arm_duration_seconds < minimum_duration ||
+      result.post_arm_duration_seconds > maximum_duration) {
+    throw std::runtime_error(result.frozen_lora_dance
+        ? "--post-arm-duration-seconds must be within dance-reviewed 1..10 range"
+        : "--post-arm-duration-seconds must be within reviewed 20..30 range");
   }
   if (!result.pico_endpoint.starts_with("tcp://") &&
       !result.pico_endpoint.starts_with("ipc://")) {
@@ -330,8 +362,10 @@ Ort::SessionOptions SessionOptions() {
 
 class OnnxModel {
  public:
-  OnnxModel(Ort::Env& environment, fs::path path)
+  OnnxModel(Ort::Env& environment, fs::path path,
+            bool allow_missing_metadata = false)
       : path_(std::move(path)),
+        allow_missing_metadata_(allow_missing_metadata),
         options_(SessionOptions()),
         session_(environment, path_.c_str(), options_) {
     Inspect();
@@ -398,6 +432,10 @@ class OnnxModel {
         true23::InspectDefaultOnnxOpsetsFile(path_.string());
     auto metadata = session_.GetModelMetadata();
     auto metadata_keys = metadata.GetCustomMetadataMapKeysAllocated(allocator);
+    if (allow_missing_metadata_ && metadata_keys.empty()) {
+      embedded_ = json::object();
+      return;
+    }
     if (metadata_keys.size() != 1 || !metadata_keys.front() ||
         std::string_view(metadata_keys.front().get()) !=
             true23::kOnnxMetadataKey) {
@@ -412,6 +450,7 @@ class OnnxModel {
   }
 
   fs::path path_;
+  bool allow_missing_metadata_ = false;
   Ort::SessionOptions options_;
   Ort::Session session_;
   true23::ModelSignature signature_;
@@ -977,6 +1016,227 @@ std::string RequireSha256(const json& value, std::string_view context) {
   return result;
 }
 
+void ValidateFrozenLoraShadowAdmission(
+    const LoadedArtifacts& files,
+    const OnnxModel& encoder,
+    const OnnxModel& decoder) {
+  if (files.encoder_sha != kFrozenLoraEncoderSha256 ||
+      files.decoder_sha != kFrozenLoraDecoderSha256 ||
+      files.metadata_sha != kFrozenLoraReportSha256) {
+    throw std::runtime_error("frozen-LoRA selected artifact SHA-256 mismatch");
+  }
+  const auto& report = files.candidate_json;
+  RequireExactKeys(
+      report,
+      {"active_motor_control_authorized", "closed_loop_happy_dance_passed",
+       "decoder", "deployment_ready", "diagnostic_only",
+       "hardware_authorized", "kind", "promotion_eligible",
+       "robot_network_commands", "schema_version", "source"},
+      "frozen-LoRA decoder report");
+  const auto& graph = report.at("decoder");
+  RequireExactKeys(
+      graph,
+      {"filename", "input_name", "input_shape", "opset", "output_name",
+       "output_shape", "sha256"},
+      "frozen-LoRA decoder graph");
+  if (report.at("schema_version") != 1 ||
+      report.at("kind") != kFrozenLoraKind ||
+      report.at("closed_loop_happy_dance_passed") != true ||
+      report.at("diagnostic_only") != true ||
+      report.at("deployment_ready") != false ||
+      report.at("promotion_eligible") != false ||
+      report.at("hardware_authorized") != false ||
+      report.at("active_motor_control_authorized") != false ||
+      report.at("robot_network_commands") != false ||
+      graph.at("filename") != files.decoder.filename().string() ||
+      graph.at("input_name") != "obs_dict" ||
+      graph.at("input_shape") != json::array({1, 994}) ||
+      graph.at("output_name") != "action" ||
+      graph.at("output_shape") != json::array({1, 23}) ||
+      graph.at("opset") != 13 || graph.at("sha256") != files.decoder_sha) {
+    throw std::runtime_error("frozen-LoRA decoder report contract mismatch");
+  }
+  std::vector<std::string> signature_errors;
+  true23::ValidatePairModelSignatures(
+      encoder.signature(), decoder.signature(), signature_errors);
+  if (!signature_errors.empty()) {
+    throw std::runtime_error(signature_errors.front());
+  }
+  if (!decoder.embedded().empty()) {
+    throw std::runtime_error(
+        "selected frozen-LoRA decoder unexpectedly gained embedded metadata");
+  }
+  const auto& promotion = files.promotion_json;
+  RequireExactKeys(
+      promotion,
+      {"schema_version", "kind", "robot_model", "required_mode_machine",
+       "native_action_dof", "deployment_bytes_authorized_for_shadow",
+       "active_motor_control_authorized", "gantry_or_rated_support_required",
+       "free_standing_authorized", "reference_profile",
+       "decoder_output_semantics", "runtime_policy_semantics",
+       "external_safe_target_transform_required",
+       "safe_target_transform_sha256",
+       "source_artifacts", "qualification", "stage_one_envelope",
+       "promotion_payload_sha256"},
+      "frozen-LoRA dance shadow admission");
+  if (promotion.at("schema_version") != 1 ||
+      promotion.at("kind") != kFrozenLoraPromotionKind ||
+      promotion.at("robot_model") != true23::kRobotModel ||
+      promotion.at("required_mode_machine") != true23::kRequiredModeMachine ||
+      promotion.at("native_action_dof") != true23::kDecoderOutputDim ||
+      promotion.at("deployment_bytes_authorized_for_shadow") != true ||
+      promotion.at("active_motor_control_authorized") != false ||
+      promotion.at("gantry_or_rated_support_required") != true ||
+      promotion.at("free_standing_authorized") != false ||
+      promotion.at("reference_profile") != live::kCausalReferenceProfile ||
+      promotion.at("decoder_output_semantics") !=
+          live::kRawNativeActionSemantics ||
+      promotion.at("runtime_policy_semantics") !=
+          live::kAppliedSafeNativeActionSemantics ||
+      promotion.at("external_safe_target_transform_required") != true ||
+      promotion.at("safe_target_transform_sha256") !=
+          live::kExternalRawSafeTargetTransformSha256) {
+    throw std::runtime_error("frozen-LoRA shadow admission contract mismatch");
+  }
+  const auto& source = promotion.at("source_artifacts");
+  RequireExactKeys(
+      source,
+      {"encoder_sha256", "decoder_sha256", "decoder_report_sha256",
+       "candidate_summary_sha256", "happy_dance_report_sha256",
+       "happy_dance_trajectory_sha256", "live_qualification_sha256",
+       "packet_bundle_sha256"},
+      "frozen-LoRA source artifacts");
+  if (source.at("encoder_sha256") != kFrozenLoraEncoderSha256 ||
+      source.at("decoder_sha256") != kFrozenLoraDecoderSha256 ||
+      source.at("decoder_report_sha256") != kFrozenLoraReportSha256 ||
+      source.at("candidate_summary_sha256") != kFrozenLoraSummarySha256 ||
+      source.at("happy_dance_report_sha256") != kFrozenLoraHappyReportSha256 ||
+      source.at("happy_dance_trajectory_sha256") !=
+          kFrozenLoraHappyTrajectorySha256 ||
+      source.at("live_qualification_sha256") !=
+          kFrozenLoraLiveQualificationSha256 ||
+      source.at("packet_bundle_sha256") != kFrozenLoraPacketBundleSha256) {
+    throw std::runtime_error("frozen-LoRA admission source binding mismatch");
+  }
+  const auto& qualification = promotion.at("qualification");
+  if (qualification.value("happy_dance_passed", false) != true ||
+      qualification.value("happy_dance_completed_transitions", 0) != 535 ||
+      qualification.value("saved_pico_walk001_completed_transitions", 0) != 684 ||
+      qualification.value("software_live_transport_fault_drills_passed", false) !=
+          true) {
+    throw std::runtime_error("frozen-LoRA dance qualification mismatch");
+  }
+  const auto& envelope = promotion.at("stage_one_envelope");
+  if (envelope.value("action_fraction", 0.0) != 0.10 ||
+      envelope.value("maximum_target_rate_rad_per_second", 0.0) != 0.25 ||
+      envelope.value("maximum_post_arm_duration_seconds", 0) != 10 ||
+      envelope.value("wireless_deadman_required", false) != true ||
+      envelope.value("wireless_stop_required", false) != true) {
+    throw std::runtime_error("frozen-LoRA stage-one envelope mismatch");
+  }
+  const auto expected = RequireSha256(
+      promotion.at("promotion_payload_sha256"), "promotion payload");
+  auto unhashed = promotion;
+  unhashed.erase("promotion_payload_sha256");
+  if (true23::Sha256CanonicalJson(unhashed) != expected) {
+    throw std::runtime_error("frozen-LoRA promotion payload hash mismatch");
+  }
+}
+
+active::ActiveArtifactBinding ParseFrozenLoraActivePromotion(
+    const LoadedArtifacts& files,
+    const Arguments& arguments) {
+  const auto& root = files.active_json;
+  RequireExactKeys(
+      root,
+      {"schema_version", "kind", "robot_model", "required_mode_machine",
+       "native_action_dof", "deployment_ready",
+       "active_motor_control_authorized", "gantry_authorized",
+       "free_standing_authorized", "decoder_output_semantics",
+       "runtime_policy_semantics", "previous_action_semantics",
+       "external_safe_target_transform_required",
+       "safe_target_transform_sha256", "source_promotion_sha256",
+       "encoder_sha256", "decoder_sha256", "decoder_report_sha256",
+       "live_shadow_evidence_sha256", "authorization_id",
+       "stage_one_envelope", "promotion_payload_sha256"},
+      "frozen-LoRA active promotion");
+  if (root.at("schema_version") != 1 ||
+      root.at("kind") != kFrozenLoraActivePromotionKind ||
+      root.at("robot_model") != true23::kRobotModel ||
+      root.at("required_mode_machine") != true23::kRequiredModeMachine ||
+      root.at("native_action_dof") != true23::kDecoderOutputDim ||
+      root.at("deployment_ready") != true ||
+      root.at("active_motor_control_authorized") != true ||
+      root.at("gantry_authorized") != true ||
+      root.at("free_standing_authorized") != false ||
+      root.at("decoder_output_semantics") !=
+          live::kRawNativeActionSemantics ||
+      root.at("runtime_policy_semantics") !=
+          live::kAppliedSafeNativeActionSemantics ||
+      root.at("previous_action_semantics") !=
+          live::kAppliedSafeNativeActionSemantics ||
+      root.at("external_safe_target_transform_required") != true ||
+      root.at("safe_target_transform_sha256") !=
+          live::kExternalRawSafeTargetTransformSha256 ||
+      root.at("source_promotion_sha256") != files.promotion_sha ||
+      root.at("encoder_sha256") != files.encoder_sha ||
+      root.at("decoder_sha256") != files.decoder_sha ||
+      root.at("decoder_report_sha256") != files.metadata_sha ||
+      root.at("live_shadow_evidence_sha256") !=
+          files.live_shadow_evidence_sha ||
+      root.at("authorization_id") != arguments.authorization_id) {
+    throw std::runtime_error("frozen-LoRA active promotion binding mismatch");
+  }
+  const auto& envelope = root.at("stage_one_envelope");
+  if (envelope.value("action_fraction", 0.0) !=
+          active::kStageOneActionFraction ||
+      envelope.value("maximum_target_rate_rad_per_second", 0.0) !=
+          active::kStageOneTargetRateRadPerSecond ||
+      envelope.value("maximum_post_arm_duration_seconds", 0) != 10 ||
+      envelope.value("wireless_deadman_required", false) != true ||
+      envelope.value("wireless_stop_required", false) != true) {
+    throw std::runtime_error("frozen-LoRA active stage-one envelope mismatch");
+  }
+  const auto expected = RequireSha256(
+      root.at("promotion_payload_sha256"), "active promotion payload");
+  auto unhashed = root;
+  unhashed.erase("promotion_payload_sha256");
+  if (true23::Sha256CanonicalJson(unhashed) != expected) {
+    throw std::runtime_error("frozen-LoRA active promotion payload hash mismatch");
+  }
+  return {
+      .base_promotion_valid = true,
+      .stage = active::ArtifactStage::MujocoPromotion,
+      .decoder_output_dim = 23,
+      .mode_machine = 4,
+      .action_clip_value = 20.0,
+      .deployment_ready = true,
+      .active_motor_control_authorized = true,
+      .gantry_authorized = true,
+      .free_standing_authorized = false,
+      .decoder_output_semantics =
+          std::string(live::kAppliedSafeNativeActionSemantics),
+      .previous_action_semantics =
+          std::string(live::kAppliedSafeNativeActionSemantics),
+      .external_safe_target_transform_allowed = false,
+      .safe_target_transform_sha256 =
+          std::string(live::kSafeTargetTransformSha256),
+      .source_promotion_sha256 = files.promotion_sha,
+      .checkpoint_sha256 = std::string(kFrozenLoraSummarySha256),
+      .lineage_sha256 = std::string(kFrozenLoraReportSha256),
+      .policy_state_sha256 = files.decoder_sha,
+      .encoder_onnx_sha256 = files.encoder_sha,
+      .decoder_onnx_sha256 = files.decoder_sha,
+      .metadata_sha256 = files.metadata_sha,
+      .full_campaign_aggregate_sha256 =
+          std::string(kFrozenLoraHappyReportSha256),
+      .full_campaign_shard_manifest_sha256 =
+          std::string(kFrozenLoraPacketBundleSha256),
+      .live_shadow_evidence_sha256 = files.live_shadow_evidence_sha,
+      .authorization_id = arguments.authorization_id,
+  };
+}
+
 void ValidateCausalDiagnosticPair(
     const LoadedArtifacts& files,
     const OnnxModel& encoder,
@@ -1295,54 +1555,69 @@ void ValidateCausalMujocoPromotion(
 
 int Run(const Arguments& arguments) {
   auto files = LoadArtifacts(arguments);
+  const bool frozen_lora_dance =
+      files.candidate_json.value("kind", std::string{}) == kFrozenLoraKind;
+  if (frozen_lora_dance != arguments.frozen_lora_dance) {
+    throw std::runtime_error(
+        "--frozen-lora-dance must exactly match selected artifact class");
+  }
   Ort::Env environment(ORT_LOGGING_LEVEL_WARNING, "g1_true23_active_gantry");
   OnnxModel encoder(environment, files.encoder);
-  OnnxModel decoder(environment, files.decoder);
+  OnnxModel decoder(environment, files.decoder, frozen_lora_dance);
 
-  ValidateCausalDiagnosticPair(files, encoder, decoder);
-  ValidateCausalMujocoPromotion(files);
+  if (frozen_lora_dance) {
+    ValidateFrozenLoraShadowAdmission(files, encoder, decoder);
+  } else {
+    ValidateCausalDiagnosticPair(files, encoder, decoder);
+    ValidateCausalMujocoPromotion(files);
+  }
   const auto shadow_summary = active::ValidateLiveShadowEvidenceJsonl(
       files.live_shadow_evidence_bytes,
       {
           .encoder_sha256 = files.encoder_sha,
           .decoder_sha256 = files.decoder_sha,
           .metadata_sha256 = files.metadata_sha,
-          .promotion_sha256 = files.promotion_sha,
-          .network = arguments.network,
-          .pico_endpoint = arguments.pico_endpoint,
-      });
+           .promotion_sha256 = files.promotion_sha,
+           .network = arguments.network,
+           .pico_endpoint = arguments.pico_endpoint,
+           .external_safe_target_transform_applied = frozen_lora_dance,
+       });
   const bool causal_reference_artifact = true;
-  auto artifact = active::ParseActivePromotion(
-      files.active_json, true, files.promotion_sha,
-      files.encoder_sha, files.decoder_sha, files.metadata_sha,
-      files.live_shadow_evidence_sha);
+  auto artifact = frozen_lora_dance
+      ? ParseFrozenLoraActivePromotion(files, arguments)
+      : active::ParseActivePromotion(
+            files.active_json, true, files.promotion_sha,
+            files.encoder_sha, files.decoder_sha, files.metadata_sha,
+            files.live_shadow_evidence_sha);
   if (artifact.authorization_id != arguments.authorization_id) {
     throw std::runtime_error(
         "operator authorization-id does not match active promotion");
   }
-  const auto& candidate_hashes = files.candidate_json.at("hashes");
-  const auto& promotion_source =
-      files.promotion_json.at("source_artifact");
-  const auto& campaign =
-      files.promotion_json.at("full_campaign_evidence");
-  if (artifact.checkpoint_sha256 !=
-          candidate_hashes.at("checkpoint_sha256") ||
-      artifact.lineage_sha256 != candidate_hashes.at("lineage_sha256") ||
-      artifact.policy_state_sha256 !=
-          candidate_hashes.at("policy_state_sha256") ||
-      artifact.safe_target_transform_sha256 !=
-          candidate_hashes.at("safe_target_transform_sha256") ||
-      artifact.checkpoint_sha256 !=
-          promotion_source.at("checkpoint_sha256") ||
-      artifact.lineage_sha256 != promotion_source.at("lineage_sha256") ||
-      artifact.policy_state_sha256 !=
-          promotion_source.at("policy_state_sha256") ||
-      artifact.full_campaign_aggregate_sha256 !=
-          campaign.at("aggregate_report_sha256") ||
-      artifact.full_campaign_shard_manifest_sha256 !=
-          campaign.at("shard_manifest_sha256")) {
-    throw std::runtime_error(
-        "active promotion material/campaign binding mismatch");
+  if (!frozen_lora_dance) {
+    const auto& candidate_hashes = files.candidate_json.at("hashes");
+    const auto& promotion_source =
+        files.promotion_json.at("source_artifact");
+    const auto& campaign =
+        files.promotion_json.at("full_campaign_evidence");
+    if (artifact.checkpoint_sha256 !=
+            candidate_hashes.at("checkpoint_sha256") ||
+        artifact.lineage_sha256 != candidate_hashes.at("lineage_sha256") ||
+        artifact.policy_state_sha256 !=
+            candidate_hashes.at("policy_state_sha256") ||
+        artifact.safe_target_transform_sha256 !=
+            candidate_hashes.at("safe_target_transform_sha256") ||
+        artifact.checkpoint_sha256 !=
+            promotion_source.at("checkpoint_sha256") ||
+        artifact.lineage_sha256 != promotion_source.at("lineage_sha256") ||
+        artifact.policy_state_sha256 !=
+            promotion_source.at("policy_state_sha256") ||
+        artifact.full_campaign_aggregate_sha256 !=
+            campaign.at("aggregate_report_sha256") ||
+        artifact.full_campaign_shard_manifest_sha256 !=
+            campaign.at("shard_manifest_sha256")) {
+      throw std::runtime_error(
+          "active promotion material/campaign binding mismatch");
+    }
   }
   const auto active_errors = active::ValidateActiveArtifactBinding(artifact);
   if (!active_errors.empty()) {
@@ -1359,7 +1634,9 @@ int Run(const Arguments& arguments) {
   VerifyFilesUnchanged(files);
   if (arguments.validate_only) {
     std::cout
-        << "[PASS] exact True23 causal gantry promotion and "
+        << "[PASS] exact True23 "
+        << (frozen_lora_dance ? "frozen-LoRA dance" : "causal")
+        << " gantry promotion and "
         << shadow_summary.action_frames
         << "-frame promoted shadow PASS validated; no DDS, motion-mode "
            "client, or LowCmd publisher was created.\n";
@@ -1577,9 +1854,24 @@ int Run(const Arguments& arguments) {
                         true23::kEncoderOutputDim>(encoder_input);
         const auto decoder_input =
             live::BuildDecoderInput(live_token, history.Flatten());
-        const auto action =
+        const auto decoder_action =
             decoder.Run<true23::kDecoderInputDim,
                         true23::kDecoderOutputDim>(decoder_input);
+        if (frozen_lora_dance) {
+          double raw_max_abs = 0.0;
+          for (const auto value : decoder_action) {
+            raw_max_abs = std::max(
+                raw_max_abs, std::abs(static_cast<double>(value)));
+          }
+          if (!std::isfinite(raw_max_abs) || raw_max_abs > 20.0) {
+            throw std::runtime_error(
+                "raw SONIC decoder action exceeded finite magnitude gate");
+          }
+        }
+        const auto action = frozen_lora_dance
+            ? live::RawNativeActionToAppliedSafeNativeAction(decoder_action)
+                  .applied_safe_native_action
+            : decoder_action;
         bool policy_ready = false;
         monitor.WithCore([&](active::GantrySafetyCore& value) {
           value.SubmitPolicy(

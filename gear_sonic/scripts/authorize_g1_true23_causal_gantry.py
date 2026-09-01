@@ -29,7 +29,7 @@ EVIDENCE_SCHEMA_VERSION = 1
 EVIDENCE_KIND = "g1_true23_integrated_live_shadow_evidence"
 REFERENCE_PROFILE = "true23_causal_step1_history_0p02s_v1"
 REFERENCE_CONTRACT_SHA256 = (
-    "bd046467325fe7f7f585fd692f01223ed7a3b2742c51ed414072c98fe12806f7"
+    "e25aa962368c6dc8022d7574716f95c77f632fd255a7d010824ee5edc762669c"
 )
 SAFE_TARGET_TRANSFORM_SHA256 = (
     "74f2277042da83e81ee8a37d90ba6e723bf6e0651ee9b9987ee7effc78fca516"
@@ -210,6 +210,7 @@ def validate_causal_live_shadow_evidence(
     encoder_path: Path,
     decoder_path: Path,
     metadata_path: Path,
+    external_safe_target_transform_applied: bool = False,
 ) -> Mapping[str, Any]:
     """Validate promoted causal JSONL shadow PASS and return computed summary."""
 
@@ -228,7 +229,7 @@ def validate_causal_live_shadow_evidence(
         "reference_contract_sha256": REFERENCE_CONTRACT_SHA256,
         "artifact_class": "promoted_shadow",
         "decoder_output_semantics": APPLIED_SAFE_NATIVE_ACTION,
-        "external_safe_target_transform_applied": False,
+        "external_safe_target_transform_applied": external_safe_target_transform_applied,
         "encoder_sha256": sha256_file(_regular_file(encoder_path, "encoder ONNX")),
         "decoder_sha256": sha256_file(_regular_file(decoder_path, "decoder ONNX")),
         "metadata_sha256": sha256_file(_regular_file(metadata_path, "metadata")),
@@ -343,7 +344,8 @@ def validate_causal_live_shadow_evidence(
             != 0
             or record["sdk_derivatives_consumed"] is not False
             or record["decoder_output_semantics"] != APPLIED_SAFE_NATIVE_ACTION
-            or record["external_safe_target_transform_applied"] is not False
+            or record["external_safe_target_transform_applied"]
+            is not external_safe_target_transform_applied
             or record["accepted"] is not True
         ):
             raise ValueError("live-shadow action safety gate failed")

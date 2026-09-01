@@ -30,6 +30,7 @@
 #include <limits>
 #include <memory>
 #include <mutex>
+#include <numeric>
 #include <optional>
 #include <stdexcept>
 #include <string>
@@ -57,6 +58,26 @@ inline constexpr std::int64_t kPicoFreshnessNs = 100'000'000;
 inline constexpr std::int64_t kFutureClockToleranceNs = 5'000'000;
 inline constexpr std::int64_t kInferenceDeadlineNs = 20'000'000;
 inline constexpr std::int64_t kHistoryWarmupSpanNs = 40'000'000;
+inline constexpr std::string_view kFrozenLoraKind =
+    "g1_true23_frozen_lora_happy_residual_diagnostic_decoder_onnx";
+inline constexpr std::string_view kFrozenLoraPromotionKind =
+    "g1_true23_frozen_lora_dance_shadow_admission_v1";
+inline constexpr std::string_view kFrozenLoraEncoderSha256 =
+    "733353148bef1eb8dd83a96416b7a89f0b5c3530ceb9e0cec9c25fdb04f56ff2";
+inline constexpr std::string_view kFrozenLoraDecoderSha256 =
+    "44d1fb2701f1e65460f1c2c23f676bce4f1d4a44b3b112798dc5034af37946b8";
+inline constexpr std::string_view kFrozenLoraReportSha256 =
+    "02197e5682a9bddc8f11aa6fa9c32ba909b97ec7d1c316c9a0d660cba2d25b7d";
+inline constexpr std::string_view kFrozenLoraSummarySha256 =
+    "ed3f5513ed7da8625195b37b674163d64948697d311722ad936be3f4668db801";
+inline constexpr std::string_view kFrozenLoraHappyReportSha256 =
+    "bcd674314a48f86ce111ea13a5389ac0acf7a9549ffef6de9f45a059014a1a4f";
+inline constexpr std::string_view kFrozenLoraHappyTrajectorySha256 =
+    "b5d415dacfcd175da08fefeac54cabeb9387e912ec78f49e126a14d65913b697";
+inline constexpr std::string_view kFrozenLoraLiveQualificationSha256 =
+    "ab1b8493d20d5a4e92b2e432f7ab5eeb8c16862115ff3b9c579d7b1781216d35";
+inline constexpr std::string_view kFrozenLoraPacketBundleSha256 =
+    "237910ad5dfc370db9645e52f08ba0ca3b0f409a1383d692e1ce1937c5e3dc9d";
 volatile std::sig_atomic_t g_stop_requested = 0;
 
 void HandleSignal(int) { g_stop_requested = 1; }
@@ -304,8 +325,10 @@ Ort::SessionOptions SessionOptions() {
 
 class OnnxModel {
  public:
-  OnnxModel(Ort::Env& environment, fs::path path)
+  OnnxModel(Ort::Env& environment, fs::path path,
+            bool allow_missing_metadata = false)
       : path_(std::move(path)),
+        allow_missing_metadata_(allow_missing_metadata),
         options_(SessionOptions()),
         session_(environment, path_.c_str(), options_) {
     Inspect();
@@ -375,6 +398,12 @@ class OnnxModel {
     std::cout << "[LOAD] Inspecting ONNX custom metadata.\n";
     auto metadata = session_.GetModelMetadata();
     auto keys = metadata.GetCustomMetadataMapKeysAllocated(allocator);
+    if (allow_missing_metadata_ && keys.empty()) {
+      embedded_ = json::object();
+      std::cout << "[LOAD] Exact-hash decoder has no embedded metadata; "
+                   "external frozen-LoRA contract required.\n";
+      return;
+    }
     if (keys.size() != 1 || !keys.front() ||
         std::string_view(keys.front().get()) != true23::kOnnxMetadataKey) {
       throw std::runtime_error("ONNX embedded metadata key set is not exact");
@@ -389,6 +418,7 @@ class OnnxModel {
   }
 
   fs::path path_;
+  bool allow_missing_metadata_ = false;
   Ort::SessionOptions options_;
   Ort::Session session_;
   true23::ModelSignature signature_;
@@ -840,6 +870,139 @@ void RequireSha256(const json& value, std::string_view context) {
       })) {
     throw std::runtime_error(
         std::string(context) + " must be lowercase SHA-256");
+  }
+}
+
+void ValidateFrozenLoraDancePair(
+    const LoadedArtifacts& files,
+    const OnnxModel& encoder,
+    const OnnxModel& decoder) {
+  if (files.encoder_sha != kFrozenLoraEncoderSha256 ||
+      files.decoder_sha != kFrozenLoraDecoderSha256 ||
+      files.metadata_sha != kFrozenLoraReportSha256) {
+    throw std::runtime_error("frozen-LoRA selected artifact SHA-256 mismatch");
+  }
+  const auto& report = files.candidate;
+  RequireExactKeys(
+      report,
+      {"active_motor_control_authorized", "closed_loop_happy_dance_passed",
+       "decoder", "deployment_ready", "diagnostic_only",
+       "hardware_authorized", "kind", "promotion_eligible",
+       "robot_network_commands", "schema_version", "source"},
+      "frozen-LoRA decoder report");
+  const auto& graph = report.at("decoder");
+  RequireExactKeys(
+      graph,
+      {"filename", "input_name", "input_shape", "opset", "output_name",
+       "output_shape", "sha256"},
+      "frozen-LoRA decoder graph");
+  if (report.at("schema_version") != 1 ||
+      report.at("kind") != kFrozenLoraKind ||
+      report.at("closed_loop_happy_dance_passed") != true ||
+      report.at("diagnostic_only") != true ||
+      report.at("deployment_ready") != false ||
+      report.at("promotion_eligible") != false ||
+      report.at("hardware_authorized") != false ||
+      report.at("active_motor_control_authorized") != false ||
+      report.at("robot_network_commands") != false ||
+      graph.at("filename") != files.decoder.filename().string() ||
+      graph.at("input_name") != "obs_dict" ||
+      graph.at("input_shape") != json::array({1, 994}) ||
+      graph.at("output_name") != "action" ||
+      graph.at("output_shape") != json::array({1, 23}) ||
+      graph.at("opset") != 13 ||
+      graph.at("sha256") != files.decoder_sha) {
+    throw std::runtime_error("frozen-LoRA decoder report contract mismatch");
+  }
+  std::vector<std::string> signature_errors;
+  true23::ValidatePairModelSignatures(
+      encoder.signature(), decoder.signature(), signature_errors);
+  if (!signature_errors.empty()) {
+    throw std::runtime_error(signature_errors.front());
+  }
+  if (!decoder.embedded().empty()) {
+    throw std::runtime_error(
+        "selected frozen-LoRA decoder unexpectedly gained embedded metadata");
+  }
+  if (!files.promotion_json.has_value() || !files.promotion_sha.has_value()) {
+    throw std::runtime_error(
+        "frozen-LoRA dance shadow requires exact shadow admission");
+  }
+  const auto& promotion = *files.promotion_json;
+  RequireExactKeys(
+      promotion,
+      {"schema_version", "kind", "robot_model", "required_mode_machine",
+       "native_action_dof", "deployment_bytes_authorized_for_shadow",
+       "active_motor_control_authorized", "gantry_or_rated_support_required",
+       "free_standing_authorized", "reference_profile",
+       "decoder_output_semantics", "runtime_policy_semantics",
+       "external_safe_target_transform_required",
+       "safe_target_transform_sha256",
+       "source_artifacts", "qualification", "stage_one_envelope",
+       "promotion_payload_sha256"},
+      "frozen-LoRA dance shadow admission");
+  if (promotion.at("schema_version") != 1 ||
+      promotion.at("kind") != kFrozenLoraPromotionKind ||
+      promotion.at("robot_model") != true23::kRobotModel ||
+      promotion.at("required_mode_machine") != true23::kRequiredModeMachine ||
+      promotion.at("native_action_dof") != true23::kDecoderOutputDim ||
+      promotion.at("deployment_bytes_authorized_for_shadow") != true ||
+      promotion.at("active_motor_control_authorized") != false ||
+      promotion.at("gantry_or_rated_support_required") != true ||
+      promotion.at("free_standing_authorized") != false ||
+      promotion.at("reference_profile") != live::kCausalReferenceProfile ||
+      promotion.at("decoder_output_semantics") !=
+          live::kRawNativeActionSemantics ||
+      promotion.at("runtime_policy_semantics") !=
+          live::kAppliedSafeNativeActionSemantics ||
+      promotion.at("external_safe_target_transform_required") != true ||
+      promotion.at("safe_target_transform_sha256") !=
+          live::kExternalRawSafeTargetTransformSha256) {
+    throw std::runtime_error("frozen-LoRA shadow admission contract mismatch");
+  }
+  const auto& source = promotion.at("source_artifacts");
+  RequireExactKeys(
+      source,
+      {"encoder_sha256", "decoder_sha256", "decoder_report_sha256",
+       "candidate_summary_sha256", "happy_dance_report_sha256",
+       "happy_dance_trajectory_sha256", "live_qualification_sha256",
+       "packet_bundle_sha256"},
+      "frozen-LoRA source artifacts");
+  if (source.at("encoder_sha256") != kFrozenLoraEncoderSha256 ||
+      source.at("decoder_sha256") != kFrozenLoraDecoderSha256 ||
+      source.at("decoder_report_sha256") != kFrozenLoraReportSha256 ||
+      source.at("candidate_summary_sha256") != kFrozenLoraSummarySha256 ||
+      source.at("happy_dance_report_sha256") != kFrozenLoraHappyReportSha256 ||
+      source.at("happy_dance_trajectory_sha256") !=
+          kFrozenLoraHappyTrajectorySha256 ||
+      source.at("live_qualification_sha256") !=
+          kFrozenLoraLiveQualificationSha256 ||
+      source.at("packet_bundle_sha256") != kFrozenLoraPacketBundleSha256) {
+    throw std::runtime_error("frozen-LoRA admission source binding mismatch");
+  }
+  const auto& qualification = promotion.at("qualification");
+  if (qualification.value("happy_dance_passed", false) != true ||
+      qualification.value("happy_dance_completed_transitions", 0) != 535 ||
+      qualification.value("saved_pico_walk001_completed_transitions", 0) != 684 ||
+      qualification.value("software_live_transport_fault_drills_passed", false) !=
+          true) {
+    throw std::runtime_error("frozen-LoRA dance qualification mismatch");
+  }
+  const auto& envelope = promotion.at("stage_one_envelope");
+  if (envelope.value("action_fraction", 0.0) != 0.10 ||
+      envelope.value("maximum_target_rate_rad_per_second", 0.0) != 0.25 ||
+      envelope.value("maximum_post_arm_duration_seconds", 0) != 10 ||
+      envelope.value("wireless_deadman_required", false) != true ||
+      envelope.value("wireless_stop_required", false) != true) {
+    throw std::runtime_error("frozen-LoRA stage-one envelope mismatch");
+  }
+  RequireSha256(
+      promotion.at("promotion_payload_sha256"), "promotion payload");
+  const auto expected = promotion.at("promotion_payload_sha256").get<std::string>();
+  auto unhashed = promotion;
+  unhashed.erase("promotion_payload_sha256");
+  if (true23::Sha256CanonicalJson(unhashed) != expected) {
+    throw std::runtime_error("frozen-LoRA promotion payload hash mismatch");
   }
 }
 
@@ -1359,6 +1522,9 @@ true23::ValidationResult ValidatePair(
 }
 
 void RequireCausalProfile(const LoadedArtifacts& files) {
+  if (files.candidate.value("kind", std::string{}) == kFrozenLoraKind) {
+    return;
+  }
   const auto diagnostic =
       files.candidate.value("kind", std::string{}) ==
       "g1_true23_mjlab_diagnostic_onnx_pair";
@@ -1625,18 +1791,22 @@ int Run(const Arguments& arguments) {
   }
   std::cout << "[LOAD] Resolving and hashing artifacts.\n";
   auto files = LoadArtifacts(arguments);
+  const bool frozen_lora_dance =
+      files.candidate.value("kind", std::string{}) == kFrozenLoraKind;
   std::cout << "[LOAD] Creating encoder session.\n";
   Ort::Env environment(ORT_LOGGING_LEVEL_WARNING, "g1_true23_live_shadow");
   OnnxModel encoder(environment, files.encoder);
   std::cout << "[LOAD] Creating decoder session.\n";
-  OnnxModel decoder(environment, files.decoder);
+  OnnxModel decoder(environment, files.decoder, frozen_lora_dance);
   std::cout << "[LOAD] Validating artifact contracts.\n";
   const bool diagnostic_artifact =
       files.candidate.value("kind", std::string{}) ==
       "g1_true23_mjlab_diagnostic_onnx_pair";
   const bool causal_promoted_artifact =
       diagnostic_artifact && files.promotion.has_value();
-  if (diagnostic_artifact) {
+  if (frozen_lora_dance) {
+    ValidateFrozenLoraDancePair(files, encoder, decoder);
+  } else if (diagnostic_artifact) {
     ValidateDiagnosticPair(files, encoder, decoder);
     if (causal_promoted_artifact) {
       ValidateCausalMujocoPromotion(files);
@@ -1663,7 +1833,9 @@ int Run(const Arguments& arguments) {
 
   std::cout
       << "[PASS] Exact causal "
-      << (diagnostic_artifact && !causal_promoted_artifact
+      << (frozen_lora_dance
+              ? "frozen-LoRA dance promoted-shadow"
+              : diagnostic_artifact && !causal_promoted_artifact
               ? "diagnostic" : "promoted")
       << " ONNX pair validated and dry-ran for shadow only.\n";
   if (arguments.validate_only) {
@@ -1681,11 +1853,11 @@ int Run(const Arguments& arguments) {
       {"reference_contract_sha256",
        live::kCausalReferenceContractSha256},
       {"artifact_class",
-       diagnostic_artifact && !causal_promoted_artifact
+       diagnostic_artifact && !causal_promoted_artifact && !frozen_lora_dance
            ? "diagnostic_shadow_only" : "promoted_shadow"},
       {"decoder_output_semantics",
        std::string(live::kAppliedSafeNativeActionSemantics)},
-      {"external_safe_target_transform_applied", false},
+      {"external_safe_target_transform_applied", frozen_lora_dance},
       {"encoder_sha256", files.encoder_sha},
       {"decoder_sha256", files.decoder_sha},
       {"metadata_sha256", files.metadata_sha},
@@ -1746,7 +1918,11 @@ int Run(const Arguments& arguments) {
           received_ns - reference.control_monotonic_ns;
       if (packet_age_ns < -kFutureClockToleranceNs ||
           packet_age_ns > kPicoFreshnessNs) {
-        throw std::runtime_error("PICO q10 freshness contract failed");
+        throw std::runtime_error(
+            "PICO q10 freshness contract failed: age_ns=" +
+            std::to_string(packet_age_ns) +
+            " received_ns=" + std::to_string(received_ns) +
+            " control_ns=" + std::to_string(reference.control_monotonic_ns));
       }
       if (previous_frame.has_value() &&
           reference.control_source_frame_index != *previous_frame + 1) {
@@ -1799,15 +1975,31 @@ int Run(const Arguments& arguments) {
                       true23::kEncoderOutputDim>(encoder_input);
       const auto decoder_input = live::BuildDecoderInput(
           live_token, proprio_history.Flatten());
-      const auto action =
+      const auto decoder_action =
           decoder.Run<true23::kDecoderInputDim,
                       true23::kDecoderOutputDim>(decoder_input);
+      if (frozen_lora_dance) {
+        const auto raw_max_abs = std::accumulate(
+            decoder_action.begin(), decoder_action.end(), 0.0,
+            [](double maximum, float value) {
+              return std::max(maximum, std::abs(static_cast<double>(value)));
+            });
+        if (!std::isfinite(raw_max_abs) || raw_max_abs > 20.0) {
+          throw std::runtime_error(
+              "raw SONIC decoder action exceeded finite magnitude gate");
+        }
+      }
+      const auto action = frozen_lora_dance
+          ? live::RawNativeActionToAppliedSafeNativeAction(decoder_action)
+                .applied_safe_native_action
+          : decoder_action;
       const auto produced_ns = NowNs();
       const auto inference_ns = produced_ns - inference_start_ns;
       const auto end_to_end_age_ns =
           produced_ns - reference.control_monotonic_ns;
       const auto assessment = live::AssessOutput(
-          action, previous_action, live::kControlPeriodSeconds);
+          action, previous_action, live::kControlPeriodSeconds,
+          frozen_lora_dance ? 0.10 : 1.0);
       const auto lowstate_age_ns = monitor.LatestAgeNs(produced_ns);
       const bool accepted =
           assessment.finite && assessment.normalized_max_abs <= 20.0 &&
@@ -1837,7 +2029,7 @@ int Run(const Arguments& arguments) {
           {"native_action", action},
           {"decoder_output_semantics",
            std::string(live::kAppliedSafeNativeActionSemantics)},
-          {"external_safe_target_transform_applied", false},
+          {"external_safe_target_transform_applied", frozen_lora_dance},
           {"normalized_max_abs", assessment.normalized_max_abs},
           {"target_position_min_margin_rad",
            assessment.target_position_min_margin_rad},

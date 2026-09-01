@@ -36,7 +36,7 @@ def _records(paths: dict[str, Path], *, action_frames: int = 100) -> list[dict[s
             "started_monotonic_ns": 900_000_000,
             "reference_profile": "true23_causal_step1_history_0p02s_v1",
             "reference_contract_sha256": (
-                "bd046467325fe7f7f585fd692f01223ed7a3b2742c51ed414072c98fe12806f7"
+                "e25aa962368c6dc8022d7574716f95c77f632fd255a7d010824ee5edc762669c"
             ),
             "artifact_class": "promoted_shadow",
             "decoder_output_semantics": "applied_safe_native_action",

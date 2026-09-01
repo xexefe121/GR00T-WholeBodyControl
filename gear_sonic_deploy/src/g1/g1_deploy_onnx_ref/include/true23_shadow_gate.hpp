@@ -98,7 +98,7 @@ inline constexpr std::string_view kLowLatencyReferenceProfile =
 inline constexpr std::string_view kCausalHistoryReferenceProfile =
     "true23_causal_step1_history_0p02s_v1";
 inline constexpr std::string_view kCausalHistoryContractSha256 =
-    "bd046467325fe7f7f585fd692f01223ed7a3b2742c51ed414072c98fe12806f7";
+    "e25aa962368c6dc8022d7574716f95c77f632fd255a7d010824ee5edc762669c";
 inline constexpr std::string_view kNormalReleaseSha256 =
     "e6bdab3f64a39336b3d41877d4f497d05f58af275f288ec0e6746c283ded8909";
 inline constexpr std::string_view kLowLatencyReleaseSha256 =
