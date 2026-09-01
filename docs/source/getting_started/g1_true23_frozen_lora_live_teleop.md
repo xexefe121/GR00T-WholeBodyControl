@@ -108,7 +108,8 @@ Both launchers keep the controller-attached console visible. They do not
 auto-arm. After `[READY]`, hold L2 and press A once. L2 release, B/R2, app or
 physical e-stop, stale policy, state loss, source loss, a joint limit, or a
 command-write failure stops policy motion and writes the full reviewed damping
-tail.
+tail. `[REMOTE]` lines show every decoded L2, A, and STOP transition, so a
+missing wireless edge is visible before claiming that the robot armed.
 
 Example saved-dance launch after creating a fresh sidecar:
 

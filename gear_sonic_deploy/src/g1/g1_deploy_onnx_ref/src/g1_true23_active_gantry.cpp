@@ -550,6 +550,11 @@ class StateMonitor {
     return proprio_;
   }
 
+  active::WirelessOperatorState LatestOperator() const {
+    std::lock_guard lock(mutex_);
+    return operator_state_;
+  }
+
   CausalJoinAttempt WaitJoinCausalReference(
       const live::CausalPicoReferenceTerms& reference,
       std::chrono::steady_clock::time_point deadline) {
@@ -642,6 +647,7 @@ class StateMonitor {
     std::array<std::uint8_t, 40> remote{};
     std::copy_n(state.wireless_remote().begin(), remote.size(), remote.begin());
     const auto buttons = active::DecodeWirelessOperator(remote);
+    operator_state_ = buttons;
     const bool arm_edge = buttons.arm_pressed && !arm_pressed_;
     arm_pressed_ = buttons.arm_pressed;
     core_.ObserveOperator(
@@ -659,6 +665,7 @@ class StateMonitor {
   std::optional<live::TimedProprioSample> proprio_;
   live::CausalLowStateHistory causal_history_;
   std::optional<std::uint32_t> history_tick_;
+  active::WirelessOperatorState operator_state_;
   bool arm_pressed_ = false;
 };
 
@@ -2101,10 +2108,25 @@ int Run(const Arguments& arguments) {
         << "[READY] Fresh policy ready. Gantry secure; release A if already "
            "held, hold L2, then press A once. B/R2 or L2 release stops.\n";
   }
+  auto last_operator = monitor.LatestOperator();
+  const auto report_operator = [](const active::WirelessOperatorState& state) {
+    std::cout << "[REMOTE] L2=" << (state.deadman_held ? "held" : "released")
+              << " A=" << (state.arm_pressed ? "pressed" : "released")
+              << " STOP=" << (state.stop_pressed ? "pressed" : "released")
+              << '\n';
+  };
+  report_operator(last_operator);
   std::string stop_reason;
   std::int64_t stop_requested_ns = 0;
   while (!stop_threads.load()) {
     const auto now_ns = NowNs();
+    const auto current_operator = monitor.LatestOperator();
+    if (current_operator.arm_pressed != last_operator.arm_pressed ||
+        current_operator.deadman_held != last_operator.deadman_held ||
+        current_operator.stop_pressed != last_operator.stop_pressed) {
+      report_operator(current_operator);
+      last_operator = current_operator;
+    }
     if (g_stop_requested != 0 && stop_reason.empty()) {
       stop_reason = "process_signal";
       stop_requested_ns = now_ns;
