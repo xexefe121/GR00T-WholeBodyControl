@@ -30,6 +30,8 @@ _DIRECT_EVENTS = [
     "pre_arm_hold_gate_open",
     "direct_dance_command_accepted",
     "first_armed_policy_command_written",
+    "normal_return_hold_started",
+    "motion_mode_restored",
     "session_complete",
 ]
 
@@ -182,7 +184,9 @@ def validate_direct_dance_execution_evidence(
     hold_gate = records[7]
     direct = records[8]
     first_policy = records[9]
-    terminal = records[10]
+    return_hold = records[10]
+    restored = records[11]
+    terminal = records[12]
     if (
         start.get("operator_contract") != "bounded_direct_dance_command_v1"
         or start.get("post_arm_duration_seconds") != duration_seconds
@@ -192,11 +196,15 @@ def validate_direct_dance_execution_evidence(
         or hold_prepared.get("kp_fraction") != 0.25
         or hold_prepared.get("feedforward_tau_zero") is not True
         or motion_release.get("pre_release_lowcmd_writes") != 0
+        or not motion_release.get("captured_pre_release_name")
         or motion_release.get("first_post_release_command")
         != "sampled_posture_hold"
         or direct.get("command") != DIRECT_DANCE_COMMAND
         or direct.get("policy_ready") is not True
         or first_policy.get("feedforward_tau_zero") is not True
+        or return_hold.get("kp_fraction") != 0.25
+        or return_hold.get("feedforward_tau_zero") is not True
+        or return_hold.get("damping_frames_before_return") != 0
     ):
         raise ValueError("controller startup/command contract mismatch")
     hold_frames = hold_gate.get("pre_arm_hold_frames")
@@ -222,7 +230,14 @@ def validate_direct_dance_execution_evidence(
         or terminal.get("startup_damping_frames") != 0
         or terminal.get("release_to_first_hold_write_ns") != hold_delay_ns
         or terminal.get("maximum_abs_feedforward_tau_nm") != 0.0
-        or terminal.get("final_fault") != "operator_stop"
+        or restored.get("normal_return_hold_frames", 0) < 250
+        or restored.get("required_normal_return_hold_frames") != 250
+        or restored.get("startup_damping_frames") != 0
+        or restored.get("damping_frames_after_stop") != 0
+        or not restored.get("restored_name")
+        or restored.get("restored_name")
+        != motion_release.get("captured_pre_release_name")
+        or terminal.get("final_fault") != "none"
         or terminal.get("stop_reason")
         != "reviewed_post_arm_duration_complete"
         or terminal.get("required_post_arm_duration_ns")
@@ -230,6 +245,13 @@ def validate_direct_dance_execution_evidence(
         or terminal.get("post_arm_elapsed_ns", 0)
         < duration_seconds * 1_000_000_000
         or terminal.get("publisher_write_failed") is not False
+        or terminal.get("damping_frames_after_stop") != 0
+        or terminal.get("required_damping_frames_after_stop") != 0
+        or terminal.get("normal_return_hold_frames", 0) < 250
+        or terminal.get("required_normal_return_hold_frames") != 250
+        or terminal.get("motion_mode_restored") is not True
+        or terminal.get("restored_motion_mode_name")
+        != restored.get("restored_name")
     ):
         raise ValueError("controller terminal evidence did not pass safe dance")
     return terminal

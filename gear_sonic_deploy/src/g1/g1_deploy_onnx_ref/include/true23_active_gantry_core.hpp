@@ -998,14 +998,18 @@ class GantrySafetyCore {
   void ObserveOperator(const OperatorInput& input,
                        std::int64_t now_monotonic_ns) {
     if (input.stop_requested) {
-      Latch(Fault::OperatorStop);
+      if (!BeginNormalReturnHold(now_monotonic_ns)) {
+        Latch(Fault::OperatorStop);
+      }
       return;
     }
     if (fault_ != Fault::None) {
       return;
     }
     if (armed_ && !input.deadman_held) {
-      Latch(Fault::DeadmanReleased);
+      if (!BeginNormalReturnHold(now_monotonic_ns)) {
+        Latch(Fault::DeadmanReleased);
+      }
       return;
     }
     deadman_held_ = input.deadman_held;
@@ -1047,6 +1051,33 @@ class GantrySafetyCore {
     return true;
   }
 
+  // Intentional completion is not a fault. Snapshot the current measured pose
+  // and hold it with positive gains while runtime hands ownership back to the
+  // exact Unitree motion mode that was active before low-level control.
+  [[nodiscard]] bool BeginNormalReturnHold(
+      std::int64_t now_monotonic_ns) {
+    if (normal_return_active_) {
+      return true;
+    }
+    CheckWatchdogs(now_monotonic_ns);
+    if (fault_ != Fault::None || !armed_ || !mutation_surface_allowed_ ||
+        !state_.has_value() ||
+        !Fresh(last_advancing_state_ns_, now_monotonic_ns,
+               kStateFreshnessNs)) {
+      return false;
+    }
+    for (std::size_t compact = 0; compact < 23; ++compact) {
+      const auto slot =
+          static_cast<std::size_t>(kHardwareJointIds[compact]);
+      normal_return_hold_target_[compact] = state_->q[slot];
+    }
+    normal_return_active_ = true;
+    armed_ = false;
+    deadman_held_ = false;
+    policy_.reset();
+    return true;
+  }
+
   // One-way runtime handoff after minimum startup-hold writes. This prevents
   // A/L2 edges observed during read-only prewarm from arming motor control.
   void EnableOperatorArming() {
@@ -1058,7 +1089,7 @@ class GantrySafetyCore {
 
   void SubmitPolicy(const PolicySample& sample,
                     std::int64_t now_monotonic_ns) {
-    if (fault_ != Fault::None) {
+    if (fault_ != Fault::None || normal_return_active_) {
       return;
     }
     if (!Fresh(sample.produced_monotonic_ns, now_monotonic_ns,
@@ -1117,6 +1148,9 @@ class GantrySafetyCore {
   [[nodiscard]] MotorCommand BuildCommand(
       std::int64_t now_monotonic_ns,
       double dt_seconds = kControlPeriodSeconds) {
+    if (normal_return_active_) {
+      return BuildNormalReturnHoldCommand(now_monotonic_ns);
+    }
     CheckWatchdogs(now_monotonic_ns);
     if (fault_ != Fault::None) {
       return BuildDampingCommand();
@@ -1187,6 +1221,51 @@ class GantrySafetyCore {
       last_target_[compact] = target;
     }
     // Excluded slots stay mode=0.  No policy-derived field reaches them.
+    for (const int slot : kExcludedHardwareJointIds) {
+      const auto index = static_cast<std::size_t>(slot);
+      command[index].mode = 0;
+      command[index].q = state_->q[index];
+      command[index].dq = 0.0;
+      command[index].kp = 0.0;
+      command[index].kd = kFailSafeKd;
+      command[index].tau = 0.0;
+    }
+    return command;
+  }
+
+  [[nodiscard]] MotorCommand BuildNormalReturnHoldCommand(
+      std::int64_t now_monotonic_ns) {
+    if (!normal_return_active_ || fault_ != Fault::None ||
+        !mutation_surface_allowed_ || !state_.has_value() ||
+        !Fresh(last_advancing_state_ns_, now_monotonic_ns,
+               kStateFreshnessNs)) {
+      Latch(Fault::StateStale);
+      return BuildDampingCommand();
+    }
+    MotorCommand command = BuildDampingCommand();
+    for (std::size_t compact = 0; compact < 23; ++compact) {
+      const auto slot =
+          static_cast<std::size_t>(kHardwareJointIds[compact]);
+      const double kp = kPreArmHoldKpFraction * kStageOneKp[compact];
+      const double kd = kStageOneKd[compact];
+      const double predicted_effort =
+          kp * (normal_return_hold_target_[compact] - state_->q[slot]) -
+          kd * state_->dq[slot];
+      if (!std::isfinite(predicted_effort) ||
+          std::abs(predicted_effort) >
+              kPreArmHoldEffortFraction * kHardwareEffortLimitNm[compact]) {
+        Latch(Fault::PredictedEffortLimit);
+        return BuildDampingCommand();
+      }
+      command[slot] = MotorSlotCommand{
+          .mode = 1,
+          .q = normal_return_hold_target_[compact],
+          .dq = 0.0,
+          .kp = kp,
+          .kd = kd,
+          .tau = 0.0,
+      };
+    }
     for (const int slot : kExcludedHardwareJointIds) {
       const auto index = static_cast<std::size_t>(slot);
       command[index].mode = 0;
@@ -1270,6 +1349,9 @@ class GantrySafetyCore {
   [[nodiscard]] bool pre_arm_hold_prepared() const {
     return pre_arm_hold_prepared_ && fault_ == Fault::None;
   }
+  [[nodiscard]] bool normal_return_active() const {
+    return normal_return_active_ && fault_ == Fault::None;
+  }
   [[nodiscard]] bool operator_arming_enabled() const {
     return operator_arming_enabled_ && fault_ == Fault::None;
   }
@@ -1335,6 +1417,7 @@ class GantrySafetyCore {
     }
     armed_ = false;
     deadman_held_ = false;
+    normal_return_active_ = false;
     mutation_surface_allowed_ = false;
     operator_arming_enabled_ = false;
   }
@@ -1346,6 +1429,7 @@ class GantrySafetyCore {
   std::optional<PolicySample> policy_;
   std::array<double, 23> last_target_{};
   std::array<double, 23> pre_arm_hold_target_{};
+  std::array<double, 23> normal_return_hold_target_{};
   std::uint32_t last_tick_ = 0;
   std::int64_t last_advancing_state_ns_ = 0;
   int stable_samples_ = 0;
@@ -1356,6 +1440,7 @@ class GantrySafetyCore {
   bool armed_ = false;
   bool have_last_target_ = false;
   bool pre_arm_hold_prepared_ = false;
+  bool normal_return_active_ = false;
   bool operator_arming_enabled_ = false;
 };
 

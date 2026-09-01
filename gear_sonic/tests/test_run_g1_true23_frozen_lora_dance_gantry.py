@@ -37,6 +37,8 @@ def _passing_execution_records() -> list[dict]:
         feedforward_tau_zero=True,
     )
     records[6].update(
+        captured_pre_release_form="g1",
+        captured_pre_release_name="normal",
         pre_release_lowcmd_writes=0,
         first_post_release_command="sampled_posture_hold",
     )
@@ -52,6 +54,19 @@ def _passing_execution_records() -> list[dict]:
     records[8].update(command="DANCE", policy_ready=True)
     records[9].update(feedforward_tau_zero=True)
     records[10].update(
+        kp_fraction=0.25,
+        feedforward_tau_zero=True,
+        damping_frames_before_return=0,
+    )
+    records[11].update(
+        restored_form="g1",
+        restored_name="normal",
+        normal_return_hold_frames=250,
+        required_normal_return_hold_frames=250,
+        startup_damping_frames=0,
+        damping_frames_after_stop=0,
+    )
+    records[12].update(
         passed=True,
         policy_prewarmed_before_motion_release=True,
         pre_release_lowcmd_writes=0,
@@ -60,11 +75,17 @@ def _passing_execution_records() -> list[dict]:
         startup_damping_frames=0,
         release_to_first_hold_write_ns=2_000_000,
         maximum_abs_feedforward_tau_nm=0.0,
-        final_fault="operator_stop",
+        final_fault="none",
         stop_reason="reviewed_post_arm_duration_complete",
         required_post_arm_duration_ns=1_000_000_000,
         post_arm_elapsed_ns=1_000_000_000,
         publisher_write_failed=False,
+        damping_frames_after_stop=0,
+        required_damping_frames_after_stop=0,
+        normal_return_hold_frames=250,
+        required_normal_return_hold_frames=250,
+        motion_mode_restored=True,
+        restored_motion_mode_name="normal",
     )
     return records
 
@@ -163,6 +184,22 @@ def test_direct_execution_validator_rejects_old_damping_startup(
     evidence = tmp_path / "execution.jsonl"
     _write_jsonl(evidence, records)
     with pytest.raises(ValueError, match="pre-arm hold gate failed"):
+        validate_direct_dance_execution_evidence(
+            evidence,
+            authorization_id="gantry-session-1",
+            duration_seconds=1,
+        )
+
+
+def test_direct_execution_validator_rejects_post_dance_dump(
+    tmp_path: Path,
+) -> None:
+    records = _passing_execution_records()
+    records[11]["damping_frames_after_stop"] = 250
+    records[12]["damping_frames_after_stop"] = 250
+    evidence = tmp_path / "execution.jsonl"
+    _write_jsonl(evidence, records)
+    with pytest.raises(ValueError, match="terminal evidence did not pass"):
         validate_direct_dance_execution_evidence(
             evidence,
             authorization_id="gantry-session-1",

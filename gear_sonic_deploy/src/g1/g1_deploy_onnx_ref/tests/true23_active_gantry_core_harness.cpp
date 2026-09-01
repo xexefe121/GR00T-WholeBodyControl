@@ -596,16 +596,20 @@ void TestOperatorAndCommandSafety(Runner& runner) {
   core.ObserveOperator(
       {.arm_edge = false, .deadman_held = false, .stop_requested = false},
       now + 2'000'000LL);
-  runner.Check(core.fault() == active::Fault::DeadmanReleased,
-               "deadman release latches stop");
+  runner.Check(core.fault() == active::Fault::None &&
+                   core.normal_return_active(),
+               "deadman release enters non-fault posture return");
   runner.Check(!core.policy_ready_for_arm(now + 2'000'000LL),
-               "policy-ready gate closes after terminal stop");
-  const auto damping = core.BuildCommand(now + 3'000'000LL);
-  for (const int included : true23::kHardwareJointIds) {
-    const auto& joint = damping[static_cast<std::size_t>(included)];
-    runner.Check(joint.tau == 0.0 && joint.kp == 0.0 &&
-                     joint.kd == active::kFailSafeKd,
-                 "latched failure produces zero-torque damping");
+               "policy-ready gate closes during posture return");
+  const auto return_hold = core.BuildCommand(now + 3'000'000LL);
+  for (std::size_t compact = 0; compact < 23; ++compact) {
+    const auto slot = static_cast<std::size_t>(
+        true23::kHardwareJointIds[compact]);
+    const auto& joint = return_hold[slot];
+    runner.Check(joint.tau == 0.0 && joint.kp > 0.0 &&
+                     joint.kd == active::kStageOneKd[compact] &&
+                     std::isfinite(joint.q),
+                 "intentional stop holds measured posture with positive kp");
   }
 
   active::GantrySafetyCore stop_core(ValidArtifact());
@@ -633,6 +637,14 @@ void TestOperatorAndCommandSafety(Runner& runner) {
                    armed_reacquisition_core.fault() ==
                        active::Fault::PicoTermsInvalid,
                "causal miss after arming is terminal");
+  const auto fault_damping = armed_reacquisition_core.BuildCommand(
+      armed_reacquisition_now + 1'000'000LL);
+  for (const int included : true23::kHardwareJointIds) {
+    const auto& joint = fault_damping[static_cast<std::size_t>(included)];
+    runner.Check(joint.kp == 0.0 && joint.kd == active::kFailSafeKd &&
+                     joint.tau == 0.0,
+                 "true policy fault retains zero-torque damping");
+  }
 }
 
 void TestPolicyAndMapping(Runner& runner) {

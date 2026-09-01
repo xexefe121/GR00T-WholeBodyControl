@@ -111,6 +111,8 @@ def _fixture(tmp_path: Path) -> tuple[argparse.Namespace, list[dict[str, object]
     motion.update(
         {
             "post_release_mode_name_empty": True,
+            "captured_pre_release_form": "g1",
+            "captured_pre_release_name": "normal",
             "pre_release_lowcmd_writes": 0,
             "first_post_release_command": "sampled_posture_hold",
         }
@@ -136,7 +138,27 @@ def _fixture(tmp_path: Path) -> tuple[argparse.Namespace, list[dict[str, object]
             "feedforward_tau_zero": True,
         }
     )
-    complete = common("session_complete", 10)
+    return_hold = common("normal_return_hold_started", 10)
+    return_hold.update(
+        {
+            "sampled_hardware_joints": 23,
+            "kp_fraction": 0.25,
+            "feedforward_tau_zero": True,
+            "damping_frames_before_return": 0,
+        }
+    )
+    restored = common("motion_mode_restored", 11)
+    restored.update(
+        {
+            "restored_form": "g1",
+            "restored_name": "normal",
+            "normal_return_hold_frames": 250,
+            "required_normal_return_hold_frames": 250,
+            "startup_damping_frames": 0,
+            "damping_frames_after_stop": 0,
+        }
+    )
+    complete = common("session_complete", 12)
     complete.update(
         {
             "passed": True,
@@ -151,13 +173,18 @@ def _fixture(tmp_path: Path) -> tuple[argparse.Namespace, list[dict[str, object]
             "armed_transition_observed": True,
             "policy_command_frames": 100,
             "minimum_policy_command_frames": 100,
-            "damping_frames_after_stop": 250,
-            "required_damping_frames_after_stop": 250,
+            "damping_frames_after_stop": 0,
+            "required_damping_frames_after_stop": 0,
+            "normal_return_hold_frames": 250,
+            "required_normal_return_hold_frames": 250,
+            "motion_mode_restored": True,
+            "restored_motion_mode_form": "g1",
+            "restored_motion_mode_name": "normal",
             "maximum_target_delta_from_state_rad": 0.1,
             "maximum_target_slew_rad": 0.0005,
             "maximum_abs_predicted_effort_nm": 10.0,
             "maximum_abs_feedforward_tau_nm": 0.0,
-            "final_fault": "operator_stop",
+            "final_fault": "none",
             "stop_reason": "reviewed_post_arm_duration_complete",
             "post_arm_elapsed_ns": 20_000_000_000,
             "required_post_arm_duration_ns": 20_000_000_000,
@@ -180,6 +207,8 @@ def _fixture(tmp_path: Path) -> tuple[argparse.Namespace, list[dict[str, object]
         motion,
         hold_gate,
         command,
+        return_hold,
+        restored,
         complete,
     ]
     args = argparse.Namespace(
@@ -581,6 +610,8 @@ def _runtime_publisher_fixture(
         10_270_000_000,
         10_290_000_000,
         10_300_000_000,
+        30_300_000_000,
+        30_800_000_000,
         31_000_000_000,
     ]
     for record, monotonic_ns in zip(active_records, active_times, strict=True):
@@ -746,7 +777,7 @@ def test_active_execution_evidence_accepts_exact_success(tmp_path: Path) -> None
     _write_jsonl(args.evidence, records)
     result = validate_active(args)
     assert result["policy_command_frames"] == 100
-    assert result["damping_frames_after_stop"] == 250
+    assert result["damping_frames_after_stop"] == 0
 
 
 def test_active_execution_evidence_accepts_frozen_live_duration(
@@ -772,10 +803,20 @@ def test_active_execution_evidence_accepts_frozen_live_duration(
     assert result["policy_command_frames"] == 100
 
 
+def test_active_execution_evidence_accepts_wireless_normal_return(
+    tmp_path: Path,
+) -> None:
+    args, records = _fixture(tmp_path)
+    records[-1]["stop_reason"] = "wireless_deadman_released"
+    records[-1]["post_arm_elapsed_ns"] = 1_000_000_000
+    _write_jsonl(args.evidence, records)
+    result = validate_active(args)
+    assert result["damping_frames_after_stop"] == 0
+
+
 @pytest.mark.parametrize(
     ("field", "value"),
     [
-        ("stop_reason", "wireless_operator_stop"),
         ("post_arm_elapsed_ns", 19_999_999_999),
         ("maximum_target_slew_rad", 0.000_501),
         ("publisher_write_failed", True),

@@ -920,6 +920,8 @@ def validate_publisher(args: argparse.Namespace) -> dict[str, Any]:
             "motion_mode_released",
             "pre_arm_hold_gate_open",
             "first_armed_policy_command_written",
+            "normal_return_hold_started",
+            "motion_mode_restored",
             "session_complete",
         ]
         if [record.get("event") for record in active_records] != expected_active_events:
@@ -1545,6 +1547,8 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
         "motion_mode_released",
         "pre_arm_hold_gate_open",
         "first_armed_policy_command_written",
+        "normal_return_hold_started",
+        "motion_mode_restored",
         "session_complete",
     ]
     events = [record.get("event") for record in records]
@@ -1749,6 +1753,8 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
             "authorization_id",
             "monotonic_ns",
             "post_release_mode_name_empty",
+            "captured_pre_release_form",
+            "captured_pre_release_name",
             "pre_release_lowcmd_writes",
             "first_post_release_command",
         },
@@ -1756,6 +1762,7 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
     )
     if (
         motion_gate.get("post_release_mode_name_empty") is not True
+        or not motion_gate.get("captured_pre_release_name")
         or motion_gate.get("pre_release_lowcmd_writes") != 0
         or motion_gate.get("first_post_release_command")
         != "sampled_posture_hold"
@@ -1821,6 +1828,59 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
     ):
         _reject("first armed policy command contract mismatch")
 
+    return_hold = records[9]
+    _exact(
+        return_hold,
+        {
+            "schema_version",
+            "kind",
+            "event",
+            "authorization_id",
+            "monotonic_ns",
+            "sampled_hardware_joints",
+            "kp_fraction",
+            "feedforward_tau_zero",
+            "damping_frames_before_return",
+        },
+        "normal_return_hold_started",
+    )
+    if (
+        return_hold.get("sampled_hardware_joints") != 23
+        or _number(return_hold.get("kp_fraction"), "return kp_fraction") != 0.25
+        or return_hold.get("feedforward_tau_zero") is not True
+        or return_hold.get("damping_frames_before_return") != 0
+    ):
+        _reject("normal return did not begin with positive-gain posture hold")
+
+    restored = records[10]
+    _exact(
+        restored,
+        {
+            "schema_version",
+            "kind",
+            "event",
+            "authorization_id",
+            "monotonic_ns",
+            "restored_form",
+            "restored_name",
+            "normal_return_hold_frames",
+            "required_normal_return_hold_frames",
+            "startup_damping_frames",
+            "damping_frames_after_stop",
+        },
+        "motion_mode_restored",
+    )
+    if (
+        not restored.get("restored_name")
+        or restored.get("restored_name")
+        != motion_gate.get("captured_pre_release_name")
+        or _integer(restored.get("normal_return_hold_frames"), "normal_return_hold_frames") < 250
+        or restored.get("required_normal_return_hold_frames") != 250
+        or restored.get("startup_damping_frames") != 0
+        or restored.get("damping_frames_after_stop") != 0
+    ):
+        _reject("motion mode restoration contract failed")
+
     terminal = records[-1]
     _exact(
         terminal,
@@ -1844,6 +1904,11 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
             "minimum_policy_command_frames",
             "damping_frames_after_stop",
             "required_damping_frames_after_stop",
+            "normal_return_hold_frames",
+            "required_normal_return_hold_frames",
+            "motion_mode_restored",
+            "restored_motion_mode_form",
+            "restored_motion_mode_name",
             "maximum_target_delta_from_state_rad",
             "maximum_target_slew_rad",
             "maximum_abs_predicted_effort_nm",
@@ -1869,6 +1934,15 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
         "required_post_arm_duration_ns",
     )
     elapsed_ns = _integer(terminal.get("post_arm_elapsed_ns"), "post_arm_elapsed_ns")
+    stop_reason = terminal.get("stop_reason")
+    accepted_normal_stop = (
+        stop_reason == "reviewed_post_arm_duration_complete"
+        and elapsed_ns >= required_duration_ns
+    ) or (
+        stop_reason
+        in {"wireless_operator_stop", "wireless_deadman_released", "process_signal"}
+        and elapsed_ns > 0
+    )
     if (
         terminal.get("passed") is not True
         or terminal.get("policy_prewarmed_before_motion_release") is not True
@@ -1882,17 +1956,24 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
         or terminal.get("armed_transition_observed") is not True
         or action_frames < 100
         or terminal.get("minimum_policy_command_frames") != 100
-        or damping_frames < 250
-        or terminal.get("required_damping_frames_after_stop") != 250
+        or damping_frames != 0
+        or terminal.get("required_damping_frames_after_stop") != 0
+        or _integer(
+            terminal.get("normal_return_hold_frames"),
+            "terminal normal_return_hold_frames",
+        )
+        < 250
+        or terminal.get("required_normal_return_hold_frames") != 250
+        or terminal.get("motion_mode_restored") is not True
+        or terminal.get("restored_motion_mode_name") != restored.get("restored_name")
         or _number(
             terminal.get("maximum_abs_feedforward_tau_nm"),
             "maximum_abs_feedforward_tau_nm",
         )
         != 0.0
-        or terminal.get("final_fault") != "operator_stop"
-        or terminal.get("stop_reason") != "reviewed_post_arm_duration_complete"
+        or terminal.get("final_fault") != "none"
         or required_duration_ns != start.get("post_arm_duration_seconds") * 1_000_000_000
-        or elapsed_ns < required_duration_ns
+        or not accepted_normal_stop
         or terminal.get("inference_error") != ""
         or terminal.get("writer_error") != ""
         or terminal.get("publisher_write_failed") is not False

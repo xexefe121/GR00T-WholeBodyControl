@@ -83,6 +83,7 @@ inline constexpr std::string_view kFrozenLoraPacketBundleSha256 =
     "237910ad5dfc370db9645e52f08ba0ca3b0f409a1383d692e1ce1937c5e3dc9d";
 inline constexpr int kStateGateTimeoutSeconds = 8;
 inline constexpr int kFaultDampingCycles = 250;
+inline constexpr int kNormalReturnHoldCycles = 250;
 inline constexpr int kMinimumPreArmHoldCycles = 25;
 inline constexpr std::int64_t kMaximumFirstHoldWriteDelayNs = 20'000'000;
 [[gnu::used]] const char kCompiledCausalRuntimeSurface[] =
@@ -755,7 +756,12 @@ class ZmqSocket {
   void* socket_ = nullptr;
 };
 
-void ReleaseMotionModeAfterGate() {
+struct ReleasedMotionMode {
+  std::string form;
+  std::string name;
+};
+
+ReleasedMotionMode ReleaseMotionModeAfterGate() {
   auto client =
       std::make_unique<unitree::robot::b2::MotionSwitcherClient>();
   client->SetTimeout(3.0F);
@@ -765,7 +771,12 @@ void ReleaseMotionModeAfterGate() {
   if (client->CheckMode(form, name) != 0) {
     throw std::runtime_error("motion-mode pre-release CheckMode RPC failed");
   }
-  if (!name.empty() && client->ReleaseMode() != 0) {
+  if (name.empty()) {
+    throw std::runtime_error(
+        "motion-mode pre-release name is empty; exact restoration unavailable");
+  }
+  const ReleasedMotionMode released{.form = form, .name = name};
+  if (client->ReleaseMode() != 0) {
     throw std::runtime_error("motion-mode release failed");
   }
   name.clear();
@@ -775,6 +786,32 @@ void ReleaseMotionModeAfterGate() {
   if (!name.empty()) {
     throw std::runtime_error("motion mode remains active after release");
   }
+  return released;
+}
+
+void RestoreMotionModeAfterNormalHold(const ReleasedMotionMode& released) {
+  auto client =
+      std::make_unique<unitree::robot::b2::MotionSwitcherClient>();
+  client->SetTimeout(3.0F);
+  client->Init();
+  std::string form;
+  std::string name;
+  if (client->CheckMode(form, name) != 0) {
+    throw std::runtime_error("motion-mode pre-restore CheckMode RPC failed");
+  }
+  if (name != released.name && client->SelectMode(released.name) != 0) {
+    throw std::runtime_error("motion-mode restore SelectMode RPC failed");
+  }
+  for (int attempt = 0; attempt < 30; ++attempt) {
+    form.clear();
+    name.clear();
+    if (client->CheckMode(form, name) == 0 && name == released.name) {
+      return;
+    }
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  }
+  throw std::runtime_error(
+      "motion mode did not return to captured pre-release mode");
 }
 
 LowCmd ToLowCmd(const active::MotorCommand& command) {
@@ -1795,7 +1832,9 @@ int Run(const Arguments& arguments) {
   std::atomic<std::int64_t> first_pre_arm_hold_write_ns{0};
   std::atomic<std::uint64_t> publisher_write_count{0};
   std::atomic<std::uint64_t> pre_arm_hold_frames{0};
+  std::atomic<std::uint64_t> normal_return_hold_frames{0};
   std::atomic<std::uint64_t> startup_damping_frames{0};
+  std::atomic<bool> motion_mode_restored{false};
   std::int64_t motion_mode_released_ns = 0;
   std::uint64_t policy_command_frames = 0;
   int damping_frames_after_stop = 0;
@@ -2066,6 +2105,9 @@ int Run(const Arguments& arguments) {
       auto next_write_ns = NowNs();
       int damping_cycles = 0;
       while (!stop_token.stop_requested() && !stop_threads.load()) {
+        if (motion_mode_restored.load(std::memory_order_acquire)) {
+          break;
+        }
         if (!motion_mode_released.load(std::memory_order_acquire)) {
           std::this_thread::sleep_for(std::chrono::milliseconds(1));
           next_write_ns = NowNs();
@@ -2079,13 +2121,13 @@ int Run(const Arguments& arguments) {
         std::optional<active::StateSample> command_state;
         bool policy_command = false;
         bool pre_arm_hold_command = false;
+        bool normal_return_hold_command = false;
         monitor.WithCore([&](active::GantrySafetyCore& value) {
-          if (g_stop_requested != 0) {
-            value.Stop();
-          }
           const bool armed_before_build = value.armed();
           const bool hold_before_build =
               !armed_before_build && value.pre_arm_hold_prepared();
+          const bool normal_return_before_build =
+              value.normal_return_active();
           command = value.BuildCommand(NowNs());
           fault = value.fault();
           command_state = value.latest_state();
@@ -2094,8 +2136,11 @@ int Run(const Arguments& arguments) {
               fault == active::Fault::None;
           pre_arm_hold_command =
               hold_before_build && !value.armed() &&
+              !normal_return_before_build && fault == active::Fault::None;
+          normal_return_hold_command =
+              normal_return_before_build && value.normal_return_active() &&
               fault == active::Fault::None;
-          if (pre_arm_hold_command) {
+          if (pre_arm_hold_command || normal_return_hold_command) {
             for (const int included : true23::kHardwareJointIds) {
               const auto& joint =
                   command[static_cast<std::size_t>(included)];
@@ -2107,6 +2152,7 @@ int Run(const Arguments& arguments) {
                 command = value.BuildDampingCommand();
                 fault = value.fault();
                 pre_arm_hold_command = false;
+                normal_return_hold_command = false;
                 break;
               }
             }
@@ -2153,6 +2199,25 @@ int Run(const Arguments& arguments) {
             first_pre_arm_hold_write_ns.store(
                 completed_write_ns, std::memory_order_release);
           }
+        }
+        if (normal_return_hold_command) {
+          if (!command_state.has_value()) {
+            throw std::runtime_error(
+                "normal return hold command lacks bound LowState sample");
+          }
+          for (std::size_t compact = 0; compact < 23; ++compact) {
+            const auto slot = static_cast<std::size_t>(
+                true23::kHardwareJointIds[compact]);
+            const auto& joint = command[slot];
+            if (joint.mode != 1 || !(joint.kp > 0.0) ||
+                joint.tau != 0.0 || !std::isfinite(joint.q)) {
+              throw std::runtime_error(
+                  "normal return emitted non-hold command");
+            }
+            maximum_abs_feedforward_tau_nm = std::max(
+                maximum_abs_feedforward_tau_nm, std::abs(joint.tau));
+          }
+          normal_return_hold_frames.fetch_add(1, std::memory_order_release);
         }
         if (policy_command) {
           if (!command_state.has_value()) {
@@ -2247,12 +2312,14 @@ int Run(const Arguments& arguments) {
     throw std::runtime_error(
         "signal stopped controller before motion-mode release");
   }
-  ReleaseMotionModeAfterGate();
+  const auto released_motion_mode = ReleaseMotionModeAfterGate();
   motion_mode_released_ns = NowNs();
   motion_mode_released.store(true, std::memory_order_release);
   execution_evidence.AppendEvent(
       "motion_mode_released",
       {{"post_release_mode_name_empty", true},
+       {"captured_pre_release_form", released_motion_mode.form},
+       {"captured_pre_release_name", released_motion_mode.name},
        {"pre_release_lowcmd_writes", 0},
        {"first_post_release_command", "sampled_posture_hold"}});
 
@@ -2341,6 +2408,8 @@ int Run(const Arguments& arguments) {
   }
   std::string stop_reason;
   std::int64_t stop_requested_ns = 0;
+  bool normal_return_event_written = false;
+  bool motion_restore_attempted = false;
   while (!stop_threads.load()) {
     const auto now_ns = NowNs();
     const auto current_operator = monitor.LatestOperator();
@@ -2354,7 +2423,11 @@ int Run(const Arguments& arguments) {
     if (g_stop_requested != 0 && stop_reason.empty()) {
       stop_reason = "process_signal";
       stop_requested_ns = now_ns;
-      monitor.WithCore([](active::GantrySafetyCore& value) { value.Stop(); });
+      monitor.WithCore([&](active::GantrySafetyCore& value) {
+        if (!value.BeginNormalReturnHold(now_ns)) {
+          value.Stop();
+        }
+      });
     }
     const auto first_write = first_policy_write_ns.load();
     if (first_write > 0 && stop_reason.empty() &&
@@ -2363,7 +2436,57 @@ int Run(const Arguments& arguments) {
                 1'000'000'000LL) {
       stop_reason = "reviewed_post_arm_duration_complete";
       stop_requested_ns = now_ns;
-      monitor.WithCore([](active::GantrySafetyCore& value) { value.Stop(); });
+      monitor.WithCore([&](active::GantrySafetyCore& value) {
+        if (!value.BeginNormalReturnHold(now_ns)) {
+          value.Stop();
+        }
+      });
+    }
+    bool normal_return_active = false;
+    monitor.WithCore([&](active::GantrySafetyCore& value) {
+      normal_return_active = value.normal_return_active();
+    });
+    if (normal_return_active && stop_reason.empty()) {
+      stop_requested_ns = now_ns;
+      stop_reason = current_operator.stop_pressed
+                        ? "wireless_operator_stop"
+                        : "wireless_deadman_released";
+    }
+    if (normal_return_active && !normal_return_event_written) {
+      execution_evidence.AppendEvent(
+          "normal_return_hold_started",
+          {{"sampled_hardware_joints", 23},
+           {"kp_fraction", active::kPreArmHoldKpFraction},
+           {"feedforward_tau_zero", true},
+           {"damping_frames_before_return", damping_frames_after_stop}});
+      normal_return_event_written = true;
+    }
+    if (normal_return_active && !motion_restore_attempted &&
+        normal_return_hold_frames.load(std::memory_order_acquire) >=
+            static_cast<std::uint64_t>(kNormalReturnHoldCycles)) {
+      motion_restore_attempted = true;
+      try {
+        RestoreMotionModeAfterNormalHold(released_motion_mode);
+        motion_mode_restored.store(true, std::memory_order_release);
+        motion_mode_released.store(false, std::memory_order_release);
+        execution_evidence.AppendEvent(
+            "motion_mode_restored",
+            {{"restored_form", released_motion_mode.form},
+             {"restored_name", released_motion_mode.name},
+             {"normal_return_hold_frames",
+              normal_return_hold_frames.load()},
+             {"required_normal_return_hold_frames",
+              kNormalReturnHoldCycles},
+             {"startup_damping_frames", startup_damping_frames.load()},
+             {"damping_frames_after_stop", damping_frames_after_stop}});
+        stop_threads.store(true, std::memory_order_release);
+      } catch (const std::exception& error) {
+        writer_error = std::string("motion-mode restore failed: ") +
+                       error.what();
+        monitor.WithCore([](active::GantrySafetyCore& value) {
+          value.ObserveInternalFailure();
+        });
+      }
     }
     const auto observed_fault = monitor.fault();
     if (observed_fault != active::Fault::None && stop_reason.empty()) {
@@ -2392,9 +2515,11 @@ int Run(const Arguments& arguments) {
   const bool enough_policy_commands =
       policy_command_frames >= static_cast<std::uint64_t>(
                                    active::kMinimumPromotedShadowActionFrames);
-  const bool full_damping_stop =
-      damping_frames_after_stop >= kFaultDampingCycles;
-  const bool safe_terminal_fault = fault == active::Fault::OperatorStop;
+  const bool normal_return_completed =
+      normal_return_hold_frames.load() >=
+          static_cast<std::uint64_t>(kNormalReturnHoldCycles) &&
+      motion_mode_restored.load() && damping_frames_after_stop == 0;
+  const bool safe_terminal_fault = fault == active::Fault::None;
   const auto first_write_ns = first_policy_write_ns.load();
   const auto post_arm_elapsed_ns =
       first_write_ns > 0 && stop_requested_ns >= first_write_ns
@@ -2406,10 +2531,17 @@ int Run(const Arguments& arguments) {
   const bool reviewed_duration_completed =
       stop_reason == "reviewed_post_arm_duration_complete" &&
       post_arm_elapsed_ns >= required_post_arm_duration_ns;
+  const bool intentional_live_stop_completed =
+      !direct_dance &&
+      (stop_reason == "wireless_operator_stop" ||
+       stop_reason == "wireless_deadman_released" ||
+       stop_reason == "process_signal") &&
+      post_arm_elapsed_ns > 0;
   const bool passed =
       startup_hold_gate_open && armed_transition_observed &&
       enough_policy_commands &&
-      full_damping_stop && safe_terminal_fault && reviewed_duration_completed &&
+      normal_return_completed && safe_terminal_fault &&
+      (reviewed_duration_completed || intentional_live_stop_completed) &&
       inference_error.empty() && writer_error.empty();
   json terminal = {
       {"passed", passed},
@@ -2427,7 +2559,12 @@ int Run(const Arguments& arguments) {
       {"minimum_policy_command_frames",
        active::kMinimumPromotedShadowActionFrames},
       {"damping_frames_after_stop", damping_frames_after_stop},
-      {"required_damping_frames_after_stop", kFaultDampingCycles},
+      {"required_damping_frames_after_stop", 0},
+      {"normal_return_hold_frames", normal_return_hold_frames.load()},
+      {"required_normal_return_hold_frames", kNormalReturnHoldCycles},
+      {"motion_mode_restored", motion_mode_restored.load()},
+      {"restored_motion_mode_form", released_motion_mode.form},
+      {"restored_motion_mode_name", released_motion_mode.name},
       {"maximum_target_delta_from_state_rad",
        maximum_target_delta_from_state_rad},
       {"maximum_target_slew_rad", maximum_target_slew_rad},
@@ -2463,7 +2600,10 @@ int Run(const Arguments& arguments) {
   }
   execution_evidence.Finalize("session_complete", terminal);
   std::cout << "[COMPLETE] policy_command_frames=" << policy_command_frames
-            << " damping_frames=" << damping_frames_after_stop
+            << " normal_return_hold_frames="
+            << normal_return_hold_frames.load()
+            << " motion_mode_restored=" << std::boolalpha
+            << motion_mode_restored.load()
             << " evidence=" << execution_evidence.path() << '\n';
   return 0;
 }

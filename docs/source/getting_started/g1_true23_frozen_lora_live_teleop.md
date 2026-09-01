@@ -101,16 +101,20 @@ lifecycle:
   and exact 20 ms timestamps, so the READY window does not expire.
 - `run_g1_true23_frozen_lora_live_gantry` starts the real PICO/SOMA causal
   producer first. It does not start the robot controller until publisher
-  evidence contains a fresh reference packet. Publisher loss sends SIGINT to
-  the controller and ends in fail-safe damping.
+  evidence contains a fresh reference packet. Publisher loss is a transport
+  fault and ends in fail-safe damping.
 
 Both launchers keep the controller-attached console visible. Saved-clip dance
 uses a separately bound exact `DANCE` command and starts automatically only
 after `[READY]`; it does not depend on L2/A state. Direct mode is restricted to
-the hash-bound frozen-LoRA dance, gantry-only, and at most five seconds. Process
-signal, B/R2 when available, app cancellation, physical e-stop, stale policy,
-state loss, source loss, a joint limit, reviewed duration, or a command-write
-failure stops policy motion and writes the full reviewed damping tail.
+the hash-bound frozen-LoRA dance, gantry-only, and at most five seconds.
+Reviewed duration, wireless B/R2 or L2 release, and app/process cancellation
+stop policy motion without dumping the robot: the controller snapshots the
+current 23-joint pose, writes 250 positive-gain zero-feedforward hold packets,
+restores the exact Unitree motion mode captured before release, verifies that
+mode is active, and only then closes LowCmd. Physical e-stop, stale policy,
+state or source loss, a joint limit, or a command-write failure remains a true
+fault and uses the reviewed damping tail.
 
 Real PICO live teleop retains the wireless deadman contract. After `[READY]`,
 hold L2 and press A once. `[REMOTE]` lines show every decoded L2, A, and STOP
@@ -122,7 +126,8 @@ LowCmd publisher is initialized without writing, the current 23-joint posture
 is sampled, and only then is motion mode released. The first post-release
 packet has positive position gains and zero feedforward torque. At least 25
 successful posture-hold packets must be written before direct or wireless
-arming becomes possible. `kp=0` damping is now terminal-only: stop or fault.
+arming becomes possible. `kp=0` damping is fault-only; successful dance or
+teleop completion must prove positive-gain return hold and motion-mode restore.
 Execution evidence rejects any pre-release write, any startup damping packet,
 or a first hold packet delayed by more than 20 ms after release.
 
