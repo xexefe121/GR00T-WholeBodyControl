@@ -1841,25 +1841,33 @@ int Run(const Arguments& arguments) {
               *causal_reference,
               std::chrono::steady_clock::now() +
                   std::chrono::milliseconds(35));
-          if (attempt.status == CausalJoinStatus::AwaitingCoverage) {
-            inference_error =
-                "lowstate_coverage_timeout frame=" +
-                std::to_string(frame_index);
-            std::cerr << "PICO/inference fault: " << inference_error << '\n';
-            monitor.WithCore([](active::GantrySafetyCore& value) {
-              value.ObservePicoTermsFailure();
-            });
-            break;
-          }
           if (attempt.status != CausalJoinStatus::Ready ||
               !attempt.joined.has_value()) {
-            inference_error =
-                "lowstate_covered_range_invalid frame=" +
-                std::to_string(frame_index);
-            std::cerr << "PICO/inference fault: " << inference_error << '\n';
-            monitor.WithCore([](active::GantrySafetyCore& value) {
-              value.ObservePicoTermsFailure();
+            const std::string join_failure =
+                attempt.status == CausalJoinStatus::AwaitingCoverage
+                    ? "lowstate_coverage_timeout"
+                    : "lowstate_covered_range_invalid";
+            bool reacquiring = false;
+            monitor.WithCore([&](active::GantrySafetyCore& value) {
+              reacquiring = value.BeginPreArmPolicyReacquisition();
             });
+            if (reacquiring) {
+              history = live::ProprioHistory{};
+              real_history_gate = active::RealProprioWarmupGate{};
+              previous_action.fill(0.0F);
+              first_policy_ready_for_arm.store(false, std::memory_order_release);
+              execution_evidence.AppendEvent(
+                  "pre_arm_causal_reacquisition",
+                  {{"frame_index", frame_index},
+                   {"reason", join_failure}});
+              std::cerr << "[WAIT] " << join_failure << " frame="
+                        << frame_index
+                        << "; damping while real-proprio history reacquires.\n";
+              continue;
+            }
+            inference_error =
+                join_failure + " frame=" + std::to_string(frame_index);
+            std::cerr << "PICO/inference fault: " << inference_error << '\n';
             break;
           }
           proprio = attempt.joined->control_proprio_q10;

@@ -546,6 +546,11 @@ void TestOperatorAndCommandSafety(Runner& runner) {
   core.SubmitPolicy(ZeroPolicy(now), now);
   runner.Check(core.policy_ready_for_arm(now),
                "fresh accepted policy opens policy-ready gate");
+  runner.Check(core.BeginPreArmPolicyReacquisition(),
+               "pre-arm causal miss starts policy reacquisition");
+  runner.Check(!core.policy_ready_for_arm(now),
+               "pre-arm reacquisition clears previously fresh policy");
+  core.SubmitPolicy(ZeroPolicy(now), now);
   runner.Check(
       !core.policy_ready_for_arm(now + active::kPolicyFreshnessNs + 1),
       "policy-ready gate closes after freshness deadline");
@@ -587,6 +592,21 @@ void TestOperatorAndCommandSafety(Runner& runner) {
       now);
   runner.Check(stop_core.fault() == active::Fault::OperatorStop,
                "explicit STOP latches without state or publisher");
+
+  active::GantrySafetyCore armed_reacquisition_core(ValidArtifact());
+  OpenGate(armed_reacquisition_core, 7'100'000'000LL);
+  const auto armed_reacquisition_now = 7'120'000'000LL;
+  armed_reacquisition_core.SubmitPolicy(
+      ZeroPolicy(armed_reacquisition_now), armed_reacquisition_now);
+  armed_reacquisition_core.ObserveOperator(
+      {.arm_edge = true, .deadman_held = true, .stop_requested = false},
+      armed_reacquisition_now);
+  runner.Check(armed_reacquisition_core.armed(),
+               "armed reacquisition fixture reaches policy control");
+  runner.Check(!armed_reacquisition_core.BeginPreArmPolicyReacquisition() &&
+                   armed_reacquisition_core.fault() ==
+                       active::Fault::PicoTermsInvalid,
+               "causal miss after arming is terminal");
 }
 
 void TestPolicyAndMapping(Runner& runner) {

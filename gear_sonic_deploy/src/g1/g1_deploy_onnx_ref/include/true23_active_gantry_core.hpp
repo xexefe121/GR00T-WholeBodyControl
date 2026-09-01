@@ -1046,6 +1046,22 @@ class GantrySafetyCore {
     policy_ = sample;
   }
 
+  // A transient causal join miss is recoverable only before arming.  Clear the
+  // previously fresh policy so an operator edge cannot arm against stale
+  // history while the inference thread rebuilds its real-proprio window.
+  // Once armed, the same miss is terminal and must enter fail-safe damping.
+  [[nodiscard]] bool BeginPreArmPolicyReacquisition() {
+    if (fault_ != Fault::None) {
+      return false;
+    }
+    if (armed_) {
+      Latch(Fault::PicoTermsInvalid);
+      return false;
+    }
+    policy_.reset();
+    return true;
+  }
+
   void CheckWatchdogs(std::int64_t now_monotonic_ns) {
     if (fault_ != Fault::None) {
       return;
