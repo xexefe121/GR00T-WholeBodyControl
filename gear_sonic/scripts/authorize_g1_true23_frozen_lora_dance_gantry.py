@@ -24,6 +24,7 @@ from gear_sonic.utils.g1_23dof_artifact import (
 )
 
 KIND = "g1_true23_frozen_lora_dance_gantry_active_promotion_v2"
+LIVE_KIND = "g1_true23_frozen_lora_live_gantry_active_promotion_v1"
 DIRECT_DANCE_COMMAND = "DANCE"
 _AUTHORIZATION_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{7,127}$")
 
@@ -35,12 +36,14 @@ def _object(path: Path) -> dict:
     return value
 
 
-def active_body(args: argparse.Namespace) -> dict:
+def active_body_for_operator_mode(
+    args: argparse.Namespace, *, direct_dance: bool
+) -> dict:
     if args.gantry_authorize != AUTHORIZATION_PHRASE:
         raise ValueError("exact explicit gantry authorization phrase is required")
     if not _AUTHORIZATION_ID.fullmatch(args.authorization_id):
         raise ValueError("authorization-id must contain 8-128 safe characters")
-    if args.direct_dance_command != DIRECT_DANCE_COMMAND:
+    if direct_dance and args.direct_dance_command != DIRECT_DANCE_COMMAND:
         raise ValueError("exact direct dance command DANCE is required")
     promotion = args.promotion.expanduser().resolve(strict=True)
     expected_promotion = promotion_body(args)
@@ -66,7 +69,7 @@ def active_body(args: argparse.Namespace) -> dict:
     decoder = args.decoder_report.with_name(report["decoder"]["filename"]).resolve(strict=True)
     body = {
         "schema_version": 1,
-        "kind": KIND,
+        "kind": KIND if direct_dance else LIVE_KIND,
         "robot_model": "g1_23dof_rev_1_0",
         "required_mode_machine": 4,
         "native_action_dof": 23,
@@ -88,16 +91,22 @@ def active_body(args: argparse.Namespace) -> dict:
         "stage_one_envelope": {
             "action_fraction": 0.10,
             "maximum_target_rate_rad_per_second": 0.25,
-            "maximum_post_arm_duration_seconds": 5,
-            "wireless_deadman_required": False,
-            "wireless_stop_required": False,
-            "direct_dance_command_required": DIRECT_DANCE_COMMAND,
+            "maximum_post_arm_duration_seconds": 5 if direct_dance else 10,
+            "wireless_deadman_required": not direct_dance,
+            "wireless_stop_required": not direct_dance,
+            "direct_dance_command_required": (
+                DIRECT_DANCE_COMMAND if direct_dance else False
+            ),
             "physical_estop_required": True,
             "process_signal_stop_required": True,
         },
     }
     body["promotion_payload_sha256"] = sha256_bytes(canonical_json_bytes(body))
     return body
+
+
+def active_body(args: argparse.Namespace) -> dict:
+    return active_body_for_operator_mode(args, direct_dance=True)
 
 
 def _parser() -> argparse.ArgumentParser:

@@ -12,6 +12,9 @@ from typing import Sequence
 from gear_sonic.scripts.authorize_g1_true23_causal_gantry import (
     AUTHORIZATION_PHRASE,
 )
+from gear_sonic.scripts.authorize_g1_true23_frozen_lora_dance_gantry import (
+    LIVE_KIND,
+)
 from gear_sonic.scripts.run_g1_true23_frozen_lora_dance_gantry import (
     _active_command,
     _existing_file,
@@ -19,6 +22,9 @@ from gear_sonic.scripts.run_g1_true23_frozen_lora_dance_gantry import (
     _signal_active_controller,
     _signal_wsl_matching,
     _wsl_path,
+)
+from gear_sonic.scripts.validate_g1_true23_stage1_evidence import (
+    validate_active,
 )
 
 
@@ -151,6 +157,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     decoder = _existing_file(metadata.with_name(decoder_name), "decoder")
     promotion = _existing_file(args.promotion, "promotion")
     active_promotion = _existing_file(args.active_promotion, "active promotion")
+    if json.loads(active_promotion.read_text(encoding="utf-8")).get("kind") != LIVE_KIND:
+        raise ValueError("live PICO requires wireless-live frozen-LoRA sidecar")
     shadow = _existing_file(args.live_shadow_evidence, "live shadow evidence")
     evidence = _new_output(args.evidence, "controller evidence")
     publisher_evidence = _new_output(
@@ -198,6 +206,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         evidence=converted["evidence"],
         duration_seconds=args.duration_seconds,
         gantry_authorize=args.gantry_authorize,
+        frozen_lora_policy=True,
     )
 
     print(
@@ -261,6 +270,19 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     if publisher_status != 0:
         raise RuntimeError(f"live PICO publisher cleanup failed ({publisher_status})")
+    if controller_status != 0:
+        raise RuntimeError(f"controller failed ({controller_status})")
+    if not evidence.exists():
+        raise RuntimeError("controller produced no execution evidence")
+    validate_active(
+        argparse.Namespace(
+            evidence=evidence,
+            binary=binary,
+            shadow_evidence=shadow,
+            active_promotion=active_promotion,
+            authorization_id=args.authorization_id,
+        )
+    )
     print(f"[EVIDENCE] controller={evidence}", flush=True)
     print(f"[EVIDENCE] publisher={publisher_evidence}", flush=True)
     return controller_status

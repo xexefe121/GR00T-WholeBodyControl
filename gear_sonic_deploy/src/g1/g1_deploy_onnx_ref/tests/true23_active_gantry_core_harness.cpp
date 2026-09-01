@@ -557,6 +557,28 @@ void TestOperatorAndCommandSafety(Runner& runner) {
   core.ObserveOperator(
       {.arm_edge = true, .deadman_held = true, .stop_requested = false},
       now);
+  runner.Check(!core.armed(),
+               "operator edge cannot arm before startup-hold handoff");
+  runner.Check(core.PreparePreArmHold(now) &&
+                   core.pre_arm_hold_prepared(),
+               "fresh policy prepares sampled pre-arm posture hold");
+  const auto pre_arm_hold = core.BuildCommand(now + 1'000'000LL);
+  for (std::size_t compact = 0; compact < 23; ++compact) {
+    const auto slot = static_cast<std::size_t>(
+        true23::kHardwareJointIds[compact]);
+    runner.Check(pre_arm_hold[slot].mode == 1 &&
+                     pre_arm_hold[slot].kp ==
+                         active::kPreArmHoldKpFraction *
+                             active::kStageOneKp[compact] &&
+                     pre_arm_hold[slot].tau == 0.0,
+                 "pre-arm command holds sampled posture with positive kp");
+  }
+  core.EnableOperatorArming();
+  runner.Check(core.operator_arming_enabled(),
+               "explicit post-hold handoff enables operator arming");
+  core.ObserveOperator(
+      {.arm_edge = true, .deadman_held = true, .stop_requested = false},
+      now);
   runner.Check(core.armed(), "arm edge plus held deadman arms after gates");
   const auto command = core.BuildCommand(now + 1'000'000LL);
   for (const int excluded : true23::kExcludedHardwareJointIds) {
@@ -598,6 +620,10 @@ void TestOperatorAndCommandSafety(Runner& runner) {
   const auto armed_reacquisition_now = 7'120'000'000LL;
   armed_reacquisition_core.SubmitPolicy(
       ZeroPolicy(armed_reacquisition_now), armed_reacquisition_now);
+  runner.Check(
+      armed_reacquisition_core.PreparePreArmHold(armed_reacquisition_now),
+      "armed reacquisition fixture prepares posture hold");
+  armed_reacquisition_core.EnableOperatorArming();
   armed_reacquisition_core.ObserveOperator(
       {.arm_edge = true, .deadman_held = true, .stop_requested = false},
       armed_reacquisition_now);
@@ -636,12 +662,18 @@ void TestPolicyAndMapping(Runner& runner) {
   auto policy = ZeroPolicy(now);
   policy.native_action[1] = 0.5F;
   core.SubmitPolicy(policy, now);
+  runner.Check(core.PreparePreArmHold(now),
+               "mapping fixture prepares posture hold");
+  const auto expected_slot = static_cast<std::size_t>(
+      true23::kNativeToHardwareMotorIds[1]);
+  auto drifted_state = State(6, now);
+  drifted_state.q[expected_slot] += 0.05;
+  core.ObserveState(drifted_state, now);
+  core.EnableOperatorArming();
   core.ObserveOperator(
       {.arm_edge = true, .deadman_held = true, .stop_requested = false},
       now);
   const auto command = core.BuildCommand(now + 1'000'000LL);
-  const auto expected_slot = static_cast<std::size_t>(
-      true23::kNativeToHardwareMotorIds[1]);
   runner.Check(expected_slot == 6,
                "native IL23 index 1 maps to hardware motor 6");
   runner.Check(command[expected_slot].q >
@@ -653,6 +685,10 @@ void TestPolicyAndMapping(Runner& runner) {
           active::kStageOneTargetRateRadPerSecond *
               active::kControlPeriodSeconds + 1e-9,
       "target change is stage-one slew clamped");
+  runner.Check(
+      std::abs(command[expected_slot].q -
+               drifted_state.q[expected_slot]) > 0.049,
+      "first policy target slews from sampled hold, not later drifted state");
 
   active::GantrySafetyCore magnitude(ValidArtifact());
   OpenGate(magnitude, 9'000'000'000LL);
@@ -762,6 +798,9 @@ void TestNative124BindingAcquisitionAndStageOneCore(Runner& runner) {
   auto policy = ZeroPolicy(now);
   policy.native_action[0] = 0.5F;
   core.SubmitPolicy(policy, now);
+  runner.Check(core.PreparePreArmHold(now),
+               "native124 fixture prepares posture hold");
+  core.EnableOperatorArming();
   core.ObserveOperator(
       {.arm_edge = true, .deadman_held = true, .stop_requested = false},
       now);

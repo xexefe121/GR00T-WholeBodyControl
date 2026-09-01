@@ -914,17 +914,19 @@ def validate_publisher(args: argparse.Namespace) -> dict[str, Any]:
             "session_start",
             "artifact_gate_passed",
             "mutation_gate_open",
-            "motion_mode_released",
             "lowcmd_publisher_created",
             "first_policy_ready_for_arm",
+            "pre_arm_hold_prepared",
+            "motion_mode_released",
+            "pre_arm_hold_gate_open",
             "first_armed_policy_command_written",
             "session_complete",
         ]
         if [record.get("event") for record in active_records] != expected_active_events:
             _reject("paired active evidence event order is not exact")
         active_started_ns = _integer(active_records[0].get("monotonic_ns"), "active start monotonic time")
-        policy_ready_ns = _integer(active_records[5].get("monotonic_ns"), "policy-ready monotonic time")
-        first_command_ns = _integer(active_records[6].get("monotonic_ns"), "first-command monotonic time")
+        policy_ready_ns = _integer(active_records[4].get("monotonic_ns"), "policy-ready monotonic time")
+        first_command_ns = _integer(active_records[8].get("monotonic_ns"), "first-command monotonic time")
         required_active_ns = _integer(
             active_records[-1].get("required_post_arm_duration_ns"),
             "active required post-arm duration",
@@ -1519,13 +1521,29 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
     binary = _regular_non_symlink(args.binary, "active controller binary")
     shadow = _regular_non_symlink(args.shadow_evidence, "shadow evidence")
     active_promotion = _regular_non_symlink(args.active_promotion, "active promotion")
+    try:
+        active_document = json.loads(
+            active_promotion.read_bytes(),
+            object_pairs_hook=_pairs_no_duplicates,
+            parse_constant=_reject_constant,
+        )
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        _reject(f"active promotion is invalid JSON: {exc}")
+    if not isinstance(active_document, dict):
+        _reject("active promotion must be one JSON object")
+    frozen_live = (
+        active_document.get("kind")
+        == "g1_true23_frozen_lora_live_gantry_active_promotion_v1"
+    )
     expected_events = [
         "session_start",
         "artifact_gate_passed",
         "mutation_gate_open",
-        "motion_mode_released",
         "lowcmd_publisher_created",
         "first_policy_ready_for_arm",
+        "pre_arm_hold_prepared",
+        "motion_mode_released",
+        "pre_arm_hold_gate_open",
         "first_armed_policy_command_written",
         "session_complete",
     ]
@@ -1563,6 +1581,7 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
             "network",
             "pico_endpoint",
             "post_arm_duration_seconds",
+            "operator_contract",
             "minimum_policy_command_frames",
             "mutation_gate_open",
             "motion_mode_released",
@@ -1579,7 +1598,15 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
         or _integer(start.get("live_shadow_action_frames"), "live_shadow_action_frames") < 100
         or start.get("network") != "eth0"
         or start.get("pico_endpoint") != "tcp://127.0.0.1:5557"
-        or not (20 <= _integer(start.get("post_arm_duration_seconds"), "post_arm_duration_seconds") <= 30)
+        or start.get("operator_contract") != "wireless_deadman_v1"
+        or not (
+            (1 if frozen_live else 20)
+            <= _integer(
+                start.get("post_arm_duration_seconds"),
+                "post_arm_duration_seconds",
+            )
+            <= (10 if frozen_live else 30)
+        )
         or _integer(start.get("minimum_policy_command_frames"), "minimum_policy_command_frames") != 100
         or start.get("mutation_gate_open") is not False
         or start.get("motion_mode_released") is not False
@@ -1646,23 +1673,7 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
     ):
         _reject("active mutation gate contract mismatch")
 
-    motion_gate = records[3]
-    _exact(
-        motion_gate,
-        {
-            "schema_version",
-            "kind",
-            "event",
-            "authorization_id",
-            "monotonic_ns",
-            "post_release_mode_name_empty",
-        },
-        "motion_mode_released",
-    )
-    if motion_gate.get("post_release_mode_name_empty") is not True:
-        _reject("motion-mode release was not proven")
-
-    publisher_gate = records[4]
+    publisher_gate = records[3]
     _exact(
         publisher_gate,
         {
@@ -1673,13 +1684,18 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
             "monotonic_ns",
             "topic",
             "writes_before_event",
+            "motion_mode_released",
         },
         "lowcmd_publisher_created",
     )
-    if publisher_gate.get("topic") != "rt/lowcmd" or publisher_gate.get("writes_before_event") != 0:
-        _reject("LowCmd publisher creation ordering mismatch")
+    if (
+        publisher_gate.get("topic") != "rt/lowcmd"
+        or publisher_gate.get("writes_before_event") != 0
+        or publisher_gate.get("motion_mode_released") is not False
+    ):
+        _reject("LowCmd publisher pre-release no-write contract mismatch")
 
-    policy_ready = records[5]
+    policy_ready = records[4]
     _exact(
         policy_ready,
         {
@@ -1699,7 +1715,91 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
     ):
         _reject("first policy-ready contract mismatch")
 
-    first_command = records[6]
+    hold_prepared = records[5]
+    _exact(
+        hold_prepared,
+        {
+            "schema_version",
+            "kind",
+            "event",
+            "authorization_id",
+            "monotonic_ns",
+            "sampled_hardware_joints",
+            "kp_fraction",
+            "feedforward_tau_zero",
+            "pre_release_lowcmd_writes",
+        },
+        "pre_arm_hold_prepared",
+    )
+    if (
+        hold_prepared.get("sampled_hardware_joints") != 23
+        or _number(hold_prepared.get("kp_fraction"), "hold kp_fraction") != 0.25
+        or hold_prepared.get("feedforward_tau_zero") is not True
+        or hold_prepared.get("pre_release_lowcmd_writes") != 0
+    ):
+        _reject("pre-arm hold preparation contract mismatch")
+
+    motion_gate = records[6]
+    _exact(
+        motion_gate,
+        {
+            "schema_version",
+            "kind",
+            "event",
+            "authorization_id",
+            "monotonic_ns",
+            "post_release_mode_name_empty",
+            "pre_release_lowcmd_writes",
+            "first_post_release_command",
+        },
+        "motion_mode_released",
+    )
+    if (
+        motion_gate.get("post_release_mode_name_empty") is not True
+        or motion_gate.get("pre_release_lowcmd_writes") != 0
+        or motion_gate.get("first_post_release_command")
+        != "sampled_posture_hold"
+    ):
+        _reject("motion-mode release/first-command contract failed")
+
+    hold_gate = records[7]
+    _exact(
+        hold_gate,
+        {
+            "schema_version",
+            "kind",
+            "event",
+            "authorization_id",
+            "monotonic_ns",
+            "pre_arm_hold_frames",
+            "required_pre_arm_hold_frames",
+            "startup_damping_frames",
+            "first_hold_write_monotonic_ns",
+            "release_to_first_hold_write_ns",
+            "maximum_first_hold_write_delay_ns",
+            "kp_positive",
+            "feedforward_tau_zero",
+        },
+        "pre_arm_hold_gate_open",
+    )
+    hold_frames = _integer(hold_gate.get("pre_arm_hold_frames"), "pre_arm_hold_frames")
+    first_hold_delay_ns = _integer(
+        hold_gate.get("release_to_first_hold_write_ns"),
+        "release_to_first_hold_write_ns",
+    )
+    if (
+        hold_frames < 25
+        or hold_gate.get("required_pre_arm_hold_frames") != 25
+        or hold_gate.get("startup_damping_frames") != 0
+        or first_hold_delay_ns < 0
+        or first_hold_delay_ns > 20_000_000
+        or hold_gate.get("maximum_first_hold_write_delay_ns") != 20_000_000
+        or hold_gate.get("kp_positive") is not True
+        or hold_gate.get("feedforward_tau_zero") is not True
+    ):
+        _reject("pre-arm hold gate did not prove hold-first startup")
+
+    first_command = records[8]
     _exact(
         first_command,
         {
@@ -1731,6 +1831,14 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
             "authorization_id",
             "monotonic_ns",
             "passed",
+            "policy_prewarmed_before_motion_release",
+            "pre_release_lowcmd_writes",
+            "pre_arm_hold_gate_open",
+            "pre_arm_hold_frames",
+            "required_pre_arm_hold_frames",
+            "startup_damping_frames",
+            "release_to_first_hold_write_ns",
+            "maximum_first_hold_write_delay_ns",
             "armed_transition_observed",
             "policy_command_frames",
             "minimum_policy_command_frames",
@@ -1747,6 +1855,10 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
             "inference_error",
             "writer_error",
             "publisher_write_failed",
+            "publisher_write_count",
+            "accepted_inference_frames",
+            "maximum_inference_duration_ns",
+            "maximum_packet_age_ns",
         },
         "active session_complete",
     )
@@ -1759,6 +1871,14 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
     elapsed_ns = _integer(terminal.get("post_arm_elapsed_ns"), "post_arm_elapsed_ns")
     if (
         terminal.get("passed") is not True
+        or terminal.get("policy_prewarmed_before_motion_release") is not True
+        or terminal.get("pre_release_lowcmd_writes") != 0
+        or terminal.get("pre_arm_hold_gate_open") is not True
+        or _integer(terminal.get("pre_arm_hold_frames"), "terminal pre_arm_hold_frames") < 25
+        or terminal.get("required_pre_arm_hold_frames") != 25
+        or terminal.get("startup_damping_frames") != 0
+        or terminal.get("release_to_first_hold_write_ns") != first_hold_delay_ns
+        or terminal.get("maximum_first_hold_write_delay_ns") != 20_000_000
         or terminal.get("armed_transition_observed") is not True
         or action_frames < 100
         or terminal.get("minimum_policy_command_frames") != 100

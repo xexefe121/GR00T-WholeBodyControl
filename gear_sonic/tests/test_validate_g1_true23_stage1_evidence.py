@@ -64,6 +64,7 @@ def _fixture(tmp_path: Path) -> tuple[argparse.Namespace, list[dict[str, object]
             "network": "eth0",
             "pico_endpoint": "tcp://127.0.0.1:5557",
             "post_arm_duration_seconds": 20,
+            "operator_contract": "wireless_deadman_v1",
             "minimum_policy_command_frames": 100,
             "mutation_gate_open": False,
             "motion_mode_released": False,
@@ -87,13 +88,47 @@ def _fixture(tmp_path: Path) -> tuple[argparse.Namespace, list[dict[str, object]
             "crc_valid": True,
         }
     )
-    motion = common("motion_mode_released", 4)
-    motion["post_release_mode_name_empty"] = True
-    publisher = common("lowcmd_publisher_created", 5)
-    publisher.update({"topic": "rt/lowcmd", "writes_before_event": 0})
-    ready = common("first_policy_ready_for_arm", 6)
+    publisher = common("lowcmd_publisher_created", 4)
+    publisher.update(
+        {
+            "topic": "rt/lowcmd",
+            "writes_before_event": 0,
+            "motion_mode_released": False,
+        }
+    )
+    ready = common("first_policy_ready_for_arm", 5)
     ready.update({"real_history_frames": 10, "policy_freshness_limit_ns": 100_000_000})
-    command = common("first_armed_policy_command_written", 7)
+    hold_prepared = common("pre_arm_hold_prepared", 6)
+    hold_prepared.update(
+        {
+            "sampled_hardware_joints": 23,
+            "kp_fraction": 0.25,
+            "feedforward_tau_zero": True,
+            "pre_release_lowcmd_writes": 0,
+        }
+    )
+    motion = common("motion_mode_released", 7)
+    motion.update(
+        {
+            "post_release_mode_name_empty": True,
+            "pre_release_lowcmd_writes": 0,
+            "first_post_release_command": "sampled_posture_hold",
+        }
+    )
+    hold_gate = common("pre_arm_hold_gate_open", 8)
+    hold_gate.update(
+        {
+            "pre_arm_hold_frames": 25,
+            "required_pre_arm_hold_frames": 25,
+            "startup_damping_frames": 0,
+            "first_hold_write_monotonic_ns": 7_002_000,
+            "release_to_first_hold_write_ns": 2_000_000,
+            "maximum_first_hold_write_delay_ns": 20_000_000,
+            "kp_positive": True,
+            "feedforward_tau_zero": True,
+        }
+    )
+    command = common("first_armed_policy_command_written", 9)
     command.update(
         {
             "policy_command_frame": 1,
@@ -101,10 +136,18 @@ def _fixture(tmp_path: Path) -> tuple[argparse.Namespace, list[dict[str, object]
             "feedforward_tau_zero": True,
         }
     )
-    complete = common("session_complete", 8)
+    complete = common("session_complete", 10)
     complete.update(
         {
             "passed": True,
+            "policy_prewarmed_before_motion_release": True,
+            "pre_release_lowcmd_writes": 0,
+            "pre_arm_hold_gate_open": True,
+            "pre_arm_hold_frames": 25,
+            "required_pre_arm_hold_frames": 25,
+            "startup_damping_frames": 0,
+            "release_to_first_hold_write_ns": 2_000_000,
+            "maximum_first_hold_write_delay_ns": 20_000_000,
             "armed_transition_observed": True,
             "policy_command_frames": 100,
             "minimum_policy_command_frames": 100,
@@ -121,15 +164,21 @@ def _fixture(tmp_path: Path) -> tuple[argparse.Namespace, list[dict[str, object]
             "inference_error": "",
             "writer_error": "",
             "publisher_write_failed": False,
+            "publisher_write_count": 375,
+            "accepted_inference_frames": 100,
+            "maximum_inference_duration_ns": 1_000_000,
+            "maximum_packet_age_ns": 20_000_000,
         }
     )
     records = [
         start,
         artifact,
         mutation,
-        motion,
         publisher,
         ready,
+        hold_prepared,
+        motion,
+        hold_gate,
         command,
         complete,
     ]
@@ -529,6 +578,8 @@ def _runtime_publisher_fixture(
         10_240_000_000,
         10_250_000_000,
         10_260_000_000,
+        10_270_000_000,
+        10_290_000_000,
         10_300_000_000,
         31_000_000_000,
     ]
@@ -698,6 +749,29 @@ def test_active_execution_evidence_accepts_exact_success(tmp_path: Path) -> None
     assert result["damping_frames_after_stop"] == 250
 
 
+def test_active_execution_evidence_accepts_frozen_live_duration(
+    tmp_path: Path,
+) -> None:
+    args, records = _fixture(tmp_path)
+    args.active_promotion.write_text(
+        json.dumps(
+            {
+                "kind": (
+                    "g1_true23_frozen_lora_live_gantry_active_promotion_v1"
+                )
+            }
+        ),
+        encoding="utf-8",
+    )
+    records[0]["active_promotion_sha256"] = _sha256(args.active_promotion)
+    records[0]["post_arm_duration_seconds"] = 10
+    records[-1]["post_arm_elapsed_ns"] = 10_000_000_000
+    records[-1]["required_post_arm_duration_ns"] = 10_000_000_000
+    _write_jsonl(args.evidence, records)
+    result = validate_active(args)
+    assert result["policy_command_frames"] == 100
+
+
 @pytest.mark.parametrize(
     ("field", "value"),
     [
@@ -705,6 +779,8 @@ def test_active_execution_evidence_accepts_exact_success(tmp_path: Path) -> None
         ("post_arm_elapsed_ns", 19_999_999_999),
         ("maximum_target_slew_rad", 0.000_501),
         ("publisher_write_failed", True),
+        ("startup_damping_frames", 1),
+        ("pre_release_lowcmd_writes", 1),
     ],
 )
 def test_active_execution_evidence_rejects_false_pass(tmp_path: Path, field: str, value: object) -> None:
@@ -934,7 +1010,7 @@ def test_runtime_publisher_rejects_incomplete_active_window(
     tmp_path: Path,
 ) -> None:
     args, _, active_records = _runtime_publisher_fixture(tmp_path)
-    active_records[6]["monotonic_ns"] = 11_000_000_000
+    active_records[8]["monotonic_ns"] = 11_000_000_000
     _write_jsonl(args.active_evidence, active_records)
     with pytest.raises(EvidenceError):
         validate_runtime_publisher(args)

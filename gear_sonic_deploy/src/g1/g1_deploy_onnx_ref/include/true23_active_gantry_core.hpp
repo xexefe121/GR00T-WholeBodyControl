@@ -38,6 +38,8 @@ inline constexpr double kControlPeriodSeconds = 0.002;
 inline constexpr std::int64_t kWriterPeriodNs = 2'000'000;
 inline constexpr double kStageOneActionFraction = 0.10;
 inline constexpr double kStageOneTargetRateRadPerSecond = 0.25;
+inline constexpr double kPreArmHoldKpFraction = 0.25;
+inline constexpr double kPreArmHoldEffortFraction = 0.10;
 inline constexpr double kTargetLimitMarginRad = 0.05;
 inline constexpr double kTrainingActionClipValue = 20.0;
 inline constexpr double kMaximumNormalizedAction = kTrainingActionClipValue;
@@ -1009,7 +1011,8 @@ class GantrySafetyCore {
     deadman_held_ = input.deadman_held;
     if (input.arm_edge) {
       CheckWatchdogs(now_monotonic_ns);
-      if (fault_ != Fault::None || !mutation_surface_allowed_ ||
+      if (fault_ != Fault::None || !operator_arming_enabled_ ||
+          !pre_arm_hold_prepared_ || !mutation_surface_allowed_ ||
           !input.deadman_held || !policy_.has_value()) {
         return;
       }
@@ -1018,7 +1021,38 @@ class GantrySafetyCore {
         Latch(Fault::PolicyStale);
         return;
       }
+      last_target_ = pre_arm_hold_target_;
+      have_last_target_ = true;
       armed_ = true;
+    }
+  }
+
+  // Snapshot a policy-free posture while Unitree motion mode still owns the
+  // robot. Runtime prepares this only after a fresh policy exists, then writes
+  // this hold as the first command after motion-mode release. No kp=0 command
+  // is permitted during startup.
+  [[nodiscard]] bool PreparePreArmHold(std::int64_t now_monotonic_ns) {
+    CheckWatchdogs(now_monotonic_ns);
+    if (fault_ != Fault::None || armed_ || !mutation_surface_allowed_ ||
+        !state_.has_value() ||
+        !policy_ready_for_arm(now_monotonic_ns)) {
+      return false;
+    }
+    for (std::size_t compact = 0; compact < 23; ++compact) {
+      const auto slot =
+          static_cast<std::size_t>(kHardwareJointIds[compact]);
+      pre_arm_hold_target_[compact] = state_->q[slot];
+    }
+    pre_arm_hold_prepared_ = true;
+    return true;
+  }
+
+  // One-way runtime handoff after minimum startup-hold writes. This prevents
+  // A/L2 edges observed during read-only prewarm from arming motor control.
+  void EnableOperatorArming() {
+    if (pre_arm_hold_prepared_ && mutation_surface_allowed_ &&
+        fault_ == Fault::None) {
+      operator_arming_enabled_ = true;
     }
   }
 
@@ -1084,8 +1118,13 @@ class GantrySafetyCore {
       std::int64_t now_monotonic_ns,
       double dt_seconds = kControlPeriodSeconds) {
     CheckWatchdogs(now_monotonic_ns);
-    if (fault_ != Fault::None || !armed_ || !deadman_held_ ||
-        !state_.has_value() || !policy_.has_value()) {
+    if (fault_ != Fault::None) {
+      return BuildDampingCommand();
+    }
+    if (!armed_) {
+      return BuildPreArmHoldCommand();
+    }
+    if (!deadman_held_ || !state_.has_value() || !policy_.has_value()) {
       return BuildDampingCommand();
     }
     if (!std::isfinite(dt_seconds) || dt_seconds <= 0.0 ||
@@ -1160,6 +1199,48 @@ class GantrySafetyCore {
     return command;
   }
 
+  [[nodiscard]] MotorCommand BuildPreArmHoldCommand() {
+    if (fault_ != Fault::None || armed_ || !pre_arm_hold_prepared_ ||
+        !mutation_surface_allowed_ || !state_.has_value()) {
+      return BuildDampingCommand();
+    }
+    MotorCommand command = BuildDampingCommand();
+    for (std::size_t compact = 0; compact < 23; ++compact) {
+      const auto slot =
+          static_cast<std::size_t>(kHardwareJointIds[compact]);
+      const double kp = kPreArmHoldKpFraction * kStageOneKp[compact];
+      const double kd = kStageOneKd[compact];
+      const double predicted_effort =
+          kp * (pre_arm_hold_target_[compact] - state_->q[slot]) -
+          kd * state_->dq[slot];
+      if (!std::isfinite(predicted_effort) ||
+          std::abs(predicted_effort) >
+              kPreArmHoldEffortFraction *
+                  kHardwareEffortLimitNm[compact]) {
+        Latch(Fault::PredictedEffortLimit);
+        return BuildDampingCommand();
+      }
+      command[slot] = MotorSlotCommand{
+          .mode = 1,
+          .q = pre_arm_hold_target_[compact],
+          .dq = 0.0,
+          .kp = kp,
+          .kd = kd,
+          .tau = 0.0,
+      };
+    }
+    for (const int slot : kExcludedHardwareJointIds) {
+      const auto index = static_cast<std::size_t>(slot);
+      command[index].mode = 0;
+      command[index].q = state_->q[index];
+      command[index].dq = 0.0;
+      command[index].kp = 0.0;
+      command[index].kd = kFailSafeKd;
+      command[index].tau = 0.0;
+    }
+    return command;
+  }
+
   [[nodiscard]] MotorCommand BuildDampingCommand() const {
     MotorCommand command{};
     for (std::size_t slot = 0; slot < command.size(); ++slot) {
@@ -1185,6 +1266,12 @@ class GantrySafetyCore {
   }
   [[nodiscard]] bool armed() const {
     return armed_ && fault_ == Fault::None;
+  }
+  [[nodiscard]] bool pre_arm_hold_prepared() const {
+    return pre_arm_hold_prepared_ && fault_ == Fault::None;
+  }
+  [[nodiscard]] bool operator_arming_enabled() const {
+    return operator_arming_enabled_ && fault_ == Fault::None;
   }
   [[nodiscard]] bool policy_ready_for_arm(
       std::int64_t now_monotonic_ns) const {
@@ -1249,6 +1336,7 @@ class GantrySafetyCore {
     armed_ = false;
     deadman_held_ = false;
     mutation_surface_allowed_ = false;
+    operator_arming_enabled_ = false;
   }
 
   ActiveArtifactBinding artifact_;
@@ -1257,6 +1345,7 @@ class GantrySafetyCore {
   std::optional<StateSample> state_;
   std::optional<PolicySample> policy_;
   std::array<double, 23> last_target_{};
+  std::array<double, 23> pre_arm_hold_target_{};
   std::uint32_t last_tick_ = 0;
   std::int64_t last_advancing_state_ns_ = 0;
   int stable_samples_ = 0;
@@ -1266,6 +1355,8 @@ class GantrySafetyCore {
   bool deadman_held_ = false;
   bool armed_ = false;
   bool have_last_target_ = false;
+  bool pre_arm_hold_prepared_ = false;
+  bool operator_arming_enabled_ = false;
 };
 
 // Separate non-policy first-contact path.  It can only hold joint positions

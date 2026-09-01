@@ -116,6 +116,33 @@ Real PICO live teleop retains the wireless deadman contract. After `[READY]`,
 hold L2 and press A once. `[REMOTE]` lines show every decoded L2, A, and STOP
 transition for that live path.
 
+Controller startup is hold-first. ONNX and the ten-frame real-proprio window
+warm while Unitree motion mode still owns posture, with zero LowCmd writes. The
+LowCmd publisher is initialized without writing, the current 23-joint posture
+is sampled, and only then is motion mode released. The first post-release
+packet has positive position gains and zero feedforward torque. At least 25
+successful posture-hold packets must be written before direct or wireless
+arming becomes possible. `kp=0` damping is now terminal-only: stop or fault.
+Execution evidence rejects any pre-release write, any startup damping packet,
+or a first hold packet delayed by more than 20 ms after release.
+
+The 2026-09-01 physical records
+`live_dance.direct.execution.b0180a162573.jsonl` and
+`live_dance.direct.verify.execution.b0180a162573.jsonl` are invalidated for
+readiness. Their controller released motion mode and emitted `kp=0` damping for
+about 22.75 seconds while policy history warmed, matching the observed dumped
+mode. Their later policy-packet counts do not prove a safe startup. Do not use
+either record as physical qualification.
+
+The original `GR00T-WholeBodyControl` true23 implementation has the same
+startup defect: it releases motion mode and starts the writer before policy
+readiness, and its unarmed `BuildCommand` path returns `BuildDampingCommand`.
+This separate sonic-transfer repository intentionally diverges there. It adds
+policy-before-release prewarm, positive-gain sampled hold, delayed operator
+arming, hold-first evidence gates, and distinct direct-versus-wireless frozen
+SONIC active sidecars. Policy/action mapping remains the same true 23-DoF
+mapping and safe-target transform.
+
 Example saved-dance launch after creating a fresh sidecar:
 
 ```powershell
@@ -137,10 +164,13 @@ python -m gear_sonic.scripts.run_g1_true23_frozen_lora_dance_gantry `
 ```
 
 For live PICO, use `run_g1_true23_frozen_lora_live_gantry` with the same
-artifact arguments plus `--xrt-module-dir` and the installed hardened PICO APK
-SHA-256. Its pinned publisher Python defaults to the SOMA venv containing
+artifact arguments, but create the active sidecar with
+`authorize_g1_true23_frozen_lora_live_gantry`. The live sidecar is distinct from
+the direct-dance sidecar: it binds wireless L2/A and B/R2, a 1--10 second
+reviewed window, and no direct `DANCE` command. Add `--xrt-module-dir` and the
+installed hardened PICO APK SHA-256. Its pinned publisher Python defaults to the SOMA venv containing
 `pyzmq`; its raw capture worker remains `/usr/bin/python3` for the XRT binding
 ABI. A live-health probe on 2026-09-01 still reported no connected headset,
-trackers, calibration, or body stream. Saved-clip physical shadow passed, but
-live-headset physical teleoperation and an armed dance remain unproven until
-those external inputs are present and terminal execution evidence passes.
+trackers, calibration, or body stream. Saved-clip physical shadow passed, but a
+hold-first armed dance and live-headset physical teleoperation remain unproven
+until new terminal execution evidence passes.

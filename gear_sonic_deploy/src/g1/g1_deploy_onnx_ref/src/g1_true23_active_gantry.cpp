@@ -62,6 +62,8 @@ inline constexpr std::string_view kFrozenLoraPromotionKind =
     "g1_true23_frozen_lora_dance_shadow_admission_v1";
 inline constexpr std::string_view kFrozenLoraActivePromotionKind =
     "g1_true23_frozen_lora_dance_gantry_active_promotion_v2";
+inline constexpr std::string_view kFrozenLoraLiveActivePromotionKind =
+    "g1_true23_frozen_lora_live_gantry_active_promotion_v1";
 inline constexpr std::string_view kDirectDanceCommand = "DANCE";
 inline constexpr std::string_view kFrozenLoraEncoderSha256 =
     "733353148bef1eb8dd83a96416b7a89f0b5c3530ceb9e0cec9c25fdb04f56ff2";
@@ -81,8 +83,10 @@ inline constexpr std::string_view kFrozenLoraPacketBundleSha256 =
     "237910ad5dfc370db9645e52f08ba0ca3b0f409a1383d692e1ce1937c5e3dc9d";
 inline constexpr int kStateGateTimeoutSeconds = 8;
 inline constexpr int kFaultDampingCycles = 250;
+inline constexpr int kMinimumPreArmHoldCycles = 25;
+inline constexpr std::int64_t kMaximumFirstHoldWriteDelayNs = 20'000'000;
 [[gnu::used]] const char kCompiledCausalRuntimeSurface[] =
-    "TryJoinCausalReference BuildCausalEncoderInput";
+    "WaitJoinCausalReference BuildCausalEncoderInput";
 volatile std::sig_atomic_t g_stop_requested = 0;
 
 void HandleSignal(int) { g_stop_requested = 1; }
@@ -128,7 +132,7 @@ struct Arguments {
   std::string gantry_authorization;
   std::string direct_dance_command;
   int post_arm_duration_seconds = 0;
-  bool frozen_lora_dance = false;
+  bool frozen_lora_policy = false;
   bool validate_only = false;
   bool execute_stage_one = false;
   bool help = false;
@@ -143,19 +147,20 @@ std::string Usage(std::string_view executable) {
       " --active-promotion <gantry-active-promotion.json>"
       " --live-shadow-evidence <passed-shadow.jsonl>"
       " --authorization-id <session-id>"
-      " [--frozen-lora-dance]"
+      " [--frozen-lora-policy]"
       " [--validate-only | --network <interface>"
       " --pico-endpoint <tcp://host:port> --execute-stage-one"
       " --evidence <new.jsonl> --post-arm-duration-seconds"
-      " <causal:20..30|frozen-dance:1..5>"
+      " <causal-wireless:20..30|frozen-live:1..10|direct-dance:1..5>"
       " --gantry-authorize " +
       std::string(active::kGantryAuthorizationPhrase) +
-      " --direct-dance-command DANCE" +
+      " [--direct-dance-command DANCE]" +
       "]"
       "\n\n"
-      "Saved-dance operator contract: exact DANCE command starts only after "
-      "READY; process signal, B/R2, state/policy fault, reviewed duration, or "
-      "physical e-stop stops. Stage one is gantry-only. Diagnostic ONNX, generic "
+      "Frozen-LoRA policy supports either exact DANCE direct mode or wireless "
+      "L2/A live mode, selected by its bound active sidecar. Process signal, "
+      "B/R2, state/policy fault, reviewed duration, or physical e-stop stops. "
+      "Stage one is gantry-only. Diagnostic ONNX, generic "
       "29-output policy, non-mode-4 robot, stale input, and CRC bypass are "
       "unconditionally rejected. Causal artifacts require "
       "g1_true23_causal_history_reference_terms; future-command packets are "
@@ -217,8 +222,8 @@ Arguments ParseArguments(int argc, char** argv) {
       }
     } else if (option == "--validate-only") {
       result.validate_only = true;
-    } else if (option == "--frozen-lora-dance") {
-      result.frozen_lora_dance = true;
+    } else if (option == "--frozen-lora-policy") {
+      result.frozen_lora_policy = true;
     } else if (option == "--execute-stage-one") {
       result.execute_stage_one = true;
     } else {
@@ -266,25 +271,32 @@ Arguments ParseArguments(int argc, char** argv) {
   if (result.execution_evidence.empty()) {
     throw std::runtime_error("--evidence is required for stage-one execution");
   }
-  if (result.frozen_lora_dance) {
-    if (result.direct_dance_command != kDirectDanceCommand) {
-      throw std::runtime_error("exact direct dance command DANCE is required");
-    }
-  } else if (!result.direct_dance_command.empty()) {
-    throw std::runtime_error(
-        "--direct-dance-command is restricted to frozen-LoRA dance");
+  const bool direct_dance = !result.direct_dance_command.empty();
+  if (direct_dance && result.direct_dance_command != kDirectDanceCommand) {
+    throw std::runtime_error("exact direct dance command DANCE is required");
   }
-  const int minimum_duration = result.frozen_lora_dance
-                                   ? 1
-                                   : active::kMinimumStageOnePostArmSeconds;
-  const int maximum_duration = result.frozen_lora_dance
-                                   ? 5
-                                   : active::kMaximumStageOnePostArmSeconds;
+  if (direct_dance && !result.frozen_lora_policy) {
+    throw std::runtime_error(
+        "--direct-dance-command is restricted to frozen-LoRA policy");
+  }
+  const int minimum_duration =
+      direct_dance || result.frozen_lora_policy
+          ? 1
+          : active::kMinimumStageOnePostArmSeconds;
+  const int maximum_duration =
+      direct_dance
+          ? 5
+          : (result.frozen_lora_policy
+                 ? 10
+                 : active::kMaximumStageOnePostArmSeconds);
   if (result.post_arm_duration_seconds < minimum_duration ||
       result.post_arm_duration_seconds > maximum_duration) {
-    throw std::runtime_error(result.frozen_lora_dance
-        ? "--post-arm-duration-seconds must be within dance-reviewed 1..5 range"
-        : "--post-arm-duration-seconds must be within reviewed 20..30 range");
+    throw std::runtime_error(
+        direct_dance
+            ? "--post-arm-duration-seconds must be within dance-reviewed 1..5 range"
+            : (result.frozen_lora_policy
+                   ? "--post-arm-duration-seconds must be within frozen-live 1..10 range"
+                   : "--post-arm-duration-seconds must be within reviewed 20..30 range"));
   }
   if (!result.pico_endpoint.starts_with("tcp://") &&
       !result.pico_endpoint.starts_with("ipc://")) {
@@ -1185,6 +1197,10 @@ active::ActiveArtifactBinding ParseFrozenLoraActivePromotion(
     const LoadedArtifacts& files,
     const Arguments& arguments) {
   const auto& root = files.active_json;
+  const bool direct_dance = !arguments.direct_dance_command.empty();
+  const auto expected_kind = direct_dance
+                                 ? kFrozenLoraActivePromotionKind
+                                 : kFrozenLoraLiveActivePromotionKind;
   RequireExactKeys(
       root,
       {"schema_version", "kind", "robot_model", "required_mode_machine",
@@ -1199,7 +1215,7 @@ active::ActiveArtifactBinding ParseFrozenLoraActivePromotion(
        "stage_one_envelope", "promotion_payload_sha256"},
       "frozen-LoRA active promotion");
   if (root.at("schema_version") != 1 ||
-      root.at("kind") != kFrozenLoraActivePromotionKind ||
+      root.at("kind") != expected_kind ||
       root.at("robot_model") != true23::kRobotModel ||
       root.at("required_mode_machine") != true23::kRequiredModeMachine ||
       root.at("native_action_dof") != true23::kDecoderOutputDim ||
@@ -1232,16 +1248,19 @@ active::ActiveArtifactBinding ParseFrozenLoraActivePromotion(
        "maximum_post_arm_duration_seconds", "wireless_deadman_required",
        "wireless_stop_required", "direct_dance_command_required",
        "physical_estop_required", "process_signal_stop_required"},
-      "frozen-LoRA direct-dance envelope");
+      "frozen-LoRA operator-mode envelope");
+  const json expected_direct_command =
+      direct_dance ? json(kDirectDanceCommand) : json(false);
   if (envelope.value("action_fraction", 0.0) !=
           active::kStageOneActionFraction ||
       envelope.value("maximum_target_rate_rad_per_second", 0.0) !=
           active::kStageOneTargetRateRadPerSecond ||
-      envelope.value("maximum_post_arm_duration_seconds", 0) != 5 ||
-      envelope.value("wireless_deadman_required", true) != false ||
-      envelope.value("wireless_stop_required", true) != false ||
-      envelope.value("direct_dance_command_required", "") !=
-          kDirectDanceCommand ||
+      envelope.value("maximum_post_arm_duration_seconds", 0) !=
+          (direct_dance ? 5 : 10) ||
+      envelope.value("wireless_deadman_required", false) != !direct_dance ||
+      envelope.value("wireless_stop_required", false) != !direct_dance ||
+      envelope.at("direct_dance_command_required") !=
+          expected_direct_command ||
       envelope.value("physical_estop_required", false) != true ||
       envelope.value("process_signal_stop_required", false) != true) {
     throw std::runtime_error("frozen-LoRA active stage-one envelope mismatch");
@@ -1604,17 +1623,18 @@ void ValidateCausalMujocoPromotion(
 
 int Run(const Arguments& arguments) {
   auto files = LoadArtifacts(arguments);
-  const bool frozen_lora_dance =
+  const bool frozen_lora_policy =
       files.candidate_json.value("kind", std::string{}) == kFrozenLoraKind;
-  if (frozen_lora_dance != arguments.frozen_lora_dance) {
+  const bool direct_dance = !arguments.direct_dance_command.empty();
+  if (frozen_lora_policy != arguments.frozen_lora_policy) {
     throw std::runtime_error(
-        "--frozen-lora-dance must exactly match selected artifact class");
+        "--frozen-lora-policy must exactly match selected artifact class");
   }
   Ort::Env environment(ORT_LOGGING_LEVEL_WARNING, "g1_true23_active_gantry");
   OnnxModel encoder(environment, files.encoder);
-  OnnxModel decoder(environment, files.decoder, frozen_lora_dance);
+  OnnxModel decoder(environment, files.decoder, frozen_lora_policy);
 
-  if (frozen_lora_dance) {
+  if (frozen_lora_policy) {
     ValidateFrozenLoraShadowAdmission(files, encoder, decoder);
   } else {
     ValidateCausalDiagnosticPair(files, encoder, decoder);
@@ -1629,10 +1649,10 @@ int Run(const Arguments& arguments) {
            .promotion_sha256 = files.promotion_sha,
            .network = arguments.network,
            .pico_endpoint = arguments.pico_endpoint,
-           .external_safe_target_transform_applied = frozen_lora_dance,
+           .external_safe_target_transform_applied = frozen_lora_policy,
        });
   const bool causal_reference_artifact = true;
-  auto artifact = frozen_lora_dance
+  auto artifact = frozen_lora_policy
       ? ParseFrozenLoraActivePromotion(files, arguments)
       : active::ParseActivePromotion(
             files.active_json, true, files.promotion_sha,
@@ -1642,7 +1662,7 @@ int Run(const Arguments& arguments) {
     throw std::runtime_error(
         "operator authorization-id does not match active promotion");
   }
-  if (!frozen_lora_dance) {
+  if (!frozen_lora_policy) {
     const auto& candidate_hashes = files.candidate_json.at("hashes");
     const auto& promotion_source =
         files.promotion_json.at("source_artifact");
@@ -1684,7 +1704,7 @@ int Run(const Arguments& arguments) {
   if (arguments.validate_only) {
     std::cout
         << "[PASS] exact True23 "
-        << (frozen_lora_dance ? "frozen-LoRA dance" : "causal")
+        << (frozen_lora_policy ? "frozen-LoRA" : "causal")
         << " gantry promotion and "
         << shadow_summary.action_frames
         << "-frame promoted shadow PASS validated; no DDS, motion-mode "
@@ -1716,7 +1736,7 @@ int Run(const Arguments& arguments) {
           {"post_arm_duration_seconds",
            arguments.post_arm_duration_seconds},
           {"operator_contract",
-           arguments.frozen_lora_dance
+           direct_dance
                ? "bounded_direct_dance_command_v1"
                : "wireless_deadman_v1"},
           {"minimum_policy_command_frames",
@@ -1737,12 +1757,10 @@ int Run(const Arguments& arguments) {
     throw std::runtime_error("active artifact safety core refused authorization");
   }
 
-  // Mutation boundary: DDS starts subscriber-only. Publisher and motion-mode
-  // client do not exist until five exact advancing samples have passed.
+  // Start subscriber-only. Policy history and ONNX inference warm completely
+  // while Unitree motion mode still owns posture. LowCmd writer stays closed.
   unitree::robot::ChannelFactory::Instance()->Init(0, arguments.network);
-  StateMonitor monitor(core, arguments.frozen_lora_dance &&
-                                 arguments.direct_dance_command ==
-                                     kDirectDanceCommand);
+  StateMonitor monitor(core, direct_dance);
   monitor.Start();
   const auto deadline = std::chrono::steady_clock::now() +
                         std::chrono::seconds(kStateGateTimeoutSeconds);
@@ -1755,25 +1773,8 @@ int Run(const Arguments& arguments) {
       {{"stable_advancing_lowstate_samples", 5},
        {"required_mode_machine", true23::kRequiredModeMachine},
        {"crc_valid", true}});
-  if (g_stop_requested != 0) {
-    throw std::runtime_error(
-        "signal stopped controller before motion-mode release");
-  }
-  ReleaseMotionModeAfterGate();
-  execution_evidence.AppendEvent(
-      "motion_mode_released",
-      {{"post_release_mode_name_empty", true}});
-  if (g_stop_requested != 0) {
-    throw std::runtime_error(
-        "signal stopped controller after motion-mode release and before publisher");
-  }
-  monitor.WithCore([](active::GantrySafetyCore& value) {
-    value.CheckWatchdogs(NowNs());
-  });
-  if (monitor.fault() != active::Fault::None) {
-    throw std::runtime_error("state fault occurred before publisher creation");
-  }
-
+  // Publisher construction is non-mutating. It occurs before motion release so
+  // first sampled-hold packet can follow ReleaseMode without a DDS setup gap.
   auto publisher =
       std::make_shared<unitree::robot::ChannelPublisher<LowCmd>>(
           std::string(kLowCmdTopic));
@@ -1781,14 +1782,21 @@ int Run(const Arguments& arguments) {
   execution_evidence.AppendEvent(
       "lowcmd_publisher_created",
       {{"topic", std::string(kLowCmdTopic)},
-       {"writes_before_event", 0}});
+       {"writes_before_event", 0},
+       {"motion_mode_released", false}});
   if (g_stop_requested != 0) {
     throw std::runtime_error(
-        "signal stopped controller before command-writer startup");
+        "signal stopped controller before read-only policy prewarm");
   }
   std::atomic<bool> stop_threads{false};
   std::atomic<bool> first_policy_ready_for_arm{false};
+  std::atomic<bool> motion_mode_released{false};
   std::atomic<std::int64_t> first_policy_write_ns{0};
+  std::atomic<std::int64_t> first_pre_arm_hold_write_ns{0};
+  std::atomic<std::uint64_t> publisher_write_count{0};
+  std::atomic<std::uint64_t> pre_arm_hold_frames{0};
+  std::atomic<std::uint64_t> startup_damping_frames{0};
+  std::int64_t motion_mode_released_ns = 0;
   std::uint64_t policy_command_frames = 0;
   int damping_frames_after_stop = 0;
   double maximum_target_delta_from_state_rad = 0.0;
@@ -1964,7 +1972,7 @@ int Run(const Arguments& arguments) {
         const auto decoder_action =
             decoder.Run<true23::kDecoderInputDim,
                         true23::kDecoderOutputDim>(decoder_input);
-        if (frozen_lora_dance) {
+        if (frozen_lora_policy) {
           double raw_max_abs = 0.0;
           for (const auto value : decoder_action) {
             raw_max_abs = std::max(
@@ -1975,7 +1983,7 @@ int Run(const Arguments& arguments) {
                 "raw SONIC decoder action exceeded finite magnitude gate");
           }
         }
-        const auto action = frozen_lora_dance
+        const auto action = frozen_lora_policy
             ? live::RawNativeActionToAppliedSafeNativeAction(decoder_action)
                   .applied_safe_native_action
             : decoder_action;
@@ -2036,6 +2044,7 @@ int Run(const Arguments& arguments) {
           monitor.WithCore([&](active::GantrySafetyCore& value) {
             publisher->Write(ToLowCmd(value.BuildDampingCommand()));
           });
+          publisher_write_count.fetch_add(1, std::memory_order_relaxed);
           ++successful_damping_writes;
           damping_frames_after_stop = successful_damping_writes;
         } catch (const std::exception& damping_error) {
@@ -2057,6 +2066,11 @@ int Run(const Arguments& arguments) {
       auto next_write_ns = NowNs();
       int damping_cycles = 0;
       while (!stop_token.stop_requested() && !stop_threads.load()) {
+        if (!motion_mode_released.load(std::memory_order_acquire)) {
+          std::this_thread::sleep_for(std::chrono::milliseconds(1));
+          next_write_ns = NowNs();
+          continue;
+        }
         std::this_thread::sleep_until(
             std::chrono::steady_clock::time_point(
                 std::chrono::nanoseconds(next_write_ns)));
@@ -2064,19 +2078,42 @@ int Run(const Arguments& arguments) {
         active::Fault fault = active::Fault::None;
         std::optional<active::StateSample> command_state;
         bool policy_command = false;
+        bool pre_arm_hold_command = false;
         monitor.WithCore([&](active::GantrySafetyCore& value) {
           if (g_stop_requested != 0) {
             value.Stop();
           }
           const bool armed_before_build = value.armed();
+          const bool hold_before_build =
+              !armed_before_build && value.pre_arm_hold_prepared();
           command = value.BuildCommand(NowNs());
           fault = value.fault();
           command_state = value.latest_state();
           policy_command =
               armed_before_build && value.armed() &&
               fault == active::Fault::None;
+          pre_arm_hold_command =
+              hold_before_build && !value.armed() &&
+              fault == active::Fault::None;
+          if (pre_arm_hold_command) {
+            for (const int included : true23::kHardwareJointIds) {
+              const auto& joint =
+                  command[static_cast<std::size_t>(included)];
+              if (joint.mode != 1 || !(joint.kp > 0.0) ||
+                  joint.tau != 0.0 || !std::isfinite(joint.q)) {
+                startup_damping_frames.fetch_add(
+                    1, std::memory_order_relaxed);
+                value.ObserveInternalFailure();
+                command = value.BuildDampingCommand();
+                fault = value.fault();
+                pre_arm_hold_command = false;
+                break;
+              }
+            }
+          }
           try {
             publisher->Write(ToLowCmd(command));
+            publisher_write_count.fetch_add(1, std::memory_order_relaxed);
           } catch (...) {
             publisher_write_failed = true;
             throw;
@@ -2085,6 +2122,38 @@ int Run(const Arguments& arguments) {
         const auto completed_write_ns = NowNs();
         next_write_ns =
             active::NextNoCatchUpWriterDeadlineNs(completed_write_ns);
+        if (pre_arm_hold_command) {
+          if (!command_state.has_value()) {
+            throw std::runtime_error(
+                "pre-arm hold command lacks bound LowState sample");
+          }
+          for (std::size_t compact = 0; compact < 23; ++compact) {
+            const auto slot = static_cast<std::size_t>(
+                true23::kHardwareJointIds[compact]);
+            const auto target = command[slot].q;
+            const auto predicted_effort =
+                command[slot].kp * (target - command_state->q[slot]) -
+                command[slot].kd * command_state->dq[slot];
+            maximum_target_delta_from_state_rad = std::max(
+                maximum_target_delta_from_state_rad,
+                std::abs(target - command_state->q[slot]));
+            maximum_abs_predicted_effort_nm = std::max(
+                maximum_abs_predicted_effort_nm,
+                std::abs(predicted_effort));
+            maximum_abs_feedforward_tau_nm = std::max(
+                maximum_abs_feedforward_tau_nm,
+                std::abs(command[slot].tau));
+            previous_active_targets[compact] = target;
+          }
+          have_previous_active_targets = true;
+          const auto hold_frame = pre_arm_hold_frames.fetch_add(
+                                      1, std::memory_order_release) +
+                                  1;
+          if (hold_frame == 1) {
+            first_pre_arm_hold_write_ns.store(
+                completed_write_ns, std::memory_order_release);
+          }
+        }
         if (policy_command) {
           if (!command_state.has_value()) {
             throw std::runtime_error(
@@ -2143,17 +2212,84 @@ int Run(const Arguments& arguments) {
   });
 
   std::cout
-      << "[WAIT] True23 publisher is damping-only; waiting for first fresh "
-         "10-frame causal policy.\n";
+      << "[PREWARM] Unitree motion mode retained; zero LowCmd writes while "
+         "waiting for first fresh 10-frame causal policy.\n";
   while (!first_policy_ready_for_arm.load(std::memory_order_acquire) &&
          !stop_threads.load() &&
          g_stop_requested == 0 && monitor.fault() == active::Fault::None) {
     std::this_thread::sleep_for(std::chrono::milliseconds(2));
   }
-  if (first_policy_ready_for_arm.load(std::memory_order_acquire) &&
-      !stop_threads.load() &&
-      g_stop_requested == 0 && monitor.fault() == active::Fault::None) {
-    if (arguments.frozen_lora_dance) {
+  if (!first_policy_ready_for_arm.load(std::memory_order_acquire) ||
+      stop_threads.load() || g_stop_requested != 0 ||
+      monitor.fault() != active::Fault::None) {
+    stop_threads.store(true);
+    throw std::runtime_error(
+        "read-only policy prewarm stopped before motion-mode release");
+  }
+  bool hold_prepared = false;
+  const auto hold_prepare_ns = NowNs();
+  monitor.WithCore([&](active::GantrySafetyCore& value) {
+    hold_prepared = value.PreparePreArmHold(hold_prepare_ns);
+  });
+  if (!hold_prepared || publisher_write_count.load() != 0) {
+    stop_threads.store(true);
+    throw std::runtime_error(
+        "pre-arm posture hold was not ready with zero LowCmd writes");
+  }
+  execution_evidence.AppendEvent(
+      "pre_arm_hold_prepared",
+      {{"sampled_hardware_joints", 23},
+       {"kp_fraction", active::kPreArmHoldKpFraction},
+       {"feedforward_tau_zero", true},
+       {"pre_release_lowcmd_writes", 0}});
+  if (g_stop_requested != 0) {
+    stop_threads.store(true);
+    throw std::runtime_error(
+        "signal stopped controller before motion-mode release");
+  }
+  ReleaseMotionModeAfterGate();
+  motion_mode_released_ns = NowNs();
+  motion_mode_released.store(true, std::memory_order_release);
+  execution_evidence.AppendEvent(
+      "motion_mode_released",
+      {{"post_release_mode_name_empty", true},
+       {"pre_release_lowcmd_writes", 0},
+       {"first_post_release_command", "sampled_posture_hold"}});
+
+  while (pre_arm_hold_frames.load(std::memory_order_acquire) <
+             static_cast<std::uint64_t>(kMinimumPreArmHoldCycles) &&
+         !stop_threads.load() && g_stop_requested == 0 &&
+         monitor.fault() == active::Fault::None) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+  }
+  const auto first_hold_ns =
+      first_pre_arm_hold_write_ns.load(std::memory_order_acquire);
+  const auto first_hold_delay_ns =
+      first_hold_ns > 0 ? first_hold_ns - motion_mode_released_ns : 0;
+  const bool startup_hold_gate_open =
+      pre_arm_hold_frames.load(std::memory_order_acquire) >=
+          static_cast<std::uint64_t>(kMinimumPreArmHoldCycles) &&
+      startup_damping_frames.load(std::memory_order_acquire) == 0 &&
+      first_hold_delay_ns >= 0 &&
+      first_hold_delay_ns <= kMaximumFirstHoldWriteDelayNs &&
+      g_stop_requested == 0 && monitor.fault() == active::Fault::None;
+  execution_evidence.AppendEvent(
+      startup_hold_gate_open ? "pre_arm_hold_gate_open"
+                             : "pre_arm_hold_gate_failed",
+      {{"pre_arm_hold_frames", pre_arm_hold_frames.load()},
+       {"required_pre_arm_hold_frames", kMinimumPreArmHoldCycles},
+       {"startup_damping_frames", startup_damping_frames.load()},
+       {"first_hold_write_monotonic_ns", first_hold_ns},
+       {"release_to_first_hold_write_ns", first_hold_delay_ns},
+       {"maximum_first_hold_write_delay_ns",
+        kMaximumFirstHoldWriteDelayNs},
+       {"kp_positive", true},
+       {"feedforward_tau_zero", true}});
+  if (startup_hold_gate_open) {
+    monitor.WithCore([](active::GantrySafetyCore& value) {
+      value.EnableOperatorArming();
+    });
+    if (direct_dance) {
       bool direct_armed = false;
       const auto direct_arm_ns = NowNs();
       monitor.WithCore([&](active::GantrySafetyCore& value) {
@@ -2166,14 +2302,16 @@ int Run(const Arguments& arguments) {
         if (!direct_armed) {
           value.ObserveInternalFailure();
         }
+        // Record acceptance while core lock still excludes writer. This makes
+        // evidence order causal: acceptance always precedes first policy write.
+        execution_evidence.AppendEvent(
+            direct_armed ? "direct_dance_command_accepted"
+                         : "direct_dance_command_rejected",
+            {{"command", std::string(kDirectDanceCommand)},
+             {"policy_ready", true},
+             {"gantry_only", true},
+             {"physical_estop_required", true}});
       });
-      execution_evidence.AppendEvent(
-          direct_armed ? "direct_dance_command_accepted"
-                       : "direct_dance_command_rejected",
-          {{"command", std::string(kDirectDanceCommand)},
-           {"policy_ready", true},
-           {"gantry_only", true},
-           {"physical_estop_required", true}});
       if (direct_armed) {
         std::cout
             << "[DANCE] Direct command accepted after READY; bounded motion "
@@ -2182,9 +2320,14 @@ int Run(const Arguments& arguments) {
       }
     } else {
       std::cout
-          << "[READY] Fresh policy ready. Gantry secure; release A if already "
-             "held, hold L2, then press A once. B/R2 or L2 release stops.\n";
+          << "[READY] Sampled posture hold active; fresh policy ready. Release "
+             "A if already held, hold L2, then press A once. B/R2 or L2 "
+             "release stops.\n";
     }
+  } else if (monitor.fault() == active::Fault::None) {
+    monitor.WithCore([](active::GantrySafetyCore& value) {
+      value.ObserveInternalFailure();
+    });
   }
   auto last_operator = monitor.LatestOperator();
   const auto report_operator = [](const active::WirelessOperatorState& state) {
@@ -2193,7 +2336,7 @@ int Run(const Arguments& arguments) {
               << " STOP=" << (state.stop_pressed ? "pressed" : "released")
               << '\n';
   };
-  if (!arguments.frozen_lora_dance) {
+  if (!direct_dance) {
     report_operator(last_operator);
   }
   std::string stop_reason;
@@ -2201,7 +2344,7 @@ int Run(const Arguments& arguments) {
   while (!stop_threads.load()) {
     const auto now_ns = NowNs();
     const auto current_operator = monitor.LatestOperator();
-    if (!arguments.frozen_lora_dance &&
+    if (!direct_dance &&
         (current_operator.arm_pressed != last_operator.arm_pressed ||
         current_operator.deadman_held != last_operator.deadman_held ||
          current_operator.stop_pressed != last_operator.stop_pressed)) {
@@ -2264,11 +2407,21 @@ int Run(const Arguments& arguments) {
       stop_reason == "reviewed_post_arm_duration_complete" &&
       post_arm_elapsed_ns >= required_post_arm_duration_ns;
   const bool passed =
-      armed_transition_observed && enough_policy_commands &&
+      startup_hold_gate_open && armed_transition_observed &&
+      enough_policy_commands &&
       full_damping_stop && safe_terminal_fault && reviewed_duration_completed &&
       inference_error.empty() && writer_error.empty();
   json terminal = {
       {"passed", passed},
+      {"policy_prewarmed_before_motion_release", true},
+      {"pre_release_lowcmd_writes", 0},
+      {"pre_arm_hold_gate_open", startup_hold_gate_open},
+      {"pre_arm_hold_frames", pre_arm_hold_frames.load()},
+      {"required_pre_arm_hold_frames", kMinimumPreArmHoldCycles},
+      {"startup_damping_frames", startup_damping_frames.load()},
+      {"release_to_first_hold_write_ns", first_hold_delay_ns},
+      {"maximum_first_hold_write_delay_ns",
+       kMaximumFirstHoldWriteDelayNs},
       {"armed_transition_observed", armed_transition_observed},
       {"policy_command_frames", policy_command_frames},
       {"minimum_policy_command_frames",
@@ -2289,6 +2442,7 @@ int Run(const Arguments& arguments) {
       {"inference_error", inference_error},
       {"writer_error", writer_error},
       {"publisher_write_failed", publisher_write_failed},
+      {"publisher_write_count", publisher_write_count.load()},
       {"accepted_inference_frames", accepted_inference_frames},
       {"maximum_inference_duration_ns", maximum_inference_duration_ns},
       {"maximum_packet_age_ns", maximum_packet_age_ns},
