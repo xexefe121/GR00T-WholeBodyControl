@@ -1078,6 +1078,41 @@ class GantrySafetyCore {
     return true;
   }
 
+  // Recoverable software/transport failures must not dump the robot.  While
+  // armed, retain the latest measured posture (or last commanded posture if
+  // telemetry is momentarily stale) with positive gains so runtime can hand
+  // ownership back to Unitree's AI service.
+  [[nodiscard]] bool BeginSoftwareFaultReturnHold(
+      std::int64_t now_monotonic_ns) {
+    if (normal_return_active_) {
+      return true;
+    }
+    if (fault_ != Fault::None || !armed_ || !mutation_surface_allowed_) {
+      return false;
+    }
+    const bool fresh_state =
+        state_.has_value() &&
+        Fresh(last_advancing_state_ns_, now_monotonic_ns,
+              kStateFreshnessNs);
+    if (!fresh_state && !have_last_target_) {
+      return false;
+    }
+    for (std::size_t compact = 0; compact < 23; ++compact) {
+      if (fresh_state) {
+        const auto slot =
+            static_cast<std::size_t>(kHardwareJointIds[compact]);
+        normal_return_hold_target_[compact] = state_->q[slot];
+      } else {
+        normal_return_hold_target_[compact] = last_target_[compact];
+      }
+    }
+    normal_return_active_ = true;
+    armed_ = false;
+    deadman_held_ = false;
+    policy_.reset();
+    return true;
+  }
+
   // One-way runtime handoff after minimum startup-hold writes. This prevents
   // A/L2 edges observed during read-only prewarm from arming motor control.
   void EnableOperatorArming() {
@@ -1114,13 +1149,12 @@ class GantrySafetyCore {
   // A transient causal join miss is recoverable only before arming.  Clear the
   // previously fresh policy so an operator edge cannot arm against stale
   // history while the inference thread rebuilds its real-proprio window.
-  // Once armed, the same miss is terminal and must enter fail-safe damping.
+  // Once armed, runtime converts the miss into positive-gain normal return.
   [[nodiscard]] bool BeginPreArmPolicyReacquisition() {
     if (fault_ != Fault::None) {
       return false;
     }
     if (armed_) {
-      Latch(Fault::PicoTermsInvalid);
       return false;
     }
     policy_.reset();
@@ -1134,14 +1168,18 @@ class GantrySafetyCore {
     if (have_tick_ &&
         !Fresh(last_advancing_state_ns_, now_monotonic_ns,
                kStateFreshnessNs)) {
-      Latch(Fault::StateStale);
+      if (!BeginSoftwareFaultReturnHold(now_monotonic_ns)) {
+        Latch(Fault::StateStale);
+      }
       return;
     }
     if (armed_ &&
         (!policy_.has_value() ||
          !Fresh(policy_->produced_monotonic_ns, now_monotonic_ns,
                 kPolicyFreshnessNs))) {
-      Latch(Fault::PolicyStale);
+      if (!BeginSoftwareFaultReturnHold(now_monotonic_ns)) {
+        Latch(Fault::PolicyStale);
+      }
     }
   }
 
@@ -1152,6 +1190,9 @@ class GantrySafetyCore {
       return BuildNormalReturnHoldCommand(now_monotonic_ns);
     }
     CheckWatchdogs(now_monotonic_ns);
+    if (normal_return_active_) {
+      return BuildNormalReturnHoldCommand(now_monotonic_ns);
+    }
     if (fault_ != Fault::None) {
       return BuildDampingCommand();
     }
@@ -1235,11 +1276,10 @@ class GantrySafetyCore {
 
   [[nodiscard]] MotorCommand BuildNormalReturnHoldCommand(
       std::int64_t now_monotonic_ns) {
+    (void)now_monotonic_ns;
     if (!normal_return_active_ || fault_ != Fault::None ||
-        !mutation_surface_allowed_ || !state_.has_value() ||
-        !Fresh(last_advancing_state_ns_, now_monotonic_ns,
-               kStateFreshnessNs)) {
-      Latch(Fault::StateStale);
+        !mutation_surface_allowed_ || !state_.has_value()) {
+      Latch(Fault::InternalInvariant);
       return BuildDampingCommand();
     }
     MotorCommand command = BuildDampingCommand();

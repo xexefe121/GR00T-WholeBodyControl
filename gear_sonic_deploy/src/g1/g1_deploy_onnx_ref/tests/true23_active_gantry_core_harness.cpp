@@ -634,16 +634,18 @@ void TestOperatorAndCommandSafety(Runner& runner) {
   runner.Check(armed_reacquisition_core.armed(),
                "armed reacquisition fixture reaches policy control");
   runner.Check(!armed_reacquisition_core.BeginPreArmPolicyReacquisition() &&
-                   armed_reacquisition_core.fault() ==
-                       active::Fault::PicoTermsInvalid,
-               "causal miss after arming is terminal");
-  const auto fault_damping = armed_reacquisition_core.BuildCommand(
-      armed_reacquisition_now + 1'000'000LL);
+                   armed_reacquisition_core.fault() == active::Fault::None,
+               "armed causal miss is delegated to software return");
+  const auto software_return = armed_reacquisition_core.BuildCommand(
+      armed_reacquisition_now + 167'000'000LL);
+  runner.Check(armed_reacquisition_core.normal_return_active() &&
+                   armed_reacquisition_core.fault() == active::Fault::None,
+               "167 ms watchdog fault starts positive-gain return");
   for (const int included : true23::kHardwareJointIds) {
-    const auto& joint = fault_damping[static_cast<std::size_t>(included)];
-    runner.Check(joint.kp == 0.0 && joint.kd == active::kFailSafeKd &&
+    const auto& joint = software_return[static_cast<std::size_t>(included)];
+    runner.Check(joint.kp > 0.0 && joint.kd > 0.0 &&
                      joint.tau == 0.0,
-                 "true policy fault retains zero-torque damping");
+                 "software fault return never emits damping command");
   }
 }
 

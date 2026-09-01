@@ -24,7 +24,8 @@ foreach(FORBIDDEN
     "disable-crc"
     "disableCrcCheck"
     "--mode control"
-    "g1_deploy_onnx_ref.cpp")
+    "g1_deploy_onnx_ref.cpp"
+    "SetFsmId(released.locomotion_fsm_id)")
   string(FIND "${COMBINED_SURFACE}" "${FORBIDDEN}" FOUND_OFFSET)
   if(NOT FOUND_OFFSET EQUAL -1)
     message(FATAL_ERROR
@@ -103,7 +104,9 @@ foreach(SOURCE_REQUIRED
     "monitor.WaitJoinCausalReference"
     "value.PreparePreArmHold(hold_prepare_ns)"
     "value.BeginNormalReturnHold(now_ns)"
+    "value.BeginSoftwareFaultReturnHold(recovery_ns)"
     "RestoreMotionModeAfterNormalHold(released_motion_mode)"
+    "software_transport_normal_return"
     "!motion_mode_released.load(std::memory_order_acquire)"
     "startup_damping_frames.load(std::memory_order_acquire) == 0"
     "g1_true23_frozen_lora_dance_gantry_active_promotion_v2"

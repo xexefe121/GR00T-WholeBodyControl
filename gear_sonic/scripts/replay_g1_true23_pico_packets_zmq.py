@@ -7,6 +7,7 @@ import copy
 import ctypes
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import subprocess
@@ -15,9 +16,96 @@ from typing import Any, Callable, Mapping
 
 import zmq
 
-from gear_sonic.utils.g1_true23_clean_mujoco_teleop import validate_reference_terms
-
 CONTROL_PERIOD_NS = 20_000_000
+_REFERENCE_KEYS = {
+    "schema_version",
+    "kind",
+    "reference_profile",
+    "reference_contract_sha256",
+    "pico_anchor_source_frame_index",
+    "pico_anchor_monotonic_ns",
+    "control_source_frame_index",
+    "control_monotonic_ns",
+    "causal_history_lower_body",
+    "vr_3point_local_target",
+    "vr_3point_local_orn_target",
+    "reference_anchor_quaternion_xyzw",
+    "anchor_joint_pos_il29",
+    "proof_joint_pos_il29",
+    "q_ref23_native",
+    "qd_ref23_native",
+    "control_derivative_contract",
+    "sdk_derivatives_consumed",
+}
+_NATIVE_TO_IL29 = (0, 1, 2, 3, 4, 11, 12, 6, 7, 15, 16, 9, 10, 19, 20, 13, 14, 21, 22, 17, 18, 23, 24)
+_REFERENCE_CONTRACT_SHA256 = "e25aa962368c6dc8022d7574716f95c77f632fd255a7d010824ee5edc762669c"
+
+
+def _finite_vector(value: Any, width: int, name: str) -> list[float]:
+    if not isinstance(value, list) or len(value) != width:
+        raise ValueError(f"{name} must be a {width}-value list")
+    if any(
+        isinstance(item, bool) or not isinstance(item, (int, float)) or not math.isfinite(float(item))
+        for item in value
+    ):
+        raise ValueError(f"{name} must contain only finite numeric values")
+    return [float(item) for item in value]
+
+
+def validate_reference_terms(packet: Mapping[str, Any]) -> dict[str, Any]:
+    """Validate saved causal packets without importing MuJoCo/ONNX runtimes."""
+
+    if not isinstance(packet, Mapping) or set(packet) != _REFERENCE_KEYS:
+        raise ValueError("causal reference transport keys mismatch")
+    if (
+        packet["schema_version"] != 2
+        or packet["kind"] != "g1_true23_causal_history_reference_terms"
+        or packet["reference_profile"] != "true23_causal_step1_history_0p02s_v1"
+        or packet["reference_contract_sha256"] != _REFERENCE_CONTRACT_SHA256
+        or packet["control_derivative_contract"] != "soma_il29_q_50hz_forward_difference_dq_v1"
+        or packet["sdk_derivatives_consumed"] is not False
+    ):
+        raise ValueError("causal reference transport contract mismatch")
+    integer_names = (
+        "pico_anchor_source_frame_index",
+        "pico_anchor_monotonic_ns",
+        "control_source_frame_index",
+        "control_monotonic_ns",
+    )
+    if any(type(packet[name]) is not int for name in integer_names):
+        raise ValueError("causal reference indices/times must be exact integers")
+    if (
+        packet["control_source_frame_index"] != packet["pico_anchor_source_frame_index"] + 1
+        or packet["control_monotonic_ns"] != packet["pico_anchor_monotonic_ns"] + CONTROL_PERIOD_NS
+    ):
+        raise ValueError("causal reference transport is not exact q9/q10")
+    for name, width in (
+        ("causal_history_lower_body", 240),
+        ("vr_3point_local_target", 9),
+        ("vr_3point_local_orn_target", 12),
+        ("reference_anchor_quaternion_xyzw", 4),
+        ("anchor_joint_pos_il29", 29),
+        ("proof_joint_pos_il29", 29),
+    ):
+        _finite_vector(packet[name], width, name)
+    anchor = _finite_vector(packet["q_ref23_native"], 23, "q_ref23_native")
+    velocity = _finite_vector(packet["qd_ref23_native"], 23, "qd_ref23_native")
+    proof = _finite_vector(packet["proof_joint_pos_il29"], 29, "proof_joint_pos_il29")
+    for native, il29 in enumerate(_NATIVE_TO_IL29):
+        if not math.isclose(
+            proof[il29],
+            anchor[native] + velocity[native] * 0.02,
+            rel_tol=0.0,
+            abs_tol=1.0e-9,
+        ):
+            raise ValueError("causal reference native q9/q10 proof mismatch")
+    return {
+        "anchor_index": packet["pico_anchor_source_frame_index"],
+        "control_index": packet["control_source_frame_index"],
+        "anchor_monotonic_ns": packet["pico_anchor_monotonic_ns"],
+        "control_monotonic_ns": packet["control_monotonic_ns"],
+        "contract_sha256": packet["reference_contract_sha256"],
+    }
 
 
 class WslMonotonicClock:
@@ -31,10 +119,7 @@ class WslMonotonicClock:
                 "python3",
                 "-u",
                 "-c",
-                (
-                    "import sys,time;"
-                    "[(print(time.monotonic_ns(),flush=True)) for _ in sys.stdin]"
-                ),
+                ("import sys,time;[(print(time.monotonic_ns(),flush=True)) for _ in sys.stdin]"),
             ],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
@@ -142,9 +227,7 @@ def rebase_reference_packet_time(
     return rebased
 
 
-def repeat_reference_packets(
-    packets: list[dict[str, Any]], repeat_count: int
-) -> list[dict[str, Any]]:
+def repeat_reference_packets(packets: list[dict[str, Any]], repeat_count: int) -> list[dict[str, Any]]:
     """Repeat immutable reference values with fresh contiguous source indices."""
 
     if not 1 <= repeat_count <= 100:
@@ -157,19 +240,12 @@ def repeat_reference_packets(
         frame_delta = cycle * cycle_frames
         for packet in packets:
             clone = copy.deepcopy(packet)
-            clone["control_source_frame_index"] = (
-                int(clone["control_source_frame_index"]) + frame_delta
-            )
-            clone["pico_anchor_source_frame_index"] = (
-                int(clone["pico_anchor_source_frame_index"]) + frame_delta
-            )
+            clone["control_source_frame_index"] = int(clone["control_source_frame_index"]) + frame_delta
+            clone["pico_anchor_source_frame_index"] = int(clone["pico_anchor_source_frame_index"]) + frame_delta
             validate_reference_terms(clone)
             repeated.append(clone)
     for previous, current in zip(repeated, repeated[1:], strict=False):
-        if (
-            int(current["control_source_frame_index"])
-            != int(previous["control_source_frame_index"]) + 1
-        ):
+        if int(current["control_source_frame_index"]) != int(previous["control_source_frame_index"]) + 1:
             raise ValueError("repeated PICO packet indices are not contiguous")
     return repeated
 
@@ -217,9 +293,7 @@ def publish_timed_bundle(
     managed_stop_requested = False
     started_ns = time.perf_counter_ns()
     try:
-        warmup_deadline_ns = (
-            time.perf_counter_ns() + int(subscriber_warmup_s * 1_000_000_000)
-        )
+        warmup_deadline_ns = time.perf_counter_ns() + int(subscriber_warmup_s * 1_000_000_000)
         while time.perf_counter_ns() < warmup_deadline_ns:
             if stop_file is not None and stop_file.exists():
                 managed_stop_requested = True
@@ -233,9 +307,7 @@ def publish_timed_bundle(
             else first_schedule_ns + timestamp_offset_ns
         )
         for offset, packet in enumerate(packets):
-            if managed_stop_requested or (
-                stop_file is not None and stop_file.exists()
-            ):
+            if managed_stop_requested or (stop_file is not None and stop_file.exists()):
                 managed_stop_requested = True
                 break
             if fault == "timeout" and offset == fault_offset:
@@ -272,9 +344,7 @@ def publish_timed_bundle(
             )
             local_sent_ns = time.perf_counter_ns()
             sent_ns = (
-                remote_now_ns + local_sent_ns - local_sample_ns
-                if timestamp_now_ns is not None
-                else local_sent_ns
+                remote_now_ns + local_sent_ns - local_sample_ns if timestamp_now_ns is not None else local_sent_ns
             )
             schedule_slips_ns.append(sent_ns - deadline_ns)
             socket.send_json(rebased)
@@ -284,9 +354,7 @@ def publish_timed_bundle(
                 control_ns if first_published_control_ns is None else first_published_control_ns
             )
             last_published_control_ns = control_ns
-            last_published_source_frame_index = int(
-                rebased["control_source_frame_index"]
-            )
+            last_published_source_frame_index = int(rebased["control_source_frame_index"])
         if published_count > 0:
             time.sleep(0.1)
     finally:
@@ -306,18 +374,10 @@ def publish_timed_bundle(
         "last_published_control_monotonic_ns": last_published_control_ns,
         "first_control_source_frame_index": first_summary["control_index"],
         "last_control_source_frame_index": last_published_source_frame_index,
-        "source_last_control_source_frame_index": validate_reference_terms(
-            packets[-1]
-        )["control_index"],
+        "source_last_control_source_frame_index": validate_reference_terms(packets[-1])["control_index"],
         "control_period_ns": CONTROL_PERIOD_NS,
-        "maximum_schedule_slip_ns": (
-            max(schedule_slips_ns) if schedule_slips_ns else None
-        ),
-        "mean_schedule_slip_ns": (
-            sum(schedule_slips_ns) / len(schedule_slips_ns)
-            if schedule_slips_ns
-            else None
-        ),
+        "maximum_schedule_slip_ns": (max(schedule_slips_ns) if schedule_slips_ns else None),
+        "mean_schedule_slip_ns": (sum(schedule_slips_ns) / len(schedule_slips_ns) if schedule_slips_ns else None),
         "wall_duration_ns": finished_ns - started_ns,
         "values_rebased": ["pico_anchor_monotonic_ns", "control_monotonic_ns"],
         "timestamp_clock_offset_ns": timestamp_offset_ns,
@@ -357,9 +417,7 @@ def main() -> int:
     if args.timestamp_clock == "wsl":
         clock_bridge = WslMonotonicClock()
         try:
-            clock_offset_ns, calibration_round_trip_ns = (
-                clock_bridge.estimate_offset_ns()
-            )
+            clock_offset_ns, calibration_round_trip_ns = clock_bridge.estimate_offset_ns()
             report = publish_timed_bundle(
                 packets=packets,
                 bind=args.bind,

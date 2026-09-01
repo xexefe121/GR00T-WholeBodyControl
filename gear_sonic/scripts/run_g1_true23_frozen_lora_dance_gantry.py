@@ -6,7 +6,6 @@ import argparse
 import json
 from pathlib import Path
 import subprocess
-import sys
 import tempfile
 import time
 from typing import Sequence
@@ -274,6 +273,10 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--duration-seconds", type=int, default=5)
     parser.add_argument("--repeat-count", type=int, default=100)
     parser.add_argument("--publisher-warmup-s", type=float, default=5.0)
+    parser.add_argument(
+        "--publisher-python",
+        default="/root/.venvs/g1_true23_soma/bin/python",
+    )
     parser.add_argument("--network", default="eth0")
     parser.add_argument("--pico-endpoint", default="tcp://127.0.0.1:5557")
     parser.add_argument("--distro", default="Ubuntu-22.04")
@@ -347,23 +350,32 @@ def main(argv: Sequence[str] | None = None) -> int:
     with tempfile.TemporaryDirectory(prefix="g1_true23_dance_") as temporary:
         stop_file = Path(temporary) / "stop-publisher"
         publisher_command = [
-            sys.executable,
+            "wsl.exe",
+            "-d",
+            args.distro,
+            "--",
+            "taskset",
+            "-c",
+            "1",
+            "env",
+            f"PYTHONPATH={_wsl_path(root, args.distro)}",
+            args.publisher_python,
             "-m",
             "gear_sonic.scripts.replay_g1_true23_pico_packets_zmq",
             "--packets",
-            str(packets),
+            _wsl_path(packets, args.distro),
             "--bind",
             args.pico_endpoint,
             "--subscriber-warmup-s",
             str(args.publisher_warmup_s),
             "--timestamp-clock",
-            "wsl",
+            "local",
             "--repeat-count",
             str(args.repeat_count),
             "--stop-file",
-            str(stop_file),
+            _wsl_path(stop_file, args.distro),
             "--output",
-            str(publisher_evidence),
+            _wsl_path(publisher_evidence, args.distro),
         ]
         print(
             "[START] Policy prewarms under Unitree motion mode; first LowCmd "

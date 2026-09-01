@@ -13,6 +13,7 @@
 #include <unitree/robot/b2/motion_switcher/motion_switcher_client.hpp>
 #include <unitree/robot/channel/channel_publisher.hpp>
 #include <unitree/robot/channel/channel_subscriber.hpp>
+#include <unitree/robot/g1/loco/g1_loco_client.hpp>
 #include <zmq.h>
 
 #include <fcntl.h>
@@ -759,7 +760,21 @@ class ZmqSocket {
 struct ReleasedMotionMode {
   std::string form;
   std::string name;
+  int locomotion_fsm_id = -1;
+  int locomotion_fsm_mode = -1;
 };
+
+std::pair<int, int> ReadLocomotionFsm() {
+  unitree::robot::g1::LocoClient client;
+  client.SetTimeout(3.0F);
+  client.Init();
+  int fsm_id = -1;
+  int fsm_mode = -1;
+  if (client.GetFsmId(fsm_id) != 0 || client.GetFsmMode(fsm_mode) != 0) {
+    throw std::runtime_error("locomotion FSM query failed");
+  }
+  return {fsm_id, fsm_mode};
+}
 
 ReleasedMotionMode ReleaseMotionModeAfterGate() {
   auto client =
@@ -775,7 +790,15 @@ ReleasedMotionMode ReleaseMotionModeAfterGate() {
     throw std::runtime_error(
         "motion-mode pre-release name is empty; exact restoration unavailable");
   }
-  const ReleasedMotionMode released{.form = form, .name = name};
+  const auto [fsm_id, fsm_mode] = ReadLocomotionFsm();
+  if (fsm_id == 1) {
+    throw std::runtime_error(
+        "pre-release locomotion FSM is damped (fsm_id=1); normal standing required");
+  }
+  const ReleasedMotionMode released{.form = form,
+                                    .name = name,
+                                    .locomotion_fsm_id = fsm_id,
+                                    .locomotion_fsm_mode = fsm_mode};
   if (client->ReleaseMode() != 0) {
     throw std::runtime_error("motion-mode release failed");
   }
@@ -802,16 +825,29 @@ void RestoreMotionModeAfterNormalHold(const ReleasedMotionMode& released) {
   if (name != released.name && client->SelectMode(released.name) != 0) {
     throw std::runtime_error("motion-mode restore SelectMode RPC failed");
   }
-  for (int attempt = 0; attempt < 30; ++attempt) {
+  bool mode_selected = false;
+  for (int attempt = 0; attempt < 100; ++attempt) {
     form.clear();
     name.clear();
     if (client->CheckMode(form, name) == 0 && name == released.name) {
-      return;
+      mode_selected = true;
+      unitree::robot::g1::LocoClient locomotion;
+      locomotion.SetTimeout(3.0F);
+      locomotion.Init();
+      int fsm_id = -1;
+      int fsm_mode = -1;
+      if (locomotion.GetFsmId(fsm_id) == 0 &&
+          locomotion.GetFsmMode(fsm_mode) == 0 &&
+          fsm_id == released.locomotion_fsm_id &&
+          fsm_mode == released.locomotion_fsm_mode) {
+        return;
+      }
     }
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
   }
-  throw std::runtime_error(
-      "motion mode did not return to captured pre-release mode");
+  throw std::runtime_error(mode_selected
+                               ? "AI service did not autonomously return to captured locomotion FSM"
+                               : "motion mode did not return to captured pre-release mode");
 }
 
 LowCmd ToLowCmd(const active::MotorCommand& command) {
@@ -1835,6 +1871,7 @@ int Run(const Arguments& arguments) {
   std::atomic<std::uint64_t> normal_return_hold_frames{0};
   std::atomic<std::uint64_t> startup_damping_frames{0};
   std::atomic<bool> motion_mode_restored{false};
+  std::atomic<bool> software_return_requested{false};
   std::int64_t motion_mode_released_ns = 0;
   std::uint64_t policy_command_frames = 0;
   int damping_frames_after_stop = 0;
@@ -1853,6 +1890,20 @@ int Run(const Arguments& arguments) {
 
   std::jthread inference_thread([&](std::stop_token stop_token) {
     try {
+      const auto recover_or_latch = [&](auto&& latch_fault) {
+        bool recovering = false;
+        const auto recovery_ns = NowNs();
+        monitor.WithCore([&](active::GantrySafetyCore& value) {
+          recovering = value.BeginSoftwareFaultReturnHold(recovery_ns);
+          if (!recovering) {
+            latch_fault(value);
+          }
+        });
+        if (recovering) {
+          software_return_requested.store(true, std::memory_order_release);
+        }
+        return recovering;
+      };
       ZmqSocket socket(arguments.pico_endpoint);
       live::ProprioHistory history;
       active::RealProprioWarmupGate real_history_gate;
@@ -1886,7 +1937,7 @@ int Run(const Arguments& arguments) {
               "pico_age_out_of_range frame=" + std::to_string(frame_index) +
               " age_ns=" + std::to_string(age);
           std::cerr << "PICO/inference fault: " << inference_error << '\n';
-          monitor.WithCore([](active::GantrySafetyCore& value) {
+          recover_or_latch([](active::GantrySafetyCore& value) {
             value.ObservePicoTermsFailure();
           });
           break;
@@ -1897,7 +1948,7 @@ int Run(const Arguments& arguments) {
               std::to_string(*last_frame) + " current=" +
               std::to_string(frame_index);
           std::cerr << "PICO/inference fault: " << inference_error << '\n';
-          monitor.WithCore([](active::GantrySafetyCore& value) {
+          recover_or_latch([](active::GantrySafetyCore& value) {
             value.ObservePicoFrameRegression();
           });
           break;
@@ -1910,7 +1961,7 @@ int Run(const Arguments& arguments) {
               std::to_string(*last_source_monotonic_ns) + " current=" +
               std::to_string(source_monotonic_ns);
           std::cerr << "PICO/inference fault: " << inference_error << '\n';
-          monitor.WithCore([](active::GantrySafetyCore& value) {
+          recover_or_latch([](active::GantrySafetyCore& value) {
             value.ObservePicoTermsFailure();
           });
           break;
@@ -1956,6 +2007,9 @@ int Run(const Arguments& arguments) {
             inference_error =
                 join_failure + " frame=" + std::to_string(frame_index);
             std::cerr << "PICO/inference fault: " << inference_error << '\n';
+            recover_or_latch([](active::GantrySafetyCore& value) {
+              value.ObservePicoTermsFailure();
+            });
             break;
           }
           proprio = attempt.joined->control_proprio_q10;
@@ -1985,7 +2039,7 @@ int Run(const Arguments& arguments) {
                 "real_proprio_warmup_rejected frame=" +
                 std::to_string(frame_index);
             std::cerr << "PICO/inference fault: " << inference_error << '\n';
-            monitor.WithCore([](active::GantrySafetyCore& value) {
+            recover_or_latch([](active::GantrySafetyCore& value) {
               value.ObservePicoFrameRegression();
             });
             break;
@@ -1997,7 +2051,7 @@ int Run(const Arguments& arguments) {
               "proprio_history_not_ready frame=" +
               std::to_string(frame_index);
           std::cerr << "PICO/inference fault: " << inference_error << '\n';
-          monitor.WithCore([](active::GantrySafetyCore& value) {
+          recover_or_latch([](active::GantrySafetyCore& value) {
             value.ObservePicoTermsFailure();
           });
           break;
@@ -2052,8 +2106,13 @@ int Run(const Arguments& arguments) {
     } catch (const std::exception& error) {
       std::cerr << "PICO/inference fault: " << error.what() << '\n';
       inference_error = error.what();
-      monitor.WithCore([](active::GantrySafetyCore& value) {
-        value.ObservePicoTermsFailure();
+      const auto recovery_ns = NowNs();
+      monitor.WithCore([&](active::GantrySafetyCore& value) {
+        if (!value.BeginSoftwareFaultReturnHold(recovery_ns)) {
+          value.ObservePicoTermsFailure();
+        } else {
+          software_return_requested.store(true, std::memory_order_release);
+        }
       });
     }
   });
@@ -2320,6 +2379,8 @@ int Run(const Arguments& arguments) {
       {{"post_release_mode_name_empty", true},
        {"captured_pre_release_form", released_motion_mode.form},
        {"captured_pre_release_name", released_motion_mode.name},
+       {"captured_pre_release_fsm_id", released_motion_mode.locomotion_fsm_id},
+       {"captured_pre_release_fsm_mode", released_motion_mode.locomotion_fsm_mode},
        {"pre_release_lowcmd_writes", 0},
        {"first_post_release_command", "sampled_posture_hold"}});
 
@@ -2448,9 +2509,13 @@ int Run(const Arguments& arguments) {
     });
     if (normal_return_active && stop_reason.empty()) {
       stop_requested_ns = now_ns;
-      stop_reason = current_operator.stop_pressed
-                        ? "wireless_operator_stop"
-                        : "wireless_deadman_released";
+      if (software_return_requested.load(std::memory_order_acquire)) {
+        stop_reason = "software_transport_normal_return";
+      } else {
+        stop_reason = current_operator.stop_pressed
+                          ? "wireless_operator_stop"
+                          : "wireless_deadman_released";
+      }
     }
     if (normal_return_active && !normal_return_event_written) {
       execution_evidence.AppendEvent(
@@ -2473,6 +2538,8 @@ int Run(const Arguments& arguments) {
             "motion_mode_restored",
             {{"restored_form", released_motion_mode.form},
              {"restored_name", released_motion_mode.name},
+             {"restored_fsm_id", released_motion_mode.locomotion_fsm_id},
+             {"restored_fsm_mode", released_motion_mode.locomotion_fsm_mode},
              {"normal_return_hold_frames",
               normal_return_hold_frames.load()},
              {"required_normal_return_hold_frames",
@@ -2483,9 +2550,11 @@ int Run(const Arguments& arguments) {
       } catch (const std::exception& error) {
         writer_error = std::string("motion-mode restore failed: ") +
                        error.what();
-        monitor.WithCore([](active::GantrySafetyCore& value) {
-          value.ObserveInternalFailure();
-        });
+        // A failed normal-return handoff is not an actuation fault.  Never
+        // replace the positive-gain return hold with an intentional damping
+        // tail.  Stop publishing and report failed evidence; the selected AI
+        // service or operator retains recovery ownership.
+        stop_threads.store(true, std::memory_order_release);
       }
     }
     const auto observed_fault = monitor.fault();
@@ -2565,6 +2634,8 @@ int Run(const Arguments& arguments) {
       {"motion_mode_restored", motion_mode_restored.load()},
       {"restored_motion_mode_form", released_motion_mode.form},
       {"restored_motion_mode_name", released_motion_mode.name},
+      {"restored_locomotion_fsm_id", released_motion_mode.locomotion_fsm_id},
+      {"restored_locomotion_fsm_mode", released_motion_mode.locomotion_fsm_mode},
       {"maximum_target_delta_from_state_rad",
        maximum_target_delta_from_state_rad},
       {"maximum_target_slew_rad", maximum_target_slew_rad},
