@@ -233,6 +233,11 @@ def validate_direct_dance_execution_evidence(
         or restored.get("required_normal_return_hold_frames") != 250
         or restored.get("startup_damping_frames") != 0
         or restored.get("damping_frames_after_stop") != 0
+        or restored.get("writer_quiesced_before_select") is not True
+        or restored.get("lowcmd_publisher_closed_before_select") is not True
+        or not isinstance(restored.get("select_mode_attempts"), int)
+        or not isinstance(restored.get("restore_poll_attempts"), int)
+        or restored.get("restore_poll_attempts", 0) < 1
         or not restored.get("restored_name")
         or restored.get("restored_name")
         != motion_release.get("captured_pre_release_name")
@@ -249,6 +254,12 @@ def validate_direct_dance_execution_evidence(
         or terminal.get("post_arm_elapsed_ns", 0)
         < duration_seconds * 1_000_000_000
         or terminal.get("publisher_write_failed") is not False
+        or terminal.get("writer_quiesced_before_restore") is not True
+        or terminal.get("lowcmd_publisher_closed_before_restore") is not True
+        or terminal.get("restore_select_mode_attempts")
+        != restored.get("select_mode_attempts")
+        or terminal.get("restore_poll_attempts")
+        != restored.get("restore_poll_attempts")
         or terminal.get("damping_frames_after_stop") != 0
         or terminal.get("required_damping_frames_after_stop") != 0
         or terminal.get("rejected_non_positive_gain_commands") != 0

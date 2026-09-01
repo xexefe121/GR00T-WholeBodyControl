@@ -664,6 +664,18 @@ void ArmLifecycleCore(active::GantrySafetyCore& core,
 }
 
 void TestRobotFreeNoDumpLifecycleMatrix(Runner& runner) {
+  active::ModeHandoffInterlock interlock;
+  runner.Check(!interlock.writer_should_quiesce() &&
+                   !interlock.restore_allowed(),
+               "mode restore closed while LowCmd writer owns output");
+  interlock.Request();
+  runner.Check(interlock.writer_should_quiesce() &&
+                   !interlock.restore_allowed(),
+               "handoff request stops writer before enabling mode RPC");
+  interlock.MarkWriterQuiesced();
+  runner.Check(interlock.restore_allowed(),
+               "mode RPC opens only after writer quiescence");
+
   const auto verify_return_stream = [&](active::GantrySafetyCore& core,
                                         std::int64_t first_ns,
                                         std::string_view scenario) {

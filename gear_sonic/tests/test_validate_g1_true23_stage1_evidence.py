@@ -160,6 +160,10 @@ def _fixture(tmp_path: Path) -> tuple[argparse.Namespace, list[dict[str, object]
             "required_normal_return_hold_frames": 250,
             "startup_damping_frames": 0,
             "damping_frames_after_stop": 0,
+            "writer_quiesced_before_select": True,
+            "lowcmd_publisher_closed_before_select": True,
+            "select_mode_attempts": 1,
+            "restore_poll_attempts": 2,
         }
     )
     complete = common("session_complete", 12)
@@ -198,6 +202,10 @@ def _fixture(tmp_path: Path) -> tuple[argparse.Namespace, list[dict[str, object]
             "inference_error": "",
             "writer_error": "",
             "publisher_write_failed": False,
+            "writer_quiesced_before_restore": True,
+            "lowcmd_publisher_closed_before_restore": True,
+            "restore_select_mode_attempts": 1,
+            "restore_poll_attempts": 2,
             "publisher_write_count": 375,
             "accepted_inference_frames": 100,
             "maximum_inference_duration_ns": 1_000_000,

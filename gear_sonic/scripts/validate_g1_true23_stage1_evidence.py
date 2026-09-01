@@ -1877,6 +1877,10 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
             "required_normal_return_hold_frames",
             "startup_damping_frames",
             "damping_frames_after_stop",
+            "writer_quiesced_before_select",
+            "lowcmd_publisher_closed_before_select",
+            "select_mode_attempts",
+            "restore_poll_attempts",
         },
         "motion_mode_restored",
     )
@@ -1892,6 +1896,10 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
         or restored.get("required_normal_return_hold_frames") != 250
         or restored.get("startup_damping_frames") != 0
         or restored.get("damping_frames_after_stop") != 0
+        or restored.get("writer_quiesced_before_select") is not True
+        or restored.get("lowcmd_publisher_closed_before_select") is not True
+        or _integer(restored.get("select_mode_attempts"), "select_mode_attempts") < 0
+        or _integer(restored.get("restore_poll_attempts"), "restore_poll_attempts") < 1
     ):
         _reject("motion mode restoration contract failed")
 
@@ -1937,6 +1945,10 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
             "inference_error",
             "writer_error",
             "publisher_write_failed",
+            "writer_quiesced_before_restore",
+            "lowcmd_publisher_closed_before_restore",
+            "restore_select_mode_attempts",
+            "restore_poll_attempts",
             "publisher_write_count",
             "accepted_inference_frames",
             "maximum_inference_duration_ns",
@@ -1999,6 +2011,12 @@ def validate_active(args: argparse.Namespace) -> dict[str, Any]:
         or terminal.get("inference_error") != ""
         or terminal.get("writer_error") != ""
         or terminal.get("publisher_write_failed") is not False
+        or terminal.get("writer_quiesced_before_restore") is not True
+        or terminal.get("lowcmd_publisher_closed_before_restore") is not True
+        or terminal.get("restore_select_mode_attempts")
+        != restored.get("select_mode_attempts")
+        or terminal.get("restore_poll_attempts")
+        != restored.get("restore_poll_attempts")
     ):
         _reject("active terminal does not prove successful actuation and safe stop")
     target_delta = _number(

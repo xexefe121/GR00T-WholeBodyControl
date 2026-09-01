@@ -8,6 +8,7 @@
 
 #include <algorithm>
 #include <array>
+#include <atomic>
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
@@ -925,6 +926,31 @@ inline bool ExactMotionModeRestored(
          observed_fsm_id == expected_fsm_id &&
          observed_fsm_mode == expected_fsm_mode;
 }
+
+// Cross-thread ownership barrier. Unitree SelectMode must not race a live
+// LowCmd writer: request handoff, let writer finish its current positive-gain
+// packet and close its loop, then permit the motion-service RPC.
+class ModeHandoffInterlock {
+ public:
+  void Request() { requested_.store(true, std::memory_order_release); }
+
+  [[nodiscard]] bool writer_should_quiesce() const {
+    return requested_.load(std::memory_order_acquire);
+  }
+
+  void MarkWriterQuiesced() {
+    writer_quiesced_.store(true, std::memory_order_release);
+  }
+
+  [[nodiscard]] bool restore_allowed() const {
+    return requested_.load(std::memory_order_acquire) &&
+           writer_quiesced_.load(std::memory_order_acquire);
+  }
+
+ private:
+  std::atomic<bool> requested_{false};
+  std::atomic<bool> writer_quiesced_{false};
+};
 
 class RealProprioWarmupGate {
  public:

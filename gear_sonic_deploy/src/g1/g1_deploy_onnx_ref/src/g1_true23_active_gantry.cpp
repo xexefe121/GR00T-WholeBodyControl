@@ -87,6 +87,7 @@ inline constexpr int kStateGateTimeoutSeconds = 8;
 inline constexpr int kNormalReturnHoldCycles = 250;
 inline constexpr int kMinimumPreArmHoldCycles = 25;
 inline constexpr std::int64_t kMaximumFirstHoldWriteDelayNs = 20'000'000;
+inline constexpr auto kWriterQuiesceTimeout = std::chrono::milliseconds(100);
 [[gnu::used]] const char kCompiledCausalRuntimeSurface[] =
     "WaitJoinCausalReference BuildCausalEncoderInput";
 volatile std::sig_atomic_t g_stop_requested = 0;
@@ -812,7 +813,13 @@ ReleasedMotionMode ReleaseMotionModeAfterGate() {
   return released;
 }
 
-void RestoreMotionModeAfterNormalHold(const ReleasedMotionMode& released) {
+struct MotionRestoreResult {
+  int select_mode_attempts = 0;
+  int poll_attempts = 0;
+};
+
+MotionRestoreResult RestoreMotionModeAfterNormalHold(
+    const ReleasedMotionMode& released) {
   auto client =
       std::make_unique<unitree::robot::b2::MotionSwitcherClient>();
   client->SetTimeout(3.0F);
@@ -822,14 +829,14 @@ void RestoreMotionModeAfterNormalHold(const ReleasedMotionMode& released) {
   if (client->CheckMode(form, name) != 0) {
     throw std::runtime_error("motion-mode pre-restore CheckMode RPC failed");
   }
-  if (name != released.name && client->SelectMode(released.name) != 0) {
-    throw std::runtime_error("motion-mode restore SelectMode RPC failed");
-  }
   bool mode_selected = false;
+  bool select_rpc_accepted = name == released.name;
+  MotionRestoreResult result;
   for (int attempt = 0; attempt < 100; ++attempt) {
     form.clear();
     name.clear();
-    if (client->CheckMode(form, name) == 0 && name == released.name) {
+    const bool mode_read = client->CheckMode(form, name) == 0;
+    if (mode_read && name == released.name) {
       mode_selected = true;
       unitree::robot::g1::LocoClient locomotion;
       locomotion.SetTimeout(3.0F);
@@ -841,14 +848,37 @@ void RestoreMotionModeAfterNormalHold(const ReleasedMotionMode& released) {
           active::ExactMotionModeRestored(
               released.name, released.locomotion_fsm_id,
               released.locomotion_fsm_mode, name, fsm_id, fsm_mode)) {
-        return;
+        result.poll_attempts = attempt + 1;
+        return result;
+      }
+    } else if (mode_read &&
+               (!select_rpc_accepted || attempt % 10 == 0)) {
+      ++result.select_mode_attempts;
+      if (client->SelectMode(released.name) == 0) {
+        select_rpc_accepted = true;
       }
     }
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
   }
-  throw std::runtime_error(mode_selected
-                               ? "AI service did not autonomously return to captured locomotion FSM"
-                               : "motion mode did not return to captured pre-release mode");
+  if (!select_rpc_accepted) {
+    throw std::runtime_error(
+        "motion-mode restore SelectMode RPC failed after bounded retries");
+  }
+  throw std::runtime_error(
+      mode_selected
+          ? "AI service did not autonomously return to captured locomotion FSM"
+          : "motion mode did not return to captured pre-release mode");
+}
+
+bool WaitForWriterQuiescence(
+    const active::ModeHandoffInterlock& interlock) {
+  const auto deadline = std::chrono::steady_clock::now() +
+                        kWriterQuiesceTimeout;
+  while (!interlock.restore_allowed() &&
+         std::chrono::steady_clock::now() < deadline) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+  }
+  return interlock.restore_allowed();
 }
 
 LowCmd ToLowCmd(const active::MotorCommand& command) {
@@ -1875,6 +1905,7 @@ int Run(const Arguments& arguments) {
   std::atomic<bool> software_return_requested{false};
   std::atomic<bool> emergency_mode_restore_requested{false};
   std::atomic<std::uint64_t> rejected_non_positive_gain_commands{0};
+  active::ModeHandoffInterlock mode_handoff_interlock;
   std::int64_t motion_mode_released_ns = 0;
   std::uint64_t policy_command_frames = 0;
   constexpr int damping_frames_after_stop = 0;
@@ -1887,6 +1918,10 @@ int Run(const Arguments& arguments) {
   std::string inference_error;
   std::string writer_error;
   bool publisher_write_failed = false;
+  bool writer_quiesced_before_restore = false;
+  bool lowcmd_publisher_closed_before_restore = false;
+  int restore_select_mode_attempts = 0;
+  int restore_poll_attempts = 0;
   std::uint64_t accepted_inference_frames = 0;
   std::int64_t maximum_inference_duration_ns = 0;
   std::int64_t maximum_packet_age_ns = 0;
@@ -2139,12 +2174,16 @@ int Run(const Arguments& arguments) {
       }
       // Writer is no longer trustworthy. Never synthesize a damping tail.
       // Main thread immediately re-selects captured Unitree service/FSM.
+      mode_handoff_interlock.Request();
       emergency_mode_restore_requested.store(true,
                                              std::memory_order_release);
     };
     try {
       auto next_write_ns = NowNs();
       while (!stop_token.stop_requested() && !stop_threads.load()) {
+        if (mode_handoff_interlock.writer_should_quiesce()) {
+          break;
+        }
         if (motion_mode_restored.load(std::memory_order_acquire)) {
           break;
         }
@@ -2297,6 +2336,7 @@ int Run(const Arguments& arguments) {
     } catch (...) {
       request_emergency_handoff("unknown command-writer exception");
     }
+    mode_handoff_interlock.MarkWriterQuiesced();
   });
 
   std::cout
@@ -2498,7 +2538,19 @@ int Run(const Arguments& arguments) {
         stop_requested_ns = now_ns;
       }
       try {
-        RestoreMotionModeAfterNormalHold(released_motion_mode);
+        mode_handoff_interlock.Request();
+        writer_quiesced_before_restore =
+            WaitForWriterQuiescence(mode_handoff_interlock);
+        if (!writer_quiesced_before_restore) {
+          throw std::runtime_error(
+              "LowCmd writer did not quiesce before emergency mode restore");
+        }
+        publisher.reset();
+        lowcmd_publisher_closed_before_restore = !publisher;
+        const auto restore =
+            RestoreMotionModeAfterNormalHold(released_motion_mode);
+        restore_select_mode_attempts = restore.select_mode_attempts;
+        restore_poll_attempts = restore.poll_attempts;
         motion_mode_restored.store(true, std::memory_order_release);
         motion_mode_released.store(false, std::memory_order_release);
         execution_evidence.AppendEvent(
@@ -2511,7 +2563,12 @@ int Run(const Arguments& arguments) {
               normal_return_hold_frames.load()},
              {"damping_frames_after_stop", damping_frames_after_stop},
              {"rejected_non_positive_gain_commands",
-              rejected_non_positive_gain_commands.load()}});
+              rejected_non_positive_gain_commands.load()},
+             {"writer_quiesced_before_select", true},
+             {"lowcmd_publisher_closed_before_select",
+              lowcmd_publisher_closed_before_restore},
+             {"select_mode_attempts", restore_select_mode_attempts},
+             {"restore_poll_attempts", restore_poll_attempts}});
       } catch (const std::exception& error) {
         writer_error += std::string("; emergency motion-mode restore failed: ") +
                         error.what();
@@ -2523,7 +2580,19 @@ int Run(const Arguments& arguments) {
             static_cast<std::uint64_t>(kNormalReturnHoldCycles)) {
       motion_restore_attempted = true;
       try {
-        RestoreMotionModeAfterNormalHold(released_motion_mode);
+        mode_handoff_interlock.Request();
+        writer_quiesced_before_restore =
+            WaitForWriterQuiescence(mode_handoff_interlock);
+        if (!writer_quiesced_before_restore) {
+          throw std::runtime_error(
+              "LowCmd writer did not quiesce before motion-mode restore");
+        }
+        publisher.reset();
+        lowcmd_publisher_closed_before_restore = !publisher;
+        const auto restore =
+            RestoreMotionModeAfterNormalHold(released_motion_mode);
+        restore_select_mode_attempts = restore.select_mode_attempts;
+        restore_poll_attempts = restore.poll_attempts;
         motion_mode_restored.store(true, std::memory_order_release);
         motion_mode_released.store(false, std::memory_order_release);
         execution_evidence.AppendEvent(
@@ -2537,7 +2606,12 @@ int Run(const Arguments& arguments) {
              {"required_normal_return_hold_frames",
               kNormalReturnHoldCycles},
              {"startup_damping_frames", startup_damping_frames.load()},
-             {"damping_frames_after_stop", damping_frames_after_stop}});
+             {"damping_frames_after_stop", damping_frames_after_stop},
+             {"writer_quiesced_before_select", true},
+             {"lowcmd_publisher_closed_before_select",
+              lowcmd_publisher_closed_before_restore},
+             {"select_mode_attempts", restore_select_mode_attempts},
+             {"restore_poll_attempts", restore_poll_attempts}});
         stop_threads.store(true, std::memory_order_release);
       } catch (const std::exception& error) {
         writer_error = std::string("motion-mode restore failed: ") +
@@ -2579,7 +2653,9 @@ int Run(const Arguments& arguments) {
   const bool normal_return_completed =
       normal_return_hold_frames.load() >=
           static_cast<std::uint64_t>(kNormalReturnHoldCycles) &&
-      motion_mode_restored.load() && damping_frames_after_stop == 0;
+      writer_quiesced_before_restore && motion_mode_restored.load() &&
+      lowcmd_publisher_closed_before_restore &&
+      damping_frames_after_stop == 0;
   const bool safe_terminal_fault = fault == active::Fault::None;
   const auto first_write_ns = first_policy_write_ns.load();
   const auto post_arm_elapsed_ns =
@@ -2644,6 +2720,11 @@ int Run(const Arguments& arguments) {
       {"inference_error", inference_error},
       {"writer_error", writer_error},
       {"publisher_write_failed", publisher_write_failed},
+      {"writer_quiesced_before_restore", writer_quiesced_before_restore},
+      {"lowcmd_publisher_closed_before_restore",
+       lowcmd_publisher_closed_before_restore},
+      {"restore_select_mode_attempts", restore_select_mode_attempts},
+      {"restore_poll_attempts", restore_poll_attempts},
       {"publisher_write_count", publisher_write_count.load()},
       {"accepted_inference_frames", accepted_inference_frames},
       {"maximum_inference_duration_ns", maximum_inference_duration_ns},

@@ -155,6 +155,16 @@ watchdog/end-of-clip transition was misread as failed return and latched
 damping packets. Both paths are now removed, but this code change alone does
 not make live teleop physically ready.
 
+The bounded one-second `lifecyclefix_1s_20260902_030328` run used the rebuilt
+no-damping binary. It wrote 467 policy packets, then 305 positive-gain return
+packets, with zero damping packets and zero rejected non-positive-gain packets.
+It still failed qualification because `SelectMode("ai")` ran while the LowCmd
+writer remained active, and Unitree rejected the ownership-transfer RPC. The
+follow-up interlock now requests handoff, waits for the writer to quiesce,
+closes the LowCmd publisher, retries `SelectMode`, and requires exact
+`ai / 801 / 0` before success. That change has robot-free coverage only; no
+later physical run has validated it.
+
 Run the no-robot lifecycle qualification from WSL after rebuilding
 `true23_active_gantry_core_harness` and `g1_true23_active_gantry`:
 

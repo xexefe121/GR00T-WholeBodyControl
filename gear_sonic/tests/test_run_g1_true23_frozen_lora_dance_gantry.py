@@ -69,6 +69,10 @@ def _passing_execution_records() -> list[dict]:
         required_normal_return_hold_frames=250,
         startup_damping_frames=0,
         damping_frames_after_stop=0,
+        writer_quiesced_before_select=True,
+        lowcmd_publisher_closed_before_select=True,
+        select_mode_attempts=1,
+        restore_poll_attempts=2,
     )
     records[12].update(
         passed=True,
@@ -85,6 +89,10 @@ def _passing_execution_records() -> list[dict]:
         required_post_arm_duration_ns=1_000_000_000,
         post_arm_elapsed_ns=1_000_000_000,
         publisher_write_failed=False,
+        writer_quiesced_before_restore=True,
+        lowcmd_publisher_closed_before_restore=True,
+        restore_select_mode_attempts=1,
+        restore_poll_attempts=2,
         damping_frames_after_stop=0,
         required_damping_frames_after_stop=0,
         normal_return_hold_frames=250,
