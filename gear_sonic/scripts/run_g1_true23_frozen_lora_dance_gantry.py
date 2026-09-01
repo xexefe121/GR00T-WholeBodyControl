@@ -14,6 +14,9 @@ from typing import Sequence
 from gear_sonic.scripts.authorize_g1_true23_causal_gantry import (
     AUTHORIZATION_PHRASE,
 )
+from gear_sonic.scripts.authorize_g1_true23_frozen_lora_dance_gantry import (
+    DIRECT_DANCE_COMMAND,
+)
 
 
 def _existing_file(path: Path, label: str) -> Path:
@@ -58,6 +61,7 @@ def _active_command(
     evidence: str,
     duration_seconds: int,
     gantry_authorize: str,
+    direct_dance_command: str,
 ) -> list[str]:
     return [
         "wsl.exe",
@@ -94,6 +98,8 @@ def _active_command(
         str(duration_seconds),
         "--gantry-authorize",
         gantry_authorize,
+        "--direct-dance-command",
+        direct_dance_command,
     ]
 
 
@@ -142,6 +148,7 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--evidence", type=Path, required=True)
     parser.add_argument("--publisher-evidence", type=Path, required=True)
     parser.add_argument("--gantry-authorize", required=True)
+    parser.add_argument("--direct-dance-command", required=True)
     parser.add_argument("--duration-seconds", type=int, default=5)
     parser.add_argument("--repeat-count", type=int, default=100)
     parser.add_argument("--publisher-warmup-s", type=float, default=5.0)
@@ -155,8 +162,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     if args.gantry_authorize != AUTHORIZATION_PHRASE:
         raise ValueError("exact explicit gantry authorization phrase is required")
-    if not 1 <= args.duration_seconds <= 10:
-        raise ValueError("duration-seconds must be between 1 and 10")
+    if args.direct_dance_command != DIRECT_DANCE_COMMAND:
+        raise ValueError("exact direct dance command DANCE is required")
+    if not 1 <= args.duration_seconds <= 5:
+        raise ValueError("duration-seconds must be between 1 and 5")
     if not 1 <= args.repeat_count <= 100:
         raise ValueError("repeat-count must be between 1 and 100")
     if args.publisher_warmup_s < 2.0:
@@ -210,6 +219,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         evidence=converted["evidence"],
         duration_seconds=args.duration_seconds,
         gantry_authorize=args.gantry_authorize,
+        direct_dance_command=args.direct_dance_command,
     )
 
     with tempfile.TemporaryDirectory(prefix="g1_true23_dance_") as temporary:
@@ -234,11 +244,11 @@ def main(argv: Sequence[str] | None = None) -> int:
             str(publisher_evidence),
         ]
         print(
-            "[START] Damping-only until fresh policy and wireless arm edge.",
+            "[START] Damping-only until fresh policy; DANCE command is bound.",
             flush=True,
         )
         print(
-            "[OPERATOR] Hold L2; after READY, release A then press A once.",
+            "[OPERATOR] Physical e-stop ready; app/process STOP remains active.",
             flush=True,
         )
         publisher = subprocess.Popen(publisher_command, cwd=root)

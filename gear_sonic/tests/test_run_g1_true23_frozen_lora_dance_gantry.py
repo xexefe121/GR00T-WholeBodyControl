@@ -10,7 +10,7 @@ from gear_sonic.scripts.run_g1_true23_frozen_lora_dance_gantry import (
 )
 
 
-def test_active_command_keeps_frozen_dance_and_operator_interlocks() -> None:
+def test_active_command_binds_direct_frozen_dance() -> None:
     command = _active_command(
         distro="Ubuntu-22.04",
         binary="/repo/g1_true23_active_gantry",
@@ -26,6 +26,7 @@ def test_active_command_keeps_frozen_dance_and_operator_interlocks() -> None:
         evidence="/repo/execution.jsonl",
         duration_seconds=5,
         gantry_authorize="I_CONFIRM_G1_TRUE23_STAGE1_GANTRY",
+        direct_dance_command="DANCE",
     )
     assert command[:8] == [
         "wsl.exe",
@@ -46,6 +47,7 @@ def test_active_command_keeps_frozen_dance_and_operator_interlocks() -> None:
     assert command[command.index("--gantry-authorize") + 1] == (
         "I_CONFIRM_G1_TRUE23_STAGE1_GANTRY"
     )
+    assert command[command.index("--direct-dance-command") + 1] == "DANCE"
 
 
 def test_repeat_reference_packets_keeps_values_and_advances_indices(

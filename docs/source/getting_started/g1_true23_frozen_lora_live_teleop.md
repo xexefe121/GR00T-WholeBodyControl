@@ -104,12 +104,17 @@ lifecycle:
   evidence contains a fresh reference packet. Publisher loss sends SIGINT to
   the controller and ends in fail-safe damping.
 
-Both launchers keep the controller-attached console visible. They do not
-auto-arm. After `[READY]`, hold L2 and press A once. L2 release, B/R2, app or
-physical e-stop, stale policy, state loss, source loss, a joint limit, or a
-command-write failure stops policy motion and writes the full reviewed damping
-tail. `[REMOTE]` lines show every decoded L2, A, and STOP transition, so a
-missing wireless edge is visible before claiming that the robot armed.
+Both launchers keep the controller-attached console visible. Saved-clip dance
+uses a separately bound exact `DANCE` command and starts automatically only
+after `[READY]`; it does not depend on L2/A state. Direct mode is restricted to
+the hash-bound frozen-LoRA dance, gantry-only, and at most five seconds. Process
+signal, B/R2 when available, app cancellation, physical e-stop, stale policy,
+state loss, source loss, a joint limit, reviewed duration, or a command-write
+failure stops policy motion and writes the full reviewed damping tail.
+
+Real PICO live teleop retains the wireless deadman contract. After `[READY]`,
+hold L2 and press A once. `[REMOTE]` lines show every decoded L2, A, and STOP
+transition for that live path.
 
 Example saved-dance launch after creating a fresh sidecar:
 
@@ -127,7 +132,8 @@ python -m gear_sonic.scripts.run_g1_true23_frozen_lora_dance_gantry `
   --publisher-evidence <new-publisher-evidence.json> `
   --duration-seconds 5 `
   --repeat-count 100 `
-  --gantry-authorize I_CONFIRM_G1_TRUE23_STAGE1_GANTRY
+  --gantry-authorize I_CONFIRM_G1_TRUE23_STAGE1_GANTRY `
+  --direct-dance-command DANCE
 ```
 
 For live PICO, use `run_g1_true23_frozen_lora_live_gantry` with the same

@@ -61,7 +61,8 @@ inline constexpr std::string_view kFrozenLoraKind =
 inline constexpr std::string_view kFrozenLoraPromotionKind =
     "g1_true23_frozen_lora_dance_shadow_admission_v1";
 inline constexpr std::string_view kFrozenLoraActivePromotionKind =
-    "g1_true23_frozen_lora_dance_gantry_active_promotion_v1";
+    "g1_true23_frozen_lora_dance_gantry_active_promotion_v2";
+inline constexpr std::string_view kDirectDanceCommand = "DANCE";
 inline constexpr std::string_view kFrozenLoraEncoderSha256 =
     "733353148bef1eb8dd83a96416b7a89f0b5c3530ceb9e0cec9c25fdb04f56ff2";
 inline constexpr std::string_view kFrozenLoraDecoderSha256 =
@@ -125,6 +126,7 @@ struct Arguments {
   std::string pico_endpoint;
   std::string authorization_id;
   std::string gantry_authorization;
+  std::string direct_dance_command;
   int post_arm_duration_seconds = 0;
   bool frozen_lora_dance = false;
   bool validate_only = false;
@@ -145,13 +147,15 @@ std::string Usage(std::string_view executable) {
       " [--validate-only | --network <interface>"
       " --pico-endpoint <tcp://host:port> --execute-stage-one"
       " --evidence <new.jsonl> --post-arm-duration-seconds"
-      " <causal:20..30|frozen-dance:1..10>"
+      " <causal:20..30|frozen-dance:1..5>"
       " --gantry-authorize " +
       std::string(active::kGantryAuthorizationPhrase) +
+      " --direct-dance-command DANCE" +
       "]"
       "\n\n"
-      "Wireless operator contract: hold L2 deadman, press A once to ARM; "
-      "B or R2 is STOP. Stage one is gantry-only. Diagnostic ONNX, generic "
+      "Saved-dance operator contract: exact DANCE command starts only after "
+      "READY; process signal, B/R2, state/policy fault, reviewed duration, or "
+      "physical e-stop stops. Stage one is gantry-only. Diagnostic ONNX, generic "
       "29-output policy, non-mode-4 robot, stale input, and CRC bypass are "
       "unconditionally rejected. Causal artifacts require "
       "g1_true23_causal_history_reference_terms; future-command packets are "
@@ -196,6 +200,8 @@ Arguments ParseArguments(int argc, char** argv) {
       result.authorization_id = value(index, option);
     } else if (option == "--gantry-authorize") {
       result.gantry_authorization = value(index, option);
+    } else if (option == "--direct-dance-command") {
+      result.direct_dance_command = value(index, option);
     } else if (option == "--post-arm-duration-seconds") {
       const auto duration = value(index, option);
       std::size_t parsed = 0;
@@ -231,6 +237,7 @@ Arguments ParseArguments(int argc, char** argv) {
   }
   if (result.validate_only) {
     if (result.execute_stage_one || !result.gantry_authorization.empty() ||
+        !result.direct_dance_command.empty() ||
         !result.execution_evidence.empty() ||
         result.post_arm_duration_seconds != 0) {
       throw std::runtime_error(
@@ -259,16 +266,24 @@ Arguments ParseArguments(int argc, char** argv) {
   if (result.execution_evidence.empty()) {
     throw std::runtime_error("--evidence is required for stage-one execution");
   }
+  if (result.frozen_lora_dance) {
+    if (result.direct_dance_command != kDirectDanceCommand) {
+      throw std::runtime_error("exact direct dance command DANCE is required");
+    }
+  } else if (!result.direct_dance_command.empty()) {
+    throw std::runtime_error(
+        "--direct-dance-command is restricted to frozen-LoRA dance");
+  }
   const int minimum_duration = result.frozen_lora_dance
                                    ? 1
                                    : active::kMinimumStageOnePostArmSeconds;
   const int maximum_duration = result.frozen_lora_dance
-                                   ? 10
+                                   ? 5
                                    : active::kMaximumStageOnePostArmSeconds;
   if (result.post_arm_duration_seconds < minimum_duration ||
       result.post_arm_duration_seconds > maximum_duration) {
     throw std::runtime_error(result.frozen_lora_dance
-        ? "--post-arm-duration-seconds must be within dance-reviewed 1..10 range"
+        ? "--post-arm-duration-seconds must be within dance-reviewed 1..5 range"
         : "--post-arm-duration-seconds must be within reviewed 20..30 range");
   }
   if (!result.pico_endpoint.starts_with("tcp://") &&
@@ -522,7 +537,9 @@ struct CausalJoinAttempt {
 
 class StateMonitor {
  public:
-  explicit StateMonitor(active::GantrySafetyCore& core) : core_(core) {}
+  explicit StateMonitor(active::GantrySafetyCore& core,
+                        bool direct_dance_command)
+      : core_(core), direct_dance_command_(direct_dance_command) {}
   ~StateMonitor() {
     if (subscriber_) {
       subscriber_->CloseChannel();
@@ -648,11 +665,13 @@ class StateMonitor {
     std::copy_n(state.wireless_remote().begin(), remote.size(), remote.begin());
     const auto buttons = active::DecodeWirelessOperator(remote);
     operator_state_ = buttons;
-    const bool arm_edge = buttons.arm_pressed && !arm_pressed_;
+    const bool arm_edge =
+        !direct_dance_command_ && buttons.arm_pressed && !arm_pressed_;
     arm_pressed_ = buttons.arm_pressed;
     core_.ObserveOperator(
         {.arm_edge = arm_edge,
-         .deadman_held = buttons.deadman_held,
+         .deadman_held =
+             direct_dance_command_ ? true : buttons.deadman_held,
          .stop_requested = buttons.stop_pressed},
         received);
     condition_.notify_all();
@@ -667,6 +686,7 @@ class StateMonitor {
   std::optional<std::uint32_t> history_tick_;
   active::WirelessOperatorState operator_state_;
   bool arm_pressed_ = false;
+  bool direct_dance_command_ = false;
 };
 
 class ZmqSocket {
@@ -1206,13 +1226,24 @@ active::ActiveArtifactBinding ParseFrozenLoraActivePromotion(
     throw std::runtime_error("frozen-LoRA active promotion binding mismatch");
   }
   const auto& envelope = root.at("stage_one_envelope");
+  RequireExactKeys(
+      envelope,
+      {"action_fraction", "maximum_target_rate_rad_per_second",
+       "maximum_post_arm_duration_seconds", "wireless_deadman_required",
+       "wireless_stop_required", "direct_dance_command_required",
+       "physical_estop_required", "process_signal_stop_required"},
+      "frozen-LoRA direct-dance envelope");
   if (envelope.value("action_fraction", 0.0) !=
           active::kStageOneActionFraction ||
       envelope.value("maximum_target_rate_rad_per_second", 0.0) !=
           active::kStageOneTargetRateRadPerSecond ||
-      envelope.value("maximum_post_arm_duration_seconds", 0) != 10 ||
-      envelope.value("wireless_deadman_required", false) != true ||
-      envelope.value("wireless_stop_required", false) != true) {
+      envelope.value("maximum_post_arm_duration_seconds", 0) != 5 ||
+      envelope.value("wireless_deadman_required", true) != false ||
+      envelope.value("wireless_stop_required", true) != false ||
+      envelope.value("direct_dance_command_required", "") !=
+          kDirectDanceCommand ||
+      envelope.value("physical_estop_required", false) != true ||
+      envelope.value("process_signal_stop_required", false) != true) {
     throw std::runtime_error("frozen-LoRA active stage-one envelope mismatch");
   }
   const auto expected = RequireSha256(
@@ -1684,6 +1715,10 @@ int Run(const Arguments& arguments) {
           {"pico_endpoint", arguments.pico_endpoint},
           {"post_arm_duration_seconds",
            arguments.post_arm_duration_seconds},
+          {"operator_contract",
+           arguments.frozen_lora_dance
+               ? "bounded_direct_dance_command_v1"
+               : "wireless_deadman_v1"},
           {"minimum_policy_command_frames",
            active::kMinimumPromotedShadowActionFrames},
           {"mutation_gate_open", false},
@@ -1705,7 +1740,9 @@ int Run(const Arguments& arguments) {
   // Mutation boundary: DDS starts subscriber-only. Publisher and motion-mode
   // client do not exist until five exact advancing samples have passed.
   unitree::robot::ChannelFactory::Instance()->Init(0, arguments.network);
-  StateMonitor monitor(core);
+  StateMonitor monitor(core, arguments.frozen_lora_dance &&
+                                 arguments.direct_dance_command ==
+                                     kDirectDanceCommand);
   monitor.Start();
   const auto deadline = std::chrono::steady_clock::now() +
                         std::chrono::seconds(kStateGateTimeoutSeconds);
@@ -1843,6 +1880,10 @@ int Run(const Arguments& arguments) {
                   std::chrono::milliseconds(35));
           if (attempt.status != CausalJoinStatus::Ready ||
               !attempt.joined.has_value()) {
+            if (monitor.fault() != active::Fault::None ||
+                stop_threads.load() || g_stop_requested != 0) {
+              break;
+            }
             const std::string join_failure =
                 attempt.status == CausalJoinStatus::AwaitingCoverage
                     ? "lowstate_coverage_timeout"
@@ -2103,7 +2144,7 @@ int Run(const Arguments& arguments) {
 
   std::cout
       << "[WAIT] True23 publisher is damping-only; waiting for first fresh "
-         "10-frame causal policy. Do not press A yet.\n";
+         "10-frame causal policy.\n";
   while (!first_policy_ready_for_arm.load(std::memory_order_acquire) &&
          !stop_threads.load() &&
          g_stop_requested == 0 && monitor.fault() == active::Fault::None) {
@@ -2112,9 +2153,38 @@ int Run(const Arguments& arguments) {
   if (first_policy_ready_for_arm.load(std::memory_order_acquire) &&
       !stop_threads.load() &&
       g_stop_requested == 0 && monitor.fault() == active::Fault::None) {
-    std::cout
-        << "[READY] Fresh policy ready. Gantry secure; release A if already "
-           "held, hold L2, then press A once. B/R2 or L2 release stops.\n";
+    if (arguments.frozen_lora_dance) {
+      bool direct_armed = false;
+      const auto direct_arm_ns = NowNs();
+      monitor.WithCore([&](active::GantrySafetyCore& value) {
+        value.ObserveOperator(
+            {.arm_edge = true,
+             .deadman_held = true,
+             .stop_requested = false},
+            direct_arm_ns);
+        direct_armed = value.armed();
+        if (!direct_armed) {
+          value.ObserveInternalFailure();
+        }
+      });
+      execution_evidence.AppendEvent(
+          direct_armed ? "direct_dance_command_accepted"
+                       : "direct_dance_command_rejected",
+          {{"command", std::string(kDirectDanceCommand)},
+           {"policy_ready", true},
+           {"gantry_only", true},
+           {"physical_estop_required", true}});
+      if (direct_armed) {
+        std::cout
+            << "[DANCE] Direct command accepted after READY; bounded motion "
+               "started. Process signal, B/R2, fault, duration, or physical "
+               "e-stop stops.\n";
+      }
+    } else {
+      std::cout
+          << "[READY] Fresh policy ready. Gantry secure; release A if already "
+             "held, hold L2, then press A once. B/R2 or L2 release stops.\n";
+    }
   }
   auto last_operator = monitor.LatestOperator();
   const auto report_operator = [](const active::WirelessOperatorState& state) {
@@ -2123,15 +2193,18 @@ int Run(const Arguments& arguments) {
               << " STOP=" << (state.stop_pressed ? "pressed" : "released")
               << '\n';
   };
-  report_operator(last_operator);
+  if (!arguments.frozen_lora_dance) {
+    report_operator(last_operator);
+  }
   std::string stop_reason;
   std::int64_t stop_requested_ns = 0;
   while (!stop_threads.load()) {
     const auto now_ns = NowNs();
     const auto current_operator = monitor.LatestOperator();
-    if (current_operator.arm_pressed != last_operator.arm_pressed ||
+    if (!arguments.frozen_lora_dance &&
+        (current_operator.arm_pressed != last_operator.arm_pressed ||
         current_operator.deadman_held != last_operator.deadman_held ||
-        current_operator.stop_pressed != last_operator.stop_pressed) {
+         current_operator.stop_pressed != last_operator.stop_pressed)) {
       report_operator(current_operator);
       last_operator = current_operator;
     }

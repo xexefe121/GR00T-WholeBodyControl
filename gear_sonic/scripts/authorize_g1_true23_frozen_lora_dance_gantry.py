@@ -23,7 +23,8 @@ from gear_sonic.utils.g1_23dof_artifact import (
     sha256_file,
 )
 
-KIND = "g1_true23_frozen_lora_dance_gantry_active_promotion_v1"
+KIND = "g1_true23_frozen_lora_dance_gantry_active_promotion_v2"
+DIRECT_DANCE_COMMAND = "DANCE"
 _AUTHORIZATION_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{7,127}$")
 
 
@@ -39,6 +40,8 @@ def active_body(args: argparse.Namespace) -> dict:
         raise ValueError("exact explicit gantry authorization phrase is required")
     if not _AUTHORIZATION_ID.fullmatch(args.authorization_id):
         raise ValueError("authorization-id must contain 8-128 safe characters")
+    if args.direct_dance_command != DIRECT_DANCE_COMMAND:
+        raise ValueError("exact direct dance command DANCE is required")
     promotion = args.promotion.expanduser().resolve(strict=True)
     expected_promotion = promotion_body(args)
     if _object(promotion) != expected_promotion:
@@ -85,9 +88,12 @@ def active_body(args: argparse.Namespace) -> dict:
         "stage_one_envelope": {
             "action_fraction": 0.10,
             "maximum_target_rate_rad_per_second": 0.25,
-            "maximum_post_arm_duration_seconds": 10,
-            "wireless_deadman_required": True,
-            "wireless_stop_required": True,
+            "maximum_post_arm_duration_seconds": 5,
+            "wireless_deadman_required": False,
+            "wireless_stop_required": False,
+            "direct_dance_command_required": DIRECT_DANCE_COMMAND,
+            "physical_estop_required": True,
+            "process_signal_stop_required": True,
         },
     }
     body["promotion_payload_sha256"] = sha256_bytes(canonical_json_bytes(body))
@@ -108,6 +114,7 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--live-shadow-evidence", type=Path, required=True)
     parser.add_argument("--authorization-id", required=True)
     parser.add_argument("--gantry-authorize", required=True)
+    parser.add_argument("--direct-dance-command", required=True)
     parser.add_argument("--verify-only", action="store_true")
     return parser
 
