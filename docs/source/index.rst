@@ -106,6 +106,8 @@ Documentation
 
    getting_started/installation_training
    getting_started/g1_23dof_mjlab_training
+   getting_started/g1_true23_frozen_platform_lora
+   getting_started/g1_true23_frozen_platform_lora_comparison
    user_guide/training
    user_guide/training_data
    user_guide/new_embodiments

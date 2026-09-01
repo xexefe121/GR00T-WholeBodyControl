@@ -35,6 +35,19 @@ class True23SonicActorCfg(RslRlModelCfg):
             }
 
 
+@dataclass
+class FrozenPlatformLoraActorCfg(True23SonicActorCfg):
+    """Frozen released SONIC with decoder-only low-rank adapters."""
+
+    class_name: str = (
+        "gear_sonic.trl.mjlab.frozen_platform_lora_actor:"
+        "True23FrozenPlatformLoraActorModel"
+    )
+    source_checkpoint_path: str = "sonic_release/last.pt"
+    lora_rank: int = 16
+    lora_alpha: float = 16.0
+
+
 def true23_mjlab_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
     """Return a conservative RTX-3070-Laptop/8-GB starting configuration.
 
@@ -73,6 +86,66 @@ def true23_mjlab_ppo_runner_cfg() -> RslRlOnPolicyRunnerCfg:
         upload_model=False,
         clip_actions=10.0,
         save_interval=50,
+        num_steps_per_env=16,
+        max_iterations=10_001,
+    )
+
+
+def frozen_platform_lora_runner_cfg(
+    *,
+    warm_start_path: str = "sonic_release/g1_23dof_rev_1_0_init.pt",
+    source_checkpoint_path: str = "sonic_release/last.pt",
+    lora_rank: int = 16,
+    lora_alpha: float = 16.0,
+) -> RslRlOnPolicyRunnerCfg:
+    """Paper-style frozen-platform adaptation config.
+
+    Rank 16 with the default release produces 245,744 trainable actor
+    parameters.  Low-latency teleop may use rank 8 to stay near the same
+    adapter budget despite its wider decoder.
+    """
+
+    return RslRlOnPolicyRunnerCfg(
+        actor=FrozenPlatformLoraActorCfg(
+            warm_start_path=warm_start_path,
+            source_checkpoint_path=source_checkpoint_path,
+            lora_rank=lora_rank,
+            lora_alpha=lora_alpha,
+            distribution_cfg={
+                "class_name": "GaussianDistribution",
+                "init_std": 1.0,
+                "std_type": "scalar",
+            },
+        ),
+        critic=RslRlModelCfg(
+            hidden_dims=(512, 256, 128),
+            activation="elu",
+            obs_normalization=True,
+        ),
+        algorithm=RslRlPpoAlgorithmCfg(
+            value_loss_coef=1.0,
+            use_clipped_value_loss=True,
+            clip_param=0.2,
+            entropy_coef=0.0,
+            num_learning_epochs=5,
+            num_mini_batches=8,
+            learning_rate=5.0e-6,
+            schedule="fixed",
+            gamma=0.99,
+            lam=0.95,
+            desired_kl=None,
+            max_grad_norm=0.5,
+        ),
+        obs_groups={
+            "actor": ("tokenizer", "policy"),
+            "critic": ("critic",),
+        },
+        experiment_name="sonic_g1_true23_frozen_platform_lora",
+        run_name="breadth",
+        logger="tensorboard",
+        upload_model=False,
+        clip_actions=10.0,
+        save_interval=500,
         num_steps_per_env=16,
         max_iterations=10_001,
     )
