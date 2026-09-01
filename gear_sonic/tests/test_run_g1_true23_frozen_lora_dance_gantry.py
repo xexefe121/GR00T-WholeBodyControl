@@ -191,6 +191,63 @@ def test_direct_execution_validator_accepts_hold_first_startup(
     assert terminal["startup_damping_frames"] == 0
 
 
+def test_direct_execution_validator_accepts_reacquisition_diagnostics(
+    tmp_path: Path,
+) -> None:
+    records = _passing_execution_records()
+    records.insert(
+        11,
+        {
+            "schema_version": 1,
+            "kind": "g1_true23_stage1_gantry_execution_evidence",
+            "event": "pre_arm_causal_reacquisition",
+            "authorization_id": "gantry-session-1",
+            "monotonic_ns": 0,
+            "frame_index": 1339,
+            "reason": "lowstate_covered_range_invalid",
+        },
+    )
+    for index, record in enumerate(records):
+        record["monotonic_ns"] = index + 1
+    evidence = tmp_path / "execution.jsonl"
+    _write_jsonl(evidence, records)
+
+    terminal = validate_direct_dance_execution_evidence(
+        evidence,
+        authorization_id="gantry-session-1",
+        duration_seconds=1,
+    )
+
+    assert terminal["motion_mode_restored"] is True
+
+
+def test_direct_execution_validator_rejects_unknown_diagnostic(
+    tmp_path: Path,
+) -> None:
+    records = _passing_execution_records()
+    records.insert(
+        11,
+        {
+            "schema_version": 1,
+            "kind": "g1_true23_stage1_gantry_execution_evidence",
+            "event": "unexpected_diagnostic",
+            "authorization_id": "gantry-session-1",
+            "monotonic_ns": 0,
+        },
+    )
+    for index, record in enumerate(records):
+        record["monotonic_ns"] = index + 1
+    evidence = tmp_path / "execution.jsonl"
+    _write_jsonl(evidence, records)
+
+    with pytest.raises(ValueError, match="event sequence is not exact"):
+        validate_direct_dance_execution_evidence(
+            evidence,
+            authorization_id="gantry-session-1",
+            duration_seconds=1,
+        )
+
+
 def test_direct_execution_validator_rejects_old_damping_startup(
     tmp_path: Path,
 ) -> None:

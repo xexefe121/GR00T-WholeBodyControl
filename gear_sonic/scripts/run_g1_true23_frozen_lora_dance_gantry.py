@@ -33,6 +33,7 @@ _DIRECT_EVENTS = [
     "motion_mode_restored",
     "session_complete",
 ]
+_DIRECT_DIAGNOSTIC_EVENTS = {"pre_arm_causal_reacquisition"}
 
 
 def _existing_file(path: Path, label: str) -> Path:
@@ -162,10 +163,17 @@ def validate_direct_dance_execution_evidence(
         for line in path.read_text(encoding="utf-8").splitlines()
         if line.strip()
     ]
-    if [record.get("event") for record in records] != _DIRECT_EVENTS:
+    events = [record.get("event") for record in records]
+    operational_records = [
+        record
+        for record in records
+        if record.get("event") not in _DIRECT_DIAGNOSTIC_EVENTS
+    ]
+    if [record.get("event") for record in operational_records] != _DIRECT_EVENTS:
         raise ValueError("controller evidence event sequence is not exact")
+    restored_index = events.index("motion_mode_restored")
     previous_ns = 0
-    for record in records:
+    for index, record in enumerate(records):
         if (
             record.get("kind") != _EXECUTION_KIND
             or record.get("authorization_id") != authorization_id
@@ -175,17 +183,24 @@ def validate_direct_dance_execution_evidence(
         if not isinstance(monotonic_ns, int) or monotonic_ns <= previous_ns:
             raise ValueError("controller evidence clock is not strictly increasing")
         previous_ns = monotonic_ns
+        if record.get("event") in _DIRECT_DIAGNOSTIC_EVENTS and (
+            index >= restored_index
+            or not isinstance(record.get("frame_index"), int)
+            or record.get("reason")
+            not in {"lowstate_coverage_timeout", "lowstate_covered_range_invalid"}
+        ):
+            raise ValueError("controller diagnostic evidence is invalid")
 
-    start = records[0]
-    publisher = records[3]
-    hold_prepared = records[5]
-    motion_release = records[6]
-    hold_gate = records[7]
-    direct = records[8]
-    first_policy = records[9]
-    return_hold = records[10]
-    restored = records[11]
-    terminal = records[12]
+    start = operational_records[0]
+    publisher = operational_records[3]
+    hold_prepared = operational_records[5]
+    motion_release = operational_records[6]
+    hold_gate = operational_records[7]
+    direct = operational_records[8]
+    first_policy = operational_records[9]
+    return_hold = operational_records[10]
+    restored = operational_records[11]
+    terminal = operational_records[12]
     if (
         start.get("operator_contract") != "bounded_direct_dance_command_v1"
         or start.get("post_arm_duration_seconds") != duration_seconds
