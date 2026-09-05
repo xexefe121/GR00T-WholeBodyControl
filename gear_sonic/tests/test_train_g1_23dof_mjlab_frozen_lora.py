@@ -110,7 +110,8 @@ def test_polish_resume_keeps_adapter_provenance_but_restores_full_state(
     assert delegated[delegated.index("--resume") + 1] == str(materials[5])
 
 
-def test_optional_actuation_profile_is_consumed_and_bound(monkeypatch, tmp_path):
+@pytest.mark.parametrize("name", ["stage_one_cpp", "native_support_projected"])
+def test_optional_actuation_profile_is_consumed_and_bound(monkeypatch, tmp_path, name):
     captured = {}
     delegated = []
     monkeypatch.setattr(launcher, "_install_frozen_lora_hooks", lambda **kwargs: captured.update(kwargs))
@@ -125,12 +126,15 @@ def test_optional_actuation_profile_is_consumed_and_bound(monkeypatch, tmp_path)
         "--spans",
         str(spans),
         "--actuation-profile",
-        "stage_one_cpp",
+        name,
     ]
     assert launcher.main(args) == 0
-    assert captured["actuation_profile"] == launcher.StageOneActuationProfile.from_cpp(
-        launcher.REPO_ROOT / launcher.HEADER
+    expected = (
+        launcher.StageOneActuationProfile.from_cpp(launcher.REPO_ROOT / launcher.HEADER)
+        if name == "stage_one_cpp"
+        else launcher.NativeSupportActuationProfile.from_sim_config(launcher.REPO_ROOT / launcher.SIM_CONFIG)
     )
+    assert captured["actuation_profile"] == expected
     assert "--actuation-profile" not in delegated
 
 

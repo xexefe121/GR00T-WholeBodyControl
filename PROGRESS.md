@@ -1,5 +1,86 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-05 continuation: projected native actuation and reset feasibility
+
+**Physical dance and live teleop remain NOT ready. No robot commands, mode
+changes, hardware pin edits or promotions in this continuation.** The following
+is a simulator-only training hypothesis, not a reviewed physical gain profile.
+
+### Implemented and trained, with existing numeric limits
+
+- New opt-in `--actuation-profile native_support_projected` uses the native
+  simulator-configured gains, full safe SONIC targets, 5 rad/s target slew,
+  explicit 500 Hz PD / 50 Hz policy, and a hypothetical 35 Nm ankle model cap.
+  Target projection intersects hard-joint margins, target slew, and 95% of
+  the existing quarter-effort guard. No limit was relaxed. Empty intersections
+  latch training termination; zero effort until the next training reset is
+  explicitly **not** a robot recovery behavior.
+- Deployment-envelope diagnostics support matching `--project-active-effort`.
+  Failures preserve actual partial-substep count, elapsed time and terminal
+  qpos/qvel before an attempted return. They cannot become false completed
+  control intervals. Raw action magnitude equal to 10 now also terminates
+  profiled training, matching the runtime's rejection boundary.
+- Actual learning: **50 updates, 25,600 transitions**, 32 environments and 16
+  rollout steps. Directory is `native_support_training_20260905_v1/breadth200`,
+  but **200 updates were only planned, not executed**. Final mean episode
+  length was 3.90 steps. No training process remains running. All 30 source
+  hashes in lineage matched the working tree at the end of this batch;
+  lineage SHA is `0be71033b1567fc0a6a6a06c185498f70f2d4faa40ca303e0a4d9ae58da8f962`.
+
+The diagnostic model50 checkpoint SHA is
+`bfa5d7ce7ecafde54cc0e076d827479cace0adf7009e973bb951f1680ed0c0b5`.
+Its decoder SHA is `f475e84d29f1f23cca98ac5013506a321d2e14c05526674175982bf951e34c7e`;
+three-case Torch/ONNX parity passes (max absolute error 1.222e-6). The actual
+paired frozen encoder remains `3806b2b6...` below, with exact three-case token
+parity. Neither this export nor source matching establishes deployment safety.
+
+### Closed-loop candidate rejected
+
+All cases below use configured native gains, 35 Nm ankle cap, 5 rad/s slew,
+full targets, active effort projection, and the actual paired encoder.
+
+| Candidate/start | Completed dance transitions | Actual active physics steps | Result |
+|---|---:|---:|---|
+| Original breadth25 / reference | 86/535 | 864 | Empty target intersection; incomplete/fidelity fail |
+| Newly trained native-support model50 / reference | 62/535 | 629 | Empty target intersection; joint RMSE max 0.4002 rad |
+| New model50 / historical measured state + 5 s standing | 65/535 | 652 | Startup passes; dance fails; immediate return infeasible |
+
+New model50 did not improve completion. Its failed return begins at height
+0.7406 m and tilt 0.0413 rad: an empty intersection can occur while roughly
+upright, not only after a fall. No full dance, lifecycle, original-v14 parity
+or physical-readiness pass is claimed. Residual +0.25 with active projection
+also fails (70/535 in the configured 5 rad/s case).
+
+Evidence, relative to `artifacts/g1_true23_frozen_lora/`:
+
+- `active_projection_20260905_v1/` preserves baseline/residual experiments.
+- `native_support_training_20260905_v1/breadth200/eval/` contains exports and
+  `screen_reference/summary.json`, `screen_measured/summary.json`.
+- `native_support_training_20260905_v1/reset_feasibility_final.json` contains
+  the reset audit below. Earlier evidence is retained, not overwritten.
+
+### New reset-state defect; next work
+
+Training currently seeds previous actuator target from joint position even
+when a sampled motion reset has nonzero velocity. Under this profile, **206
+of 532 eligible nominal happy-dance reset frames** then have no feasible
+first target, regardless of the policy action. Only **3/532** remain
+infeasible when considering any previous target inside the hard/effort
+interval. This audit uses soft-clipped reference q and recorded dq before
+random reset perturbations. It is not an audit of actual randomized resets,
+reachable controller histories, or dynamic balance.
+
+Next: model a consistent reset/controller state and its previous-action
+history, distinguish random-reference resets from measured cold acquisition,
+and re-evaluate early recovery feasibility. Do not simply loosen guards,
+fabricate a physical history, or continue the remaining 150 training updates
+under changed source while claiming exact resume. The old physical encoder
+pin, motor-off cause and live PICO calibration remain unresolved.
+
+Verification: **84 focused tests pass**, including Torch/NumPy projection
+equivalence, isolated infeasible batch rows, raw-action boundary rejection,
+partial-step reporting, CLI profile binding and reset-feasibility cases.
+
 ## 2026-09-05 continuation: wrong encoder pairing confirmed
 
 **Physical dance and live teleop remain NOT ready. No robot commands, mode

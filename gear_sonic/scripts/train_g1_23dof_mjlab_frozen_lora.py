@@ -25,10 +25,15 @@ from gear_sonic.trl.mjlab.frozen_platform_lora_actor import (
 from gear_sonic.trl.mjlab.frozen_platform_lora_runner import (
     FrozenPlatformLoraRunner,
 )
+from gear_sonic.utils.g1_true23_actuation_profile import (
+    HEADER,
+    SIM_CONFIG,
+    NativeSupportActuationProfile,
+    StageOneActuationProfile,
+)
 from gear_sonic.utils.g1_true23_frozen_lora_gates import (
     frozen_lora_sampling_contract,
 )
-from gear_sonic.utils.g1_true23_actuation_profile import HEADER, StageOneActuationProfile
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SOURCE = REPO_ROOT / "low_latency" / "last.pt"
@@ -284,7 +289,7 @@ def _install_frozen_lora_hooks(
     base.CAUSAL_SOURCE_FILES = tuple(source_files)
     if actuation_profile is not None:
         base.CAUSAL_SOURCE_FILES += (
-            REPO_ROOT / HEADER,
+            REPO_ROOT / (SIM_CONFIG if isinstance(actuation_profile, NativeSupportActuationProfile) else HEADER),
             REPO_ROOT / "gear_sonic/utils/g1_true23_actuation_profile.py",
             REPO_ROOT / "gear_sonic/envs/mjlab/sonic_true23_stage_one_actuation.py",
         )
@@ -404,11 +409,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     bank_text = _pop_option(values, "--behavior-bank")
     adapter_text = _pop_option(values, "--adapter-init")
     actuation_name = _pop_option(values, "--actuation-profile")
-    if actuation_name not in {None, "stage_one_cpp"}:
-        raise SystemExit("--actuation-profile must be stage_one_cpp (simulator only)")
-    actuation_profile = (
-        StageOneActuationProfile.from_cpp(REPO_ROOT / HEADER) if actuation_name is not None else None
-    )
+    if actuation_name not in {None, "stage_one_cpp", "native_support_projected"}:
+        raise SystemExit("--actuation-profile must be stage_one_cpp or native_support_projected (simulator only)")
+    if actuation_name == "native_support_projected":
+        actuation_profile = NativeSupportActuationProfile.from_sim_config(REPO_ROOT / SIM_CONFIG)
+    else:
+        actuation_profile = (
+            StageOneActuationProfile.from_cpp(REPO_ROOT / HEADER) if actuation_name is not None else None
+        )
     resume_supplied = "--resume" in values
     if rank <= 0 or alpha <= 0.0:
         raise SystemExit("LoRA rank and alpha must be positive")

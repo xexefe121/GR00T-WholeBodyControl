@@ -7,8 +7,8 @@ crossings terminate at the next 50 Hz training boundary. No robot API exists.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 import copy
+from dataclasses import dataclass
 import re
 from typing import Any
 
@@ -26,7 +26,7 @@ from gear_sonic.utils.g1_23dof_safe_target_transform import (
     SAFE_TARGET_HARD_UPPER_HARDWARE,
     safe_target_transform_torch,
 )
-from gear_sonic.utils.g1_true23_actuation_profile import StageOneActuationProfile
+from gear_sonic.utils.g1_true23_actuation_profile import NativeSupportActuationProfile, StageOneActuationProfile
 
 
 def requested_stage_one_target(full_target: torch.Tensor, profile: StageOneActuationProfile) -> torch.Tensor:
@@ -63,6 +63,29 @@ def actuation_guard_violated(env: Any, action_name: str = "joint_pos") -> torch.
     return env.action_manager.get_term(action_name).envelope_violation
 
 
+def native_support_pd_step(requested, previous, q, dq, profile: NativeSupportActuationProfile):
+    """Vectorized equivalent of the simulator's effort-feasible target projection.
+
+    Infeasible rows signal episode termination and produce zero effort. This
+    training-only response is NOT a hardware recovery behavior.
+    """
+    kp, kd, effort = (q.new_tensor(getattr(profile, name)) for name in ("kp", "kd", "effort"))
+    cap = 0.95 * 0.25 * effort
+    lower = torch.maximum(q.new_tensor(SAFE_TARGET_HARD_LOWER_HARDWARE) + 0.05, q + (kd * dq - cap) / kp)
+    upper = torch.minimum(q.new_tensor(SAFE_TARGET_HARD_UPPER_HARDWARE) - 0.05, q + (kd * dq + cap) / kp)
+    delta = profile.slew_rad_s * profile.timestep_s
+    lower = torch.maximum(lower, previous - delta)
+    upper = torch.minimum(upper, previous + delta)
+    invalid = (lower > upper).any(dim=-1)
+    for value in (requested, previous, q, dq):
+        invalid |= (~torch.isfinite(value)).any(dim=-1)
+    target = torch.maximum(torch.minimum(requested, upper), lower)
+    target = torch.where(invalid[:, None], torch.nan_to_num(previous), target)
+    torque = kp * (target - q) - kd * dq
+    torque = torch.where(invalid[:, None], torch.zeros_like(torque), torque)
+    return target, torque, invalid
+
+
 if _MJLAB_IMPORT_ERROR is None:
 
     @dataclass(kw_only=True)
@@ -90,7 +113,9 @@ if _MJLAB_IMPORT_ERROR is None:
             safe, full_target = safe_target_transform_torch(actions)
             self._safe_native_actions[:] = safe
             self._requested_targets[:] = requested_stage_one_target(full_target, self.cfg.profile)
-            self.envelope_violation.zero_()
+            # The outer RL wrapper clips at 10; equality therefore also means
+            # an unqualified clipped action. Runtime rejects abs(raw) >= 10.
+            self.envelope_violation[:] = (actions.abs() >= 10.0).any(dim=-1)
 
         def apply_actions(self) -> None:
             q = self._entity.data.joint_pos[:, self._target_ids]
@@ -100,7 +125,12 @@ if _MJLAB_IMPORT_ERROR is None:
             # the actual final reset pose, never an earlier episode's target.
             self._previous_targets[:] = torch.where(self._needs_seed[:, None], q, self._previous_targets)
             self._needs_seed.zero_()
-            target, torque, invalid = stage_one_pd_step(
+            step = (
+                native_support_pd_step
+                if isinstance(self.cfg.profile, NativeSupportActuationProfile)
+                else stage_one_pd_step
+            )
+            target, torque, invalid = step(
                 self._requested_targets,
                 self._previous_targets,
                 q,
@@ -112,6 +142,8 @@ if _MJLAB_IMPORT_ERROR is None:
             self._processed_actions[:] = target
             self._previous_targets[:] = target
             self.envelope_violation |= invalid
+            if isinstance(self.cfg.profile, NativeSupportActuationProfile):
+                torque = torch.where(self.envelope_violation[:, None], torch.zeros_like(torque), torque)
             self._entity.set_joint_effort_target(torque, joint_ids=self._target_ids)
 
         def reset(self, env_ids: torch.Tensor | slice | None = None) -> None:

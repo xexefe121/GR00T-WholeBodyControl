@@ -8,14 +8,15 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 import hashlib
+import json
 import math
 from pathlib import Path
 import re
 
 from gear_sonic.utils.g1_23dof_contract import HARDWARE_23_JOINT_NAMES, HARDWARE_JOINT_IDS
 
-
 HEADER = Path("gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/true23_active_gantry_core.hpp")
+SIM_CONFIG = Path("gear_sonic/config/sim_validation/g1_23dof_mujoco_sim2sim.json")
 
 
 def _scalar(source: str, name: str) -> float:
@@ -110,4 +111,56 @@ class StageOneActuationProfile:
             "effort_status": "unverified_cpp_table_not_manufacturer_rating",
             "hardware_authorized": False,
             "deployment_ready": False,
+        }
+
+
+@dataclass(frozen=True)
+class NativeSupportActuationProfile(StageOneActuationProfile):
+    """An explicit simulator hypothesis, never a replacement hardware profile.
+
+    Native configured gains, full SONIC targets, 5 rad/s slew and 35 Nm ankle
+    model cap. Every feasible target stays at 95% of the existing quarter-
+    effort guard. These choices require separate physical review and training.
+    """
+
+    @classmethod
+    def from_sim_config(cls, path: Path) -> NativeSupportActuationProfile:
+        raw = path.read_bytes()
+        value = json.loads(raw)
+        if (
+            value.get("kind") != "g1_true23_mujoco_sim2sim_config"
+            or value.get("robot_model") != "g1_23dof_rev_1_0"
+        ):
+            raise ValueError("native support requires the exact true23 simulator config")
+        physics = value["physics"]
+        if physics["control_decimation"] != 10 or physics["timestep_s"] != 0.002:
+            raise ValueError("native support requires 500 Hz physics and 50 Hz policy")
+        effort = list(physics["effort_limit_hardware_nm"])
+        if len(effort) != 23:
+            raise ValueError("native support effort vector must have 23 joints")
+        for index in (4, 5, 10, 11):
+            effort[index] = min(effort[index], 35.0)
+        return cls(
+            source_sha256=hashlib.sha256(raw).hexdigest(),
+            kp=tuple(physics["kp_hardware"]),
+            kd=tuple(physics["kd_hardware"]),
+            effort=tuple(effort),
+            joint_scale=(1.0,) * 23,
+            fraction=1.0,
+            slew_rad_s=5.0,
+            timestep_s=0.002,
+            target_margin_rad=0.05,
+            hold_kp_fraction=0.25,
+        )
+
+    def contract(self) -> dict:
+        return {
+            **super().contract(),
+            "kind": "g1_true23_native_support_projected_training_v1",
+            "source_kind": "native_simulation_config_not_physical_controller",
+            "effort_status": "unverified_simulator_table_with_35Nm_ankle_cap_not_manufacturer_rating",
+            "effort_target_projection": True,
+            "projection_guard_fraction": 0.95 * 0.25,
+            "empty_intersection_response": "latch_training_termination_and_zero_effort_until_next_50Hz_reset",
+            "gain_review_for_hardware_complete": False,
         }

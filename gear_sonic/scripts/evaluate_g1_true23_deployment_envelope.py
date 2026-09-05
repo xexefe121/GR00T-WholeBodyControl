@@ -38,6 +38,7 @@ from gear_sonic.utils.g1_true23_motion_fidelity import assess_motion_fidelity
 from gear_sonic.utils.g1_true23_sim_acquisition import (
     align_reference_xy_yaw,
     audit_reference_kinematics,
+    effort_feasible_target,
     simulate_balance_transition,
 )
 from gear_sonic.utils.g1_true23_sonic_library_replay import (
@@ -292,6 +293,7 @@ def run_case(
     transition_policy: UnitreeZeroVelocityFallbackPolicy | None = None,
     align_reference_start: bool = False,
     project_transition_effort: bool = False,
+    project_active_effort: bool = False,
 ) -> tuple[dict[str, Any], dict[str, np.ndarray]]:
     count = validate_library_motion(motion)
     steps = count - 11 if maximum_steps is None else min(count - 11, maximum_steps)
@@ -379,6 +381,7 @@ def run_case(
     first_target_gate = None
     clipped_joint_steps = 0
     joint_steps = 0
+    projected_joint_substeps = active_physics_steps = 0
     for transition in range(steps if failure is None else 0):
         try:
             index = transition + 11
@@ -400,9 +403,24 @@ def run_case(
                 )
                 clipped_joint_steps += int(np.count_nonzero(np.abs(target - requested) > 1e-10))
                 joint_steps += 23
+                if project_active_effort:
+                    projected = effort_feasible_target(
+                        requested,
+                        previous_target,
+                        data.qpos[7:].copy(),
+                        data.qvel[6:].copy(),
+                        kp,
+                        kd,
+                        physics.effort,
+                        dt=physics.timestep_s,
+                        slew_rate=slew_rate,
+                    )
+                    projected_joint_substeps += int(np.count_nonzero(np.abs(projected - target) > 1e-10))
+                    target = projected
+                guarded_target = target if project_active_effort else requested
                 if first_target_gate is None and np.any(
-                    (requested < controller.model.jnt_range[1:, 0] + 0.05)
-                    | (requested > controller.model.jnt_range[1:, 1] - 0.05)
+                    (guarded_target < controller.model.jnt_range[1:, 0] + 0.05)
+                    | (guarded_target > controller.model.jnt_range[1:, 1] - 0.05)
                 ):
                     first_target_gate = {"transition": transition, "substep": substep}
                 predicted = kp * (target - data.qpos[7:]) - kd * data.qvel[6:]
@@ -417,6 +435,7 @@ def run_case(
                 data.ctrl[:] = torque
                 module.mj_step(controller.model, data)
                 previous_target = target.copy()
+                active_physics_steps += 1
             controller.buffered_robot_pelvis_q9 = current_pelvis
             # The deployed observation also feeds back the unscaled safe action.
             controller.previous_safe_native = safe_native.astype(np.float32, copy=True)
@@ -464,6 +483,11 @@ def run_case(
     series = {key: np.asarray([r[key] for r in records]) for key in records[0]} if records else {}
     report = {
         "completed_transitions": len(records),
+        "completed_active_physics_steps": active_physics_steps,
+        "active_partial_transition_substeps": active_physics_steps % physics.decimation,
+        "active_elapsed_simulation_s": active_physics_steps * physics.timestep_s,
+        "active_effort_target_projection": project_active_effort,
+        "projected_active_joint_substeps": projected_joint_substeps,
         "requested_transitions": steps,
         "library_completion_passed": failure is None and len(records) == steps,
         "upright_physical_bounds_passed": failure is None
@@ -492,6 +516,7 @@ def run_case(
         available=count - 11,
         failure=failure,
     )
+    terminal_active_qpos, terminal_active_qvel = data.qpos.copy(), data.qvel.copy()
     if transition_policy is None:
         return_hold, return_qpos = simulate_sampled_posture_hold(
             controller,
@@ -529,6 +554,8 @@ def run_case(
     )
     return report, {
         "qpos": np.asarray(qpos),
+        "terminal_active_qpos": terminal_active_qpos,
+        "terminal_active_qvel": terminal_active_qvel,
         "startup_hold_qpos": startup_qpos,
         "return_hold_qpos": return_qpos,
         **series,
@@ -586,6 +613,11 @@ def main() -> int:
         "--project-transition-effort",
         action="store_true",
         help="Project balance-phase targets inside existing effort/position/slew guards; simulator only",
+    )
+    parser.add_argument(
+        "--project-active-effort",
+        action="store_true",
+        help="Simulator-only SONIC target projection inside existing effort/position/slew bounds",
     )
     parser.add_argument("--maximum-steps", type=int)
     args = parser.parse_args()
@@ -674,6 +706,7 @@ def main() -> int:
             transition_policy=transition_policy,
             align_reference_start=args.align_reference_start,
             project_transition_effort=args.project_transition_effort,
+            project_active_effort=args.project_active_effort,
         )
         report.update(
             encoder_decoder_pair_validated=pair is not None,

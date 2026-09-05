@@ -1,13 +1,14 @@
 from dataclasses import replace
 import hashlib
-import re
 from pathlib import Path
+import re
 
 import numpy as np
 import pytest
 import torch
 
 from gear_sonic.envs.mjlab.sonic_true23_stage_one_actuation import (
+    native_support_pd_step,
     requested_stage_one_target,
     stage_one_pd_step,
 )
@@ -15,12 +16,85 @@ from gear_sonic.scripts.evaluate_g1_true23_deployment_envelope import apply_targ
 from gear_sonic.utils.g1_23dof_safe_target_transform import SAFE_TARGET_DEFAULT_Q_HARDWARE
 from gear_sonic.utils.g1_true23_actuation_profile import (
     HEADER,
+    SIM_CONFIG,
+    NativeSupportActuationProfile,
     StageOneActuationProfile,
     read_joint_amplitude_scale,
 )
 
-
 ROOT = Path(__file__).resolve().parents[2]
+
+
+def test_native_support_profile_is_hash_bound_simulation_only():
+    profile = NativeSupportActuationProfile.from_sim_config(ROOT / SIM_CONFIG)
+    assert profile.source_sha256 == hashlib.sha256((ROOT / SIM_CONFIG).read_bytes()).hexdigest()
+    assert profile.kp[3] == pytest.approx(99.098427782)
+    assert profile.fraction == 1.0 and profile.slew_rad_s == 5.0
+    assert all(profile.effort[index] <= 35 for index in (4, 5, 10, 11))
+    contract = profile.contract()
+    assert contract["effort_target_projection"] is True
+    assert not contract["gain_review_for_hardware_complete"] and not contract["hardware_authorized"]
+
+
+def test_native_support_torch_matches_numpy_effort_projection_on_valid_rows():
+    from gear_sonic.utils.g1_true23_sim_acquisition import effort_feasible_target
+
+    profile = NativeSupportActuationProfile.from_sim_config(ROOT / SIM_CONFIG)
+    generator = np.random.default_rng(2301)
+    q = np.asarray(SAFE_TARGET_DEFAULT_Q_HARDWARE) + generator.normal(0, 0.01, (100, 23))
+    dq = generator.normal(0, 0.1, (100, 23))
+    previous = q.copy()
+    requested = q + generator.normal(0, 0.1, (100, 23))
+    target, torque, invalid = native_support_pd_step(*map(torch.tensor, (requested, previous, q, dq)), profile)
+    assert not invalid.any()
+    for index in range(100):
+        expected = effort_feasible_target(
+            requested[index],
+            previous[index],
+            q[index],
+            dq[index],
+            np.asarray(profile.kp),
+            np.asarray(profile.kd),
+            np.asarray(profile.effort),
+            dt=0.002,
+            slew_rate=5.0,
+        )
+        np.testing.assert_allclose(target[index].numpy(), expected, rtol=0, atol=1e-15)
+        predicted = np.asarray(profile.kp) * (expected - q[index]) - np.asarray(profile.kd) * dq[index]
+        np.testing.assert_allclose(torque[index].numpy(), predicted, rtol=0, atol=1e-13)
+    assert np.all(np.abs(torque.numpy()) <= 0.95 * 0.25 * np.asarray(profile.effort) + 1e-12)
+
+
+def test_native_support_infeasible_row_fails_without_poisoning_other_envs():
+    profile = NativeSupportActuationProfile.from_sim_config(ROOT / SIM_CONFIG)
+    q = torch.tensor(SAFE_TARGET_DEFAULT_Q_HARDWARE)[None].repeat(2, 1)
+    dq = torch.zeros_like(q)
+    dq[0] = 1000.0
+    target, torque, invalid = native_support_pd_step(q, q, q, dq, profile)
+    assert invalid.tolist() == [True, False]
+    assert torch.count_nonzero(torque) == 0
+    torch.testing.assert_close(target, q)
+
+
+def test_training_rejects_raw_clip_boundary_as_runtime_does(profile):
+    from types import SimpleNamespace
+
+    from gear_sonic.envs.mjlab.sonic_true23 import _MJLAB_IMPORT_ERROR
+
+    if _MJLAB_IMPORT_ERROR is not None:
+        pytest.skip("MJLab unavailable")
+    from gear_sonic.envs.mjlab.sonic_true23_stage_one_actuation import StageOneActuationAction
+
+    action = StageOneActuationAction.__new__(StageOneActuationAction)
+    action.cfg = SimpleNamespace(profile=profile)
+    action._raw_actions = torch.zeros(2, 23)
+    action._safe_native_actions = torch.zeros(2, 23)
+    action._requested_targets = torch.zeros(2, 23)
+    action.envelope_violation = torch.zeros(2, dtype=torch.bool)
+    raw = torch.zeros(2, 23)
+    raw[0, 0] = 10.0
+    action.process_actions(raw)
+    assert action.envelope_violation.tolist() == [True, False]
 
 
 @pytest.fixture
@@ -123,6 +197,7 @@ def test_profiled_config_is_isolated_and_every_motor_is_explicit(profile):
     if _MJLAB_IMPORT_ERROR is not None:
         pytest.skip("MJLab/Unitree package unavailable")
     from mjlab.actuator import BuiltinMotorActuatorCfg, BuiltinPositionActuatorCfg
+
     from gear_sonic.envs.mjlab.sonic_true23_causal_multimotion_v14 import make_causal_multimotion_v14_env_cfg
     from gear_sonic.envs.mjlab.sonic_true23_stage_one_actuation import apply_stage_one_actuation_profile
     from gear_sonic.utils.g1_23dof_contract import HARDWARE_23_JOINT_NAMES

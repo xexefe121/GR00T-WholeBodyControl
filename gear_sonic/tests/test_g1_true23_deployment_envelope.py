@@ -276,3 +276,48 @@ def test_unlimited_reference_cell_matches_existing_simulator(monkeypatch):
     assert candidate["completed_transitions"] == original["completed_transitions"]
     assert candidate["completed_transitions"] >= 30
     np.testing.assert_array_equal(candidate_arrays["qpos"].astype(np.float32), original_arrays["qpos"])
+
+
+def test_active_projection_failure_preserves_partial_terminal_state(monkeypatch):
+    from gear_sonic.scripts import evaluate_g1_true23_deployment_envelope as envelope
+
+    root = Path(__file__).resolve().parents[2]
+    assets = root.parent / "GR00T-WholeBodyControl"
+    motion_path = (
+        assets / "artifacts/g1_true23/sonic_library_true23_happy_physical_reference_v1/happy_dance.true23.npz"
+    )
+    if not motion_path.is_file():
+        pytest.skip("local motion asset unavailable")
+    with np.load(motion_path, allow_pickle=False) as archive:
+        motion = {name: archive[name].copy() for name in archive.files}
+    calls = []
+
+    def fail_second_substep(requested, *args, **kwargs):
+        calls.append(1)
+        if len(calls) == 2:
+            raise ValueError("empty effort/position/slew target intersection")
+        return requested.copy()
+
+    monkeypatch.setattr(envelope, "effort_feasible_target", fail_second_substep)
+    policy = SimpleNamespace(infer=lambda *_: (np.zeros(23, dtype=np.float32), None))
+    report, arrays = envelope.run_case(
+        root=root,
+        asset_root=assets,
+        policy=policy,
+        motion=motion,
+        kp=np.ones(23),
+        kd=np.ones(23),
+        fraction=1.0,
+        joint_scale=np.ones(23),
+        ankle_effort=35.0,
+        slew_rate=5.0,
+        initial_state="reference",
+        maximum_steps=1,
+        project_active_effort=True,
+    )
+    assert len(calls) == 2 and report["completed_transitions"] == 0
+    assert report["completed_active_physics_steps"] == report["active_partial_transition_substeps"] == 1
+    assert report["active_elapsed_simulation_s"] == 0.002
+    assert not report["motion_fidelity"]["passed"]
+    assert arrays["qpos"].shape == (1, 30)
+    assert not np.array_equal(arrays["qpos"][-1], arrays["terminal_active_qpos"])
