@@ -24,6 +24,11 @@ def main() -> int:
     parser.add_argument("--output-json", type=Path, required=True)
     parser.add_argument("--minimum-frames", type=int, default=DEFAULT_MINIMUM_FRAMES)
     parser.add_argument(
+        "--collision-grounding",
+        action="store_true",
+        help="Use actual foot geometry instead of the legacy ankle-height heuristic",
+    )
+    parser.add_argument(
         "--reachable-raw-abs",
         type=float,
         help="Project only unreachable packet joints into native23 safe-action image.",
@@ -41,6 +46,7 @@ def main() -> int:
         packet_path=packets,
         minimum_frames=args.minimum_frames,
         reachable_raw_abs=args.reachable_raw_abs,
+        collision_grounding=args.collision_grounding,
     )
     output_npz.parent.mkdir(parents=True, exist_ok=True)
     with output_npz.open("xb") as stream:

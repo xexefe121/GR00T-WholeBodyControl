@@ -78,6 +78,29 @@ joint-level failure evidence and remaining hardware/headset boundaries.
 
 ## What changed
 
+### Reference support and PICO grounding (2026-09-06)
+
+New offline support auditing keeps all eight clips and 6,035 frames. It checks
+stationary poses separately from a finite-difference inverse-dynamics
+hypothesis, using explicit ground-contact candidates and unchanged modeled
+torque caps. It does not provide a controller, qualify dynamic tracking, or
+establish physical motor ratings. Under that inverse-dynamics hypothesis,
+only 75/546 floor-conditioned happy-dance frames have a conditional solution
+within the bounds in either collision model. Unconditioned reference counts
+are 89/546 and 88/546, but include penetrated geometry and are not superior
+physical qualifications. This compares reference variants, **not v14 models**.
+
+The PICO ankle-body height heuristic leaves standing anchors hovering roughly
+13–14 mm over the mesh floor. Opt-in `--collision-grounding` now grounds the
+actual foot geometry, retaining every 23-joint sample/proof and original
+timing. All three saved PICO clips were rebuilt separately; legacy defaults
+and the production training corpus remain unchanged. Their mesh hover is
+fixed, but support/effort screens still fail and capsule-model overlap remains.
+These are rejected teacher candidates, not teleop-ready clips. Full-body
+contact/COM/lower-body retargeting is still required. The anchors include
+their original terminal holds, not new extended live-headset recordings.
+See [progress and exact limitations](../../../PROGRESS.md).
+
 ### Whole-reference floor conditioning (2026-09-06)
 
 New offline conditioning clears every frame of the eight-clip, 6,035-frame

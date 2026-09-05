@@ -6,6 +6,10 @@ reconstructs a complete joint trajectory, and uses the pinned rev-1.0 MuJoCo
 model for body FK.  Root height follows the lower ankle so crouching remains a
 real full-body crouch instead of being hidden behind a standing balance policy.
 
+The optional collision-grounding mode replaces the historical 6 cm ankle-body
+height heuristic with actual foot collision geometry. It still does not
+establish balance, contact forces or dynamic feasibility.
+
 No transport, robot, DDS, or actuation path exists here.
 """
 
@@ -30,6 +34,8 @@ from gear_sonic.utils.g1_23dof_safe_target_transform import (
     safe_target_transform_numpy,
 )
 from gear_sonic.utils.g1_true23_clean_mujoco_teleop import validate_reference_terms
+from gear_sonic.utils.g1_true23_contact_geometry import audit_reset_contacts, lift_reset_floor_overlap
+from gear_sonic.utils.g1_true23_reference_floor import compiled_model_sha256
 from gear_sonic.utils.g1_true23_step1b_mujoco import prepare_true23_model
 
 FPS = 50.0
@@ -149,6 +155,78 @@ def _terminal_hold(arrays: Mapping[str, np.ndarray], minimum_frames: int) -> dic
     return result
 
 
+def collision_grounded_root_heights(module, model, hardware, *, clearance_m=1e-5):
+    """Ground each PICO stance pose using actual native23 foot geoms.
+
+    This PICO builder already assumes stationary XY, upright root and at least
+    one stance foot. Do not apply this operation to arbitrary jumping/dancing
+    clips. Only root height changes; all requested native23 joints stay intact.
+    """
+    hardware = np.asarray(hardware, dtype=np.float64)
+    names = tuple(model.joint(i).name for i in range(1, model.njnt))
+    if names != tuple(HARDWARE_23_JOINT_NAMES) or hardware.ndim != 2 or hardware.shape[1] != 23:
+        raise ValueError("PICO collision grounding requires exact native23 joint layout")
+    if (
+        not hardware.size
+        or not np.isfinite(hardware).all()
+        or not np.isfinite(clearance_m)
+        or not 0 < clearance_m <= 0.001
+    ):
+        raise ValueError("PICO grounding requires finite poses and positive small clearance")
+    lift_reset_floor_overlap(model, model.qpos0[None, :])
+    model_hash = compiled_model_sha256(model)
+    plane = int(np.flatnonzero(model.geom_type == module.mjtGeom.mjGEOM_PLANE)[0])
+    feet = {model.body(name).id for name in ("left_ankle_roll_link", "right_ankle_roll_link")}
+    geoms = [
+        i
+        for i in range(model.ngeom)
+        if int(model.geom_bodyid[i]) in feet and (model.geom_contype[i] or model.geom_conaffinity[i])
+    ]
+    if not geoms:
+        raise ValueError("PICO grounding requires collision-enabled foot geometry")
+    data = module.MjData(model)
+    positions = np.tile(model.qpos0, (len(hardware), 1))
+    positions[:, :3] = [0, 0, 1.5]
+    positions[:, 3:7] = [1, 0, 0, 0]
+    positions[:, 7:] = hardware
+    minimum_gaps = []
+    for index, position in enumerate(positions):
+        data.qpos[:] = position
+        module.mj_fwdPosition(model, data)
+        gap = min(module.mj_geomDistance(model, data, plane, geom, 3.0, None) for geom in geoms)
+        height = float(np.float32(1.5 - gap + clearance_m))
+        if not 0.20 <= height <= 0.95:
+            raise ValueError("collision-grounded PICO root height outside full-body envelope")
+        positions[index, 2] = data.qpos[2] = height
+        module.mj_fwdPosition(model, data)
+        actual_gap = min(module.mj_geomDistance(model, data, plane, geom, 3.0, None) for geom in geoms)
+        if not clearance_m - 1e-7 <= actual_gap <= clearance_m + 1e-7:
+            raise ValueError("serialized PICO root height missed geometric foot clearance")
+        minimum_gaps.append(actual_gap)
+    floor_audit = audit_reset_contacts(model, positions)
+    if any(row["floor_penetration_contact_count"] for row in floor_audit["rows"]):
+        raise ValueError("grounding feet penetrates other body geometry; joint retargeting required")
+    if compiled_model_sha256(model) != model_hash:
+        raise RuntimeError("PICO collision grounding changed the model")
+    return positions[:, 2].copy(), {
+        "kind": "g1_true23_pico_stance_collision_grounding_v1",
+        "compiled_model_mjb_sha256": model_hash,
+        "frames_checked": len(hardware),
+        "frames_dropped": 0,
+        "minimum_foot_floor_gap_m": min(minimum_gaps),
+        "maximum_minimum_foot_floor_gap_m": max(minimum_gaps),
+        "desired_clearance_m": clearance_m,
+        "floor_overlap_detected": False,
+        "joint_samples_changed": False,
+        "root_xy_and_orientation_changed": False,
+        "velocity_acceleration_bounds_enforced": False,
+        "support_force_or_balance_proven": False,
+        "dynamic_feasibility_proven": False,
+        "hardware_authorized": False,
+        "deployment_ready": False,
+    }
+
+
 def build_pico_fullbody_motion(
     *,
     repository_root: Path,
@@ -156,10 +234,13 @@ def build_pico_fullbody_motion(
     source_path: Path | None = None,
     minimum_frames: int = DEFAULT_MINIMUM_FRAMES,
     reachable_raw_abs: float | None = None,
+    collision_grounding: bool = False,
 ) -> tuple[dict[str, np.ndarray], dict[str, Any]]:
     """Return a full-body true23 motion and non-promotional build report."""
 
     root = repository_root.resolve(strict=True)
+    if not isinstance(collision_grounding, bool):
+        raise ValueError("collision grounding selection must be boolean")
     packets = _packet_list(packet_bundle)
     native = _complete_native_joint_path(packets)
     hardware = native[:, NATIVE_TO_HARDWARE]
@@ -193,6 +274,10 @@ def build_pico_fullbody_motion(
     if left_ankle < 1 or right_ankle < 1:
         raise ValueError("pinned true23 ankle bodies missing")
 
+    grounded_heights, grounding_report = (
+        collision_grounded_root_heights(module, model, hardware) if collision_grounding else (None, None)
+    )
+
     data = module.MjData(model)
     body_pos = np.empty((len(hardware), BODY_COUNT, 3), dtype=np.float64)
     body_quat = np.empty((len(hardware), BODY_COUNT, 4), dtype=np.float64)
@@ -203,7 +288,9 @@ def build_pico_fullbody_motion(
         data.qpos[7:] = joints
         module.mj_forward(model, data)
         ankle_at_zero = min(float(data.xpos[left_ankle, 2]), float(data.xpos[right_ankle, 2]))
-        height = TARGET_ANKLE_BODY_HEIGHT_M - ankle_at_zero
+        height = (
+            TARGET_ANKLE_BODY_HEIGHT_M - ankle_at_zero if grounded_heights is None else grounded_heights[frame]
+        )
         if not 0.20 <= height <= 0.95:
             raise ValueError(f"PICO kinematic root height outside full-body envelope: {height:.6f}")
         root_height[frame] = height
@@ -268,6 +355,13 @@ def build_pico_fullbody_motion(
             "robot_commands_published": False,
         },
     }
+    if grounding_report is not None:
+        report.update(
+            schema_version=2,
+            kind="g1_true23_pico_fullbody_kinematic_motion_v2",
+            root_height_rule="minimum_native23_foot_collision_floor_gap_equals_10um",
+            collision_grounding=grounding_report,
+        )
     return arrays, report
 
 
@@ -277,6 +371,7 @@ def load_and_build_pico_fullbody_motion(
     packet_path: Path,
     minimum_frames: int = DEFAULT_MINIMUM_FRAMES,
     reachable_raw_abs: float | None = None,
+    collision_grounding: bool = False,
 ) -> tuple[dict[str, np.ndarray], dict[str, Any]]:
     path = packet_path.resolve(strict=True)
     payload = json.loads(path.read_text(encoding="utf-8"))
@@ -288,6 +383,7 @@ def load_and_build_pico_fullbody_motion(
         source_path=path,
         minimum_frames=minimum_frames,
         reachable_raw_abs=reachable_raw_abs,
+        collision_grounding=collision_grounding,
     )
 
 

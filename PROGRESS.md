@@ -1,5 +1,128 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-06 continuation: reference force balance and PICO grounding
+
+**Physical dance/live full-body teleop remain NOT ready. No robot commands,
+mode changes, hardware-controller/pin edits, retraining or policy promotion.**
+Whole-reference floor conditioning was committed and pushed as
+`909311a13d81ed56987814ea1daea64d8c5ae5db`. This continuation identifies reference
+support defects and adds an opt-in geometric correction, not a recovered robot.
+
+### Force-balance audit, not a controller or qualification gate
+
+New `audit_g1_true23_reference_support.py` checks all 6,035 frames of all eight
+clips against both supplied mesh/capsule models. It solves for unilateral
+ground-contact forces and all 23 joint torques, minimizing the largest torque
+relative to the unchanged `0.95 * 0.25 * effort` bounds (8.3125 Nm at the modeled
+35 Nm ankle). The six floating-base coordinates have no invented actuators.
+It offers two explicitly separate hypotheses: stationary poses, or unsmoothed
+50 Hz pose-derived velocity/acceleration and inverse dynamics.
+
+The implementation follows [MuJoCo's force/Jacobian convention](https://mujoco.readthedocs.io/en/3.5.0/computation/index.html#contact).
+Near-floor candidates use an explicit 2 mm gap tolerance and pyramidal cones;
+they do not prove actual contact or contact complementarity. Bounded friction
+assistance is optimistically selected without velocity-sign constraints.
+Self-contact and joint-limit forces are omitted. Floating-base armature,
+damping and omitted friction-loss parameters are reported, not silently fixed.
+These are the supplied compiled reference models, not controller-matched
+rollouts. Target-position/slew feasibility, dynamic tracking and hardware
+readiness are **not** established by a force-balance solution.
+
+Tests caught that changing runtime contact margins alone misses nearby toe
+geoms through the compiled static BVH. The independent candidate copy now
+disables collision midphase filtering; the original model is unchanged.
+Degenerate HiGHS results marked Unknown are not treated as infeasibility:
+the unactuated root-wrench LP can certify infeasibility, or the unchanged full
+LP is retried without presolve. Remaining solver errors fail explicitly.
+Returned solutions receive independent residual/unilateral/torque checks.
+
+Successful complete reports are under
+`artifacts/g1_true23_frozen_lora/reference_support_20260906_v3/`:
+`original_static`, `original_dynamics`, `conditioned_static`,
+`conditioned_dynamics`, `grounded_pico_static`, `grounded_pico_dynamics`.
+Each contains `report.json`, inputs/source hashes, model hashes and per-frame
+evidence. Earlier support `_v1`/`_v2` attempts stopped on solver diagnostics
+and are incomplete, not authoritative corpus reports.
+
+For happy dance, the **reference inverse-dynamics hypothesis** gives:
+
+| Reference / model | No force-balance solution | Solution above effort bounds | Conditional solution within bounds |
+|---|---:|---:|---:|
+| Unconditioned / mesh | 179 | 278 | 89 |
+| Unconditioned / capsules | 238 | 220 | 88 |
+| Floor-conditioned / mesh | 349 | 122 | 75 |
+| Floor-conditioned / capsules | 368 | 103 | 75 |
+
+Every row covers all **546 reference frames**, not 535 policy transitions.
+Unconditioned references contain floor penetration; their larger conditional
+counts are not evidence of better physical feasibility. Floor conditioning
+can remove support while clearing overlap. It is not sufficient retargeting.
+Maximum finite minimum-effort ratios for conditioned dance are 6.6171 / 6.1838
+in the two supplied models. This does not justify increasing physical limits,
+prove the physical motor-off cause, or compare trained models against v14.
+
+### Concrete PICO root-height defect and opt-in correction
+
+The PICO builder's historical rule fixes the lowest **ankle body** at 0.06 m.
+It ignores foot orientation/shape. In the stored upright/standing anchors,
+the lowest mesh foot-floor gaps are 13.216–13.712 mm and 13.438–14.139 mm;
+both clips have no candidate support on all 1,024 frames in either model.
+
+New `--collision-grounding` uses actual foot collision geometry and a 10 μm
+clearance. It preserves original defaults, all native23 q9/q10 joint proofs,
+all joint position/velocity samples, body orientations/angular velocities,
+horizontal paths and original timing. Only root/body vertical positions and
+their existing forward-difference velocity convention change. It is specific
+to this PICO builder's upright-root, stationary-XY, stance assumption; do not
+apply it indiscriminately to jumping/dance clips. Other body-floor penetration
+is rejected, not hidden by deleting frames. No derivative limits are claimed.
+
+All three clips were rebuilt under
+`artifacts/g1_true23_frozen_lora/pico_collision_grounding_20260906_v1/` with
+separate NPZ/report files. The eight-clip `motions.json` retains the other five
+floor-conditioned clips; no clip is removed and no production corpus changes.
+The anchors retain **51 / 48 / 72 source frames**, extended by the original
+**973 / 976 / 952 terminal-hold frames**. They are not 20 seconds of newly
+recorded live PICO motion. Original files and packet hashes are unchanged.
+
+The unchanged byte-pinned LF model/config in the original sibling repository
+was read for these builds; outputs and edited code remain in the separate
+worktree. Its CRLF checkout of the same XML fails the existing byte pin (the
+LF-normalized hash matches); no pin or model file was relaxed/edited.
+
+The correction fixes mesh hover but **does not fix support**. All three PICO
+clips still have zero conditional in-limit frames in both audit modes/models.
+Grounded upright in the capsule model has a solution but exceeds the limits
+on every frame (up to 2.2771 times, left ankle pitch). Mesh upright/standing
+and crouch lack a compatible support wrench. At the first standing frame the
+mesh candidates are on the left foot only, while COM lies between the feet.
+The capsule model also detects floor overlap on 1,024 / 1,024 / 970 frames of
+these mesh-grounded clips. Therefore **do not train/promote these candidates**
+as support-feasible teachers. Next retargeting must jointly correct foot
+orientation/placement, lower-body posture, COM and force feasibility across
+the chosen dynamics/contact model, rather than change root height alone.
+
+Verification: **167 focused tests pass**, plus **9 existing PICO-builder
+regressions** using the unchanged original asset root (176 total, no skipped
+tests). New tests cover analytic support torques, push-only contacts, no fake
+base actuation, MuJoCo wrench mapping, candidate-gap enumeration, solver
+Unknown handling, quaternion derivatives, ideal freefall versus floating
+standing, whole-clip preservation, opt-in behavior and explicit false
+readiness. All six owned Python files pass critical/import Ruff and formatting.
+Separate NPZ hash/array checks confirm the three rebuilt clips preserve the
+named source channels exactly. Existing dirty hardware paths remain excluded.
+All six complete force reports also pass post-run input/source-hash and frame
+count checks. Compared with the historical crouch NPZ, regenerated horizontal
+linear velocities differ by at most 1.39e-15 m/s in 26 entries; the same
+roundoff occurs with today's unchanged legacy builder. Grounded versus current
+legacy horizontal velocities are bit-identical. This is not a grounding-induced
+horizontal-motion change.
+
+Full-dance controller results remain the prior **50/535 reference-start and
+16/535 historical measured-start**, with failed immediate standing return.
+No new matched-budget v14 comparison, physical motor-off diagnosis, Unitree
+handoff qualification, encoder-pin repair or calibrated live PICO run occurred.
+
 ## 2026-09-06 continuation: whole-reference floor conditioning
 
 **Physical full-body dance/live teleop remain NOT ready. No robot commands,
