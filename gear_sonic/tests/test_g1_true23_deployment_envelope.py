@@ -27,6 +27,10 @@ from gear_sonic.utils.g1_23dof_contract import HARDWARE_JOINT_IDS
         (["--encoder-report", "missing.json"], "must be supplied together"),
         (["--allow-unpaired-diagnostic", "--residual-manifest", "missing.json"], "choose exactly one"),
         (["--allow-unpaired-diagnostic", "--project-transition-effort"], "requires --transition-balance-model"),
+        (
+            ["--allow-unpaired-diagnostic", "--predictive-active-effort"],
+            "requires --project-active-effort and --stateful-native-controller",
+        ),
     ],
 )
 def test_cli_rejects_unknown_pair_or_ignored_projection_before_loading_assets(

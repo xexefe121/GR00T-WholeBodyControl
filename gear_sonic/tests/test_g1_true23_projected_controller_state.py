@@ -188,7 +188,7 @@ def test_real_simulator_history_tracks_executed_target(profile, monkeypatch):
         return np.zeros(23, dtype=np.float32), None
 
     monkeypatch.setattr(envelope, "effort_feasible_target", project)
-    report, _ = envelope.run_case(
+    report, arrays = envelope.run_case(
         root=ROOT,
         asset_root=assets,
         policy=SimpleNamespace(infer=infer),
@@ -203,8 +203,11 @@ def test_real_simulator_history_tracks_executed_target(profile, monkeypatch):
         maximum_steps=2,
         project_active_effort=True,
         stateful_native_controller=True,
+        trace_active_actuation=True,
     )
     assert report["completed_transitions"] == 2 and len(targets) == 20
+    assert arrays["actuation_q"].shape == arrays["actuation_qacc"].shape == (20, 23)
+    np.testing.assert_array_equal(arrays["terminal_active_target"], arrays["actuation_target"][-1])
     seed = synthetic_reset_target_numpy(
         motion["joint_pos"][10], motion["joint_vel"][10], profile.kp, profile.kd, profile.effort
     )

@@ -1,5 +1,14 @@
 # Frozen-platform LoRA versus the original true23 v14 trainer
 
+> **Current status, 2026-09-06:** No native23 full-body dance, safe return or
+> physical live-teleop qualification. The historical LoRA comparisons below
+> used encoder `73335314...`, not the actual paired training encoder
+> `3806b2b6...`; direct audit disagreed on all 535 happy-dance inputs. Those
+> results cannot establish correctly paired SONIC fidelity or physical parity.
+> Correct-pair retraining and controller-feasibility experiments still fail.
+> No new matched-budget original-v14 comparison has been completed under the
+> corrected pairing, constrained actuation and full-motion fidelity gates.
+
 > **2026-09-05 correction:** The tables below measure historical completion
 > under loose crawl-envelope gates, not dance fidelity or physical readiness.
 > The selected 535/535 happy replay has 5.0104 m maximum pelvis error and
@@ -34,6 +43,38 @@ diagnostic attempt, not a matched-budget retraining comparison against v14.
 Measured-posture hold-only simulation also collapses with return-hold knee
 kp=4. Training improvement alone cannot be assumed to repair acquisition or
 handoff. See [current evidence and limitations](../../../PROGRESS.md).
+
+## Correct-pair, constrained-controller follow-up (2026-09-06)
+
+The V2 simulator profile seeds a synthetic controller state after the final
+motion reset and feeds back the last applied target, not the requested target.
+The new model completed 50 updates / 25,600 transitions; it was rejected.
+
+| V2 experiment | Reference start | Measured state + 5 s standing | Full dance/return qualified |
+|---|---:|---:|---|
+| Original tempo, greedy effort projection | 50/535 | 16/535 | No |
+| Original tempo, offline predictive projection | 50/535 | 72/535 | No |
+| Half tempo, greedy effort projection | 45/1080 | 82/1080 | No |
+| Half tempo, offline predictive projection | 49/1080 | 86/1080 | No |
+
+The predictor uses a copied MuJoCo state and a bounded optimizer; it is not
+trained into this model or qualified for real-time hardware control. Its
+successful original-tempo interventions took up to 16.1 ms and its failed
+searches up to 95.1 ms, exceeding the 2 ms physics/control period. It preserves
+existing numeric limits and all 23 controlled joints, but does not prove
+multi-step feasibility or safe recovery.
+
+Half-tempo retiming retains all 546 original joint samples exactly, rebuilding
+FK and velocities over 1,091 frames / 21.8 s. No joints, phases or root path
+segments are removed. This is neither original-tempo parity nor a contact/COM
+optimization; its first control frame is source phase 5 rather than 10, so it
+is not a timing-only, same-initial-state ablation. The extra transition counts
+must not be treated as proportional progress through the original dance.
+
+Evidence is under `artifacts/g1_true23_frozen_lora/actuation_trace_20260905_v1`,
+`predictive_projection_20260905_v1`, and `retiming_feasibility_20260906_v1`.
+See [progress](../../../PROGRESS.md) for exact rejected-candidate hashes,
+joint-level failure evidence and remaining hardware/headset boundaries.
 
 ## What changed
 
@@ -139,7 +180,7 @@ dance. Alpha 0.050 had lower happy-only error but regressed hand crawl to
 The preservation-first alpha 0.002 candidate retained every previously passing
 case and is the selected simulator diagnostic.
 
-## Parity-improved result
+## Historical completion-only result (not current parity)
 
 | Metric | Original true23 v14 | Breadth-25 LoRA | LoRA + 0.002 residual |
 |---|---:|---:|---:|
@@ -153,10 +194,11 @@ case and is the selected simulator diagnostic.
 
 The original released 29-DoF SONIC policy and its true23 compatibility teacher
 both complete 546/546 source control steps. The selected native true23
-candidate completes its full 535/535 transition replay, so normalized
-completion parity is 100% with a zero gap. Counts are normalized because the
-source report includes its initial control step; cross-embodiment joint errors
-are deliberately not compared.
+candidate completed its full 535/535 transition replay in the historical
+experiment. Its completion-only ratio was 100%; this did **not** establish
+motion fidelity, a correctly paired controller, or physical parity. Counts were
+normalized because the source report includes its initial control step;
+cross-embodiment joint errors are deliberately not compared.
 
 The residual decoder also completed all 684 transitions from the authentic
 saved PICO `walk001` causal packets with no fallback. Minimum base height was

@@ -1,5 +1,126 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-06 continuation: predictive feasibility and full-path retiming
+
+**Physical full-body dance and live teleop remain NOT ready. No robot commands,
+mode changes, hardware-controller edits, pin changes or model promotions.**
+This continuation adds offline diagnostics and rejected experiments, not a
+physical damping fix. Previous controller-state correction was committed and
+pushed as `e95cb7e137bdf01324dfdf1a945b14db87fdc517`.
+
+### Joint-level failure evidence and copied-simulator prediction
+
+The existing effort projection now reports the exact joint, state, previous
+target and empty interval without changing its rejection boundary. Optional
+500 Hz traces preserve q/dq, requested/applied targets, effort and acceleration;
+terminal target and actual partial physics steps remain separate from completed
+50 Hz control intervals.
+
+- Original-tempo reference start fails at the right ankle pitch after 504
+  physics steps (50/535 completed control transitions). Its effort-feasible
+  interval requires at least **13.8856 rad/s instantaneous target slew** from
+  the previous target; configured slew remains **5 rad/s**.
+- Historical measured start plus 5 s standing fails at the same joint after
+  164 physics steps (16/535 transitions), requiring at least **7.1268 rad/s**
+  at that instant. Both states admit a target if slew memory is omitted, but
+  that does not authorize a discontinuity or establish dynamic recoverability.
+
+Intrinsically empty effort/position intervals instead report no finite slew
+solution (`null`); increasing slew cannot make those intervals intersect.
+
+New opt-in `--predictive-active-effort` uses an independent copied MuJoCo state
+to test next-step target feasibility before executing the current target.
+Bounded sequential linearization keeps all 23 targets free within unchanged
+hard-margin, quarter-effort and 5 rad/s slew bounds. Every accepted target is
+checked with the nonlinear preview. Tests verify that previews do not mutate
+the actual simulator and match its next physics step. Search failure means
+**this bounded optimizer found no verified target**, not global infeasibility.
+This filter is neither part of the trained policy nor a hardware controller;
+one-step existence does not prove multi-step feasibility or safe return.
+
+The experiment ran under MuJoCo 3.5.0 / SciPy 1.16.2. The preview also uses
+`MjData.__copy__` when `mj_copyData` is unavailable, matching the copy API in
+the repository's pinned MuJoCo 3.2.3 ([upstream binding](https://raw.githubusercontent.com/google-deepmind/mujoco/3.2.3/python/mujoco/functions.cc)).
+Both copy paths are tested with actual MuJoCo data in the installed 3.5.0
+runtime; that is not a complete 3.2.3 training/runtime qualification. No
+dependency pin was changed.
+
+All runs use the previously rejected V2 model50, with its actual paired
+encoder; **no additional training occurred** in this continuation:
+
+- Checkpoint SHA: `848f2bd69847198594278373c5e1f96557bbaf7b39b6947ef6088ed3393af3f8`.
+- Decoder SHA: `eb3e0c06836d3be88c27ace59e428dbf9826ffb449f65d80b5b9317618a19796`.
+- Encoder SHA: `3806b2b63ebadf4d6cbf9f79b7072f2bf27ab8eb8bc6a9b3042f97739cc5428a`.
+
+Original-tempo predictive reference run still completes only **50/535**,
+stopping at 503 physics steps before the greedy run's next conflict. Measured
+start improves from **16/535 to 72/535**, with 722 physics steps and 36 successful
+interventions, but full-clip fidelity still fails (maximum joint RMSE 0.3801
+rad). Its attempted return completes only **one 2 ms physics substep**, not a
+complete 50 Hz interval, before a left-ankle empty intersection. Standing
+startup passing numeric checks is not a successful dance or recovery.
+
+Successful original-tempo filter calls took up to **16.106 ms**; the final
+failed searches took 95.073 ms (reference) and 46.895 ms (measured). The report's
+`preview_calls` and `maximum_filter_elapsed_s` count only successful filter
+returns; failed-search timing and preview count are separately in
+`failure.details`. This implementation is not qualified for the 2 ms loop.
+
+### Half-speed experiment preserves the full reference, still fails
+
+New `retime_g1_true23_sonic_reference.py` produces a separate standard motion
+NPZ and hash-bound audit sidecar. At 2x duration, all **546 source joint samples
+are preserved exactly** across 1,091 frames / 21.8 s, with native23 FK and
+velocities recomputed. No controlled joint, phase interval or root-path segment
+is removed. Contact/COM optimization and dynamic feasibility are not claimed.
+The first control frame corresponds to source phase 5 rather than original
+phase 10, so this is not a same-initial-state, timing-only ablation. Slower
+tempo and the longer denominator also preclude original-tempo parity claims.
+
+| Half-speed start / filter | Completed transitions | Active physics steps | Result |
+|---|---:|---:|---|
+| Reference / greedy | 45/1080 | 450 | Right-hip target intersection empty |
+| Reference / predictive | 49/1080 | 490 | Bounded next-step search fails, left ankle |
+| Measured + standing / greedy | 82/1080 | 826 | Right-hip target intersection empty |
+| Measured + standing / predictive | 86/1080 | 860 | Bounded next-step search fails, left ankle |
+
+All four full-clip fidelity screens fail. The measured greedy return completes
+zero physics steps; the measured predictive return completes one before
+failure. Reference-only cases requested no standing return and therefore
+cannot qualify a lifecycle. Slowing the clip did not solve the problem.
+
+Evidence, relative to `artifacts/g1_true23_frozen_lora/`:
+
+- `actuation_trace_20260905_v1/{reference,measured}/summary.json`.
+- `predictive_projection_20260905_v1/{reference,measured}/summary.json`.
+- `retiming_feasibility_20260906_v1/{reference,reference_predictive,measured,measured_predictive}/summary.json`.
+- Valid retimed input: `retiming_feasibility_20260906_v1/happy_dance.slow2.standard.npz`,
+  SHA `dbcd628ad7c9d4acdcbab75e55bf9a05f22938da743fbd14f65cf4cfbb89ce70`.
+  The earlier `happy_dance.slow2.npz` has an unsupported extra channel, is
+  preserved as failed format evidence, and was **not** evaluated. The standard
+  file stores source-phase mapping in its JSON sidecar, not an extra NPZ key.
+
+Verification: **110 focused tests pass** across deployment-envelope,
+acquisition, controller state, predictive filtering, retiming, actuation,
+reset-feasibility and trainer-contract tests. Formatting, import/critical Ruff
+and diff checks pass. This does not erase known older artifact/pin test failures
+or qualify the physical controller. Existing dirty hardware changes are
+excluded from this continuation's commit.
+
+The original-v14 comparison now labels its older loose-envelope, wrong-encoder
+completion results as historical rather than fidelity parity. No new
+matched-budget v14 comparison under corrected pairing and these constraints
+has been completed. Physical encoder pins, motor-off cause, normal-mode
+handoff and live PICO tracking/calibration remain unresolved; old motor-health
+samples are not current readiness evidence.
+
+Next work must improve policy tracking and multi-step feasible target/reference
+generation before repeating training and measured-start lifecycle tests.
+Neither slower playback, more blind updates, a late mode-switch patch nor
+relaxed physical guards is supported as the fix. Missing six axes also mean
+29-DoF motions require per-motion retargeting and qualification, not a promise
+that every original pose is exactly reproducible on 23 DoF.
+
 ## 2026-09-05 continuation: consistent controller state, candidate still fails
 
 **Physical full-body dance and live teleop remain NOT ready. No robot commands,

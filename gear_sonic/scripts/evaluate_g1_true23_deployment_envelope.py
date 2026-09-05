@@ -299,7 +299,13 @@ def run_case(
     project_transition_effort: bool = False,
     project_active_effort: bool = False,
     stateful_native_controller: bool = False,
+    trace_active_actuation: bool = False,
+    predictive_active_effort: bool = False,
 ) -> tuple[dict[str, Any], dict[str, np.ndarray]]:
+    if predictive_active_effort and (not stateful_native_controller or not project_active_effort):
+        raise ValueError(
+            "predictive experiment requires stateful applied-target feedback and active effort projection"
+        )
     if stateful_native_controller and not project_active_effort:
         raise ValueError("stateful native controller requires active effort projection")
     if stateful_native_controller and initial_state != "reference" and transition_policy is None:
@@ -311,6 +317,10 @@ def run_case(
     controller = CleanTrue23MujocoController(
         model_path=asset_root / MODEL, physics_path=root / PHYSICS, policy=policy
     )
+    if predictive_active_effort:
+        from gear_sonic.utils.g1_true23_predictive_target_filter import MujocoTargetPreview, filter_with_preview
+
+        target_preview = MujocoTargetPreview(controller, kp, kd)
     np.copyto(controller.physics.kp, kp)
     np.copyto(controller.physics.kd, kd)
     controller.physics.effort[ANKLES] = ankle_effort
@@ -406,6 +416,8 @@ def run_case(
     clipped_joint_steps = 0
     joint_steps = 0
     projected_joint_substeps = active_physics_steps = 0
+    predictive_records = []
+    actuation_trace = {key: [] for key in ("q", "dq", "previous_target", "requested", "target", "effort", "qacc")}
     for transition in range(steps if failure is None else 0):
         try:
             index = transition + 11
@@ -428,7 +440,7 @@ def run_case(
                 clipped_joint_steps += int(np.count_nonzero(np.abs(target - requested) > 1e-10))
                 joint_steps += 23
                 if project_active_effort:
-                    projected = effort_feasible_target(
+                    arguments = (
                         requested,
                         previous_target,
                         data.qpos[7:].copy(),
@@ -436,9 +448,21 @@ def run_case(
                         kp,
                         kd,
                         physics.effort,
-                        dt=physics.timestep_s,
-                        slew_rate=slew_rate,
                     )
+                    if predictive_active_effort:
+                        projected, preview_report = filter_with_preview(
+                            *arguments,
+                            dt=physics.timestep_s,
+                            slew_rate=slew_rate,
+                            predict=target_preview,
+                        )
+                        predictive_records.append({"transition": transition, "substep": substep, **preview_report})
+                    else:
+                        projected = effort_feasible_target(
+                            *arguments,
+                            dt=physics.timestep_s,
+                            slew_rate=slew_rate,
+                        )
                     projected_joint_substeps += int(np.count_nonzero(np.abs(projected - target) > 1e-10))
                     target = projected
                 guarded_target = target if project_active_effort else requested
@@ -457,7 +481,23 @@ def run_case(
                 torque = np.clip(predicted, -physics.effort, physics.effort)
                 peak_ankle = max(peak_ankle, float(np.max(np.abs(torque[ANKLES]))))
                 data.ctrl[:] = torque
+                if trace_active_actuation:
+                    pre_step_trace = {
+                        key: value.copy()
+                        for key, value in (
+                            ("q", data.qpos[7:]),
+                            ("dq", data.qvel[6:]),
+                            ("previous_target", previous_target),
+                            ("requested", requested),
+                            ("target", target),
+                            ("effort", torque),
+                        )
+                    }
                 module.mj_step(controller.model, data)
+                if trace_active_actuation:
+                    for key, value in pre_step_trace.items():
+                        actuation_trace[key].append(value)
+                    actuation_trace["qacc"].append(data.qacc[6:].copy())
                 previous_target = target.copy()
                 active_physics_steps += 1
             controller.buffered_robot_pelvis_q9 = current_pelvis
@@ -508,6 +548,8 @@ def run_case(
                 break
         except Exception as error:
             failure = {"transition": transition, "type": type(error).__name__, "message": str(error)}
+            if hasattr(error, "details"):
+                failure["details"] = error.details
             break
     series = {key: np.asarray([r[key] for r in records]) for key in records[0]} if records else {}
     report = {
@@ -516,6 +558,17 @@ def run_case(
         "active_partial_transition_substeps": active_physics_steps % physics.decimation,
         "active_elapsed_simulation_s": active_physics_steps * physics.timestep_s,
         "active_effort_target_projection": project_active_effort,
+        "actuation_trace_recorded": trace_active_actuation,
+        "predictive_target_filter": {
+            "enabled": predictive_active_effort,
+            "post_hoc_simulator_experiment_not_training_or_hardware_parity": predictive_active_effort,
+            "completed_filter_calls": len(predictive_records),
+            "preview_calls": sum(row["preview_calls"] for row in predictive_records),
+            "maximum_filter_elapsed_s": max((row["elapsed_s"] for row in predictive_records), default=0.0),
+            "interventions": [row for row in predictive_records if row["linearization_iterations"] > 0],
+            "recursive_feasibility_proven": False,
+            "real_time_qualified": False,
+        },
         "stateful_native_controller": stateful_native_controller,
         "previous_action_semantics": (
             "last_applied_target_normalized_native23_not_requested_action"
@@ -555,6 +608,7 @@ def run_case(
         failure=failure,
     )
     terminal_active_qpos, terminal_active_qvel = data.qpos.copy(), data.qvel.copy()
+    terminal_active_target = previous_target.copy()
     if transition_policy is None:
         return_hold, return_qpos = simulate_sampled_posture_hold(
             controller,
@@ -594,9 +648,11 @@ def run_case(
         "qpos": np.asarray(qpos),
         "terminal_active_qpos": terminal_active_qpos,
         "terminal_active_qvel": terminal_active_qvel,
+        "terminal_active_target": terminal_active_target,
         "startup_hold_qpos": startup_qpos,
         "return_hold_qpos": return_qpos,
         **series,
+        **{f"actuation_{key}": np.asarray(value).reshape(-1, 23) for key, value in actuation_trace.items()},
     }
 
 
@@ -659,6 +715,14 @@ def main() -> int:
     )
     parser.add_argument("--maximum-steps", type=int)
     parser.add_argument(
+        "--predictive-active-effort",
+        action="store_true",
+        help="Offline copied-MuJoCo one-step feasibility filter; not hardware/training parity",
+    )
+    parser.add_argument(
+        "--trace-active-actuation", action="store_true", help="Record simulator 500 Hz actuator state"
+    )
+    parser.add_argument(
         "--stateful-native-controller",
         action="store_true",
         help="V2 applied-target feedback; reference resets are explicitly synthetic, not hardware acquisition",
@@ -677,6 +741,10 @@ def main() -> int:
         parser.error("choose exactly one: paired reports, residual manifest, or explicit unpaired diagnostic")
     if args.project_transition_effort and args.transition_balance_model is None:
         parser.error("--project-transition-effort requires --transition-balance-model")
+    if args.predictive_active_effort and (not args.project_active_effort or not args.stateful_native_controller):
+        parser.error(
+            "--predictive-active-effort requires --project-active-effort and --stateful-native-controller"
+        )
     if args.stateful_native_controller:
         if not args.project_active_effort:
             parser.error("--stateful-native-controller requires --project-active-effort")
@@ -756,6 +824,8 @@ def main() -> int:
             project_transition_effort=args.project_transition_effort,
             project_active_effort=args.project_active_effort,
             stateful_native_controller=args.stateful_native_controller,
+            trace_active_actuation=args.trace_active_actuation,
+            predictive_active_effort=args.predictive_active_effort,
         )
         report.update(
             encoder_decoder_pair_validated=pair is not None,
@@ -802,6 +872,7 @@ def main() -> int:
                 root / "gear_sonic/utils/g1_true23_actuation_profile.py",
                 root / "gear_sonic/utils/g1_true23_sim_acquisition.py",
                 root / "gear_sonic/utils/g1_true23_projected_controller_state.py",
+                root / "gear_sonic/utils/g1_true23_predictive_target_filter.py",
             )
         },
         "runtime": {

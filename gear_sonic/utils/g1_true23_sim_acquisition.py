@@ -12,7 +12,11 @@ from typing import Any
 
 import numpy as np
 
-from gear_sonic.utils.g1_23dof_contract import HARDWARE_23_ACTION_SCALE, MUJOCO_TO_ISAACLAB_DOF
+from gear_sonic.utils.g1_23dof_contract import (
+    HARDWARE_23_ACTION_SCALE,
+    HARDWARE_23_JOINT_NAMES,
+    MUJOCO_TO_ISAACLAB_DOF,
+)
 from gear_sonic.utils.g1_23dof_safe_target_transform import (
     SAFE_TARGET_DEFAULT_Q_HARDWARE,
     SAFE_TARGET_HARD_LOWER_HARDWARE,
@@ -83,16 +87,19 @@ def audit_reference_kinematics(controller, motion: dict[str, np.ndarray]) -> dic
     }
 
 
-def effort_feasible_target(requested, previous, q, dq, kp, kd, effort, *, dt, slew_rate):
-    """Nearest target satisfying hard margin, slew and 95% of the existing guard.
+class TargetIntersectionError(ValueError):
+    """Unchanged rejection boundary, with joint-level diagnostic evidence."""
 
-    Empty intersections fail explicitly. This does not relax any effort limit
-    or hide an infeasible braking demand through torque clipping.
-    """
+    def __init__(self, details):
+        super().__init__("empty effort/position/slew target intersection")
+        self.details = details
+
+
+def effort_target_interval(previous, q, dq, kp, kd, effort, *, dt, slew_rate):
+    """Return the existing hard-margin / effort / slew intersection, even if empty."""
     if (
         any(
-            np.shape(value) != (23,) or not np.isfinite(value).all()
-            for value in (requested, previous, q, dq, kp, kd, effort)
+            np.shape(value) != (23,) or not np.isfinite(value).all() for value in (previous, q, dq, kp, kd, effort)
         )
         or np.any(kp <= 0)
         or np.any(kd < 0)
@@ -109,8 +116,50 @@ def effort_feasible_target(requested, previous, q, dq, kp, kd, effort, *, dt, sl
     if slew_rate is not None:
         lower = np.maximum(lower, previous - slew_rate * dt)
         upper = np.minimum(upper, previous + slew_rate * dt)
+    return lower, upper
+
+
+def effort_feasible_target(requested, previous, q, dq, kp, kd, effort, *, dt, slew_rate):
+    """Nearest target satisfying hard margin, slew and 95% of the existing guard.
+
+    Empty intersections fail explicitly. This does not relax any effort limit
+    or hide an infeasible braking demand through torque clipping.
+    """
+    if np.shape(requested) != (23,) or not np.isfinite(requested).all():
+        raise ValueError("target projection requires finite 23-joint requested target")
+    lower, upper = effort_target_interval(previous, q, dq, kp, kd, effort, dt=dt, slew_rate=slew_rate)
     if np.any(lower > upper):
-        raise ValueError("empty effort/position/slew target intersection")
+        unslewed_low, unslewed_high = effort_target_interval(
+            previous, q, dq, kp, kd, effort, dt=dt, slew_rate=None
+        )
+        details = []
+        for i in np.flatnonzero(lower > upper):
+            details.append(
+                {
+                    "joint": HARDWARE_23_JOINT_NAMES[i],
+                    "compact_index": int(i),
+                    "q_rad": float(q[i]),
+                    "dq_rad_s": float(dq[i]),
+                    "previous_target_rad": float(previous[i]),
+                    "requested_target_rad": float(requested[i]),
+                    "intersection_lower_rad": float(lower[i]),
+                    "intersection_upper_rad": float(upper[i]),
+                    "intersection_gap_rad": float(lower[i] - upper[i]),
+                    "unslewed_lower_rad": float(unslewed_low[i]),
+                    "unslewed_upper_rad": float(unslewed_high[i]),
+                    "infeasible_without_slew": bool(unslewed_low[i] > unslewed_high[i]),
+                    "configured_slew_rad_s": slew_rate,
+                    # No finite slew can fix an intrinsically empty interval.
+                    # Otherwise this is an instantaneous diagnostic, not
+                    # authority to change limits or a viability claim.
+                    "instantaneous_minimum_slew_rad_s": (
+                        None
+                        if unslewed_low[i] > unslewed_high[i]
+                        else float(max(unslewed_low[i] - previous[i], previous[i] - unslewed_high[i], 0.0) / dt)
+                    ),
+                }
+            )
+        raise TargetIntersectionError(details)
     return np.clip(requested, lower, upper)
 
 
@@ -152,6 +201,7 @@ def simulate_balance_transition(
     max_drift = 0.0
     min_height = float(start[2])
     failure = None
+    failure_details = None
     projection_count = 0
     physics_steps = completed = 0
     low, high = np.asarray(SAFE_TARGET_HARD_LOWER_HARDWARE), np.asarray(SAFE_TARGET_HARD_UPPER_HARDWARE)
@@ -194,6 +244,7 @@ def simulate_balance_transition(
                     )
                 except ValueError as error:
                     failure = str(error)
+                    failure_details = getattr(error, "details", None)
                     break
                 projection_count += int(np.count_nonzero(np.abs(projected - target) > 1e-10))
                 target = projected
@@ -244,6 +295,7 @@ def simulate_balance_transition(
             "standing_screen_passed": standing,
             "existing_guard_screen_passed": standing and first_effort_guard is None and first_target_guard is None,
             "failure": failure,
+            "failure_details": failure_details,
             "minimum_height_m": min_height,
             "maximum_tilt_rad": max_tilt,
             "maximum_horizontal_drift_m": max_drift,
