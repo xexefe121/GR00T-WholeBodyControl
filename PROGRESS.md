@@ -1,5 +1,115 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-06 continuation: fix stale replay observations; sampled training parity
+
+**Physical dance, standing return and live full-body teleop remain NOT ready.**
+No robot connection/command, mode change, hardware-controller edit, limit or
+interlock relaxation, learning or policy promotion occurred. Existing dirty
+hardware work remains untouched. The physical bit-30 motors-off cause remains
+unknown; the simulation defects below are not established hardware causes.
+
+### Implemented timing correction
+
+`CleanTrue23MujocoController._policy_frame()` previously mixed current
+`qpos/qvel` with the previous 2 ms physics step's derived body angular velocity.
+The envelope evaluator also compared stale body positions against current
+reference positions. [MuJoCo documents this post-step timing](https://mujoco.readthedocs.io/en/3.5.0/programming/simulation.html#simulation-loop).
+MJLab refreshes derived state before policy observations; the CPU replay did not.
+
+New `refresh_observation_kinematics()` calls only `mj_kinematics`, `mj_comPos`
+and `mj_comVel`. Policy frames and envelope body-tracking metrics now use the
+current post-integration state. It does not integrate, call the control callback,
+solve contacts, change controls, or change `qacc_warmstart`. Regression tests
+first reproduced the old gyro defect in upright and rotated free-body fixtures;
+the corrected readings match an independently refreshed MuJoCo copy while
+physics state, effort/constraint arrays and time remain byte-identical.
+New envelope reports explicitly identify the observation/body-tracking timing.
+
+### Actual training versus replay, not just duplicated controller equations
+
+New `audit_g1_true23_training_replay_parity.py` samples four real phases from
+each of the eight original corpus clips (32 total), with no reset rejection.
+It invokes the actual MJLab V14/frozen-LoRA observation and native-support V2
+action managers, then one actual 2 ms Warp step. Noise and reset perturbations
+are explicitly zeroed for this deterministic diagnostic. No actor checkpoint
+is trained or loaded into the training runner: the correct paired model-50
+ONNX encoder/decoder evaluates both independently constructed observations.
+Joint/state/actuator layout is checked, not inferred from dimensions alone.
+
+On all 32 samples, semantic/proprioceptive observations, exact FSQ tokens,
+raw actions, requested targets, applied targets and actuator torque agree
+within their declared absolute tolerances. Maximum requested-target difference
+is 2.3842e-7 rad; applied-target difference is exactly zero; torque difference
+is 1.8229e-6 Nm. Warp versus CPU MuJoCo on the **same training model** differs
+by at most 2.9614e-5 in next generalized velocity. This is a reset-state and
+one-step comparison, not temporal-history, full-episode or hardware parity.
+
+The stale replay gyro differs from current state on all 32 samples, by up to
+1.4223 rad/s in a penetrating crawl sample. Corrected gyro maximum difference
+is 2.3004e-8 rad/s. Large errors in invalid contact samples are not claims
+about normal physical gyro noise or firmware behavior.
+
+The pinned replay mesh inherits armature 0.01, damping 0.001 and friction loss
+0.1 on all six **unactuated floating-base** coordinates; actual training has
+zero on those coordinates. Actuated joint armature, damping/friction, body
+mass/inertia and joint effort/position limits agree. Actuator-level limit
+mechanisms and collision/contact settings are separately reported, not called
+identical. Training/replay solver iteration budgets are 10/100 and line-search
+budgets 20/50. These source models and defaults were not edited.
+
+Root-only, solver/options-only and combined changes are tested on diagnostic
+copies. Aligning only free-root properties removes free-flight next-velocity
+differences on all 17 mutually contact-free samples (maximum residual
+1.8214e-10). It does **not** remove contact-case differences; unmodified models
+differ by up to 0.7699 in next generalized velocity. Neither increasing solver
+iterations nor removing artificial base friction is established as a dance fix.
+
+Authoritative evidence: `artifacts/g1_true23_frozen_lora/training_replay_parity_20260906_v3/`
+contains `report.json`, `trace.npz` and the actual compiled training/replay
+models. Report SHA256:
+`d85815473d5a946664f0162811a90e6fb19e6300d4083228130c90f00c2fa44e`.
+Inputs, policy pairing, output bytes, editable-runtime sources and package
+versions are recorded. Development `_v1`/`_v2` reports lack parts of this
+diagnostic/provenance coverage and are not the final implementation report.
+
+### Full requested replays after the fix
+
+Same model-50 pair, stance V2 references, all 23 joints, unchanged configured
+gains, 35 Nm modeled ankle rating, quarter-effort/95% projection, 5 rad/s
+target slew and 500/50 Hz cadence. No predictive filter or retraining.
+
+| Case | Before timing fix | After timing fix | Current active physics steps |
+|---|---:|---:|---:|
+| Happy dance, reference start | 54/535 | 51/535 | 515 |
+| Happy dance, recorded posture + 5 s standing | 76/535 | 75/535 | 754 |
+| PICO upright reference | 50/1,013 | 46/1,013 | 465 |
+| PICO standing reference | 44/1,013 | 39/1,013 | 394 |
+
+All fail target-intersection feasibility. Reference-start failures now occur
+at right hip pitch; measured-start failure remains left ankle pitch. Dance
+maximum joint RMSE is 0.4175/0.4075 rad, above the provisional 0.35 threshold.
+Recorded-posture acquisition still passes all 250 transitions/2,500 physics
+steps, but the requested five-second return completes zero physics steps:
+the ankle already requires 5.8499 rad/s instantaneous target slew versus 5.
+This is the pinned standing compatibility actor, not a Unitree FSM handoff.
+
+Evidence: `artifacts/g1_true23_frozen_lora/current_observation_timing_20260906_v1/`
+(`dance_reference`, `dance_measured`, `pico_upright`, `pico_standing`). Fixing
+observation accuracy slightly reduces survival counts; it does not improve
+readiness. Previous counts are historical results with stale observations.
+The remaining work is realizable full-body references, closed-loop native
+balance/tracking training and verified acquisition/return—not bypassing guards.
+No corrected matched-budget v14 comparison or arbitrary 29-to-23 motion parity
+has been established. All readiness flags remain false.
+
+Verification: **223 tests pass** (183 existing focused tests, 20 new parity/
+timing regressions, nine PICO-builder tests and 11 legacy clean-replay tests).
+Existing asset-dependent tests use current worktree code with the original
+sibling's unchanged pinned assets; no model hash was relaxed. New audit/test
+files pass full lint; changed existing modules pass lint with their pre-existing
+long-line rule excluded. All 237 recorded audit input/source/output hashes
+were independently rechecked after execution; all controller-status checks agree.
+
 ## 2026-09-06 continuation: full-body stance retargeting, still not live-ready
 
 **Physical dance, standing return and live full-body teleop remain NOT ready.**

@@ -513,6 +513,7 @@ def run_case(
                 raise RuntimeError("nonfinite simulated state")
             gravity = _projected_gravity(data.qpos[3:7])
             tilt = float(np.arccos(np.clip(-gravity[2], -1, 1)))
+            controller.refresh_observation_kinematics()
             actual = data.xpos[1:][np.asarray(TRACKED_BODY_INDICES)]
             reference = motion["body_pos_w"][index][np.asarray(TRACKED_BODY_INDICES)]
             relative_error = float(
@@ -570,6 +571,8 @@ def run_case(
             "real_time_qualified": False,
         },
         "stateful_native_controller": stateful_native_controller,
+        "observation_timing": "current_post_integration_pose_and_velocity_v2",
+        "body_tracking_timing": "current_post_integration_kinematics_v2",
         "previous_action_semantics": (
             "last_applied_target_normalized_native23_not_requested_action"
             if stateful_native_controller

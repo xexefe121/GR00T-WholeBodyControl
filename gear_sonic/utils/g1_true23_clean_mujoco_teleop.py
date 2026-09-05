@@ -537,6 +537,7 @@ class CleanTrue23MujocoController:
         self.fallback_transition = None
 
     def _policy_frame(self) -> np.ndarray:
+        self.refresh_observation_kinematics()
         q_hardware = np.asarray(self.data.qpos[7:], dtype=np.float64)
         dq_hardware = np.asarray(self.data.qvel[6:], dtype=np.float64)
         q_native = q_hardware[MJ_TO_NATIVE]
@@ -554,6 +555,17 @@ class CleanTrue23MujocoController:
         if result.shape != (93,) or not np.isfinite(result).all():
             raise RuntimeError("measured policy frame is invalid")
         return result
+
+    def refresh_observation_kinematics(self) -> None:
+        """Read all pose/velocity terms at the same post-integration instant.
+
+        mj_step leaves derived body transforms and cvel one physics step behind
+        qpos/qvel. Refresh only kinematics: no integration, contact solve, control
+        callback or change to qacc_warmstart. This is not a new sensor delay model.
+        """
+        self.module.mj_kinematics(self.model, self.data)
+        self.module.mj_comPos(self.model, self.data)
+        self.module.mj_comVel(self.model, self.data)
 
     def step(self, encoder267: np.ndarray) -> dict[str, float]:
         current_pelvis = np.asarray(self.data.qpos[3:7], dtype=np.float64).copy()

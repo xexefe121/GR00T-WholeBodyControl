@@ -78,6 +78,44 @@ joint-level failure evidence and remaining hardware/headset boundaries.
 
 ## What changed
 
+### Current-state replay observations and sampled parity (2026-09-06)
+
+The CPU replay mixed current joint state with one-physics-step-old body gyro
+data; its body-tracking metric also used stale positions. It now refreshes
+only kinematics and body velocity before observations/metrics, without advancing
+physics or changing controls, contact forces or solver warm-start state.
+This corrects a simulator implementation defect, not the unknown physical
+bit-30 motors-off cause. No hardware controller, limit or interlock changed.
+
+A new actual-MJLab/CPU-MuJoCo/Warp audit samples all eight original corpus
+clips, four phases each. All 32 same-state observation/token/action mappings
+and applied targets agree within declared tolerances. Applied targets agree
+exactly; actual manager torque differs by at most 1.8229e-6 Nm. Warp/CPU
+next-velocity difference on the same compiled training model is at most
+2.9614e-5. These are deterministic reset observations and one 2 ms step,
+not a full-history or learned-tracking equivalence claim.
+
+The replay mesh's free root inherits artificial armature/damping/friction
+absent from training. Aligning those properties on diagnostic copies removes
+all 17 sampled free-flight differences, but not contact-case differences.
+Collision/contact and solver settings still differ; original model files and
+defaults remain unchanged. This is not evidence that a solver setting repairs
+the current policy. Actual compiled models, traces, source hashes and runtime
+versions are retained in `training_replay_parity_20260906_v3`.
+
+After the timing fix, the unchanged correctly paired model-50 and stance V2
+references complete **51/535** happy-dance reference-start transitions and
+**75/535** from recorded posture after standing acquisition (previously
+54/535 and 76/535). PICO upright/standing complete **46/1,013** and **39/1,013**
+(previously 50/1,013 and 44/1,013). Every case still fails; requested standing
+return from the failed dance completes zero physics steps. Lower survival
+counts are recorded honestly, not scored as improved motion fidelity.
+
+These results are in `current_observation_timing_20260906_v1`; exact settings,
+limits and failure evidence appear in [PROGRESS.md](../../../PROGRESS.md).
+No new matched-budget v14 retraining comparison, physical dance, safe return,
+full-body live teleop or arbitrary 29-DoF-motion parity is qualified.
+
 ### Whole-body stance retargeting (2026-09-06)
 
 New offline retargeting optimizes all 23 joints and root XYZ, rather than only
