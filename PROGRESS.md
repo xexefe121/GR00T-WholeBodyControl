@@ -1,5 +1,121 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-06 continuation: requested/projection cost; matched training rejects both policies
+
+**Physical dance, standing return and live full-body teleop remain NOT ready.**
+Actual training occurred in this pass, but no robot connection/command, mode
+change, hardware-controller edit, limit/interlock relaxation or policy promotion
+occurred. Pre-existing dirty hardware work remains untouched. The physical
+bit-30 motors-off cause is still unknown.
+
+### Implemented and tested
+
+The existing target/reference and target-limit rewards see already constrained
+targets. A policy can therefore request increasingly excessive targets while
+receiving the same applied target and associated target-based cost. New opt-in
+`--projection-penalty-weight` exposes that difference to PPO. Its default is
+**zero**, and positive values require `native_support_stateful_v2`.
+
+At every 2 ms substep, the action manager records squared requested-minus-
+projected target error, normalized per joint by the unchanged native23 hardware
+action scale. The reward averages all 23 joints and ten physics substeps per
+50 Hz action. Per-component squared cost is capped at 100; nonfinite components
+receive that cost while the existing action guard still terminates the episode.
+Invalid substeps remain included in this reward accounting; this does not imply
+nonzero effort was applied on a latched invalid substep. Selective environment
+resets and each new policy action clear the appropriate accumulators.
+
+All 15 previous rewards, gains, torque/position/slew limits, 930/267 policy
+interfaces, frozen SONIC core, previous-applied-action feedback and termination
+conditions remain unchanged. The new weight/contract is bound into preflight,
+resolved training configuration and checkpoint lineage. A regression fixture
+demonstrates identical projected controls for distinct requests while the new
+reward distinguishes them; recording alone leaves controls/guard status exact.
+
+The [upstream X2 project](https://sonic-agibot-x2.github.io/sonic-transfer/)
+discusses actuator-limited requests hidden by simulation. That motivates this
+training experiment; it does **not** establish the cause of this G1's hardware
+fault or prove that this loss fixes it.
+
+New `evaluate_g1_true23_paired_envelope_suite.py` evaluates every manifest clip
+through the existing current-state, paired encoder/decoder envelope evaluator.
+It requires matching export identities and full requested clip lengths, fixes
+configured gains, fraction 1, modeled ankle rating 35 Nm, quarter-effort/95%
+projection and 5 rad/s slew, and records actual 500 Hz trajectories. No legacy
+decoder-only default, shortened-clip option, predictive filter or promotion
+is used. Stance references retain their explicit unaccepted-candidate status.
+Optional named measured-start cases require recorded health and the pinned
+standing compatibility actor together, with five-second startup/return requests.
+
+### Actual paired PPO runs
+
+Both runs use the complete original eight-clip, 6,035-frame SONIC/PICO corpus,
+seed 20260906, rank/alpha 8, learning rate 5e-6, 32 environments, 16 rollout steps,
+five PPO epochs/eight minibatches and **100 updates / 51,200 transitions each**.
+Neither was trained on stance-candidate references. Baseline weight is 0;
+experimental weight is 2. Checkpoint-zero actor/adapter/critic tensors, optimizer
+state and trainer state were compared directly and match bit-for-bit. Resolved
+configs differ only in penalty enablement/weight; lineage differs only in those
+payload fields and their derived hashes. All 18 adapter tensors changed in both
+actual training runs; frozen-core contracts remained unchanged.
+
+Final logged rolling episode lengths are 4.11 baseline / 4.15 penalty control
+steps; last-ten logged means are 4.752 / 4.374. These are logger statistics, not
+full-clip survival or a convergence claim. One seed and 100 updates are not a
+generalization study. Strict materialization and both paired ONNX exports pass;
+encoder FSQ tokens match exactly, decoder maximum absolute parity error is
+2.6226e-6 / 1.5497e-6. Export correctness is not motion qualification.
+
+### All full requested replays, no omitted clips
+
+Counts below are completed 50 Hz transitions before target-intersection failure.
+Each original or stance suite retains all eight clips and all 6,035 frames.
+
+| Motion | Requested | Original baseline | Original penalty | Stance V2 baseline | Stance V2 penalty |
+|---|---:|---:|---:|---:|---:|
+| PICO upright | 1,013 | 2 | 2 | 48 | 46 |
+| PICO standing | 1,013 | 2 | 2 | 38 | 37 |
+| PICO crouch | 1,013 | 3 | 3 | 27 | 27 |
+| PICO walk 001 | 684 | 1 | 1 | 17 | 16 |
+| PICO walk 010 | 499 | 1 | 1 | 24 | 24 |
+| SONIC hand crawl | 595 | 43 | 43 | 43 | 44 |
+| SONIC elbow crawl | 595 | 51 | 55 | 52 | 53 |
+| SONIC happy dance | 535 | 47 | 48 | 49 | 58 |
+
+Two additional stance-dance cases start from the recorded posture after five
+seconds of standing: baseline completes 70/535 transitions (707 physics steps),
+penalty 75/535 (758 physics steps). Both standing acquisitions pass 250/250
+transitions and 2,500 physics steps. **Both return requests complete zero physics
+steps**, failing the same target-intersection constraint. Penalty's return
+requires instantaneous left-ankle target slew 5.0722 rad/s versus the unchanged
+5 rad/s limit. This is historical-posture simulation with the compatibility
+standing actor, not fresh robot state or a Unitree FSM handoff.
+
+**All 34 replays fail full-clip fidelity and lifecycle qualification. Neither
+policy is selected.** Nine extra retargeted dance transitions are not a fix:
+that case's maximum joint RMSE is 0.4106 baseline / 0.4619 penalty rad, and some
+standing/walking cases regress. Original dance RMSE is 0.4081 / 0.4041 rad;
+recorded-posture dance RMSE is 0.3922 / 0.4007 rad. Different terminated rollout
+lengths also make full-prefix residual means unsuitable as matched-input or
+complete-motion cost comparisons. The penalty remains disabled by default.
+
+Evidence root: `artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/`.
+`baseline100` and `penalty2_100` contain actual update-0/update-100 checkpoints,
+training logs/lineage, strict paired exports and original/stance envelope suites.
+`comparison.json` binds exact commands, direct tensor comparison, all results,
+training scalar evidence and **185 independently rechecked input/source/output
+files**. Its SHA256 is
+`61d72c5b955f80a32e089af8b2ebb5b38d1eb4e2811fd2e468de47d482e7d152`.
+The common encoder SHA256 remains `3806b2b6...`; baseline/penalty decoder hashes
+are `90e27f37...` / `6e85051a...`, with complete identities in the report.
+
+Verification: **255 tests pass, no skips**; all eight changed/new Python files
+pass full lint. This is a matched reward ablation within frozen LoRA, **not** a
+corrected matched-budget comparison with the original full-weight v14 trainer.
+Native full-body closed-loop balance, realizable contact references, successful
+full dance/acquisition/return and fresh operator-supervised evidence remain
+required. No hardware limit may be inferred from these simulator experiments.
+
 ## 2026-09-06 continuation: fix stale replay observations; sampled training parity
 
 **Physical dance, standing return and live full-body teleop remain NOT ready.**

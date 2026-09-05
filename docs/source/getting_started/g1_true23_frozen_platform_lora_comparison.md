@@ -78,6 +78,44 @@ joint-level failure evidence and remaining hardware/headset boundaries.
 
 ## What changed
 
+### Requested/projection penalty: matched training, no qualified candidate (2026-09-06)
+
+The trainer adds opt-in `--projection-penalty-weight` (default 0), restricted
+to `--actuation-profile native_support_stateful_v2`. It penalizes the normalized
+requested-minus-projected target at all ten physics substeps without changing
+controls, limits, frozen-core weights or existing tracking rewards. The weight
+is bound into resolved configuration/checkpoint lineage. This is an experimental
+reward, not a deployed controller modification or established hardware fix.
+
+Two actual rank-8 LoRA runs share bit-identical initial actor/critic tensors,
+seed 20260906, original eight-clip/6,035-frame corpus, 32 environments, 16 rollout
+steps and 100 updates / 51,200 transitions each. The sole configuration change
+is weight 0 versus 2. Both strict encoder/decoder exports pass numerical parity.
+The new paired envelope suite tests all eight original clips and all eight
+stance V2 candidate clips, plus a recorded-posture dance/startup/return case
+per policy. All **34 complete requested replays fail**; neither policy is selected.
+
+| Full happy-dance request | Weight 0 | Weight 2 | Requested |
+|---|---:|---:|---:|
+| Original reference | 47 | 48 | 535 |
+| Stance V2 reference | 49 | 58 | 535 |
+| Stance V2, recorded posture + 5 s standing | 70 | 75 | 535 |
+| Return after recorded-posture case, physics steps | 0 | 0 | 2,500 |
+
+Standing acquisitions pass 2,500 physics steps each; returns do not start
+because the terminal dance state already violates the effort/position/slew
+intersection. Retargeted dance RMSE worsens from 0.4106 to 0.4619 rad, and
+several standing/walking counts regress. No readiness improvement is established;
+the penalty stays disabled by default. Single-seed short runs do not establish
+convergence or original-SONIC parity.
+
+Evidence: `artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/comparison.json`
+contains commands, tensor equality, all suite results, training scalar records
+and 185 rechecked file identities. Verification: 255 tests, no skips, full lint
+on all changed Python files. See [progress](../../../PROGRESS.md) for the complete
+eight-motion table and hashes. This ablates a reward within frozen LoRA; it is
+**not** a new matched-budget original full-weight-v14 comparison.
+
 ### Current-state replay observations and sampled parity (2026-09-06)
 
 The CPU replay mixed current joint state with one-physics-step-old body gyro

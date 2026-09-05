@@ -84,7 +84,7 @@ def _action(profile):
     from gear_sonic.envs.mjlab.sonic_true23_stage_one_actuation import StageOneActuationAction
 
     action = StageOneActuationAction.__new__(StageOneActuationAction)
-    action.cfg = SimpleNamespace(profile=profile)
+    action.cfg = SimpleNamespace(profile=profile, record_requested_projection=False)
     action._env = SimpleNamespace(device="cpu", num_envs=2)
     q = torch.tensor(SAFE_TARGET_DEFAULT_Q_HARDWARE)[None].repeat(2, 1)
     action._entity = SimpleNamespace(
@@ -102,7 +102,45 @@ def _action(profile):
         setattr(action, name, torch.zeros_like(q))
     action._needs_seed = torch.zeros(2, dtype=torch.bool)
     action.envelope_violation = torch.zeros(2, dtype=torch.bool)
+    action._projection_cost_sum = torch.zeros(2)
+    action._projection_cost_count = torch.zeros(2)
     return action
+
+
+def test_projection_cost_distinguishes_requests_hidden_by_identical_targets(profile):
+    from gear_sonic.envs.mjlab.sonic_true23_stage_one_actuation import (
+        requested_projection_cost,
+        requested_projection_reward_term,
+    )
+
+    measured, baseline = _action(profile), _action(profile)
+    measured.cfg.record_requested_projection = True
+    raw = torch.stack((torch.ones(23), torch.full((23,), 5.0)))
+    for action in (measured, baseline):
+        action.reset()
+        action.process_actions(raw)
+    expected = torch.zeros(2)
+    for _ in range(10):
+        measured.apply_actions()
+        baseline.apply_actions()
+        # Recording/reward code must never alter requested/projected targets,
+        # previous-action feedback or guard state.
+        for field in ("_requested_targets", "_previous_targets", "_safe_native_actions", "envelope_violation"):
+            torch.testing.assert_close(getattr(measured, field), getattr(baseline, field), rtol=0, atol=0)
+        torch.testing.assert_close(measured._previous_targets[0], measured._previous_targets[1], rtol=0, atol=0)
+        expected += requested_projection_cost(measured._requested_targets, measured._previous_targets)
+    env = SimpleNamespace(action_manager=SimpleNamespace(get_term=lambda name: measured))
+    actual = requested_projection_reward_term(env)
+    torch.testing.assert_close(actual, expected / 10)
+    assert actual[1] > actual[0] > 0
+    assert measured._projection_cost_count.tolist() == [10, 10]
+    saved = actual.clone()
+    measured.reset(torch.tensor([0]))
+    assert requested_projection_reward_term(env)[0] == 0
+    assert requested_projection_reward_term(env)[1] == saved[1]
+    measured.process_actions(raw)
+    assert torch.count_nonzero(measured._projection_cost_sum) == 0
+    assert torch.count_nonzero(measured._projection_cost_count) == 0
 
 
 def test_reset_seeds_after_final_pose_and_preserves_other_environment(profile):

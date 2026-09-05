@@ -86,7 +86,7 @@ def test_training_rejects_raw_clip_boundary_as_runtime_does(profile):
     from gear_sonic.envs.mjlab.sonic_true23_stage_one_actuation import StageOneActuationAction
 
     action = StageOneActuationAction.__new__(StageOneActuationAction)
-    action.cfg = SimpleNamespace(profile=profile)
+    action.cfg = SimpleNamespace(profile=profile, record_requested_projection=False)
     action._raw_actions = torch.zeros(2, 23)
     action._safe_native_actions = torch.zeros(2, 23)
     action._requested_targets = torch.zeros(2, 23)

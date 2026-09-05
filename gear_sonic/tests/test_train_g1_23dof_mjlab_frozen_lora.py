@@ -158,3 +158,41 @@ def test_native_source_hash_alone_does_not_bind_controller_state(tmp_path):
     bank.write_text(json.dumps(payload))
     with pytest.raises(SystemExit, match="exact native-support controller-state contract"):
         launcher.main(_arguments(materials) + ["--actuation-profile", "native_support_stateful_v2"])
+
+
+def test_projection_penalty_argument_is_bound_and_not_passed_to_legacy_parser(monkeypatch, tmp_path):
+    captured, delegated = {}, []
+    monkeypatch.setattr(launcher, "_install_frozen_lora_hooks", lambda **kwargs: captured.update(kwargs))
+    monkeypatch.setattr(launcher.base, "main", lambda values: delegated.extend(values) or 0)
+    motion, metadata, spans, _, _, _ = _materials(tmp_path)
+    assert (
+        launcher.main(
+            [
+                "smoke",
+                "--motion-file",
+                str(motion),
+                "--motion-metadata",
+                str(metadata),
+                "--spans",
+                str(spans),
+                "--actuation-profile",
+                "native_support_stateful_v2",
+                "--projection-penalty-weight",
+                "2",
+            ]
+        )
+        == 0
+    )
+    assert captured["projection_penalty_weight"] == 2
+    assert "--projection-penalty-weight" not in delegated
+
+
+@pytest.mark.parametrize("weight", ["nan", "inf", "-1", "101"])
+def test_projection_penalty_cli_rejects_invalid_weight_before_loading_assets(weight):
+    with pytest.raises(SystemExit, match="projection penalty weight"):
+        launcher.main(["smoke", "--projection-penalty-weight", weight])
+
+
+def test_projection_penalty_cli_requires_stateful_controller():
+    with pytest.raises(SystemExit, match="requires --actuation-profile"):
+        launcher.main(["smoke", "--projection-penalty-weight", "2"])

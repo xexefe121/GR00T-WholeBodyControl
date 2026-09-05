@@ -225,7 +225,16 @@ def _install_frozen_lora_hooks(
     adapter_initialization: Path | None,
     adapter_initialization_mode: bool,
     actuation_profile: StageOneActuationProfile | None = None,
+    projection_penalty_weight: float = 0.0,
 ) -> None:
+    from gear_sonic.envs.mjlab.sonic_true23_stage_one_actuation import projection_cost_contract
+
+    projection_cost = projection_cost_contract(projection_penalty_weight)
+    if projection_cost["enabled"] and not (
+        isinstance(actuation_profile, NativeSupportActuationProfile)
+        and actuation_profile.consistent_controller_state
+    ):
+        raise ValueError("projection penalty requires native-support stateful V2")
     v14._install_isolated_v14_hooks(span_sidecar)  # noqa: SLF001
     _install_phase_sampler(phase=phase, bank_indices=bank_indices)
     if actuation_profile is not None:
@@ -235,7 +244,11 @@ def _install_frozen_lora_hooks(
         original_env_builder = causal_task.make_causal_history_recovery_env_cfg
 
         def profiled_env_builder(**kwargs: Any) -> Any:
-            return apply_stage_one_actuation_profile(original_env_builder(**kwargs), actuation_profile)
+            return apply_stage_one_actuation_profile(
+                original_env_builder(**kwargs),
+                actuation_profile,
+                projection_penalty_weight=projection_penalty_weight,
+            )
 
         causal_task.make_causal_history_recovery_env_cfg = profiled_env_builder
 
@@ -302,6 +315,7 @@ def _install_frozen_lora_hooks(
         resolved = original_resolved(*args, **kwargs)
         if actuation_profile is not None:
             resolved["stage_one_actuation"] = actuation_profile.contract()
+        resolved["requested_projection_penalty"] = projection_cost
         resolved["frozen_platform_lora"] = {
             "schema_version": 1,
             "source_checkpoint": str(source_checkpoint),
@@ -349,6 +363,7 @@ def _install_frozen_lora_hooks(
         report = original_preflight(args)
         if actuation_profile is not None:
             report["stage_one_actuation"] = actuation_profile.contract()
+        report["requested_projection_penalty"] = projection_cost
         problems = list(report["problems"])
         contract: dict[str, Any] | None = None
         if not source_checkpoint.is_file():
@@ -411,6 +426,15 @@ def main(argv: Sequence[str] | None = None) -> int:
     bank_text = _pop_option(values, "--behavior-bank")
     adapter_text = _pop_option(values, "--adapter-init")
     actuation_name = _pop_option(values, "--actuation-profile")
+    try:
+        from gear_sonic.envs.mjlab.sonic_true23_stage_one_actuation import projection_cost_contract
+
+        projection_penalty_weight = float(_pop_option(values, "--projection-penalty-weight", default="0"))
+        projection_cost_contract(projection_penalty_weight)
+    except ValueError as error:
+        raise SystemExit(str(error)) from error
+    if projection_penalty_weight > 0 and actuation_name != "native_support_stateful_v2":
+        raise SystemExit("--projection-penalty-weight requires --actuation-profile native_support_stateful_v2")
     if actuation_name not in {None, "stage_one_cpp", "native_support_projected", "native_support_stateful_v2"}:
         raise SystemExit("unsupported simulator-only --actuation-profile")
     if actuation_name in {"native_support_projected", "native_support_stateful_v2"}:
@@ -470,6 +494,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         adapter_initialization=adapter_initialization,
         adapter_initialization_mode=(adapter_initialization is not None and not resume_supplied),
         actuation_profile=actuation_profile,
+        projection_penalty_weight=projection_penalty_weight,
     )
     # v14 consumes --spans itself; the shared parser does not know this option.
     if "--spans" in values:

@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import copy
 from dataclasses import dataclass
+import math
 import re
 from typing import Any
 
@@ -19,7 +20,7 @@ from gear_sonic.envs.mjlab.sonic_true23_causal_history_safe_target_v11 import (
     SafeTargetNativeIl23JointPositionAction,
     SafeTargetNativeIl23JointPositionActionCfg,
 )
-from gear_sonic.utils.g1_23dof_contract import HARDWARE_23_JOINT_NAMES
+from gear_sonic.utils.g1_23dof_contract import HARDWARE_23_ACTION_SCALE, HARDWARE_23_JOINT_NAMES
 from gear_sonic.utils.g1_23dof_safe_target_transform import (
     SAFE_TARGET_DEFAULT_Q_HARDWARE,
     SAFE_TARGET_HARD_LOWER_HARDWARE,
@@ -31,6 +32,50 @@ from gear_sonic.utils.g1_true23_projected_controller_state import (
     applied_target_native_torch,
     synthetic_reset_target_torch,
 )
+
+
+def requested_projection_cost(requested: torch.Tensor, projected: torch.Tensor) -> torch.Tensor:
+    """Reward-only normalized request residual, not an action/effort override.
+
+    The per-joint squared cost is bounded at 100. Nonfinite requests receive
+    that maximum cost while the existing action guard still terminates them.
+    """
+    if requested.shape != projected.shape or requested.ndim != 2 or requested.shape[1] != 23:
+        raise ValueError("projection cost requires equal [env,23] target arrays")
+    delta = (requested - projected) / requested.new_tensor(HARDWARE_23_ACTION_SCALE)
+    delta = torch.nan_to_num(delta, nan=10.0, posinf=10.0, neginf=-10.0).clamp(-10, 10)
+    return delta.square().mean(dim=1)
+
+
+def projection_cost_contract(weight: float) -> dict:
+    if (
+        isinstance(weight, bool)
+        or not isinstance(weight, (int, float))
+        or not math.isfinite(weight)
+        or not 0 <= weight <= 100
+    ):
+        raise ValueError("projection penalty weight must be finite within 0..100")
+    return {
+        "kind": "g1_true23_requested_projection_cost_v1",
+        "enabled": weight > 0,
+        "reward_weight": -float(weight),
+        "cost": "mean_over_23_joints_and_10_physics_substeps_of_normalized_request_minus_projection_squared",
+        "normalization_hardware_rad": list(HARDWARE_23_ACTION_SCALE),
+        "maximum_per_joint_squared_cost": 100.0,
+        "nonfinite_component_squared_cost": 100.0,
+        "invalid_substeps_included": True,
+        "original_tracking_rewards_retained": True,
+        "controller_and_limits_changed": False,
+        "hardware_authorized": False,
+        "deployment_ready": False,
+    }
+
+
+def requested_projection_reward_term(env: Any, action_name: str = "joint_pos") -> torch.Tensor:
+    action = env.action_manager.get_term(action_name)
+    if not action.cfg.record_requested_projection:
+        raise ValueError("requested projection reward requires substep recording")
+    return action._projection_cost_sum / action._projection_cost_count.clamp_min(1)
 
 
 def requested_stage_one_target(full_target: torch.Tensor, profile: StageOneActuationProfile) -> torch.Tensor:
@@ -95,6 +140,7 @@ if _MJLAB_IMPORT_ERROR is None:
     @dataclass(kw_only=True)
     class StageOneActuationActionCfg(SafeTargetNativeIl23JointPositionActionCfg):
         profile: StageOneActuationProfile
+        record_requested_projection: bool = False
 
         def build(self, env: Any) -> StageOneActuationAction:
             return StageOneActuationAction(self, env)
@@ -110,6 +156,8 @@ if _MJLAB_IMPORT_ERROR is None:
             self._previous_targets = self._processed_actions.clone()
             self._needs_seed = torch.ones(self.num_envs, dtype=torch.bool, device=self.device)
             self.envelope_violation = torch.zeros_like(self._needs_seed)
+            self._projection_cost_sum = torch.zeros(self.num_envs, device=self.device)
+            self._projection_cost_count = torch.zeros_like(self._projection_cost_sum)
 
         @property
         def _stateful_profile(self) -> bool:
@@ -150,6 +198,9 @@ if _MJLAB_IMPORT_ERROR is None:
             # The outer RL wrapper clips at 10; equality therefore also means
             # an unqualified clipped action. Runtime rejects abs(raw) >= 10.
             self.envelope_violation |= (actions.abs() >= 10.0).any(dim=-1)
+            if self.cfg.record_requested_projection:
+                self._projection_cost_sum.zero_()
+                self._projection_cost_count.zero_()
 
         def apply_actions(self) -> None:
             self._seed_controller_state()
@@ -172,6 +223,9 @@ if _MJLAB_IMPORT_ERROR is None:
                 dq,
                 self.cfg.profile,
             )
+            if self.cfg.record_requested_projection:
+                self._projection_cost_sum += requested_projection_cost(self._requested_targets, target)
+                self._projection_cost_count += 1
             if torch.any(bias != 0):
                 raise ValueError("stage-one profile requires disabled encoder-bias randomization")
             self._processed_actions[:] = target
@@ -189,14 +243,25 @@ if _MJLAB_IMPORT_ERROR is None:
             self._requested_targets[ids] = self._processed_actions[ids]
             self._needs_seed[ids] = True
             self.envelope_violation[ids] = False
+            self._projection_cost_sum[ids] = 0
+            self._projection_cost_count[ids] = 0
 
 
-def apply_stage_one_actuation_profile(cfg: Any, profile: StageOneActuationProfile) -> Any:
+def apply_stage_one_actuation_profile(
+    cfg: Any, profile: StageOneActuationProfile, *, projection_penalty_weight: float = 0.0
+) -> Any:
     """Replace only local config mechanics; original asset/config is untouched."""
     if _MJLAB_IMPORT_ERROR is not None:
         raise RuntimeError("MJLab runtime required") from _MJLAB_IMPORT_ERROR
     from mjlab.actuator import BuiltinMotorActuatorCfg, BuiltinPositionActuatorCfg
+    from mjlab.managers.reward_manager import RewardTermCfg
     from mjlab.managers.termination_manager import TerminationTermCfg
+
+    cost = projection_cost_contract(projection_penalty_weight)
+    if cost["enabled"] and not (
+        isinstance(profile, NativeSupportActuationProfile) and profile.consistent_controller_state
+    ):
+        raise ValueError("projection penalty requires native-support stateful V2")
 
     cfg = copy.deepcopy(cfg)
     if "encoder_bias" in cfg.events:
@@ -240,6 +305,11 @@ def apply_stage_one_actuation_profile(cfg: Any, profile: StageOneActuationProfil
         entity_name="robot",
         actuator_names=(".*",),
         profile=profile,
+        record_requested_projection=cost["enabled"],
     )
     cfg.terminations["stage_one_actuation_guard"] = TerminationTermCfg(func=actuation_guard_violated)
+    if cost["enabled"]:
+        cfg.rewards["requested_projection_l2"] = RewardTermCfg(
+            func=requested_projection_reward_term, weight=cost["reward_weight"]
+        )
     return cfg
