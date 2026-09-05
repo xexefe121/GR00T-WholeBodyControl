@@ -27,6 +27,10 @@ from gear_sonic.utils.g1_23dof_safe_target_transform import (
     safe_target_transform_torch,
 )
 from gear_sonic.utils.g1_true23_actuation_profile import NativeSupportActuationProfile, StageOneActuationProfile
+from gear_sonic.utils.g1_true23_projected_controller_state import (
+    applied_target_native_torch,
+    synthetic_reset_target_torch,
+)
 
 
 def requested_stage_one_target(full_target: torch.Tensor, profile: StageOneActuationProfile) -> torch.Tensor:
@@ -107,17 +111,48 @@ if _MJLAB_IMPORT_ERROR is None:
             self._needs_seed = torch.ones(self.num_envs, dtype=torch.bool, device=self.device)
             self.envelope_violation = torch.zeros_like(self._needs_seed)
 
+        @property
+        def _stateful_profile(self) -> bool:
+            return (
+                isinstance(self.cfg.profile, NativeSupportActuationProfile)
+                and self.cfg.profile.consistent_controller_state
+            )
+
+        def _seed_controller_state(self) -> None:
+            # Called by the first previous-action observation after all reset
+            # managers, not by ActionManager.reset (which precedes motion reset).
+            if not self._stateful_profile or not torch.any(self._needs_seed):
+                return
+            q = self._entity.data.joint_pos[:, self._target_ids]
+            dq = self._entity.data.joint_vel[:, self._target_ids]
+            target, invalid = synthetic_reset_target_torch(q, dq, self.cfg.profile)
+            mask = self._needs_seed[:, None]
+            self._previous_targets[:] = torch.where(mask, target, self._previous_targets)
+            self._processed_actions[:] = torch.where(mask, target, self._processed_actions)
+            self._safe_native_actions[:] = torch.where(
+                mask, applied_target_native_torch(target), self._safe_native_actions
+            )
+            self.envelope_violation |= self._needs_seed & invalid
+            self._needs_seed.zero_()
+
+        @property
+        def safe_native_action(self) -> torch.Tensor:
+            self._seed_controller_state()
+            return self._safe_native_actions
+
         def process_actions(self, actions: torch.Tensor) -> None:
             _require_last_dim(actions, 23, "stage-one raw native23 action")
             self._raw_actions[:] = actions
             safe, full_target = safe_target_transform_torch(actions)
-            self._safe_native_actions[:] = safe
+            if not self._stateful_profile:
+                self._safe_native_actions[:] = safe
             self._requested_targets[:] = requested_stage_one_target(full_target, self.cfg.profile)
             # The outer RL wrapper clips at 10; equality therefore also means
             # an unqualified clipped action. Runtime rejects abs(raw) >= 10.
-            self.envelope_violation[:] = (actions.abs() >= 10.0).any(dim=-1)
+            self.envelope_violation |= (actions.abs() >= 10.0).any(dim=-1)
 
         def apply_actions(self) -> None:
+            self._seed_controller_state()
             q = self._entity.data.joint_pos[:, self._target_ids]
             dq = self._entity.data.joint_vel[:, self._target_ids]
             bias = self._entity.data.encoder_bias[:, self._target_ids]
@@ -141,6 +176,8 @@ if _MJLAB_IMPORT_ERROR is None:
                 raise ValueError("stage-one profile requires disabled encoder-bias randomization")
             self._processed_actions[:] = target
             self._previous_targets[:] = target
+            if self._stateful_profile:
+                self._safe_native_actions[:] = applied_target_native_torch(target)
             self.envelope_violation |= invalid
             if isinstance(self.cfg.profile, NativeSupportActuationProfile):
                 torque = torch.where(self.envelope_violation[:, None], torch.zeros_like(torque), torque)

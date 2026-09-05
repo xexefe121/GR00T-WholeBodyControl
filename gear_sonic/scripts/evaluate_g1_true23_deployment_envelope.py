@@ -35,6 +35,10 @@ from gear_sonic.utils.g1_true23_clean_mujoco_teleop import (
 )
 from gear_sonic.utils.g1_true23_diagnostic_pair import load_diagnostic_pair, load_residual_diagnostic_pair
 from gear_sonic.utils.g1_true23_motion_fidelity import assess_motion_fidelity
+from gear_sonic.utils.g1_true23_projected_controller_state import (
+    applied_target_native_numpy,
+    synthetic_reset_target_numpy,
+)
 from gear_sonic.utils.g1_true23_sim_acquisition import (
     align_reference_xy_yaw,
     audit_reference_kinematics,
@@ -294,7 +298,12 @@ def run_case(
     align_reference_start: bool = False,
     project_transition_effort: bool = False,
     project_active_effort: bool = False,
+    stateful_native_controller: bool = False,
 ) -> tuple[dict[str, Any], dict[str, np.ndarray]]:
+    if stateful_native_controller and not project_active_effort:
+        raise ValueError("stateful native controller requires active effort projection")
+    if stateful_native_controller and initial_state != "reference" and transition_policy is None:
+        raise ValueError("stateful measured/neutral acquisition requires a preceding balance controller")
     count = validate_library_motion(motion)
     steps = count - 11 if maximum_steps is None else min(count - 11, maximum_steps)
     if steps <= 0:
@@ -349,6 +358,19 @@ def run_case(
         raise ValueError("unknown initial state")
     data, physics, module = controller.data, controller.physics, controller.module
     previous_target = np.asarray(data.qpos[7:], dtype=np.float64).copy()
+    initial_controller_failure = None
+    if stateful_native_controller:
+        if initial_state == "reference":
+            try:
+                previous_target = synthetic_reset_target_numpy(
+                    data.qpos[7:], data.qvel[6:], kp, kd, physics.effort
+                )
+            except ValueError as error:
+                initial_controller_failure = str(error)
+        controller.previous_safe_native = applied_target_native_numpy(previous_target)
+        # Matches the explicit synthetic reset distribution. Do not label
+        # repeated observations as measured history preceding this reset.
+        controller.history = [controller._policy_frame().copy() for _ in range(10)]
     kinematic_audit = audit_reference_kinematics(controller, motion)
     if transition_policy is None:
         startup_hold, startup_qpos = simulate_sampled_posture_hold(
@@ -377,6 +399,8 @@ def run_case(
         if transition_policy is not None and not startup_hold["standing_screen_passed"]
         else None
     )
+    if initial_controller_failure is not None:
+        failure = {"transition": 0, "gates": [initial_controller_failure]}
     first_predicted_gate = None
     first_target_gate = None
     clipped_joint_steps = 0
@@ -437,8 +461,13 @@ def run_case(
                 previous_target = target.copy()
                 active_physics_steps += 1
             controller.buffered_robot_pelvis_q9 = current_pelvis
-            # The deployed observation also feeds back the unscaled safe action.
-            controller.previous_safe_native = safe_native.astype(np.float32, copy=True)
+            # Legacy models retain requested-safe feedback. V2 observes the
+            # target actually executed; no second tanh transform is applied.
+            controller.previous_safe_native = (
+                applied_target_native_numpy(previous_target)
+                if stateful_native_controller
+                else safe_native.astype(np.float32, copy=True)
+            )
             controller.completed += 1
             if not np.isfinite(data.qpos).all() or not np.isfinite(data.qvel).all():
                 raise RuntimeError("nonfinite simulated state")
@@ -487,6 +516,15 @@ def run_case(
         "active_partial_transition_substeps": active_physics_steps % physics.decimation,
         "active_elapsed_simulation_s": active_physics_steps * physics.timestep_s,
         "active_effort_target_projection": project_active_effort,
+        "stateful_native_controller": stateful_native_controller,
+        "previous_action_semantics": (
+            "last_applied_target_normalized_native23_not_requested_action"
+            if stateful_native_controller
+            else "unscaled_safe_native23"
+        ),
+        "synthetic_reference_controller_reset": stateful_native_controller and initial_state == "reference",
+        "measured_controller_target_reseeded_after_acquisition": False,
+        "initial_controller_failure": initial_controller_failure,
         "projected_active_joint_substeps": projected_joint_substeps,
         "requested_transitions": steps,
         "library_completion_passed": failure is None and len(records) == steps,
@@ -620,6 +658,11 @@ def main() -> int:
         help="Simulator-only SONIC target projection inside existing effort/position/slew bounds",
     )
     parser.add_argument("--maximum-steps", type=int)
+    parser.add_argument(
+        "--stateful-native-controller",
+        action="store_true",
+        help="V2 applied-target feedback; reference resets are explicitly synthetic, not hardware acquisition",
+    )
     args = parser.parse_args()
     if (args.encoder_report is None) != (args.decoder_report is None):
         parser.error("--encoder-report and --decoder-report must be supplied together")
@@ -634,6 +677,11 @@ def main() -> int:
         parser.error("choose exactly one: paired reports, residual manifest, or explicit unpaired diagnostic")
     if args.project_transition_effort and args.transition_balance_model is None:
         parser.error("--project-transition-effort requires --transition-balance-model")
+    if args.stateful_native_controller:
+        if not args.project_active_effort:
+            parser.error("--stateful-native-controller requires --project-active-effort")
+        if any(state != "reference" for state in args.initial_states) and args.transition_balance_model is None:
+            parser.error("stateful measured/neutral acquisition requires --transition-balance-model")
     root, assets, output = args.repository_root.resolve(), args.asset_root.resolve(), args.output_dir.resolve()
     if output.exists():
         raise FileExistsError(output)
@@ -707,6 +755,7 @@ def main() -> int:
             align_reference_start=args.align_reference_start,
             project_transition_effort=args.project_transition_effort,
             project_active_effort=args.project_active_effort,
+            stateful_native_controller=args.stateful_native_controller,
         )
         report.update(
             encoder_decoder_pair_validated=pair is not None,
@@ -752,6 +801,7 @@ def main() -> int:
                 root / "gear_sonic/utils/g1_23dof_safe_target_transform.py",
                 root / "gear_sonic/utils/g1_true23_actuation_profile.py",
                 root / "gear_sonic/utils/g1_true23_sim_acquisition.py",
+                root / "gear_sonic/utils/g1_true23_projected_controller_state.py",
             )
         },
         "runtime": {

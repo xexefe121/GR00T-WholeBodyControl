@@ -8,6 +8,7 @@ behavior bank.  No path in this module authorizes robot execution.
 
 from __future__ import annotations
 
+from dataclasses import replace
 import json
 from pathlib import Path
 from typing import Any, Sequence
@@ -292,6 +293,7 @@ def _install_frozen_lora_hooks(
             REPO_ROOT / (SIM_CONFIG if isinstance(actuation_profile, NativeSupportActuationProfile) else HEADER),
             REPO_ROOT / "gear_sonic/utils/g1_true23_actuation_profile.py",
             REPO_ROOT / "gear_sonic/envs/mjlab/sonic_true23_stage_one_actuation.py",
+            REPO_ROOT / "gear_sonic/utils/g1_true23_projected_controller_state.py",
         )
 
     original_resolved = base._resolved_training_config
@@ -409,10 +411,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     bank_text = _pop_option(values, "--behavior-bank")
     adapter_text = _pop_option(values, "--adapter-init")
     actuation_name = _pop_option(values, "--actuation-profile")
-    if actuation_name not in {None, "stage_one_cpp", "native_support_projected"}:
-        raise SystemExit("--actuation-profile must be stage_one_cpp or native_support_projected (simulator only)")
-    if actuation_name == "native_support_projected":
+    if actuation_name not in {None, "stage_one_cpp", "native_support_projected", "native_support_stateful_v2"}:
+        raise SystemExit("unsupported simulator-only --actuation-profile")
+    if actuation_name in {"native_support_projected", "native_support_stateful_v2"}:
         actuation_profile = NativeSupportActuationProfile.from_sim_config(REPO_ROOT / SIM_CONFIG)
+        if actuation_name == "native_support_stateful_v2":
+            actuation_profile = replace(actuation_profile, consistent_controller_state=True)
     else:
         actuation_profile = (
             StageOneActuationProfile.from_cpp(REPO_ROOT / HEADER) if actuation_name is not None else None
@@ -437,9 +441,16 @@ def main(argv: Sequence[str] | None = None) -> int:
         clip_count=span_payload["clip_count"],
     )
     if actuation_profile is not None and behavior_bank is not None:
-        bank_profile = json.loads(behavior_bank.read_text(encoding="utf-8")).get("actuation_profile_source_sha256")
+        bank_payload = json.loads(behavior_bank.read_text(encoding="utf-8"))
+        bank_profile = bank_payload.get("actuation_profile_source_sha256")
         if bank_profile != actuation_profile.source_sha256:
             raise SystemExit("behavior bank was not qualified against this actuation profile")
+        if isinstance(actuation_profile, NativeSupportActuationProfile):
+            # A JSON source hash alone cannot distinguish projected v1 from
+            # stateful v2 semantics or bind hard-coded gains/projection choices.
+            expected_contract = json.loads(json.dumps(actuation_profile.contract()))
+            if bank_payload.get("actuation_profile_contract") != expected_contract:
+                raise SystemExit("behavior bank lacks the exact native-support controller-state contract")
     adapter_initialization = Path(adapter_text).expanduser().resolve() if adapter_text is not None else None
     if adapter_initialization is not None:
         if not adapter_initialization.is_file():

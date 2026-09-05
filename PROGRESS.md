@@ -1,5 +1,93 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-05 continuation: consistent controller state, candidate still fails
+
+**Physical full-body dance and live teleop remain NOT ready. No robot commands,
+mode changes, physical-controller edits, gain-pin changes or promotions.**
+The preceding projected-actuation work and rejected model were committed and
+pushed separately as `fe4af55244cf6c9d03a1a50320d0d345acbb4560`.
+
+### Simulator-only V2 reset and feedback correction
+
+- New opt-in `--actuation-profile native_support_stateful_v2` preserves the
+  existing profiles. Its distinct contract initializes a synthetic training
+  controller target from the **final** reset q/dq, after the motion command
+  reset, before previous-action observations. The target minimizes initial
+  absolute PD effort within the unchanged hard-margin/effort interval.
+- Every subsequent physics step retains the existing 5 rad/s slew and
+  quarter-effort guard. Impossible seed rows stay marked for termination;
+  processing a new action cannot erase that failure. Other environments'
+  controller states are not reset. This is a synthetic initial-condition
+  distribution, **not a physically reachable history or a hardware command**.
+- V2 previous-action history encodes the last applied target, after slew and
+  projection, in native23 action units. It does not report the unexecuted
+  requested target or apply the tanh transform a second time. Initial history
+  uses the observation manager's repeated synthetic reset state; it is not
+  labeled a measured ten-frame physical history.
+- `--stateful-native-controller` in the deployment-envelope diagnostic matches
+  these feedback/reset semantics. Reference initialization is explicitly
+  synthetic. Measured/neutral starts require a preceding balance controller;
+  its actual terminal target is carried into SONIC, never reseeded afterward.
+- Native-support behavior banks must bind the full controller-state contract,
+  not only the simulator JSON hash shared by V1 and V2. Old bank claims cannot
+  silently qualify changed feedback semantics.
+
+Float32 nominal happy-dance audit: **3/532 reset seeds remain infeasible**;
+all other seeds admit the first projected substep, with no additional failures.
+This removes the q-seed artifact (206/532 in V1), not the three intrinsically
+infeasible nominal states, randomized-reset risk, or dynamic-balance problem.
+
+### Fresh training and full-clip checks
+
+New run, no resume or artifact overwrite:
+`artifacts/g1_true23_frozen_lora/native_support_stateful_20260905_v1/breadth50/`.
+Exactly **50 updates / 25,600 transitions**, 32 environments, 16 rollout steps,
+seed 20260905. Training loop took 129 s, excluding setup. No training process
+remains running. Final mean episode length is **5.21 steps** versus V1's 3.90;
+this single final-window statistic is not a controlled quality improvement.
+Actuation guards still dominate terminations. Initial 32-environment prime
+required no reset retries and reported no initial actuation violations.
+
+All **31 source hashes** matched after training, including four files under
+the actual `external_dependencies/unitree_rl_mjlab` source root. Lineage SHA:
+`c65e698a28b48cdd3414ceca5314bc16b69a516a40d1cbdf921a224252173548`.
+Diagnostic checkpoint SHA:
+`848f2bd69847198594278373c5e1f96557bbaf7b39b6947ef6088ed3393af3f8`.
+Decoder SHA:
+`eb3e0c06836d3be88c27ace59e428dbf9826ffb449f65d80b5b9317618a19796`.
+Decoder export passes three-case parity (max absolute error 1.550e-6);
+paired encoder remains `3806b2b6...`, with exact three-case token parity.
+
+- V2 synthetic reference start: **50/535 transitions**, 504 physics substeps,
+  then empty effort/position/slew intersection. Max joint RMSE 0.4233 rad;
+  max pelvis-position error 0.1537 m. Full-clip fidelity fails.
+- Historical measured start + 5 s standing: startup passes all existing
+  numeric guards; V2 SONIC fails at **16/535**, 164 physics substeps. Immediate
+  return is infeasible at height **0.7742 m**, tilt **0.0212 rad**. Full dance
+  and lifecycle both fail. This is not a successfully recovered robot.
+
+Evidence: `eval/model_50.diagnostic.{encoder,decoder}.json`,
+`eval/screen_reference/summary.json`, `eval/screen_measured/summary.json` within
+the run directory. V2 changes controller feedback and reference-reset history,
+so its numbers versus V1 are not a weights-only ablation. No model selected,
+no original-v14 parity claim, no physical readiness claim.
+
+Both saved terminal q/dq states admit some target within hard/effort bounds
+when the previous-target slew constraint is omitted. This narrows the observed
+failure to the intersection including controller target memory; it does not
+authorize a target discontinuity. One-step greedy effort projection is not a
+forward-reachability or recovery guarantee. Next work must examine early
+target/velocity feasibility and learn or filter actions before entering these
+states, with measured acquisition preserved. More blind updates, relaxed
+limits, or a physical retry are not justified by this candidate.
+
+Verification: **94 focused tests pass**, plus critical Ruff and diff checks.
+Coverage includes reset-order/partial-reset tests, latched invalid seeds,
+Torch/NumPy equivalence, old-bank rejection and an actual two-step MuJoCo test
+showing decoder history receives the executed target rather than zero requested
+actions. Source changes remain simulator-only; existing dirty hardware work is
+not staged with this continuation.
+
 ## 2026-09-05 continuation: projected native actuation and reset feasibility
 
 **Physical dance and live teleop remain NOT ready. No robot commands, mode

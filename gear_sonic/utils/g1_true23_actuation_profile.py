@@ -123,6 +123,13 @@ class NativeSupportActuationProfile(StageOneActuationProfile):
     effort guard. These choices require separate physical review and training.
     """
 
+    consistent_controller_state: bool = False
+
+    def __post_init__(self) -> None:
+        super().__post_init__()
+        if not isinstance(self.consistent_controller_state, bool):
+            raise ValueError("controller-state profile selection must be boolean")
+
     @classmethod
     def from_sim_config(cls, path: Path) -> NativeSupportActuationProfile:
         raw = path.read_bytes()
@@ -154,7 +161,7 @@ class NativeSupportActuationProfile(StageOneActuationProfile):
         )
 
     def contract(self) -> dict:
-        return {
+        result = {
             **super().contract(),
             "kind": "g1_true23_native_support_projected_training_v1",
             "source_kind": "native_simulation_config_not_physical_controller",
@@ -164,3 +171,13 @@ class NativeSupportActuationProfile(StageOneActuationProfile):
             "empty_intersection_response": "latch_training_termination_and_zero_effort_until_next_50Hz_reset",
             "gain_review_for_hardware_complete": False,
         }
+        if self.consistent_controller_state:
+            result.update(
+                kind="g1_true23_native_support_stateful_training_v2",
+                previous_action_semantics="last_applied_target_normalized_native23_not_requested_action",
+                reset_target="synthetic_minimum_effort_feasible_target_from_final_reset_q_dq",
+                reset_history="observation_manager_repeats_initial_synthetic_state_not_physical_history",
+                measured_acquisition_reseed_permitted=False,
+                reset_reachability_proven=False,
+            )
+        return result

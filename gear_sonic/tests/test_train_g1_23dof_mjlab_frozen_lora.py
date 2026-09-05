@@ -110,7 +110,7 @@ def test_polish_resume_keeps_adapter_provenance_but_restores_full_state(
     assert delegated[delegated.index("--resume") + 1] == str(materials[5])
 
 
-@pytest.mark.parametrize("name", ["stage_one_cpp", "native_support_projected"])
+@pytest.mark.parametrize("name", ["stage_one_cpp", "native_support_projected", "native_support_stateful_v2"])
 def test_optional_actuation_profile_is_consumed_and_bound(monkeypatch, tmp_path, name):
     captured = {}
     delegated = []
@@ -134,6 +134,10 @@ def test_optional_actuation_profile_is_consumed_and_bound(monkeypatch, tmp_path,
         if name == "stage_one_cpp"
         else launcher.NativeSupportActuationProfile.from_sim_config(launcher.REPO_ROOT / launcher.SIM_CONFIG)
     )
+    if name == "native_support_stateful_v2":
+        from dataclasses import replace
+
+        expected = replace(expected, consistent_controller_state=True)
     assert captured["actuation_profile"] == expected
     assert "--actuation-profile" not in delegated
 
@@ -142,3 +146,15 @@ def test_old_behavior_bank_cannot_claim_feasibility_under_new_actuation(tmp_path
     args = _arguments(_materials(tmp_path)) + ["--actuation-profile", "stage_one_cpp"]
     with pytest.raises(SystemExit, match="not qualified against this actuation profile"):
         launcher.main(args)
+
+
+def test_native_source_hash_alone_does_not_bind_controller_state(tmp_path):
+    materials = _materials(tmp_path)
+    bank = materials[3]
+    payload = json.loads(bank.read_text())
+    profile = launcher.NativeSupportActuationProfile.from_sim_config(launcher.REPO_ROOT / launcher.SIM_CONFIG)
+    payload["actuation_profile_source_sha256"] = profile.source_sha256
+    payload["actuation_profile_contract"] = profile.contract()
+    bank.write_text(json.dumps(payload))
+    with pytest.raises(SystemExit, match="exact native-support controller-state contract"):
+        launcher.main(_arguments(materials) + ["--actuation-profile", "native_support_stateful_v2"])
