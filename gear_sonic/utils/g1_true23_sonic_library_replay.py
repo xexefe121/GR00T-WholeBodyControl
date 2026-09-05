@@ -13,6 +13,8 @@ from typing import Any, Mapping
 import numpy as np
 import onnxruntime as ort
 
+from gear_sonic.utils.g1_true23_motion_fidelity import assess_motion_fidelity
+
 from gear_sonic.utils.g1_23dof_contract import (
     HARDWARE_23_ACTION_SCALE,
     MUJOCO_TO_ISAACLAB_DOF,
@@ -122,8 +124,10 @@ def validate_library_motion(motion: Mapping[str, np.ndarray]) -> int:
 
 
 def _quaternion_error_rad(left_wxyz: np.ndarray, right_wxyz: np.ndarray) -> float:
-    left = np.asarray(left_wxyz, dtype=np.float64)
-    right = np.asarray(right_wxyz, dtype=np.float64)
+    # Diagnostics must not normalize views into live MuJoCo qpos or the source
+    # reference in place. Tiny mutations can change later discrete FSQ tokens.
+    left = np.array(left_wxyz, dtype=np.float64, copy=True)
+    right = np.array(right_wxyz, dtype=np.float64, copy=True)
     left /= np.linalg.norm(left)
     right /= np.linalg.norm(right)
     return float(2.0 * math.acos(float(np.clip(abs(np.dot(left, right)), 0.0, 1.0))))
@@ -518,6 +522,13 @@ def run_library_motion_replay(
             "robot_commands_published": False,
         },
     }
+    # Keep the historical crawl-envelope flag for reproducible comparisons,
+    # but never equate it with faithful tracking or deployment readiness.
+    report["legacy_completion_passed"] = report["passed"]
+    report["motion_fidelity"] = assess_motion_fidelity(
+        metrics=report["metrics"], completed=completed, requested=steps,
+        available=available_steps, failure=failure,
+    )
     arrays = {
         "qpos": np.ascontiguousarray(qpos, dtype=np.float32),
         "completed_q9": np.arange(9, 9 + completed, dtype=np.int64),

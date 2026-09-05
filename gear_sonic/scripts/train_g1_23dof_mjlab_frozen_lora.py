@@ -28,6 +28,7 @@ from gear_sonic.trl.mjlab.frozen_platform_lora_runner import (
 from gear_sonic.utils.g1_true23_frozen_lora_gates import (
     frozen_lora_sampling_contract,
 )
+from gear_sonic.utils.g1_true23_actuation_profile import HEADER, StageOneActuationProfile
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SOURCE = REPO_ROOT / "low_latency" / "last.pt"
@@ -74,12 +75,7 @@ def _span_sidecar(values: Sequence[str]) -> Path:
         if token == "--motion-file":
             if index + 1 >= len(values):
                 raise SystemExit("--motion-file requires a value")
-            return (
-                Path(values[index + 1])
-                .expanduser()
-                .with_suffix(".spans.json")
-                .resolve()
-            )
+            return Path(values[index + 1]).expanduser().with_suffix(".spans.json").resolve()
     raise SystemExit("frozen LoRA training requires --motion-file and corpus --spans")
 
 
@@ -127,10 +123,7 @@ def _behavior_bank_indices(
         or not isinstance(raw, list)
         or not raw
         or any(
-            isinstance(index, bool)
-            or not isinstance(index, int)
-            or not 0 <= index < clip_count
-            for index in raw
+            isinstance(index, bool) or not isinstance(index, int) or not 0 <= index < clip_count for index in raw
         )
         or len(raw) != len(set(raw))
     ):
@@ -167,9 +160,7 @@ def _install_phase_sampler(
         # Preserve the stock failure-driven frame distribution, then enforce
         # clip-contained causal margins on the sampled frame.
         parent_cls._adaptive_sampling(command, env_ids)  # noqa: SLF001
-        sampled = command.time_steps[env_ids].clamp(
-            0, command.motion.time_step_total - 1
-        )
+        sampled = command.time_steps[env_ids].clamp(0, command.motion.time_step_total - 1)
         owners = command._frame_owner[sampled]  # noqa: SLF001
         lengths = command._clip_stops - command._clip_starts  # noqa: SLF001
         eligible = torch.where(lengths > 15)[0]
@@ -187,9 +178,7 @@ def _install_phase_sampler(
             ]
         lo = command._clip_starts[owners] + 12  # noqa: SLF001
         hi = command._clip_stops[owners] - 2  # noqa: SLF001
-        command.time_steps[env_ids] = torch.minimum(
-            torch.maximum(sampled, lo), hi - 1
-        )
+        command.time_steps[env_ids] = torch.minimum(torch.maximum(sampled, lo), hi - 1)
         command._env_clip_stop[env_ids] = hi  # noqa: SLF001
 
     def polish_uniform(command: Any, env_ids: torch.Tensor) -> None:
@@ -201,9 +190,7 @@ def _install_phase_sampler(
         if len(selected_envs) == 0:
             return
         bank = torch.tensor(bank_indices, dtype=torch.long, device=command.device)
-        selected_clips = bank[
-            torch.randint(bank.numel(), (len(selected_envs),), device=command.device)
-        ]
+        selected_clips = bank[torch.randint(bank.numel(), (len(selected_envs),), device=command.device)]
         _sample_within_clip_indices(command, selected_envs, selected_clips)
 
     command_cls._adaptive_sampling = adaptive_sampling
@@ -214,9 +201,7 @@ def _install_phase_sampler(
 
     def phase_builder(*args: Any, **kwargs: Any) -> Any:
         cfg = original_builder(*args, **kwargs)
-        cfg.commands["motion"].sampling_mode = (
-            "adaptive" if phase == "breadth" else "uniform"
-        )
+        cfg.commands["motion"].sampling_mode = "adaptive" if phase == "breadth" else "uniform"
         return cfg
 
     causal_task.make_causal_history_recovery_env_cfg = phase_builder
@@ -233,9 +218,20 @@ def _install_frozen_lora_hooks(
     bank_indices: tuple[int, ...],
     adapter_initialization: Path | None,
     adapter_initialization_mode: bool,
+    actuation_profile: StageOneActuationProfile | None = None,
 ) -> None:
     v14._install_isolated_v14_hooks(span_sidecar)  # noqa: SLF001
     _install_phase_sampler(phase=phase, bank_indices=bank_indices)
+    if actuation_profile is not None:
+        from gear_sonic.envs.mjlab import sonic_true23_causal_history as causal_task
+        from gear_sonic.envs.mjlab.sonic_true23_stage_one_actuation import apply_stage_one_actuation_profile
+
+        original_env_builder = causal_task.make_causal_history_recovery_env_cfg
+
+        def profiled_env_builder(**kwargs: Any) -> Any:
+            return apply_stage_one_actuation_profile(original_env_builder(**kwargs), actuation_profile)
+
+        causal_task.make_causal_history_recovery_env_cfg = profiled_env_builder
 
     if not adapter_initialization_mode:
         launcher_runner = FrozenPlatformLoraRunner
@@ -286,11 +282,19 @@ def _install_frozen_lora_hooks(
         if path not in source_files:
             source_files.append(path)
     base.CAUSAL_SOURCE_FILES = tuple(source_files)
+    if actuation_profile is not None:
+        base.CAUSAL_SOURCE_FILES += (
+            REPO_ROOT / HEADER,
+            REPO_ROOT / "gear_sonic/utils/g1_true23_actuation_profile.py",
+            REPO_ROOT / "gear_sonic/envs/mjlab/sonic_true23_stage_one_actuation.py",
+        )
 
     original_resolved = base._resolved_training_config
 
     def resolved_with_frozen_lora(*args: Any, **kwargs: Any) -> dict[str, Any]:
         resolved = original_resolved(*args, **kwargs)
+        if actuation_profile is not None:
+            resolved["stage_one_actuation"] = actuation_profile.contract()
         resolved["frozen_platform_lora"] = {
             "schema_version": 1,
             "source_checkpoint": str(source_checkpoint),
@@ -336,6 +340,8 @@ def _install_frozen_lora_hooks(
 
     def preflight_with_frozen_lora(args: Any) -> dict[str, Any]:
         report = original_preflight(args)
+        if actuation_profile is not None:
+            report["stage_one_actuation"] = actuation_profile.contract()
         problems = list(report["problems"])
         contract: dict[str, Any] | None = None
         if not source_checkpoint.is_file():
@@ -371,9 +377,7 @@ def _install_frozen_lora_hooks(
             ),
             "behavior_bank_clip_indices": list(bank_indices),
             "adapter_initialization": (
-                str(adapter_initialization)
-                if adapter_initialization is not None
-                else None
+                str(adapter_initialization) if adapter_initialization is not None else None
             ),
             "sampling": frozen_lora_sampling_contract(),
             "simulator_only": True,
@@ -389,17 +393,22 @@ def main(argv: Sequence[str] | None = None) -> int:
     import sys
 
     values = list(sys.argv[1:] if argv is None else argv)
-    source = Path(
-        _pop_option(values, "--source-checkpoint", default=str(DEFAULT_SOURCE))
-        or DEFAULT_SOURCE
-    ).expanduser().resolve()
-    rank = int(_pop_option(values, "--lora-rank", default=str(DEFAULT_RANK)) or 0)
-    alpha = float(
-        _pop_option(values, "--lora-alpha", default=str(DEFAULT_ALPHA)) or 0.0
+    source = (
+        Path(_pop_option(values, "--source-checkpoint", default=str(DEFAULT_SOURCE)) or DEFAULT_SOURCE)
+        .expanduser()
+        .resolve()
     )
+    rank = int(_pop_option(values, "--lora-rank", default=str(DEFAULT_RANK)) or 0)
+    alpha = float(_pop_option(values, "--lora-alpha", default=str(DEFAULT_ALPHA)) or 0.0)
     phase = _pop_option(values, "--phase", default="breadth")
     bank_text = _pop_option(values, "--behavior-bank")
     adapter_text = _pop_option(values, "--adapter-init")
+    actuation_name = _pop_option(values, "--actuation-profile")
+    if actuation_name not in {None, "stage_one_cpp"}:
+        raise SystemExit("--actuation-profile must be stage_one_cpp (simulator only)")
+    actuation_profile = (
+        StageOneActuationProfile.from_cpp(REPO_ROOT / HEADER) if actuation_name is not None else None
+    )
     resume_supplied = "--resume" in values
     if rank <= 0 or alpha <= 0.0:
         raise SystemExit("LoRA rank and alpha must be positive")
@@ -413,26 +422,20 @@ def main(argv: Sequence[str] | None = None) -> int:
         raise SystemExit("--adapter-init is reserved for polish phase")
     span_sidecar = _span_sidecar(values)
     span_payload = _validate_span_sidecar(span_sidecar)
-    behavior_bank = (
-        Path(bank_text).expanduser().resolve()
-        if bank_text is not None
-        else None
-    )
+    behavior_bank = Path(bank_text).expanduser().resolve() if bank_text is not None else None
     bank_indices = _behavior_bank_indices(
         behavior_bank,
         span_sidecar=span_sidecar,
         clip_count=span_payload["clip_count"],
     )
-    adapter_initialization = (
-        Path(adapter_text).expanduser().resolve()
-        if adapter_text is not None
-        else None
-    )
+    if actuation_profile is not None and behavior_bank is not None:
+        bank_profile = json.loads(behavior_bank.read_text(encoding="utf-8")).get("actuation_profile_source_sha256")
+        if bank_profile != actuation_profile.source_sha256:
+            raise SystemExit("behavior bank was not qualified against this actuation profile")
+    adapter_initialization = Path(adapter_text).expanduser().resolve() if adapter_text is not None else None
     if adapter_initialization is not None:
         if not adapter_initialization.is_file():
-            raise SystemExit(
-                f"adapter initialization is unavailable: {adapter_initialization}"
-            )
+            raise SystemExit(f"adapter initialization is unavailable: {adapter_initialization}")
         if not resume_supplied:
             values.extend(("--resume", str(adapter_initialization)))
     if "--learning-rate" not in values:
@@ -446,9 +449,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         behavior_bank=behavior_bank,
         bank_indices=bank_indices,
         adapter_initialization=adapter_initialization,
-        adapter_initialization_mode=(
-            adapter_initialization is not None and not resume_supplied
-        ),
+        adapter_initialization_mode=(adapter_initialization is not None and not resume_supplied),
+        actuation_profile=actuation_profile,
     )
     # v14 consumes --spans itself; the shared parser does not know this option.
     if "--spans" in values:

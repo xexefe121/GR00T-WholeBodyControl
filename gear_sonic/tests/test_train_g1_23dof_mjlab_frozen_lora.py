@@ -2,6 +2,8 @@ import hashlib
 import json
 from pathlib import Path
 
+import pytest
+
 from gear_sonic.scripts import train_g1_23dof_mjlab_frozen_lora as launcher
 
 
@@ -106,3 +108,33 @@ def test_polish_resume_keeps_adapter_provenance_but_restores_full_state(
     assert captured["adapter_initialization_mode"] is False
     assert captured["adapter_initialization"] == materials[4].resolve()
     assert delegated[delegated.index("--resume") + 1] == str(materials[5])
+
+
+def test_optional_actuation_profile_is_consumed_and_bound(monkeypatch, tmp_path):
+    captured = {}
+    delegated = []
+    monkeypatch.setattr(launcher, "_install_frozen_lora_hooks", lambda **kwargs: captured.update(kwargs))
+    monkeypatch.setattr(launcher.base, "main", lambda values: delegated.extend(values) or 0)
+    motion, metadata, spans, _, _, _ = _materials(tmp_path)
+    args = [
+        "smoke",
+        "--motion-file",
+        str(motion),
+        "--motion-metadata",
+        str(metadata),
+        "--spans",
+        str(spans),
+        "--actuation-profile",
+        "stage_one_cpp",
+    ]
+    assert launcher.main(args) == 0
+    assert captured["actuation_profile"] == launcher.StageOneActuationProfile.from_cpp(
+        launcher.REPO_ROOT / launcher.HEADER
+    )
+    assert "--actuation-profile" not in delegated
+
+
+def test_old_behavior_bank_cannot_claim_feasibility_under_new_actuation(tmp_path):
+    args = _arguments(_materials(tmp_path)) + ["--actuation-profile", "stage_one_cpp"]
+    with pytest.raises(SystemExit, match="not qualified against this actuation profile"):
+        launcher.main(args)

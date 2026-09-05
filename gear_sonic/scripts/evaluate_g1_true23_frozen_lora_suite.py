@@ -209,6 +209,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             "sha256": sha256_file(suite_path),
         },
         "checkpoint_update_count": checkpoint_update_count,
+        "legacy_success_semantics": "completion_with_loose_crawl_gates_not_motion_fidelity",
+        "motion_fidelity_passed_count": sum(
+            report["motion_fidelity"]["passed"] is True for report, _ in reports
+        ),
         "in_distribution": _category_metrics(reports, "in_distribution"),
         "tail": _category_metrics(reports, "tail"),
         "out_of_distribution": _category_metrics(
@@ -225,6 +229,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 "label": case["label"],
                 "categories": list(case["categories"]),
                 "passed": report["passed"],
+                "motion_fidelity": report["motion_fidelity"],
                 "completed_transitions": report["completed_transitions"],
                 "requested_transitions": report["requested_transitions"],
                 "failure_type": (

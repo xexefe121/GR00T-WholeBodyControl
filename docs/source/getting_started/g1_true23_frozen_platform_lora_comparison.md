@@ -1,10 +1,39 @@
 # Frozen-platform LoRA versus the original true23 v14 trainer
 
+> **2026-09-05 correction:** The tables below measure historical completion
+> under loose crawl-envelope gates, not dance fidelity or physical readiness.
+> The selected 535/535 happy replay has 5.0104 m maximum pelvis error and
+> 0.7170 rad maximum joint RMSE. Its controller gains/slew differ materially
+> from the physical runtime; the deployed profile fails weight-bearing
+> simulation. A separate full-clip `motion_fidelity` screen now accompanies
+> new reports. See [current progress and evidence](../../../PROGRESS.md).
+> No physical full-body dance/live-teleop readiness is established.
+
 This comparison was run on 2026-08-18 in the isolated
 `GR00T-WholeBodyControl-sonic-transfer-23dof` worktree. It compares the new
 frozen-platform method with the original 23-DoF causal v14 implementation from
 `GR00T-WholeBodyControl`. All results are simulator diagnostics. No DDS,
 network, deployment, promotion, or robot command path was opened.
+
+## Deployed-mechanics follow-up (2026-09-05)
+
+The trainer now accepts opt-in `--actuation-profile stage_one_cpp`. It binds
+the checked-out controller header and trains through explicit 500 Hz PD,
+50 Hz inference, deployed gains, default-relative scaling and target slew.
+The physical controller is not edited or authorized by this option. Legacy
+training defaults remain unchanged. The older committed controller and the
+uncommitted experimental header have different profiles; consult the saved
+`stage_one_actuation` contract, not the option name alone.
+
+A bounded 50-update run (16 environments, eight-clip SONIC/PICO corpus)
+completed, but both update-25 and update-50 exports fail happy dance at 46/535
+reference-start and 49/535 measured-start transitions with the experimental
+0.60 fraction / 5 rad/s profile. Neither candidate is selected. This is a
+diagnostic attempt, not a matched-budget retraining comparison against v14.
+
+Measured-posture hold-only simulation also collapses with return-hold knee
+kp=4. Training improvement alone cannot be assumed to repair acquisition or
+handoff. See [current evidence and limitations](../../../PROGRESS.md).
 
 ## What changed
 

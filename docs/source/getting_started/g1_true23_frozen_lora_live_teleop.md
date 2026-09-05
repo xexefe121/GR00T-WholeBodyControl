@@ -1,5 +1,12 @@
 # Selected true23 frozen-LoRA live PICO test
 
+> **2026-09-05 status:** Physical full-body teleop is not ready. Current
+> stage-one gains/fraction/slew fail dance simulation; restoration alone is
+> insufficient. Fresh PICO health reports zero trackers and no calibration.
+> The original-checkout XRT binding path below exists and matches its pin.
+> Read [updated progress](../../../PROGRESS.md) before any hardware work.
+> Commands below target simulator testing, not a qualified physical robot.
+
 This runbook starts the selected 23-DoF policy in **CPU MuJoCo only**. The
 consumer is restricted to localhost, opens no DDS or Unitree channel, and
 publishes no robot commands. A timeout, stale packet, 50 Hz gap, malformed
