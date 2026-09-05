@@ -1,5 +1,130 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-06 continuation: full-body stance retargeting, still not live-ready
+
+**Physical dance, standing return and live full-body teleop remain NOT ready.**
+No robot connection/commands, mode changes, physical-controller or pin edits,
+limit/interlock changes, training or policy promotion occurred in this pass.
+Existing uncommitted hardware work remains untouched in the separate worktree.
+
+### New offline implementation and verification
+
+`gear_sonic/scripts/retarget_g1_true23_stance.py` now builds explicitly labeled
+**candidate references**, not accepted teachers or executable robot bundles.
+It optimizes all 23 joint coordinates plus floating-root XYZ, preserving root
+orientation and all original 50 Hz samples. The eight-clip family file keeps
+standing, walking, hand crawl, elbow crawl and original SONIC happy dance.
+Contact schedules are hypotheses, not measured contacts; no upper-body fallback
+or deletion of a difficult clip/frame is used.
+
+The solver uses actual mesh and training-capsule geometry, flat-foot stance
+targets, retained swing-foot/hand/elbow/torso objectives, COM support polygons,
+and soft whole-body floor-distance penalties. Standing COM is centered over
+the ankle origins, not merely nudged inside the toe edge. Analytic body,
+orientation, COM and penetrating-floor Jacobians pass finite-difference tests.
+The supplied models remain byte-identical at the compiled-model level.
+
+Whole-path projection constrains joint corrections to 0.6 rad and root XYZ
+corrections to 0.08 m per axis. Serialized joint paths are bounded by 5 rad/s
+and 80 rad/s²; root **corrections** by 0.75 m/s and 6 m/s². These are offline
+shaping bounds, not certified hardware ratings. Root correction bounds do not
+bound the original root motion. Initial projection velocity is explicitly
+derived from the candidate, not proof of acquisition from rest. Solver success
+and the soft floor objective do not establish nonlinear contact constraints
+after temporal projection; independent geometry/force audits remain decisive.
+
+Final artifacts are in
+`artifacts/g1_true23_frozen_lora/stance_retarget_20260906_v2/`: all eight NPZs,
+per-clip reports, `motions.json`, `report.json`, `support_static/report.json`,
+`support_dynamics/report.json`, `eval_reference/`, `eval_measured/`,
+`eval_pico_upright_anchor/`, and `eval_pico_standing_anchor/`.
+All **6,035 reference frames** remain; **5,955 complete q9/q10 history packets**
+were rebuilt from the changed positions and schema/proof-validated offline.
+Old packet hashes cannot be reused. No packets were sent or promoted. The
+PICO anchors still contain the original short recordings plus terminal holds;
+these are not newly recorded live teleop sessions.
+
+Input/source/output hashes and both-model full-corpus audit counts were
+independently rechecked after completion. Final report hashes:
+
+- Retarget: `b3f77fa3b01dd5cb4763e17c3535b63f78f030d4ca97e5a66933d38f68e64d41`
+- Static support: `6177185b9e76d028b3479901f65255e72a912aef5829207feae182f6d6588fa8`
+- Reference dynamics: `c9dd9bcb9d9a8d4d0a5421704bdcd3ed7bdeef841af0b89d2bf5695baf9a61a8`
+
+The development `_v1` variant lacked swing-foot/floor objectives and standing
+COM centering; it is a rejected experiment, not the final implementation.
+It placed standing COM near the toe edge and required approximately 16 Nm
+ankle torque against the unchanged 8.3125 Nm modeled screen. A deterministic
+saved-upright-like regression fixture distinguishes that failure from the
+centered solution without changing effort bounds.
+
+### Results: standing-reference improvement, no full-motion qualification
+
+Upright and standing anchors now have **zero floor-overlap frames in both
+models**. Each has a conditional in-limit force-balance solution on all
+**1,024/1,024 frames**, in both the stationary and pose-derived inverse-dynamics
+screens. Previously both had zero passing support frames after grounding alone.
+This is a reference-level improvement, not proof of closed-loop standing,
+contact complementarity, actual motor ratings, or physical teleop readiness.
+The support audit retains its documented optimistic contact/friction assumptions.
+
+The other six clips fail. Crouch still penetrates on six frames and lacks a
+support wrench on most frames. Walking and crawling retain penetration and
+support failures. Happy dance still has mesh/capsule overlap on **382/391 of
+546 frames**, worst **37.59/41.03 mm**, with only **65/546** conditional in-limit
+inverse-dynamics frames in either model. It changes a body position by up to
+**0.5007 m** and reaches the correction bounds; this is not original-motion
+parity. The bounded optimizer reports nonconvergence on 244 dance frames;
+those diagnostics are retained rather than relabeled success. No candidate
+corpus is accepted for production training.
+
+### Unchanged correct-pair controller evaluation
+
+The actual paired model-50 encoder `3806b2b6...` and decoder `eb3e0c06...`
+were evaluated on all requested happy-dance transitions with the same V2
+stateful native controller, configured-sim gains, full action fraction,
+modeled 35 Nm ankle, unchanged quarter-effort/95% projection bounds,
+5 rad/s target slew, and 500 Hz PD / 50 Hz policy. No predictive filter,
+retraining or mismatched encoder was substituted.
+
+| Reference variant | Reference-start transitions | Recorded posture + 5 s standing | Return qualified |
+|---|---:|---:|---|
+| Previous floor-conditioned reference | 50/535 | 16/535 | No |
+| New whole-body stance candidate | 54/535 | 76/535 | No |
+
+The changed reference and its fidelity defects prevent treating these counts
+as physical progress or parity. New reference-start failure is right ankle
+pitch at 549 active physics steps: required instantaneous target slew
+11.5849 rad/s versus 5. Recorded-posture failure is left ankle pitch at 763
+active physics steps: 5.7351 versus 5. Maximum joint tracking RMSE remains
+0.4318/0.4277 rad, above the provisional 0.35 rad fidelity threshold.
+Measured-start acquisition still passes its 250-transition/2,500-step standing
+screen; the requested 5-second return completes **zero physics steps** because
+the ankle target intersection is already empty. This uses historical posture
+and a pinned 29-to-23 standing compatibility actor, not actual Unitree FSM
+ownership/handoff or fresh robot telemetry.
+
+The unchanged paired SONIC controller was also evaluated on the two improved
+PICO references. Upright completes **50/1,013 transitions, 509 physics steps**;
+standing completes **44/1,013, 444 physics steps**. Both fail left ankle target
+feasibility (9.0338/9.0041 rad/s instantaneous need versus 5), with maximum
+knee-flexion deltas 0.9932/0.8174 rad. Therefore even the newly supportable
+standing references do not establish closed-loop teleop readiness. Reference
+repair and policy/controller qualification are separate requirements.
+
+Verification: **183 focused tests plus nine existing PICO-builder tests pass**,
+including 16 new stance-retarget regressions; lint passes. Existing PICO tests
+use the original sibling's unchanged pinned LF assets with current worktree
+code. No tests bypass physical authorization or edit the model pin.
+
+The physical bit-30 motors-off/damping cause is still unknown. This pass does
+not establish recovery. Next work must enforce realizable contact/force and
+motion-fidelity constraints jointly with temporal limits, then qualify native
+closed-loop acquisition, full dance, standing return and live PICO input.
+Missing axes prevent promising exact reproduction of every 29-DoF motion.
+The comparison document distinguishes these reference experiments from a
+matched-budget retraining comparison against original v14, which is still absent.
+
 ## 2026-09-06 continuation: reference force balance and PICO grounding
 
 **Physical dance/live full-body teleop remain NOT ready. No robot commands,

@@ -78,6 +78,51 @@ joint-level failure evidence and remaining hardware/headset boundaries.
 
 ## What changed
 
+### Whole-body stance retargeting (2026-09-06)
+
+New offline retargeting optimizes all 23 joints and root XYZ, rather than only
+lifting the floating root. It preserves all eight source clips, all 6,035
+samples and original 50 Hz timing. Explicit contact-family hypotheses, actual
+mesh/capsule geometry, COM/foot/hand objectives and whole-path derivative
+projection are recorded with per-frame solver and independent audit evidence.
+The 5,955 complete causal history packets are rebuilt from new positions;
+old proof hashes are not reusable. No deployment bundle or training corpus
+was promoted, and no hardware controller, limit or interlock was changed.
+
+Centering standing COM over ankle origins fixes a specific reference defect:
+upright and standing anchors now clear both model floors and have conditional
+in-limit support solutions on all 1,024 frames, in both static and pose-derived
+inverse-dynamics screens. Grounding alone previously gave zero passing frames.
+These screens retain optimistic near-contact/friction assumptions, and the
+short PICO recordings retain their original terminal holds. This is not new
+live input, closed-loop standing proof, or physical qualification.
+
+Other clips remain rejected. Happy dance still penetrates the mesh/capsule
+floor on 382/391 of 546 frames, with only 65 conditional in-limit reference
+inverse-dynamics frames in either model. Maximum body-position change is
+0.5007 m; 244 frame optimizations do not converge within the declared budget.
+The soft collision objective and derivative projection are not a solved
+contact-constrained trajectory optimization, nor original SONIC parity.
+
+Using the unchanged, correctly paired model-50 and constrained V2 controller,
+the new reference completes 54/535 reference-start transitions and 76/535 from
+the historical recorded posture after 5 s standing. Previous floor-conditioned
+counts were 50/535 and 16/535. Both new cases fail ankle target feasibility;
+the requested standing return completes zero physics steps. Changed references,
+remaining penetration and tracking errors prevent treating longer survival as
+fidelity or readiness. No new matched-budget v14 training comparison exists.
+
+The same paired controller also fails the improved upright/standing PICO
+references at 50/1,013 and 44/1,013 transitions, respectively, with left ankle
+target infeasibility and large knee-flexion deltas. Passing the reference
+force-balance screen is not sufficient for learned closed-loop standing.
+
+Reproducible artifacts and exact hashes are documented in
+[PROGRESS.md](../../../PROGRESS.md), under `stance_retarget_20260906_v2`.
+Live full-body teleop and exact reproduction of arbitrary 29-DoF motion on
+23 physical axes remain unqualified. All 23 joints remain controlled; this is
+not a substitution of an upper-body-only implementation.
+
 ### Reference support and PICO grounding (2026-09-06)
 
 New offline support auditing keeps all eight clips and 6,035 frames. It checks
