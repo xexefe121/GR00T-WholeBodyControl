@@ -1,5 +1,159 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-06 continuation: exploration and reset-contact diagnosis
+
+**Physical full-body dance and live teleop remain NOT ready. No robot commands,
+mode changes, physical-controller edits, pin changes or model promotions.**
+The previous offline feasibility work is committed/pushed as
+`71eb438031007a0786da3ead6cf7277935fc0d75`. This continuation investigates why
+constrained training episodes end after only a few control steps; it does not
+claim to explain the physical motor-off latch or repair normal-mode handoff.
+
+New `gear_sonic/scripts/audit_g1_true23_exploration_rollout.py` runs the actual
+MJLab training environment and frozen model50 without a runner, optimizer or
+weight updates. It preserves the eight-clip SONIC/PICO corpus, all 23 controlled
+joints, V2 target feedback, the 2 ms PD / 20 ms policy periods, and existing
+hard-margin, effort and 5 rad/s target-slew limits. It checks frozen weights,
+input/source hashes and the union of actual termination masks against wrapper
+done signals. Unfinished episodes stay censored, not successful full clips.
+
+### Exploration noise is not the sole cause
+
+The original v14 trainer fixes Gaussian action std at **0.10**. Frozen LoRA
+inherits the released per-joint std (native23 mean **0.3845523**). Three
+no-learning probes scaled only action exploration, using seed 20260906,
+32 environments and 128 control steps each (4,096 sampled transitions/case):
+
+| Action-noise scale | Completed episodes | Mean / median completed steps | One-step episodes | Actuation-guard terminations |
+|---|---:|---:|---:|---:|
+| 1.0 | 935 | 4.124 / 3 | 142 | 921 |
+| 0.25 | 922 | 4.106 / 3 | 127 | 911 |
+| 0.0 | 847 | 4.433 / 3 | 126 | 834 |
+
+All three share input/source hashes and the logged initial joint/controller/
+observation/phase hash `fef5718157ee0138005605e682d92eaee711072f802ba1330838770ed7ef5096`.
+The first batch's 32 episodes all end within the observation window; their
+mean lengths are 6.3125, 4.625 and 4.1875 steps respectively. Later adaptive
+reset sequences diverge and are not paired. Observation corruption remains
+enabled for tokenizer and policy even at zero **action** exploration. This is
+not a noise-free sensor test, a multi-seed quality estimate, a v14-weight
+comparison, or evidence supporting a production std change. No retraining
+occurred and the rejected model50/paired encoder are unchanged.
+
+### First substep failures and floor overlap
+
+Optional failure capture independently checks Torch-flagged states using the
+float64 NumPy target intersection. All first 128 captured failures in the
+32-step `mean_failure_trace` probe confirm empty intersections. Of 130
+offending-joint entries, 104 are ankle pitch. None of these intervals is empty
+when previous-target slew is removed; this does not authorize a target jump.
+
+Two initial crouch states have feasible controller seeds and zero ankle
+velocity, yet fail at physics substeps 4 and 7. Their left ankle velocities
+reach -4.318 and -3.574 rad/s; instantaneous required target slew is 16.339 and
+8.949 rad/s against the unchanged 5 rad/s limit. A separate CPU positional
+forward pass on the actual compiled model finds **15/32** initial poses with
+floor overlap, worst **0.106392 m**. Those two crouch states overlap the floor
+by **0.051014 m** and **0.029234 m**. Another first-control-step failure starts
+with no detected floor contact, so reset penetration cannot explain every
+failure by itself.
+
+The contact probe uses independent MuJoCo data and performs no integration;
+negative distance is geometric overlap, not proof of a particular impulse.
+See [MuJoCo's pipeline API](https://mujoco.readthedocs.io/en/stable/APIreference/APIfunctions.html#mj-fwdposition)
+and [contact model](https://mujoco.readthedocs.io/en/stable/computation/index.html#contact).
+Random resets perturb root position/orientation, root linear/angular velocity
+and joints (joint position ±0.1 rad); disabling event randomizers did not
+disable these motion-command perturbations.
+
+Repeated zero-action-noise runs are not bitwise identical beyond initialization:
+the first observed q difference is 8.05e-6 rad at control step 1, with done
+sequences first diverging at step 17 in the checked 32-step prefix. The source
+of this small numerical variation has not been isolated. The observer returns
+the original PD result unchanged, but trajectory identity is not claimed.
+
+Evidence is under
+`artifacts/g1_true23_frozen_lora/exploration_audit_20260906_v1/`, with
+`{full,quarter,mean}/summary.json`, `mean_failure_trace/summary.json` and
+`mean_reset_contacts/summary.json` plus their hash-bound rollout arrays.
+Two attempted parallel source-load processes failed with host-RAM OSError 12
+before producing rollout evidence; serial reruns succeeded. This was not a
+robot or model failure. Runs loading the large frozen source should remain
+serial on this 8 GB WSL host.
+
+### Reset interventions isolate a contributor, not a working policy
+
+The audit has two explicit, simulator-only switches:
+
+- `--reset-perturbation-scale 0` removes command-reset perturbations while
+  retaining source poses/velocities, soft-joint clipping and observation noise.
+- `--lift-reset-floor-overlap` minimally raises only penetrated reset states,
+  with 10 micrometres clearance and a 0.2 m rejection bound. It supports one
+  floating articulation and one horizontal world-welded plane; it rejects
+  movable/tilted floors and unrelated geometry. Airborne states are not
+  lowered. Every applied reset asserts unchanged velocities and exact expected
+  qpos. No physics settling, reference modification or joint removal occurs.
+
+Four same-source/input-hash runs use zero action exploration, the same
+initial sampled phases, seed 20260906 and 4,096 transitions each:
+
+| Reset case | Completed episodes | Mean / median completed steps | One-step episodes | Guard terminations |
+|---|---:|---:|---:|---:|
+| Original randomized resets (`reset_baseline128_v2`) | 837 | 4.612 / 3 | 128 | 822 |
+| Randomized resets + floor lift (`reset_lift128`) | 1000 | 4.041 / 3 | 47 | 998 |
+| Unperturbed reference resets (`reset_nominal128`) | 828 | 4.564 / 3 | 18 | 821 |
+| Unperturbed resets + floor lift (`reset_nominal_lift128`) | 898 | 4.355 / 3 | 22 | 885 |
+
+The floor-lift case corrects 525 of 1,032 reset rows (maximum lift 0.156665 m),
+leaving zero detected floor penetration at those reset checks. Initial joint
+q/dq, controller targets and full generalized velocities match baseline
+exactly; only root z differs in qpos. First-policy-interval failures drop from
+4/32 to 1/32. The two crouch failures move from physics substeps 4/7 to 22/29,
+but still fail. The first batch's mean episode length decreases from 4.1875 to
+3.78125 steps. Overall median remains three. This supports a reset-contact
+contribution, not a quality gain, complete causal explanation or useful policy.
+
+Removing reset perturbations also fails to eliminate overlap: **17/32** nominal
+states intersect the compiled floor, worst **0.101913 m**. The native23
+reference/contact geometry therefore needs review as well as randomization;
+neither perturbation removal nor root lifting is promoted into training.
+Combining both corrections also fails: it lifts 424/930 reset rows (maximum
+0.103775 m), leaving zero detected reset overlaps, but still has 885 guard
+terminations and three-step median completed episodes. Its first batch's
+mean is 5.09375 steps, median three, with one first-interval failure. This
+limited mean increase is not full-motion tracking or demonstrated improvement.
+After first termination, comparisons are unpaired adaptive rollouts. Earlier
+`reset_baseline128` (854 guards) is retained but predates the welded-floor
+helper/assertions; the table uses the matched-source `reset_baseline128_v2`.
+Repeated baseline totals vary and are not a statistical improvement measure.
+
+Artifact identity clarification: these no-learning runs load the adapter/
+optimizer checkpoint `breadth50/checkpoints/frozen_lora_model_50.pt`, file SHA
+`9e916b9cdfcfa60890bdd1893aa3faabdaf9dc354fd600190aba533bbe494a83`, with lineage
+`c65e698a28b48cdd3414ceca5314bc16b69a516a40d1cbdf921a224252173548`.
+The older `848f2bd6...` SHA identifies **`eval/model_50.diagnostic.pt`**, the
+materialized policy file used by previous ONNX exports, not this resumable
+checkpoint. No artifact changed; the earlier shorthand label is clarified.
+
+Verification: **129 focused tests pass**, including 19 new audit tests and the
+110 existing feasibility/controller/trainer tests. Formatting, import/critical
+Ruff and diff checks pass. All ten saved rollout reports were independently
+recounted from their NPZ termination arrays and checked against recorded file
+hashes, zero-optimizer-step flags and false deployment/hardware flags. The four
+final reset cases have identical source/input hash sets; initial physics hashes
+explicitly include root qpos/qvel and differ as expected across interventions.
+These tests validate software/evidence behavior, not robot readiness.
+
+Next: review native23 reference collision/contact geometry and generate
+contact/COM-consistent, multi-step feasible training references before another
+bounded learning run. Any candidate still needs full-clip fidelity and actual
+measured-start standing/dance/return evaluation under a hardware-reviewed
+profile. The motor-off latch, deployed encoder pairing, normal-mode handoff
+and calibrated PICO tracking remain separate unresolved physical prerequisites.
+Neither more blind updates nor a physical retry is justified by these probes.
+All six missing axes remain absent; arbitrary 29-DoF motions require individual
+retargeting and qualification, not a guarantee of exact 29-DoF reproduction.
+
 ## 2026-09-06 continuation: predictive feasibility and full-path retiming
 
 **Physical full-body dance and live teleop remain NOT ready. No robot commands,
@@ -48,7 +202,7 @@ dependency pin was changed.
 All runs use the previously rejected V2 model50, with its actual paired
 encoder; **no additional training occurred** in this continuation:
 
-- Checkpoint SHA: `848f2bd69847198594278373c5e1f96557bbaf7b39b6947ef6088ed3393af3f8`.
+- Materialized diagnostic policy file SHA: `848f2bd69847198594278373c5e1f96557bbaf7b39b6947ef6088ed3393af3f8`.
 - Decoder SHA: `eb3e0c06836d3be88c27ace59e428dbf9826ffb449f65d80b5b9317618a19796`.
 - Encoder SHA: `3806b2b63ebadf4d6cbf9f79b7072f2bf27ab8eb8bc6a9b3042f97739cc5428a`.
 

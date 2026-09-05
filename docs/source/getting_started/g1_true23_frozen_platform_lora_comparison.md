@@ -78,6 +78,29 @@ joint-level failure evidence and remaining hardware/headset boundaries.
 
 ## What changed
 
+### Exploration/reset audit (2026-09-06)
+
+The std difference below was tested without changing trained weights: model50
+with inherited action-noise scale 1.0, 0.25 and 0.0 completed episodes with
+median length **3 control steps in every case**. The respective guard counts
+were 921, 911 and 834 over 4,096 sampled transitions each. Sensor/observation
+corruption remained enabled; later adaptive resets were unpaired. These are
+training-distribution probes, not full-clip fidelity or a v14-weight rerun.
+Reducing exploration alone is not a demonstrated fix and std remains unchanged.
+
+An independent compiled-model contact audit also found floor overlap in 15/32
+random initial states, including 5.1 cm and 2.9 cm overlap in two crouch states
+that fail within their first policy interval. Geometric overlap alone does
+not prove the causal impulse or explain every guard failure. Lifting only
+penetrated synthetic reset roots removes the detected overlap and delays two
+early crouch failures, but median episode length remains three control steps.
+Unperturbed references still overlap the floor in 17/32 sampled states.
+Combining perturbation removal and floor lifting still yields three-step median
+episodes and 885 guard terminations over 4,096 sampled transitions. None of
+these interventions changes production training, guards or model selection. See
+[current progress](../../../PROGRESS.md) for the reset-intervention experiment,
+exact hashes, numerical repeatability caveat and continuing hardware boundary.
+
 | Boundary | Original true23 v14 | Frozen-platform LoRA |
 |---|---|---|
 | Actor initialization | Hash-pinned true23 recovery policy | Hash-pinned released low-latency 29-DoF SONIC platform plus analytic 29→23 codec |
