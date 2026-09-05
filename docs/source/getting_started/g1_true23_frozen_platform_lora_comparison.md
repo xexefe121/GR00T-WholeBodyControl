@@ -78,6 +78,60 @@ joint-level failure evidence and remaining hardware/headset boundaries.
 
 ## What changed
 
+### Coupled whole-path contact refinement, no qualified candidate (2026-09-06)
+
+New offline `refine_g1_true23_stance_contacts.py` jointly enforces contact
+geometry and whole-path position/velocity/acceleration bounds. It preserves all
+23 joint references, original root orientation, original 50 Hz sample timing,
+all clips and the previous inferred support schedule. It does not freeze the
+legs, replace motion with upper-body-only control, or publish robot commands.
+
+Both native23 mesh and actual training capsule geometry are checked. Every
+floor collider must clear 0.2 mm, while each hypothesized support body must have
+a collider within 2 mm. Whole-horizon sparse QPs use optional
+`gear_sonic[contact_retarget]` (`osqp==1.0.5`). Temporary optimizer slack never
+counts as acceptance; solver, independent nonlinear geometry, serialized
+derivative/FK and rebuilt causal-packet checks are separate. Original correction
+and derivative bounds remain unchanged. Support forces and contact patches are
+not guaranteed by these distance constraints.
+
+V2 retains all eight clips / 6,035 supplied frames, rebuilding and validating
+5,955 causal packets. Four clips pass both-model geometry and full-path
+derivative checks. Dance floor penetration falls from 382 mesh / 391 training
+frames to zero, but one 0.426 µm support-gap violation remains and is rejected
+at the unchanged 0.2 µm audit tolerance. Walk 001, hand crawl and elbow crawl
+also remain failed; all source phases stay represented.
+
+Geometry improvement does not establish balance. Independent reference
+inverse-dynamics checks still find only 65/546 dance frames within supplied
+effort limits on either model, unchanged from the previous reference. Only
+upright/standing pass at every frame in both models. The refined stationary
+crouch COM remains outside candidate support-hull halfspaces, and its force
+checks fail almost every frame.
+
+Same baseline-100 policy pair, gains, bounds and observation timing:
+
+| Complete requested replay | Previous stance V2 | Contact-refined V2 | Requested |
+|---|---:|---:|---:|
+| PICO walk 010 | 24 | 11 | 499 |
+| Happy dance, reference start | 49 | 51 | 535 |
+| Happy dance, recorded posture + 5 s standing | 70 | 18 | 535 |
+| Recorded-posture return, physics steps | 0 | 0 | 2,500 |
+
+All **nine new replays fail** full-motion fidelity and lifecycle qualification.
+Reference-start dance joint RMSE worsens from 0.4106 to 0.4408 rad. Standing
+startup passes 2,500 physics steps, but return cannot take its first step under
+the unchanged effort/position/slew limits. These are historical-posture
+simulations, not physical robot tests or Unitree FSM transfers.
+
+Verification: 270 tests, no skips, full lint on all three new Python files.
+`contact_trajectory_screen_20260906_v1/comparison.json` under the frozen-LoRA
+artifact root independently rechecks 120 files and binds the same-policy
+comparison. See the [progress log](../../../PROGRESS.md) for every motion,
+force/contact counts, runtime versions and exact hashes. No reference/policy
+is accepted, no training/controller was changed in this pass, and no new
+original full-weight-v14 matched-budget or exact 29-to-23 parity is claimed.
+
 ### Requested/projection penalty: matched training, no qualified candidate (2026-09-06)
 
 The trainer adds opt-in `--projection-penalty-weight` (default 0), restricted

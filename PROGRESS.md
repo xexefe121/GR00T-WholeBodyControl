@@ -1,5 +1,186 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-06 continuation: coupled contact refinement improves geometry, not dance readiness
+
+**Physical dance, standing return and live full-body teleop remain NOT ready.**
+This pass changes offline reference refinement only. No robot connection,
+command, mode change, controller edit, training, policy promotion or limit/
+interlock relaxation occurred. Pre-existing dirty hardware work is untouched.
+The physical bit-30 motors-off cause is still unknown.
+
+### Implemented
+
+New `refine_g1_true23_stance_contacts.py` and
+`g1_true23_contact_trajectory.py` jointly refine whole-path contact geometry and
+position/derivative bounds. The previous framewise soft floor objective followed
+by a separate temporal projection could leave or reintroduce floor penetration.
+This new sequential convex restoration independently re-evaluates every actual
+collider distance on both the retarget mesh and actual training capsule models.
+
+Each original inferred support-body hypothesis remains unchanged. Every
+floor-colliding shape must clear the floor by 0.2 mm; each hypothesized support
+body must retain at least one collider within 2 mm. These are geometry
+constraints, not evidence of a load-bearing contact patch, COM balance, no-slip
+support or realizable contact forces. Empty inferred support phases remain
+empty; no artificial all-clip double-foot schedule is substituted.
+
+Variables are root XYZ offsets and all 23 joint coordinates at all original
+50 Hz samples. Original root orientation and timing remain fixed. The previous
+correction bounds remain: root offsets within 0.08 m per axis, joints within
+0.6 rad of the original and the existing safe/hard-margin bounds, joint
+velocity/acceleration at 5 rad/s and 80 rad/s², root-offset derivatives at
+0.75 m/s and 6 m/s². These reference limits do not expand hardware authority.
+
+Sparse whole-horizon QPs use the independently pinned optional dependency
+`gear_sonic[contact_retarget]` / `osqp==1.0.5`. Temporary nonnegative contact
+slack permits numerical restoration; **no slack is permitted in final
+acceptance**. Solved status alone is insufficient: an independent linear-bound
+audit, nonlinear distance audit, float32 serialization audit and full-path
+derivative/FK audits must pass. Root quaternions are compared as SO(3) rotations,
+not component equality; sign/normalization differences are accepted only within
+the explicit 2e-7 rad serialization tolerance. All causal packet terms are
+rebuilt from the new arrays. Neither packets nor robot commands are published.
+
+Actual validation uses the existing WSL MJLab environment: Python 3.11.15,
+MuJoCo 3.5.0, NumPy 2.3.4, SciPy 1.16.2 and OSQP 1.0.5. Only OSQP was added,
+without dependency upgrades/downgrades. The new extra declares the additional
+solver dependency, not a complete MJLab environment. The legacy package's
+NumPy/SciPy and `[sim]` pins differ from this recorded audit runtime; do not
+replace the validated environment with those older pins and assume parity.
+
+The sparse trust-box row reduction removes only constraints redundant for that
+linearized box; every nonlinear collider is still audited. A stall or the
+20-iteration restoration limit produces a failed candidate, not an infeasibility
+theorem and not a dropped clip. QP numerical budget is 100,000 iterations with
+unchanged 1e-8 solver tolerances and 2e-7 independent acceptance tolerance.
+
+### Verification and complete corpus results
+
+**270 tests pass, no skips**; all three new Python files pass full lint and the
+optional dependency contract parses. Tests cover analytical contact Jacobians
+against finite differences, all-26-coordinate temporal coupling, incompatible
+two-model support bands, solver false-success rejection, retained original
+frames/bounds and failure status. V1 prototype output is partial and is not a
+completed corpus. V2 completed with exit 0, all **eight clips / 6,035 supplied
+frames**, all 23 joints and **5,955 rebuilt/validated causal packets**. Every
+serialized path passes its derivative and FK audits. No frame was dropped,
+source sample rate changed, or candidate promoted.
+
+The following counts combine clearance and inferred support-gap violations
+across both collision models. They are **not floor-penetration counts**.
+The old upright/standing failures were sub-4-micrometer clearance shortfalls,
+not actual floor penetration. Distance acceptance tolerance is 0.0002 mm.
+
+| Clip | Frames | Violating frames before | After | Worst remaining violation (mm) | Geometry pass |
+|---|---:|---:|---:|---:|---|
+| PICO upright | 1,024 | 1,024 | 0 | 0.000028 | Yes |
+| PICO standing | 1,024 | 1,024 | 0 | 0.000053 | Yes |
+| PICO crouch | 1,024 | 1,024 | 0 | 0.000003 | Yes |
+| PICO walk 001 | 695 | 280 | 2 | 0.203269 | No |
+| PICO walk 010 | 510 | 129 | 0 | 0.000163 | Yes |
+| SONIC hand crawl | 606 | 468 | 70 | 11.019036 | No |
+| SONIC elbow crawl | 606 | 514 | 514 | 235.078837 | No |
+| SONIC happy dance | 546 | 444 | 1 | 0.000426 | No |
+
+Walk 001 reaches the 20-iteration restoration limit; its largest residual is
+a right-foot support gap, not floor penetration. Hand crawl's third QP reports
+`solved inaccurate` after 100,000 iterations; elbow crawl's first QP reaches
+that numerical limit. Both are rejected, not treated as proof that no feasible
+trajectory exists. Dance stalls after 14 accepted updates, leaving a 0.426 µm
+support-gap violation at frame 1 on the training model's left foot. Tolerance
+is not widened to pass it. Dance has **zero penetrating frames in both models**,
+versus 382 mesh / 391 capsule frames before; it still is not an accepted motion.
+Hand crawl retains four penetrating training-model frames; elbow crawl retains
+462 mesh / 376 capsule penetrating frames.
+
+### Geometry is not force balance
+
+The independent full-reference inverse-dynamics audit derives unsmoothed
+velocities/accelerations from all poses and uses the same 2 mm candidate-contact
+gap, both models, and unchanged 0.95 × quarter-effort limits. It does not prove
+contact complementarity, no-slip kinematics or controller tracking. Counts below
+are frames with a conditional force solution within those supplied limits,
+shown as mesh / training capsules.
+
+| Clip | Previous stance V2 | Contact-refined V2 | Total frames |
+|---|---:|---:|---:|
+| PICO upright | 1,024 / 1,024 | 1,024 / 1,024 | 1,024 |
+| PICO standing | 1,024 / 1,024 | 1,024 / 1,024 | 1,024 |
+| PICO crouch | 1 / 3 | 1 / 2 | 1,024 |
+| PICO walk 001 | 2 / 1 | 2 / 1 | 695 |
+| PICO walk 010 | 0 / 0 | 1 / 1 | 510 |
+| SONIC hand crawl | 56 / 56 | 57 / 57 | 606 |
+| SONIC elbow crawl | 79 / 80 | 79 / 80 | 606 |
+| SONIC happy dance | 65 / 65 | 65 / 65 | 546 |
+
+Only the two upright/standing reference clips pass at every frame in both
+models. Crouch illustrates the missing constraint: frame 512 has exactly zero
+reference velocity/acceleration, but its COM violates a candidate support-hull
+halfspace by 35.75 mm on the mesh and 13.70 mm on the training model. The COM is
+also behind every candidate contact in world X. Both force LPs reject it.
+Restoring floor clearance does not put the COM over a usable support region.
+These are supplied-model diagnostics, not measurements of the physical robot.
+
+### Identical-policy full replay rejects the candidate
+
+Both reference sets use the same actual baseline-100 checkpoint pair:
+encoder `3806b2b6...`, decoder `90e27f37...`. Gains, stateful applied-target
+feedback, current-state observation timing, fraction 1, modeled 35 Nm ankles,
+quarter-effort/95% projection and 5 rad/s target slew are identical. No training
+occurred on the new candidates. Counts are completed 50 Hz transitions before
+the unchanged effort/position/slew intersection becomes empty.
+
+| Full requested motion | Requested | Previous stance V2 | Contact-refined V2 |
+|---|---:|---:|---:|
+| PICO upright | 1,013 | 48 | 48 |
+| PICO standing | 1,013 | 38 | 38 |
+| PICO crouch | 1,013 | 27 | 27 |
+| PICO walk 001 | 684 | 17 | 17 |
+| PICO walk 010 | 499 | 24 | 11 |
+| SONIC hand crawl | 595 | 43 | 44 |
+| SONIC elbow crawl | 595 | 52 | 52 |
+| SONIC happy dance | 535 | 49 | 51 |
+| Happy dance, recorded posture + 5 s standing | 535 | 70 | 18 |
+
+**All nine new replays fail full-motion fidelity and lifecycle qualification.**
+Reference-start dance reaches 512 physics steps; its maximum joint RMSE worsens
+from 0.4106 to 0.4408 rad. Recorded-posture dance regresses from 707 to 189
+physics steps. Its smaller truncated-prefix RMSE does not establish better
+full-motion fidelity. Both recorded-posture standing startups pass 250/250
+transitions / 2,500 physics steps, but both returns complete **zero physics
+steps**. The new return requires instantaneous right-ankle target slew
+5.07192 rad/s versus the unchanged 5 rad/s bound. Historical-posture simulation
+is not fresh robot state and the compatibility standing actor is not a Unitree
+FSM handoff. The physical damping fault remains unexplained.
+
+### Evidence and next boundary
+
+All artifact paths below are under `artifacts/g1_true23_frozen_lora/`:
+
+- `contact_trajectory_20260906_v2/`: full manifest, all eight NPZs, per-clip
+  numerical/serialized reports, input/source/model hashes and runtime versions.
+- `contact_trajectory_support_20260906_v1/report.json`: both-model full-reference
+  force audit; SHA256 `ecbba5b85fd28629eb41080afd561e9750095598644b6e5e551b9830db1d59f5`.
+- `contact_trajectory_envelope_20260906_v1/`: all nine requested paired replays,
+  exact commands, reports and actual 500 Hz traces; suite SHA256
+  `8013406dc3ca8ec65f6c0ea46c1c6bce8fd81b4544d2b731efc17c52cce9dadd`.
+- `contact_trajectory_screen_20260906_v1/comparison.json`: independently verified
+  same-pair/same-actuation comparison, all counts and **120 rechecked files**;
+  SHA256 `1670a3984047cf33adeff8bd3d7309231bba737c09348efc3b8a8bdfe5dab98a`.
+  `build_comparison.py` reproduces the evidence audit in a fresh output scope.
+
+The refinement entry point takes `--stance-dir` and a fresh `--output-dir`;
+`audit_g1_true23_reference_support --reference-dynamics` consumes its manifest;
+`evaluate_g1_true23_paired_envelope_suite` consumes that same manifest and the
+baseline-100 paired export reports. These are offline-only diagnostics.
+
+No candidate is selected. Next useful work must address realizable support/COM
+and force constraints jointly with reference motion, then learned full-body
+tracking and standing return. More geometric cleanup alone is insufficient.
+This fixed-policy retargeting comparison is **not** a new matched-budget
+original full-weight-v14 comparison, exact 29-to-23 motion parity, successful
+live PICO input, or permission to run the physical robot.
+
 ## 2026-09-06 continuation: requested/projection cost; matched training rejects both policies
 
 **Physical dance, standing return and live full-body teleop remain NOT ready.**
