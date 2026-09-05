@@ -78,6 +78,47 @@ joint-level failure evidence and remaining hardware/headset boundaries.
 
 ## What changed
 
+### Coupled force-path restoration and a single-pose witness (2026-09-06)
+
+New offline force-path utilities retain all 23 joints, original root orientation
+and 50 Hz timing, coupling adjacent reference frames through independently
+derived velocities and accelerations. Both models have separate unilateral
+contact forces and bounded joint torques, with all six floating-base force
+equations retained. No fictitious base actuator, changed controller limit or
+new physical command is introduced.
+
+The full eight-clip force-restoration run completes with exit 0, all 6,035
+supplied frames and 5,955 validated causal packets. Upright and standing retain
+their existing conditional force checks. The other six first QPs reach 30,000
+iterations without convergence; none is accepted. Every output reference file
+is byte-identical to contact V2. No duplicate closed-loop replay is claimed:
+the prior nine complete requested failures are rebound to those identical
+reference bytes, policy pair and control contract. Dance remains 51/535
+reference-start and 18/535 historical-posture transitions; return remains
+0/2,500 physics steps. This is not a retrained-policy or original-v14
+matched-budget comparison, and no new whole-motion fidelity is established.
+
+Small stationary diagnostics identify distinct problems: the OSQP solve can
+fail numerical convergence; a solved linearized force step can lose its actual
+support contacts; pulling toward the old pose can stall feasibility restoration
+near an effort boundary. Conservative candidate-surface-point constraints,
+smaller trust steps, exact repeated-pose variables and a minimum-step
+continuation produce a conditional stationary crouch witness on both models.
+These are isolated diagnostic overrides, not production or live PICO changes.
+
+Independent serialization/FK/force checks pass on 16 repetitions of that one
+pose. Mesh peak effort ratio is approximately 1, so there is effectively no
+effort headroom. This is neither a complete crouch test nor proof of robust
+balance, no-slip support, dance, standing return or physical teleop. The original
+1,024-frame crouch contains a nonstationary transition and must not be replaced
+by the stationary witness.
+
+Verification: 299 tests, no skips; full lint on six new Python files. Aggregate
+`force_trajectory_screen_20260906_v1/comparison.json` rechecks 161 files and
+binds the complete corpus, reused replay failures and separate single-pose
+witness. See the [progress log](../../../PROGRESS.md) for hashes, pinned
+numerical environment, solver limitations and unresolved physical damping cause.
+
 ### Coupled whole-path contact refinement, no qualified candidate (2026-09-06)
 
 New offline `refine_g1_true23_stance_contacts.py` jointly enforces contact

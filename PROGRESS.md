@@ -1,5 +1,174 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-06 continuation: force-path restoration and a conditional single-pose witness
+
+**Physical dance, standing return and live full-body teleop remain NOT ready.**
+This continuation is offline-only. No robot connection, command, mode change,
+hardware-controller edit, policy training/promotion or limit/interlock
+relaxation has occurred. The previous pass's rejected contact-only candidates
+remain unaccepted. The physical bit-30 motors-off cause is still unknown.
+
+### Force-aware implementation
+
+New `g1_true23_force_trajectory.py` computes whole-path required generalized
+forces and their sparse derivatives. It retains all 23 joint coordinates,
+root-XYZ offset variables, original root orientation, 50 Hz sample timing and
+all six unactuated floating-base equations. Independent central/one-sided pose
+differences, not archived velocity arrays, couple adjacent frames and endpoints.
+Required force matches independently calculated `M @ qacc + bias - passive`.
+
+The derivative model is a private copy with constraints and `invdiscrete`
+disabled, because candidate contact forces are explicit optimization unknowns.
+[MuJoCo's continuous-time inverse-dynamics derivative API](https://mujoco.readthedocs.io/en/3.5.0/APIreference/APIfunctions.html#mjd-inversefd)
+supplies transposed position/velocity derivatives; acceleration derivatives use
+the exact mass matrix. Original replay/training models are not modified. Their
+hashes, private derivative-model hashes and candidate-contact-model hashes are
+recorded separately.
+
+Both collision models share one trajectory but have separate unilateral
+contact-cone force variables, bounded actuator torques and explicitly optimistic
+bounded friction-loss assistance. No actuator supplies floating-base force.
+A bounded least-squares force seed is not a feasibility certificate. Local
+contact-load derivatives hold body-attached points and world cone directions
+fixed; they do not predict closest-feature changes or prove sticking contact.
+Every proposed path recomputes actual candidate contacts and force fits.
+
+New `g1_true23_force_restoration.py` solves a scaled, whole-path QP coupling
+these force equations with the existing contact, position, velocity and
+acceleration constraints. Absolute normalized force residuals and contact
+slacks permit restoration, but neither is accepted as final force support or
+contact feasibility. A synthetic regression demonstrates why a squared force
+penalty can retain an avoidable nonzero force mismatch; the absolute penalty
+removes it in that fixture. This is not a general convergence claim.
+
+Only original correction boxes and the same 0.95 × quarter-effort limits are
+used. Existing deployed PD target-position/slew dynamics are not replaced by
+inverse-force equations. Final force balance, no-slip/contact complementarity,
+full policy tracking, standing return and hardware qualification remain
+distinct requirements.
+
+New `refine_g1_true23_reference_forces.py` processes every supplied clip into a
+fresh, explicitly unaccepted corpus. It rejects changed prior source pins,
+validates the completed input corpus, rebuilds float32 FK/derivative arrays and
+all causal packets, then runs an independent full-frame force LP on both models
+for every output. Failures remain represented. No command/packet is sent.
+
+### Complete full-corpus verification
+
+**299 tests pass, no skips**, including 22 focused force-path tests and seven
+candidate-support-patch tests. Full lint passes on the six new Python files.
+The actual eight-clip restoration run completes with exit 0, all **6,035
+supplied frames** and **5,955 rebuilt/validated causal packets**, original sample
+timing/root orientation and all 23 joint references. Numeric thread counts are
+fixed at one. Eight restoration iterations maximum, 30,000 QP iterations,
+2e-7 path audit tolerance and 1e-5 generalized-force tolerance are unchanged.
+
+Artifact scope: `artifacts/g1_true23_frozen_lora/force_trajectory_20260906_v1/`.
+The final manifest/report is complete. Upright and standing retain their
+existing conditional contact/force passes. The other six first QPs all reach
+30,000 iterations and are rejected without an accepted update:
+
+| Clip | QP solve time (s) | Primal residual | Dual residual |
+|---|---:|---:|---:|
+| PICO crouch | 1,028.014 | 2.3424e-5 | 0.01352 |
+| PICO walk 001 | 595.462 | 1.6746e-4 | 0.56770 |
+| PICO walk 010 | 498.068 | 1.5081e-4 | 0.21693 |
+| SONIC hand crawl | 567.056 | 4.9887e-4 | 0.14762 |
+| SONIC elbow crawl | 557.585 | 2.7355e-3 | 0.43403 |
+| SONIC happy dance | 533.241 | 6.5449e-4 | 0.06516 |
+
+These numerical failures are not infeasibility proofs. **All eight output NPZ
+files are byte-identical to the prior contact V2 candidates.** Both-model full
+force audits are unchanged: conditional passing counts (mesh/training) are
+crouch 1/2 of 1,024, walk 001 2/1 of 695, walk 010 1/1 of 510, hand crawl
+57/57 of 606, elbow crawl 79/80 of 606, and dance 65/65 of 546. No clip is
+removed, no reference is accepted and no policy is trained or selected.
+
+No duplicate closed-loop run is claimed on these identical inputs. The
+independently rebound prior nine complete requested replays still fail. Dance
+remains 51/535 reference-start and 18/535 historical-posture transitions, with
+0/2,500 return physics steps. This is reused simulator evidence, not a new
+run or a physical Unitree mode transfer.
+
+`force_trajectory_screen_20260906_v1/comparison.json` independently rechecks
+**161 files**, including the unchanged references, prior paired replay evidence
+and the separate stationary witness. SHA-256:
+`340f36fffc8c0dd39ea5d9d605cfbb746a1f1ba237f469ab1c0d55f79e915916`.
+Full force-refinement report SHA-256:
+`695ac7a77240b617754b8a5930d6bedde393df7fc636e1d12fb28a7f9fcb615c`.
+
+### Numerical and contact-patch diagnostics (not full-clip qualification)
+
+The full crouch QP reaches 30,000 iterations after 1,028.0 seconds, with primal
+residual 2.3424e-5 and dual residual 0.01352. A three-frame repetition of source
+frame 512 reproduces the numerical failure. It is explicitly a stationary
+fixture, not a shortened motion test or a replacement reference.
+
+[Clarabel 0.11.1](https://pypi.org/project/clarabel/0.11.1/) was installed with
+`--no-deps` for isolated numerical diagnostics only. MuJoCo, NumPy, SciPy and
+OSQP versions remain unchanged. Its 22-iteration solve of the same small QP
+passes the original independent 1e-8 linear audit. The actual nonlinear step
+still fails: the full trial loses all candidate contacts in both models, while
+the linearized wrench equations retain the old contacts. The independent L1
+force-fit diagnostic also worsens, so that first rejection is not merely a
+least-squares-versus-absolute-merit artifact. No solver status is promoted.
+
+New `g1_true23_contact_patch.py` exposes conservative body-attached candidate
+surface-point values and all-26-coordinate derivatives. It correctly separates
+[MuJoCo's contact midpoint from the material surface point](https://mujoco.readthedocs.io/en/3.5.0/APIreference/APItypes.html#mjcontact).
+Every current cone candidate is retained inside a stricter 1.95 mm band, not
+only those carrying the previous force seed. This is a local optimization
+hypothesis, not a contact-persistence, closest-feature or no-slip proof. The
+full-corpus V1 implementation was not modified or hot-patched during its run.
+
+Isolated Clarabel probes with these additional hard trial rows make four
+accepted steps before nonlinear stalling. Reducing trust steps by 16 makes
+16 accepted steps before an `AlmostSolved` result, which is rejected. Tying
+the repeated pose variables exactly removes that fixture's near-zero temporal
+degeneracy and allows 58 accepted steps. Maximum force-fit residual falls from
+13.7112 to 0.000628988, but the serialized pose still exceeds the mesh-model
+effort limit; only the training-model static LP passes. That candidate is
+rejected. A separate minimum-step continuation centers the QP pose cost on the
+current iterate rather than pulling toward the old pose while restoring force
+feasibility. It converges in two steps with maximum force-fit residual
+5.5334e-9. This is an isolated diagnostic override, not a changed production
+optimizer or a full-clip result.
+
+A closed-form curved-force regression separates objective-induced tangent
+drift from solver accuracy: an old-pose-centered linear optimum can fail every
+nonlinear trial while a current-pose-centered minimum correction succeeds.
+OSQP also failed convergence on the tiny numerical version of that fixture;
+the closed-form test does **not** claim that its numerical solver passed.
+
+An independent disk-round-trip audit rechecks 20 evidence files and verifies
+original correction bounds, serialized contact clearance/support bands, FK,
+root orientation and exactly zero pose-derived velocity/acceleration. All 16
+repetitions of that single pose have a conditional inverse-force solution on
+both models. Mesh peak effort ratio is 0.999999982, versus 0.937458101 for the
+training model: **the mesh witness has essentially no effort headroom**. It is
+not a robust reference, teacher, closed-loop balance test or physical result.
+Candidate contacts and friction assistance remain optimistic hypotheses.
+
+Witness evidence:
+`force_trajectory_minimum_step_static_crouch_20260906_v1/serialized_witness_audit.json`
+under the frozen-LoRA artifact root, SHA-256
+`3e8919de931de2c02e457b85d9199f6c14d9b83645d651d587e40e8cf4b2799f`.
+
+The original crouch source is not constant over the complete clip: it has 72
+distinct poses and initial projection velocity up to 3.17468 rad/s. A stationary
+fixture must therefore not replace its full 1,024-frame transition/hold path.
+
+### Next qualification work
+
+Transfer the validated minimum-step/support-patch ideas to the actual whole-path
+solver with an explicitly pinned, independently audited alternative backend.
+Establish usable effort headroom and preserve every nonstationary phase, then
+recheck all eight full references and closed-loop fidelity before retraining or
+policy selection. Live PICO retargeting, full standing return, a corrected
+matched-budget original-v14 comparison and the physical bit-30 diagnosis remain
+separate unfinished requirements. Offline whole-horizon reference optimization
+is not a causal live-input algorithm and does not establish exact 29-to-23 parity.
+
 ## 2026-09-06 continuation: coupled contact refinement improves geometry, not dance readiness
 
 **Physical dance, standing return and live full-body teleop remain NOT ready.**
