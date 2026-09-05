@@ -1,5 +1,105 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-06 continuation: whole-reference floor conditioning
+
+**Physical full-body dance/live teleop remain NOT ready. No robot commands,
+mode changes, controller/pin edits, retraining or model promotions.** Previous
+exploration/reset work was committed/pushed as
+`61769ea5fe82016024cb188105acde0275376a42`. This continuation changes separate
+offline reference artifacts, not the deployed motion or controller.
+
+### Contact geometry and complete-path correction
+
+Retargeting/evaluation use `g1_23dof_rev_1_0.xml` with mesh body collisions and
+four foot spheres per side. Training uses Unitree MJLab's `g1_23dof.xml` with
+capsule body collisions and seven foot capsules per side. Same 23 joint names
+do not imply identical contact geometry. Both models already intersect the
+floor on many source frames, so model mismatch alone is not the explanation.
+
+The new CPU training-geometry builder uses the actual training `Entity` and
+collision configuration. Against all 32 initial qpos snapshots from the prior
+actual compiled MJLab rollout, minimum floor distances match **exactly** and
+all floor-penetration contact counts match. This validates that geometric
+comparison, not dynamics/solver equivalence or a hardware shape model.
+
+New `condition_g1_true23_reference_floor.py` audits every frame, with optional
+`--condition`. It creates a separate, whole-horizon minimum-norm root-z
+correction clearing **both** supplied collision models, bounded by 0.2 m lift,
+0.75 m/s correction velocity and 6 m/s² correction acceleration. These are
+offline correction bounds, not verified hardware limits or bounds on the
+original root trajectory. Correction starts with zero offset velocity and
+targets 10 micrometres geometric clearance. Bounds are independently checked
+after float32 serialization, followed by fresh contact checks.
+
+All eight source clips and **6,035/6,035 frames** remain at original 50 Hz.
+Joint positions, joint velocities, every body quaternion/angular velocity and
+FPS are preserved bit-for-bit. Horizontal body positions/velocities are also
+unchanged. Only body z positions and the correction's vertical-velocity term
+change. Input body arrays must first agree with native23 FK; inconsistent
+channels are rejected, not silently rebuilt. Original files remain untouched.
+
+| Full clip | Frames | Overlap frames: mesh / training | Maximum root lift (m) |
+|---|---:|---:|---:|
+| PICO upright anchor | 1024 | 0 / 0 | 0 |
+| PICO standing anchor | 1024 | 0 / 0 | 0 |
+| PICO crouch anchor | 1024 | 957 / 957 | 0.008874 |
+| PICO walk 001 | 695 | 49 / 63 | 0.022843 |
+| PICO walk 010 | 510 | 32 / 43 | 0.030472 |
+| Original SONIC hand crawl | 606 | 549 / 555 | 0.117508 |
+| Original SONIC elbow crawl | 606 | 600 / 604 | 0.028057 |
+| Original SONIC happy dance | 546 | 522 / 512 | 0.015906 |
+
+After conditioning, **zero frames have detected floor overlap in either
+model**. This proves only the named geometric property. Root lifting does not
+optimize support-contact placement, COM, contact forces, actuator torques,
+self-collisions or dynamic feasibility. Raising a pose can also reduce ground
+support; these files are not accepted teachers or ready-to-run robot motions.
+
+Authoritative artifacts:
+`artifacts/g1_true23_frozen_lora/reference_floor_20260906_v2/`, containing all
+eight NPZ files, `motions.json` and `report.json`. The report binds source
+files/inputs and complete compiled-model MJB hashes. The earlier `_v1` is
+preserved as a development variant: it re-estimated joint/angular velocity
+channels during FK export and was **not** used for the full-dance tests below.
+V2 preserves those source channels exactly.
+
+### Full-dance and measured-start checks still fail
+
+The unchanged model50 and actual paired encoder were evaluated with V2
+references, unchanged native-support V2 gains, 35 Nm modeled ankle limit,
+quarter-effort guard, 5 rad/s slew and applied-target feedback:
+
+- Reference start: **50/535** completed transitions, **505** active physics
+  substeps, then a right-ankle empty target intersection. Maximum joint RMSE
+  0.42285 rad; full-clip fidelity fails. No standing return was requested in
+  this reference-only case.
+- Historical measured state + 5 s standing: standing startup passes the
+  existing simulator screen; dance still stops at **16/535**, **164** physics
+  substeps. Immediate return completes **zero physics steps** before another
+  empty intersection. This does not qualify a recovered or standing robot.
+
+Evidence: `eval_reference/summary.json` and `eval_measured/summary.json` within
+the V2 directory, with 500 Hz traces. The full-motion completion counts are
+unchanged from unconditioned references (50 and 16); floor conditioning is not
+the missing control fix. These are corrected-reference fidelity screens, not
+proof of original-v14 parity. The measured snapshot remains historical, and
+the standing compatibility actor is not Unitree FSM ownership/handback.
+
+No new training was started merely because geometric checks pass. Next work
+must resolve support/contact-force and actuator feasibility, then alter
+native23 task-space references/learned actions where necessary. Current
+retargeting, gains and safety-constrained controller still do not establish
+stable full-body tracking. Physical motor-off cause, encoder pins, Unitree
+handoff and calibrated PICO input remain unresolved prerequisites.
+
+Verification: **140 focused tests pass** across the deployment envelope,
+simulation acquisition, applied-target feedback, predictive filter, retiming,
+stage-one actuation, reset feasibility, training integration, exploration audit
+and new whole-reference geometry tests. Critical/import Ruff checks and format
+checks pass for the five owned Python files; owned-path `git diff --check`
+passes. Existing dirty hardware launchers/controller paths are excluded from
+this offline milestone and are not overwritten or staged.
+
 ## 2026-09-06 continuation: exploration and reset-contact diagnosis
 
 **Physical full-body dance and live teleop remain NOT ready. No robot commands,

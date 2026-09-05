@@ -78,6 +78,22 @@ joint-level failure evidence and remaining hardware/headset boundaries.
 
 ## What changed
 
+### Whole-reference floor conditioning (2026-09-06)
+
+New offline conditioning clears every frame of the eight-clip, 6,035-frame
+corpus against both training-capsule and evaluation-mesh collision models.
+All 23 joint trajectories, their stored velocities, body orientations and
+original timing remain unchanged; only bounded root-height translation and
+its vertical-velocity correction are applied. No clip is removed. This is
+geometric conditioning, not support/COM or contact-force optimization.
+
+The same correctly paired model50 still fails happy dance at **50/535** from
+reference start and **16/535** from measured-state simulation, with zero
+successful return physics steps in the latter case. No retraining, model
+selection or v14 matched-budget comparison occurred. These corrected-reference
+tests therefore do not establish original SONIC fidelity, dynamic retargeting
+success or live-teleop readiness. See [progress and artifacts](../../../PROGRESS.md).
+
 ### Exploration/reset audit (2026-09-06)
 
 The std difference below was tested without changing trained weights: model50
