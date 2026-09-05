@@ -58,9 +58,7 @@ def _sha256_mapping(value: Mapping[str, Any]) -> str:
 
 def _is_sha256(value: Any) -> bool:
     return (
-        isinstance(value, str)
-        and len(value) == 64
-        and all(character in "0123456789abcdef" for character in value)
+        isinstance(value, str) and len(value) == 64 and all(character in "0123456789abcdef" for character in value)
     )
 
 
@@ -114,8 +112,7 @@ def validate_frozen_lora_diagnostic_policy(value: Any) -> Mapping[str, Any]:
         raise ValueError("frozen LoRA diagnostic source resume is malformed")
     if (
         not isinstance(source["filename"], str)
-        or re.fullmatch(r"frozen_lora_model_[0-9]+\.pt", source["filename"])
-        is None
+        or re.fullmatch(r"frozen_lora_model_[0-9]+\.pt", source["filename"]) is None
         or not _is_sha256(source["sha256"])
         or source["filename"] != f"frozen_lora_model_{update}.pt"
     ):
@@ -254,9 +251,7 @@ def materialize_frozen_lora_diagnostic_policy(
         with temporary.open("rb+") as stream:
             os.fsync(stream.fileno())
         if output.exists():
-            raise FileExistsError(
-                f"refusing to overwrite diagnostic policy: {output}"
-            )
+            raise FileExistsError(f"refusing to overwrite diagnostic policy: {output}")
         os.replace(temporary, output)
         temporary = None
     finally:
@@ -272,25 +267,73 @@ def export_frozen_lora_diagnostic_decoder_onnx(
     report_path: str | Path,
 ) -> tuple[Path, Path, Mapping[str, Any]]:
     """Export one merged adapter decoder for simulator comparison only."""
+    return _export_frozen_lora_diagnostic_component(
+        diagnostic_policy_path=diagnostic_policy_path,
+        output_path=output_path,
+        report_path=report_path,
+        component="decoder",
+    )
+
+
+def export_frozen_lora_diagnostic_encoder_onnx(
+    *,
+    diagnostic_policy_path: str | Path,
+    output_path: str | Path,
+    report_path: str | Path,
+) -> tuple[Path, Path, Mapping[str, Any]]:
+    """Export the matching frozen encoder+FSQ; never borrow an unrelated encoder."""
+    return _export_frozen_lora_diagnostic_component(
+        diagnostic_policy_path=diagnostic_policy_path,
+        output_path=output_path,
+        report_path=report_path,
+        component="encoder",
+    )
+
+
+def _export_frozen_lora_diagnostic_component(
+    *,
+    diagnostic_policy_path: str | Path,
+    output_path: str | Path,
+    report_path: str | Path,
+    component: str,
+) -> tuple[Path, Path, Mapping[str, Any]]:
 
     import onnx
     from onnx import shape_inference
 
     from gear_sonic.utils import g1_23dof_artifact as artifact
+    from gear_sonic.utils.g1_true23_diagnostic_pair import ENCODER_CONTRACT
 
     diagnostic_path = Path(diagnostic_policy_path).expanduser().resolve()
     value = load_frozen_lora_diagnostic_policy(diagnostic_path)
-    _encoder, decoder, reconstructed_hash = artifact.build_true23_policy_pair(
-        value
-    )
+    encoder, decoder, reconstructed_hash = artifact.build_true23_policy_pair(value)
     if reconstructed_hash != value["policy_state_sha256"]:
-        raise ValueError("diagnostic decoder reconstruction hash mismatch")
+        raise ValueError("diagnostic component reconstruction hash mismatch")
+    if component == "encoder":
+        module, input_dim, output_dim = encoder, 267, 64
+        input_name, output_name = artifact.ENCODER_ONNX_INPUT_NAME, artifact.ENCODER_ONNX_OUTPUT_NAME
+        structure_validator = artifact.validate_encoder_onnx_structure
+    elif component == "decoder":
+        module, input_dim, output_dim = decoder, DEPLOYMENT_DECODER_INPUT_DIM, TARGET_DOF
+        input_name, output_name = artifact.ONNX_INPUT_NAME, artifact.ONNX_OUTPUT_NAME
+        structure_validator = artifact.validate_onnx_structure
+    else:
+        raise ValueError("unknown diagnostic component")
+    from gear_sonic.trl.mjlab.frozen_platform_lora_runner import _state_sha256
+
+    required_encoder_hash = _state_sha256(
+        {
+            name: tensor
+            for name, tensor in value["policy_state_dict"].items()
+            if name.startswith("actor_module.encoders.teleop.module.")
+        }
+    )
 
     output = Path(output_path).expanduser()
     report = Path(report_path).expanduser()
     for path, suffix, context in (
-        (output, ".onnx", "decoder ONNX"),
-        (report, ".json", "decoder report"),
+        (output, ".onnx", f"{component} ONNX"),
+        (report, ".json", f"{component} report"),
     ):
         if path.is_symlink():
             raise ValueError(f"diagnostic {context} path may not be a symlink")
@@ -300,9 +343,7 @@ def export_frozen_lora_diagnostic_decoder_onnx(
         if "diagnostic" not in lowered:
             raise ValueError(f"diagnostic {context} filename must say diagnostic")
         if "promotion" in lowered or "deployment" in lowered:
-            raise ValueError(
-                f"diagnostic {context} filename may not imply promotion/deployment"
-            )
+            raise ValueError(f"diagnostic {context} filename may not imply promotion/deployment")
         if path.exists():
             raise FileExistsError(f"refusing to overwrite diagnostic output: {path}")
     output = output.resolve()
@@ -325,18 +366,18 @@ def export_frozen_lora_diagnostic_decoder_onnx(
         temporary_onnx = Path(name)
         example = torch.zeros(
             1,
-            DEPLOYMENT_DECODER_INPUT_DIM,
+            input_dim,
             dtype=torch.float32,
         )
         with torch.no_grad(), warnings.catch_warnings():
             warnings.simplefilter("ignore", DeprecationWarning)
             torch.onnx.export(
-                decoder,
+                module,
                 example,
                 temporary_onnx,
                 export_params=True,
-                input_names=[artifact.ONNX_INPUT_NAME],
-                output_names=[artifact.ONNX_OUTPUT_NAME],
+                input_names=[input_name],
+                output_names=[output_name],
                 opset_version=artifact.ONNX_OPSET_VERSION,
                 do_constant_folding=True,
                 dynamic_axes=None,
@@ -350,11 +391,22 @@ def export_frozen_lora_diagnostic_decoder_onnx(
         )
         onnx.save_model(model, temporary_onnx, save_as_external_data=False)
         model = onnx.load(temporary_onnx, load_external_data=False)
-        artifact.validate_onnx_structure(model)
-        parity = artifact.validate_ort_parity(decoder, temporary_onnx)
+        structure_validator(model)
+        parity = artifact.validate_ort_parity(
+            module,
+            temporary_onnx,
+            input_name=input_name,
+            input_dim=input_dim,
+            output_name=output_name,
+            output_dim=output_dim,
+        )
+        if component == "encoder" and parity["parity_max_abs_error"] != 0:
+            raise ValueError("diagnostic encoder requires exact discrete token parity")
         report_value: dict[str, Any] = {
-            "kind": "g1_true23_frozen_lora_diagnostic_decoder_onnx",
+            "kind": f"g1_true23_frozen_lora_diagnostic_{component}_onnx",
             "schema_version": 1,
+            "paired_encoder_state_sha256": required_encoder_hash,
+            "encoder_contract": copy.deepcopy(ENCODER_CONTRACT),
             "source": {
                 "filename": diagnostic_path.name,
                 "sha256": artifact.sha256_file(diagnostic_path),
@@ -362,18 +414,18 @@ def export_frozen_lora_diagnostic_decoder_onnx(
                 "adapter_state_sha256": value["adapter_state_sha256"],
                 "update_count": value["update_count"],
             },
-            "decoder": {
+            component: {
                 "filename": output.name,
                 "sha256": artifact.sha256_file(temporary_onnx),
-                "input_name": artifact.ONNX_INPUT_NAME,
-                "input_shape": [1, DEPLOYMENT_DECODER_INPUT_DIM],
-                "output_name": artifact.ONNX_OUTPUT_NAME,
-                "output_shape": [1, TARGET_DOF],
+                "input_name": input_name,
+                "input_shape": [1, input_dim],
+                "output_name": output_name,
+                "output_shape": [1, output_dim],
                 "opset": artifact.ONNX_OPSET_VERSION,
             },
             "validation": {
                 "weights_only_diagnostic_policy_validated": True,
-                "exact_merged_decoder_reconstructed": True,
+                f"exact_merged_{component}_reconstructed": True,
                 "onnx_structure_validated": True,
                 "onnx_runtime_parity": parity,
             },
@@ -390,9 +442,7 @@ def export_frozen_lora_diagnostic_decoder_onnx(
         )
         os.close(descriptor)
         temporary_report = Path(name)
-        temporary_report.write_bytes(
-            artifact.canonical_json_bytes(report_value)
-        )
+        temporary_report.write_bytes(artifact.canonical_json_bytes(report_value))
         for temporary, final in (
             (temporary_onnx, output),
             (temporary_report, report),
@@ -400,9 +450,7 @@ def export_frozen_lora_diagnostic_decoder_onnx(
             try:
                 os.link(temporary, final)
             except FileExistsError as exc:
-                raise FileExistsError(
-                    f"refusing to overwrite diagnostic output: {final}"
-                ) from exc
+                raise FileExistsError(f"refusing to overwrite diagnostic output: {final}") from exc
             temporary.unlink()
             published.append(final)
         temporary_onnx = None
@@ -421,6 +469,7 @@ def export_frozen_lora_diagnostic_decoder_onnx(
 __all__ = [
     "DIAGNOSTIC_HEADER",
     "export_frozen_lora_diagnostic_decoder_onnx",
+    "export_frozen_lora_diagnostic_encoder_onnx",
     "load_frozen_lora_diagnostic_policy",
     "materialize_frozen_lora_diagnostic_policy",
     "validate_frozen_lora_diagnostic_policy",

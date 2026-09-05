@@ -252,7 +252,7 @@ def pico_reference_policy_history(packet: Mapping[str, Any]) -> list[np.ndarray]
 
 def encoder267_from_reference(packet: Mapping[str, Any], buffered_robot_pelvis_q9_wxyz: np.ndarray) -> np.ndarray:
     validate_reference_terms(packet)
-    robot = np.asarray(buffered_robot_pelvis_q9_wxyz, dtype=np.float64)
+    robot = np.array(buffered_robot_pelvis_q9_wxyz, dtype=np.float64, copy=True)
     if robot.shape != (4,) or not np.isfinite(robot).all() or np.linalg.norm(robot) < 0.5:
         raise ValueError("buffered robot pelvis quaternion is invalid")
     robot /= np.linalg.norm(robot)
@@ -312,10 +312,10 @@ class CleanSonicPolicy:
 class UnitreeZeroVelocityFallbackPolicy:
     """Hash-bound Unitree locomotion actor commanded to stand still."""
 
-    def __init__(self, policy_path: Path):
+    def __init__(self, policy_path: Path, *, session_options: ort.SessionOptions | None = None):
         if sha256_file(policy_path) != VELOCITY_FALLBACK_SHA256:
             raise ValueError("Unitree velocity fallback policy hash changed")
-        self.session = ort.InferenceSession(str(policy_path), providers=["CPUExecutionProvider"])
+        self.session = ort.InferenceSession(str(policy_path), sess_options=session_options, providers=["CPUExecutionProvider"])
         inputs = self.session.get_inputs()
         outputs = self.session.get_outputs()
         if (

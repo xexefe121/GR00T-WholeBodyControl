@@ -26,6 +26,7 @@ from gear_sonic.scripts.fit_g1_true23_sonic_crawl_head import (
 )
 from gear_sonic.utils.g1_23dof_safe_target_transform import safe_target_transform_numpy
 from gear_sonic.utils.g1_true23_clean_mujoco_teleop import (
+    ENCODER_SHA256,
     CleanTrue23MujocoController,
     encoder267_from_reference,
     motion_reference_terms,
@@ -77,6 +78,7 @@ def _dataset(
     encoder_path: Path,
     decoder_path: Path,
     decoder_sha256: str,
+    encoder_sha256: str = ENCODER_SHA256,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     with np.load(motion_path, allow_pickle=False) as archive:
         motion = {name: np.ascontiguousarray(archive[name]) for name in archive.files}
@@ -100,6 +102,7 @@ def _dataset(
         encoder_path,
         decoder_path,
         expected_decoder_sha256=decoder_sha256,
+        expected_encoder_sha256=encoder_sha256,
     )
     controller = CleanTrue23MujocoController(
         model_path=root / "gear_sonic/data/robots/g1/g1_23dof_rev_1_0.xml",

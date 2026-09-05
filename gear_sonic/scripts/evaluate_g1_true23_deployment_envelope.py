@@ -20,19 +20,26 @@ import numpy as np
 import onnxruntime as ort
 
 from gear_sonic.utils.g1_23dof_contract import HARDWARE_JOINT_IDS
-from gear_sonic.utils.g1_true23_actuation_profile import read_joint_amplitude_scale
 from gear_sonic.utils.g1_23dof_safe_target_transform import (
     SAFE_TARGET_DEFAULT_Q_HARDWARE,
     safe_target_transform_numpy,
 )
+from gear_sonic.utils.g1_true23_actuation_profile import read_joint_amplitude_scale
 from gear_sonic.utils.g1_true23_clean_mujoco_teleop import (
     ENCODER_SHA256,
     CleanTrue23MujocoController,
+    UnitreeZeroVelocityFallbackPolicy,
     encoder267_from_reference,
     motion_reference_terms,
     sha256_file,
 )
+from gear_sonic.utils.g1_true23_diagnostic_pair import load_diagnostic_pair, load_residual_diagnostic_pair
 from gear_sonic.utils.g1_true23_motion_fidelity import assess_motion_fidelity
+from gear_sonic.utils.g1_true23_sim_acquisition import (
+    align_reference_xy_yaw,
+    audit_reference_kinematics,
+    simulate_balance_transition,
+)
 from gear_sonic.utils.g1_true23_sonic_library_replay import (
     RELEASED_RETAINED_KD,
     RELEASED_RETAINED_KP,
@@ -243,8 +250,10 @@ def apply_target_envelope(
     return target, requested
 
 
-def _policy(encoder: Path, decoder: Path, decoder_hash: str) -> ExactHashSonicPolicy:
-    if sha256_file(encoder) != ENCODER_SHA256 or sha256_file(decoder) != decoder_hash:
+def _policy(
+    encoder: Path, decoder: Path, decoder_hash: str, *, encoder_hash: str = ENCODER_SHA256
+) -> ExactHashSonicPolicy:
+    if sha256_file(encoder) != encoder_hash or sha256_file(decoder) != decoder_hash:
         raise ValueError("encoder or decoder hash mismatch")
     # Reuse exact inference implementation while bounding CPU threading.
     result = ExactHashSonicPolicy.__new__(ExactHashSonicPolicy)
@@ -280,6 +289,9 @@ def run_case(
     measured_state: dict[str, Any] | None = None,
     startup_hold_s: float = 0.0,
     return_hold_s: float = 0.0,
+    transition_policy: UnitreeZeroVelocityFallbackPolicy | None = None,
+    align_reference_start: bool = False,
+    project_transition_effort: bool = False,
 ) -> tuple[dict[str, Any], dict[str, np.ndarray]]:
     count = validate_library_motion(motion)
     steps = count - 11 if maximum_steps is None else min(count - 11, maximum_steps)
@@ -335,21 +347,39 @@ def run_case(
         raise ValueError("unknown initial state")
     data, physics, module = controller.data, controller.physics, controller.module
     previous_target = np.asarray(data.qpos[7:], dtype=np.float64).copy()
-    startup_hold, startup_qpos = simulate_sampled_posture_hold(
-        controller,
-        kp=0.25 * kp,
-        kd=kd,
-        duration_s=startup_hold_s,
-    )
+    kinematic_audit = audit_reference_kinematics(controller, motion)
+    if transition_policy is None:
+        startup_hold, startup_qpos = simulate_sampled_posture_hold(
+            controller,
+            kp=0.25 * kp,
+            kd=kd,
+            duration_s=startup_hold_s,
+        )
+    else:
+        startup_hold, startup_qpos, previous_target = simulate_balance_transition(
+            controller,
+            transition_policy,
+            duration_s=startup_hold_s,
+            slew_rate=slew_rate,
+            previous_target=previous_target,
+            project_effort=project_transition_effort,
+        )
+    reference_alignment = None
+    if align_reference_start:
+        motion, reference_alignment = align_reference_xy_yaw(motion, data.qpos)
     initial_qpos = data.qpos.copy()
     qpos = [initial_qpos.copy()]
     records: list[dict[str, float]] = []
-    failure = None
+    failure = (
+        {"transition": 0, "gates": ["acquisition_standing_screen"]}
+        if transition_policy is not None and not startup_hold["standing_screen_passed"]
+        else None
+    )
     first_predicted_gate = None
     first_target_gate = None
     clipped_joint_steps = 0
     joint_steps = 0
-    for transition in range(steps):
+    for transition in range(steps if failure is None else 0):
         try:
             index = transition + 11
             packet = motion_reference_terms(motion, transition + 9)
@@ -462,15 +492,36 @@ def run_case(
         available=count - 11,
         failure=failure,
     )
-    return_hold, return_qpos = simulate_sampled_posture_hold(
-        controller,
-        kp=0.25 * kp,
-        kd=kd,
-        duration_s=return_hold_s,
-    )
+    if transition_policy is None:
+        return_hold, return_qpos = simulate_sampled_posture_hold(
+            controller,
+            kp=0.25 * kp,
+            kd=kd,
+            duration_s=return_hold_s,
+        )
+    elif not records:
+        return_hold, return_qpos = {"not_run_reason": "acquisition_failed"}, data.qpos[None].copy()
+    else:
+        return_hold, return_qpos, _ = simulate_balance_transition(
+            controller,
+            transition_policy,
+            duration_s=return_hold_s,
+            slew_rate=slew_rate,
+            previous_target=previous_target,
+            project_effort=project_transition_effort,
+        )
     report["startup_hold"] = startup_hold
     report["return_hold"] = return_hold
     report["measured_contact_estimate"] = measured_contact
+    report["reference_kinematic_audit"] = kinematic_audit
+    report["reference_alignment"] = reference_alignment
+    report["lifecycle_simulator_screen_passed"] = (
+        report["motion_fidelity"]["passed"]
+        and startup_hold.get("existing_guard_screen_passed") is True
+        and return_hold.get("existing_guard_screen_passed") is True
+        and first_predicted_gate is None
+        and first_target_gate is None
+    )
     report["measured_initial_state"] = (
         {key: measured_state[key] for key in ("source", "source_sha256")}
         if initial_state == "measured" and measured_state is not None
@@ -491,6 +542,20 @@ def main() -> int:
     parser.add_argument("--motion", type=Path, required=True)
     parser.add_argument("--decoder", type=Path, required=True)
     parser.add_argument("--expected-decoder-sha256", required=True)
+    parser.add_argument("--encoder", type=Path, help="Explicit diagnostic encoder; requires its expected SHA256")
+    parser.add_argument("--expected-encoder-sha256")
+    parser.add_argument("--encoder-report", type=Path)
+    parser.add_argument("--decoder-report", type=Path)
+    parser.add_argument(
+        "--residual-manifest",
+        type=Path,
+        help="Validate a newly fitted residual and its exact fitting encoder/base pair",
+    )
+    parser.add_argument(
+        "--allow-unpaired-diagnostic",
+        action="store_true",
+        help="Explicit historical/mismatched-pair experiment only; never qualifies a candidate",
+    )
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument(
         "--gain-profiles",
@@ -507,8 +572,36 @@ def main() -> int:
     parser.add_argument("--motor-health-snapshot", type=Path)
     parser.add_argument("--startup-hold-s", type=float, default=0.0)
     parser.add_argument("--return-hold-s", type=float, default=0.0)
+    parser.add_argument(
+        "--transition-balance-model",
+        type=Path,
+        help="Pinned compatibility actor for startup/return only; never replaces SONIC dance",
+    )
+    parser.add_argument(
+        "--align-reference-start",
+        action="store_true",
+        help="Apply one rigid XY/yaw reference alignment after acquisition",
+    )
+    parser.add_argument(
+        "--project-transition-effort",
+        action="store_true",
+        help="Project balance-phase targets inside existing effort/position/slew guards; simulator only",
+    )
     parser.add_argument("--maximum-steps", type=int)
     args = parser.parse_args()
+    if (args.encoder_report is None) != (args.decoder_report is None):
+        parser.error("--encoder-report and --decoder-report must be supplied together")
+    if args.encoder_report is None and args.residual_manifest is None and not args.allow_unpaired_diagnostic:
+        parser.error(
+            "paired export reports required; use --allow-unpaired-diagnostic only for explicit diagnostic comparisons"
+        )
+    if (
+        sum((args.encoder_report is not None, args.residual_manifest is not None, args.allow_unpaired_diagnostic))
+        != 1
+    ):
+        parser.error("choose exactly one: paired reports, residual manifest, or explicit unpaired diagnostic")
+    if args.project_transition_effort and args.transition_balance_model is None:
+        parser.error("--project-transition-effort requires --transition-balance-model")
     root, assets, output = args.repository_root.resolve(), args.asset_root.resolve(), args.output_dir.resolve()
     if output.exists():
         raise FileExistsError(output)
@@ -529,7 +622,32 @@ def main() -> int:
     with np.load(motion_path, allow_pickle=False) as archive:
         motion = {name: np.ascontiguousarray(archive[name]) for name in archive.files}
     validate_library_motion(motion)
-    policy = _policy(assets / ENCODER, decoder, args.expected_decoder_sha256)
+    if (args.encoder is None) != (args.expected_encoder_sha256 is None):
+        parser.error("--encoder and --expected-encoder-sha256 must be supplied together")
+    encoder_path = assets / ENCODER if args.encoder is None else args.encoder.resolve()
+    encoder_hash = ENCODER_SHA256 if args.expected_encoder_sha256 is None else args.expected_encoder_sha256
+    pair = None
+    if args.encoder_report is not None:
+        pair = load_diagnostic_pair(args.encoder_report, args.decoder_report)
+    elif args.residual_manifest is not None:
+        pair = load_residual_diagnostic_pair(args.residual_manifest, decoder)
+    if pair is not None:
+        for component, path, digest in (
+            ("encoder", encoder_path, encoder_hash),
+            ("decoder", decoder, args.expected_decoder_sha256),
+        ):
+            if Path(pair[component]["path"]) != path.resolve() or pair[component]["sha256"] != digest:
+                raise ValueError(f"requested {component} does not match paired export")
+    policy = _policy(encoder_path, decoder, args.expected_decoder_sha256, encoder_hash=encoder_hash)
+    transition_policy = None
+    if args.transition_balance_model is not None:
+        if args.startup_hold_s <= 0 or args.return_hold_s <= 0:
+            parser.error("balance transitions require positive startup/return durations")
+        options = ort.SessionOptions()
+        options.intra_op_num_threads = options.inter_op_num_threads = 1
+        transition_policy = UnitreeZeroVelocityFallbackPolicy(
+            args.transition_balance_model, session_options=options
+        )
     output.mkdir(parents=True)
     cases = []
     for gain, fraction, effort, slew, initial in product(
@@ -553,8 +671,15 @@ def main() -> int:
             measured_state=measured_state,
             startup_hold_s=args.startup_hold_s,
             return_hold_s=args.return_hold_s,
+            transition_policy=transition_policy,
+            align_reference_start=args.align_reference_start,
+            project_transition_effort=args.project_transition_effort,
         )
         report.update(
+            encoder_decoder_pair_validated=pair is not None,
+            paired_lifecycle_simulator_screen_passed=(
+                pair is not None and report["lifecycle_simulator_screen_passed"]
+            ),
             label=label,
             gain_profile=gain,
             action_fraction=fraction,
@@ -574,6 +699,8 @@ def main() -> int:
         )
     summary = {
         "kind": "g1_true23_deployment_envelope_diagnostic_v1",
+        "diagnostic_pair": pair,
+        "unpaired_diagnostic_only": pair is None,
         "cases": cases,
         "sources": {
             str(path): sha256_file(path)
@@ -581,7 +708,7 @@ def main() -> int:
                 root / HEADER,
                 assets / MODEL,
                 root / PHYSICS,
-                assets / ENCODER,
+                encoder_path,
                 decoder,
                 motion_path,
                 Path(__file__).resolve(),
@@ -591,6 +718,7 @@ def main() -> int:
                 root / "gear_sonic/utils/g1_true23_motion_fidelity.py",
                 root / "gear_sonic/utils/g1_23dof_safe_target_transform.py",
                 root / "gear_sonic/utils/g1_true23_actuation_profile.py",
+                root / "gear_sonic/utils/g1_true23_sim_acquisition.py",
             )
         },
         "runtime": {
@@ -599,6 +727,14 @@ def main() -> int:
             "intra_op_threads": 1,
             "inter_op_threads": 1,
         },
+        "transition_balance_model": (
+            {
+                "path": str(args.transition_balance_model.resolve()),
+                "sha256": sha256_file(args.transition_balance_model),
+            }
+            if args.transition_balance_model is not None
+            else None
+        ),
         "authorization": {
             "simulator_only": True,
             "robot_commands_published": False,
@@ -610,6 +746,7 @@ def main() -> int:
         "limitations": [
             "Ideal 500 Hz actuation and 50 Hz inference; no transport or ownership lifecycle.",
             "Optional holds model only explicit sampled-posture PD, not Unitree mode transfer.",
+            "Optional standing actor is a 29-to-23 compatibility diagnostic, not native Unitree FSM ownership or verified hardware recovery.",
             "Measured start uses recorded joints/IMU; root position, zero base velocity and ground contact are estimated, gantry forces absent.",
             "Hardware guard crossings recorded diagnostically, not used to stop physics.",
             "Ankle limits are hypothetical model ablations, not verified hardware ratings.",

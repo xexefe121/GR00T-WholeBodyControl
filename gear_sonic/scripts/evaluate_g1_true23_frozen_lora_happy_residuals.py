@@ -54,6 +54,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     if os.path.lexists(output_dir):
         raise FileExistsError(f"residual evaluation exists: {output_dir}")
     manifest = _object(manifest_path)
+    if manifest.get("source", {}).get("diagnostic_pair") is not None:
+        raise ValueError(
+            "Paired residuals require evaluate_g1_true23_deployment_envelope --residual-manifest; "
+            "this historical survival-only evaluator hardcodes the legacy encoder"
+        )
     if (
         manifest.get("kind")
         != "g1_true23_frozen_lora_happy_residual_diagnostic_v1"

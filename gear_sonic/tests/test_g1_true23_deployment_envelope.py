@@ -1,22 +1,63 @@
 """Numerical contracts for the robot-free deployment envelope diagnosis."""
 
-import numpy as np
-import pytest
-from pathlib import Path
 import copy
 import hashlib
 import json
+from pathlib import Path
 from types import SimpleNamespace
+
+import numpy as np
+import pytest
 
 from gear_sonic.scripts.evaluate_g1_true23_deployment_envelope import (
     DEFAULT_Q,
     apply_target_envelope,
-    read_cpp_array,
     load_measured_initial_state,
-    simulate_sampled_posture_hold,
     measured_ground_contact_height,
+    read_cpp_array,
+    simulate_sampled_posture_hold,
 )
 from gear_sonic.utils.g1_23dof_contract import HARDWARE_JOINT_IDS
+
+
+@pytest.mark.parametrize(
+    "options, expected",
+    [
+        ([], "paired export reports required"),
+        (["--encoder-report", "missing.json"], "must be supplied together"),
+        (["--allow-unpaired-diagnostic", "--residual-manifest", "missing.json"], "choose exactly one"),
+        (["--allow-unpaired-diagnostic", "--project-transition-effort"], "requires --transition-balance-model"),
+    ],
+)
+def test_cli_rejects_unknown_pair_or_ignored_projection_before_loading_assets(
+    monkeypatch, capsys, options, expected
+):
+    import sys
+
+    from gear_sonic.scripts.evaluate_g1_true23_deployment_envelope import main
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "evaluate",
+            "--asset-root",
+            "missing",
+            "--motion",
+            "missing.npz",
+            "--decoder",
+            "missing.onnx",
+            "--expected-decoder-sha256",
+            "a" * 64,
+            "--output-dir",
+            "missing-output",
+            *options,
+        ],
+    )
+    with pytest.raises(SystemExit) as error:
+        main()
+    assert error.value.code == 2
+    assert expected in capsys.readouterr().err
 
 
 @pytest.fixture
@@ -133,8 +174,9 @@ def test_sampled_hold_uses_initial_pose_and_tracks_guard():
 
 
 def test_measured_contact_uses_collision_geometry_not_ankle_origin():
-    from gear_sonic.scripts.evaluate_g1_true23_deployment_envelope import MODEL
     import mujoco
+
+    from gear_sonic.scripts.evaluate_g1_true23_deployment_envelope import MODEL
 
     root = Path(__file__).resolve().parents[2]
     model_path = root.parent / "GR00T-WholeBodyControl" / MODEL

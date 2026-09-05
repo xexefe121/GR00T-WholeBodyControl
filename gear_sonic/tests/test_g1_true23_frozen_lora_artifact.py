@@ -22,6 +22,7 @@ from gear_sonic.utils.g1_23dof_mjlab_training import (
 )
 from gear_sonic.utils.g1_true23_frozen_lora_artifact import (
     export_frozen_lora_diagnostic_decoder_onnx,
+    export_frozen_lora_diagnostic_encoder_onnx,
     load_frozen_lora_diagnostic_policy,
     materialize_frozen_lora_diagnostic_policy,
 )
@@ -60,15 +61,9 @@ def test_materializer_reconstructs_hash_bound_diagnostic_policy(tmp_path: Path) 
             "task": "Unitree-G1-23Dof-Frozen-LoRA",
             "output_dim": 23,
         },
-        source_manifest=build_file_manifest(
-            {"runner.py": source_file}, kind="source_files"
-        ),
-        asset_manifest=build_file_manifest(
-            {"g1.xml": asset_file}, kind="robot_assets"
-        ),
-        dataset_manifest=build_file_manifest(
-            {"motion.npz": dataset_file}, kind="motion_dataset"
-        ),
+        source_manifest=build_file_manifest({"runner.py": source_file}, kind="source_files"),
+        asset_manifest=build_file_manifest({"g1.xml": asset_file}, kind="robot_assets"),
+        dataset_manifest=build_file_manifest({"motion.npz": dataset_file}, kind="motion_dataset"),
     )
     critic = {"value.weight": torch.ones(1, 1)}
     update = MINIMUM_TRAINING_UPDATES
@@ -116,18 +111,30 @@ def test_materializer_reconstructs_hash_bound_diagnostic_policy(tmp_path: Path) 
 
     decoder_output = tmp_path / "candidate.diagnostic.decoder.onnx"
     decoder_report = tmp_path / "candidate.diagnostic.decoder.json"
-    _decoder_path, _report_path, report = (
-        export_frozen_lora_diagnostic_decoder_onnx(
-            diagnostic_policy_path=output,
-            output_path=decoder_output,
-            report_path=decoder_report,
-        )
+    _decoder_path, _report_path, report = export_frozen_lora_diagnostic_decoder_onnx(
+        diagnostic_policy_path=output,
+        output_path=decoder_output,
+        report_path=decoder_report,
     )
     assert decoder_output.is_file()
     assert decoder_report.is_file()
     assert report["source"]["policy_state_sha256"] == merged_hash
-    assert report["validation"]["onnx_runtime_parity"][
-        "parity_case_count"
-    ] == 3
+    assert report["validation"]["onnx_runtime_parity"]["parity_case_count"] == 3
     assert report["deployment_ready"] is False
     assert report["active_motor_control_authorized"] is False
+    encoder_output, encoder_report_path, encoder_report = export_frozen_lora_diagnostic_encoder_onnx(
+        diagnostic_policy_path=output,
+        output_path=tmp_path / "candidate.diagnostic.encoder.onnx",
+        report_path=tmp_path / "candidate.diagnostic.encoder.json",
+    )
+    assert encoder_output.is_file() and encoder_report_path.is_file()
+    assert encoder_report["encoder"]["input_shape"] == [1, 267]
+    assert encoder_report["encoder"]["output_shape"] == [1, 64]
+    assert encoder_report["paired_encoder_state_sha256"] == report["paired_encoder_state_sha256"]
+    assert encoder_report["validation"]["onnx_runtime_parity"]["parity_max_abs_error"] == 0.0
+    assert not encoder_report["hardware_authorized"] and not encoder_report["promotion_eligible"]
+    from gear_sonic.utils.g1_true23_diagnostic_pair import load_diagnostic_pair
+
+    pair = load_diagnostic_pair(encoder_report_path, decoder_report)
+    assert pair["validated"] and not pair["hardware_authorized"]
+    assert pair["encoder"]["sha256"] == encoder_report["encoder"]["sha256"]

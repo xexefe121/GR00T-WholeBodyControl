@@ -1,5 +1,141 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-05 continuation: wrong encoder pairing confirmed
+
+**Physical dance and live teleop remain NOT ready. No robot commands, mode
+changes, gain changes, hardware pin changes or promotions in this continuation.**
+The old physical launcher still pins the mismatched encoder described below;
+these offline fixes do not qualify that launcher or its controller.
+
+### New evidence: selected encoder was not the training encoder
+
+The original selected frozen-LoRA breadth25 checkpoint and the new breadth50
+checkpoint use the same frozen encoder parameters:
+`3625edb10aabd266196702aefd464ad07c93847f2d1722a977e18ef2a0143990`
+(runner tensor-state fingerprint). Their freshly exported encoder ONNX files
+are also byte-identical:
+`3806b2b63ebadf4d6cbf9f79b7072f2bf27ab8eb8bc6a9b3042f97739cc5428a`.
+
+The previously selected causal-model-250 encoder is instead
+`733353148bef1eb8dd83a96416b7a89f0b5c3530ceb9e0cec9c25fdb04f56ff2`.
+Direct audit against the original breadth25 training encoder disagrees on
+**535/535 happy-dance causal reference inputs**, with maximum token-coordinate
+error **0.9375**. Earlier breadth50 audit disagreed on 33–64 coordinates out
+of 64 per frame. This is a real model-pairing fault, not an ABI-size mismatch
+or harmless floating-point error. Matching encoder audit passes all 535
+inputs, with exact token equality. Scope is this reference-input distribution,
+not a live headset or all off-reference states.
+
+Evidence (relative to `artifacts/g1_true23_frozen_lora/`):
+
+- `balance_lifecycle_20260905_v1/encoder_parity.json`
+- `balance_lifecycle_20260905_v1/breadth25_matching_encoder_parity.json`
+- `paired_encoder_20260905_v2/original25_legacy_encoder_audit.json`
+- `paired_encoder_20260905_v2/original_breadth25/model_25.diagnostic.{encoder,decoder}.json`
+
+The newly exported original decoder has SHA `f4416889023eb629656fa189649d8cd071cdc3ae61fc1bfd888d07815d21bdc8`,
+not the historical `c12038...` ONNX. Its initializer names and every tensor
+are identical; both have 25 nodes. Exporter versions differ (Torch 2.10 vs
+2.9). It passes fresh Torch/ONNX parity and reproduces the earlier corrected-
+encoder baseline below. No old artifact was overwritten.
+
+### Implemented: pairing and diagnostic correctness
+
+- Diagnostic encoder export reconstructs the actual frozen encoder plus FSQ
+  and requires exact discrete-token parity. Both export reports include the
+  encoder parameter fingerprint and the static 267→64 / FSQ32 contract.
+- `g1_true23_diagnostic_pair.py` validates both model files, report hashes,
+  checkpoint identity, encoder identity, ABI, parity evidence and diagnostic-
+  only flags. Missing/mixed legacy sidecars require re-export, not a pin edit.
+  This is local provenance checking, not signed attestation or fresh physics
+  qualification. The normal ONNX loader still checks actual runtime ABI.
+- Happy residual fitting now requires `--encoder-report` from the same
+  checkpoint as `--base-decoder-report`; its manifest binds the exact fitting
+  encoder and base pair. No implicit causal-model-250 encoder for new fits.
+- Deployment-envelope evaluation requires paired reports or a validated
+  `--residual-manifest`. Explicit `--allow-unpaired-diagnostic` remains only
+  for historical/mismatched-pair experiments; their paired-lifecycle screen
+  can never pass. The old survival-only residual evaluator rejects these new
+  paired manifests rather than silently reverting to its legacy encoder.
+- Fixed two additional in-place quaternion normalizations in the shared
+  rotation helper and causal encoder input builder. Mutable and read-only
+  input arrays now remain unchanged.
+- Added a simulator-only acquisition/return diagnostic using the hash-pinned
+  Unitree zero-velocity 29→23 compatibility actor. It is never substituted
+  for SONIC during the requested motion and does not emulate Unitree FSM
+  ownership, DDS, motor faults or physical recovery.
+- Optional standing target projection intersects the existing joint-margin,
+  slew and 95% of quarter-effort guard bounds. Empty intersection fails;
+  limits are not increased. Every 2 ms substep is observed. Partial failures
+  retain terminal state, actual elapsed time and initial tilt rather than
+  reporting a false completed interval or zero tilt.
+
+### Correct-pair experiments: limited improvement, all candidates rejected
+
+Native configured simulator gains, full targets, hypothetical 35 Nm ankle
+limit, reference start. All are explicit-torque simulator diagnostics; no
+claim that these gains are reviewed for this robot.
+
+| Model | 5 rad/s slew completion | No-slew completion | No-slew max pelvis error | No-slew max relative-body error | No-slew max joint RMSE |
+|---|---:|---:|---:|---:|---:|
+| Original breadth25, correct encoder | 220/535 | 535/535 | 3.8686 m | 0.5462 m | 0.5748 rad |
+| Refit residual +0.25, correct encoder | 210/535 | 535/535 | 1.6413 m | 0.6542 m | 0.4825 rad |
+
+The residual improves pelvis and joint errors in this unslewed case but
+worsens relative-body error, orientation error (0.4970→0.5760 rad), and
+slew-limited completion. Both exceed the predicted quarter-effort guard at
+the first unslewed transition; target-margin guards also cross. **Neither
+passes motion fidelity or lifecycle screening.** Lower fit residual error is
+not evidence of improved closed-loop control.
+
+Four residual alphas were fitted: 0.01, 0.05, 0.10, 0.25. Their slew-limited
+completions are 141, 184, 178, 210; all four unslewed cases complete 535 but
+fail fidelity. No checkpoint selected or promoted; no original-v14 parity
+claim. Earlier stage-one-trained breadth50 with the corrected encoder also
+fails every tested fidelity case. Correct pairing is necessary, not sufficient.
+
+Final-code replays are `paired_encoder_20260905_v2/final_baseline/summary.json`
+and `final_residual_025/summary.json`; four-candidate fit and initial screens
+are `residual_fit/manifest.json` and `residual_eval/*/summary.json` beside them.
+All old experiments are preserved, including now-known mismatched-pair tests.
+
+### Acquisition progresses; full dance/return still fail
+
+`paired_encoder_20260905_v2/final_lifecycle/summary.json` starts from the
+historical measured motor/IMU snapshot, with estimated foot contact and no
+gantry forces. Effort-projected compatibility standing completes **5 s / 250
+policy steps / 2,500 physics steps** within existing numeric guards:
+minimum height 0.7827 m, max tilt 0.0234 rad, horizontal drift 0.0284 m,
+peak quarter-effort ratio 0.95, 77 joint-substeps projected.
+
+After one rigid XY/yaw reference alignment (no height adjustment or per-frame
+recentering), the actual SONIC breadth25 dance fails at **187/535**. Active
+effort guard first crosses at transition 4. Diagnostic physics deliberately
+continues past this recorded crossing; hardware would not follow that trace.
+Attempted return from the already-fallen simulated state fails immediately
+on an empty effort/position/slew intersection; starting tilt is 1.1973 rad,
+height 0.2111 m. This is not a successful return or safe recovery controller.
+All 546 source frames pass native23 body-position/orientation FK consistency;
+that does not establish dynamic feasibility.
+
+Next work: train/validate a support-capable native23 full-body policy through
+one explicitly reviewed actuation profile and its acquisition/return path,
+using the actual paired encoder throughout. The existing hardware profile,
+stale encoder pin, live PICO calibration, motor-off latch cause and per-motion
+29→23 contact/COM feasibility remain unresolved. Do not retry physical dance
+based on this entry. Exact preservation of absent waist/wrist axes is impossible.
+
+Verification: **110 focused tests passed**, including actual MuJoCo replay,
+paired encoder/decoder export, source/byte mismatch rejection, fitting-pair
+binding, immutable quaternions, partial-step accounting and CLI fail-closed
+behavior. Critical Ruff checks passed. Separate legacy step1b suite reports
+12 passed / 2 failed: existing target MJCF hash is `38d6b0...` while its old
+pin expects `16e304...`; fork-local
+`artifacts/external/unitree_rl_mjlab/src/tasks/tracking/tracking_env_cfg.py`
+is missing. No hash was changed or fixture fabricated to hide those failures.
+Heavy artifacts remain local; verified offline code and this log are committed
+separately from the pre-existing physical-control experiments.
+
 ## 2026-09-05 continuation: deployed-mechanics training and acquisition
 
 **Still not ready for physical full-body dance or live teleop. No robot

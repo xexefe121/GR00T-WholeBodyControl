@@ -142,13 +142,15 @@ class ExactHashSonicPolicy:
         decoder_path: Path,
         *,
         expected_decoder_sha256: str,
+        expected_encoder_sha256: str = ENCODER_SHA256,
+        session_options: ort.SessionOptions | None = None,
     ) -> None:
-        if sha256_file(encoder_path) != ENCODER_SHA256:
+        if sha256_file(encoder_path) != expected_encoder_sha256:
             raise ValueError("causal encoder hash changed")
         if sha256_file(decoder_path) != expected_decoder_sha256:
             raise ValueError("requested true23 decoder hash changed")
-        self.encoder = ort.InferenceSession(str(encoder_path), providers=["CPUExecutionProvider"])
-        self.decoder = ort.InferenceSession(str(decoder_path), providers=["CPUExecutionProvider"])
+        self.encoder = ort.InferenceSession(str(encoder_path), session_options, providers=["CPUExecutionProvider"])
+        self.decoder = ort.InferenceSession(str(decoder_path), session_options, providers=["CPUExecutionProvider"])
         encoder_inputs = self.encoder.get_inputs()
         encoder_outputs = self.encoder.get_outputs()
         decoder_inputs = self.decoder.get_inputs()

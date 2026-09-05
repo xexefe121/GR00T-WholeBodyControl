@@ -18,21 +18,17 @@ import onnxruntime as ort
 
 from gear_sonic.scripts.fit_g1_true23_sonic_crawl_head import _fit_delta
 from gear_sonic.scripts.fit_g1_true23_sonic_multimotion_head import (
-    DEFAULT_ENCODER,
     _dataset,
     _export_candidate,
     select_ridge,
 )
 from gear_sonic.utils.g1_23dof_artifact import sha256_file
+from gear_sonic.utils.g1_true23_diagnostic_pair import load_diagnostic_pair
 
 ALPHAS = (-0.02, -0.01, -0.005, -0.002, -0.001, 0.001, 0.002, 0.005, 0.01, 0.02, 0.05)
-MOTION = Path(
-    "artifacts/g1_true23/sonic_library_true23_happy_physical_reference_v1/"
-    "happy_dance.true23.npz"
-)
+MOTION = Path("artifacts/g1_true23/sonic_library_true23_happy_physical_reference_v1/happy_dance.true23.npz")
 ROLLOUT = Path(
-    "artifacts/g1_true23/sonic_library_true23_released_adapter_v10_happy_dataset/"
-    "happy_dance.true23.physical.npz"
+    "artifacts/g1_true23/sonic_library_true23_released_adapter_v10_happy_dataset/happy_dance.true23.physical.npz"
 )
 
 
@@ -40,8 +36,7 @@ def _load_base_decoder(report_path: Path) -> tuple[Path, str, dict[str, Any]]:
     value = json.loads(report_path.read_text(encoding="utf-8"))
     if (
         not isinstance(value, dict)
-        or value.get("kind")
-        != "g1_true23_frozen_lora_diagnostic_decoder_onnx"
+        or value.get("kind") != "g1_true23_frozen_lora_diagnostic_decoder_onnx"
         or value.get("diagnostic_only") is not True
         or value.get("deployment_ready") is not False
         or value.get("hardware_authorized") is not False
@@ -72,6 +67,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repository-root", type=Path, required=True)
     parser.add_argument("--base-decoder-report", type=Path, required=True)
+    parser.add_argument(
+        "--encoder-report",
+        type=Path,
+        required=True,
+        help="Matching diagnostic encoder export from the same checkpoint; no legacy default",
+    )
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--alphas", nargs="+", type=float, default=ALPHAS)
     args = parser.parse_args(argv)
@@ -86,7 +87,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     if len(set(names)) != len(names):
         raise ValueError("residual alpha names collide")
     base_decoder, base_digest, base_report = _load_base_decoder(report_path)
-    encoder = (root / DEFAULT_ENCODER).resolve(strict=True)
+    pair = load_diagnostic_pair(args.encoder_report, report_path)
+    encoder = Path(pair["encoder"]["path"])
+    if Path(pair["decoder"]["path"]) != base_decoder or pair["decoder"]["sha256"] != base_digest:
+        raise ValueError("residual base decoder pair mismatch")
     motion = (root / MOTION).resolve(strict=True)
     rollout = (root / ROLLOUT).resolve(strict=True)
 
@@ -97,16 +101,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         encoder_path=encoder,
         decoder_path=base_decoder,
         decoder_sha256=base_digest,
+        encoder_sha256=pair["encoder"]["sha256"],
     )
-    session = ort.InferenceSession(
-        str(base_decoder), providers=["CPUExecutionProvider"]
-    )
+    session = ort.InferenceSession(str(base_decoder), providers=["CPUExecutionProvider"])
     input_name = session.get_inputs()[0].name
     base_output = np.concatenate(
-        [
-            np.asarray(session.run(None, {input_name: row[None]})[0])
-            for row in decoder994
-        ],
+        [np.asarray(session.run(None, {input_name: row[None]})[0]) for row in decoder994],
         axis=0,
     ).astype(np.float32)
     residual = teacher - base_output
@@ -132,9 +132,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 "alpha": alpha,
                 "decoder_filename": output.name,
                 "decoder_sha256": sha256_file(output),
-                "teacher_state_rmse": float(
-                    np.sqrt(np.mean(np.square(prediction - teacher)))
-                ),
+                "teacher_state_rmse": float(np.sqrt(np.mean(np.square(prediction - teacher)))),
             }
         )
 
@@ -142,12 +140,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         "schema_version": 1,
         "kind": "g1_true23_frozen_lora_happy_residual_diagnostic_v1",
         "source": {
+            "diagnostic_pair": pair,
+            "encoder_sha256": pair["encoder"]["sha256"],
             "base_decoder_report": report_path.name,
             "base_decoder_report_sha256": sha256_file(report_path),
             "base_decoder_sha256": base_digest,
-            "base_adapter_state_sha256": base_report["source"][
-                "adapter_state_sha256"
-            ],
+            "base_adapter_state_sha256": base_report["source"]["adapter_state_sha256"],
             "motion_sha256": sha256_file(motion),
             "teacher_rollout_sha256": sha256_file(rollout),
         },
@@ -155,9 +153,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             "rows": len(hidden),
             "selected_ridge": selected_ridge,
             "ridge_grid": ridge_grid,
-            "base_teacher_state_rmse": float(
-                np.sqrt(np.mean(np.square(base_output - teacher)))
-            ),
+            "base_teacher_state_rmse": float(np.sqrt(np.mean(np.square(base_output - teacher)))),
             "delta_weight_frobenius": float(np.linalg.norm(delta_w)),
             "delta_bias_l2": float(np.linalg.norm(delta_b)),
         },

@@ -723,7 +723,11 @@ def _model_joint_names(model: Any) -> tuple[str, ...]:
 
 
 def _quaternion_matrix(quaternion_wxyz: Sequence[float]) -> np.ndarray:
-    value = np.asarray(quaternion_wxyz, dtype=np.float64)
+    # Quaternion observations must not normalize a view into simulator state
+    # or an immutable reference in place.
+    value = np.array(quaternion_wxyz, dtype=np.float64, copy=True)
+    if value.shape != (4,) or not np.isfinite(value).all() or np.linalg.norm(value) == 0.0:
+        raise ValueError("rotation requires a finite nonzero wxyz quaternion")
     value /= np.linalg.norm(value)
     w, x, y, z = value
     return np.asarray(
