@@ -1,5 +1,59 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-07: read-only incident capture tested at 1,000 callbacks/s
+
+**Still NOT ready for physical dance or live full-body teleop.** This turn
+finishes a diagnostic prerequisite, not another policy experiment or hardware
+handoff change. Robot Ethernet remains disconnected. No robot, DDS participant,
+SSH, publisher, mode request or training run is started. The pre-existing
+hardware edits remain unchanged and unstaged; the active C++ source/header
+still match the prior handoff audit's SHA256 values.
+
+New passive recorder subscribes to HG LowState, raw/user LowCmd and sport /
+motion-switcher RPC request/response topics. It preserves immutable reserialized
+CDR, receipt order/time, source/IDL/native-CRC hashes and explicit collector
+loss/error counts. It neither publishes commands nor asks for robot mode.
+Original wire bytes and losses upstream of its callback are not observable.
+
+An initial inline decoding design drops **4,365/10,000** paced synthetic
+callbacks; its failure evidence is retained. The corrected design writes raw
+records first, then interprets the saved file in a separate offline command.
+CRC-valid native23 status edges, including a one-sample raw bit-30 pulse, are
+preserved without labeling them a physical diagnosis. CRC/tick discontinuities
+break the edge baseline; absent axes never become controlled motors.
+
+**73 tests pass, zero failures or skips** with real SDK IDL/native CRC and
+fake subscriptions; network/DDS constructors are forbidden in those transport
+tests. The initial SDK default-factory test errors were resolved by using the
+SDK's actual IDL constructors, without changing the SDK. Ruff E/F and format
+checks pass for all seven new Python files.
+
+The final **30-second / 30,000-callback** raw-first benchmark runs at requested
+500 LowState + 500 command packets/s, with **zero collector drops**, both
+synthetic bit-30 edges recovered and queue peak **335/2,048**. Callback p99 is
+**0.716 ms**, maximum **2.082 ms**; offline decoding takes **27.066 s** after
+capture. This does not exercise DDS or qualify real-time scheduling. A prior
+10-second run also preserves all 10,000 packets but has a **116.677 ms** host
+pause, so zero file-queue loss must not be sold as live transport reliability.
+
+Evidence root:
+`artifacts/g1_true23_frozen_lora/incident_capture_20260907_v1/`.
+`verification.json` binds the completed 73-test JUnit record, benchmark reports,
+diagnostic source and unchanged active hardware source/header. SHA256:
+`d56c00dd9f76cfb9f4f8bab263621105b415f311d2c1e7be662fa1c03c7f0d18`.
+Raw synthetic captures are local artifacts, not physical incident evidence.
+Usage and limits are in `G1_TRUE23_INCIDENT_CAPTURE.md`.
+
+**Deployment path remains:** establish the actual firmware and supported
+full-body ownership protocol first; separate normal standing handback from
+fault/damp recovery and qualify its failure cases; then qualify the complete
+native23 dance plus standing return and live PICO stream. The candidate
+`rt/user_lowcmd` retained-service protocol is not yet validated for this robot.
+Policy remains **2.06/10.7 s** of historical-start dance, **0/250** return
+controls. No new readiness claim or motion authorization is made. Next
+hardware-side prerequisite is reconnecting the observer and obtaining current
+firmware/telemetry, read-only; do not launch another dance to manufacture a fault.
+
 ## 2026-09-07: actual handoff RPC failure reproduced; qualification corrected
 
 **Still NOT ready for physical dance or live full-body teleop.** This turn
