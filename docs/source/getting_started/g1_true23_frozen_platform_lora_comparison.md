@@ -1,5 +1,14 @@
 # Frozen-platform LoRA versus the original true23 v14 trainer
 
+> **Full-path optimizer follow-up, 2026-09-06:** The additive contact-patch
+> force optimizer now uses a strict Clarabel backend and current-iterate
+> correction cost, keeping every supplied frame and all native23 joints.
+> 332 regression tests pass. Its fresh eight-clip corpus experiment is still
+> in progress; a first accepted crouch update is not a completed reference,
+> paired rollout, standing-return result or live-teleop qualification.
+> No new full-weight-v14 matched-budget comparison or hardware result exists.
+> See [current evidence and limits](../../../PROGRESS.md).
+
 > **Current status, 2026-09-06:** No native23 full-body dance, safe return or
 > physical live-teleop qualification. The historical LoRA comparisons below
 > used encoder `73335314...`, not the actual paired training encoder

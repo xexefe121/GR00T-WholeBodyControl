@@ -1,5 +1,74 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-06 continuation: full-path contact-patch force optimizer
+
+**NOT ready for physical dance, standing return or live full-body teleop.**
+This continuation remains offline. No robot connection, mode command, control
+loop edit, policy promotion or safety-limit/interlock change. The physical
+bit-30 motors-off cause remains unverified.
+
+The full-path solver now has an explicit Clarabel 0.11.1 backend, strict
+`Solved` status plus independent original-row audit at `1e-8`, a correction
+cost centered on the current iterate, bounded trust retries, and hard local
+candidate-support patches. All frames have independent root-XYZ/23-joint
+variables; no stationary tail is tied and no entry motion is removed. Original
+position/correction boxes, root orientations, 50 Hz timing, velocity,
+acceleration and initial velocity remain unchanged. Both compiled models share
+the same path but retain independent contact-force/torque variables. The
+optimizer requests 98% of the already constrained `0.2375 * effort` limits;
+this is a 2% algebraic screening reserve, not robust-control headroom proof.
+
+The new implementation is additive (`g1_true23_box_qp.py`,
+`g1_true23_contact_force_optimizer.py`, `refine_g1_true23_contact_forces.py`).
+Historical force/contact utility and CLI bytes remain unchanged: all 161 files
+in the preceding completed force-V1 comparison were independently rehashed
+with zero changes. Candidate output is saved and reopened before independent
+temporal/FK, every-frame inverse-dynamics LP and causal-packet checks.
+
+### Interrupted V2 attempt and guard correction
+
+`contact_force_trajectory_20260906_v2` is an **interrupted partial experiment**,
+not a completed corpus. Upright/standing each completed 1,024/1,024 conditional
+force/headroom frames in both models. Crouch accepted two full-path updates
+before the agent stopped the offline process to correct an overly restrictive
+nonlinear guard check. Last terminal-only crouch values: normalized squared
+residual 10.412302965622153, maximum mixed generalized-force residual
+50.740144294183324, two geometry-violating frames. That partial crouch candidate
+was not serialized; it is not a witness or full-motion result. Exit 1 was an
+intentional SIGINT during iteration-three linearization, not a completed test.
+`interrupted.json` records this distinction; five byte-exact source snapshots
+were verified before editing. The pre-correction broad suite passed 329 tests.
+
+The linear patch ceiling is 1.95 mm (50 micrometers inside the unchanged 2 mm
+candidate band). Nonlinear curvature may consume that reserve, but must remain
+0.2 micrometers inside the outer band. The first attempt incorrectly required
+almost the entire reserve to remain unused. The corrected check retains actual
+contact recomputation and the independent force/geometry audits. Focused tests
+after this correction: 33 passed, no skips, including rejecting exhausted
+guard, reduced solver status and forged successful solver results.
+The final broad suite on the corrected code passed **332 tests**, no skips,
+in 135.88 seconds. Ruff checks passed for all five added Python files.
+
+### Full-corpus V3 verification in progress
+
+`artifacts/g1_true23_frozen_lora/contact_force_trajectory_20260906_v3` was started
+fresh for all eight clips, up to 64 nonlinear iterations and 200 QP iterations.
+`started.json` binds source/input bytes before work begins and is explicitly
+not a completion record. This section must not be interpreted as a finished
+full-corpus or replay result. A completed `report.json`, all eight final saved
+references, independent force LPs and changed-reference full paired replays
+remain required. No training or hardware readiness follows from optimizer
+status, and original-full-weight-v14 corrected matched-budget comparison is
+still outstanding.
+
+The first V3 crouch update is a measured optimizer result, not a saved clip:
+Clarabel `Solved`, independent original-row violation `2.2950391587173158e-15`,
+full line-search step at trust fraction `1/16`, nonlinear guard consumption
+31.799618314815254 micrometers (below 49.8 micrometers). Normalized squared
+force residual fell to 9.390167177444004; maximum residual remained
+52.47102125020848 and six geometry-violating frames remained. Thus the reserve
+correction permits a finite full-path update but does not establish feasibility.
+
 ## 2026-09-06 continuation: force-path restoration and a conditional single-pose witness
 
 **Physical dance, standing return and live full-body teleop remain NOT ready.**
