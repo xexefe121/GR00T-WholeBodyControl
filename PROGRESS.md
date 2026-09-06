@@ -1,5 +1,65 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-07: 100 lifecycle updates improve prefixes, but no full motion passes
+
+**Still NOT ready for physical dance or live full-body teleop.** The single
+planned 100-update CPU lifecycle run completes successfully in **3,095.82 s**:
+**38,509 actual active-policy actions / 1,416 optimizer minibatches / 800
+full-request training attempts**. The two-update smoke was separate, not
+counted as resumed training. Initial actor, source motion, gains, effort/slew
+limits, frozen encoder/base decoder/action std and standing retention remain
+as documented below. No training source or controller code changed during
+this run. All original requests remain in the evaluation, including the
+unavailable elbow and separate standing prerequisites.
+
+| Complete request | Original v14 100 | Prior LoRA 100 | Lifecycle +100 | Requested controls |
+|---|---:|---:|---:|---:|
+| Hand crawling | 16 | 64 | 127 | 595 |
+| Dance, reference start | 16 | 64 | 96 | 535 |
+| Dance, historical start | 24 | 60 | 103 | 535 |
+| PICO upright | 17 | 37 | 42 | 1,013 |
+| PICO standing | 7 | 37 | 41 | 1,013 |
+| PICO crouch | 20 | 25 | 25 | 1,013 |
+| PICO walk 001 | 16 | 22 | 22 | 684 |
+| PICO walk 010 | 11 | 24 | 24 | 499 |
+| Synthetic standing, reference start | 30 | 500 | 500 | 500 |
+| Synthetic standing, acquired | 36 | 500 | 500 | 500 |
+
+Historical-start dance improves from **1.2 s to 2.06 s of 10.7 s**; its
+standing return is still **0/250 controls**. Reference-start dance reaches
+1.92 s. Hand crawling reaches 2.54 s of 11.9 s. All available complete motion
+evaluations still fail with `TargetIntersectionError`. Stationary standing
+retains **250/500/250** acquisition/active/return. The historical-dance failure
+is a left-ankle-pitch effort/position/slew intersection gap; it does not explain
+the physical motors-off incident and does not authorize increasing a limit.
+
+This is a real improvement in these particular simulator evaluations, not
+full-dance completion, a multi-seed reliability estimate, an equal-total-budget
+comparison, or proof that the training-engine change alone caused it. The
+new actor remains unqualified; no deployment export or robot operation occurs.
+No additional training run is started by the completion checker.
+
+Independent comparison verifies actual action counts across all 800 training
+attempts, checkpoint/optimizer counters, changed actor and critic, unchanged
+action std, identical requests/limits, and **20 new evaluation traces / 43,185
+physics steps** with continuous state/time, matching PD effort and intact
+effort caps. Existing **704 focused tests** remain tied to the unchanged
+source/test hashes; they are not new hardware evidence. Detailed outcomes and
+failure joints are in `completed_100_comparison.json` under
+`artifacts/g1_true23_frozen_lora/lifecycle_ppo_20260907_v1/`.
+Comparison SHA256: `9133803919d0694fd068192f3b49e8ec97bd65cb65bd316d53fa7b93b8b56dd4`.
+Experiment SHA256: `44aae49d873b16a0eb0074477e0ff77368731fad3669b17c3d20cc30defdaa55`.
+
+The saved-state attenuation check below motivates investigating how much
+sampled action variation produces identical complete 20 ms control sequences.
+[Clipped Action Policy Gradient](https://proceedings.mlr.press/v80/fujita18a.html)
+is relevant published work on reducing estimator variance from action clipping.
+It is **not** a ready-made proof for this changing 2 ms projection: any use here
+must preserve the full held-action sequence, rewards and actual target-history
+feedback. No clipping-aware estimator or altered exploration scheme has been
+implemented or tested in this run. Longer training would also need a deliberate
+runtime/storage budget; this run's full traces remain preserved.
+
 ## 2026-09-07: full-lifecycle CPU PPO runs; two-update smoke is not a dance fix
 
 **Still NOT ready for physical dance or live full-body teleop.** The new
@@ -53,11 +113,11 @@ All three historical-dance returns complete **0/250** controls. Lifecycle +2
 preserves stationary acquisition/active/return at **250/500/250**. It adds two
 updates to the prior actor, so this is not an equal-total-budget comparison.
 The smoke verifies implementation, not enough training or controller quality.
-A single 100-new-update experiment is launched with unchanged full evaluation
-before and after training, after the focused regression suite passes. It starts
+A single 100-new-update experiment was launched with unchanged full evaluation
+before and after training, after the focused regression suite passed. It starts
 from the same prior actor with fresh critic/Adam, not by claiming exact resume
-from this smoke. Its results must be recorded separately; no advance success
-or deployment claim is made.
+from this smoke. Its completed results are recorded in the newer section above;
+no deployment claim is made.
 
 Independent checks verify **36 continuous traces / 93,247 physics steps**,
 including all training attempts, before/after evaluations, exact initial
@@ -75,6 +135,31 @@ No robot connection, DDS, SSH, arming/mode command, motor operation or deploymen
 change occurred. Existing dirty hardware work remains untouched. Physical
 bit-30 motors-off causation and native Unitree FSM handoff remain unproven;
 the simulator's standing controller is still a 29-to-23 compatibility actor.
+
+While the 100-update run was running, a read-only recount of **76 archived
+physical execution logs** finds four with a positive reported damping tail,
+48 with zero and 24 without this field. None contains raw motor-status/mode
+fields identifying the driver-disable edge. Terminal records include 16
+effort faults and eight position faults; these software guards are not a
+diagnosis of the later latched motor-disable incidents. The separate healthy
+snapshot is from 2026-09-05 10:36:44–10:36:50 UTC, not from those fault edges.
+It cannot rule out a transient electrical/thermal event or establish what
+firmware bit 30 means. Earlier notes that exclude power/thermal causes from
+post-event measurements are not substantiated. This narrow archive audit
+does not claim no additional evidence exists elsewhere or establish current
+robot state. See `historical_incident_evidence.json` in the experiment folder.
+
+A same-recorded-state check of all eight training attempts at updates 1 and
+50 reproduces the actual requests/projections bit-exactly, then substitutes
+the saved policy mean at those same states. Across these 16 traces, **74–88%
+of joint/substep requests are clipped**, and projected action-noise RMS is
+**6–8%** of its pre-projection target RMS. For the dance specifically, the
+ratios are **7.61% / 8.01%**; sampled and mean targets project identically on
+**39.6% / 36.1%** of joint/substeps. This is substantial attenuation, not total
+loss of policy influence. It is a possible learning bottleneck, not proof of
+the training failure's cause, a closed-loop noise ablation, or justification
+to relax limits. No extra physics/policy calls or parameterization changes
+occurred. Evidence: `action_transmission.json` in the same experiment folder.
 
 ## 2026-09-06 continuation: reset curriculum rejected on full-motion tests
 

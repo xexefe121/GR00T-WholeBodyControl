@@ -1,5 +1,21 @@
 # Frozen-platform LoRA versus the original true23 v14 trainer
 
+> **100 lifecycle updates completed, 2026-09-07:** One native CPU lifecycle
+> run completes **38,509 actions / 1,416 optimizer minibatches / 800 full-request
+> attempts** in 3,095.82 s. Historical-start dance improves to **103/535**
+> controls (2.06/10.7 s), versus prior LoRA 100's **60/535** and original v14
+> 100's **24/535**. Reference-start dance is **96/535**, versus **64/535 / 16/535**;
+> hand crawling is **127/595**, versus **64/595 / 16/595**. **Every complete
+> motion still fails. All historical-dance returns remain 0/250.** Stationary
+> standing remains **250/500/250**. No limits or clips are relaxed; frozen
+> platform/action std remain unchanged. This adds training to the prior actor,
+> not an equal-total-budget or single-variable comparison. Independent checks
+> cover actual training-action counts and 20 new evaluation traces / 43,185
+> continuous physics steps. Source/test hashes remain those of the 704-test
+> trainer. No deployment artifact or robot operation; physical damping cause
+> remains unknown. The observed action attenuation is a lead for further
+> training work, not proof of a fix. See [full results](../../../PROGRESS.md).
+
 > **Full-lifecycle PPO smoke, 2026-09-07:** A separate trainer now learns in
 > the native CPU MuJoCo full-request evaluation engine. Actual standing
 > acquisition precedes each full motion attempt; actual standing return is
@@ -17,8 +33,8 @@
 > fails.** Two updates establish a working trainer, not a controller fix.
 > Independent checks cover 36 continuous traces / 93,247 physics steps and
 > actual action probabilities, rewards and optimizer counters. **704 focused
-> tests pass.** The 100-update follow-on is separately launched, not reported
-> as completed. No deployment
+> tests pass.** The separately launched 100-update follow-on is now recorded
+> in the newer completed-results section above. No deployment
 > export or robot operation; physical damping cause and native standing handoff
 > remain unresolved. See [complete current evidence](../../../PROGRESS.md).
 
