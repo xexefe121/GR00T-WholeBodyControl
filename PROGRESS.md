@@ -1,5 +1,144 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-06 continuation: recorded original29 baseline and contact-model mismatch
+
+**NOT ready for physical dance, standing return or live full-body teleop.**
+All work below is offline. No DDS connection, robot command, hardware gain,
+interlock, deployed controller, training run or policy promotion changed.
+The physical bit-30 motors-off cause remains unknown. These findings concern
+simulation/reference correctness, not a diagnosis of that physical event.
+
+### C++ parameters were not reproduced exactly by the legacy simulator
+
+The old Python original29 simulator uses half the C++ damping on hardware
+indices 4, 5, 10, 11, 13 and 14: both ankle pitch/roll pairs and waist roll/pitch.
+The checked-out and upstream [SONIC policy header](https://github.com/NVlabs/GR00T-WholeBodyControl/blob/main/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/policy_parameters.hpp)
+use `2 * DAMPING_5020` there. Smaller differences also exist: C++ gains are
+float32, defaults/scales are double, and `CreatePolicyCommand` casts its final
+motor targets to float32. Legacy Python uses different precision boundaries.
+
+The old simulator and its historical evidence are preserved unchanged.
+New additive `g1_sonic_cpp_parameters.py` compiles a standalone arithmetic
+witness against an exact saved header copy. It records the compiler, source,
+binary, parameter JSON and hashes. Ten complete action vectors match the
+compiled C++ target calculation exactly, including permutation and rounding.
+No Unitree SDK or hardware executable is built by this witness.
+
+New `g1_sonic_original29_trace.py` records either the exact legacy simulator
+bytecode with private instrumentation or an explicitly labelled C++-parameter
+variant. Both retain all physics substeps, pre/post states, requested and
+actual generalized actuator forces, ONNX inputs/outputs and final state.
+The C++-parameter variant still uses the legacy observation/playback algorithms
+and nominal-effort clipping. It is **not full C++ deployment, firmware, mode
+transition, or hardware equivalence**. No native23 limits were transferred to
+the original29 run, and no native23 limits were increased.
+
+`record_g1_sonic_original29_baseline.py` records all three original clips under
+both profiles with the released encoder/decoder hashes, exact ABI, one-thread
+CPU ONNX Runtime, and a saved compiled MuJoCo model. Pre-command samples are
+compared at the same command time; post-control samples retain their explicit
+20 ms offset. Raw planner timing and all requested frames remain recorded.
+
+| Clip | Legacy completed / requested | C++-parameter completed / requested | C++-parameter maximum joint speed, all physics steps |
+|---|---:|---:|---:|
+| Hand crawl | 606 / 606 | 606 / 606 | 13.023 rad/s |
+| Elbow crawl | 133 / 606 | 133 / 606 | 27.663 rad/s |
+| Happy dance | 546 / 546 | 546 / 546 | 13.009 rad/s |
+
+Elbow stops on the unchanged action bound, not successful full-clip completion.
+The rejected extra ONNX call is retained. Six cases are recorded, but the
+suite's `all_clips_completed` is false. Completion here remains survival only.
+C++-parameter hand/dance nominal-planner root errors are 2.248922 / 0.656584 m
+on the same-time pre-state comparison. Their active-geometry floor overlaps
+reach 16.659 / 5.718 mm. None is an automatically valid native23 teacher.
+
+Evidence: `artifacts/g1_true23_frozen_lora/original29_recorded_baseline_20260906_v1/report.json`,
+SHA256 `ba3f74b9fe84325f21673dc095840ab1db5673c62f26e1c8a2ab6194d86b6932`.
+The compiled source model is `40bd428f7a2e090a3bb2f85f61e965be179b6ab91b63d6f1a827733cf6a0cd96`.
+Runtime: Python 3.11.15, NumPy 2.3.4, MuJoCo 3.5.0, ONNX Runtime 1.28.0.
+
+### Complete recorded clips fitted with all 23 actual joints
+
+New `retarget_g1_true23_original29_trace.py` validates complete contiguous
+same-time sources and applies the existing whole-clip SE(3)/all23 fitter.
+It rejects incomplete, shifted, cropped, retimed or falsely promoted sources.
+Both full hand and dance clips accept 24 optimization updates, retain 606/546
+frames and pass serialized FK, causal and unchanged 5 rad/s, 80 rad/s^2 checks.
+The optimizer reaches its iteration budget; that is not convergence or teacher
+qualification. Elbow is explicitly retained as failed, with no padded or
+substituted output. PICO references are untouched; no accepted full-eight
+training manifest is written.
+
+| Complete clip | Worst foot error against recorded29 | Recorded29-relative root error | Nominal-planner-relative root error | Native23 floor-overlap frames / worst depth |
+|---|---:|---:|---:|---:|
+| Hand crawl | 1.206 mm | 0.036782 m | 2.236327 m | 597 / 191.225 mm |
+| Happy dance | 2.265 mm | 0.053816 m | 0.645636 m | 527 / 10.726 mm |
+
+Both foot screens pass against the recorded policy execution. Dance improves
+from its own projected seed's 20.222 mm foot error to 2.265 mm. This is a
+different source comparison from the preceding nominal-planner fit; do not
+present the old 8.501 mm and new 2.265 mm as the same fidelity metric. Worst
+hand-point errors remain 64.232 / 63.339 mm. Matching a virtual task point is
+not evidence of physically valid hand contact.
+
+Evidence: `original29_recorded_native23_fit_20260906_v1/report.json`, SHA256
+`fc9e61d35d3ca5c6e1e3922e7a9d86b6e432b6667f20bdff652e1e019f7aaf6b`.
+The nested fitter retains its historical algorithm-kind name containing
+`original_planner`; the outer report's explicit recorded-policy source,
+compiled model, trace hashes and dual comparisons define actual provenance.
+
+### Why the new hand fit still penetrates the floor
+
+The legacy source scene includes `g1_29dof_old.xml`. Its rubber-hand meshes
+are **visual-only**, with `contype=0`, `conaffinity=0` and no explicit contact
+pairs. The native23 model's rubber-hand collision meshes are enabled. The recorded
+source hand-crawl puts its visually rendered hands below the floor on 472/606
+frames, reaching 145.947 mm below it. Its apparently modest active-contact
+penetration therefore does not qualify the full physical hand geometry.
+
+At frame 191, the source's 18 cm-offset virtual hand points are 87.824 and
+146.754 mm below the floor. The native23 fit tracks those virtual points and
+puts the right physical hand 191.225 mm through the floor. The common SONIC
+VR offsets are coordinate conventions, not physical contact landmarks. They
+remain unchanged; disabling native23 hand collisions would hide the problem,
+not solve it. Dance has no below-floor hand points/meshes in this audit, so
+this crawl-specific finding does not explain its remaining ankle/contact
+tracking failures or the physical motors-off incident.
+
+Evidence: `original29_hand_contact_audit_20260906_v1/report.json`, SHA256
+`3809e6d0550cfc1ad318c1689c9b41ae496931795f6cf6edc0aae826a89dcb3b`.
+The source comparison next needs physically meaningful hand-contact geometry
+and contact landmarks, separately from unchanged teleop coordinates. Contact,
+force and controller-constrained native23 fitting/training are still required.
+
+### New paired controller replays still reject dance and return
+
+The unchanged, correctly paired baseline100 encoder `3806b2b6...` and decoder
+`90e27f37...` were tested against both new complete references plus the
+historical-measured-start dance. All three fixed-envelope cases fail an empty
+effort/position/slew intersection: hand 48/595, dance 47/535, historical-start
+dance 17/535 completed transitions. Startup still passes 250/250 transitions;
+return fails at 0/250, requiring 14.8714 rad/s instantaneous right-ankle target
+slew against the unchanged 5 rad/s bound. The failed partial physics substeps
+remain recorded. No guard was relaxed and no controller was deployed.
+
+Elbow remains explicitly unavailable, not silently removed into an all-pass
+suite. The five unchanged PICO clips were not rerun here. Historical posture
+is not fresh robot state, and the standing compatibility actor is not a native
+Unitree FSM handoff. No corrected matched-budget original-v14 comparison,
+safe physical standing return or live PICO input qualification exists yet.
+
+Evidence: `original29_recorded_envelope_20260906_v1/suite_summary.json`, SHA256
+`3c9d22c3ebb878eef79372b5bcc1f93f619b5d073962a44671ea5d0e363373b6`.
+
+The broad regression suite passes **398 tests**, no skips, in 163.67 seconds;
+its two legacy asset-dependent modules use the original repository's assets.
+All seven new Python source/test files pass Ruff. The standalone C++ arithmetic
+witness compiles and passes its numerical tests. This is code verification,
+not motion or hardware readiness. All 87 unique bound evidence/input files
+across the four new reports were rehashed with zero mismatches. Existing dirty
+hardware work is preserved.
+
 ## 2026-09-06 continuation: original-planner lineage and whole-clip task fitting
 
 **NOT ready for physical dance, standing return or live full-body teleop.**

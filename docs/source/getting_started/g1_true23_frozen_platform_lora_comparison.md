@@ -1,5 +1,20 @@
 # Frozen-platform LoRA versus the original true23 v14 trainer
 
+> **Recorded-source correction, 2026-09-06:** The old original29 Python
+> simulator has half the C++ ankle/waist damping on six joints and different
+> precision boundaries. New additive tools retain legacy behavior and record
+> a separately labelled C++-parameter/float32-target variant with every physics
+> step and policy input/output. This is not full C++ deployment equivalence.
+> Both profiles complete hand/dance but stop elbow at 133/606 frames. New
+> all23 fits preserve both complete clips; dance foot error is 2.265 mm against
+> **recorded policy motion**, not the nominal planner. Contact geometry still
+> fails. The legacy source also disables rubber-hand collisions, allowing its
+> visible hands below the floor; matching virtual VR points cannot certify
+> native23 physical hand contact. Three new paired controller cases fail,
+> including return. **398 regression tests pass; hardware remains unqualified.**
+> Original-v14 matched-budget comparison is still outstanding. See
+> [full evidence and limitations](../../../PROGRESS.md).
+
 > **Original-source correction, 2026-09-06:** The legacy happy-dance and
 > elbow-crawl references were previous native23 controller rollouts, not the
 > original planner paths. Their remaining root errors cannot fit the existing
