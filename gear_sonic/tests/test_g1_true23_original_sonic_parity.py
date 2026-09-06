@@ -26,28 +26,32 @@ from gear_sonic.scripts.summarize_g1_true23_original_sonic_parity import (
 def _reports(candidate_completed: int = 89, candidate_requested: int = 100):
     original = {
         "kind": "g1_released_sonic_policy_mujoco_motion_suite",
-        "records": [{
-            "name": "happy_dance",
-            "source_planner_npz_sha256": "source",
-            "metrics": {
-                "passed": True,
-                "completed_control_steps": 110,
-                "requested_control_steps": 110,
-            },
-        }],
+        "records": [
+            {
+                "name": "happy_dance",
+                "source_planner_npz_sha256": "source",
+                "metrics": {
+                    "passed": True,
+                    "completed_control_steps": 110,
+                    "requested_control_steps": 110,
+                },
+            }
+        ],
     }
     teacher = {
         "kind": "g1_released_sonic_feature_teacher_true23_physical_adapter",
-        "records": [{
-            "name": "happy_dance",
-            "source_sha256": "source",
-            "physical_npz_sha256": "teacher",
-            "metrics": {
-                "passed": True,
-                "completed_control_steps": 110,
-                "requested_control_steps": 110,
-            },
-        }],
+        "records": [
+            {
+                "name": "happy_dance",
+                "source_sha256": "source",
+                "physical_npz_sha256": "teacher",
+                "metrics": {
+                    "passed": True,
+                    "completed_control_steps": 110,
+                    "requested_control_steps": 110,
+                },
+            }
+        ],
     }
     manifest = {
         "kind": "g1_true23_physical_rollout_motion_reference_v1",
@@ -88,7 +92,7 @@ def test_summary_measures_normalized_completion_gap() -> None:
     assert value["parity"]["completion_ratio_gap_to_original"] == pytest.approx(0.11)
 
 
-def test_full_candidate_completion_reaches_parity() -> None:
+def test_full_candidate_completion_does_not_establish_choreography_parity() -> None:
     original, teacher, manifest, candidate = _reports(100, 100)
     value = build_parity_summary(
         motion_name="happy_dance",
@@ -97,7 +101,10 @@ def test_full_candidate_completion_reaches_parity() -> None:
         reference_manifest=manifest,
         candidate_report=candidate,
     )
-    assert value["parity"]["achieved"] is True
+    assert value["parity"]["achieved"] is False
+    assert value["parity"]["completion_only_match"] is True
+    assert value["parity"]["original_choreography_assessed"] is False
+    assert value["schema_version"] == 2
 
 
 def test_hash_chain_mismatch_is_rejected() -> None:
@@ -176,9 +183,7 @@ def test_happy_residual_selection_prefers_closed_loop_survival() -> None:
                 "passed": passed,
                 "completed_transitions": done,
                 "requested_transitions": 100,
-                "metrics": {
-                    "maximum_relative_tracked_body_position_error_m": error
-                },
+                "metrics": {"maximum_relative_tracked_body_position_error_m": error},
             },
         }
 
@@ -192,9 +197,7 @@ def test_happy_residual_selection_prefers_closed_loop_survival() -> None:
 
 def test_parity_candidate_requires_preservation_and_saved_pico() -> None:
     decoder = {
-        "kind": (
-            "g1_true23_frozen_lora_happy_residual_diagnostic_decoder_onnx"
-        ),
+        "kind": ("g1_true23_frozen_lora_happy_residual_diagnostic_decoder_onnx"),
         "diagnostic_only": True,
         "deployment_ready": False,
         "hardware_authorized": False,
@@ -229,7 +232,13 @@ def test_parity_candidate_requires_preservation_and_saved_pico() -> None:
     }
     parity = {
         "kind": "g1_true23_original_sonic_parity_summary",
-        "parity": {"achieved": True},
+        "schema_version": 2,
+        "parity": {
+            "achieved": False,
+            "assessment_basis": "completion_only",
+            "completion_only_match": True,
+            "original_choreography_assessed": False,
+        },
         "provenance": {"chain_validated": True},
     }
     value = build_candidate_summary(
@@ -240,8 +249,22 @@ def test_parity_candidate_requires_preservation_and_saved_pico() -> None:
         saved_teleop=saved,
         parity=parity,
     )
-    assert value["simulator_diagnostic_default_candidate"] is True
+    assert value["simulator_diagnostic_default_candidate"] is False
+    assert value["original_sonic_happy_dance_parity"] is False
     assert value["full_suite"]["newly_passing_cases"] == ["happy_dance"]
+
+    historical_parity = deepcopy(parity)
+    historical_parity["schema_version"] = 1
+    historical_parity["parity"] = {"achieved": True}
+    with pytest.raises(ValueError, match="disclaim original choreography"):
+        build_candidate_summary(
+            decoder_report=decoder,
+            decoder_report_sha256="report",
+            base_suite=base,
+            candidate_suite=candidate,
+            saved_teleop=saved,
+            parity=historical_parity,
+        )
 
     regressed = deepcopy(candidate)
     regressed["cases"][0]["passed"] = False

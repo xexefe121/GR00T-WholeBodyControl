@@ -1,5 +1,248 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-06 continuation: original-planner lineage and whole-clip task fitting
+
+**NOT ready for physical dance, standing return or live full-body teleop.**
+This work is offline. No robot connection, mode command, controller/interlock
+edit, training run or policy promotion occurred. The physical bit-30 motors-off
+cause remains unknown; these reference findings do not diagnose that event.
+
+### The old references were not all original planner choreography
+
+The independent, full-length lineage audit found that the legacy happy-dance
+and elbow-crawl native23 references contain previous native23 controller
+rollout states. Their provenance chain is intact, but that does not make their
+paths identical to the original released planner. The hand-crawl reference
+was already retargeted directly from the planner. All 1,778 compared frames
+remain on the original 30-to-50-Hz time grid, with no time warp or cropping.
+
+| Original clip | Legacy root error, translation aligned | Conservative error lower bound after allowed repair, including any constant yaw |
+|---|---:|---:|
+| Hand crawl | 0.000000191 m | 0 m |
+| Elbow crawl | 4.464152 m | 4.213283 m |
+| Happy dance | 0.673864 m | 0.439568 m |
+
+The lower bounds allow every frame's original +/-0.08 m XYZ correction box
+plus the 2e-7 saved-path tolerance, independently of temporal/contact/force
+constraints. Elbow and dance cannot reach the existing provisional 0.25 m
+pelvis-error screen by repairing those legacy paths inside those boxes.
+This is **not** a proof that native23 physical dancing is impossible.
+The original happy planner itself travels 8.975195 m horizontally; calling all
+of that travel controller drift would also be wrong.
+
+Evidence: `artifacts/g1_true23_frozen_lora/original_sonic_lineage_20260906_v1/report.json`
+(SHA256 `1ce5bf318179b3c01098c3a459d628051a21cb51089f2aa8360b51f866bd3fe7`).
+Twenty-two source/evidence files were hash-bound and rechecked. The five PICO
+entries are explicitly outside the original-SONIC-planner lineage comparison.
+
+The old parity summarizer also treated full-length survival as choreography
+parity. Its new schema records `completion_only_match` separately and keeps
+`parity.achieved=false`. The downstream candidate summarizer rejects the old
+affirmative schema and cannot select a default from completion alone. Existing
+historical JSON artifacts are preserved, not rewritten into successful results.
+The lineage/parity regression suite brings the preceding broad suite to
+**350 passing tests**, no skips, in 138.96 seconds; all six changed/added Python
+files pass Ruff.
+
+### Force V3 was stopped, not completed
+
+`contact_force_trajectory_20260906_v3` was intentionally interrupted after the
+lineage finding. Upright/standing completed their conditional force screens.
+Crouch accepted ten whole-path updates; its last terminal-only residual was
+4.458876462773899 squared normalized force error, maximum mixed generalized
+force residual 44.28652189131918, and one geometry-violating frame. That partial
+crouch path was not saved. `interrupted.json` records exit 1 and the reason.
+There is no complete eight-clip V3 result, no final crouch witness and no V3
+paired replay. The earlier completed force-V1 evidence remains historical.
+
+### Rebuilding from the actual original planner
+
+The first unretimed task-space rebuild hit the existing lower/root
+initializer's invalid-frame check on hand crawl and wrote no native clip.
+Its exact failure is retained in
+`original_planner_task_space_20260906_v1/failed.json`. That initialization
+failure is not physical infeasibility, and no slower timing was substituted.
+
+An explicitly diagnostic initializer then let all 23 joints participate in
+local task-space IK, deferring whole-path contact/force qualification. It
+generated all three complete clips: 606 hand-crawl, 606 elbow-crawl and 546
+happy-dance frames. Serialized FK and unchanged 5 rad/s, 80 rad/s^2 joint
+limits pass. The new source-relative root errors are below 0.0000004 m, but
+**all three task-space kinematic gates fail**. This material is not an accepted
+teacher. Evidence: `original_planner_seed_20260906_v1/report.json`, SHA256
+`02ed4817435b624cc68dd7d57a497c3420648d482f3708fe8e1bd456a85b0608`.
+
+A separate whole-horizon nearest-joint projection tests the sequential
+initializer's timing error without changing root pose, tempo or the limits.
+It also writes all three clips and preserves the five PICO entries unchanged
+in an explicitly diagnostic eight-clip manifest.
+
+| Original clip | Local task-space seed: worst foot error | Whole-horizon joint projection: worst foot error |
+|---|---:|---:|
+| Hand crawl | 8.210 mm | 9.275 mm |
+| Elbow crawl | 34.701 mm | 15.664 mm |
+| Happy dance | 109.000 mm | 47.731 mm |
+
+Every value still exceeds the unchanged 5 mm foot screen. Joint projection
+does not compensate missing waist/wrist motion. Independent full-eight-clip
+collision checks also fail: original hand/elbow/dance mesh floor overlaps
+reach 115.271, 83.414 and 21.781 mm respectively. The training collision model
+also fails. No floor geometry, physical limit or acceptance criterion changed.
+
+Evidence under `artifacts/g1_true23_frozen_lora/`:
+
+- `original_planner_projected_seed_20260906_v1/report.json`, SHA256
+  `20fca9b2253fbb29585589c1445ad4258d692d84572eb6e03e20076f79c7035f`.
+- `original_planner_projected_geometry_20260906_v1/report.json`, SHA256
+  `021b438cb1d7eb1bb05c388c3dd0ba91a45ceafa421251bb7c3910160df8815a`.
+
+### Bounded pelvis-attitude task fit and complete independent checks
+
+New additive `g1_true23_original_task_trajectory.py` fits the original29
+task poses with all 23 actual joints plus reference pelvis XYZ and attitude.
+Unlike previous fixed-attitude reference optimizers, it explicitly permits a
+bounded pelvis tilt to compensate the absent waist roll/pitch. It adds no
+physical joints and no floating-base force actuators. All original frames,
+source targets and 50-Hz timing remain present.
+
+The fixed experimental attitude bound is L1 <= 0.45 rad, which also bounds
+geodesic angle below the existing 0.5 rad fidelity screen. Root-rotation
+coordinate derivatives are bounded at 1.5 rad/s and 12 rad/s^2; these are
+provisional **rotation-vector coordinate** constraints, not measured physical
+angular-acceleration limits. Existing root XYZ +/-0.08 m, native joint
+correction +/-0.6 rad, safe target/action bounds, 5 rad/s and 80 rad/s^2 stay
+in force. The QP retains a serialization reserve and independently audits all
+original rows; nonlinear line search checks the actual task error and path.
+
+This is a weighted geometric objective, not a lexicographic contact solver or
+a certificate that the 5 mm foot screen passed. Collision, support/force,
+constrained-controller tracking and safe transitions remain independent gates.
+All teacher/deployment/hardware flags remain false. Nineteen focused tests
+pass, including exact SE(3) Jacobians against finite differences, all 29
+reference-variable columns, frame isolation, constrained missing-waist
+compensation, float32 reconstruction, strict QP rejection and rejecting a
+forged increment solution using the original absolute constraint rows.
+The final broad suite passes **369 tests**, no skips, in 180.42 seconds.
+Ruff passes for all eight changed/added Python source and test files.
+
+The first all-three attempt (`original_planner_se3_fit_20260906_v1`) rejected
+every first QP on the unchanged `1e-8` independent row tolerance. Its source
+was archived byte-exactly before numerical reformulation; see its
+`source_snapshot/manifest.json`. The next implementation solves the **same**
+QP in current-increment coordinates and scales the entire objective by frame
+count, preserving all relative weights. Both increment and original absolute
+rows are independently checked at `1e-8`; no tolerance was increased.
+
+The complete V2 attempt, `original_planner_se3_fit_20260906_v2`, keeps all three
+original clips. Hand crawl accepted 24 updates; elbow crawl accepted 20 then
+stalled; dance accepted five then rejected iteration six's `1.87228e-8` row
+residual. Saved outputs pass independent temporal/FK reconstruction, but
+neither optimizer status nor file generation is qualification.
+
+| Original clip | Final worst foot error | Final worst hand-position error | Original-planner root-path error, translation aligned |
+|---|---:|---:|---:|
+| Hand crawl | 0.980 mm | 62.301 mm | 0.054068 m |
+| Elbow crawl | 0.844 mm | 62.431 mm | 0.032498 m |
+| Happy dance | 8.501 mm | 92.360 mm | 0.074245 m |
+
+The two crawl foot screens pass; dance still fails the 5 mm screen. Actual
+original-relative pelvis rotation maxima are 0.424714, 0.284156 and 0.381015
+rad respectively. Original task poses and motion timing were not replaced
+with native23 controller rollout states.
+
+Full independent geometry and conditional inverse-force checks cover all
+**6,035 frames and 5,955 causal packets**, including all five unchanged
+original PICO inputs. Those PICO inputs are the raw original-manifest clips,
+**not** the later contact-restored PICO variants; their zero force passes
+below are not a regression of the previously restored upright/standing paths.
+
+| Clip | Floor-overlap frames, mesh / training | Conditional force-pass frames, mesh / training |
+|---|---:|---:|
+| PICO upright, 1,024 frames | 0 / 0 | 0 / 0 |
+| PICO standing, 1,024 | 0 / 0 | 0 / 0 |
+| PICO crouch, 1,024 | 957 / 957 | 0 / 0 |
+| PICO walk001, 695 | 49 / 63 | 0 / 0 |
+| PICO walk010, 510 | 32 / 43 | 0 / 0 |
+| Original hand crawl, 606 | 549 / 554 | 252 / 252 |
+| Original elbow crawl, 606 | 441 / 476 | 24 / 39 |
+| Original happy dance, 546 | 270 / 282 | 6 / 6 |
+
+The unchanged inverse-force limit is `0.2375 * effort`, with all floating-base
+equations and both compiled collision models. Its conditional successes do
+not prove contact complementarity or control tracking. Hand-crawl floor
+penetration still reaches 126.223 mm in the training model; better task-pose
+matching does not imply valid contact geometry. None of these clips is an
+accepted teacher. The five original PICO inputs need their own contact/force
+restoration lineage preserved when constructing a future combined corpus.
+
+Fresh paired-controller simulations also ran every full requested clip plus
+historical-measured-start happy dance. This uses the existing fixed V2 case
+commands, correct encoder `3806b2b6...` / decoder `90e27f37...` pair, constrained
+effort, current-observation timing and 5 rad/s slew. The new diagnostic
+manifest is explicitly validated, not relabelled as an accepted teacher.
+All nine cases fail; none establishes dance, return or live PICO readiness:
+upright 2/1,013; standing 2/1,013; crouch 3/1,013; walk001 1/684; walk010 1/499;
+hand 2/595; elbow 2/595; happy 2/535; historical-measured happy 16/535.
+Every failure is an empty effort/position/slew target intersection. Historical
+measured startup passes 250/250 transitions, but return fails at 0/250; the
+right ankle would need 11.6353 rad/s instantaneous target slew, beyond the
+unchanged 5 rad/s bound. No runtime limit was increased. This is not a native
+Unitree FSM handoff or fresh physical telemetry.
+
+Evidence under `artifacts/g1_true23_frozen_lora/`:
+
+- `original_planner_se3_fit_20260906_v2/report.json`, SHA256
+  `0161dc17155c49bd9d86eb20cdd93d4f66da1b7c9d90c443101f4fa64d2693ff`.
+- `original_planner_se3_screen_20260906_v2/report.json`, SHA256
+  `5b62c6bc41330440fa0944aa8a28ff1cbc6079065e2c5b6e6f23e8f9f0b23f7f`.
+- `original_planner_se3_envelope_20260906_v2/suite_summary.json`, SHA256
+  `b95b4a3f0ddd5c72033c221bc1a792ca97397a7bfca63ed39c3347e9ff51f4b5`.
+
+No corrected full-weight-v14 matched-budget comparison exists yet. Further
+work must retain original-source fidelity while making contacts and forces
+valid; purely geometric fitting must not be promoted into a physical teacher.
+
+### Original29 source audit: nominal planner fidelity is not stock-policy parity
+
+A further full-length source check confirms the raw planner poses themselves
+are not valid rigid-floor references. In both the original29 retarget model
+and the current stock29 scene, hand crawl has 549 overlapping frames with
+115.250 mm maximum penetration; elbow has 442 with 83.343 mm; happy dance has
+151 with 20.835 mm. The worst crawl penetration is at the knee/hip geometry,
+not a missing wrist. Thus these source defects cannot be attributed solely to
+the native23 embodiment or fixed by faithfully copying nominal foot poses.
+
+The hash-matched archived original29 controller trajectories are a separate
+comparison. Their translation-aligned planner root errors are 2.176930 m for
+hand crawl and 0.329613 m for dance. These are all stored post-control samples
+matched to the same-index planner command, with the one-control-interval
+sampling offset explicitly disclosed; no phase shift, cropping or time warp
+was used. Both exceed the provisional 0.25 m nominal-planner root screen.
+Therefore that screen is **not an established stock-SONIC parity criterion**;
+the lineage lower bounds above apply to the nominal planner path, not proof
+that stock-policy choreography cannot be matched. New qualification must
+report both original29-policy-relative motion and nominal-planner fidelity.
+
+The checked-out stock joint-mode encoder constructs joint/velocity/orientation
+inputs but does not feed planner root XYZ to the policy. This is consistent
+with treating nominal translation and executed stock motion separately, not
+assuming exact nominal root tracking. The archived original29 trajectories
+also reach joint speeds 12.972 and 15.771 rad/s and have soft-contact overlap
+up to 15.803 and 8.241 mm. They are not automatically valid native23 references
+under the unchanged limits. No elbow original29 trajectory exists in that
+archived two-clip suite, and the archive does not bind the full compiled-model
+and source closure. A new properly bound stock baseline remains required.
+
+Evidence: `original29_source_screen_20260906_v1/report.json`, SHA256
+`90515ae218c7885eac2ad851781e5e9357a10ef02b132fe982ffe1bc67816628`.
+The scene wrapper and archived NPZ/report hashes were checked; this was
+read-only FK/contact inspection, not a fresh original29 policy execution.
+
+The upstream [transfer project](https://sonic-agibot-x2.github.io/sonic-transfer/)
+also now describes unresolved physical torque saturation despite successful
+simulation. That is a separate X2 observation, not an explanation of this G1's
+damping, and reinforces why simulation success alone cannot qualify hardware.
+
 ## 2026-09-06 continuation: full-path contact-patch force optimizer
 
 **NOT ready for physical dance, standing return or live full-body teleop.**
@@ -49,7 +292,7 @@ guard, reduced solver status and forged successful solver results.
 The final broad suite on the corrected code passed **332 tests**, no skips,
 in 135.88 seconds. Ruff checks passed for all five added Python files.
 
-### Full-corpus V3 verification in progress
+### Historical full-corpus V3 attempt (now interrupted; see above)
 
 `artifacts/g1_true23_frozen_lora/contact_force_trajectory_20260906_v3` was started
 fresh for all eight clips, up to 64 nonlinear iterations and 200 QP iterations.

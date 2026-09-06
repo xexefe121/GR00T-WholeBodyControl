@@ -1,11 +1,19 @@
 # Frozen-platform LoRA versus the original true23 v14 trainer
 
-> **Full-path optimizer follow-up, 2026-09-06:** The additive contact-patch
-> force optimizer now uses a strict Clarabel backend and current-iterate
-> correction cost, keeping every supplied frame and all native23 joints.
-> 332 regression tests pass. Its fresh eight-clip corpus experiment is still
-> in progress; a first accepted crouch update is not a completed reference,
-> paired rollout, standing-return result or live-teleop qualification.
+> **Original-source correction, 2026-09-06:** The legacy happy-dance and
+> elbow-crawl references were previous native23 controller rollouts, not the
+> original planner paths. Their remaining root errors cannot fit the existing
+> original-motion screen through the old bounded repair, even with heading
+> alignment. Force-V3 was therefore stopped as an incomplete experiment.
+> Completion-only reports can no longer claim choreography parity or select
+> a default candidate. **369 broad regression tests pass.** The new bounded
+> pelvis-attitude/all23 fitter retains all three original clips at original
+> tempo. Crawl foot errors fall below 1 mm; dance improves to 8.5 mm but still
+> fails the 5 mm screen. Independent contacts/forces remain invalid, and all
+> nine fresh, correctly paired controller simulations fail, including return.
+> Raw planner geometry also penetrates the floor on original29. Archived
+> stock SONIC itself exceeds the provisional nominal-planner root screen;
+> stock-policy parity and nominal-planner fidelity must be reported separately.
 > No new full-weight-v14 matched-budget comparison or hardware result exists.
 > See [current evidence and limits](../../../PROGRESS.md).
 

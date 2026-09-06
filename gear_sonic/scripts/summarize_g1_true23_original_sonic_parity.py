@@ -7,6 +7,9 @@ released 29-DoF planner clip -> released-policy true23 teacher rollout ->
 
 Only completion ratios are compared across embodiments.  Joint errors from the
 29-DoF and 23-DoF models are deliberately not treated as commensurate.
+Completion parity is not original-choreography parity. In particular, a
+controller rollout can already differ from its source planner path; this
+legacy evidence chain contains no independent original-path fidelity test.
 """
 
 from __future__ import annotations
@@ -60,15 +63,13 @@ def build_parity_summary(
         kind="g1_released_sonic_feature_teacher_true23_physical_adapter",
     )
     if (
-        reference_manifest.get("kind")
-        != "g1_true23_physical_rollout_motion_reference_v1"
+        reference_manifest.get("kind") != "g1_true23_physical_rollout_motion_reference_v1"
         or reference_manifest.get("passed") is not True
         or reference_manifest.get("physical_dof") != 23
     ):
         raise ValueError("true23 reference manifest contract mismatch")
     if (
-        candidate_report.get("kind")
-        != "g1_true23_genuine_sonic_library_motion_mujoco_replay"
+        candidate_report.get("kind") != "g1_true23_genuine_sonic_library_motion_mujoco_replay"
         or candidate_report.get("physical_dof") != 23
         or candidate_report.get("source_29dof_physics_used") is not False
     ):
@@ -102,7 +103,7 @@ def build_parity_summary(
     candidate_passed = candidate_report.get("passed") is True and candidate_ratio == 1.0
 
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "kind": "g1_true23_original_sonic_parity_summary",
         "motion": motion_name,
         "provenance": {
@@ -137,7 +138,11 @@ def build_parity_summary(
             ),
         },
         "parity": {
-            "achieved": original_passed and teacher_passed and candidate_passed,
+            "achieved": False,
+            "assessment_basis": "completion_only",
+            "completion_only_match": original_passed and teacher_passed and candidate_passed,
+            "original_choreography_assessed": False,
+            "missing_evidence": "full_original_planner_relative_pose_tracking_and_controller_qualification",
             "completion_ratio_gap_to_original": original_ratio - candidate_ratio,
             "remaining_candidate_transitions": candidate_requested - candidate_done,
             "cross_embodiment_joint_error_comparison_forbidden": True,

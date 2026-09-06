@@ -1,4 +1,4 @@
-"""Bind parity, preservation, and saved-PICO evidence for one diagnostic."""
+"""Bind legacy completion/preservation evidence without claiming choreography parity."""
 
 from __future__ import annotations
 
@@ -21,9 +21,7 @@ def _cases(value: Mapping[str, Any]) -> dict[str, Mapping[str, Any]]:
     raw = value.get("cases")
     if not isinstance(raw, list) or not raw:
         raise ValueError("comparison suite cases are missing")
-    result = {
-        str(item.get("label")): item for item in raw if isinstance(item, dict)
-    }
+    result = {str(item.get("label")): item for item in raw if isinstance(item, dict)}
     if len(result) != len(raw):
         raise ValueError("comparison suite labels are invalid or duplicated")
     return result
@@ -39,8 +37,7 @@ def build_candidate_summary(
     parity: Mapping[str, Any],
 ) -> dict[str, Any]:
     if (
-        decoder_report.get("kind")
-        != "g1_true23_frozen_lora_happy_residual_diagnostic_decoder_onnx"
+        decoder_report.get("kind") != "g1_true23_frozen_lora_happy_residual_diagnostic_decoder_onnx"
         or decoder_report.get("diagnostic_only") is not True
         or decoder_report.get("deployment_ready") is not False
         or decoder_report.get("hardware_authorized") is not False
@@ -51,19 +48,15 @@ def build_candidate_summary(
         raise ValueError("candidate decoder hash is missing")
     for label, suite in (("base", base_suite), ("candidate", candidate_suite)):
         if (
-            suite.get("kind")
-            != "g1_true23_frozen_lora_comparison_result_v1"
+            suite.get("kind") != "g1_true23_frozen_lora_comparison_result_v1"
             or suite.get("diagnostic_only") is not True
             or suite.get("deployment_ready") is not False
             or suite.get("hardware_authorized") is not False
         ):
             raise ValueError(f"{label} suite safety contract mismatch")
-    if (
-        candidate_suite.get("decoder_report", {}).get("sha256")
-        != decoder_report_sha256
-        or candidate_suite.get("suite", {}).get("sha256")
-        != base_suite.get("suite", {}).get("sha256")
-    ):
+    if candidate_suite.get("decoder_report", {}).get("sha256") != decoder_report_sha256 or candidate_suite.get(
+        "suite", {}
+    ).get("sha256") != base_suite.get("suite", {}).get("sha256"):
         raise ValueError("candidate suite provenance mismatch")
     base_cases = _cases(base_suite)
     candidate_cases = _cases(candidate_suite)
@@ -72,21 +65,17 @@ def build_candidate_summary(
     lost = sorted(
         name
         for name in base_cases
-        if base_cases[name].get("passed") is True
-        and candidate_cases[name].get("passed") is not True
+        if base_cases[name].get("passed") is True and candidate_cases[name].get("passed") is not True
     )
     if lost:
         raise ValueError(f"candidate loses passing base cases: {lost}")
     gained = sorted(
         name
         for name in base_cases
-        if base_cases[name].get("passed") is not True
-        and candidate_cases[name].get("passed") is True
+        if base_cases[name].get("passed") is not True and candidate_cases[name].get("passed") is True
     )
     base_survival = float(base_suite["second_referee"]["survival_rate"])
-    candidate_survival = float(
-        candidate_suite["second_referee"]["survival_rate"]
-    )
+    candidate_survival = float(candidate_suite["second_referee"]["survival_rate"])
     if candidate_survival <= base_survival:
         raise ValueError("candidate does not improve aggregate suite survival")
     if (
@@ -100,43 +89,42 @@ def build_candidate_summary(
         raise ValueError("saved PICO preservation evidence mismatch")
     if (
         parity.get("kind") != "g1_true23_original_sonic_parity_summary"
-        or parity.get("parity", {}).get("achieved") is not True
+        or parity.get("schema_version") != 2
+        or parity.get("parity", {}).get("assessment_basis") != "completion_only"
+        or parity.get("parity", {}).get("achieved") is not False
+        or parity.get("parity", {}).get("completion_only_match") is not True
+        or parity.get("parity", {}).get("original_choreography_assessed") is not False
         or parity.get("provenance", {}).get("chain_validated") is not True
     ):
-        raise ValueError("original SONIC parity evidence mismatch")
+        raise ValueError("legacy completion evidence must explicitly disclaim original choreography parity")
 
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "kind": "g1_true23_frozen_lora_parity_candidate_summary_v1",
         "candidate": {
             "decoder_sha256": decoder_hash,
-            "base_update_count": decoder_report["source"][
-                "base_update_count"
-            ],
+            "base_update_count": decoder_report["source"]["base_update_count"],
             "residual_alpha": decoder_report["source"]["alpha"],
         },
         "full_suite": {
             "case_count": len(candidate_cases),
-            "base_passed_count": sum(
-                item.get("passed") is True for item in base_cases.values()
-            ),
-            "candidate_passed_count": sum(
-                item.get("passed") is True
-                for item in candidate_cases.values()
-            ),
+            "base_passed_count": sum(item.get("passed") is True for item in base_cases.values()),
+            "candidate_passed_count": sum(item.get("passed") is True for item in candidate_cases.values()),
             "newly_passing_cases": gained,
             "lost_passing_cases": lost,
             "base_survival_rate": base_survival,
             "candidate_survival_rate": candidate_survival,
             "survival_rate_delta": candidate_survival - base_survival,
         },
-        "original_sonic_happy_dance_parity": True,
+        "original_sonic_happy_dance_parity": False,
+        "legacy_completion_only_match": True,
         "saved_pico_walk001": {
             "passed": True,
             "completed_transitions": 684,
             "fallback_active": False,
         },
-        "simulator_diagnostic_default_candidate": True,
+        "simulator_diagnostic_default_candidate": False,
+        "default_selection_blocker": "original_planner_relative_motion_fidelity_not_evaluated",
         "diagnostic_only": True,
         "deployment_ready": False,
         "hardware_authorized": False,
@@ -175,8 +163,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         parity=_object(paths["parity"]),
     )
     value["evidence"] = {
-        name: {"filename": path.name, "sha256": sha256_file(path)}
-        for name, path in paths.items()
+        name: {"filename": path.name, "sha256": sha256_file(path)} for name, path in paths.items()
     }
     output.parent.mkdir(parents=True, exist_ok=True)
     with output.open("x", encoding="utf-8") as stream:
