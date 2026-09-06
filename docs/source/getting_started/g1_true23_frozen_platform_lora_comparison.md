@@ -1,5 +1,27 @@
 # Frozen-platform LoRA versus the original true23 v14 trainer
 
+> **Full-lifecycle PPO smoke, 2026-09-07:** A separate trainer now learns in
+> the native CPU MuJoCo full-request evaluation engine. Actual standing
+> acquisition precedes each full motion attempt; actual standing return is
+> assessed afterward, without resetting plant/history or treating fixed
+> controller actions as PPO samples. Two pre-simulation startup failures
+> are preserved; the corrected run completes **2 new updates / 656 actions /
+> 24 minibatches / 16 full-request attempts**. Encoder/base decoder/action std,
+> gains, limits, cadence and standing retention stay fixed. Engine, reset
+> sampling and rewards differ from MJLab; no added sensor noise. No claim of
+> original-training parity, exact MJLab resume or hardware qualification.
+> Initial evaluation reproduces prior completion counts. After learning,
+> reference/historical dance is **65/535 / 60/535**, versus prior LoRA 100's
+> **64/535 / 60/535** and v14 100's **16/535 / 24/535**. All dance returns
+> remain **0/250**. Standing remains **250/500/250**. **Every full motion still
+> fails.** Two updates establish a working trainer, not a controller fix.
+> Independent checks cover 36 continuous traces / 93,247 physics steps and
+> actual action probabilities, rewards and optimizer counters. **704 focused
+> tests pass.** The 100-update follow-on is separately launched, not reported
+> as completed. No deployment
+> export or robot operation; physical damping cause and native standing handoff
+> remain unresolved. See [complete current evidence](../../../PROGRESS.md).
+
 > **Reset curriculum rejected, 2026-09-06:** A real three-update smoke run
 > verifies exact current-LoRA-100 actor initialization, fresh Adam state and
 > actual learning. One requested 500-new-update run changes only reset disturbances

@@ -1,5 +1,81 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-07: full-lifecycle CPU PPO runs; two-update smoke is not a dance fix
+
+**Still NOT ready for physical dance or live full-body teleop.** The new
+experimental trainer now executes real PPO in the same native CPU MuJoCo
+implementation used by the complete-request acceptance tests. Two startup
+bugs were fixed: the checked actor loader requires `expected_contract`, and
+standing-retention metadata is a descriptor, not a path-to-hash map. Both
+failed attempts stopped before simulation or learning. Their logs and exact
+source snapshots remain preserved, not overwritten by the successful run.
+
+The successful smoke performs **2 new updates / 656 actual active-policy
+actions / 24 optimizer minibatches** across **16 complete-request attempts**.
+These are attempts at the full clips, not 16 successfully completed motions.
+Every attempt starts from the historical snapshot, performs 250 actual
+standing-acquisition controls, requests the entire motion, then requests
+250 standing-return controls. No state/history reset occurs at handoff.
+Failures and the real partially executed/rejected terminal action are retained.
+The fixed acquisition/return controller's actions never become PPO samples.
+An incomplete motion always receives a negative terminal assessment, including
+when an early return succeeds. No completion bonus rewards a shortened dance.
+
+The actor starts exactly from prior IEEE LoRA 100, with a fresh critic/Adam.
+Only decoder LoRA and the critic train; encoder/base decoder/action std remain
+frozen. The same standing-output anchor, motor gains, effort caps, target slew,
+267/930 observation boundaries and 50 Hz/500 Hz cadence are retained. The
+original eight-request set, unavailable elbow and separate standing cases
+remain explicit. The new method changes the simulation/training engine,
+episode/reset sampling and rewards, and adds no sensor noise. It is not a
+one-variable ablation or a reproduction of the original SONIC training recipe.
+Checkpoints have a distinct CPU lifecycle schema; they are not relabelled as
+MJLab resume checkpoints. No ONNX/deployment artifacts are emitted.
+
+The initial Torch IEEE evaluation reproduces all prior ONNX completion counts
+and standing outcomes; this does not claim bit-identical full trajectories.
+After two updates, all full motions still fail. Stationary standing is retained.
+
+| Full request | Original v14 100 | Prior LoRA 100 | Lifecycle +2 | Requested controls |
+|---|---:|---:|---:|---:|
+| Hand crawling | 16 | 64 | 66 | 595 |
+| Dance, reference start | 16 | 64 | 65 | 535 |
+| Dance, historical start | 24 | 60 | 60 | 535 |
+| PICO upright | 17 | 37 | 37 | 1,013 |
+| PICO standing | 7 | 37 | 35 | 1,013 |
+| PICO crouch | 20 | 25 | 25 | 1,013 |
+| PICO walk 001 | 16 | 22 | 22 | 684 |
+| PICO walk 010 | 11 | 24 | 28 | 499 |
+| Synthetic standing, reference start | 30 | 500 | 500 | 500 |
+| Synthetic standing, acquired | 36 | 500 | 500 | 500 |
+
+All three historical-dance returns complete **0/250** controls. Lifecycle +2
+preserves stationary acquisition/active/return at **250/500/250**. It adds two
+updates to the prior actor, so this is not an equal-total-budget comparison.
+The smoke verifies implementation, not enough training or controller quality.
+A single 100-new-update experiment is launched with unchanged full evaluation
+before and after training, after the focused regression suite passes. It starts
+from the same prior actor with fresh critic/Adam, not by claiming exact resume
+from this smoke. Its results must be recorded separately; no advance success
+or deployment claim is made.
+
+Independent checks verify **36 continuous traces / 93,247 physics steps**,
+including all training attempts, before/after evaluations, exact initial
+adapter identity, real optimizer counters, Gaussian action log probabilities,
+rewards, state/time continuity, effort caps and active PD equations. The
+full focused regression passes **704 tests in 187.94 s across 52 modules**,
+including 24 new tests and the same two documented legacy asset-root
+substitutions. This is not a whole-repository or hardware-test claim. Ruff E/F
+and format checks pass for the four new source/test files.
+Evidence: `artifacts/g1_true23_frozen_lora/lifecycle_ppo_20260907_v1/`.
+Comparison SHA256: `dc5e33dce12c2465551afe6857f558927e705a1edcfc5dad1fc7f86a510268c7`.
+Experiment SHA256: `76e6ec86f834b4b636771a48e9696a35d462e882021bc313c2c2bc9942d10514`.
+
+No robot connection, DDS, SSH, arming/mode command, motor operation or deployment
+change occurred. Existing dirty hardware work remains untouched. Physical
+bit-30 motors-off causation and native Unitree FSM handoff remain unproven;
+the simulator's standing controller is still a 29-to-23 compatibility actor.
+
 ## 2026-09-06 continuation: reset curriculum rejected on full-motion tests
 
 **Still NOT ready for physical dance or live full-body teleop.** The current
