@@ -1,5 +1,54 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-07: actual handoff RPC failure reproduced; qualification corrected
+
+**Still NOT ready for physical dance or live full-body teleop.** This turn
+targets the deployment handoff rather than starting another training run.
+No robot/DDS/SSH/motor/mode operation occurs. The local robot Ethernet adapter
+reports disconnected; no current firmware or physical robot state is inferred.
+All pre-existing hardware edits remain unchanged and unstaged.
+
+New offline fixture compiles the current runtime's actual restore functions,
+constants and evidence gate with only RPC, LowState and time substituted.
+It reproduces a concrete path: accepted damp FSM 1, rejected stand FSM 4,
+repeat, unsuccessful exit with the mock still damped. Successful mock recovery
+also has a 6.5 s gap between this routine's health reads. The DDS monitor thread
+is not executed, so this is not a measured subscriber outage. Current final
+motor-health checks reject unhealthy telemetry, but can accept FSM 801 with
+both knees at 1.5 rad. None of these injected outcomes establishes the cause
+of the real bit-30 motors-off latch or a particular historical incident.
+
+`qualify_g1_true23_active_lifecycle_no_robot.py` now executes the RPC audit.
+On the same current source/binaries, its old version returns success; its
+updated schema-2 version returns **failure / exit 2** while the original core
+and binary/source checks still pass. Zero damping LowCmd frames cannot hide
+high-level damp requests. The new failure reasons also include stand commands
+after an injected disable and accepting crouched telemetry as normal standing.
+This fixes qualification coverage, **not the hardware handoff itself**, and
+does not replace or automatically disable the launcher's existing gates.
+
+**26 tests pass against each of current worktree and exact `64f2bc3` committed
+source/header snapshots.** Committed snapshots match their Git blob IDs;
+Ruff E/F and formatting checks pass. The old committed restore routine's
+missing physical gate and failure to recover from inert FSM 0 remain explicit.
+The tests characterize defects; they are not 52 physical-motion successes.
+Completed verification evidence is under
+`artifacts/g1_true23_frozen_lora/restore_rpc_20260907_v1/validated/`;
+`verification.json` SHA256:
+`c77e90a6bda8d6e3924da5d496c40b0543901ae60feee58fef7a81c481f8b3b1`.
+
+Found a materially different official **full-body** ownership protocol:
+[Unitree's pinned example](https://github.com/unitreerobotics/unitree_sdk2/blob/30405b31d82f137d48f33cbba095d149749db601/example/g1/high_level/g1_userctrl_dds_example.cpp)
+uses `rt/user_lowcmd`, `SwitchToUserCtrl()` and internal LAST handback. Current
+runtime uses service release plus `rt/lowcmd` and never enters that protocol.
+The example starts in **passive FSM 1**, so it is not proof of seamless
+standing-to-standing transfer and must not be copied into a robot run.
+Firmware support, native23 command semantics and ownership acknowledgment
+remain to be established before transport integration. Full details, exact
+reproduction evidence and the next integration boundary are in
+`G1_TRUE23_HANDOFF_FINDINGS.md`. Policy dance remains 2.06/10.7 s with no full
+standing return; transport work does not change that result or qualify PICO.
+
 ## 2026-09-07: 100 lifecycle updates improve prefixes, but no full motion passes
 
 **Still NOT ready for physical dance or live full-body teleop.** The single
