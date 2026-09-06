@@ -1,5 +1,185 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-06 continuation: real motion PPO from standing; standing regression rejects update 100
+
+**NOT ready for physical dance or live full-body teleop.** The standing-only
+adapter now has a checked, separate PPO initialization path, and a real
+100-update motion-training session has finished. The resulting checkpoint
+**loses the previously passing stationary behavior** and still fails every
+complete motion request. It is not selected, promoted or deployed. No robot,
+DDS, SSH, arming, mode, motor or hardware-limit operation was performed. The
+existing dirty hardware edits are preserved outside this commit. Physical
+bit-30 motors-off and native Unitree mode handoff remain unresolved; simulated
+target-intersection failures do not establish the physical damping cause.
+
+### Adapter-only initialization is not a fabricated PPO resume
+
+New `train_g1_true23_standing_warm_start.py` and
+`g1_true23_standing_initialization.py` validate the previous standing fit,
+adapter tensor/file hashes, frozen-platform contract and both complete saved
+stationary lifecycle traces before importing decoder LoRA. Every bound fit
+input is rehashed. Actual engine clocks, state continuity, phase lengths and
+requested-versus-generalized effort are checked. Source/contract mismatch,
+dirty optimizer/counters, nonfinite weights, changed standing evidence or
+claims of hardware/full-motion qualification reject the import.
+
+The import preserves a fresh critic, empty optimizer and zero PPO counters;
+failure rolls the adapter back. A separate `standing_initialization.json`
+receipt records what was imported. The descriptor enters the exact resolved
+training lineage, and the new launcher/helper enter its source manifest.
+The old launcher and checkpoint formats are unchanged. The wrapper uses the
+existing load transport only to dispatch this explicitly separate import;
+later real `--resume` calls retain ordinary exact-PPO-state validation. It
+does not relabel the standing artifact as a resume or bypass polish/behavior-
+bank admission. Only breadth with `native_support_stateful_v2` is accepted,
+and initial training requires a separate empty run directory.
+
+The imported adapter has 500 **supervised standing** optimizer steps but
+checkpoint zero has **zero PPO updates**. Its tensor hash is
+`60482bc1c129fc0bc2190b9a058e36a9bd86502cfac3178deaa4dff1b9aaf86a`;
+its merged true23 policy hash is
+`d8f048a50e12c85532cf531d7ec508e7d71f70cb4bb8ae0be3f5ebce8a18756e`.
+The frozen SONIC encoder, FSQ, all base weights and analytic 23/29 codec
+remain unchanged; only the same 253,944 decoder LoRA parameters are trainable.
+
+### Complete requests are retained as RL references, not accepted teachers
+
+`prepare_g1_true23_motion_requests.py` binds all seven available full source
+motions plus a separately labelled synthetic standing prerequisite: **eight
+training clips, 5,940 frames, 50 Hz**. These are the previously corrected-hand
+recorded-source hand crawl/dance fits and all five contact-restored PICO clips.
+They are not new fits of the later C++-observation source replay. The incomplete
+elbow request remains explicitly unavailable with no replacement. No source
+is shortened, retimed, re-retargeted or rebased; each full serialized span is
+checked against its original arrays after the declared float32 conversion.
+
+References request behavior from RL; they are **not force-qualified action
+labels, a full-motion teacher bank, or evidence that the motion is physically
+feasible**. Existing clip-boundary handling prevents rollouts crossing joined
+segments. Synthetic standing is not counted as a successful dance/PICO clip.
+
+### Real smoke and breadth updates, unchanged constraints
+
+The smoke run completes two updates / 64 transitions (4 environments,
+8 rollout steps, 2 epochs, 2 minibatches). The separate breadth run completes
+100 updates / **51,200 training transitions** (32 environments, 16 rollout
+steps, 5 epochs, 8 minibatches), learning rate `5e-6`, seed 20260906. This is
+the first bounded 100-update session of a configured 1,000-update budget,
+not a completed 1,000-update run. No training process remains running and
+the remaining 900 updates must not be blindly resumed on this evidence.
+Independent checkpoint inspection confirms zero initial optimizer entries,
+1,600 final environment control steps and exactly 4,000 Adam steps for each
+of the 26 optimized actor/critic tensors. The smoke run has 16 environment
+control steps and eight Adam steps per optimized tensor. Adapter and critic
+hashes change through training; source manifests and imported initial hashes
+match exactly. The matching source manifests contain 33 files.
+
+No action-noise scaling, reset-distribution change, reward change, controller
+gain change, relaxed effort/slew bound, hidden physics settling or upper-body
+override was introduced. The original frozen exploration standard deviation
+remains approximately 0.38455 on average. Initial priming takes zero physics
+steps and rejects zero full batches in both runs. Synthetic reset states and
+their repeated initial histories are still not physically acquired states.
+Completed training episodes remain short (final rolling mean 6.88 controls);
+training reward is not a motion-quality or readiness result. Earlier
+noise-off/reset-lift experiments also failed, so noise alone is not a
+supported explanation or established fix.
+
+### Same-backend comparison proves loss of standing, not an export artefact
+
+The first attempted zero-update diagnostic materialization correctly rejects
+`requires a trained update_count`. That failure is retained in its log; no
+counter, checkpoint name or validator was falsified or weakened. Update 100
+exports through the unchanged trained-diagnostic encoder/decoder path.
+Encoder token parity is exact; decoder export maximum absolute parity error
+is `1.639128e-6` across the existing three deterministic export probes.
+These probes alone do not qualify a deployed runtime.
+
+To avoid comparing different inference backends, both actual checkpoint zero
+and checkpoint 100 are independently replayed through the **same CPU PyTorch
+adapter path**, preserving all requests and limits. Update 100 is additionally
+tested through its newly matched ONNX pair. Each backend test retains eight
+original requests, the historical-start dance lifecycle, and two separate
+stationary regressions: 11 records, one unavailable elbow, 10 actual runs.
+
+| Complete request | Standing initialization, CPU | PPO 100, CPU | PPO 100, ONNX | Requested controls |
+|---|---:|---:|---:|---:|
+| Hand crawl | 68 | 54 | 54 | 595 |
+| Happy dance, reference start | 66 | 57 | 57 | 535 |
+| Happy dance, historical acquisition | 58 | 46 | 46 | 535 |
+| PICO upright | 50 | 35 | 35 | 1,013 |
+| PICO standing | 44 | 34 | 34 | 1,013 |
+| PICO crouch | 26 | 26 | 26 | 1,013 |
+| PICO walk 001 | 22 | 29 | 29 | 684 |
+| PICO walk 010 | 28 | 29 | 29 | 499 |
+| Synthetic stationary prerequisite | 500 | 89 | 89 | 500 |
+| Stationary after acquisition | 500 | 70 | 70 | 500 |
+
+Every full-motion attempt fails `TargetIntersectionError` and its full-motion
+fidelity screen. Standing initialization passes its two stationary screens
+and **250/500/250** acquisition/active/return; PPO 100 fails both stationary
+screens and its return at **0/250**. Historical dance return remains **0/250**
+for both checkpoints. Slightly longer walk fragments do not compensate for
+lost standing or establish choreography parity. Equal CPU/ONNX completion
+counts are not a claim of bit-identical closed-loop state or C++ deployment
+equivalence. This is direct evidence that this motion-PPO session degraded
+the retained standing behavior, not a diagnosis of which loss/reset feature
+caused that degradation.
+
+### Verification and local evidence
+
+**511 regression tests pass**, no failures or skips, in 199.65 seconds:
+486 prior tests plus 25 initialization, CLI-boundary, full-corpus and request-
+preservation tests. Only the same two legacy test modules redirect asset paths
+to the original repository. New source/test files pass Ruff. The new tests
+do not claim real robot validation or a newly completed matched-budget v14
+training comparison.
+
+Independent saved-evidence audit passes **457 unique bound files with zero
+mismatches**, covering training source/assets/configuration, checkpoint
+lineage, full corpus spans, both inference paths and regression results.
+All **30 new simulated traces** have continuous actual engine clocks, zero
+warning counters and continuous finite pre/post states. Requested effort
+equals actual generalized actuator force and stays within the unchanged
+outer envelope, including partial failure intervals. Checkpoint zero exactly
+reproduces **360 saved arrays across all ten previous stationary/full-motion
+attempts**. This checks preservation of prior evidence, not new success.
+
+Evidence root: `artifacts/g1_true23_frozen_lora/standing_motion_ppo_20260906_v1`.
+Experiment data, checkpoints and local drivers remain ignored local artifacts;
+the committed changes contain the reusable source/tests and these notes.
+
+| Artifact under that root | SHA256 |
+|---|---|
+| `corpus/corpus.npz` | `e285ca71295bc047ed076abfeda9348be9567475f4fca21c30e112ac62976c06` |
+| `breadth/checkpoints/frozen_lora_model_0.pt` | `eab3a9e886c58d4cf36e902cf0ff0a2f15a910eca288910b22728204f0294a96` |
+| `breadth/checkpoints/frozen_lora_model_100.pt` | `e7fd6a62a93a32175116ab8b5af3136b4ad0aaa1c36bc296dcfa19a9fb7cd3a0` |
+| `torch_0/report.json` | `e4a390eb09c37a040425ebe18735160cc1958d55053f081ad7030e1e49794b0f` |
+| `torch_100/report.json` | `cc9aef6570467a2dd7f540f95f9eea97a471a66e110f2cd4dccfe505f14b6709` |
+| `model_100/evaluation/report.json` | `ec32b4fcd7f9a5a99c6a47ff2e596076dbfc7df9a3d0f1d68347c355c4bcf2de` |
+| `regression.xml` | `77081daa22ce327d40a45a3ded8c26658e54b572673d2ca94ffa96bd760bc199` |
+| `integrity_report.json` | `4c389ae05963dec7ec5a9a0451f6bec191600b1577b704b8de09f39f5805db83` |
+
+Rejected update-100 adapter tensor SHA256:
+`3512be7846cad548884b00159d9e61a3d3df19d2ae5f3a3dbea067f49646722e`.
+Its diagnostic decoder SHA256 is
+`e766c317dd9b6e410fbb25976a8db573fb100bfb3631e676701d668d28a3b88a`;
+its matching encoder retains frozen tensor SHA256
+`3625edb10aabd266196702aefd464ad07c93847f2d1722a977e18ef2a0143990`.
+
+Next work: isolate early PPO action drift on the validated standing training
+states and the actual sampled reset states; add and verify an explicitly
+standing-only retention/rehearsal mechanism without treating failed motion
+actions as teachers or training on the held-out standing episode. Preserve
+the entire motion request set and all original limits. Retest both standing
+lifecycles and every complete motion before selecting any candidate. Such
+retention training is **not implemented or proven by this continuation**.
+Original-v14 matched-budget comparison, contact/force-valid original-motion
+teachers, complete elbow source, live-input timing and supervised native-FSM
+handoff remain outstanding. A 23-DoF morphology also cannot reproduce every
+independent 29-DoF joint trajectory exactly; task-space retargeting and honest
+per-motion feasibility evidence remain required. Goal stays active.
+
 ## 2026-09-06 continuation: standing-only LoRA bootstrap passes; full motion still fails
 
 **NOT ready for physical dance or live full-body teleop.** There is now a

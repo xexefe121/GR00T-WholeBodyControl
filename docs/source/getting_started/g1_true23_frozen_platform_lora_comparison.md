@@ -1,5 +1,21 @@
 # Frozen-platform LoRA versus the original true23 v14 trainer
 
+> **Standing-initialized motion PPO, 2026-09-06:** A new checked adapter-only
+> import keeps a fresh critic, optimizer and zero PPO counters. A separate
+> breadth run retains seven complete SONIC/PICO requests plus independently
+> labelled synthetic standing (5,940 frames); incomplete elbow is not replaced.
+> It completes **100 actual PPO updates / 51,200 transitions** under unchanged
+> constraints. The result is rejected: matched CPU tests show standing falling
+> from **500/500 to 89/500**, or **70/500 after acquisition**, with return falling
+> from **250/250 to 0/250**. Full dance falls from 66 to **57/535**; every full
+> motion still fails. The newly matched update-100 ONNX pair produces the same
+> completion counts. Zero-update diagnostic export correctly rejects rather
+> than fabricating a trained counter. **511 regression tests pass**, but no
+> physical dance/live-teleop readiness or corrected matched-budget original-v14
+> comparison is established. No robot or hardware path was operated. More
+> identical PPO updates are not justified; standing retention now requires
+> explicit investigation and validation. See [current evidence](../../../PROGRESS.md).
+
 > **Standing prerequisite, 2026-09-06:** Extra effort headroom does not solve
 > native23 full-motion control: all 32 executed variants fail under unchanged
 > limits. A new standing-only teacher explicitly projects unrepresentable
