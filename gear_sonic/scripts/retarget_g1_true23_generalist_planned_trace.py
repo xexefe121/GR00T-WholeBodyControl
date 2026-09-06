@@ -1,0 +1,140 @@
+"""Adapt complete planned29 choreography from a saved reference/rollout trace.
+
+Only planned_qpos50 is consumed. Recorded policy poses (pre_qpos/post_qpos)
+are never substituted for the requested choreography. No robot interfaces.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
+
+import mujoco
+import numpy as np
+
+from gear_sonic.utils import g1_23dof_task_space_retarget as ik
+from gear_sonic.utils.g1_true23_generalist_corpus import sha256_file
+from gear_sonic.utils.g1_true23_generalist_retarget import AdaptationLimits, adapt_offline_motion
+from gear_sonic.utils.g1_true23_reference_floor import compiled_model_sha256
+
+
+def planned_named_source(trace, source_model):
+    planned = np.asarray(trace["planned_qpos50"], dtype=np.float64)
+    times = np.asarray(trace["command_time_s"], dtype=np.float64)
+    if planned.ndim != 2 or planned.shape[1] != 36 or len(planned) < 2:
+        raise ValueError("complete planned_qpos50 must be [N,36]")
+    if times.shape != (len(planned),) or not np.allclose(np.diff(times), 0.02, atol=1e-9, rtol=0):
+        raise ValueError("planned choreography must have exact complete 50-Hz timestamps")
+    if not np.isfinite(times).all() or not np.isfinite(planned).all():
+        raise ValueError("planned choreography contains nonfinite values")
+    return {
+        "joint_names": np.asarray(ik._model_layout(source_model).joint_names),
+        "joint_pos": planned[:, 7:].copy(),
+        "root_pos_w": planned[:, :3].copy(),
+        "root_quat_wxyz": planned[:, 3:7].copy(),
+        "fps": np.array([50.0]),
+        "timestamps_s": times.copy(),
+    }
+
+
+def planned_adaptation_options(*, root_reference_refinement: bool):
+    """Root refinement is one bounded diagnostic, never a larger hidden sweep."""
+    if type(root_reference_refinement) is not bool:
+        raise ValueError("root_reference_refinement must be boolean")
+    return {
+        "limits": (
+            AdaptationLimits(duration_scales=(2.0,), excursion_scales=(0.9,))
+            if root_reference_refinement
+            else AdaptationLimits()
+        ),
+        "root_reference_refinement": root_reference_refinement,
+    }
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--trace", type=Path, required=True)
+    parser.add_argument("--source-model", type=Path, required=True)
+    parser.add_argument("--target-model", type=Path, default=Path(ik.DEFAULT_TARGET_MODEL))
+    parser.add_argument("--output-directory", type=Path, required=True)
+    parser.add_argument(
+        "--root-reference-refinement",
+        action="store_true",
+        help="Run one constrained root+23 reference refinement at 2x duration/90%% excursion",
+    )
+    args = parser.parse_args(argv)
+    output = args.output_directory.resolve()
+    if output.exists() or output.is_symlink():
+        raise FileExistsError(output)
+    paths = [
+        args.trace,
+        args.source_model,
+        args.target_model,
+        Path(__file__),
+        Path(ik.__file__),
+        Path(__file__).resolve().parents[1] / "utils/g1_true23_generalist_retarget.py",
+    ]
+    helper_root = Path(__file__).resolve().parents[1] / "utils"
+    paths.extend(
+        helper_root / filename
+        for filename in (
+            "g1_true23_original_task_trajectory.py",
+            "g1_true23_box_qp.py",
+            "g1_23dof_trajectory_projection.py",
+            "g1_23dof_safe_target_transform.py",
+            "g1_23dof_contract.py",
+            "g1_true23_reference_floor.py",
+            "g1_true23_generalist_corpus.py",
+        )
+    )
+    bindings = {str(path.resolve(strict=True)): sha256_file(path) for path in paths}
+    source = (
+        mujoco.MjModel.from_binary_path(str(args.source_model))
+        if args.source_model.suffix == ".mjb"
+        else mujoco.MjModel.from_xml_path(str(args.source_model))
+    )
+    target = mujoco.MjModel.from_xml_path(str(args.target_model))
+    with np.load(args.trace, allow_pickle=False) as archive:
+        arrays = planned_named_source(archive, source)
+    output.mkdir(parents=True, exist_ok=False)
+    with (output / "planned.named29.npz").open("xb") as stream:
+        np.savez_compressed(stream, **arrays)
+    print(f"Adapting all {len(arrays['joint_pos'])} planned source frames", flush=True)
+    try:
+        result = adapt_offline_motion(
+            source_model=source,
+            target_model=target,
+            arrays=arrays,
+            source_role="requested_choreography",
+            **planned_adaptation_options(root_reference_refinement=args.root_reference_refinement),
+        )
+        report = result.report
+        if result.accepted:
+            with (output / "adapted.true23.npz").open("xb") as stream:
+                np.savez_compressed(stream, **result.arrays)
+            report["adapted_motion_sha256"] = sha256_file(output / "adapted.true23.npz")
+    except ValueError as exc:
+        report = {"accepted": False, "input_error": str(exc), "dynamic_feasibility_verified": False}
+    report.update(
+        input_bindings=bindings,
+        source_field="planned_qpos50",
+        source_frames=len(arrays["joint_pos"]),
+        recorded_policy_pose_used_as_choreography=False,
+        root_reference_refinement_requested=args.root_reference_refinement,
+        named_source_sha256=sha256_file(output / "planned.named29.npz"),
+        compiled_models={"source": compiled_model_sha256(source), "target": compiled_model_sha256(target)},
+        hardware_authorized=False,
+        deployment_ready=False,
+    )
+    for path, expected in bindings.items():
+        if sha256_file(Path(path)) != expected:
+            raise ValueError(f"input changed during retarget: {path}")
+    with (output / "report.json").open("x") as stream:
+        json.dump(report, stream, indent=2, sort_keys=True, allow_nan=False)
+    print(output / "report.json", flush=True)
+    return 0 if report["accepted"] else 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

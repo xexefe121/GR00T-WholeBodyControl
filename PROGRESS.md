@@ -1,5 +1,117 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-07: simulation-first native23 generalist implementation
+
+**New architecture blocker:** with reference fixed, shifting robot XY by
+[8, -3] m produces bit-identical actual v2 encoder267, history930, decoder994
+and raw23 action. Actual training features have the same invariance. The fixed
+interface sees no root-position error and reanchors reference XY to the robot.
+It cannot recognize a persistent source-world position offset as an error.
+More training can improve relative motion but cannot supply missing feedback.
+Source-world path/return requires a separately versioned root-feedback input,
+or explicit narrowing to root-relative qualification. This contract decision
+is not silently made and world-frame acceptance gates are not relaxed.
+
+**Physical dance and live teleop remain unqualified. Simulation work does not
+require robot access.** All work below is local CPU/GPU simulation, reference
+retargeting, training or artifact validation. No DDS, SSH, robot mode change or
+motor publishing occurs. The original `23dofsonic` checkout and all pre-existing
+dirty hardware files remain untouched.
+
+New generalist path freezes the released SONIC encoder/FSQ and trains all 18
+native23 decoder tensors (37,390,871 parameters), critic and bounded exploration.
+The 267/64/994 SONIC interfaces remain explicit; six missing axes are observation
+padding, never physical motors. Simulation separates nominal native-model full
+effort saturation at 500 Hz from the existing quarter-effort/slew gantry setup.
+
+Two real four-environment/two-update GPU smoke runs complete. Every decoder
+tensor changes and the encoder stays bit-identical. Smoke v2 adds recursive
+61-file source dependency binding; exact ONNX encoder probes and decoder maximum
+absolute error 2.115965e-6 pass. These are initialization/training/export checks,
+not a trained general dance controller. V1 and v2 decoder weights differ, so
+their measured dynamics receipts are not interchangeable.
+
+Fresh v2 CPU lifecycle also completes all 1296 controls and all 546 source
+frames, but source task-point p95 remains 1.600–1.685 m. Final root is
+[7.90178, 1.39630, 0.75308] m, root speed peaks at 0.02705 m/s during standing
+proof and standing joint error reaches 0.6314 rad. V2 fails fidelity too.
+
+The common nominal CPU benchmark and complete standing/dance/standing lifecycle
+run one actor with no mid-motion pose reset, history reset, fallback or alternate
+standing controller. On v1, the new generalist integrates all 1296 lifecycle
+controls and settles upright, but drifts about 8 m and misses requested arm
+posture. It fails dance fidelity. Original walk v14 rejects raw action after
+352 lifecycle controls; prior lifecycle LoRA integrates 1296 but also fails.
+Duration completion must not be reported as successful dancing.
+
+Two earlier assumptions are corrected with actual evidence:
+
+- Old native23 dance targets tracked the **recorded29 policy rollout**, not the
+  original requested choreography. Planned-source discrepancy is approximately
+  0.57–0.64 m at task-point p95. New adapter uses only `planned_qpos50`.
+- Exact original walk replay depends on its old observation phase. Its angular
+  velocity reads stale pre-final-substep `cvel`; the current controller refreshes
+  kinematics. First control matches exactly, then the second raw action differs
+  by 0.127677. Matching gains alone does not reproduce historical frontend
+  semantics. This is a simulation discrepancy, not a physical fault diagnosis.
+
+The full planned 546-frame dance now reaches the task-space solver for all 12
+bounded tempo/excursion candidates. Fixed-root v3 rejects all candidates: at
+2× duration/90% excursion, feet improve below 1 mm p95 but hands remain
+17.49/18.74 cm and head 15.13 cm. Original source-limit excess is retained and
+reported; target limits and final gates are not weakened. No failed reference
+is emitted as usable motion.
+
+One bounded v4 root-orientation+23 refinement fixes the structural head-motion
+limitation of fixed-root IK. At 2× duration/90% excursion, all 1091 frames solve;
+head p95 improves to 3.21 cm, hands to 5.84/6.12 cm and feet stay below 0.75 mm.
+ROM, 4.975-rad/s speed, 79.601-rad/s² acceleration and serialized root bounds
+pass. It still rejects: 252/1091 frames pass the unchanged protected mask.
+Weighted optimization trades some foot orientation against upper-body fit;
+the aggregate report does not localize all 839 failed frames by criterion.
+This is a failed constrained solver result, not a physical impossibility proof.
+No additional run or relaxed threshold follows. Report SHA256:
+`0f32fe59e30001945479a10e9d61e996577fb1bab576a4b839131877082d3657`.
+
+Corpus audit splits original recording families 80/10/10 before augmentation and
+binds license/lineage evidence, named joints, timing and file hashes. Acceptance
+requires an external immutable full-source phase plan, at least 100 independent
+held-out dances, three seeds and 95% complete lifecycle success. Missing/rejected
+cases remain failures; a one-frame or cropped self-declared dance cannot pass.
+Local 127 candidate files are not 127 independent recordings. Licensed broad
+corpus access remains missing; no gated BONES-SEED license was accepted.
+
+Nominal acquisition and lifecycle training modes now derive references from
+validated original train assets. Timed command resampling is bypassed: inherited
+state writes occur only inside environment reset. Explicit parent initialization
+transfers trained actor/noise into a fresh critic/optimizer/counters and new
+lineage; exact same-stage resume is separate. V3 GPU smoke verifies parent v2
+actor equality for 29/29 tensors, then all 18 decoder tensors update while all
+ten encoder tensors stay fixed. All 86 bound local Python sources match.
+Only initial standing is exercised: 4 environments, 16 controls each, 64 total
+transitions, 2 updates, 4 initial resets, zero completed reference timelines.
+This is not completed lifecycle training, domain randomization or teleop proof.
+
+Final combined verification: **315 tests pass, zero failures or skips**, in
+135.39 seconds; Ruff E/F and format checks pass for all 37 new Python files.
+Earlier 274-test evidence remains retained as a historical snapshot. Causal per-frame
+retargeting has no lookahead and rejects stale input without manufacturing an
+action, but its 100-frame moving test misses 40 deadlines at 20 ms. This is not
+PICO integration or real-time qualification. Full generalization, the remaining
+randomized/interrupted-input curriculum, constrained planned-reference
+feasibility, contact/fall evidence and the live reference path still require work.
+
+Implementation, exact evidence labels, runnable entry points and remaining
+qualification are documented in `G1_TRUE23_GENERALIST_SIM.md`. Evidence root:
+`artifacts/g1_true23_generalist/`. Binary motions, checkpoints and measured-state
+videos remain local; diagnostic reports do not authorize hardware use.
+Final verification receipt:
+`artifacts/g1_true23_generalist/verification_20260907_v2/verification.json`,
+SHA256 `d7159d0c482b2c8249853a13f13d79b08296372767c9b96d7351bc79e19c0896`.
+It binds 37 stable Python sources, 66 evidence files, final JUnit and unchanged
+active C++ source/header. New evidence/source Git line endings are pinned to LF;
+existing hardware edits remain outside the simulation commit.
+
 ## 2026-09-07: read-only incident capture tested at 1,000 callbacks/s
 
 **Still NOT ready for physical dance or live full-body teleop.** This turn

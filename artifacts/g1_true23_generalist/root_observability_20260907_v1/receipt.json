@@ -1,0 +1,384 @@
+{
+  "schema_version": 1,
+  "kind": "native23_static_root_observability_diagnostic_v1",
+  "runtime": {
+    "python": "3.11.15",
+    "numpy": "2.3.4",
+    "torch": "2.9.0+cu128",
+    "onnxruntime": "1.28.0",
+    "mujoco": "3.5.0",
+    "inference_provider": "CPUExecutionProvider"
+  },
+  "fixture_scope": "Three independent reset/FK-only observation fixtures; H10 repeats each static measured frame. Not physical motion replay, training, or qualification.",
+  "source_reference": {
+    "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original29_neutral_hand_frame_fit_20260906_v1/happy_dance.native23.npz",
+    "sha256": "3fe0a95b3e33e291fffde0fc3ede0cfc2fbae3b5ca19e8a43fbbe72fe3d16251",
+    "fixed_packet_q9": 9,
+    "fixed_robot_pose_frame10": 10,
+    "reference_is_existing_fit_to_recorded_original29_policy_not_planned_choreography": true
+  },
+  "states": [
+    {
+      "name": "baseline",
+      "robot_displacement_xyz_m": [
+        0,
+        0,
+        0
+      ],
+      "root_linear_velocity_change_world_m_s": [
+        0,
+        0,
+        0
+      ],
+      "robot_root_xyz": [
+        0.0002580555446911603,
+        -0.0011364148231223226,
+        0.7779673337936401
+      ],
+      "root_velocity_world_linear_then_body_angular": [
+        0.15,
+        -0.1,
+        0.05,
+        0.12,
+        -0.2,
+        0.07
+      ],
+      "root_error_from_source_frame10_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "simulation_time_s": 0.0,
+      "tensors": {
+        "encoder267": {
+          "shape": [
+            267
+          ],
+          "dtype": "float32",
+          "c_contiguous_bytes_sha256": "b68c79610026db05d2dd9c1b3a93637b44d2cbfe16cc9f8fa5f170c70ead0258"
+        },
+        "history930": {
+          "shape": [
+            930
+          ],
+          "dtype": "float32",
+          "c_contiguous_bytes_sha256": "6905b44b92684c3d44c8a9d66d609b94c0cc87e90291c18c66efe6fe1dc3ff14"
+        },
+        "decoder994": {
+          "shape": [
+            994
+          ],
+          "dtype": "float32",
+          "c_contiguous_bytes_sha256": "4c0d971eaf9d505be885b2929083ebbf7e22982d3958d7e444d53f4394e5f616"
+        },
+        "raw23": {
+          "shape": [
+            23
+          ],
+          "dtype": "float32",
+          "c_contiguous_bytes_sha256": "ced144b6144a03b87cad1a3d6ec305b7cd42ac1066558534a81f2e5dfb1eb5c6"
+        }
+      },
+      "raw_action23": [
+        0.3982769846916199,
+        0.417646199464798,
+        0.020439915359020233,
+        0.3670843243598938,
+        -0.5029201507568359,
+        0.904853880405426,
+        0.8391752243041992,
+        -0.09032097458839417,
+        0.17202013731002808,
+        0.4478152394294739,
+        -0.4608231484889984,
+        -0.6295964121818542,
+        -0.6104550361633301,
+        -0.04371236264705658,
+        -0.04922429099678993,
+        0.5741837024688721,
+        0.7661686539649963,
+        -0.5806064009666443,
+        -0.5527275800704956,
+        -0.09853000938892365,
+        0.13208714127540588,
+        -0.17086850106716156,
+        0.11794453859329224
+      ]
+    },
+    {
+      "name": "robot_translated_8_minus3_m",
+      "robot_displacement_xyz_m": [
+        8,
+        -3,
+        0
+      ],
+      "root_linear_velocity_change_world_m_s": [
+        0,
+        0,
+        0
+      ],
+      "robot_root_xyz": [
+        8.000258055544691,
+        -3.0011364148231223,
+        0.7779673337936401
+      ],
+      "root_velocity_world_linear_then_body_angular": [
+        0.15,
+        -0.1,
+        0.05,
+        0.12,
+        -0.2,
+        0.07
+      ],
+      "root_error_from_source_frame10_m": [
+        8.0,
+        -3.0,
+        0.0
+      ],
+      "simulation_time_s": 0.0,
+      "tensors": {
+        "encoder267": {
+          "shape": [
+            267
+          ],
+          "dtype": "float32",
+          "c_contiguous_bytes_sha256": "b68c79610026db05d2dd9c1b3a93637b44d2cbfe16cc9f8fa5f170c70ead0258"
+        },
+        "history930": {
+          "shape": [
+            930
+          ],
+          "dtype": "float32",
+          "c_contiguous_bytes_sha256": "6905b44b92684c3d44c8a9d66d609b94c0cc87e90291c18c66efe6fe1dc3ff14"
+        },
+        "decoder994": {
+          "shape": [
+            994
+          ],
+          "dtype": "float32",
+          "c_contiguous_bytes_sha256": "4c0d971eaf9d505be885b2929083ebbf7e22982d3958d7e444d53f4394e5f616"
+        },
+        "raw23": {
+          "shape": [
+            23
+          ],
+          "dtype": "float32",
+          "c_contiguous_bytes_sha256": "ced144b6144a03b87cad1a3d6ec305b7cd42ac1066558534a81f2e5dfb1eb5c6"
+        }
+      },
+      "raw_action23": [
+        0.3982769846916199,
+        0.417646199464798,
+        0.020439915359020233,
+        0.3670843243598938,
+        -0.5029201507568359,
+        0.904853880405426,
+        0.8391752243041992,
+        -0.09032097458839417,
+        0.17202013731002808,
+        0.4478152394294739,
+        -0.4608231484889984,
+        -0.6295964121818542,
+        -0.6104550361633301,
+        -0.04371236264705658,
+        -0.04922429099678993,
+        0.5741837024688721,
+        0.7661686539649963,
+        -0.5806064009666443,
+        -0.5527275800704956,
+        -0.09853000938892365,
+        0.13208714127540588,
+        -0.17086850106716156,
+        0.11794453859329224
+      ]
+    },
+    {
+      "name": "robot_linear_velocity_changed",
+      "robot_displacement_xyz_m": [
+        0,
+        0,
+        0
+      ],
+      "root_linear_velocity_change_world_m_s": [
+        1.5,
+        -0.75,
+        0.2
+      ],
+      "robot_root_xyz": [
+        0.0002580555446911603,
+        -0.0011364148231223226,
+        0.7779673337936401
+      ],
+      "root_velocity_world_linear_then_body_angular": [
+        1.65,
+        -0.85,
+        0.25,
+        0.12,
+        -0.2,
+        0.07
+      ],
+      "root_error_from_source_frame10_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "simulation_time_s": 0.0,
+      "tensors": {
+        "encoder267": {
+          "shape": [
+            267
+          ],
+          "dtype": "float32",
+          "c_contiguous_bytes_sha256": "b68c79610026db05d2dd9c1b3a93637b44d2cbfe16cc9f8fa5f170c70ead0258"
+        },
+        "history930": {
+          "shape": [
+            930
+          ],
+          "dtype": "float32",
+          "c_contiguous_bytes_sha256": "6905b44b92684c3d44c8a9d66d609b94c0cc87e90291c18c66efe6fe1dc3ff14"
+        },
+        "decoder994": {
+          "shape": [
+            994
+          ],
+          "dtype": "float32",
+          "c_contiguous_bytes_sha256": "4c0d971eaf9d505be885b2929083ebbf7e22982d3958d7e444d53f4394e5f616"
+        },
+        "raw23": {
+          "shape": [
+            23
+          ],
+          "dtype": "float32",
+          "c_contiguous_bytes_sha256": "ced144b6144a03b87cad1a3d6ec305b7cd42ac1066558534a81f2e5dfb1eb5c6"
+        }
+      },
+      "raw_action23": [
+        0.3982769846916199,
+        0.417646199464798,
+        0.020439915359020233,
+        0.3670843243598938,
+        -0.5029201507568359,
+        0.904853880405426,
+        0.8391752243041992,
+        -0.09032097458839417,
+        0.17202013731002808,
+        0.4478152394294739,
+        -0.4608231484889984,
+        -0.6295964121818542,
+        -0.6104550361633301,
+        -0.04371236264705658,
+        -0.04922429099678993,
+        0.5741837024688721,
+        0.7661686539649963,
+        -0.5806064009666443,
+        -0.5527275800704956,
+        -0.09853000938892365,
+        0.13208714127540588,
+        -0.17086850106716156,
+        0.11794453859329224
+      ]
+    }
+  ],
+  "all_encoder_history_decoder_raw_exactly_equal": true,
+  "training_frontend": {
+    "scope": "Actual causal/VR/orientation feature functions invoked on a minimal command fixture; no MJLab environment rollout.",
+    "before": {
+      "shape": [
+        1,
+        267
+      ],
+      "dtype": "float32",
+      "c_contiguous_bytes_sha256": "b26e47037d93eb699b58f34d92310da78c67595f3ffe7895e1a2ce90dde58efd"
+    },
+    "after": {
+      "shape": [
+        1,
+        267
+      ],
+      "dtype": "float32",
+      "c_contiguous_bytes_sha256": "b26e47037d93eb699b58f34d92310da78c67595f3ffe7895e1a2ce90dde58efd"
+    },
+    "exactly_equal": true
+  },
+  "interpretation": [
+    "The current 267+930 actor input cannot distinguish an arbitrary persistent XY displacement with identical orientation/joint/action histories and fixed source reference.",
+    "Current actor does not directly observe actual or desired root linear velocity. This instantaneous invariance does not rule out indirect velocity inference from later proprioceptive/contact responses.",
+    "267 contains reference leg history240, reference-pelvis-local point9 and orientation12 targets, and relative pelvis orientation6; 930 contains angular velocity, joints, actions and gravity histories.",
+    "More optimization cannot remove the demonstrated position-offset alias without additional state/command information. Closed-loop source-world path/return qualification requires an approved root-feedback conditioning branch or a narrower root-relative qualification claim.",
+    "This receipt establishes observation aliasing, not impossibility of performing a particular dance from a precisely matched initial state."
+  ],
+  "policy_identity": {
+    "manifest_path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/smoke_20260907_v2/export/generalist.diagnostic.json",
+    "manifest_sha256": "ae19e00ed0441046f57ca3502390cf1c0106597b75f327e8e0a2035b84e92a5c",
+    "source": {
+      "actor_state_sha256": "d673ab3cc747c0c2f213c47ca52512f96d1a3be9abc041f4f7c323fd6e212949",
+      "architecture_initialization_profile": "released_low_latency_step1_0p02s",
+      "checkpoint_filename": "native23_generalist_model_2.pt",
+      "checkpoint_sha256": "212b7ed4704dfd2f71f637a96a713407b622379e004838b0e423419aaf7904db",
+      "completed_update_count": 2,
+      "frozen_encoder_state_sha256": "0f067bea345a7610dfbf34a69021fdfd278e08e3eb21cc3304db1de517c84132",
+      "lineage_sha256": "8ddd25b2e7e3cd81388b1bfcce1516df4f9e99bf7da051ff2cd21b0e987ae7d0",
+      "paired_release_checkpoint_sha256": "0031ae7db24747445d6eb7c27697640973a837546f0b8763e775143c47d4507c"
+    },
+    "encoder_sha256": "493d42675a9e022f8287d7034ccba276e6032fad1003e75341c597bdb1f5ad2f",
+    "decoder_sha256": "e25bfd0961027811cda336ebd01346ada02a7df41a44db8e8b56c44752c079c5",
+    "diagnostic_only": true,
+    "component_paths": {
+      "encoder": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/smoke_20260907_v2/export/encoder.diagnostic.onnx",
+      "decoder": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/smoke_20260907_v2/export/decoder.diagnostic.onnx"
+    }
+  },
+  "checkpoint_path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/smoke_20260907_v2/checkpoints/native23_generalist_model_2.pt",
+  "input_files_sha256": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original29_neutral_hand_frame_fit_20260906_v1/happy_dance.native23.npz": "3fe0a95b3e33e291fffde0fc3ede0cfc2fbae3b5ca19e8a43fbbe72fe3d16251",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/smoke_20260907_v2/export/generalist.diagnostic.json": "ae19e00ed0441046f57ca3502390cf1c0106597b75f327e8e0a2035b84e92a5c",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/smoke_20260907_v2/checkpoints/native23_generalist_model_2.pt": "212b7ed4704dfd2f71f637a96a713407b622379e004838b0e423419aaf7904db",
+    "/mnt/z/codex/GR00T-WholeBodyControl/gear_sonic/data/robots/g1/g1_23dof_rev_1_0.xml": "16e304c970bfc68783ea69d01d05192e6bd9d83d62f6ee4aac0ac72ff18db612",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/config/sim_validation/g1_23dof_mujoco_sim2sim.json": "bc4dab246e709604f435dea7c584adc01f1c38a6abb6ac1bc22fc699c42272c3",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/root_observability_20260907_v1/audit_root_observability.py": "e3cfa10cd236b016f01c84c6b3de6d17e83be71d271f579f1550f1688211c5a2",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/smoke_20260907_v2/export/encoder.diagnostic.onnx": "493d42675a9e022f8287d7034ccba276e6032fad1003e75341c597bdb1f5ad2f",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/smoke_20260907_v2/export/decoder.diagnostic.onnx": "e25bfd0961027811cda336ebd01346ada02a7df41a44db8e8b56c44752c079c5",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_contract.py": "113ba62dd9734b77c4c32f812e5891066c5bac0c21635c74739b643267fef55a",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23.py": "64c27e20d61de6013dfb9b40c2dff01fc2908fec34be8deceed4be01224da9d4",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/__init__.py": "2ed2ba70dff6822b6e3acae9e24c2f12a1fe2c81f36128d6d0fb078fd5659d6d",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_low_latency_recovery.py": "db893c7a362f37da30f914500470f23694f5fb55a40c1ee34522b4a14cf144f9",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_causal_history.py": "13acda79144d69ee2a7870cb76656b0e0c92d5d078c1a8d0bfaba3d8f04e98b5",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_safe_target_transform.py": "13bb352b59faa83195c7b423d40056ab37deab197a8aa66f8e0aaa33641503cf",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_semantic_reference.py": "6d8d2c0dd5f9ab843ceaf003d34d39ca3809310ca9be18d65c8f136da5fa60cc",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_pico_retargeted_producer.py": "a688a6441b5d704871c38b2ab2b61e18399cb4bfbe49582b0105281cbe6d0709",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_xr24_soma_adapter.py": "c216cbf0b60e29b78e5fdc66d2e521db437755e56d62c12ff52f28a00a6fb25a",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_xr24_soma_stream.py": "92fcc3455e4783a50f4cb7bcae26ed6ee364e29348fd760c15e83622fe07c104",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/utils/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_checkpoint_io.py": "e1c970258de1f79d12c08b4db4af7ae680bbd0158f48b6c9fcb204d7e0c4c827",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/utils/g1_23dof_checkpoint.py": "a55cb5c9d57ca09d3fe8e2d4c8a0448d294fb85757a33135e0be63b84f89374b",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/init_g1_23dof_checkpoint.py": "0bc3f36da93304d6a30a35452da91015346472349fb70c4ab62ec81d8ae88ec1",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_29dof_low_latency_teacher.py": "31d8051294a93eec04c40d6e5fa131ec87cbf9330aade03bd5f2010ffd623ac5",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_step1b_qualification.py": "13e8d32fc2afdf0d93c33d82e24d950f64f63b28132c3100c29e8e474ce67ea9",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_step1b_mujoco.py": "ffed3a136b9c0f7343fd768a880fc395ce8f4737b735b7158c8f8ddd375ead3d",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_clean_mujoco_teleop.py": "0630709a9e55d5ce782dc93944aa8faeba24ff680bdd8c163ce324416bfb897a",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_trajectory_projection.py": "cd6ca43154a35e48252298157671d4251e70793a4ccba3eeda66edbcf1f35f94",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_contact_geometry.py": "0b1562dcf9428e88d1d3c5f1485c992faa3560ea27c828b2358048735fd7bc9c",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_sim_acquisition.py": "41d97a7fc6a304ab40156d4e059aa1e82b0d7e6414c6371fdcabfdc4ffe528ab",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_motion_fidelity.py": "689de00a422e7071ee4ba60e5ebb2087b77d11faccc20d6bfb5d0af587d2a863",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_sonic_library_replay.py": "92fd5add66ee9f37a708d358132cc48686ce8f7c520225f7ac8a99e8b908f28f",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_reference_floor.py": "cd86d49d9767f77ba1c81258a4d0b53f4be5f334c0a763a68169eeee5e694510",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_native_model_actuation.py": "9f6d27c23b510938c3a90f4f2c8da8787433d91a2c78346e0d25a6a7eadad885",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_generalist_benchmark.py": "be29024de1bc62ded14d28bfaf8a6fcfbcc2256826fc0cffc5b8933140b841b3",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_artifact.py": "cda9d310aa52053b765e53081ef00b2b64d4f56a134ce7ff06494d7023c145dc",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_live_shadow.py": "2c8f6977b795a25e00e3b1ccf92a7a181d6c6de64dd9a9a14972e1cd0742a95f",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_mujoco_promotion.py": "96cd3848b4543b03685e37170902945fbdb1754a27fd47ab31d1525add240e3f",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_mujoco_sim2sim.py": "9c45f4b5477c6b0138ab6ed464b64b7463f07e38bd415cbb65b929e5d632c22e"
+  },
+  "physics_integration_steps": 0,
+  "physics_integration_attempts": 0,
+  "source_or_architecture_changed": false,
+  "training_launched": false,
+  "hardware_authorized": false,
+  "active_motor_control_authorized": false,
+  "deployment_ready": false,
+  "simulator_qualified": false
+}

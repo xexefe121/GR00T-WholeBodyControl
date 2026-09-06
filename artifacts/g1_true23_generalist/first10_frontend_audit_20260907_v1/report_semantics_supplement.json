@@ -1,0 +1,104 @@
+{
+  "kind": "historical_reset_and_observation_phase_clarification_v1",
+  "original_receipts_unchanged": true,
+  "no_simulation_or_policy_execution_in_supplement": true,
+  "bound_original_reports": {
+    "artifacts/g1_true23_generalist/historical_walk_reproduction_20260907_v1/report.json": {
+      "sha256": "f5eba33c29b5732e58c8f957cd59bcfd11f606acff601d5e4b1c5e93047e72c1"
+    },
+    "artifacts/g1_true23_generalist/lifecycle_nominal_20260907_v2/report.json": {
+      "sha256": "1e8f6dab199893a3a98ce4a6a8682a3d60edd36d535d5568ea3c461b8d71c587"
+    }
+  },
+  "observation_phase_contract": {
+    "observation_refresh_phase": "post_integration_before_measured_policy_history",
+    "refresh_operations": [
+      "mj_kinematics",
+      "mj_comPos",
+      "mj_comVel"
+    ],
+    "current_cvel_phase": "same_post_integration_qpos_qvel_instant",
+    "angular_velocity_body": "R(current_root_quaternion).T @ current_pelvis_angular_velocity_world",
+    "joint_position_velocity_and_angular_velocity_synchronized": true,
+    "extra_integration_or_contact_solve": false,
+    "qacc_warmstart_modified": false,
+    "historical_original_frontend_reproduced": false,
+    "historical_original_cvel_phase": "previous_physics_substep_before_final_2ms_integration",
+    "historical_first_difference": "control_index_1_history930_indices_27_28_29_newest_angular_velocity",
+    "historical_first10_evidence": {
+      "repository_relative_path": "artifacts/g1_true23_generalist/first10_frontend_audit_20260907_v1/comparison.json",
+      "sha256": "e156406fbf1a625121d74c79e3fc242684fdde946dd142ea049722c6eab473b7",
+      "original_actual_matches_archived_first11_qpos_exactly": true,
+      "current_actual_matches_shared_first10_controls_and100_substeps_exactly": true,
+      "cause": "observation_timing_not_floating_point_precision",
+      "full_horizon_historical_reproduction_proven": false
+    }
+  },
+  "original_comparison_reproduced_scope": "reference_reset_boundary_only",
+  "historical_released_gains_scope": "gain_arrays_only_not_original_stale_cvel_frontend",
+  "current_nominal_frontend_changed_to_historical_stale_cvel": false,
+  "exact_original_first10_capture": "original actual library frontend matches archived first11 qpos exactly; current shared frontend matches current actual library first10 controls exactly",
+  "diagnostic_receipt": {
+    "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/first10_frontend_audit_20260907_v1/comparison.json",
+    "sha256": "e156406fbf1a625121d74c79e3fc242684fdde946dd142ea049722c6eab473b7"
+  },
+  "fresh_v2_policy_identity": {
+    "manifest_path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/smoke_20260907_v2/export/generalist.diagnostic.json",
+    "manifest_sha256": "ae19e00ed0441046f57ca3502390cf1c0106597b75f327e8e0a2035b84e92a5c",
+    "source": {
+      "actor_state_sha256": "d673ab3cc747c0c2f213c47ca52512f96d1a3be9abc041f4f7c323fd6e212949",
+      "architecture_initialization_profile": "released_low_latency_step1_0p02s",
+      "checkpoint_filename": "native23_generalist_model_2.pt",
+      "checkpoint_sha256": "212b7ed4704dfd2f71f637a96a713407b622379e004838b0e423419aaf7904db",
+      "completed_update_count": 2,
+      "frozen_encoder_state_sha256": "0f067bea345a7610dfbf34a69021fdfd278e08e3eb21cc3304db1de517c84132",
+      "lineage_sha256": "8ddd25b2e7e3cd81388b1bfcce1516df4f9e99bf7da051ff2cd21b0e987ae7d0",
+      "paired_release_checkpoint_sha256": "0031ae7db24747445d6eb7c27697640973a837546f0b8763e775143c47d4507c"
+    },
+    "encoder_sha256": "493d42675a9e022f8287d7034ccba276e6032fad1003e75341c597bdb1f5ad2f",
+    "decoder_sha256": "e25bfd0961027811cda336ebd01346ada02a7df41a44db8e8b56c44752c079c5",
+    "diagnostic_only": true,
+    "component_paths": {
+      "encoder": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/smoke_20260907_v2/export/encoder.diagnostic.onnx",
+      "decoder": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/smoke_20260907_v2/export/decoder.diagnostic.onnx"
+    }
+  },
+  "fresh_v2_observed_results": {
+    "completed_controls": 1296,
+    "source_motion_tracking": {
+      "full_source_motion_completed": true,
+      "landmark_position_p95_m": {
+        "left_ankle_origin": 1.6166754555967753,
+        "right_ankle_origin": 1.6002901988278895,
+        "left_hand_point": 1.6173430319234363,
+        "right_hand_point": 1.6848551970547059,
+        "head_point": 1.660110178553193
+      },
+      "provisional_reference_landmark_screen_passed": false,
+      "reference_landmark_thresholds_m": {
+        "left_ankle_origin": 0.05,
+        "right_ankle_origin": 0.05,
+        "left_hand_point": 0.1,
+        "right_hand_point": 0.1,
+        "head_point": 0.1
+      },
+      "foot_metric_is_ankle_origin_not_contact_or_slip": true,
+      "original_29dof_source_fidelity_measured": false,
+      "contact_timing_or_forbidden_contact_qualified": false,
+      "lifecycle_qualified": false,
+      "generalization_qualified": false,
+      "hardware_authorized": false,
+      "deployment_ready": false,
+      "simulator_qualified": false
+    },
+    "final_proof_root_speed_max_m_s": 0.027045221029202902,
+    "final_proof_standing_joint_error_max_rad": 0.631375326779524
+  },
+  "reference_scope_note": "Lifecycle source is existing native23 fit to recorded original29 policy motion, not newly accepted planned-choreography retarget. Completion is duration only; fidelity and standing/contact qualification remain false.",
+  "inputs": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/first10_frontend_audit_20260907_v1/write_semantics_supplement.py": "9f1c9c5712368dca14bdbac47f1a7796680341d6224ecbd3657d44e1b894ade2"
+  },
+  "hardware_authorized": false,
+  "deployment_ready": false,
+  "simulator_qualified": false
+}

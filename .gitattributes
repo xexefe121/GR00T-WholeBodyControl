@@ -17,6 +17,12 @@
 
 # Hash-bound simulator evidence must have identical bytes on every platform.
 artifacts/g1_true23_frozen_lora/**/*.json text eol=lf
+# Preserve new generalist evidence/source hashes under Windows checkout too.
+artifacts/g1_true23_generalist/**/*.json text eol=lf
+artifacts/g1_true23_generalist/**/*.xml text eol=lf
+artifacts/g1_true23_generalist/**/*.py text eol=lf
+gear_sonic/**/*generalist*.py text eol=lf
+gear_sonic/**/*native_model_actuation*.py text eol=lf
 # Collect demo in sim
 *.hdf5 filter=lfs diff=lfs merge=lfs -text
 *.parquet filter=lfs diff=lfs merge=lfs -text
