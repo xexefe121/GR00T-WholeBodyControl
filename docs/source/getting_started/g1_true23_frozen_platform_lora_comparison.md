@@ -1,5 +1,21 @@
 # Frozen-platform LoRA versus the original true23 v14 trainer
 
+> **Temporal audit and 300 updates, 2026-09-06:** Production observation and
+> history-buffer code on all 2,675 previously recorded calls gives identical
+> FSQ tokens; every successful 2 ms projection and all 16 terminal rejections
+> agree. This is a recorded-state mapping witness, not complete MJLab/robot
+> parity. Another 200 actual PPO updates preserve standing but do not fix
+> dance: updates 200/300 reach **63/60 of 535** reference-start controls,
+> or **61/56 of 535** historical-start controls, both with **0/250 return**.
+> Standing remains **250/500/250** in simulation. **585 tests pass**; neither
+> new checkpoint is promoted. A resume-claim correction is explicit: weights,
+> Adam and counters restore, but global RNG, simulator and adaptive-sampler
+> state restart. No bit-exact uninterrupted-training claim is supported.
+> Independent checks cover 984 files and 20 continuous new simulator traces,
+> preserving all 41,643 actual physics steps with no engine warnings.
+> No robot operation or new matched-budget original-v14 result. See
+> [current evidence and remaining work](../../../PROGRESS.md).
+
 > **Explicit IEEE training, 2026-09-06:** A new precision-guarded, separately
 > hash-bound launcher completes genuine smoke resume and **100 motion PPO
 > updates / 51,200 transitions** with the original corpus and constraints.

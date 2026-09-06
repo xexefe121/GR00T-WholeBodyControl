@@ -1,5 +1,153 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-06 continuation: temporal mapping audit; 300-update PPO still fails dance
+
+**NOT ready for physical dance or live full-body teleop.** The new recorded-
+state audit finds no large training/evaluator input or projection mismatch on
+2,675 recorded calls. Another **200 PPO updates / 102,400 transitions** finish
+from the previous update-100 weights/Adam state, in a separate output folder.
+Neither new checkpoint qualifies: full dance reaches **63/535 at update 200**
+and **60/535 at update 300**; both historical-start returns fail immediately.
+Standing still passes **250/500/250 acquisition/active/return** in simulation.
+No robot connection, DDS, SSH, mode/arming command, motor operation, deployment
+export or hardware-limit change occurred. Pre-existing hardware edits remain
+untouched. The physical bit-30 motors-off cause is still unknown.
+
+### Actual temporal mapping witness, not another reset-only comparison
+
+New `audit_g1_true23_recorded_training_boundary.py` and
+`g1_true23_recorded_training_boundary.py` execute the production training
+observation functions, MJLab gravity calculation and circular history buffers
+on the **actual saved CPU evaluator states**. All calls from both prior
+update-100 evaluations are retained: **675 attempted full-motion-prefix calls
+and 2,000 standing calls**, including terminal partial intervals. Every saved
+successful active 2 ms projection (**26,646 total**) and all 16 terminal rejections are tested
+with the actual training projection function, on CPU and IEEE GPU.
+
+Reference q9/proof q10 comes from each bound source motion; current q/dq and
+previous applied targets come from the physics/action traces. No saved policy
+input is used to fabricate its reconstruction. For acquired cases, the nine
+startup observations remaining in H10 use targets explicitly reconstructed
+from recorded PD effort, state and reported gains. Their target reconstruction
+is labelled; it is not claimed to be a separately recorded target channel.
+The original one-time reference alignment is independently reproduced.
+
+Maximum absolute differences across the two devices:
+
+| Boundary | Maximum difference |
+|---|---:|
+| Encoder 267 input | 4.7684e-7 |
+| Policy history 930 | 2.3842e-7 |
+| Discrete FSQ tokens | **exactly zero** |
+| Raw 23-D action, same ONNX pair | 1.9074e-6 |
+| Applied projected target | 2.4662e-7 rad |
+| Applied PD effort | 1.7001e-5 Nm |
+
+All declared tolerances pass; no successful evaluator substep is rejected by
+the training projection, and every terminal rejection agrees. Training's
+latched zero effort until its next 50 Hz reset is explicitly **not** a physical
+standing-return strategy. The evaluator stops before integrating the rejected
+substep. These different terminal responses are retained, not bypassed.
+
+This witness supplies motion indices and recorded body-local angular velocity.
+It does **not** execute a complete MJLab environment, automatic command-manager
+stepping, real sensor sampling, observation corruption, random reset behavior,
+physics or the robot. It therefore does not remove the previously measured
+training/replay model differences or prove unrecorded-tail/hardware parity.
+Both current observation paths use the legacy 18 cm native wrist proxy;
+agreement between them does not establish original29 hand-frame equivalence.
+
+Initial audit `_v1` rejected the older saved model's missing actuator-range
+metadata before producing any case result. `_v2` fills the same fields as the
+current evaluator on an **in-memory copy**, then requires the exact existing
+compiled model hash `1f616be8...`. No source model or actual limit is edited.
+The failed script/log are preserved. Successful witness evidence:
+`artifacts/g1_true23_frozen_lora/recorded_training_boundary_20260906_v2/audit/`;
+report SHA256 `30843e75f1cd92b98f82426adae4988cf084dd412c7ec6d49befac94068acca0`.
+
+### Actual continuation and the resume limitation
+
+Evidence root:
+`artifacts/g1_true23_frozen_lora/ieee_motion_ppo_resume300_20260906_v1/`.
+The new `breadth/` directory loads the unchanged, hash-checked IEEE update-100
+checkpoint. Corpus, 32 environments, 16 rollout steps, five epochs/eight
+minibatches, seed, IEEE policy, frozen platform, decoder LoRA, standing-retention
+weight 10, reset/noise distributions and all actuation constraints are unchanged.
+The 5,940-frame corpus still contains seven complete available SONIC/PICO
+requests plus separately labelled synthetic standing, not qualified teachers.
+No held-out standing rows enter training. Total PPO exposure is **153,600
+transitions / 300 updates**; only 300 of the declared 1,000 updates have run.
+The additional training process exits zero after 764.50 seconds. Its final
+rolling episode length is 6.28 controls; this is not full-motion success.
+
+**Correction to resume claims:** legacy frozen-LoRA checkpoints save actor,
+critic, Adam, learning rate and counters, **not global RNG, simulator state
+or adaptive-sampler state**. The new process restarts those states. Standing
+anchor batches are reproducible from seed plus actual Adam step; the anchor
+cache is regenerated and checked. That does not restore the global PPO random
+stream. The raw continuation driver's RNG-restored metadata is incorrect and
+is preserved as raw evidence; `experiment_report.corrected.json` and the
+independent integrity report explicitly supersede it. Earlier references to
+exact resume must not be read as bit-exact uninterrupted training equivalence.
+
+### Full requested replays of both saved checkpoints
+
+Paired encoder/decoder exports are independently validated. Decoder three-probe
+ONNX maximum absolute errors are 1.66893e-6 / 3.33786e-6 at updates 200 / 300;
+the frozen encoder remains unchanged. All original requests, whole source
+durations, all 23 controlled joints, gains, 5 rad/s slew and quarter-effort/95%
+projection remain. The 35 Nm modeled ankle table is still **not** a verified
+manufacturer rating. No upper-body substitution or predictive filter is used.
+
+| Requested case | Requested controls | Update 100 | Update 200 | Update 300 |
+|---|---:|---:|---:|---:|
+| SONIC hand crawl | 595 | 64 | 63 | 60 |
+| SONIC happy dance, reference | 535 | 64 | 63 | 60 |
+| Happy dance, historical posture + standing | 535 | 60 | 61 | 56 |
+| PICO upright | 1,013 | 37 | 35 | 37 |
+| PICO standing | 1,013 | 37 | 33 | 35 |
+| PICO crouch | 1,013 | 25 | 22 | 23 |
+| PICO walk 001 | 684 | 22 | 29 | 30 |
+| PICO walk 010 | 499 | 24 | 24 | 28 |
+| Synthetic standing | 500 | 500 | 500 | 500 |
+| Standing after acquisition | 500 | 500 | 500 | 500 |
+
+Every executed full-motion case fails `TargetIntersectionError` and full-clip
+fidelity. Each historical dance requests 250 return controls but completes
+**zero**. Separately, both standing acquisitions/returns complete 250 controls
+each. That uses the pinned compatibility standing actor in simulation, **not
+a native Unitree FSM handoff**. Unavailable original elbow remains unexecuted,
+not replaced or counted as success. Both checkpoints are rejected for
+deployment; neither is selected from training reward or isolated improvements.
+
+**585 regression tests pass**, including 13 new trace validation, temporal
+history, startup-target reconstruction and rejection tests. Tests retain the
+same two previously documented original-asset-root substitutions.
+
+Independent integrity verification checks **984 files with zero mismatches**,
+including all 663 previously pinned files. The 20 new full-request/standing
+traces retain **41,643 actual physics steps** with continuous pre/post state,
+consistent engine time, zero engine warnings, and recorded PD-effort agreement.
+Checkpoint 200/300 Adam counters are **8,000/12,000** for all 26 optimized
+tensors; environment control counters are **3,200/4,800**. Source/config/lineage
+and the IEEE standing anchor cache match the update-100 run exactly. Their
+actor and critic tensor hashes change, confirming actual optimization.
+
+Key SHA256 identities under the new evidence root:
+
+- Update-200 checkpoint: `2953b7bcf610d51407377346d6435b9f80cf772707889cd45c6632926b216b15`.
+- Update-300 checkpoint: `660cde84bcb8122baebe8f334872055e691f8374889d2d343710060a62b95c4c`.
+- Update-200 decoder: `36787f0e963c2aa34a87224f34d1f0be53c80fc875c0734c7e907359f464af2b`.
+- Update-300 decoder: `bdddab77692f36016a82070f59d639afcf95d13c100e770f50a9a9b851790117`.
+- Integrity report: `f5acb2b7994e95a034e7ac89c4a2031b3369c6d516e84692c828842ffbce73f5`.
+
+More identical training is not established as a fix. The corrected-budget
+original-v14 comparison remains outstanding; the exact recovery checkpoint
+required by that runner is locally present. Next comparisons must separate
+the policy/conditioning problem from actual temporal-manager and mechanical-
+model differences. Hardware testing still needs a qualified controller and
+standing handoff; historical confirmations are not renewed authorization.
+
 ## 2026-09-06 continuation: explicit IEEE training tested; full-motion failure remains
 
 **NOT ready for physical dance or live full-body teleop.** A separate IEEE
