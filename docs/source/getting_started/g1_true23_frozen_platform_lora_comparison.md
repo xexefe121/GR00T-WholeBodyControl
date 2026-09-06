@@ -1,5 +1,23 @@
 # Frozen-platform LoRA versus the original true23 v14 trainer
 
+> **Exact-prefix recovery windows, 2026-09-06:** All 140 observed completed
+> historical-dance boundaries are tested, with three exact full-run control
+> replays and unchanged gains/limits. Every acquisition and dance prefix must
+> exactly match its original trajectory; no state reset or target reseeding.
+> LoRA 100 completes the five-second standing return after controls **1–14**,
+> LoRA 300 after **1–13**, and corrected original-v14 100 after **1–2**.
+> All later tested boundaries fail: 110 lose target feasibility and one loses
+> standing posture, despite all 111 having feasible immediate handoff targets.
+> These are controller-specific simulator observations, not safe live cutoffs
+> or proof that other recovery strategies cannot work. All original full
+> dances remain failed at **60/535, 56/535 and 24/535**, with **0/250 return**.
+> Independent audit verifies **1,373 hashes, 143 continuous traces and 491,405
+> physics steps**. Return targets are reconstructed from recorded effort and
+> state, not independently recorded. **641 focused tests pass. No full dance,
+> live teleop, automatic recovery guard or native FSM handoff is qualified.**
+> No robot operation; physical damping cause remains unknown. See
+> [complete recovery evidence and limitations](../../../PROGRESS.md).
+
 > **New equal-update-budget comparison, 2026-09-06:** Original v14 now has a
 > real corrected-controller/IEEE run: **100 new PPO updates / 51,200
 > transitions**, using the same complete corpus and current native23 limits.

@@ -1,5 +1,109 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-06 continuation: exact-prefix standing-return recovery windows
+
+**Still NOT ready for physical dance or live full-body teleop.** Exhaustive
+early-return tests now distinguish a feasible immediate command from an
+actually successful five-second simulated return. LoRA 100 returns after
+dance controls **1–14**, LoRA 300 after **1–13**, and corrected original-v14
+100 after **1–2**. Every later tested boundary fails. These are observations
+on three particular simulator trajectories, **not safe live cutoffs**, proof
+that another recovery controller cannot work, or shortened-dance success.
+The original complete 535-control dance request remains failed for all three.
+
+No robot connection, DDS, SSH, mode/arming command, motor operation, deployment
+change or training occurred. Existing dirty hardware work remains untouched.
+The physical bit-30 motors-off cause is still unknown; these simulator results
+do not establish why the real robot damped.
+
+### Re-executed trajectories, not reconstructed handoff states
+
+New `audit_g1_true23_recovery_window.py` binds each existing full-request
+report and reloads its correctly paired policy. Each candidate first repeats
+the entire failed historical-start lifecycle: every result field and saved
+array must exactly equal the original full run. It then tests **every**
+completed 50 Hz dance boundary, each time re-executing the unchanged 250-control
+standing acquisition and the same SONIC prefix. Source clips are not trimmed;
+all 11 parent request records, including the unavailable original elbow, remain.
+
+New `g1_true23_recovery_window.py` checks every pre-return physics state,
+effort, time and warning record, plus active requested/applied targets and
+previous-target history. Terminal state and previous target must match the
+original full trajectory exactly; the first return step may not reset them.
+No synthetic MjData reconstruction or target reseeding is used. This produces
+**140 exact prefixes / 37,260 active prefix physics steps**, plus three exact
+full-request control replays. The summary rejects omitted, reordered or
+duplicated boundaries and does not assume monotone recoverability.
+
+All probes retain the existing 500/50 Hz cadence, active/return gains,
+5 rad/s slew, 0.05 rad hard-joint margin and 23.75%-of-table effort cap.
+The compatibility standing actor retains its existing rounded gains; the
+active native controller retains its full-precision gains. The modeled
+35 Nm ankle table remains unverified as a manufacturer rating. Return still
+requests all **250 controls / 2,500 physics steps**. This compatibility actor
+is not a simulated or real native Unitree FSM handoff.
+
+| Candidate | Tested dance boundaries | Successful five-second returns | First failed return: controls / physics steps | Original full dance / return |
+|---|---:|---:|---:|---:|
+| LoRA 100 | 1–60 | 1–14 (0.02–0.28 s) | after 15: 86 / 868 | 60/535; 0/250 |
+| LoRA 300 | 1–56 | 1–13 (0.02–0.26 s) | after 14: 108 / 1,086 | 56/535; 0/250 |
+| Original v14 100 | 1–24 | 1–2 (0.02–0.04 s) | after 3: 107 / 1,071 | 24/535; 0/250 |
+
+There are **29 successful and 111 failed prefix returns**. Every failed
+return has a nonempty immediate target interval at handoff. Of those failures,
+**110** later encounter an empty effort/position/slew intersection; LoRA 300
+after control 25 instead loses standing posture after 539 return physics
+steps (minimum height 0.44736 m, maximum tilt 0.92980 rad). No candidate has
+a successful later boundary after its first failed one in this observed set.
+
+LoRA 100 after control 14 returns for five seconds with maximum drift
+0.01891 m. After control 15, the initial tilt is only 0.10436 rad and the
+smallest immediate interval is 0.02 rad wide, but return fails after 1.736 s.
+Left ankle roll then has a 0.00097588 rad interval gap; horizontal drift has
+reached 0.17647 m. This is an actual integration stop, not merely failure of
+the provisional drift screen. Later handoff states can look more upright
+yet recover worse: LoRA 300 after control 56 has tilt 0.00701 rad, but its
+return integrates only 13 physics steps. Tilt alone, or a valid next target,
+therefore does not establish recoverability for this controller.
+
+### Verification and limits of this result
+
+**641 tests pass** in 190.22 s across 49 focused modules, including 27 new
+planning, state-history, prefix-completion and return-duration checks. The
+same two legacy test-module asset-root substitutions remain; this is not a
+whole-repository test claim. Ruff format and critical-error checks pass.
+
+Independent `integrity_report.json` verifies **1,373 files with zero
+mismatches**, preserving all 1,066 prior pinned files. It checks **143
+continuous traces / 491,405 actual physics steps**, including **95,231 return
+physics steps**, no engine warnings, exact adjacent state continuity and
+recorded generalized force equal to applied effort. Active PD equations
+agree within 1e-12 Nm; every phase stays within the existing effort cap.
+Return targets are **reconstructed from recorded effort/state and known PD
+gains**, not separately recorded by the legacy trace. Their reconstructed
+slew and hard-joint margins pass the existing bounds, including the first
+return step's continuity from the actual last active target.
+
+Evidence root:
+`artifacts/g1_true23_frozen_lora/recovery_windows_20260906_v1/`.
+Candidate report SHA256 values:
+
+- LoRA 100: `7e0d2269e57eb1ad17b08928265149d18ea641b80831e84a2c1ad0833ed5caa9`.
+- LoRA 300: `641874c418bcd18e018264d316b85350d71c5b5caa8d44f423b40a21a619d51f`.
+- V14 100: `cb6f3d9e366e6753be4b514b0efe390df7139fbe9fb239c6da091fbb5f0c4d0e`.
+- Integrity: `2a4c0cbe9b6baf739709a8519eaddb6b5c05b4b2b857d6d583a37f1b13f1bb3a`.
+
+Every prefix remains explicitly failed for full-source motion fidelity and
+lifecycle qualification. No automatic live recovery guard, normal-mode
+handoff, dance success or physical safety claim is promoted. Full-motion
+tracking and stable recovery need improvement before another hardware test;
+these early failed-return states now provide exact reproducible witnesses.
+Training/replay contact-model differences remain open, as does the native
+normal-mode handoff. Earlier one-step predictive and half-tempo failures
+remain failed evidence, not untried fixes. Six absent axes still require
+per-motion retargeting and qualification; exact reproduction of every
+original 29-DoF pose is impossible on 23 DoF. Goal remains active.
+
 ## 2026-09-06 continuation: original-v14 corrected-controller comparison
 
 **Still NOT ready for physical dance or live full-body teleop.** A separate
