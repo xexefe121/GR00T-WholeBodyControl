@@ -1,5 +1,21 @@
 # Frozen-platform LoRA versus the original true23 v14 trainer
 
+> **Standing prerequisite, 2026-09-06:** Extra effort headroom does not solve
+> native23 full-motion control: all 32 executed variants fail under unchanged
+> limits. A new standing-only teacher explicitly projects unrepresentable
+> requests through SONIC's existing output boundary and passes four 10-second
+> trials. Decoder-only LoRA fitting preserves every frozen base tensor and
+> trains on 1,500 frames, with a separate 500-frame holdout. The candidate then
+> passes stationary acquisition/active/return at **250/500/250 controls**;
+> baseline active standing failed at 93/500 with immediate failed return.
+> This is a real simulator prerequisite improvement, not a dance qualification.
+> Full-source dance improves 45 to **66/535** but still fails; historical dance
+> return remains **0/250**. All five original PICO requests remain unqualified.
+> No upper-body or standing-reference substitution, changed hard limits, robot
+> command, deployment export, or new matched-budget original-v14 result.
+> **486 tests pass; 50 continuous simulator traces independently audited.**
+> See [full evidence, training scope and remaining work](../../../PROGRESS.md).
+
 > **C++ observation correction, 2026-09-06:** A new standalone witness runs
 > captured C++ G1 gatherers, logger and math without SDK/DDS. Missing-history
 > zero quaternions yield upward gravity rather than Python's zero gravity;

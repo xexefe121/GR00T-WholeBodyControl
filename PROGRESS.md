@@ -1,5 +1,173 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-06 continuation: standing-only LoRA bootstrap passes; full motion still fails
+
+**NOT ready for physical dance or live full-body teleop.** There is now a
+passing **simulated stationary** SONIC acquisition/active/return sequence.
+This does not qualify dance return, Unitree mode ownership, a gantry launch,
+or firmware recovery. No robot/DDS/SSH connection, mode command, hardware
+gain, limit, interlock or deployed policy changed. Existing dirty hardware
+work is preserved and excluded from this continuation's commit. The physical
+bit-30 motors-off cause remains unknown; the findings below do not diagnose it.
+
+### Extra effort headroom is not the controller fix
+
+The old paired native23 dance fails while its instantaneous position/effort
+interval still exists: previous target plus the unchanged 5 rad/s slew
+constraint makes the intersection empty. At the reference-start right-ankle
+failure, instantaneous required target slew is 5.405736 rad/s. This is a
+diagnostic number, not permission to raise the configured limit. By return
+time the previous command/state is already infeasible; changing the requested
+target to a standing actor cannot restore the missing intersection.
+
+New additive `g1_true23_interior_target_filter.py` tests preferred inner effort
+bands at 100%, 95%, 85% and 70% of the existing outer envelope. Inner-band
+failure uses the minimum-effort point **inside** the unchanged outer interval;
+an empty outer interval still rejects, with its original joint-level details.
+Standing acquisition/return, all 23 SONIC-controlled joints, action amplitude,
+model, source frames, tempo, 35 Nm simulated ankle cap, 5 rad/s target slew and
+quarter-effort guard remain unchanged. No headroom variant becomes a default.
+
+All 32 executed full-motion cases fail; four incomplete-elbow requests remain
+explicitly unavailable. No source is shortened or substituted. Historical
+dance completion improves 16 to 70/535 at 95% headroom, but every historical
+standing return still fails at 0/250. PICO results are mixed; 70% headroom
+crouch loses absolute height rather than solving motion tracking. The 100%
+variant reproduces **every** previously saved hand/dance/historical array
+exactly. Actual engine clocks, all warnings and every physics pre/post state
+are recorded, including partial failure intervals and lifecycle phases.
+
+### Isolating the standing prerequisite
+
+A pure stationary reference is generated from actual native23 FK at a neutral
+pose placed using the eight foot collision spheres. It is labelled synthetic
+standing only, never used to replace a dance or PICO request. The existing
+correctly paired baseline100 SONIC policy completes only 68/500 active controls
+from that start and 93/500 after a five-second standing acquisition; return
+then fails immediately. The pinned Unitree zero-velocity compatibility actor
+completes all 500 controls under the same effort/slew limits.
+
+Direct teacher-label copying is invalid: two requested joint-controls lie
+outside SONIC's finite raw-action safe-target image; the largest correction
+is 0.070943 rad. `g1_true23_standing_bootstrap.py` adds an explicit, recorded
+nearest-representable request followed by the **original** float32 safe-target
+transform. Default inversion rejects unrepresentable labels. It does not
+loosen the action bound, joint limits, force cap or physics target projection.
+
+The original diagnostic collector's compiled model differed only in its
+joint-level force-limit alignment. The new collector sets exactly the same
+model limits as the SONIC evaluator: model SHA256
+`1f616be811e72988f4764f74b8c2eb7f57b5ee87873ee36204bd882ff9cf96d7`.
+The unmodified teacher's entire 5,000-step state trace and 500-frame
+encoder/history arrays remain bit-identical after alignment. Requested and
+actual generalized actuator force are identical; no hidden force clipping
+explains its standing success.
+
+The representable teacher passes four complete 10-second trials: nominal,
+plus/minus 0.01 rad synthetic leg-joint perturbations, and a separately held-out
+half-sized perturbation. Every original/projected request, causal 267/930
+input, raw23 label, actual effort, engine time and warning is retained. These
+are standing-only labels, not a qualified dance behavior bank or a robust
+hardware recovery envelope.
+
+### Decoder-only training produces a real stationary improvement
+
+`fit_g1_true23_standing_lora.py` reconstructs the exact baseline100 adapter
+against its approved frozen SONIC source before fitting. Initial CPU policy
+versus paired ONNX maximum raw-action error is `7.152557e-7`. It trains only
+253,944 decoder LoRA parameters (rank/alpha 8), with the encoder, FSQ, analytic
+23/29 codec and every released base tensor unchanged. Three entire episodes
+supply 1,500 training rows; the separate 500-row episode is not sampled for
+training or checkpoint selection. The fixed run uses 500 Adam updates,
+batch 128, learning rate `1e-4`, seed 20260906, and disabled TF32. The loss fits
+safe target requests plus a small raw-action term to retain a correcting
+gradient outside saturation. Original force/slew admission remains intact.
+
+Held-out requested-target RMSE drops from 0.433755 to 0.010540 rad. More
+importantly, fresh closed-loop native23 tests pass:
+
+- Synthetic stationary start: **500/500** active controls, upright and
+  stationary-reference fidelity screens passed; no return was requested.
+- Five-second acquisition: **250/250**; stationary SONIC: **500/500**;
+  five-second compatibility-actor return: **250/250**. Full provisional
+  simulator lifecycle screen passes. Return maximum tilt is 0.025435 rad and
+  horizontal drift is 0.004916 m, with unchanged limits.
+
+This is CPU PyTorch adapter inference, not an exported/qualified deployment
+ONNX. The weights-only `standing_lora.pt` has a distinct diagnostic header;
+it is neither a PPO resume nor a promotion-eligible hardware artifact.
+Frozen-platform tensor hashes are checked before and after fitting and replay.
+
+### Standing does not solve motion-conditioned control
+
+`evaluate_g1_true23_standing_lora_motion.py` replays the complete previously
+bound request set with the new adapter. It retains all five contact-restored
+PICO clips and both complete recorded-source SONIC fits; missing elbow remains
+missing. No standing reference, upper-body override or reduced-amplitude action
+is substituted. These remain the earlier corrected-hand recorded-source fits,
+not new fits of the later C++-observation source replay.
+
+| Full request | Paired baseline100 | Standing-only adapter | Requested controls |
+|---|---:|---:|---:|
+| Hand crawl | 48 | 68 | 595 |
+| Happy dance, reference start | 45 | 66 | 535 |
+| Happy dance, historical acquisition | 16 | 58 | 535 |
+| PICO upright | 48 | 50 | 1,013 |
+| PICO standing | 38 | 44 | 1,013 |
+| PICO crouch | 27 | 26 | 1,013 |
+| PICO walk 001 | 17 | 22 | 684 |
+| PICO walk 010 | 11 | 28 | 499 |
+
+Every full-motion attempt still fails its effort/position/slew intersection
+and full-motion fidelity screen. Dance now first fails at right hip pitch;
+the historical dance return still completes **0/250**, unlike stationary
+return. This is partial progress, not a dance fix or SONIC parity. Correct
+matched-budget original-v14 training comparison remains undone.
+
+### Verification, artifacts and next work
+
+**486 regression tests pass**, no failures or skips, in 185.95 seconds.
+This includes 43 new numeric, boundary, history/phase integration and
+label/gradient checks (21 + 8 + 14). Only the same two legacy test modules
+redirect asset paths to the original repository. All eight new Python
+source/test files and five local experiment/audit/test drivers pass Ruff.
+Independent saved-array checks rehash **250 unique bound files with zero
+mismatches**. All **50** new recorded simulator traces have uninterrupted
+engine time, zero warnings, continuous state and identical requested/actual
+effort inside the unchanged outer envelope. Full original source requests and
+the exact old baseline arrays are independently rechecked.
+
+Local evidence root:
+`artifacts/g1_true23_frozen_lora/interior_effort_20260906_v1`.
+Headroom report SHA256:
+`a9b91e753111a3541605bac9177043fac67e732bba03bd48d7b14ca2c140d8e1`.
+Representable-standing report SHA256:
+`7adc1c626ac577ee33ba1301b3b10163b716a3431bdf73e5ae4b86dc12ff683c`.
+Standing-fit report SHA256:
+`5411ee4b95d8003ffc50047f01e6535ac95138b37852d3a2a88ef6f89e874f52`.
+Diagnostic adapter file SHA256:
+`2c515b3609ee102f48757a7258f59601c6552c204f4e552b9936f0f6d0ee99e4`.
+Adapter tensor-state SHA256:
+`60482bc1c129fc0bc2190b9a058e36a9bd86502cfac3178deaa4dff1b9aaf86a`.
+Full-motion adapter comparison report SHA256:
+`a4acda3d8c7f1fc07f1216e28d9958bd8898e688975987e3d069b08fc2ec7a7a`.
+Full integrity report SHA256:
+`720edd7cf2890ca1a074fa6851aee7a233cf0eaef660eff8e5b910611130cd22`.
+JUnit SHA256:
+`1a16d4edbfad60f07f25e68a05d6c2869bc4a2a8f8b19a4ea549a97cb2bdd26d`.
+Large reports, traces and weights stay local; implementation and tests are
+committed. No existing artifact or deployed checkpoint is overwritten.
+
+Next: integrate this standing-only prerequisite into a provenance-preserving
+motion-conditioned training curriculum, retaining full original/PICO requests
+and independent force/contact/fidelity checks. Do not train against the failed
+crawl/dance teachers or treat stationary success as live readiness. Correct
+29-to-23 retargeting cannot reproduce motions requiring absent joints exactly;
+unsupported motions must remain explicit. Live-input qualification, actual
+control ownership/normal-standing return and supervised physical evidence are
+still required. Goal remains active; no physical dance is authorized by these
+simulator results.
+
 ## 2026-09-06 continuation: captured C++ observations and actual engine-time replay
 
 **NOT ready for physical dance, standing return or live full-body teleop.**
