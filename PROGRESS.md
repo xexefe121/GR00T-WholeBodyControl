@@ -1,5 +1,147 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-06 continuation: captured C++ observations and actual engine-time replay
+
+**NOT ready for physical dance, standing return or live full-body teleop.**
+This continuation adds an offline numerical-boundary implementation and six
+recorded source runs. No robot/DDS connection, mode call, deployed policy,
+native23 controller, hardware gain, limit or interlock changed. No new native23
+training or matched-budget original-v14 benchmark was run. The physical bit-30
+motors-off cause remains unknown; the observation finding does not diagnose it.
+
+### Missing history had different gravity semantics
+
+The captured C++ `StateLogger::makeZeroEntry_()` pads unavailable history with
+quaternion `(0,0,0,0)`. Its `quat_rotate_d` assumes a unit quaternion: feeding
+that padding through the gravity gatherer yields `(0,0,+1)`, not Python's
+`(0,0,0)` history padding. Thus the first policy call contains nine upward
+gravity entries followed by the actual gravity measurement. This is legacy
+padding behavior, **not a valid sensor rotation or a recommended hardware fix**.
+The upstream [logger](https://github.com/NVlabs/GR00T-WholeBodyControl/blob/main/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/src/state_logger.cpp)
+and [rotation helper](https://raw.githubusercontent.com/NVlabs/GR00T-WholeBodyControl/main/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/math_utils.hpp)
+also show these semantics. The experiment binds the checked-out source copies,
+not an assertion that every current upstream file is byte-identical.
+
+New `g1_sonic_cpp_observations.py` captures ten complete, unchanged C++ methods,
+the real logger, motion storage and math dependencies, plus the actual YAML
+and observation registry. A standalone C++20 shared library executes these
+methods on injected arrays. It checks the G1-mode 1,762-element encoder and
+994-element decoder layouts, preserves the LowState float32 boundary and
+double default-angle subtraction, and rejects changed layouts or invalid
+state. CSV logging is disabled. No G1Deploy instance, SDK, DDS or command
+writer is built or opened. Heading delta is zero; upper-body override is off.
+
+Checks confirm oldest-first history, term ordering, joint permutation, future
+frame clamping, 6D orientation layout and paused playback behavior. The paused
+case repeats the current pose/orientation and zeros reference joint velocity.
+An additive trace provider uses these actual gatherers without patching shared
+modules. Existing Python simulation, history conventions and saved evidence
+remain unchanged. Reference resampling, initial pose, nominal effort clipping
+and the C++-parameter PD loop are retained explicitly. This does not execute
+the live receding-horizon planner, CSV reader, runtime scheduling or firmware.
+
+### Same recorded states isolate the input difference
+
+Each old C++-parameter trace is replayed through the new observer using its
+exact recorded states and previous actions. The newly inferred actions are
+recorded but never executed by this comparison. Rejected final inference
+calls remain present: each old elbow case compares all 134 calls, not only its
+133 completed transitions. Source/reference/state/action/token inconsistencies
+are rejected. Both old and new ONNX inputs and outputs remain available.
+
+Across all six comparisons, future encoder-input differences are at most
+`8.9407e-8`; all released encoder outputs are numerically identical. History
+angular velocity, joint velocity and previous action are identical. Joint
+position differs by at most `1.1921e-7`. Gravity differs by 1.0 in the initial
+nine calls, then at most `1.1921e-7`. Maximum raw action differences during
+startup are 1.227214 (hand), 1.235639 (elbow), and 1.239447 (dance); after nine
+calls the worst difference across cases is `2.3842e-6`.
+These are raw action units, not radians or torque. The paired comparison
+isolates observation differences; it does not prove that startup padding alone
+explains later physical behavior or that copying it would improve native23.
+
+### Complete source attempts, not a successful shorter suite
+
+`record_g1_sonic_cpp_observation_replay.py` runs every original clip under both
+previously bound source models, with the same released encoder/decoder pair.
+All 26 trace arrays retain the full attempted pre/post states, commands,
+inferences and physics transitions. Four new arrays record actual engine time
+before/after every substep and all eight MuJoCo warning counts/last-info values.
+Clock discontinuity or any warning prevents a successful-completion label;
+synthetic sampling labels alone cannot conceal an engine reset.
+
+| Source model / clip | Old Python observations, completed/requested | Captured C++ observations, completed/requested | New maximum nominal-root error |
+|---|---:|---:|---:|
+| Original masks / hand crawl | 606/606 | 606/606 | 2.193242 m |
+| Original masks / elbow crawl | 133/606 | 126/606 | Incomplete |
+| Original masks / happy dance | 546/546 | 546/546 | 0.663665 m |
+| Enabled hands / hand crawl | 606/606 | 606/606 | 1.879026 m |
+| Enabled hands / elbow crawl | 133/606 | 126/606 | Incomplete |
+| Enabled hands / happy dance | 546/546 | 546/546 | 0.687778 m |
+
+Root errors are first-position-translation aligned at pre-command time, not
+new native23 tracking results. Original-mask hand error was 2.248922 m;
+enabled-hand error was 1.963423 m. Dance previously had 0.656584 m error under
+both models: this boundary correction does **not** improve dance fidelity.
+New elbow runs reject their 127th inference at Isaac index 27: raw actions
+10.036927 and 10.125465 exceed the unchanged absolute bound of 10. Both failed
+calls and all requested frames remain represented. No elbow teacher is emitted.
+
+Every run has uninterrupted 2 ms engine time and zero warning counters.
+Hand/dance final times are 12.12/10.92 seconds; elbow stops at 2.52 seconds.
+This rules out a MuJoCo clock reset in these runs, not a physical firmware
+fault. Source maximum physics joint speeds remain as high as 24.758 rad/s
+for enabled-hand crawl and 13.632 rad/s for enabled-hand dance; these are not
+native23 qualifications under its unchanged limits.
+
+Original-mask crawl still puts visible hand vertices 146.960 mm below the
+floor. Enabled-hand crawl reduces this to 10.943 mm, with hand-floor contacts
+on 437 pre-control frames and nonfloor hand contacts on three frames. Unlike
+the previous observation profile, enabled-hand elbow/dance each have one
+pre-control nonfloor hand-contact frame. New dance traces therefore cannot
+reuse an assumed identical-model result: they first differ at physics step
+42 (zero-based). No new source trace is accepted as a teacher; no geometric
+refit or full eight-clip SONIC/PICO qualification is claimed here.
+
+### Clip end is not normal-standing handoff
+
+The checked-out and [upstream controller](https://raw.githubusercontent.com/NVlabs/GR00T-WholeBodyControl/main/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/src/g1_deploy_onnx_ref.cpp)
+distinguish nonplanner clip completion from process shutdown. Clip completion
+clears play, resets frame 0 and requests heading reinitialization; it does not
+switch to Unitree's native standing FSM. `Stop()` explicitly emits a damping
+command. Neither path is proof of a qualified native23 normal-standing return.
+The new replay tests observation pause behavior but does not claim to execute
+that end-of-clip state machine or an actual ownership handoff.
+
+### Verification and next work
+
+**443 regression tests pass**, no skips, in 177.32 seconds; this includes 25
+focused observer/trace/admission checks. Only the same two legacy asset-dependent
+modules redirect asset paths to the original repository. All four new Python
+source/test files and both local audit/test drivers pass Ruff. An independent
+saved trace check rehashes **109 unique bound files with zero mismatches** and
+rechecks engine time, state continuity, first-call padding and inference lineage.
+Existing dirty hardware work remains untouched and outside the new commit.
+
+Local evidence directory:
+`artifacts/g1_true23_frozen_lora/original29_cpp_observation_replay_20260906_v1`.
+Main report SHA256: `d6a3801b12c41b9ce3aca6e1209c0629213e0ad3a79788ab2ed81b31aeb9238d`.
+Integrity report SHA256: `579ae88de78e98b91d0823c1807ee4ea4e7a010b3ea7454bb8a279704aaf4b67`.
+JUnit SHA256: `9b1b3dbb9f8f49694bca384505bfb6083169ff667a1334161f0ec2e1095a50d7`.
+Captured observation binary SHA256:
+`84e4ed204ab677dc533eda1cb8eeb1047dbccf7991128902ecc69c01a9e95faf`.
+These large local artifacts are not committed to Git; reproducible recorder,
+observer, witness and regression source are committed.
+
+Next priority is actual playback/start/stop and live-planner boundary parity,
+then a physically feasible native23 controller/reference and training corpus.
+The prior native23 dance still fails at 45/535 transitions and standing return
+at 0/250; this source-only experiment does not replace those results. Correct
+matched-budget v14 comparison, preserved five-PICO motion qualification, live
+input testing and operator-supervised hardware/standing return remain undone.
+No padding change, source completion or software test permits another physical
+dance by itself. The goal remains active.
+
 ## 2026-09-06 continuation: neutral-wrist hand frames and collision-enabled source replay
 
 **NOT ready for physical dance, standing return or live full-body teleop.**

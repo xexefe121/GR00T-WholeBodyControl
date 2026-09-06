@@ -1,5 +1,19 @@
 # Frozen-platform LoRA versus the original true23 v14 trainer
 
+> **C++ observation correction, 2026-09-06:** A new standalone witness runs
+> captured C++ G1 gatherers, logger and math without SDK/DDS. Missing-history
+> zero quaternions yield upward gravity rather than Python's zero gravity;
+> this is legacy padding semantics, not a recommended hardware fix. On the
+> same recorded states, startup raw-action differences reach 1.239447, while
+> differences after nine calls stay below 2.4e-6. Six full source attempts keep
+> every physics step and inference, with actual engine time/warning audits.
+> Hand/dance complete, elbow stops at 126/606; dance fidelity does not improve.
+> All new engine traces are continuous with no warnings. Stock clip completion
+> resets playback; stock shutdown damps. Neither establishes a native standing
+> handoff. **443 tests pass, but native23 controller/return and live teleop
+> remain unqualified.** No new training or matched-budget v14 result exists.
+> See [source hashes, measurements and limitations](../../../PROGRESS.md).
+
 > **Hand-frame/contact correction, 2026-09-06:** Source 18 cm hand proxies
 > are wrist-yaw-relative; native23's old same-number proxies are wrist-roll-
 > relative, causing an 84 mm neutral mismatch. A new explicit diagnostic
