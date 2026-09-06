@@ -1,5 +1,115 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-06 continuation: reset curriculum rejected on full-motion tests
+
+**Still NOT ready for physical dance or live full-body teleop.** The current
+change addresses a measured training problem, not a proven physical-damping
+cause. A real three-update smoke run passes. The requested 500-new-update
+run **fails after 410 logged completed updates / 209,920 rollout transitions**:
+a synthetic reset exceeds the configured 0.2 m floor-lift bound. No larger
+lift is allowed. Last saved checkpoint is update 400, and the failed reset
+state was not captured; its exact source phase and required lift are unknown.
+Incomplete final-rollout transitions are not counted as completed PPO updates.
+Both saved candidates fail every complete motion. Curriculum +100 preserves
+stationary standing, but +400 loses it despite the output-retention penalty.
+Neither candidate replaces the previous LoRA 100 policy.
+No robot, DDS, SSH, mode/arming command, motor operation or deployment change.
+Existing dirty hardware work remains untouched.
+
+### Why this training change
+
+Six no-learning probes use the current IEEE LoRA 100 actor, 32 environments
+and 128 controls each: **24,576 transitions / 768 guarded actor calls**.
+An independent recount checks actual termination masks and censored episodes.
+The four action/sensor-noise combinations start with exactly equal physical
+state, source phase, joints and previous target; all have a completed-episode
+median of **3 controls**. Removing either or both noise sources alone does
+not demonstrate an improvement. With both noises disabled, removing reset
+perturbations raises the median to **25**, and correcting detected floor
+overlap raises it to **30**. All six initial source phases match; later
+adaptive resets diverge, so this is a single-seed diagnostic, not a paired
+long-horizon quality estimate or a complete-motion pass.
+
+New `train_g1_true23_reset_curriculum.py` starts from that checked current
+actor, with fresh critic/Adam/counters and the existing standing-output
+retention. It keeps the complete corpus, encoder, action noise and sensor noise,
+motor limits, gains, cadence and rewards unchanged. Only reset pose/velocity/
+joint disturbances are scheduled: zero through 1,600 actual environment
+controls, linear ramp to the original amplitude at 6,400, then full amplitude.
+Detected floor overlap is corrected at every reset by bounded root-z lifting;
+all other positions and all velocities are preserved. This does not prove
+self-collision freedom, equilibrium or physical reachability.
+
+The real smoke performs **3 new updates / 96 transitions**, starts with the
+exact prior LoRA 100 actor, uses empty fresh Adam state, changes actor and
+critic, and records six full-amplitude reset rows with unchanged action std.
+Resume is intentionally rejected; no partial-state resume claim is made.
+The failed run targeted **500 new updates / 256,000 transitions**. Checkpoints
+100 and 500 were fixed in advance for unchanged full-request evaluation,
+including the complete 535-control dance and 250-control standing return.
+Update 500 does not exist and remains explicitly not executed. Update 100 is
+evaluated as planned; update 400 is an additional last-saved-checkpoint
+diagnostic, not a replacement for the missing planned result or a successful
+500-update run. Both correctly paired simulator exports pass their existing
+export checks; neither is qualified or exported for hardware. Evaluation
+preserves all 11 records, including the unavailable original elbow. All
+original clip lengths, tempo, motor gains, slew, effort, histories and full
+standing-return requests remain unchanged.
+
+| Complete request | Original v14 100 | Prior LoRA 100 | Curriculum +100 | Curriculum +400 | Requested controls |
+|---|---:|---:|---:|---:|---:|
+| Hand crawling | 16 | 64 | 65 | 68 | 595 |
+| Dance, reference start | 16 | 64 | 65 | 65 | 535 |
+| Dance, historical start | 24 | 60 | 65 | 60 | 535 |
+| PICO upright | 17 | 37 | 35 | 42 | 1,013 |
+| PICO standing | 7 | 37 | 31 | 40 | 1,013 |
+| PICO crouch | 20 | 25 | 26 | 26 | 1,013 |
+| PICO walk 001 | 16 | 22 | 29 | 22 | 684 |
+| PICO walk 010 | 11 | 24 | 13 | 29 | 499 |
+| Synthetic standing, reference start | 30 | 500 | 500 | 73 | 500 |
+| Synthetic standing, acquired | 36 | 500 | 500 | 317 | 500 |
+
+Historical-dance standing return completes **0, 0, 2 and 0 of 250 controls**,
+respectively. Curriculum +100 completes stationary acquisition/active/return
+at **250/500/250**; +400 regresses to **250/317/0**. The best new historical
+dance is only **1.3 s of 10.7 s**, followed by 0.04 s of the required 5 s return.
+All failed motion cases stop on an empty effort/position/slew intersection.
+The initial improvement on less-disturbed synthetic resets does not establish
+durable closed-loop tracking or recovery. More identical updates or simply
+raising the reset-lift bound is not justified by this experiment.
+
+The curriculum starts from the already trained prior LoRA 100 actor; +100 and
++400 are **additional** updates. This is not an equal-total-training-budget
+comparison with original v14 or a statistical estimate from multiple seeds.
+The standing controller remains a 29-to-23 compatibility actor, not native
+Unitree FSM transfer. Physical bit-30 motors-off causation remains unknown.
+
+Evidence: `artifacts/g1_true23_frozen_lora/reset_curriculum_20260906_v1/`
+(`smoke_verified.json`, `reset_lead_verified.json`, failed `train500.log`,
+`interrupted_run.json`, `interrupted_export_evaluation_report.json`). The
+original success-only continuation correctly does not run without a completed
+experiment report. A separate interrupted-run
+evaluation preserves that failure and evaluates the saved policies. No second
+training run is started.
+
+**680 tests pass in 186.90 s across 51 focused modules**, retaining the same
+two documented legacy module asset-root substitutions. Ruff format and
+critical-error checks pass for all six new source/test files. This is not a
+whole-repository or hardware-test claim.
+
+Independent `full_result_comparison.json` checks equal request identities,
+lengths, gains, limits and timing against both prior implementations. It
+verifies **20 new continuous traces / 33,325 actual physics steps**: adjacent
+positions/velocities and engine times match exactly, generalized actuator
+force equals recorded effort, the existing effort cap holds, active PD
+equations agree within 1e-12 Nm, and no engine warnings occur. This verifies
+the rejected trajectories, not successful full-motion control.
+
+Comparison SHA256: `13105deaa25c56abb28607d17c487206a1e20a46beb7cb95e7498ff88f13b038`.
+Interrupted evaluation SHA256: `3bdd4e0c6937a3b0cfc2ed176d04a211ee4c3bdd4aab3e8a7dea3105c6f2a6e1`.
+The next training change must address sustained closed-loop motion and
+standing recovery; this reset-only intervention is not a deployment fix.
+
 ## 2026-09-06 continuation: exact-prefix standing-return recovery windows
 
 **Still NOT ready for physical dance or live full-body teleop.** Exhaustive

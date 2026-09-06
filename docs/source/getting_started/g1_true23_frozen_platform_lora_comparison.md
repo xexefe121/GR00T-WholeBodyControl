@@ -1,5 +1,31 @@
 # Frozen-platform LoRA versus the original true23 v14 trainer
 
+> **Reset curriculum rejected, 2026-09-06:** A real three-update smoke run
+> verifies exact current-LoRA-100 actor initialization, fresh Adam state and
+> actual learning. One requested 500-new-update run changes only reset disturbances
+> and detected floor overlap; action/sensor noise, full corpus, gains, limits
+> and standing retention remain unchanged. The measured lead: four current-
+> policy noise combinations all have three-control median episodes; nominal
+> resets with both noises disabled reach 25, or 30 with floor correction.
+> These are short, single-seed diagnostics with censored unfinished episodes,
+> not full dances. Training fails after **410 logged completed updates** when
+> a synthetic reset requires more than the allowed 0.2 m floor lift; no bound
+> is bypassed. Planned checkpoint 100 is evaluated on the full requests,
+> as is last-saved checkpoint 400 as an additional diagnostic. Planned update
+> 500 is absent, explicitly not executed, and not replaced by 400.
+> **Both new candidates fail every full motion.** Historical dance reaches
+> **65/535 / 60/535**, with only **2/250 / 0/250 return**. Prior LoRA 100 / v14
+> 100 reach **60/535 / 24/535**, both with **0/250 return**. Curriculum +100
+> preserves stationary **250/500/250**; +400 regresses to **250/317/0**.
+> The curriculum adds training to the prior LoRA 100 actor, so this is not an
+> equal-total-budget comparison. All clips, limits and full-return requests
+> remain unchanged. **680 focused tests pass**; independent checks verify
+> 20 continuous traces / 33,325 physics steps, including state continuity,
+> effort caps and active PD equations. These validate the rejected results,
+> not deployment readiness. **Neither candidate is promoted.** No physical operation or
+> demonstrated explanation of real-robot damping. See
+> [current training evidence](../../../PROGRESS.md).
+
 > **Exact-prefix recovery windows, 2026-09-06:** All 140 observed completed
 > historical-dance boundaries are tested, with three exact full-run control
 > replays and unchanged gains/limits. Every acquisition and dance prefix must
