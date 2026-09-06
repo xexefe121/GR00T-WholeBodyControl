@@ -1,5 +1,142 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-06 continuation: original-v14 corrected-controller comparison
+
+**Still NOT ready for physical dance or live full-body teleop.** A separate
+original-v14 method run completes **100 new PPO updates / 51,200 simulator
+transitions**, using the same complete corpus, seed, native23 controller and
+IEEE precision as the current LoRA comparison. Its full dance fails at
+**16/535** reference-start controls and **24/535** historical-start controls,
+with **0/250 return**. It also loses standing. The standing-retained LoRA
+update-100 baseline reaches **64/535 / 60/535** and preserves simulated
+standing; it is better on these measured cases but remains unqualified.
+Reverting to the original trainer is therefore not a supported fix.
+
+No robot connection, DDS, SSH, arming/mode command, physical motion or
+deployment change occurred. The existing dirty hardware work remains
+untouched. The physical bit-30 motors-off cause remains unknown; a simulator
+constraint rejection does not explain that hardware fault.
+
+### What is matched, and what is deliberately not relabelled
+
+New `train_g1_true23_v14_native_ieee.py` wraps the existing v14 trainer without
+editing its source. It keeps the original hash-bound recovery actor, fixed
+0.10 exploration standard deviation, last hidden block/head training scope,
+clip-contained uniform sampling (including v14's adaptive-sampling fallback),
+original rewards and adaptive PPO learning-rate schedule. The only changes
+from the original v14 implementation are the explicitly recorded
+`native_support_stateful_v2` actuation profile and IEEE float32 boundaries.
+Fresh-only execution rejects resume requests and checks frozen actor tensors
+before every checkpoint. Both original and wrapper source files are bound in
+the new **30-file training source manifest**.
+
+V14 trains **274,455 parameters in four actor tensors**, versus the current
+rank-8 LoRA's **253,944 parameters in 18 tensors**. Both use 32 environments,
+16 rollout controls, five epochs, eight minibatches, initial learning rate
+5e-6, seed 20260906, the same critic architecture and complete 5,940-frame
+corpus. The standing clip remains separately labelled; unavailable original
+elbow is not replaced. All native gains, 5 rad/s slew, 0.05 rad joint margin,
+95%-of-quarter-effort projection and 500/50 Hz cadence remain unchanged.
+The modeled 35 Nm ankle table is still not a verified manufacturer rating.
+
+This is **equal new-update/transition budget, not a one-variable ablation**.
+Actor initialization/pretraining, trainable layers, exploration, motion
+sampling, learning-rate adaptation and standing retention differ. V14 has no
+standing LoRA bootstrap or retention loss. It starts from recovery checkpoint
+SHA256 `d13f47eff7348a7fce1277233a1d1795a2bafe12cd8000b2e101351c73c63bcc`;
+its existing training history is not counted as new motion updates.
+The separate four-environment smoke completes two updates / 64 transitions;
+the full run does not resume from that smoke. The 100-update process exits
+zero after 280.48 s. Only 100 of its declared 1,000 updates ran; 900 remain
+unexecuted, with no training process left running. Final rolling reward
+-96.55 and episode length 5.24 controls are not motion-completion metrics.
+
+### Correctly paired full-request evaluation
+
+New `g1_true23_v14_diagnostic_pair.py` uses the existing exact-policy ONNX
+exporter/verifier, including its unchanged minimum-update gate. It rejects
+wrong method, controller, precision and reference contracts, and rejects an
+embedded safe-target transform that the shared controller would apply twice.
+Both networks come from V14's same checkpoint; no released LoRA encoder is
+borrowed. Update zero is not exported or evaluated by bypassing its gate.
+
+`evaluate_g1_true23_v14_motion_ppo.py` reuses the original complete request
+plan. A regression test checks its simulator-call arguments are AST-identical
+to the current LoRA evaluator. All 11 records remain: eight original source
+requests (one unavailable), the historical-start dance lifecycle, and two
+standing prerequisites. Full source durations and all 23 active joints remain.
+
+| Case | V14 100 | LoRA 100 | LoRA 300 | Requested controls |
+|---|---:|---:|---:|---:|
+| Hand crawling | 16 | 64 | 60 | 595 |
+| Happy dance / reference | 16 | 64 | 60 | 535 |
+| Happy dance / historical | 24 | 60 | 56 | 535 |
+| PICO upright | 17 | 37 | 37 | 1,013 |
+| PICO standing | 7 | 37 | 35 | 1,013 |
+| PICO crouch | 20 | 25 | 23 | 1,013 |
+| PICO walk 001 | 16 | 22 | 30 | 684 |
+| PICO walk 010 | 11 | 24 | 28 | 499 |
+| Synthetic standing / reference | 30 | 500 | 500 | 500 |
+| Synthetic standing / acquired | 36 | 500 | 500 | 500 |
+
+Every executed V14 case ends in `TargetIntersectionError` and fails full
+motion fidelity. Both 250-control standing acquisitions pass, but neither
+V14 lifecycle completes any of its requested 250 return controls. Those
+transitions use the explicitly labelled compatibility standing actor, not
+a native Unitree FSM handoff. LoRA's two standing successes do not count
+as dance or teleop qualification; its historical dance return also remains
+0/250. LoRA 300 is context, not an equal-budget comparator to V14 100.
+
+At V14's reference-dance failure, right ankle pitch has a 0.000238621 rad
+gap between the slew and effort intervals; the instantaneous target would
+need 5.11931 rad/s instead of the unchanged 5 rad/s. At historical-dance
+failure, left ankle pitch needs 5.31042 rad/s. These are observations at
+already rejected states, not permission to raise limits or proof that faster
+slew would produce a stable dance. Standing return is requested too late to
+find a feasible target at those states.
+
+Evidence root: `artifacts/g1_true23_frozen_lora/v14_native_ieee_20260906_v1/`.
+Checkpoint SHA256:
+`32538cb83e676877b5581f72dce05f9208eb2f5ee9f177d16c6ea223aa28aeb5`.
+Lineage SHA256:
+`f5a597537db704dc57e52085b51779d4b1e7b3b191670f42802cd1b8186ba81f`.
+Full evaluation report SHA256:
+`9040a749d21808eeb8197bcd283818306cc0e5e4540f2e5484328f876460a057`.
+ONNX three-probe encoder error is exactly zero; decoder maximum absolute
+error is 2.264977e-6, with paired action error 2.503395e-6. **614 regression
+tests pass**, including 29 new comparator/pairing checks. Neither candidate
+is selected for deployment. This covers 48 focused modules in the pinned WSL
+runtime, with the same two legacy test-module asset-root substitutions as
+the preceding regression run; it is not a whole-repository test-pass claim.
+
+Independent `integrity_report.json` verifies **1,066 files with zero
+mismatches**, retaining all 984 files from the previous audit. It verifies
+all ten continuous traces / **6,950 actual physics steps**, no engine
+warnings, exact adjacent state continuity, and agreement between recorded
+efforts and the native PD equation within 1e-12 Nm. All active efforts remain
+inside the unchanged 23.75%-of-table projection cap.
+
+Update zero exactly matches the original recovery network plus the 0.10 std
+pin. Update 100 changes precisely four actor tensors; the other **25/29**
+remain bit-identical, including the encoder and std. The critic changes;
+fresh Adam starts empty and reaches step 4,000 on all 12 actor/critic tensors.
+The original adaptive schedule ends at **1e-5**, whereas LoRA stays at 5e-6.
+V14's frozen-during-this-run encoder is **not** the released frozen-LoRA
+encoder: all ten teleop-encoder tensors differ, maximum element difference
+0.00210693. This independently confirms why borrowing the LoRA encoder would
+invalidate the comparison. Integrity report SHA256:
+`ef8ecd40ceaa24d2af0f1888783fc9b4507ec5ff9b0ee2b5155730f034c96b22`.
+
+Next bounded check: measure standing-return recoverability from actual saved
+states **before** the first full-dance constraint rejection. Preserve the
+complete failed dance result; a prefix return is only a recovery-window
+diagnostic, never shortened-dance success. Earlier one-step prediction and
+half-tempo experiments already failed and must not be sold as new fixes.
+Full-motion feasibility/tracking, training/replay contact-model differences,
+native normal-mode handoff and fresh supervised hardware evidence remain
+open. Six absent axes still require per-motion retargeting and qualification;
+exact reproduction of every original 29-DoF pose is impossible on 23 DoF.
+
 ## 2026-09-06 continuation: temporal mapping audit; 300-update PPO still fails dance
 
 **NOT ready for physical dance or live full-body teleop.** The new recorded-

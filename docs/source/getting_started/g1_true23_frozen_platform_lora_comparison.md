@@ -1,5 +1,27 @@
 # Frozen-platform LoRA versus the original true23 v14 trainer
 
+> **New equal-update-budget comparison, 2026-09-06:** Original v14 now has a
+> real corrected-controller/IEEE run: **100 new PPO updates / 51,200
+> transitions**, using the same complete corpus and current native23 limits.
+> It reaches **16/535** reference-start dance controls and **24/535** from
+> historical start, versus standing-retained LoRA 100's **64/535 / 60/535**.
+> Both dance returns are **0/250**. V14 standing fails at **30/500 / 36/500**;
+> LoRA standing completes **500/500** in both cases. V14's own paired encoder
+> and decoder are used, with no borrowed frozen encoder or export-gate bypass.
+> This is not a one-variable ablation: initialization, trainable layers,
+> exploration, sampling, adaptive learning rate and retention differ. V14's
+> four last-block/head tensors contain 274,455 parameters; LoRA has 253,944
+> parameters across 18 adapter tensors. The original trainer is unchanged;
+> a separate wrapper records the new actuation and precision boundaries.
+> Independent audit verifies 1,066 hashes, ten continuous traces / 6,950
+> physics steps, precisely four changed actor tensors and 25 unchanged ones.
+> V14's frozen-in-this-run encoder differs from the released LoRA encoder;
+> that difference is measured, not hidden by mixing the exports.
+> **614 tests pass. Neither method qualifies full dance or live teleop.**
+> No robot operation or physical-damping fix. Older statements below saying
+> no corrected-budget v14 comparison exists are historical, superseded here.
+> See [full results and evidence](../../../PROGRESS.md).
+
 > **Temporal audit and 300 updates, 2026-09-06:** Production observation and
 > history-buffer code on all 2,675 previously recorded calls gives identical
 > FSQ tokens; every successful 2 ms projection and all 16 terminal rejections
