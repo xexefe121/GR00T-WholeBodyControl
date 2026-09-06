@@ -1,5 +1,171 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-06 continuation: standing retained through motion PPO; TF32 token mismatch isolated
+
+**NOT ready for physical dance or live full-body teleop.** A new, separate
+standing-retention PPO run preserves the previously passing stationary
+behavior through 100 real motion-training updates. Both stationary tests
+complete **500/500 controls**, including **250/500/250 acquisition/active/return**
+for the acquired case. Every complete dance/PICO/crawl request still fails.
+The resulting policy is diagnostic only: not selected, promoted or deployed.
+No robot, DDS, SSH, arming, mode, motor or hardware-limit operation occurred.
+The existing dirty hardware edits remain separate. Physical bit-30 motors-off
+and native Unitree mode handoff remain unresolved.
+
+### Joint standing-output retention, not substituted motion or a second optimizer
+
+The new additive `train_g1_true23_standing_retention.py` wraps the checked
+standing-only initialization. It retains the complete 5,940-frame motion
+corpus and original sampler, while adding a decoder-output retention loss
+on the three validated standing **training** episodes, 1,500 input states.
+The separate held-out episode is hash-bound but its arrays are not loaded
+by this loss. Frozen encoder tokens and proprioceptive inputs are cached;
+anchor outputs come from the checked standing adapter itself. Neither
+failed motion actions nor standing teacher actions become motion labels.
+
+Each ordinary PPO minibatch receives the following extra term **before**
+the existing actor/critic gradient clipping and the same single Adam step:
+
+```text
+10 * (mean(((safe_target(raw) - anchor_target) / action_scale)^2)
+      + 0.01 * mean((raw - anchor_raw)^2))
+```
+
+Weight 10 and batch size 128 were fixed before evaluation. Anchor sampling
+uses a separate CPU generator seeded from the actual Adam minibatch count;
+it does not consume PPO's global random stream. Resume checks the exact
+runtime/cache receipt, resolved lineage, optimizer and counters. Source
+hashes include all three added implementation files. The used RSL-RL 5.0.1
+PPO source is pinned; unsupported recurrent, adaptive, distributed, RND and
+symmetry branches reject instead of silently changing their behavior.
+
+Zero-weight tests reproduce the installed stock PPO's actor, critic,
+optimizer, original losses and random state exactly on the tested CPU MLP
+fixture, across value-clipping and minibatch-normalization combinations.
+This is not a claim of bitwise full-model CUDA-training identity. The
+frozen SONIC encoder, FSQ, base weights, exploration distribution and 23/29
+codec remain unchanged; only the same 253,944 decoder LoRA parameters train.
+No reset, reward, gain, action-noise, effort, slew, joint-limit or motion
+amplitude change was made. Existing polish and teacher-admission gates stay.
+
+### Actual training and full-request comparison
+
+The smoke run completes two updates, then genuinely resumes checkpoint 2
+to update 4: **128 transitions** total, four environments, eight rollout
+steps, two epochs and two minibatches. The first 32-environment breadth
+attempt fails with host `OSError: [Errno 12] Cannot allocate memory` while
+loading the source core, before any PPO updates or checkpoint creation.
+It overlapped the regression suite. Its failure/log are retained; a serial
+retry in a new directory succeeds. No failed attempt is counted as training.
+
+The actual serial breadth run completes **100 PPO updates / 51,200
+transitions**, with the previous 32 environments, 16 rollout steps,
+five epochs, eight minibatches, `5e-6` learning rate and seed 20260906.
+The budget remains 1,000 updates, not completed. No training process remains
+running. Final mean completed episode length is only 6.42 controls; neither
+training loss nor reward establishes motion quality.
+
+Both following update-100 policies use the same matched frozen ONNX encoder
+and the unchanged full-request evaluator, sources and native23 simulator:
+
+| Complete request | Previous PPO 100, no retention | Retention PPO 100 | Requested controls |
+|---|---:|---:|---:|
+| Hand crawl | 54 | 65 | 595 |
+| Happy dance, reference start | 57 | 64 | 535 |
+| Happy dance, historical acquisition | 46 | 57 | 535 |
+| PICO upright | 35 | 35 | 1,013 |
+| PICO standing | 34 | 33 | 1,013 |
+| PICO crouch | 26 | 26 | 1,013 |
+| PICO walk 001 | 29 | 22 | 684 |
+| PICO walk 010 | 29 | 24 | 499 |
+| Separate synthetic standing | 89 | **500** | 500 |
+| Separate standing after acquisition | 70 | **500** | 500 |
+
+The unavailable elbow request remains an explicit eleventh record with no
+replacement. All eight executed full-motion cases fail with
+`TargetIntersectionError` and failed fidelity. Historical dance return
+remains **0/250**, so the stationary return result does not qualify return
+after dance. Several full-motion results remain below the initial standing
+adapter's earlier CPU results; this is standing retention, not general
+motion improvement or SONIC parity.
+
+Acquired stationary return completes **250/250**, with maximum tilt
+0.0303163 rad and horizontal drift 0.0154050 m. This is the hash-pinned
+Unitree 29-to-23 zero-velocity compatibility actor **inside the simulator**,
+not the physical Unitree FSM and not a demonstrated native mode transfer.
+Encoder export FSQ-token parity is exact and decoder maximum absolute
+error is `2.384186e-6` on the existing three export probes only.
+
+On the same 1,500 standing **training** inputs, CPU safe-target RMS drift
+from initialization drops from **0.0405435 rad** without retention to
+**0.00758414 rad** with retention; maximum drift drops from 0.106259 to
+0.0284377 rad. Held-out arrays were not used for this measurement or tuning.
+
+### Newly isolated backend mismatch: inherited TF32 changes discrete tokens
+
+The inherited causal trainer calls MJLab's `configure_torch_backends()`
+with its default `allow_tf32=True`. The previous standing-only fit disabled
+TF32. An initial standalone default-FP32 probe therefore failed to reproduce
+the actual training anchor cache. That failure is preserved, not suppressed.
+A second probe uses the exact source helper and actual training settings;
+its TF32 cache matches both training runs and the genuine smoke resume.
+
+On identical 1,500 standing inputs and frozen source weights, measured
+against CPU inference:
+
+| GPU math | Differing encoder-token rows | Maximum raw-action error | Maximum safe-target error |
+|---|---:|---:|---:|
+| IEEE float32 | 0 / 1,500 | `1.4305115e-6` | `4.4703484e-7` rad |
+| Actual training TF32 | 204 / 1,500 | 0.0549138 | 0.0301018 rad |
+
+TF32 changes one token element in each affected row; proprioception agrees
+exactly. This establishes a training-versus-CPU numerical mismatch on these
+inputs, **not** its prevalence on complete motion streams, not the sole cause
+of motion failure, and not the cause of physical damping. The next bounded
+experiment must explicitly pin IEEE training precision in a new immutable
+lineage and compare complete motions under otherwise unchanged conditions.
+Do not silently change this run's precision or blindly resume its remaining
+900 TF32 updates. Full 267/930-input GPU/CPU/ONNX stream parity still needs
+measurement; the existing motion physics archives do not save those inputs.
+
+### Local evidence and remaining readiness work
+
+Artifacts: `artifacts/g1_true23_frozen_lora/standing_retention_ppo_20260906_v1/`.
+The six added source/test files contribute **40 new tests**; the expanded
+42-module regression suite completes **551 passed**, no failures or skips,
+in 194.96 seconds. Two legacy tests use the same explicit original-asset
+root substitution as before. Ruff lint and formatting checks pass.
+
+Independent integrity audit passes **539 bound files**, preserving all 457
+previous bound inputs, with zero mismatches. It checks 10 continuous native23
+simulator traces / **20,798 actual physics steps**: actual engine clocks,
+finite continuous state, no engine warnings, requested-versus-generalized
+effort, unchanged outer effort bounds and compiled-model identity. Both
+training manifests bind 36 source files. Initial actor/critic hashes exactly
+match the previous run; smoke resume reaches 16 Adam steps and 32 environment
+controls, while breadth reaches **4,000 Adam steps for all 26 optimized
+tensors** and 1,600 environment controls. Saved retention events cover every
+actual update. Breadth resolved configuration differs from the previous
+experiment only by the explicit standing-output-retention descriptor.
+
+Key SHA-256 values:
+
+- Actual checkpoint 100: `2bfd05e514b5c77606b59ee51ee302e9a280d7aeacef0fbb5bf758b011835c28`.
+- Adapter tensors: `f0444891ae6306b1eacf010bd95ce04c38785d6c7c057bf5d496bee7dac4d34f`.
+- Matched decoder ONNX: `6e5fc97a1b3c2de114369aeb84afa93bf2c0c8e5ec764aa0bb74387ea7da4a6d`.
+- Unchanged matched encoder ONNX: `3806b2b63ebadf4d6cbf9f79b7072f2bf27ab8eb8bc6a9b3042f97739cc5428a`.
+- Full-request evaluation: `1894d2c5c862fcb7a2f6a783a56f1d408226c766aaca06373ab094a9a4ee44b6`.
+- Matched-backend drift evidence: `a3d7c423dfbb57b49016a3cf9394c5a30ec9b10478ad167a2c2c2601647b8f1b`.
+- Actual TF32 training anchor cache: `6429d8cd2d1c8870c426269ca4c11c463aee1f3ca2246b6f142fb76e2628ff87`.
+- Regression JUnit: `c9f8fcd2b537e92f849b288a6ca0edcc743c11b5831230e63ae5773f0f3fc7d4`.
+- Independent integrity report: `ca075e1b358f4813c9fc3358a3ed1ffed7f6ea9d19ea113590fbf76dd60b3410`.
+
+No new matched-budget original-v14 training comparison exists. A 23-axis
+robot cannot exactly reproduce independent motion on six absent axes;
+full-motion task-space, contacts, forces, transition and live-stream
+qualification remain required. Standing surviving motion PPO is a useful
+prerequisite, not authorization to run this checkpoint on the robot.
+
 ## 2026-09-06 continuation: real motion PPO from standing; standing regression rejects update 100
 
 **NOT ready for physical dance or live full-body teleop.** The standing-only

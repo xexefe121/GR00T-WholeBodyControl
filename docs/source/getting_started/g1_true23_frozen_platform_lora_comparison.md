@@ -1,5 +1,21 @@
 # Frozen-platform LoRA versus the original true23 v14 trainer
 
+> **Standing retention and numerical mismatch, 2026-09-06:** Joint standing-
+> output retention preserves **500/500** stationary controls through another
+> **100 actual motion PPO updates / 51,200 transitions**, including simulated
+> acquisition/active/return at **250/500/250**. Previous PPO without retention
+> lost standing. Full dance still fails at **64/535**, historical dance at
+> **57/535 with 0/250 return**, and every complete motion remains unqualified.
+> No request, limit, reward, reset or exploration change; held-out standing
+> arrays excluded from retention. Exact smoke resume and **551 passing tests**
+> support implementation, not physical readiness. A separate measured issue:
+> inherited TF32 training changes frozen encoder tokens in **204/1,500**
+> standing rows versus CPU, while IEEE GPU changes none. Actual TF32 cache
+> is independently reproduced. Next experiment must pin IEEE precision and
+> measure complete-stream parity; this does not explain physical damping.
+> No robot operation, native FSM handoff, or new matched-budget v14 result.
+> See [full evidence and remaining work](../../../PROGRESS.md).
+
 > **Standing-initialized motion PPO, 2026-09-06:** A new checked adapter-only
 > import keeps a fresh critic, optimizer and zero PPO counters. A separate
 > breadth run retains seven complete SONIC/PICO requests plus independently
