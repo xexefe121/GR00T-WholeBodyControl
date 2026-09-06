@@ -1,5 +1,19 @@
 # Frozen-platform LoRA versus the original true23 v14 trainer
 
+> **Hand-frame/contact correction, 2026-09-06:** Source 18 cm hand proxies
+> are wrist-yaw-relative; native23's old same-number proxies are wrist-roll-
+> relative, causing an 84 mm neutral mismatch. A new explicit diagnostic
+> convention derives 264 mm wrist-roll-relative targets without changing
+> live/causal/checkpoint interfaces. Against the same recorded source and
+> corrected metric, full-dance hand error improves 94.243 to 31.756 mm;
+> foot error is 2.180 mm. Under the old metric, hand error instead worsens;
+> both comparisons remain recorded. Separately enabled original29 hand
+> collisions reduce crawl penetration but do not produce qualified teachers.
+> Four fresh fixed-pair controller cases still fail, including standing return;
+> byte-identical dance results are explicitly reused for the second source.
+> **418 tests pass; no physical readiness or matched-budget v14 result.**
+> See [exact evidence and remaining limits](../../../PROGRESS.md).
+
 > **Recorded-source correction, 2026-09-06:** The old original29 Python
 > simulator has half the C++ ankle/waist damping on six joints and different
 > precision boundaries. New additive tools retain legacy behavior and record

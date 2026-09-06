@@ -1,5 +1,146 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-06 continuation: neutral-wrist hand frames and collision-enabled source replay
+
+**NOT ready for physical dance, standing return or live full-body teleop.**
+All work below is offline. The new coordinate correction improves reference
+fitting, not controller qualification. No robot connection, mode command,
+deployed policy, hardware gain, limit or interlock changed. The physical bit-30
+motors-off cause remains unknown; neither finding below diagnoses that event.
+
+### The same 18 cm offset referred to different wrist frames
+
+The existing source hand task uses `(0.18, +/-0.025, 0)` on wrist-yaw; its
+native23 counterpart uses the same numbers on wrist-roll. The removed source
+pitch/yaw links translate the hand frame by `0.038 + 0.046 = 0.084 m` at zero
+wrist pitch/yaw. Independent FK confirms an **84 mm neutral task mismatch** on
+both hands, although the shared wrist-roll frames coincide.
+
+New additive `g1_true23_hand_frame_tasks.py` derives the source neutral proxy
+in wrist-roll coordinates: `(0.264, +/-0.025, ~0)`. It validates the exact
+29/23 layouts, removed-link ancestry, shared neutral frame and identity neutral
+hand rotation. Unknown frame conventions are rejected, not silently calibrated.
+Actual source trajectories retain all 29 joint angles, including missing wrist
+motion. Only the two target points change in the diagnostic all23/SE(3) fitter;
+its source targets, weights and physical/temporal bounds remain unchanged.
+
+The meshes support the frame distinction but are not identical: source rubber
+fingertips extend about 257.329 mm from wrist-roll, versus 253.315 mm on native23.
+Source-to-nearest-native-vertex distances reach 8.861 mm, with approximately
+2.4 mm median. Those are vertex comparisons, not continuous surface distances
+or a proof of equivalent contact geometry. The 264 mm task proxy remains
+outside the physical fingertip: **it is not a contact landmark**.
+
+The explicit convention is `native23_source_neutral_wrist_hand_proxy_v1`.
+Global `DEFAULT_TASKS`, VR offsets, native124/causal wire features, checkpoints,
+training and live PICO interfaces remain unchanged. Serialized references
+rebuild causal packets under the existing convention and disclose that fact.
+A future policy-input change needs a separately versioned end-to-end migration;
+these artifacts cannot silently redefine the inputs to an existing checkpoint.
+
+Frame/mesh evidence: `artifacts/g1_true23_frozen_lora/original29_hand_frame_audit_20260906_v1/report.json`,
+SHA256 `bc1be80e7ae5de523eb6aebaa565373ba2cdffd61d813d8cc98ca2c3986f88f0`.
+
+### Source hand collisions tested without editing the original model
+
+New `g1_sonic_hand_collision_variant.py` copies and recompiles an `MjSpec`,
+following the [MuJoCo model-editing interface](https://mujoco.readthedocs.io/en/3.5.0/programming/modeledit.html).
+It enables exactly the two previously visual-only rubber-hand meshes. Simply
+patching compiled collision masks is not used: mesh collision graphs and BVH
+data must also be rebuilt. All noncollision numeric model arrays, raw mesh
+vertices/faces, masses/inertias, joints, gains/limits and solver settings are
+checked unchanged. Native23 is not edited. The masks enable hand-floor **and
+hand-self** collision; this is not a floor-only experiment.
+
+Untouched source compiled hash: `40bd428f7a2e090a3bb2f85f61e965be179b6ab91b63d6f1a827733cf6a0cd96`.
+Separate variant hash: `ff7f4e95bdf160abf98c83ea6098b68e38ee1903e0377ef7a66879ade084cbd8`.
+Both models and every source dependency are retained and rehashed.
+
+The released encoder/decoder, captured C++ parameters, source clips, timing and
+unchanged original29 action/effort bounds are reused. Hand crawl completes
+606/606 frames; worst visible-hand floor penetration drops from 145.947 mm to
+12.149 mm, with active hand-floor contacts on 420 frames. No hand-self contacts
+appear in the recorded pre-control poses. Elbow remains incomplete at 133/606
+on the same action bound. Dance completes 546/546 with no hand-floor contacts;
+its source execution is unchanged. Hand crawl still deviates from the nominal
+planner root by 1.963423 m. Completion is not stock SONIC parity or a valid
+native23 teacher. This still uses legacy observation/playback algorithms, not
+verified full C++ deployment equivalence; actual engine time/warning counters
+are not newly audited by this experiment.
+
+Evidence: `original29_full_hand_collision_20260906_v1/report.json`, SHA256
+`d704edbe820d4bc8ed132bf889f924be5ded145eeb6cbbca4ab670938ef6f48d`.
+
+### Same-source fit comparison uses the same task metric
+
+New `retarget_g1_true23_hand_frame_trace.py` retains all three requests under
+either explicitly labelled source model. Incomplete elbow cannot be cropped,
+padded or replaced. Both complete clips retain all 606/546 frames and all 23
+joints at original tempo. FK, causal rebuilding and serialized 5 rad/s,
+80 rad/s^2 bounds pass. The old-mask fits accept 24 updates but exhaust their
+iteration budget; no convergence or contact-force qualification is claimed.
+
+| Recorded original-mask source | Old fit, evaluated with corrected proxy | New fit, same corrected proxy | New worst foot error |
+|---|---:|---:|---:|
+| Hand crawl | 55.863 mm | 24.690 mm | 1.296 mm |
+| Happy dance | 94.243 mm | 31.756 mm | 2.180 mm |
+
+These compare each clip to the exact same recorded source bytes and models,
+not nominal-planner fidelity or full-body closed-loop tracking. Under the old
+numeric-offset metric, hand/dance errors instead change from 64.232/63.339 mm
+to 92.227/101.164 mm. Both conventions are reported, so coordinate changes
+cannot be passed off as an improvement under the old metric.
+
+Contact still fails: old-mask hand fit overlaps the floor on 596 frames, up to
+160.256 mm; dance overlaps on 477 frames, up to 10.998 mm. The separately
+collision-enabled source hand fit stalls after 22 accepted updates (iteration
+23 rejected), retains all 606 frames, but has 150.445 mm hand error and 79.316 mm
+floor overlap on 392 frames. Solver stalling is not proof of physical
+infeasibility. Its complete dance output is byte-identical to the old-mask
+corrected dance, SHA256 `3fe0a95b3e33e291fffde0fc3ede0cfc2fbae3b5ca19e8a43fbbe72fe3d16251`.
+None is accepted for training, and no full-eight SONIC/PICO manifest is written.
+
+Evidence: `original29_neutral_hand_frame_fit_20260906_v1/report.json`, SHA256
+`c28d730dedfa68af92ce5d63f0d60974a6ff7fa0fac8846f8fb46f279f2d3e4d`;
+`original29_hand_collision_neutral_fit_20260906_v1/report.json`, SHA256
+`19583e5aff527bcaf6fbdec4eb89443717a1a08cea45239c749125c73d193175`.
+
+### Corrected references still fail the unchanged paired controller
+
+The fixed baseline100 pair (`3806b2b6...` encoder / `90e27f37...` decoder)
+executes four distinct cases. Old-mask and collision-source hand fits both fail
+at 48/595 transitions. Dance fails at 45/535, historical-posture dance at
+16/535. Every failure is an empty effort/position/slew target intersection;
+all partial physics substeps remain recorded. The two byte-identical dance
+cases from the second source explicitly reuse the first results, not two new
+executions. Both incomplete elbows remain represented as unavailable.
+
+Historical-start acquisition passes 250/250 transitions and 2,500 physics
+steps. Return fails at 0/250 and zero physics steps: right ankle needs an
+instantaneous 7.1197 rad/s target slew against the unchanged 5 rad/s bound.
+This is a different failed trajectory from the prior 14.8714 rad/s return,
+not a solved handoff. Historical posture is not fresh robot state, and the
+standing compatibility actor is not a native Unitree FSM transition. PICO
+clips were not rerun; this is not a complete eight-clip qualification.
+
+Evidence: `original29_hand_frame_envelope_20260906_v1/suite_summary.json`, SHA256
+`b2f7812462c3b7fc709af4edfb59d1601c827fbe3c3251df0138b45b6b32793c`.
+
+**418 regression tests pass**, no skips, in 173.75 seconds, including 20 focused
+collision/frame checks. The two legacy asset-dependent modules use the original
+repository's assets. All six new Python source/test files pass Ruff; both new
+local geometry/replay artifact drivers pass Ruff. The saved JUnit result is
+`original29_hand_frame_audit_20260906_v1/regression.xml`, SHA256
+`84c1a5e056da4d1129ad56c5baf5bed6209890f63415ea5f131af90d4409ad8a`.
+All 114 unique bound inputs across these five and the previous four reports
+were rehashed with zero mismatches. Existing dirty hardware work is preserved.
+
+Next work remains source observation/playback equivalence, actual contact and
+controller-feasible all23 motion/training, corrected matched-budget v14
+comparison, safe standing handoff and operator-supervised live-input/hardware
+qualification. Do not repeat a physical dance on the strength of geometric
+fit improvements or passing software tests. The goal remains active.
+
 ## 2026-09-06 continuation: recorded original29 baseline and contact-model mismatch
 
 **NOT ready for physical dance, standing return or live full-body teleop.**
