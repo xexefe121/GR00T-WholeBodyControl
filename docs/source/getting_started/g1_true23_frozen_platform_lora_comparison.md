@@ -1,5 +1,24 @@
 # Frozen-platform LoRA versus the original true23 v14 trainer
 
+> **Explicit IEEE training, 2026-09-06:** A new precision-guarded, separately
+> hash-bound launcher completes genuine smoke resume and **100 motion PPO
+> updates / 51,200 transitions** with the original corpus and constraints.
+> Standing retains **250/500/250** simulated acquisition/active/return, but
+> full dance still fails at **64/535**; historical dance reaches **60/535**
+> with **0/250 return**. All complete motion cases remain unqualified.
+> Per-operator TF32 defaults required explicit configuration; an initial
+> pre-training rejection is retained rather than counted as training.
+> New exact-input recording covers both full-request candidate replays,
+> including 675 attempted motion-prefix and 2,000 standing states. CPU and
+> IEEE GPU encoder tokens match captured ONNX exactly at batches 1/32/64/128;
+> target error stays below **1.1e-6 rad**. TF32 batch-32 errors reach 0.041 rad.
+> Fixing that arithmetic mismatch does not fix dance. **572 tests pass.**
+> Independent audit checks 663 hashes and 30 continuous traces; input
+> recording preserves 720 original simulator arrays exactly.
+> No robot command, native FSM handoff or new matched-budget original-v14
+> result. Precision correction alone does not solve dance or explain physical
+> damping. See [current evidence](../../../PROGRESS.md).
+
 > **Standing retention and numerical mismatch, 2026-09-06:** Joint standing-
 > output retention preserves **500/500** stationary controls through another
 > **100 actual motion PPO updates / 51,200 transitions**, including simulated

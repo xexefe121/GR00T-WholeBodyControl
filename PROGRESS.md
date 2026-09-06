@@ -1,5 +1,178 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-06 continuation: explicit IEEE training tested; full-motion failure remains
+
+**NOT ready for physical dance or live full-body teleop.** A separate IEEE
+float32 run completes 100 real PPO updates from the same standing adapter.
+Standing still completes **500/500 controls**, including simulated
+**250/500/250 acquisition/active/return**. Full dance still fails at
+**64/535**; historical-start dance reaches **60/535** but return remains
+**0/250**. Correcting training precision alone does not solve full-motion
+control or establish the cause of physical damping. No robot, DDS, SSH,
+arming, mode, motor or hardware-limit operation occurred; dirty hardware
+edits stay separate. Neither candidate is promoted or deployed.
+
+### Precision is explicit, guarded and part of a new lineage
+
+New `train_g1_true23_ieee_standing_retention.py` and
+`g1_true23_training_precision.py` wrap the preceding standing-retention
+trainer without editing its hash-pinned sources. They explicitly set IEEE
+precision for global FP32, CUDA matrix multiplication, cuDNN and cuDNN
+convolution/RNN operators. Other choices remain unchanged: cuDNN benchmark
+on, deterministic algorithms off, original seeds, float32 actor/critic,
+no CUDA autocast, same retention weight 10 and batch size 128. Conflicting
+TF32 environment overrides reject. Construction, actor/critic forwards,
+PPO updates, checkpoint load and save check the actual backend state.
+
+An immutable `training_precision.json` receipt records the actual settings;
+the same descriptor enters resolved configuration and exact resume lineage.
+The pinned MJLab helper is identified by path and SHA-256. The source
+manifest grows from 36 to **38 files**. This does not relabel or resume a
+TF32 checkpoint as IEEE; the IEEE run starts a fresh PPO state from the
+same checked standing-only adapter, with an independently resumed smoke run.
+The backend configuration helper and precision settings are restored when
+the process-local precision context exits.
+
+The first launch correctly stopped **before any run directory or PPO
+updates**: PyTorch's actual global default was `none`, while cuDNN operator
+defaults still read `tf32` after MJLab set the parent to `ieee`. The initial
+tests had normalized those defaults and missed that case. The helper now
+sets each precision level explicitly; tests use the actual backend defaults.
+That failed launch, its log and original helper snapshot remain under
+`ieee_motion_ppo_20260906_v1/`. The successful experiment uses a new
+`ieee_motion_ppo_20260906_v2/` directory. No failed updates are counted.
+The explicit per-operator API follows the
+[PyTorch 2.9 CUDA precision documentation](https://docs.pytorch.org/docs/2.9/notes/cuda.html#tensorfloat-32-tf32-on-ampere-and-later-devices).
+
+### Same complete requests and training budget
+
+The previous successful command arguments are reused except for the
+additive launcher and new output paths. Smoke completes two updates and
+genuinely resumes checkpoint 2 to update 4: **128 training transitions**.
+The separate breadth run completes **100 updates / 51,200 transitions**
+with 32 environments, 16 rollout steps, five epochs, eight minibatches,
+`5e-6` learning rate and seed 20260906. Its configured budget remains
+1,000 updates; no claim is made that those 1,000 updates finished.
+The measured learning loop takes about 362 seconds; the entire breadth
+subprocess, including initialization, takes 475.58 seconds. Final mean
+completed episode length is 6.22 controls, still very short.
+
+The same 5,940-frame corpus retains all seven available complete SONIC/PICO
+clips plus separately labelled synthetic standing. Incomplete elbow remains
+unavailable with no replacement. No motion shortening, tempo change, new
+retarget, upper-body substitution, reset/reward/noise change, altered gains,
+relaxed effort/slew/joint limits or extra physics settling was introduced.
+The fixed-zero absent-joint codec, original FSQ/base weights and exploration
+distribution remain frozen; only the same decoder LoRA parameters train.
+Held-out standing arrays remain excluded from retention.
+
+Both update-100 candidates are evaluated through their correctly matched
+ONNX pairs with the same frozen encoder and unchanged full-request evaluator:
+
+| Complete request | Retention PPO 100, TF32 training | Retention PPO 100, IEEE training | Requested controls |
+|---|---:|---:|---:|
+| Hand crawl | 65 | 64 | 595 |
+| Happy dance, reference start | 64 | 64 | 535 |
+| Happy dance, historical acquisition | 57 | 60 | 535 |
+| PICO upright | 35 | 37 | 1,013 |
+| PICO standing | 33 | 37 | 1,013 |
+| PICO crouch | 26 | 25 | 1,013 |
+| PICO walk 001 | 22 | 22 | 684 |
+| PICO walk 010 | 24 | 24 | 499 |
+| Separate synthetic standing | 500 | 500 | 500 |
+| Separate standing after acquisition | 500 | 500 | 500 |
+
+All eight executed full-motion cases still fail the target-intersection and
+motion-fidelity checks. The extra stationary successes are prerequisites,
+not successful dance/PICO clips. Simulated return uses the existing pinned
+29-to-23 Unitree compatibility standing actor, **not physical native FSM
+handoff**. Physical bit-30 motors-off remains unresolved. Exported decoder
+maximum absolute error is `1.847744e-6` on the existing three probes only;
+encoder FSQ-token export parity is exact.
+
+### Actual input recording, not reconstructed or shortened motion
+
+New `record_g1_true23_motion_ppo_inputs.py` and `g1_true23_policy_input_trace.py`
+add per-inference 267-D semantic input, 930-D history, 994-D decoder input
+and 23-D raw output to the same complete-request evaluation. Original input
+arguments, returned arrays and policy call count are preserved. Terminal
+inference attempts remain recorded, and unavailable outputs are explicitly
+NaN with a returned/not-returned mask, never fabricated actions. The wrapper
+adds no policy or physics calls and does not edit the shared evaluator.
+
+Both candidates have fresh recorded full-request runs, including the
+historical dance lifecycle and separate standing tests. These traces enable
+direct arithmetic comparison on **actually encountered** motion states,
+without inferring policy inputs from saved qpos or substituting standing
+states for dance. Backend comparison and physics-equivalence results are
+recorded separately from motion qualification.
+
+Recorded arithmetic comparison covers **2,675 inference attempts**: 334 and
+341 attempted motion-prefix states from the TF32- and IEEE-trained models,
+respectively, plus 1,000 stationary states per model. Motion coverage stops
+at each actual failure; this is not coverage of the unexecuted remainder of
+each clip. All recorded inferences returned before the controller guards
+stopped the failing motion runs. Both CPU PyTorch and IEEE GPU reproduce
+the captured ONNX encoder tokens **exactly** at batch sizes 1, 32, 64 and 128.
+Maximum raw-action error across both IEEE backends/datasets is `4.529953e-6`;
+maximum safe-target error is **`1.072884e-6` rad**. Proprioception agrees
+exactly. These are measured input-stream results, not universal backend or
+hardware equivalence.
+
+With TF32 enabled, batch 32 changes encoder tokens in **90/1,334** and
+**63/1,341** rows. Within the motion prefixes alone, those counts are
+**16/334** and **20/341**. Batch sizes 64 and 128 instead change 97 and
+69 rows; batch size 1 changes none. A single-frame encoder-only check
+would therefore miss this observed training-sized batch mismatch. Maximum
+raw-action error reaches 0.0939923 and safe-target error **0.0410333 rad**
+on the TF32-trained dance prefix. Feeding captured ONNX tokens directly
+into the TF32 decoder reduces its worst raw error to 0.00189686 across
+both datasets, separating decoder arithmetic from the encoder-token jump.
+The IEEE GPU independently reconstructs the actual training standing anchor
+cache exactly: `a93e6b92c957979b813f0188c4ffc629fcd27dc8daa87be8762a23f3c7d0d968`.
+
+The measured arithmetic mismatch is removed on the tested states, yet the
+same full-motion failures persist. Next investigate training-versus-evaluator
+observation construction and controller/learning behavior using these saved
+inputs and physics traces. More precision variants are not the next fix.
+These checks do not by themselves prove that training observations, reset
+states, rewards, actuation, timing or robot transport match deployment.
+
+The expanded 45-module suite passes **572 tests**, no failures or skips, in
+181.85 seconds: 14 precision/launcher checks and seven recording checks are
+added to the previous 551. Only the same two legacy test asset-root
+substitutions are used. Ruff lint and formatting checks pass.
+
+Independent integrity audit verifies **663 bound files**, preserving all
+539 previous bound inputs with zero mismatches. It checks 30 continuous
+native23 simulations / **62,494 actual physics steps**, finite continuous
+state, actual engine clocks, zero engine warnings, compiled-model identity
+and unchanged outer effort bounds. Recorder runs preserve **720 original
+simulator arrays exactly**, and their original result fields are identical
+to their respective non-recording baselines. IEEE initial actor/critic
+hashes exactly match the previous TF32 run. Smoke resume reaches 16 Adam
+steps and 32 environment controls; breadth reaches **4,000 Adam steps for
+all 26 optimized tensors** and 1,600 environment controls. Both IEEE runs
+share the independently reproduced anchor cache. Actual saved breadth
+configuration differs from TF32 only by the explicit precision descriptor.
+No training or evaluation process remains running at this checkpoint.
+
+Artifacts: `artifacts/g1_true23_frozen_lora/ieee_motion_ppo_20260906_v2/`.
+
+- Actual IEEE checkpoint 100 SHA-256: `f20f82385dd7c652a7a74b6103a4753f0317b6fb10055452862d647e7dc14de5`.
+- Adapter tensors: `1caefbc84496fc278089ff1fa7e3005e350d60611a3f1d52b002b19f9c0e52d1`.
+- Merged policy tensors: `dd6e7ceaa29a42f86462a46ff68ecaaaafe88f2328193c3a0ef0f91ce2abfe3c`.
+- Matched decoder ONNX: `c03d051221645dac1343c02287cc5d2ee7a76c74a192ea7da7edf46d6331dce0`.
+- Full-request evaluation: `9479ab7c4ec0d81d5fe1efc52f579eac9fc79998822faa3f0f07a0616a7462dd`.
+- Regression JUnit: `d3762c65dc21d32c46350624783265555c08d13685a8e4a821f00cc3251919e3`.
+- Recorded-stream arithmetic comparison: `2f29be5730306237c5dd87b6658ab730abbac1c1bdd79e3f24f647e0c37b147f`.
+- Independent integrity report: `2b983c9b42dc20f2e441748dc98517e131f2cd15f450af0fc3fa2f302a03314a`.
+
+No new matched-budget original-v14 trial, physical dance, native standing
+handoff or live-stream qualification has been established. Six absent axes
+still prevent universal exact 29-axis reproduction. Complete-motion
+task-space/contact/force qualification remains required on native23.
+
 ## 2026-09-06 continuation: standing retained through motion PPO; TF32 token mismatch isolated
 
 **NOT ready for physical dance or live full-body teleop.** A new, separate
