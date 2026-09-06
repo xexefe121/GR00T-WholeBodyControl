@@ -16,6 +16,7 @@ from gear_sonic.utils.g1_true23_generalist_benchmark import FLAGS, summarize_tra
 from gear_sonic.utils.g1_true23_sonic_library_replay import validate_library_motion
 
 PREHISTORY_FRAMES = 11
+RETURN_TARGETS = ("configured_origin", "planned_endpoint")
 PHASE_CONTROLS = (
     ("initial_standing", 250),
     ("acquisition_ramp", 100),
@@ -36,10 +37,27 @@ def _blend_poses(start, finish, count):
     return poses
 
 
-def build_lifecycle_timeline(source, *, model, simulation_config):
+def _planned_endpoint_standing(standing, endpoint):
+    """Upright posture at the fixed planned endpoint, never at measured robot XY."""
+    result = standing.copy()
+    result[:2] = endpoint[:2]
+    initial = Rotation.from_quat(standing[[4, 5, 6, 3]])
+    final = Rotation.from_quat(endpoint[[4, 5, 6, 3]])
+    initial_heading, final_heading = initial.as_matrix()[:2, 0], final.as_matrix()[:2, 0]
+    if min(np.linalg.norm(initial_heading), np.linalg.norm(final_heading)) < 1e-6:
+        raise ValueError("planned endpoint cannot define an upright standing heading")
+    initial_yaw = np.arctan2(initial_heading[1], initial_heading[0])
+    final_yaw = np.arctan2(final_heading[1], final_heading[0])
+    result[3:7] = (Rotation.from_euler("z", final_yaw - initial_yaw) * initial).as_quat()[[3, 0, 1, 2]]
+    return result
+
+
+def build_lifecycle_timeline(source, *, model, simulation_config, return_target="configured_origin"):
     """Retain every source channel/sample exactly between additional phases."""
     import mujoco
 
+    if return_target not in RETURN_TARGETS:
+        raise ValueError("unsupported lifecycle standing return target")
     count = validate_library_motion(source)
     if (model.nq, model.nv, model.nu, model.nbody) != (30, 29, 23, 25):
         raise ValueError("lifecycle reference requires exact native23 topology")
@@ -54,6 +72,9 @@ def build_lifecycle_timeline(source, *, model, simulation_config):
     source_poses = np.concatenate(
         (source["body_pos_w"][:, 0], source["body_quat_w"][:, 0], source["joint_pos"]), axis=1
     )
+    returned_standing = (
+        _planned_endpoint_standing(standing, source_poses[-1]) if return_target == "planned_endpoint" else standing
+    )
     sections = [np.tile(standing, (PREHISTORY_FRAMES, 1))]
     phases, cursor = [], 0
     for name, controls in PHASE_CONTROLS:
@@ -63,7 +84,9 @@ def build_lifecycle_timeline(source, *, model, simulation_config):
         elif name == "acquisition_ramp":
             poses = _blend_poses(standing, source_poses[0], controls)
         elif name == "return_ramp":
-            poses = _blend_poses(source_poses[-1], standing, controls)
+            poses = _blend_poses(source_poses[-1], returned_standing, controls)
+        elif name in {"returned_standing", "standing_proof_margin"}:
+            poses = np.tile(returned_standing, (controls, 1))
         else:
             poses = np.tile(standing, (controls, 1))
         sections.append(poses)
@@ -110,12 +133,12 @@ def build_lifecycle_timeline(source, *, model, simulation_config):
     dot = np.abs(np.sum(motion["body_quat_w"][span] * source["body_quat_w"], axis=-1))
     if not np.allclose(dot, 1.0, atol=2e-5, rtol=0):
         raise ValueError("source body orientations are inconsistent with native23 FK")
-    for key in source:
+    for key in motion:
         if key != "fps":
             motion[key][span] = source[key]
             np.testing.assert_array_equal(motion[key][span], source[key])
     validate_library_motion(motion)
-    return motion, dict(
+    timeline = dict(
         kind="g1_true23_single_actor_lifecycle_reference_v1",
         source_frames=count,
         total_frames=len(poses),
@@ -137,6 +160,24 @@ def build_lifecycle_timeline(source, *, model, simulation_config):
         generated_reference_not_action_teacher=True,
         **FLAGS,
     )
+    if return_target == "planned_endpoint":
+        start = next(row["frame_start"] for row in phases if row["name"] == "return_ramp")
+        endpoint = source_poses[-1]
+        root_path = np.concatenate((endpoint[None, :3], poses[start:, :3]))
+        root_step = np.diff(root_path, axis=0) / 0.02
+        timeline.update(
+            kind="g1_true23_single_actor_endpoint_lifecycle_reference_v2",
+            return_target="fixed_planned_terminal_xy_and_heading",
+            returned_standing_qpos=returned_standing.tolist(),
+            return_origin_locomotion_requested=False,
+            measured_robot_state_used_for_return_target=False,
+            return_root_horizontal_displacement_m=float(np.linalg.norm(returned_standing[:2] - endpoint[:2])),
+            return_root_horizontal_speed_max_m_s=float(np.max(np.linalg.norm(root_step[:, :2], axis=1))),
+            source_terminal_backward_root_velocity_m_s=(
+                (source_poses[-1, :3] - source_poses[-2, :3]) / 0.02
+            ).tolist(),
+        )
+    return motion, timeline
 
 
 def assess_lifecycle_diagnostic(timeline, report, arrays):
@@ -166,12 +207,17 @@ def assess_lifecycle_diagnostic(timeline, report, arrays):
     )
     proof = next(row for row in phases if row["name"] == "standing_proof_margin")
     proof_start, proof_end = proof["control_start"], min(completed, proof["control_stop"])
-    joint_error, root_speed = None, None
+    joint_error, root_speed, root_position_error, root_orientation_error = None, None, None, None
     if proof_end > proof_start:
         states = arrays["qpos"][proof_start + 1 : proof_end + 1]
         velocities = arrays["qvel"][proof_start + 1 : proof_end + 1]
-        joint_error = float(np.max(np.abs(states[:, 7:] - np.asarray(timeline["configured_standing_qpos"])[7:])))
+        target = np.asarray(timeline.get("returned_standing_qpos", timeline["configured_standing_qpos"]))
+        joint_error = float(np.max(np.abs(states[:, 7:] - target[7:])))
         root_speed = float(np.max(np.linalg.norm(velocities[:, :3], axis=1)))
+        root_position_error = float(np.max(np.linalg.norm(states[:, :3] - target[:3], axis=1)))
+        desired = Rotation.from_quat(target[[4, 5, 6, 3]])
+        measured = Rotation.from_quat(states[:, [4, 5, 6, 3]])
+        root_orientation_error = float(np.max((desired * measured.inv()).magnitude()))
     return dict(
         kind="g1_true23_single_policy_lifecycle_diagnostic_v1",
         phases=phases,
@@ -181,6 +227,8 @@ def assess_lifecycle_diagnostic(timeline, report, arrays):
         every_original_source_frame_evaluated=source["completed_controls"] == source["requested_controls"],
         final_proof_standing_joint_error_max_rad=joint_error,
         final_proof_root_speed_max_m_s=root_speed,
+        final_proof_root_position_error_max_m=root_position_error,
+        final_proof_root_orientation_error_max_rad=root_orientation_error,
         fallback_or_specialist_controller_used=False,
         robot_state_resets_after_initial_standing=0,
         standing_or_contact_qualification=False,

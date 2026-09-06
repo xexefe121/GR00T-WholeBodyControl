@@ -15,7 +15,11 @@ import numpy as np
 
 from gear_sonic.utils import g1_23dof_task_space_retarget as ik
 from gear_sonic.utils.g1_true23_generalist_corpus import sha256_file
-from gear_sonic.utils.g1_true23_generalist_retarget import AdaptationLimits, adapt_offline_motion
+from gear_sonic.utils.g1_true23_generalist_retarget import (
+    AdaptationLimits,
+    adapt_offline_motion,
+    refine_retained_protected_motion,
+)
 from gear_sonic.utils.g1_true23_reference_floor import compiled_model_sha256
 
 
@@ -63,7 +67,14 @@ def main(argv=None):
         action="store_true",
         help="Run one constrained root+23 reference refinement at 2x duration/90%% excursion",
     )
+    parser.add_argument(
+        "--protected-root-refinement-from",
+        type=Path,
+        help="One hard-constrained refinement of a hash-bound rejected diagnostic report",
+    )
     args = parser.parse_args(argv)
+    if args.root_reference_refinement and args.protected_root_refinement_from is not None:
+        parser.error("choose weighted root refinement or retained hard refinement, not both")
     output = args.output_directory.resolve()
     if output.exists() or output.is_symlink():
         raise FileExistsError(output)
@@ -86,15 +97,52 @@ def main(argv=None):
             "g1_23dof_contract.py",
             "g1_true23_reference_floor.py",
             "g1_true23_generalist_corpus.py",
+            "g1_true23_generalist_protected_root.py",
         )
     )
     bindings = {str(path.resolve(strict=True)): sha256_file(path) for path in paths}
+    forensic_report, stored = None, None
+    if args.protected_root_refinement_from is not None:
+        forensic_path = args.protected_root_refinement_from.resolve(strict=True)
+        forensic_hash = sha256_file(forensic_path)
+        forensic_report = json.loads(forensic_path.read_text())
+        artifact = forensic_report["diagnostic_artifact"]
+        if (
+            artifact.get("accepted_motion") is not False
+            or artifact.get("motion_schema_compatible") is not False
+            or Path(artifact["path"]).name != artifact["path"]
+        ):
+            raise ValueError("retained input must be a rejected diagnostic-only local artifact")
+        diagnostic_path = (forensic_path.parent / artifact["path"]).resolve(strict=True)
+        if diagnostic_path.parent != forensic_path.parent or sha256_file(diagnostic_path) != artifact["sha256"]:
+            raise ValueError("retained diagnostic path/hash differs from its forensic receipt")
+        for path in (
+            args.trace,
+            args.source_model,
+            args.target_model,
+            Path(ik.__file__),
+            helper_root / "g1_true23_original_task_trajectory.py",
+            helper_root / "g1_23dof_safe_target_transform.py",
+            helper_root / "g1_23dof_contract.py",
+        ):
+            key = str(path.resolve(strict=True))
+            if forensic_report["input_bindings"].get(key) != bindings[key]:
+                raise ValueError(f"retained source/model/baseline helper binding differs: {key}")
+        with np.load(diagnostic_path, allow_pickle=False) as archive:
+            stored = {key: archive[key].copy() for key in archive.files}
+        bindings[str(forensic_path)] = forensic_hash
+        bindings[str(diagnostic_path)] = artifact["sha256"]
     source = (
         mujoco.MjModel.from_binary_path(str(args.source_model))
         if args.source_model.suffix == ".mjb"
         else mujoco.MjModel.from_xml_path(str(args.source_model))
     )
     target = mujoco.MjModel.from_xml_path(str(args.target_model))
+    if forensic_report is not None and forensic_report["compiled_models"] != {
+        "source": compiled_model_sha256(source),
+        "target": compiled_model_sha256(target),
+    }:
+        raise ValueError("retained compiled model identity differs")
     with np.load(args.trace, allow_pickle=False) as archive:
         arrays = planned_named_source(archive, source)
     output.mkdir(parents=True, exist_ok=False)
@@ -102,14 +150,34 @@ def main(argv=None):
         np.savez_compressed(stream, **arrays)
     print(f"Adapting all {len(arrays['joint_pos'])} planned source frames", flush=True)
     try:
-        result = adapt_offline_motion(
-            source_model=source,
-            target_model=target,
-            arrays=arrays,
-            source_role="requested_choreography",
-            **planned_adaptation_options(root_reference_refinement=args.root_reference_refinement),
-        )
+        if forensic_report is not None:
+            result = refine_retained_protected_motion(
+                source_model=source,
+                target_model=target,
+                arrays=arrays,
+                stored=stored,
+                forensic_report=forensic_report,
+            )
+        else:
+            result = adapt_offline_motion(
+                source_model=source,
+                target_model=target,
+                arrays=arrays,
+                source_role="requested_choreography",
+                **planned_adaptation_options(root_reference_refinement=args.root_reference_refinement),
+            )
         report = result.report
+        if result.diagnostic_arrays is not None:
+            diagnostic_path = output / "solver.diagnostic-only.npz"
+            with diagnostic_path.open("xb") as stream:
+                np.savez_compressed(stream, **result.diagnostic_arrays)
+            report["diagnostic_artifact"] = {
+                "path": diagnostic_path.name,
+                "sha256": sha256_file(diagnostic_path),
+                "accepted_motion": False,
+                "motion_schema_compatible": False,
+                "use": "read_only_solver_forensics_not_training_or_deployment",
+            }
         if result.accepted:
             with (output / "adapted.true23.npz").open("xb") as stream:
                 np.savez_compressed(stream, **result.arrays)
@@ -121,7 +189,8 @@ def main(argv=None):
         source_field="planned_qpos50",
         source_frames=len(arrays["joint_pos"]),
         recorded_policy_pose_used_as_choreography=False,
-        root_reference_refinement_requested=args.root_reference_refinement,
+        root_reference_refinement_requested=args.root_reference_refinement or forensic_report is not None,
+        hard_protected_refinement_requested=forensic_report is not None,
         named_source_sha256=sha256_file(output / "planned.named29.npz"),
         compiled_models={"source": compiled_model_sha256(source), "target": compiled_model_sha256(target)},
         hardware_authorized=False,

@@ -4,6 +4,29 @@ Status: training and evaluation infrastructure runs; general dance/teleop policy
 is **not qualified**. No robot, DDS, mode switching or hardware limits changed.
 Original `23dofsonic` repository and dirty hardware work remain separate.
 
+Latest milestone: full planned happy-dance reference now passes native23
+kinematic/support gates (546 source frames, 1,091 adapted frames, 2x duration,
+10.04% adaptation). A separately versioned root-feedback actor and fixed-world
+training task are implemented. Neither milestone qualifies the live controller.
+
+Current correction: ordinary standing return now targets the **planned terminal
+XY/heading**, not the initial world origin. Legacy return generated an8m/2s
+translation while blending standing, so its whole-lifecycle8m error was mostly
+a bad return request. Endpoint v2 preserves the full source/denominator. Parent
+policy survives all1841 controls in three endpoint tests but still fails fidelity
+and standing posture; first100-update candidate regresses and is rejected.
+
+Second feedback-priority root100 completes all 1,841 controls in nominal,
+X-push and Y-push CPU runs, including all 1,091 adapted dance samples. Nominal
+source landmark p95 errors improve 7.6–20.5% over the preserved parent, but
+X-push errors worsen and final standing joint error rises from 0.645 to
+0.681 rad. Root position p95 is 0.655/0.969/0.471 m across the three cases.
+It is still experimental, not promoted or deployment-ready. See
+`artifacts/g1_true23_generalist/root_feedback_regression_20260907_v2/comparison.json`
+for matched-input comparisons and all 104 verified training source bindings.
+Current scoped verification: 448 tests pass; Python E/F checks pass across
+56 files. These checks validate implementation, not physical dance readiness.
+
 The [referenced SONIC-transfer method](https://sonic-agibot-x2.github.io/sonic-transfer/)
 freezes the released platform and trains small decoder LoRA adapters around an
 analytic embodiment codec. The approved native23 generalist plan here keeps
@@ -114,9 +137,9 @@ Artifact directory date strings are run identifiers. Smoke v1 is a historical
 source snapshot, not current-tree equivalence: later review added complete
 Python dependency binding. Fresh smoke v2 uses that correction.
 
-## Architecture decision required for source-world tracking
+## Root-feedback architecture for source-world tracking
 
-The current fixed interface has an observable limitation, not merely too few
+The legacy fixed interface has an observable limitation, not merely too few
 training updates. With the reference held fixed, translating the robot by
 [8, -3, 0] m leaves actual v2 encoder267, proprioception930, decoder994 and
 raw23 action **bit-identical**. Changing root linear velocity also leaves the
@@ -131,15 +154,27 @@ actions and gravity, not root XY. The training body-position target also
 reanchors XY to the robot. This can support root-relative choreography, but
 the actor cannot recognize a persistent source-world XY offset as an error.
 More training may improve gait and relative tracking; it cannot add missing
-absolute-position feedback or guarantee recovery to the requested origin.
+absolute-position feedback. Locomotion back to an initial origin would require
+a separate feasible locomotion plan, not an ordinary posture-return blend.
 
-Meeting the approved source-world path/return requirement therefore needs an
-explicit architecture decision: retain the frozen SONIC267 encoder/token branch
-and add separate root-position-error plus desired/measured-velocity conditioning
-to the decoder, with a new versioned input/export contract and retraining.
-Alternatively, qualification must be explicitly narrowed to root-relative
-choreography. Neither a hidden semantic change inside the existing267 fields
-nor a silent relaxation of world-frame gates is implemented here.
+The user's continuation directive approves the proposed separate root-feedback
+change. `native23_root_feedback_actor` retains frozen SONIC267/token64 and adds
+root feedback9 alongside decoder input994. Features are desired-minus-measured
+root XYZ, desired linear velocity XYZ and measured linear velocity XYZ, all in
+the current measured pelvis-yaw frame. Current desired position is received
+q10; desired velocity is (q10-q9)/0.02 s. No future q11 is read.
+
+A zero-initialized 9x4096 projection adds to the first decoder preactivation.
+Initial means exactly match the old parent even for nonzero feedback; all18
+decoder tensors plus 36,864 conditioning weights, bounded noise and critic train.
+The new checkpoint and two-input ONNX contracts are distinct; old hardware
+loaders must not load them. Physical world-pose/velocity estimation remains
+unqualified. No world-frame acceptance thresholds change.
+
+The new environment uses fixed-world q10 tracking objectives while preserving
+q9 tokenizer properties. Rewards/terminations evaluate post-physics against the
+held received reference before command advance. It explicitly records existing
+MJLab 2 ms stale derived reward state; actor observations use refreshed state.
 
 ## Corpus and retargeting
 
@@ -199,6 +234,21 @@ relaxation is performed. Next solver change would need explicit foot-orientation
 and COM constraints before upper-body fitting, not another weighted fit.
 Full evidence: `planned_dance_retarget_20260907_v4/report.json`, SHA256
 `0f32fe59e30001945479a10e9d61e996577fb1bab576a4b839131877082d3657`.
+
+V4 forensic replay now identifies 839 unique invalid frames: overlapping COM
+regression170, left-foot orientation267 and right-foot orientation512. The
+rejected path is saved in diagnostic-only format, not a training-motion NPZ.
+
+V5 adds explicit hard second-order-cone constraints for both foot positions and
+orientations, COM regression and each frame's original weighted-cost ceiling.
+Five iterations produce an accepted full path: all1091 protected frames pass,
+head p95 3.76 cm, hands6.85/7.12 cm, foot maxima1.81/2.62 mm. Native ROM, raw
+action, velocity/acceleration and serialized root bounds pass unchanged. Duration
+is2x and task-space adaptation10.04%. Cold-file FK and raw planned-source audits
+independently pass. See `planned_dance_retarget_20260907_v5/report.json`,
+`saved_motion_verification.json` and `source_lineage_verification.json`.
+This establishes a feasible reference under the stated kinematic tests, not
+actuator/contact-force feasibility, dynamic tracking or arbitrary-dance coverage.
 
 Causal reference core shares per-frame IK tasks, never reads future poses and
 requires explicit contacts, current reference initialization and continuous
@@ -268,6 +318,37 @@ Other CLI modules provide `--help`:
 - `evaluate_g1_true23_generalist_baselines`
 - `evaluate_g1_true23_generalist_lifecycle`
 - `train_g1_true23_generalist_curriculum`
+- `train_g1_true23_root_feedback`
+- `export_g1_true23_root_feedback`
+- `verify_g1_true23_root_feedback_update`
+- `evaluate_g1_true23_root_feedback`
+
+The root-feedback launcher adds explicit `regression` mode for one bounded
+local experiment (<=100 updates, <=32 environments). It does not make local
+clips an audited corpus. `train` still requires an ownership/split manifest.
+Use separate new curriculum and training directories; existing outputs are
+never overwritten. Root checkpoint names are `root_feedback_model_N.pt`.
+The initial old-generalist actor can be transferred with
+`--initialize-actor-from`; root exact resume requires matching lineage.
+
+New root runs use `--return-target planned_endpoint` and
+`--optimizer-profile feedback_priority`: base/decoder rate5e-7, conditioner
+200x and critic600x that base, exploration1x. Profiles and all effective rates
+are lineage-bound; fixed PPO schedule cannot silently flatten the rates.
+Historical reproduction requires explicit `--return-target configured_origin`
+and `--optimizer-profile legacy_uniform --learning-rate 5e-6`. First candidate's
+same-state action audit measured decoder drift about470x its new feedback effect;
+the differential-rate experiment addresses that imbalance, without claiming
+overall controller improvement: dance p95 decoder drift falls to0.069 and
+feedback effect rises to0.01623 on the same saved parent observations. Full
+independent rollouts show mixed tracking results and failed standing return.
+
+Root paired export is `obs_dict[1,994]` plus `root_feedback[1,9]` to
+`action[1,23]`, with the unchanged frozen encoder267/token64 in its own file.
+Its schema2 diagnostic manifest cannot authorize hardware. CPU evaluation uses
+one fixed policy across full standing/acquisition/dance/return phases, with
+nominal and two explicitly scheduled force cases. No pose writes after reset,
+fallback controller or reference shortening is introduced.
 
 Use original repo `--asset-root` for the CPU referee: its hard-pinned XML has
 LF bytes; transfer XML is CRLF-equivalent but correctly fails the original
@@ -275,14 +356,14 @@ byte-hash pin. Do not weaken the model pin to hide this difference.
 
 ## Remaining work before simulation completion
 
-1. Resolve the root-feedback architecture decision above; the fixed interface
-   cannot observe source-world XY displacement error.
-2. Produce constraint-valid **planned** dance/teleop references. Root+23
-   refinement now meets hand/head position targets, but fails protected support
-   gates. Passing geometric position thresholds alone is insufficient.
+1. Train and qualify the new root-conditioned policy; implementing observability
+   alone does not prove drift correction. Qualify its physical estimator later.
+2. Expand accepted **planned** references beyond the one full dance now passing
+   kinematic gates; verify dynamic tracking and contact-force feasibility.
 3. Obtain licensed broad corpus; build and freeze original-recording splits.
 4. Train full decoder through acquisition, diverse motion, full lifecycle and
-   randomized/delayed/interrupted input curricula. Current smoke is not that run.
+   randomized/delayed/interrupted input curricula. The two single-reference
+   100-update local regressions are not that broad campaign.
 5. Close causal retarget timing and wire PICO reference packets through the same
    controller; validate saved and paced input, stale input and standing return.
 6. Qualify one checkpoint on at least100 held-out dances, all three perturbation

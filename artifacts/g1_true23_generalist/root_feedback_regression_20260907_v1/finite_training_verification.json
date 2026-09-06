@@ -1,0 +1,36 @@
+{
+  "kind": "g1_native23_root_feedback_finite_training_state_v1",
+  "verification_method": "weights-only checkpoint load; strict finite critic/optimizer validators; TensorBoard EventAccumulator over completed run",
+  "checkpoint_sha256": "12404de2222b33fd0b87369bb48462199bd5c33ca0904f84e977184e0ccef7b6",
+  "critic_tensor_count": 12,
+  "critic_total_elements": 301341,
+  "critic_all_tensors_finite": true,
+  "critic_tensor_max_abs": {
+    "mlp.0.bias": 0.06489749997854233,
+    "mlp.0.weight": 0.06590697914361954,
+    "mlp.2.bias": 0.048174768686294556,
+    "mlp.2.weight": 0.04858732968568802,
+    "mlp.4.bias": 0.06317242980003357,
+    "mlp.4.weight": 0.06708917021751404,
+    "mlp.6.bias": 0.04084603860974312,
+    "mlp.6.weight": 0.09103164076805115,
+    "obs_normalizer._mean": 1.6650043725967407,
+    "obs_normalizer._std": 1.7805227041244507,
+    "obs_normalizer._var": 3.1702611446380615,
+    "obs_normalizer.count": 51200.0
+  },
+  "optimizer_parameter_state_count": 28,
+  "optimizer_state_tensor_count": 84,
+  "optimizer_all_numeric_values_finite": true,
+  "optimizer_group_names": ["decoder", "root_conditioner", "exploration", "critic"],
+  "optimizer_nonempty": true,
+  "logged_loss_scalars": {
+    "Loss/entropy": {"all_finite": true, "count": 100, "last_value": -20.321823120117188, "max_abs": 20.32375717163086},
+    "Loss/learning_rate": {"all_finite": true, "count": 100, "last_value": 4.999999873689376e-06, "max_abs": 4.999999873689376e-06},
+    "Loss/surrogate": {"all_finite": true, "count": 100, "last_value": -0.008803735487163067, "max_abs": 0.26747235655784607},
+    "Loss/value": {"all_finite": true, "count": 100, "last_value": 395.2384033203125, "max_abs": 3474.61328125}
+  },
+  "motion_qualification_proven": false,
+  "deployment_ready": false,
+  "hardware_authorized": false
+}

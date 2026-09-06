@@ -1,0 +1,1184 @@
+{
+  "candidate_selection": "no_promotion_tracking_and_standing_still_fail",
+  "complete_source_landmark_error_reduction_percent": {
+    "nominal": {
+      "head_point": 7.644255096659025,
+      "left_ankle_origin": 18.41570059125924,
+      "left_hand_point": 8.980847596371444,
+      "right_ankle_origin": 20.542544657151385,
+      "right_hand_point": 15.132248832965367
+    },
+    "standing_push_x": {
+      "head_point": -71.96435595166564,
+      "left_ankle_origin": -21.456146954658717,
+      "left_hand_point": -82.73880156403106,
+      "right_ankle_origin": -47.01534158559995,
+      "right_hand_point": -74.18312457444063
+    },
+    "standing_push_y": {
+      "head_point": 10.8429325075865,
+      "left_ankle_origin": -5.99535731010703,
+      "left_hand_point": 17.698240074012194,
+      "right_ankle_origin": 23.742403172772754,
+      "right_hand_point": -2.218660186764776
+    }
+  },
+  "completed_training_reference_timelines": 4,
+  "completed_training_timelines_are_not_tracking_qualification": true,
+  "deployment_ready": false,
+  "dynamics_or_contact_qualified": false,
+  "effective_optimizer_groups": [
+    {
+      "elements": 37390871,
+      "learning_rate": 5e-07,
+      "name": "decoder"
+    },
+    {
+      "elements": 36864,
+      "learning_rate": 9.999999999999999e-05,
+      "name": "root_conditioner"
+    },
+    {
+      "elements": 23,
+      "learning_rate": 5e-07,
+      "name": "exploration"
+    },
+    {
+      "elements": 300545,
+      "learning_rate": 0.0003,
+      "name": "critic"
+    }
+  ],
+  "environment_transitions": 51200,
+  "export_parity": {
+    "decoder": {
+      "atol": 1e-05,
+      "includes_nonzero_root_feedback": true,
+      "parity_max_abs_error": 1.0132789611816406e-06,
+      "parity_passed": true,
+      "probe_count": 3,
+      "rtol": 0.0001
+    },
+    "encoder": {
+      "onnx_checker_full_check": true,
+      "ort_provider": "CPUExecutionProvider",
+      "parity_atol": 1e-05,
+      "parity_case_count": 3,
+      "parity_inputs_sha256": "74b0477b02116472af881df5d086a49128b4c3b5eaf7a906513777fb2c46095c",
+      "parity_max_abs_error": 0.0,
+      "parity_max_rel_error": 0.0,
+      "parity_outputs_sha256": "239ae2d67f91aeb0caa9398af3c9e150cf457304796e6ea20da940fc960d73ec",
+      "parity_rtol": 1e-05,
+      "shape_inference": true
+    }
+  },
+  "hardware_authorized": false,
+  "inputs": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/planned_v5_endpoint_priority100_20260907_v1/report.json": "dd580d945c4ec297059be2df0124c501f6b23b3120ab3e1f0115cabb76adad23",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/planned_v5_endpoint_root0_20260907_v1/report.json": "68880016b31af375a5c64b4de5a1fc6b50abc8f634f4816a5ce5ecaf61337bb8",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/planned_v5_endpoint_root100_20260907_v1/report.json": "079d2749b931b3535ddc51b800c0b87f9ab19af4fe684aff88b09b489be0767f",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/root_feedback_regression_20260907_v2/export_updated/decoder.root_feedback.diagnostic.onnx": "c181f7874a89d70bf8a05ae41bf99c609d2fa5078b08bcf204fbd30d61893f97",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/root_feedback_regression_20260907_v2/export_updated/encoder.root_feedback.diagnostic.onnx": "8d52f8ba635bc50ef39410321468471792bbd8b3fc08d74c7be67998c05c05ac",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/root_feedback_regression_20260907_v2/export_updated/root_feedback.diagnostic.json": "fa28d4eeab380878f99d39ce6c1b0dae2b9d2c96f677a03f84ba54505f88b532",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/root_feedback_regression_20260907_v2/inputs/curriculum.spans.json": "6a00aeb32e8d2bcd2695993c15307403ec2273ddd760f275157ed683c98bd0a2",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/root_feedback_regression_20260907_v2/summarize_regression.py": "cf08166ec41214f759569b9ba07fd25b137be92f0c355f48ff8bba9d121f8ced",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/root_feedback_regression_20260907_v2/train/curriculum_runtime_100.json": "6651ce8bb1981f376eb8bed457192fcacaaa19ae437c517313d410bbc6995b4a",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/root_feedback_regression_20260907_v2/train/lineage.json": "49fa60d8d8d0604ee9fa1b14ab63ffef61b8b1fb05d7d983cb2b5533c04ee9dd",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/root_feedback_regression_20260907_v2/train/root_feedback_runtime.json": "5663e710da3079c021e797ab6853dfcae5a95afa724befef968ed10dca146825",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/root_feedback_regression_20260907_v2/update_verification.json": "ce5920346352f79966b7d2a4c7241da22cf375ab07013760c25b8f0d3274c857",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/config/sim_validation/g1_23dof_mujoco_sim2sim.json": "bc4dab246e709604f435dea7c584adc01f1c38a6abb6ac1bc22fc699c42272c3",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/data_process/convert_bones_seed_to_mjlab_npz.py": "f96035fbfde31a5e4c5c2b9a7a647285abfd4381c36c0f8aeeb7d5d74373345a",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/__init__.py": "2ed2ba70dff6822b6e3acae9e24c2f12a1fe2c81f36128d6d0fb078fd5659d6d",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/native124_selected_v2_ankle_adaptation.py": "bd6030a550dd2be62b3a01db8dab3961360b119da6115df6b464b9975590da65",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/native124_selected_v2_ankle_task.py": "3598a9bda0dcf1a01bb585764dd2cb85796e3d6c058aba940df9a76252ec1655",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/native124_selected_v2_causal_adaptation.py": "3f0cdc4f2aa10e0e12482192db4563dd0d48c23c3ba8b68632f55b377ed5c1cf",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23.py": "64c27e20d61de6013dfb9b40c2dff01fc2908fec34be8deceed4be01224da9d4",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_causal_history.py": "13acda79144d69ee2a7870cb76656b0e0c92d5d078c1a8d0bfaba3d8f04e98b5",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_causal_history_acquisition.py": "2aafc4060242d7aff4a2aec643cbd46dc139d954ec8935e3ff8b196bf6adb370",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_causal_history_disturbance_v9.py": "4237516840ab8fcbf107a52db724619ef922969952bcc9bbd0b52d67b0afa3cb",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_causal_history_safe_target_v11.py": "cead10e56ffaaeba5e7486bab3d9abc33fe31e2d86a90e3912f8bbbdcc43df69",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_causal_history_stand_acquisition.py": "632d2069630d58cb9abfb36fcf7535ac041204fbb11b9dde296b850c337b7977",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_causal_history_stand_acquisition_v4.py": "2fe9f24d84f958204c72bc301fdcf36f6678b93bacb9933a4fc9b0843281150c",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_causal_history_stand_acquisition_v5.py": "2258a9d4f2a3be6d97cbcf982bf74028045017461fe1f1676a9dd9598335e4ed",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_causal_multimotion_v14.py": "3b943f56d41dfaeba0f319208f7ebbae61bf0d677ad5806f29be86c3fbf039c8",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_generalist_curriculum.py": "44b0b54f175456c25dccb08b409a9e8cf5e910310cc18e72ce106aab6a4d7f9b",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_low_latency_recovery.py": "db893c7a362f37da30f914500470f23694f5fb55a40c1ee34522b4a14cf144f9",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_native_model_actuation.py": "09e34b5f0707732db29bb6db2833ce630ea40c40924122f1c25033c5e7e1285c",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_root_feedback.py": "3358ee109b33eccaf1a6555fa5b67e7789a086c58078c91577636b3401da6279",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_student_qualification.py": "518e81b5d122947b12d47a32600dfd098ccd745895955b2c4e72759803095907",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/build_g1_23dof_low_latency_recovery_motion.py": "8877e31886c84d605f3ed6d8f07e5744ca6c26408d41ed330f374800bf066198",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/export_g1_true23_generalist.py": "45c31a7e08632b2c6504995318ee1bf3ed3abb27a3a00d476beaca8571325d56",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/export_g1_true23_root_feedback.py": "a66af776f08c4723441455df9bbef08ec169e378b0e309861fe0402b3bae8281",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/init_g1_23dof_checkpoint.py": "0bc3f36da93304d6a30a35452da91015346472349fb70c4ab62ec81d8ae88ec1",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/render_g1_sonic_library_motions.py": "a38d22b357efb4a70a681a9b08b8a897a994a474fe2acf19195dcd751b66b894",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/retarget_g1_29dof_to_23dof_task_space.py": "7b1d1a3d54e3ee654491efb8a27ffb7355e4200aeb8176ef545969b56be80fc0",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/simulate_g1_sonic_library_motions.py": "b51bce06cf5722f365aaa8071daad7d399d6c5fb7910fdc111f9156786c0dfed",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab.py": "888462e28b1bb91414fdb24e63bac112623ae691f75cb601eb2af007241879b8",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab_causal_history.py": "5fce5b3f88f5e66497ee38806b1184677e17c3c7b0f64b855afa88348e263e83",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab_low_latency_recovery.py": "076f2fe95e94a261dc3d75c4b589a47c744181335519d2be2d3c85b39421e3a8",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab_teleop_v13.py": "5d14a4db598fe80d93ac7398c9dd09e91327353d964b56ab3f4978401c168362",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_true23_generalist.py": "88bb3560e420598ddccac7e97caebeb67b67cf0816f32e80be0b144fe477e2ad",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_true23_generalist_curriculum.py": "3612dcf6f95a6715056fc78d89d72700e6f09f7abd4707be089d843e08ac196f",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_true23_root_feedback.py": "7d2006cf83342e05c5fa91672fe28355ccbf2e6afe0ad56cc618af7eab0cca4f",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/callbacks/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/__init__.py": "4c176ddb502566901d9c02ca62c9dc06b5cc772e86ba2ccb7edbaaafa9935143",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/causal_history_runner.py": "03b84975f3341941199d2b7b36e17da9404c274b04710de2a0ea57baa4ae5c00",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/causal_teleop_runner_v13.py": "3d9a136817e219fe619a97e4e8aaeeb753029dcb319c38a63384734e7af5a5ba",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/config.py": "b090b9476145773d2aaf74464b55e5db75e0cbdc45d7de5d22483efe3dc6ac95",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/frozen_platform_lora_actor.py": "8412b1ebba479312f3b6f1d016acd41a74b16c60a4c54c926beef45ced2cf085",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/frozen_platform_lora_runner.py": "1eecf5e08295201851f88f90e616007d1db1ec8c10f0543881a24bb909963571",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/native23_generalist_actor.py": "7946922d2bdd71e1ac8a8083bf656829c7d3fd763077c81526fdf71cd474b42d",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/native23_generalist_runner.py": "1e705b3ca9543203e261860aefe1dd969aae950394d301ba4a7d50f6b87905b4",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/native23_root_feedback_actor.py": "dbcacd20cfb5e42fc06377fa660fcf98a6b1e8d8c7a18b3f84eae495ed3cedf4",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/native23_root_feedback_runner.py": "79501b2a18ef4ca7427ee6d8f0913a98902cafdf3b312013877753da87f17938",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/runner.py": "dd25b62f05de7c1fab623b3aa224749dbb1a2ce96d3581caf2f1d70e40605c2d",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/sonic_task_space_ppo_runner.py": "f59ed807b67a4fe2281d940b707fd6782dafc0325611fb34564a82403504c460",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/true23_actor.py": "d41f954cb7ca750c6becb10df931e6e9ecf763dc6ff758f2ddc846d6d0086efe",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/modules/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/modules/base_module.py": "52774caceae54c7362409603666366c0d2550a8ea8a895051d635ca7b75d1e69",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/utils/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/utils/g1_23dof_checkpoint.py": "a55cb5c9d57ca09d3fe8e2d4c8a0448d294fb85757a33135e0be63b84f89374b",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_artifact.py": "cda9d310aa52053b765e53081ef00b2b64d4f56a134ce7ff06494d7023c145dc",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_checkpoint_io.py": "e1c970258de1f79d12c08b4db4af7ae680bbd0158f48b6c9fcb204d7e0c4c827",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_contract.py": "113ba62dd9734b77c4c32f812e5891066c5bac0c21635c74739b643267fef55a",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_live_shadow.py": "2c8f6977b795a25e00e3b1ccf92a7a181d6c6de64dd9a9a14972e1cd0742a95f",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_mjlab_training.py": "9c6ed3735abb904477ec3598579df5a821ce177d9a7954bd884b6f7e54ce5be3",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_mujoco_promotion.py": "96cd3848b4543b03685e37170902945fbdb1754a27fd47ab31d1525add240e3f",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_mujoco_sim2sim.py": "9c45f4b5477c6b0138ab6ed464b64b7463f07e38bd415cbb65b929e5d632c22e",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_native124_21204_adapter.py": "c257ef4c86844f4b2f8d0fa0e1c4d6cf71e2a00fa974013e5dc8e7b2f9988a15",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_native124_policy.py": "9328d5a176d6b9379a4bfc1a3a94fe14144a1297eb0be0be70b3543201dabf87",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_pico_retargeted_producer.py": "a688a6441b5d704871c38b2ab2b61e18399cb4bfbe49582b0105281cbe6d0709",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_safe_target_transform.py": "13bb352b59faa83195c7b423d40056ab37deab197a8aa66f8e0aaa33641503cf",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_semantic_reference.py": "6d8d2c0dd5f9ab843ceaf003d34d39ca3809310ca9be18d65c8f136da5fa60cc",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_task_space_qualification.py": "87e3d899898cdcc7a560f426c715fa1fc2fd6a185f9825a681b75e512fad3a88",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_task_space_retarget.py": "c170d49b15066b66a96eee10e21c9209a91a12dc0da724922e3a39feb463f9a6",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_trajectory_projection.py": "cd6ca43154a35e48252298157671d4251e70793a4ccba3eeda66edbcf1f35f94",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_xr24_soma_adapter.py": "c216cbf0b60e29b78e5fdc66d2e521db437755e56d62c12ff52f28a00a6fb25a",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_xr24_soma_stream.py": "92fcc3455e4783a50f4cb7bcae26ed6ee364e29348fd760c15e83622fe07c104",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_29dof_low_latency_teacher.py": "31d8051294a93eec04c40d6e5fa131ec87cbf9330aade03bd5f2010ffd623ac5",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_sonic_cpp_parameters.py": "beb16f821c1989a4f64a5937fccd4faeddae4f1cc913cb38d2a1c3c05dd7b099",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_box_qp.py": "196efd4d02e632896f506ce1eb46a67ca60b7fd7b59624d1e1739f592c6610b9",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_clean_mujoco_teleop.py": "0630709a9e55d5ce782dc93944aa8faeba24ff680bdd8c163ce324416bfb897a",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_contact_geometry.py": "0b1562dcf9428e88d1d3c5f1485c992faa3560ea27c828b2358048735fd7bc9c",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_generalist_benchmark.py": "10a8fe4a6b70592f5604f21c735d6810f6295ef435924499b8ed99ffcd085aa4",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_generalist_corpus.py": "e08d8d15fe689c052af0d35b91f08eb42079f0b00da51db4623b1e759e7fb3e3",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_generalist_curriculum.py": "3c67404ca357fe2d3eaa1443d79be79fcc2bf507fb9111567a26b39ab8aa40c1",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_generalist_lifecycle.py": "318e7d5eb633f769f211870f50cd25283c2e0ea224629e1a0015ef37aefe91e2",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_generalist_source_closure.py": "f34e1c0cf9cc6b37356ba245114acceb3bc0e95a94c7c84997aa3c113248bf5b",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_hand_frame_tasks.py": "5977fba5835ef999a81a8191c6cf932a8b4a8c06c206fbca59b50376c45abffd",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_motion_fidelity.py": "689de00a422e7071ee4ba60e5ebb2087b77d11faccc20d6bfb5d0af587d2a863",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_native_model_actuation.py": "9f6d27c23b510938c3a90f4f2c8da8787433d91a2c78346e0d25a6a7eadad885",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_original_task_trajectory.py": "4270177ea9805f44d0fed0f68a56fea1cf966d6ef0cbb474a05e66f626bd43e6",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_reference_floor.py": "cd86d49d9767f77ba1c81258a4d0b53f4be5f334c0a763a68169eeee5e694510",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_root_feedback.py": "ffe59f211980d14961be21f85374cc5aa861ceb2e1bec6580e1186ee1704262f",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_sim_acquisition.py": "41d97a7fc6a304ab40156d4e059aa1e82b0d7e6414c6371fdcabfdc4ffe528ab",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_sonic_library_replay.py": "92fd5add66ee9f37a708d358132cc48686ce8f7c520225f7ac8a99e8b908f28f",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_step1b_mujoco.py": "ffed3a136b9c0f7343fd768a880fc395ce8f4737b735b7158c8f8ddd375ead3d",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_step1b_qualification.py": "13e8d32fc2afdf0d93c33d82e24d950f64f63b28132c3100c29e8e474ce67ea9",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_training_precision.py": "cd605f8445e2dab59e0d3cfec96c25a430d0b9cb0e9cfe6f6ac5ffbf4d4f6548",
+    "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/g1_23dof_constants.py": "5cfcb779fa6795a604d0b140caf8082c40e623324d79f98bfb15c49031e60797",
+    "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/tasks/tracking/config/g1_23dof/env_cfgs.py": "338894a8b36333195565dfeb5b06115e3ded9d0dff428121b24b459e3a7530fc",
+    "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/tasks/tracking/mdp/commands.py": "82c83a6fd908002aae8368c55cbe08a2ee7e60fcb8de4d5be3d6c5b2be911bbd",
+    "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/tasks/tracking/tracking_env_cfg.py": "33f058321a7f8a0e66dbdae3d3a9cd3ea87abd7bf8eecee54daa3c6bf541a0cb"
+  },
+  "kind": "g1_root_feedback_endpoint_regression_comparison_v1",
+  "overall_policy_improvement_proven": false,
+  "physical_estimator_qualified": false,
+  "positive_percent_means_lower_error_negative_means_worse": true,
+  "records": [
+    {
+      "case": "nominal",
+      "completed_controls": 1841,
+      "failure": null,
+      "final_proof": {
+        "final_proof_root_orientation_error_max_rad": 0.15591039314845134,
+        "final_proof_root_position_error_max_m": 0.4400526662060942,
+        "final_proof_root_speed_max_m_s": 0.04094421145152663,
+        "final_proof_standing_joint_error_max_rad": 0.6453563042595315
+      },
+      "policy": "preserved_parent_root0",
+      "requested_controls": 1841,
+      "root_position_p95_m": 0.5023883581161499,
+      "source_frames_all_evaluated": true,
+      "source_motion_tracking": {
+        "contact_timing_or_forbidden_contact_qualified": false,
+        "deployment_ready": false,
+        "foot_metric_is_ankle_origin_not_contact_or_slip": true,
+        "full_source_motion_completed": true,
+        "generalization_qualified": false,
+        "hardware_authorized": false,
+        "landmark_position_p95_m": {
+          "head_point": 0.49312732694641254,
+          "left_ankle_origin": 0.6354481953105988,
+          "left_hand_point": 0.5573498634215973,
+          "right_ankle_origin": 0.6243971460774596,
+          "right_hand_point": 0.5517672440853991
+        },
+        "lifecycle_qualified": false,
+        "original_29dof_source_fidelity_measured": false,
+        "provisional_reference_landmark_screen_passed": false,
+        "reference_landmark_thresholds_m": {
+          "head_point": 0.1,
+          "left_ankle_origin": 0.05,
+          "left_hand_point": 0.1,
+          "right_ankle_origin": 0.05,
+          "right_hand_point": 0.1
+        },
+        "simulator_qualified": false
+      }
+    },
+    {
+      "case": "standing_push_x",
+      "completed_controls": 1841,
+      "failure": null,
+      "final_proof": {
+        "final_proof_root_orientation_error_max_rad": 0.14074947969095308,
+        "final_proof_root_position_error_max_m": 0.43321308196119773,
+        "final_proof_root_speed_max_m_s": 0.06359448281965671,
+        "final_proof_standing_joint_error_max_rad": 0.6384246766859972
+      },
+      "policy": "preserved_parent_root0",
+      "requested_controls": 1841,
+      "root_position_p95_m": 0.4313404858112335,
+      "source_frames_all_evaluated": true,
+      "source_motion_tracking": {
+        "contact_timing_or_forbidden_contact_qualified": false,
+        "deployment_ready": false,
+        "foot_metric_is_ankle_origin_not_contact_or_slip": true,
+        "full_source_motion_completed": true,
+        "generalization_qualified": false,
+        "hardware_authorized": false,
+        "landmark_position_p95_m": {
+          "head_point": 0.3888291842411813,
+          "left_ankle_origin": 0.5331989659470253,
+          "left_hand_point": 0.45374278722724626,
+          "right_ankle_origin": 0.487763351426045,
+          "right_hand_point": 0.4096996504447614
+        },
+        "lifecycle_qualified": false,
+        "original_29dof_source_fidelity_measured": false,
+        "provisional_reference_landmark_screen_passed": false,
+        "reference_landmark_thresholds_m": {
+          "head_point": 0.1,
+          "left_ankle_origin": 0.05,
+          "left_hand_point": 0.1,
+          "right_ankle_origin": 0.05,
+          "right_hand_point": 0.1
+        },
+        "simulator_qualified": false
+      }
+    },
+    {
+      "case": "standing_push_y",
+      "completed_controls": 1841,
+      "failure": null,
+      "final_proof": {
+        "final_proof_root_orientation_error_max_rad": 0.1427790371855624,
+        "final_proof_root_position_error_max_m": 0.8383098523222364,
+        "final_proof_root_speed_max_m_s": 0.04489375860145226,
+        "final_proof_standing_joint_error_max_rad": 0.6392245321544326
+      },
+      "policy": "preserved_parent_root0",
+      "requested_controls": 1841,
+      "root_position_p95_m": 0.8416903614997864,
+      "source_frames_all_evaluated": true,
+      "source_motion_tracking": {
+        "contact_timing_or_forbidden_contact_qualified": false,
+        "deployment_ready": false,
+        "foot_metric_is_ankle_origin_not_contact_or_slip": true,
+        "full_source_motion_completed": true,
+        "generalization_qualified": false,
+        "hardware_authorized": false,
+        "landmark_position_p95_m": {
+          "head_point": 0.57640304737713,
+          "left_ankle_origin": 0.5241042302012848,
+          "left_hand_point": 0.7184491958568123,
+          "right_ankle_origin": 0.6173019186263997,
+          "right_hand_point": 0.6112149803057396
+        },
+        "lifecycle_qualified": false,
+        "original_29dof_source_fidelity_measured": false,
+        "provisional_reference_landmark_screen_passed": false,
+        "reference_landmark_thresholds_m": {
+          "head_point": 0.1,
+          "left_ankle_origin": 0.05,
+          "left_hand_point": 0.1,
+          "right_ankle_origin": 0.05,
+          "right_hand_point": 0.1
+        },
+        "simulator_qualified": false
+      }
+    },
+    {
+      "case": "nominal",
+      "completed_controls": 1077,
+      "failure": {
+        "completed_controls": 1077,
+        "message": "absolute height/tilt diagnostic stop",
+        "physics_steps": 10770,
+        "type": "RuntimeError"
+      },
+      "final_proof": {
+        "final_proof_root_orientation_error_max_rad": null,
+        "final_proof_root_position_error_max_m": null,
+        "final_proof_root_speed_max_m_s": null,
+        "final_proof_standing_joint_error_max_rad": null
+      },
+      "policy": "rejected_uniform_root100",
+      "requested_controls": 1841,
+      "root_position_p95_m": 3.740631580352783,
+      "source_frames_all_evaluated": false,
+      "source_motion_tracking": {
+        "contact_timing_or_forbidden_contact_qualified": false,
+        "deployment_ready": false,
+        "foot_metric_is_ankle_origin_not_contact_or_slip": true,
+        "full_source_motion_completed": false,
+        "generalization_qualified": false,
+        "hardware_authorized": false,
+        "landmark_position_p95_m": {
+          "head_point": 3.8825808864500484,
+          "left_ankle_origin": 3.960434871661318,
+          "left_hand_point": 3.646505240789951,
+          "right_ankle_origin": 4.042169550953974,
+          "right_hand_point": 4.154736987152715
+        },
+        "lifecycle_qualified": false,
+        "original_29dof_source_fidelity_measured": false,
+        "provisional_reference_landmark_screen_passed": false,
+        "reference_landmark_thresholds_m": {
+          "head_point": 0.1,
+          "left_ankle_origin": 0.05,
+          "left_hand_point": 0.1,
+          "right_ankle_origin": 0.05,
+          "right_hand_point": 0.1
+        },
+        "simulator_qualified": false
+      }
+    },
+    {
+      "case": "standing_push_x",
+      "completed_controls": 981,
+      "failure": {
+        "completed_controls": 981,
+        "message": "absolute height/tilt diagnostic stop",
+        "physics_steps": 9810,
+        "type": "RuntimeError"
+      },
+      "final_proof": {
+        "final_proof_root_orientation_error_max_rad": null,
+        "final_proof_root_position_error_max_m": null,
+        "final_proof_root_speed_max_m_s": null,
+        "final_proof_standing_joint_error_max_rad": null
+      },
+      "policy": "rejected_uniform_root100",
+      "requested_controls": 1841,
+      "root_position_p95_m": 2.7093632221221924,
+      "source_frames_all_evaluated": false,
+      "source_motion_tracking": {
+        "contact_timing_or_forbidden_contact_qualified": false,
+        "deployment_ready": false,
+        "foot_metric_is_ankle_origin_not_contact_or_slip": true,
+        "full_source_motion_completed": false,
+        "generalization_qualified": false,
+        "hardware_authorized": false,
+        "landmark_position_p95_m": {
+          "head_point": 2.8695474770943763,
+          "left_ankle_origin": 2.8326534404580905,
+          "left_hand_point": 3.2215270741217568,
+          "right_ankle_origin": 2.7598100251014865,
+          "right_hand_point": 3.535601514432498
+        },
+        "lifecycle_qualified": false,
+        "original_29dof_source_fidelity_measured": false,
+        "provisional_reference_landmark_screen_passed": false,
+        "reference_landmark_thresholds_m": {
+          "head_point": 0.1,
+          "left_ankle_origin": 0.05,
+          "left_hand_point": 0.1,
+          "right_ankle_origin": 0.05,
+          "right_hand_point": 0.1
+        },
+        "simulator_qualified": false
+      }
+    },
+    {
+      "case": "standing_push_y",
+      "completed_controls": 829,
+      "failure": {
+        "completed_controls": 829,
+        "message": "absolute height/tilt diagnostic stop",
+        "physics_steps": 8290,
+        "type": "RuntimeError"
+      },
+      "final_proof": {
+        "final_proof_root_orientation_error_max_rad": null,
+        "final_proof_root_position_error_max_m": null,
+        "final_proof_root_speed_max_m_s": null,
+        "final_proof_standing_joint_error_max_rad": null
+      },
+      "policy": "rejected_uniform_root100",
+      "requested_controls": 1841,
+      "root_position_p95_m": 1.7054977416992188,
+      "source_frames_all_evaluated": false,
+      "source_motion_tracking": {
+        "contact_timing_or_forbidden_contact_qualified": false,
+        "deployment_ready": false,
+        "foot_metric_is_ankle_origin_not_contact_or_slip": true,
+        "full_source_motion_completed": false,
+        "generalization_qualified": false,
+        "hardware_authorized": false,
+        "landmark_position_p95_m": {
+          "head_point": 2.145671880343696,
+          "left_ankle_origin": 2.0590048774650898,
+          "left_hand_point": 2.137636439779886,
+          "right_ankle_origin": 2.1259120434983756,
+          "right_hand_point": 2.1398593511990236
+        },
+        "lifecycle_qualified": false,
+        "original_29dof_source_fidelity_measured": false,
+        "provisional_reference_landmark_screen_passed": false,
+        "reference_landmark_thresholds_m": {
+          "head_point": 0.1,
+          "left_ankle_origin": 0.05,
+          "left_hand_point": 0.1,
+          "right_ankle_origin": 0.05,
+          "right_hand_point": 0.1
+        },
+        "simulator_qualified": false
+      }
+    },
+    {
+      "case": "nominal",
+      "completed_controls": 1841,
+      "failure": null,
+      "final_proof": {
+        "final_proof_root_orientation_error_max_rad": 0.19046600238659725,
+        "final_proof_root_position_error_max_m": 0.6540556378527485,
+        "final_proof_root_speed_max_m_s": 0.05293648104212369,
+        "final_proof_standing_joint_error_max_rad": 0.6814121914730922
+      },
+      "policy": "experimental_feedback_priority100",
+      "requested_controls": 1841,
+      "root_position_p95_m": 0.6549801230430603,
+      "source_frames_all_evaluated": true,
+      "source_motion_tracking": {
+        "contact_timing_or_forbidden_contact_qualified": false,
+        "deployment_ready": false,
+        "foot_metric_is_ankle_origin_not_contact_or_slip": true,
+        "full_source_motion_completed": true,
+        "generalization_qualified": false,
+        "hardware_authorized": false,
+        "landmark_position_p95_m": {
+          "head_point": 0.45543141612329296,
+          "left_ankle_origin": 0.5184259582496387,
+          "left_hand_point": 0.5072951216091193,
+          "right_ankle_origin": 0.49613008350651866,
+          "right_hand_point": 0.46827245173160115
+        },
+        "lifecycle_qualified": false,
+        "original_29dof_source_fidelity_measured": false,
+        "provisional_reference_landmark_screen_passed": false,
+        "reference_landmark_thresholds_m": {
+          "head_point": 0.1,
+          "left_ankle_origin": 0.05,
+          "left_hand_point": 0.1,
+          "right_ankle_origin": 0.05,
+          "right_hand_point": 0.1
+        },
+        "simulator_qualified": false
+      }
+    },
+    {
+      "case": "standing_push_x",
+      "completed_controls": 1841,
+      "failure": null,
+      "final_proof": {
+        "final_proof_root_orientation_error_max_rad": 0.17808206817561295,
+        "final_proof_root_position_error_max_m": 0.9692290985140996,
+        "final_proof_root_speed_max_m_s": 0.027309341776718305,
+        "final_proof_standing_joint_error_max_rad": 0.6834937183919254
+      },
+      "policy": "experimental_feedback_priority100",
+      "requested_controls": 1841,
+      "root_position_p95_m": 0.9691440463066101,
+      "source_frames_all_evaluated": true,
+      "source_motion_tracking": {
+        "contact_timing_or_forbidden_contact_qualified": false,
+        "deployment_ready": false,
+        "foot_metric_is_ankle_origin_not_contact_or_slip": true,
+        "full_source_motion_completed": true,
+        "generalization_qualified": false,
+        "hardware_authorized": false,
+        "landmark_position_p95_m": {
+          "head_point": 0.6686476024324628,
+          "left_ankle_origin": 0.6476029196413398,
+          "left_hand_point": 0.8291641315623012,
+          "right_ankle_origin": 0.7170869572283703,
+          "right_hand_point": 0.7136276525152466
+        },
+        "lifecycle_qualified": false,
+        "original_29dof_source_fidelity_measured": false,
+        "provisional_reference_landmark_screen_passed": false,
+        "reference_landmark_thresholds_m": {
+          "head_point": 0.1,
+          "left_ankle_origin": 0.05,
+          "left_hand_point": 0.1,
+          "right_ankle_origin": 0.05,
+          "right_hand_point": 0.1
+        },
+        "simulator_qualified": false
+      }
+    },
+    {
+      "case": "standing_push_y",
+      "completed_controls": 1841,
+      "failure": null,
+      "final_proof": {
+        "final_proof_root_orientation_error_max_rad": 0.273014776975633,
+        "final_proof_root_position_error_max_m": 0.4048276376803296,
+        "final_proof_root_speed_max_m_s": 0.0462239940099654,
+        "final_proof_standing_joint_error_max_rad": 0.7109795057356579
+      },
+      "policy": "experimental_feedback_priority100",
+      "requested_controls": 1841,
+      "root_position_p95_m": 0.470669686794281,
+      "source_frames_all_evaluated": true,
+      "source_motion_tracking": {
+        "contact_timing_or_forbidden_contact_qualified": false,
+        "deployment_ready": false,
+        "foot_metric_is_ankle_origin_not_contact_or_slip": true,
+        "full_source_motion_completed": true,
+        "generalization_qualified": false,
+        "hardware_authorized": false,
+        "landmark_position_p95_m": {
+          "head_point": 0.5139040539783559,
+          "left_ankle_origin": 0.5555261514792378,
+          "left_hand_point": 0.5912963323642636,
+          "right_ankle_origin": 0.4707396083128583,
+          "right_hand_point": 0.6247757637293252
+        },
+        "lifecycle_qualified": false,
+        "original_29dof_source_fidelity_measured": false,
+        "provisional_reference_landmark_screen_passed": false,
+        "reference_landmark_thresholds_m": {
+          "head_point": 0.1,
+          "left_ankle_origin": 0.05,
+          "left_hand_point": 0.1,
+          "right_ankle_origin": 0.05,
+          "right_hand_point": 0.1
+        },
+        "simulator_qualified": false
+      }
+    }
+  ],
+  "shared_simulation_contract": {
+    "compiled_model_sha256": "998b2607067d311d3cb17ad77656574d9911839795b2a7c3adb28ab45f0916e6",
+    "effort_limit_hardware_nm": [
+      88.0,
+      139.0,
+      88.0,
+      139.0,
+      35.0,
+      35.0,
+      88.0,
+      139.0,
+      88.0,
+      139.0,
+      35.0,
+      35.0,
+      88.0,
+      25.0,
+      25.0,
+      25.0,
+      25.0,
+      25.0,
+      25.0,
+      25.0,
+      25.0,
+      25.0,
+      25.0
+    ],
+    "initial_state_and_history_sha256": "eaee8b866c2daeb5923782124c620b195877c6ab493f4e1c82bee88569ab6650",
+    "kd_hardware": [
+      2.557889765,
+      6.308801854,
+      2.557889765,
+      6.308801854,
+      1.814445687,
+      1.814445687,
+      2.557889765,
+      6.308801854,
+      2.557889765,
+      6.308801854,
+      1.814445687,
+      1.814445687,
+      2.557889765,
+      0.907222843,
+      0.907222843,
+      0.907222843,
+      0.907222843,
+      0.907222843,
+      0.907222843,
+      0.907222843,
+      0.907222843,
+      0.907222843,
+      0.907222843
+    ],
+    "kp_hardware": [
+      40.179238474,
+      99.098427782,
+      40.179238474,
+      99.098427782,
+      28.501246197,
+      28.501246197,
+      40.179238474,
+      99.098427782,
+      40.179238474,
+      99.098427782,
+      28.501246197,
+      28.501246197,
+      40.179238474,
+      14.250623099,
+      14.250623099,
+      14.250623099,
+      14.250623099,
+      14.250623099,
+      14.250623099,
+      14.250623099,
+      14.250623099,
+      14.250623099,
+      14.250623099
+    ],
+    "motion_sha256": "012884be1d28b8a98aaa7d24d8ba4006bc62457065ef568720af6405250a527d",
+    "physics_config_sha256": "bc4dab246e709604f435dea7c584adc01f1c38a6abb6ac1bc22fc699c42272c3"
+  },
+  "source_material_count": 104,
+  "source_materials_verified": [
+    {
+      "logical_path": "causal_recovery/build_g1_23dof_low_latency_recovery_motion.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/build_g1_23dof_low_latency_recovery_motion.py",
+      "sha256": "8877e31886c84d605f3ed6d8f07e5744ca6c26408d41ed330f374800bf066198"
+    },
+    {
+      "logical_path": "causal_recovery/causal_history_runner.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/causal_history_runner.py",
+      "sha256": "03b84975f3341941199d2b7b36e17da9404c274b04710de2a0ea57baa4ae5c00"
+    },
+    {
+      "logical_path": "causal_recovery/sonic_true23_causal_history.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_causal_history.py",
+      "sha256": "13acda79144d69ee2a7870cb76656b0e0c92d5d078c1a8d0bfaba3d8f04e98b5"
+    },
+    {
+      "logical_path": "causal_recovery/sonic_true23_low_latency_recovery.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_low_latency_recovery.py",
+      "sha256": "db893c7a362f37da30f914500470f23694f5fb55a40c1ee34522b4a14cf144f9"
+    },
+    {
+      "logical_path": "causal_recovery/train_g1_23dof_mjlab_causal_history.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab_causal_history.py",
+      "sha256": "5fce5b3f88f5e66497ee38806b1184677e17c3c7b0f64b855afa88348e263e83"
+    },
+    {
+      "logical_path": "causal_recovery/train_g1_23dof_mjlab_low_latency_recovery.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab_low_latency_recovery.py",
+      "sha256": "076f2fe95e94a261dc3d75c4b589a47c744181335519d2be2d3c85b39421e3a8"
+    },
+    {
+      "logical_path": "gear_sonic/__init__.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "logical_path": "gear_sonic/data_process/convert_bones_seed_to_mjlab_npz.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/data_process/convert_bones_seed_to_mjlab_npz.py",
+      "sha256": "f96035fbfde31a5e4c5c2b9a7a647285abfd4381c36c0f8aeeb7d5d74373345a"
+    },
+    {
+      "logical_path": "gear_sonic/envs/__init__.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "logical_path": "gear_sonic/envs/mjlab/__init__.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/__init__.py",
+      "sha256": "2ed2ba70dff6822b6e3acae9e24c2f12a1fe2c81f36128d6d0fb078fd5659d6d"
+    },
+    {
+      "logical_path": "gear_sonic/envs/mjlab/native124_selected_v2_ankle_adaptation.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/native124_selected_v2_ankle_adaptation.py",
+      "sha256": "bd6030a550dd2be62b3a01db8dab3961360b119da6115df6b464b9975590da65"
+    },
+    {
+      "logical_path": "gear_sonic/envs/mjlab/native124_selected_v2_ankle_task.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/native124_selected_v2_ankle_task.py",
+      "sha256": "3598a9bda0dcf1a01bb585764dd2cb85796e3d6c058aba940df9a76252ec1655"
+    },
+    {
+      "logical_path": "gear_sonic/envs/mjlab/native124_selected_v2_causal_adaptation.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/native124_selected_v2_causal_adaptation.py",
+      "sha256": "3f0cdc4f2aa10e0e12482192db4563dd0d48c23c3ba8b68632f55b377ed5c1cf"
+    },
+    {
+      "logical_path": "gear_sonic/envs/mjlab/sonic_true23.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23.py",
+      "sha256": "64c27e20d61de6013dfb9b40c2dff01fc2908fec34be8deceed4be01224da9d4"
+    },
+    {
+      "logical_path": "gear_sonic/envs/mjlab/sonic_true23_causal_history.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_causal_history.py",
+      "sha256": "13acda79144d69ee2a7870cb76656b0e0c92d5d078c1a8d0bfaba3d8f04e98b5"
+    },
+    {
+      "logical_path": "gear_sonic/envs/mjlab/sonic_true23_causal_history_acquisition.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_causal_history_acquisition.py",
+      "sha256": "2aafc4060242d7aff4a2aec643cbd46dc139d954ec8935e3ff8b196bf6adb370"
+    },
+    {
+      "logical_path": "gear_sonic/envs/mjlab/sonic_true23_causal_history_disturbance_v9.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_causal_history_disturbance_v9.py",
+      "sha256": "4237516840ab8fcbf107a52db724619ef922969952bcc9bbd0b52d67b0afa3cb"
+    },
+    {
+      "logical_path": "gear_sonic/envs/mjlab/sonic_true23_causal_history_safe_target_v11.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_causal_history_safe_target_v11.py",
+      "sha256": "cead10e56ffaaeba5e7486bab3d9abc33fe31e2d86a90e3912f8bbbdcc43df69"
+    },
+    {
+      "logical_path": "gear_sonic/envs/mjlab/sonic_true23_causal_history_stand_acquisition.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_causal_history_stand_acquisition.py",
+      "sha256": "632d2069630d58cb9abfb36fcf7535ac041204fbb11b9dde296b850c337b7977"
+    },
+    {
+      "logical_path": "gear_sonic/envs/mjlab/sonic_true23_causal_history_stand_acquisition_v4.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_causal_history_stand_acquisition_v4.py",
+      "sha256": "2fe9f24d84f958204c72bc301fdcf36f6678b93bacb9933a4fc9b0843281150c"
+    },
+    {
+      "logical_path": "gear_sonic/envs/mjlab/sonic_true23_causal_history_stand_acquisition_v5.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_causal_history_stand_acquisition_v5.py",
+      "sha256": "2258a9d4f2a3be6d97cbcf982bf74028045017461fe1f1676a9dd9598335e4ed"
+    },
+    {
+      "logical_path": "gear_sonic/envs/mjlab/sonic_true23_causal_multimotion_v14.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_causal_multimotion_v14.py",
+      "sha256": "3b943f56d41dfaeba0f319208f7ebbae61bf0d677ad5806f29be86c3fbf039c8"
+    },
+    {
+      "logical_path": "gear_sonic/envs/mjlab/sonic_true23_generalist_curriculum.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_generalist_curriculum.py",
+      "sha256": "44b0b54f175456c25dccb08b409a9e8cf5e910310cc18e72ce106aab6a4d7f9b"
+    },
+    {
+      "logical_path": "gear_sonic/envs/mjlab/sonic_true23_low_latency_recovery.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_low_latency_recovery.py",
+      "sha256": "db893c7a362f37da30f914500470f23694f5fb55a40c1ee34522b4a14cf144f9"
+    },
+    {
+      "logical_path": "gear_sonic/envs/mjlab/sonic_true23_native_model_actuation.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_native_model_actuation.py",
+      "sha256": "09e34b5f0707732db29bb6db2833ce630ea40c40924122f1c25033c5e7e1285c"
+    },
+    {
+      "logical_path": "gear_sonic/envs/mjlab/sonic_true23_root_feedback.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_root_feedback.py",
+      "sha256": "3358ee109b33eccaf1a6555fa5b67e7789a086c58078c91577636b3401da6279"
+    },
+    {
+      "logical_path": "gear_sonic/envs/mjlab/sonic_true23_student_qualification.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_student_qualification.py",
+      "sha256": "518e81b5d122947b12d47a32600dfd098ccd745895955b2c4e72759803095907"
+    },
+    {
+      "logical_path": "gear_sonic/scripts/export_g1_true23_generalist.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/export_g1_true23_generalist.py",
+      "sha256": "45c31a7e08632b2c6504995318ee1bf3ed3abb27a3a00d476beaca8571325d56"
+    },
+    {
+      "logical_path": "gear_sonic/scripts/export_g1_true23_root_feedback.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/export_g1_true23_root_feedback.py",
+      "sha256": "a66af776f08c4723441455df9bbef08ec169e378b0e309861fe0402b3bae8281"
+    },
+    {
+      "logical_path": "gear_sonic/scripts/init_g1_23dof_checkpoint.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/init_g1_23dof_checkpoint.py",
+      "sha256": "0bc3f36da93304d6a30a35452da91015346472349fb70c4ab62ec81d8ae88ec1"
+    },
+    {
+      "logical_path": "gear_sonic/scripts/render_g1_sonic_library_motions.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/render_g1_sonic_library_motions.py",
+      "sha256": "a38d22b357efb4a70a681a9b08b8a897a994a474fe2acf19195dcd751b66b894"
+    },
+    {
+      "logical_path": "gear_sonic/scripts/retarget_g1_29dof_to_23dof_task_space.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/retarget_g1_29dof_to_23dof_task_space.py",
+      "sha256": "7b1d1a3d54e3ee654491efb8a27ffb7355e4200aeb8176ef545969b56be80fc0"
+    },
+    {
+      "logical_path": "gear_sonic/scripts/simulate_g1_sonic_library_motions.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/simulate_g1_sonic_library_motions.py",
+      "sha256": "b51bce06cf5722f365aaa8071daad7d399d6c5fb7910fdc111f9156786c0dfed"
+    },
+    {
+      "logical_path": "gear_sonic/scripts/train_g1_23dof_mjlab.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab.py",
+      "sha256": "888462e28b1bb91414fdb24e63bac112623ae691f75cb601eb2af007241879b8"
+    },
+    {
+      "logical_path": "gear_sonic/scripts/train_g1_23dof_mjlab_causal_history.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab_causal_history.py",
+      "sha256": "5fce5b3f88f5e66497ee38806b1184677e17c3c7b0f64b855afa88348e263e83"
+    },
+    {
+      "logical_path": "gear_sonic/scripts/train_g1_23dof_mjlab_low_latency_recovery.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab_low_latency_recovery.py",
+      "sha256": "076f2fe95e94a261dc3d75c4b589a47c744181335519d2be2d3c85b39421e3a8"
+    },
+    {
+      "logical_path": "gear_sonic/scripts/train_g1_23dof_mjlab_teleop_v13.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab_teleop_v13.py",
+      "sha256": "5d14a4db598fe80d93ac7398c9dd09e91327353d964b56ab3f4978401c168362"
+    },
+    {
+      "logical_path": "gear_sonic/scripts/train_g1_true23_generalist.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_true23_generalist.py",
+      "sha256": "88bb3560e420598ddccac7e97caebeb67b67cf0816f32e80be0b144fe477e2ad"
+    },
+    {
+      "logical_path": "gear_sonic/scripts/train_g1_true23_generalist_curriculum.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_true23_generalist_curriculum.py",
+      "sha256": "3612dcf6f95a6715056fc78d89d72700e6f09f7abd4707be089d843e08ac196f"
+    },
+    {
+      "logical_path": "gear_sonic/scripts/train_g1_true23_root_feedback.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_true23_root_feedback.py",
+      "sha256": "7d2006cf83342e05c5fa91672fe28355ccbf2e6afe0ad56cc618af7eab0cca4f"
+    },
+    {
+      "logical_path": "gear_sonic/trl/__init__.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "logical_path": "gear_sonic/trl/callbacks/__init__.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/callbacks/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "logical_path": "gear_sonic/trl/mjlab/__init__.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/__init__.py",
+      "sha256": "4c176ddb502566901d9c02ca62c9dc06b5cc772e86ba2ccb7edbaaafa9935143"
+    },
+    {
+      "logical_path": "gear_sonic/trl/mjlab/causal_history_runner.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/causal_history_runner.py",
+      "sha256": "03b84975f3341941199d2b7b36e17da9404c274b04710de2a0ea57baa4ae5c00"
+    },
+    {
+      "logical_path": "gear_sonic/trl/mjlab/causal_teleop_runner_v13.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/causal_teleop_runner_v13.py",
+      "sha256": "3d9a136817e219fe619a97e4e8aaeeb753029dcb319c38a63384734e7af5a5ba"
+    },
+    {
+      "logical_path": "gear_sonic/trl/mjlab/config.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/config.py",
+      "sha256": "b090b9476145773d2aaf74464b55e5db75e0cbdc45d7de5d22483efe3dc6ac95"
+    },
+    {
+      "logical_path": "gear_sonic/trl/mjlab/frozen_platform_lora_actor.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/frozen_platform_lora_actor.py",
+      "sha256": "8412b1ebba479312f3b6f1d016acd41a74b16c60a4c54c926beef45ced2cf085"
+    },
+    {
+      "logical_path": "gear_sonic/trl/mjlab/frozen_platform_lora_runner.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/frozen_platform_lora_runner.py",
+      "sha256": "1eecf5e08295201851f88f90e616007d1db1ec8c10f0543881a24bb909963571"
+    },
+    {
+      "logical_path": "gear_sonic/trl/mjlab/native23_generalist_actor.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/native23_generalist_actor.py",
+      "sha256": "7946922d2bdd71e1ac8a8083bf656829c7d3fd763077c81526fdf71cd474b42d"
+    },
+    {
+      "logical_path": "gear_sonic/trl/mjlab/native23_generalist_runner.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/native23_generalist_runner.py",
+      "sha256": "1e705b3ca9543203e261860aefe1dd969aae950394d301ba4a7d50f6b87905b4"
+    },
+    {
+      "logical_path": "gear_sonic/trl/mjlab/native23_root_feedback_actor.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/native23_root_feedback_actor.py",
+      "sha256": "dbcacd20cfb5e42fc06377fa660fcf98a6b1e8d8c7a18b3f84eae495ed3cedf4"
+    },
+    {
+      "logical_path": "gear_sonic/trl/mjlab/native23_root_feedback_runner.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/native23_root_feedback_runner.py",
+      "sha256": "79501b2a18ef4ca7427ee6d8f0913a98902cafdf3b312013877753da87f17938"
+    },
+    {
+      "logical_path": "gear_sonic/trl/mjlab/runner.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/runner.py",
+      "sha256": "dd25b62f05de7c1fab623b3aa224749dbb1a2ce96d3581caf2f1d70e40605c2d"
+    },
+    {
+      "logical_path": "gear_sonic/trl/mjlab/sonic_task_space_ppo_runner.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/sonic_task_space_ppo_runner.py",
+      "sha256": "f59ed807b67a4fe2281d940b707fd6782dafc0325611fb34564a82403504c460"
+    },
+    {
+      "logical_path": "gear_sonic/trl/mjlab/true23_actor.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/true23_actor.py",
+      "sha256": "d41f954cb7ca750c6becb10df931e6e9ecf763dc6ff758f2ddc846d6d0086efe"
+    },
+    {
+      "logical_path": "gear_sonic/trl/modules/__init__.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/modules/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "logical_path": "gear_sonic/trl/modules/base_module.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/modules/base_module.py",
+      "sha256": "52774caceae54c7362409603666366c0d2550a8ea8a895051d635ca7b75d1e69"
+    },
+    {
+      "logical_path": "gear_sonic/trl/utils/__init__.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/utils/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "logical_path": "gear_sonic/trl/utils/g1_23dof_checkpoint.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/utils/g1_23dof_checkpoint.py",
+      "sha256": "a55cb5c9d57ca09d3fe8e2d4c8a0448d294fb85757a33135e0be63b84f89374b"
+    },
+    {
+      "logical_path": "gear_sonic/utils/__init__.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_23dof_artifact.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_artifact.py",
+      "sha256": "cda9d310aa52053b765e53081ef00b2b64d4f56a134ce7ff06494d7023c145dc"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_23dof_checkpoint_io.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_checkpoint_io.py",
+      "sha256": "e1c970258de1f79d12c08b4db4af7ae680bbd0158f48b6c9fcb204d7e0c4c827"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_23dof_contract.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_contract.py",
+      "sha256": "113ba62dd9734b77c4c32f812e5891066c5bac0c21635c74739b643267fef55a"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_23dof_live_shadow.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_live_shadow.py",
+      "sha256": "2c8f6977b795a25e00e3b1ccf92a7a181d6c6de64dd9a9a14972e1cd0742a95f"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_23dof_mjlab_training.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_mjlab_training.py",
+      "sha256": "9c6ed3735abb904477ec3598579df5a821ce177d9a7954bd884b6f7e54ce5be3"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_23dof_mujoco_promotion.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_mujoco_promotion.py",
+      "sha256": "96cd3848b4543b03685e37170902945fbdb1754a27fd47ab31d1525add240e3f"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_23dof_mujoco_sim2sim.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_mujoco_sim2sim.py",
+      "sha256": "9c45f4b5477c6b0138ab6ed464b64b7463f07e38bd415cbb65b929e5d632c22e"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_23dof_native124_21204_adapter.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_native124_21204_adapter.py",
+      "sha256": "c257ef4c86844f4b2f8d0fa0e1c4d6cf71e2a00fa974013e5dc8e7b2f9988a15"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_23dof_native124_policy.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_native124_policy.py",
+      "sha256": "9328d5a176d6b9379a4bfc1a3a94fe14144a1297eb0be0be70b3543201dabf87"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_23dof_pico_retargeted_producer.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_pico_retargeted_producer.py",
+      "sha256": "a688a6441b5d704871c38b2ab2b61e18399cb4bfbe49582b0105281cbe6d0709"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_23dof_safe_target_transform.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_safe_target_transform.py",
+      "sha256": "13bb352b59faa83195c7b423d40056ab37deab197a8aa66f8e0aaa33641503cf"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_23dof_semantic_reference.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_semantic_reference.py",
+      "sha256": "6d8d2c0dd5f9ab843ceaf003d34d39ca3809310ca9be18d65c8f136da5fa60cc"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_23dof_task_space_qualification.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_task_space_qualification.py",
+      "sha256": "87e3d899898cdcc7a560f426c715fa1fc2fd6a185f9825a681b75e512fad3a88"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_23dof_task_space_retarget.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_task_space_retarget.py",
+      "sha256": "c170d49b15066b66a96eee10e21c9209a91a12dc0da724922e3a39feb463f9a6"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_23dof_trajectory_projection.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_trajectory_projection.py",
+      "sha256": "cd6ca43154a35e48252298157671d4251e70793a4ccba3eeda66edbcf1f35f94"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_23dof_xr24_soma_adapter.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_xr24_soma_adapter.py",
+      "sha256": "c216cbf0b60e29b78e5fdc66d2e521db437755e56d62c12ff52f28a00a6fb25a"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_23dof_xr24_soma_stream.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_xr24_soma_stream.py",
+      "sha256": "92fcc3455e4783a50f4cb7bcae26ed6ee364e29348fd760c15e83622fe07c104"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_29dof_low_latency_teacher.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_29dof_low_latency_teacher.py",
+      "sha256": "31d8051294a93eec04c40d6e5fa131ec87cbf9330aade03bd5f2010ffd623ac5"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_sonic_cpp_parameters.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_sonic_cpp_parameters.py",
+      "sha256": "beb16f821c1989a4f64a5937fccd4faeddae4f1cc913cb38d2a1c3c05dd7b099"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_true23_box_qp.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_box_qp.py",
+      "sha256": "196efd4d02e632896f506ce1eb46a67ca60b7fd7b59624d1e1739f592c6610b9"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_true23_clean_mujoco_teleop.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_clean_mujoco_teleop.py",
+      "sha256": "0630709a9e55d5ce782dc93944aa8faeba24ff680bdd8c163ce324416bfb897a"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_true23_contact_geometry.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_contact_geometry.py",
+      "sha256": "0b1562dcf9428e88d1d3c5f1485c992faa3560ea27c828b2358048735fd7bc9c"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_true23_generalist_benchmark.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_generalist_benchmark.py",
+      "sha256": "10a8fe4a6b70592f5604f21c735d6810f6295ef435924499b8ed99ffcd085aa4"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_true23_generalist_corpus.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_generalist_corpus.py",
+      "sha256": "e08d8d15fe689c052af0d35b91f08eb42079f0b00da51db4623b1e759e7fb3e3"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_true23_generalist_curriculum.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_generalist_curriculum.py",
+      "sha256": "3c67404ca357fe2d3eaa1443d79be79fcc2bf507fb9111567a26b39ab8aa40c1"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_true23_generalist_lifecycle.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_generalist_lifecycle.py",
+      "sha256": "318e7d5eb633f769f211870f50cd25283c2e0ea224629e1a0015ef37aefe91e2"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_true23_generalist_source_closure.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_generalist_source_closure.py",
+      "sha256": "f34e1c0cf9cc6b37356ba245114acceb3bc0e95a94c7c84997aa3c113248bf5b"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_true23_hand_frame_tasks.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_hand_frame_tasks.py",
+      "sha256": "5977fba5835ef999a81a8191c6cf932a8b4a8c06c206fbca59b50376c45abffd"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_true23_motion_fidelity.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_motion_fidelity.py",
+      "sha256": "689de00a422e7071ee4ba60e5ebb2087b77d11faccc20d6bfb5d0af587d2a863"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_true23_native_model_actuation.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_native_model_actuation.py",
+      "sha256": "9f6d27c23b510938c3a90f4f2c8da8787433d91a2c78346e0d25a6a7eadad885"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_true23_original_task_trajectory.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_original_task_trajectory.py",
+      "sha256": "4270177ea9805f44d0fed0f68a56fea1cf966d6ef0cbb474a05e66f626bd43e6"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_true23_reference_floor.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_reference_floor.py",
+      "sha256": "cd86d49d9767f77ba1c81258a4d0b53f4be5f334c0a763a68169eeee5e694510"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_true23_root_feedback.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_root_feedback.py",
+      "sha256": "ffe59f211980d14961be21f85374cc5aa861ceb2e1bec6580e1186ee1704262f"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_true23_sim_acquisition.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_sim_acquisition.py",
+      "sha256": "41d97a7fc6a304ab40156d4e059aa1e82b0d7e6414c6371fdcabfdc4ffe528ab"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_true23_sonic_library_replay.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_sonic_library_replay.py",
+      "sha256": "92fd5add66ee9f37a708d358132cc48686ce8f7c520225f7ac8a99e8b908f28f"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_true23_step1b_mujoco.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_step1b_mujoco.py",
+      "sha256": "ffed3a136b9c0f7343fd768a880fc395ce8f4737b735b7158c8f8ddd375ead3d"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_true23_step1b_qualification.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_step1b_qualification.py",
+      "sha256": "13e8d32fc2afdf0d93c33d82e24d950f64f63b28132c3100c29e8e474ce67ea9"
+    },
+    {
+      "logical_path": "gear_sonic/utils/g1_true23_training_precision.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_training_precision.py",
+      "sha256": "cd605f8445e2dab59e0d3cfec96c25a430d0b9cb0e9cfe6f6ac5ffbf4d4f6548"
+    },
+    {
+      "logical_path": "native23_generalist/actuation_config.json",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/config/sim_validation/g1_23dof_mujoco_sim2sim.json",
+      "sha256": "bc4dab246e709604f435dea7c584adc01f1c38a6abb6ac1bc22fc699c42272c3"
+    },
+    {
+      "logical_path": "native23_root_feedback/curriculum.spans.json",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/root_feedback_regression_20260907_v2/inputs/curriculum.spans.json",
+      "sha256": "6a00aeb32e8d2bcd2695993c15307403ec2273ddd760f275157ed683c98bd0a2"
+    },
+    {
+      "logical_path": "unitree_rl_mjlab/src/assets/robots/unitree_g1/g1_23dof_constants.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/g1_23dof_constants.py",
+      "sha256": "5cfcb779fa6795a604d0b140caf8082c40e623324d79f98bfb15c49031e60797"
+    },
+    {
+      "logical_path": "unitree_rl_mjlab/src/tasks/tracking/config/g1_23dof/env_cfgs.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/tasks/tracking/config/g1_23dof/env_cfgs.py",
+      "sha256": "338894a8b36333195565dfeb5b06115e3ded9d0dff428121b24b459e3a7530fc"
+    },
+    {
+      "logical_path": "unitree_rl_mjlab/src/tasks/tracking/mdp/commands.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/tasks/tracking/mdp/commands.py",
+      "sha256": "82c83a6fd908002aae8368c55cbe08a2ee7e60fcb8de4d5be3d6c5b2be911bbd"
+    },
+    {
+      "logical_path": "unitree_rl_mjlab/src/tasks/tracking/tracking_env_cfg.py",
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/tasks/tracking/tracking_env_cfg.py",
+      "sha256": "33f058321a7f8a0e66dbdae3d3a9cd3ea87abd7bf8eecee54daa3c6bf541a0cb"
+    }
+  ],
+  "stopped_uniform_candidate_not_used_for_percentage_comparison": true,
+  "training_updates": 100
+}

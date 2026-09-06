@@ -29,7 +29,9 @@ def array_digest(motion):
     return digest.hexdigest()
 
 
-def derive_curriculum(motion, spans, input_contract, *, stage, model, simulation_config):
+def derive_curriculum(
+    motion, spans, input_contract, *, stage, model, simulation_config, return_target="configured_origin"
+):
     """Derive references only from the exact already-validated source arrays."""
     if stage not in STAGES:
         raise ValueError("unsupported generalist curriculum stage")
@@ -61,7 +63,9 @@ def derive_curriculum(motion, spans, input_contract, *, stage, model, simulation
             for key in ("joint_vel", "body_lin_vel_w", "body_ang_vel_w"):
                 requested[key][:] = 0
             requested["fps"] = np.array([50.0])
-        derived, timeline = build_lifecycle_timeline(requested, model=model, simulation_config=simulation_config)
+        derived, timeline = build_lifecycle_timeline(
+            requested, model=model, simulation_config=simulation_config, return_target=return_target
+        )
         timeline["source_input_kind"] = (
             "complete_original_source" if stage == "lifecycle" else "first_source_pose_repeated_zero_velocity"
         )

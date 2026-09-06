@@ -8,6 +8,7 @@ Full-clip preprocessing is deliberately rejected at the live-input boundary.
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, replace
+from copy import deepcopy
 import math
 from typing import Any
 
@@ -77,6 +78,7 @@ class AdaptationResult:
     accepted: bool
     arrays: dict[str, np.ndarray] | None
     report: dict[str, Any]
+    diagnostic_arrays: dict[str, np.ndarray] | None = None
 
 
 def validate_named_motion(
@@ -285,9 +287,43 @@ def _retarget_candidate(
     return solve("sequential_all23_fixed_root", replace(config, enable_lower_root_feasibility=False))
 
 
+def protected_frame_failure_categories(result):
+    """Exact existing expert-mask categories; overlapping failures are explicit."""
+    d, cfg = result.diagnostics, result.config
+    before = d["weighted_task_error_before"]
+    masks = {
+        "weighted_task_cost_regression": d["weighted_task_error_after"]
+        > before + cfg.priority_relative_tolerance * np.maximum(1.0, before),
+        "com_position_regression": d["task_whole_robot_com_position_error_after_m"]
+        > d["task_whole_robot_com_position_error_before_m"] + cfg.valid_max_com_regression_m,
+        "trajectory_constraint_relaxation": d["constraint_relaxation_count"] != 0,
+        "native_action_clip": np.any(np.abs(result.action_target_native) > cfg.native_action_clip, axis=1),
+    }
+    for foot in ("left_foot", "right_foot"):
+        masks[f"{foot}_position"] = d[f"task_{foot}_position_error_after_m"] > cfg.valid_max_foot_position_error_m
+        masks[f"{foot}_orientation_regression"] = (
+            d[f"task_{foot}_orientation_error_after_rad"]
+            > d[f"task_{foot}_orientation_error_before_rad"] + cfg.valid_max_foot_orientation_regression_rad
+        )
+    union = np.logical_or.reduce(list(masks.values()))
+    if not np.array_equal(~union, result.expert_valid_mask()):
+        raise ValueError("per-frame protected failure categories disagree with original expert gate")
+    return {
+        "frame_count": len(union),
+        "invalid_frame_count": int(union.sum()),
+        "valid_frame_count": int((~union).sum()),
+        "category_counts_overlap": True,
+        "categories": {
+            name: {"count": int(mask.sum()), "frame_indices": np.flatnonzero(mask).tolist()}
+            for name, mask in masks.items()
+        },
+    }
+
+
 def _candidate_assessment(result, original_positions, limits):
     """Shared acceptance gate, identical for fixed-root and SE(3) strategies."""
     summary = result.summary()
+    summary["protected_frame_failure_categories"] = protected_frame_failure_categories(result)
     fidelity = task_space_fidelity(original_positions, result.desired_task_pos_w, result.achieved_task_pos_w)
     failures = [
         failure for failure in summary["kinematic_gate_failures"] if failure != "no mean task-space improvement"
@@ -489,6 +525,251 @@ def _refine_root_reference(source_model, target_model, candidate, previous, rece
     return _refined_result_from_qpos(source_model, target_model, candidate, previous, qpos, report)
 
 
+def _restore_retained_diagnostic(source_model, target_model, candidate, stored, config):
+    """Revalidate saved source/baseline with actual FK before using a reject as a seed."""
+    requested = np.column_stack((candidate["root_pos_w"], candidate["root_quat_wxyz"], candidate["joint_pos"]))
+    if (
+        not np.array_equal(stored["diagnostic_only_not_accepted_motion"], [True])
+        or not np.array_equal(stored["diagnostic_requested_qpos29"], requested)
+        or not np.array_equal(stored["diagnostic_contact_flags"], candidate["contact_flags"])
+    ):
+        raise ValueError("retained diagnostic source goals or contacts differ from this full candidate")
+    count = len(requested)
+    pose = np.asarray(stored["diagnostic_qpos_native23"], dtype=float)
+    prior = np.asarray(stored["diagnostic_fixed_root_qpos_native23"], dtype=float)
+    direct = np.asarray(stored["diagnostic_direct_joints_native23"], dtype=float)
+    if pose.shape != (count, 30) or prior.shape != pose.shape or direct.shape != (count, 23):
+        raise ValueError("retained full-path diagnostic shapes differ")
+    if not all(np.isfinite(x).all() for x in (pose, prior, direct)):
+        raise ValueError("retained diagnostic contains nonfinite state")
+    source_layout = ik._model_layout(source_model)
+    layout = ik._safe_target_layout(
+        ik._model_layout(target_model), config.safe_limit_guard_rad, config.native_action_clip
+    )
+    mapped = candidate["joint_pos"][:, [source_layout.joint_names.index(name) for name in layout.joint_names]]
+    if not np.array_equal(direct, np.clip(mapped, layout.lower, layout.upper)):
+        raise ValueError("retained direct baseline is not the original source-mapped guarded native23 baseline")
+    reserved = {
+        "diagnostic_only_not_accepted_motion",
+        "diagnostic_qpos_native23",
+        "diagnostic_fixed_root_qpos_native23",
+        "diagnostic_direct_joints_native23",
+        "diagnostic_requested_qpos29",
+        "diagnostic_contact_flags",
+    }
+    diagnostics = {
+        key.removeprefix("diagnostic_"): np.asarray(value, dtype=float).copy()
+        for key, value in stored.items()
+        if key.startswith("diagnostic_") and key not in reserved
+    }
+    if any(value.shape != (count,) or not np.isfinite(value).all() for value in diagnostics.values()):
+        raise ValueError("retained per-frame diagnostic schema differs")
+    source_data, data = mujoco.MjData(source_model), mujoco.MjData(target_model)
+    for frame in range(count):
+        ik._set_configuration(
+            source_model,
+            source_data,
+            source_layout,
+            requested[frame, :3],
+            requested[frame, 3:7],
+            requested[frame, 7:],
+        )
+        targets = ik._task_targets(source_model, source_data, ik.DEFAULT_TASKS)
+        ik._set_configuration(
+            target_model, data, layout, requested[frame, :3], requested[frame, 3:7], direct[frame]
+        )
+        jacobian, residual, position, orientation, _, _ = ik._task_linearization(
+            target_model,
+            data,
+            layout,
+            ik.DEFAULT_TASKS,
+            targets,
+            tuple(candidate["contact_flags"][frame]),
+            config.contact_weight_multiplier,
+            np.arange(23),
+        )
+        comparisons = [("weighted_task_error_before", ik._weighted_task_error(jacobian, residual))]
+        for index, task in enumerate(ik.DEFAULT_TASKS):
+            comparisons.extend(
+                (
+                    (f"task_{task.name}_position_error_before_m", position[index]),
+                    (f"task_{task.name}_orientation_error_before_rad", orientation[index]),
+                )
+            )
+        if any(
+            not np.isclose(diagnostics[key][frame], value, atol=1e-12, rtol=1e-10) for key, value in comparisons
+        ):
+            raise ValueError("retained protected baseline fails independent original-model FK audit")
+    desired_positions, desired_quats = _source_task_poses(source_model, candidate)
+    result = ik.RetargetResult(
+        source_root_pos_w=candidate["root_pos_w"].copy(),
+        root_pos_w=pose[:, :3],
+        root_quat_wxyz=pose[:, 3:7],
+        root_offset_w=pose[:, :3] - candidate["root_pos_w"],
+        direct_joint_pos_hardware=direct,
+        joint_pos_hardware=pose[:, 7:],
+        direct_action_native=ik._hardware_targets_to_raw_native(direct),
+        action_target_native=ik._hardware_targets_to_raw_native(pose[:, 7:]),
+        contact_flags=candidate["contact_flags"].copy(),
+        desired_task_pos_w=desired_positions,
+        desired_task_quat_wxyz=desired_quats,
+        achieved_task_pos_w=desired_positions.copy(),
+        achieved_task_quat_wxyz=desired_quats.copy(),
+        task_has_orientation=np.array([t.orientation_weight > 0 for t in ik.DEFAULT_TASKS]),
+        task_names=tuple(t.name for t in ik.DEFAULT_TASKS),
+        diagnostics=diagnostics,
+        fps=50.0,
+        config=config,
+    )
+    # Refresh the retained after-errors too, not only its immutable before-baseline.
+    refreshed = _refined_result_from_qpos(
+        source_model,
+        target_model,
+        candidate,
+        result,
+        pose,
+        {"iterations": [], "seed_projection": {"iterations": 0}},
+    )
+    for key in (
+        "weighted_task_error_after",
+        "task_whole_robot_com_position_error_after_m",
+        "task_left_foot_orientation_error_after_rad",
+        "task_right_foot_orientation_error_after_rad",
+    ):
+        if not np.allclose(refreshed.diagnostics[key], diagnostics[key], atol=1e-12, rtol=1e-10):
+            raise ValueError("retained rejected pose fails independent after-error FK audit")
+    return refreshed
+
+
+def refine_retained_protected_motion(*, source_model, target_model, arrays, stored, forensic_report):
+    """One hard-protected refinement of a fully bound rejected 2x/0.9 candidate."""
+    from gear_sonic.utils.g1_23dof_trajectory_projection import project_nearest_trajectory
+    from gear_sonic.utils.g1_true23_original_task_trajectory import OriginalTaskConfig, OriginalTaskPath
+    from gear_sonic.utils.g1_true23_generalist_protected_root import fit_protected_task_path
+
+    limits = AdaptationLimits(duration_scales=(2.0,), excursion_scales=(0.9,))
+    if forensic_report.get("accepted") is not False or len(forensic_report.get("attempts", [])) != 1:
+        raise ValueError("hard refinement requires one explicitly rejected full candidate")
+    parent = forensic_report["attempts"][0]
+    if (
+        parent.get("actual_duration_scale") != 2
+        or parent.get("requested_excursion_scale") != 0.9
+        or forensic_report.get("source_role") != "requested_choreography"
+    ):
+        raise ValueError("retained candidate adaptation bounds or source role differ")
+    source = validate_named_motion(arrays, source_model, allow_source_limit_excess=True)
+    if "contact_flags" not in source:
+        feet = ik._source_foot_positions(
+            source_model,
+            ik._model_layout(source_model),
+            source["root_pos_w"],
+            source["root_quat_wxyz"],
+            source["joint_pos"],
+        )
+        source["contact_flags"] = ik.infer_foot_contacts(
+            feet, fps=float(source["fps"][0]), height_tolerance_m=0.035, speed_tolerance_m_s=0.45
+        )
+    original, source_times, _ = _resample(source, 2.0, limits)
+    candidate = _reduce_excursion(original, 0.9)
+    if not np.array_equal(source_times, stored["source_time_map_s"]):
+        raise ValueError("retained source-time map differs or omits original endpoints")
+    config = ik.RetargetConfig(**forensic_report["ik_config"])
+    if config != ik.RetargetConfig(optimize_lower_body=True, allow_acceleration_constraint_relaxation=False):
+        raise ValueError("retained diagnostic changes the unchanged protected/trajectory configuration")
+    baseline = _restore_retained_diagnostic(source_model, target_model, candidate, stored, config)
+    original_positions, original_quats = _source_task_poses(source_model, original)
+    summary, fidelity, failures = _candidate_assessment(baseline, original_positions, limits)
+    if any("adaptation exceeds 20%" in failure for failure in failures):
+        raise ValueError("retained source adaptation already exceeds original task-space distortion gate")
+    cfg = OriginalTaskConfig()
+    low, high = ik.safe_target_joint_bounds(target_model, native_action_clip=9.5, safe_limit_guard_rad=0.05)
+    prior = stored["diagnostic_fixed_root_qpos_native23"][:, 7:]
+    projection = project_nearest_trajectory(
+        prior,
+        lower_bounds=low,
+        upper_bounds=high,
+        dt=0.02,
+        max_velocity=cfg.joint_velocity_rad_s * cfg.serialization_margin_fraction,
+        max_acceleration=cfg.joint_acceleration_rad_s2 * cfg.serialization_margin_fraction,
+        initial_velocity=np.clip(
+            (prior[1] - prior[0]) / 0.02, -cfg.joint_velocity_rad_s, cfg.joint_velocity_rad_s
+        ),
+    )
+    requested = stored["diagnostic_requested_qpos29"]
+    problem = OriginalTaskPath(source_model, target_model, requested, projection.projected_path, config=cfg)
+    pose = stored["diagnostic_qpos_native23"]
+    initial = np.column_stack(
+        (
+            pose[:, :3] - requested[:, :3],
+            (Rotation.from_quat(pose[:, [4, 5, 6, 3]]) * problem.source_rotation.inv()).as_rotvec(),
+            pose[:, 7:],
+        )
+    )
+    variables, fit_report = fit_protected_task_path(problem, initial, baseline)
+    fit_report["seed_projection"] = {"iterations": projection.iterations, "audit": asdict(projection.audit)}
+    motion = problem.serialize(variables)
+    fit_report["serialized_path_constraints"] = problem.audit(problem.serialized_variables(motion))
+    receipt = {
+        "strategy": "hard_soc_protected_root_se3_and_all23",
+        "requested_frames": len(initial),
+        "completed": False,
+        "fit_report": fit_report,
+    }
+    if not fit_report["serialized_path_constraints"]["passed"]:
+        failures = [*failures, "hard protected refinement failed independent serialization audit"]
+        result = baseline
+    else:
+        qpos = np.column_stack((motion["body_pos_w"][:, 0], motion["body_quat_w"][:, 0], motion["joint_pos"]))
+        result = _refined_result_from_qpos(source_model, target_model, candidate, baseline, qpos, fit_report)
+        summary, fidelity, failures = _candidate_assessment(result, original_positions, limits)
+        receipt.update(completed=True, completed_frames=len(qpos))
+    report = deepcopy(forensic_report)
+    attempt = report["attempts"][0]
+    attempt["before_hard_protected_refinement"] = {
+        "ik_summary": parent["ik_summary"],
+        "failures": parent["failures"],
+    }
+    attempt["solver_attempts"].append(receipt)
+    attempt.update(
+        accepted=not failures,
+        failures=failures,
+        fidelity=fidelity,
+        ik_summary=summary,
+        solver_strategy=receipt["strategy"],
+    )
+    report.update(
+        accepted=not failures,
+        selected_attempt=0 if not failures else None,
+        hard_protected_refinement_requested=True,
+        hardware_authorized=False,
+        deployment_ready=False,
+    )
+    diagnostics = {key: value.copy() for key, value in stored.items()}
+    diagnostics["diagnostic_qpos_native23"] = np.column_stack(
+        (result.root_pos_w, result.root_quat_wxyz, result.joint_pos_hardware)
+    )
+    diagnostics.update({f"diagnostic_{key}": value for key, value in result.diagnostics.items()})
+    accepted_arrays = None
+    if not failures:
+        accepted_arrays = {
+            **ik.build_mjlab_motion_arrays(target_model, result),
+            "joint_names": np.asarray(ik._model_layout(target_model).joint_names),
+            "source_joint_names": source["joint_names"],
+            "timestamps_s": np.arange(len(source_times)) / 50,
+            "source_time_map_s": source_times,
+            "source_joint_pos_resampled": original["joint_pos"],
+            "source_root_pos_w_resampled": original["root_pos_w"],
+            "source_root_quat_wxyz_resampled": original["root_quat_wxyz"],
+            "source_task_pos_w": original_positions,
+            "source_task_quat_wxyz": original_quats,
+            "adapted_task_pos_w": result.desired_task_pos_w,
+            "achieved_task_pos_w": result.achieved_task_pos_w,
+            "contact_flags": result.contact_flags,
+            "task_names": np.asarray(result.task_names),
+        }
+    return AdaptationResult(not failures, accepted_arrays, report, diagnostics)
+
+
 def adapt_offline_motion(
     *,
     source_model: mujoco.MjModel,
@@ -532,6 +813,7 @@ def adapt_offline_motion(
         )
     attempts = []
     selected_arrays = None
+    diagnostic_arrays = None
     selected = None
     config = ik.RetargetConfig(
         max_iterations=limits.ik_iterations,
@@ -563,6 +845,9 @@ def adapt_offline_motion(
                     solver_attempts=attempt["solver_attempts"],
                 )
                 summary, fidelity, failures = _candidate_assessment(result, original_positions, limits)
+                fixed_root_qpos = np.column_stack(
+                    (result.root_pos_w, result.root_quat_wxyz, result.joint_pos_hardware)
+                )
                 if root_reference_refinement and failures:
                     # Keep completed rejected evidence even if refinement fails
                     # before yielding a pose. Do not refine a forbidden target.
@@ -602,6 +887,23 @@ def adapt_offline_motion(
                     no_mean_improvement_does_not_disqualify_already_feasible_motion=True,
                     solver_strategy=attempt["solver_attempts"][-1]["strategy"],
                 )
+                if root_reference_refinement:
+                    # Deliberately not an MJLab motion schema: rejected states
+                    # remain inspectable without resembling accepted experts.
+                    diagnostic_arrays = {
+                        "diagnostic_only_not_accepted_motion": np.array([True]),
+                        "diagnostic_qpos_native23": np.column_stack(
+                            (result.root_pos_w, result.root_quat_wxyz, result.joint_pos_hardware)
+                        ),
+                        "diagnostic_fixed_root_qpos_native23": fixed_root_qpos,
+                        "diagnostic_direct_joints_native23": result.direct_joint_pos_hardware,
+                        "diagnostic_requested_qpos29": np.column_stack(
+                            (candidate["root_pos_w"], candidate["root_quat_wxyz"], candidate["joint_pos"])
+                        ),
+                        "source_time_map_s": source_times,
+                        "diagnostic_contact_flags": result.contact_flags,
+                        **{f"diagnostic_{key}": value for key, value in result.diagnostics.items()},
+                    }
                 if not failures:
                     selected = len(attempts) - 1
                     selected_arrays = {
@@ -658,4 +960,4 @@ def adapt_offline_motion(
         "simulator_qualification_complete": False,
         "hardware_authorized": False,
     }
-    return AdaptationResult(selected is not None, selected_arrays, report)
+    return AdaptationResult(selected is not None, selected_arrays, report, diagnostic_arrays)

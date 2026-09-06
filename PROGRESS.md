@@ -1,5 +1,154 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-07: full root-feedback regression evaluated, not deployment-ready
+
+The second GPU experiment completed 100 PPO updates / 51,200 environment
+transitions. All 18 decoder tensors and all 36,864 feedback weights changed;
+all 10 frozen encoder tensors remained exact. Four training episodes reached
+the reference end, versus zero in the first experiment. This is episode
+coverage, not tracking qualification. All 104 declared training source-material
+entries still match their recorded bytes, including 92 local Python entries.
+Export has exact encoder probes and decoder maximum absolute error 1.0133e-6.
+
+Independent CPU evaluation uses identical initial state, full reference,
+compiled native23 model, gains and effort limits across these policies:
+
+| Policy | Completed controls: nominal / X / Y | Root position p95 m: nominal / X / Y |
+|---|---|---|
+| Preserved parent, zero feedback | 1841 / 1841 / 1841 | 0.502 / 0.431 / 0.842 |
+| First uniform-rate root100, rejected | 1077 / 981 / 829 | 3.741 / 2.709 / 1.705 |
+| Second feedback-priority root100, experimental | 1841 / 1841 / 1841 | 0.655 / 0.969 / 0.471 |
+
+The stopped first candidate has different completed denominators; its p95
+numbers are not used for percentage improvement comparisons. The second
+candidate completes all 1,091 dance samples in all three cases, without pose
+resets, fallback controllers or height/tilt stops. Nominal source landmark
+errors improve 7.6–20.5% over the parent, but the X-push source errors worsen
+21.5–82.7%; Y results are mixed. Neither parent nor candidate passes fidelity.
+Final nominal standing joint error is 0.681 rad (parent 0.645 rad), and root
+position error is 0.654 m. No candidate is promoted; no hardware was run.
+The pinned original23 baseline stopped at 645/1841 controls during the dance,
+before either return reference applies; its result is retained separately.
+
+On identical saved parent observations, dance p95 decoder action drift drops
+from 0.473 to 0.069 RMS while feedback effect rises from 0.00100 to 0.01623.
+The new optimizer profile addresses the diagnosed imbalance, but does not
+establish an overall better controller or normal-standing return.
+
+Evidence: `root_feedback_regression_20260907_v2/comparison.json`, update/export
+receipts and shared-observation audit; complete CPU results in
+`planned_v5_endpoint_priority100_20260907_v1/report.json`. All are under
+`artifacts/g1_true23_generalist/`. Candidate checkpoint SHA256:
+`f8c4f2611aab6b09b69973b7d65f5f28869deead99f89e99290cb7178d5d8421`.
+
+Verification: 448 tests pass across all 24 generalist/root-feedback/native
+actuation test modules, including legacy and differential-rate resume. Ruff
+E/F checks pass across all 56 scoped Python files. The two warnings are ONNX
+export deprecations. Final JUnit receipt:
+`root_feedback_verification_20260907_v1/pytest_final.xml`. Hash-bound staged
+source/evidence bytes match their on-disk inputs; existing dirty gantry files
+remain outside the commit. Checkpoints, ONNX binaries and NPZ traces stay local.
+
+Next controller work must improve tracking and standing together, with the
+existing completed parent as a regression baseline. Do not respond to these
+failures by retrying hardware, easing fidelity gates or changing mode-transition
+code. Broad licensed training/held-out data, dynamic/contact qualification,
+causal retarget deadlines, interrupted teleop and a qualified physical root
+estimator are still outstanding. The deployment goal is not complete.
+
+## 2026-09-07: endpoint-return correction and rejected first training candidate
+
+**Reference correction:** source choreography ends near [8.0836, -0.0848] m.
+The old generated return asked it to travel approximately 8 m back to configured
+origin in 2 s (peak reference speed7.50 m/s), while interpolating into standing.
+The prior whole-lifecycle 8 m error was therefore mostly this invalid/unqualified
+return request, not 8 m of dance drift. The independent XY-observability result
+still holds, but it must not be used to misattribute this return-reference bug.
+
+New endpoint lifecycle v2 preserves every source sample and all1841 controls,
+but requests normal standing at the **fixed planned terminal XY and heading**.
+It does not chase measured robot position or change source-world tracking gates.
+Horizontal return-reference displacement/speed are exactly zero. Root height
+and joint posture blend into configured standing. Contact/force feasibility
+and endpoint-velocity matching remain explicitly unqualified. Legacy
+`configured_origin` generation stays available and bit-identical for historical
+reproduction; new root training/evaluation defaults to `planned_endpoint`.
+
+Corrected-timeline CPU comparison (nominal, +X and +Y 4 Ns standing impulses):
+
+- Untrained root branch / preserved parent:1841/1841 controls in all3 cases,
+  but source fidelity fails; whole root position p95 is0.50/0.43/0.84 m.
+  Final standing joint error is about0.64 rad, so survival is not normal standing.
+- First root100 candidate (51,200 training transitions):1077/981/829 controls,
+  all stopped by absolute height/tilt before finishing dance. Rejected, not
+  promoted. Its optimizer/critic/loss values are finite and ONNX parity passes;
+  those facts do not establish motion quality.
+- Original pinned23dof policy on matched source/initial state/model:645/1841
+  controls, failing during dance before either return reference is used.
+
+Shared-observation diagnosis separates decoder drift from added feedback: dance
+p95 action RMS change from decoder weights0.473, feedback branch effect0.00100.
+Acquisition figures are0.128 versus0.000040. First experiment changed the base
+controller far more than it trained the missing feedback.
+
+Second bounded experiment starts from the same surviving old parent. New
+`feedback_priority` profile uses base/decoder learning rate5e-7, root conditioner
+1e-4, exploration5e-7 and critic3e-4, with fixed schedule and strict versioned
+group-rate validation. All decoder layers remain trainable; encoder remains
+frozen. Saved every20 updates, evaluated independently by100 updates. No physical
+limits, source-frame denominator or acceptance thresholds are relaxed.
+
+Evidence directories: `planned_v5_endpoint_root0_20260907_v1`,
+`planned_v5_endpoint_root100_20260907_v1`, `root_feedback_regression_20260907_v1`
+(including shared-observation drift audit), and second run
+`root_feedback_regression_20260907_v2`. Deployment goal remains incomplete.
+
+## 2026-09-07: root-conditioned controller and accepted planned reference
+
+Deployment-readiness work resumed in simulation only. No hardware commands or
+changes to existing dirty gantry/deployment files. Physical dance and live teleop
+remain unqualified; the existing goal is not complete.
+
+**Concrete reference milestone:** the full planned 29-DoF happy dance now has an
+accepted native23 adaptation. All 546 original frames are preserved through an
+explicit 2x time map into 1,091 frames. Task-space adaptation is 10.04%, below the
+approved 20% ceiling. Explicit second-order-cone constraints repair foot
+orientation and COM regression without changing any final acceptance gate.
+All protected failure categories are zero. Independent cold-file FK and raw
+planned-source lineage checks pass. Head p95 error is 3.76 cm; hands 6.85/7.12 cm;
+maximum foot position errors 1.81/2.62 mm. This is kinematic reference acceptance,
+not dynamic feasibility or controller qualification.
+
+Evidence: `artifacts/g1_true23_generalist/planned_dance_retarget_20260907_v5/`.
+Accepted motion SHA256:
+`dd325625b507d4815cae2f2795b1ae38c7f2ec33731f0c7ecd9544f26f005a91`.
+V4 forensics now resolve all 839 unique invalid frames into overlapping COM170,
+left-foot orientation267 and right-foot orientation512 failures; prior rejects
+remain on disk, never relabelled accepted.
+
+**Architecture fix implemented:** a separate 9-value input carries root position
+error and desired/measured linear velocity in measured pelvis-yaw coordinates.
+The frozen SONIC267 encoder/64-token branch and original decoder994 input remain
+unchanged. A zero-initialized 9x4096 projection adds to the decoder's first
+preactivation; all decoder tensors plus that branch, bounded noise and critic
+train. New checkpoint and two-input ONNX contracts reject legacy mislabelling.
+Zero initialization preserves the old parent exactly, including with nonzero
+feedback. Simulation ground truth is explicitly not a qualified hardware pose/
+velocity estimator.
+
+The new task binds tracking rewards and terminations to held received q10
+fixed-world targets; causal velocities use q9-to-q10 differences. Original q9
+tokenizer semantics are preserved. Root error cannot be hidden by reanchoring
+the reference to measured robot XY. Reward timing remains post-physics before
+command advance, including MJLab's existing 2 ms stale derived reward state;
+actor observations are refreshed current state.
+
+`train_g1_true23_root_feedback` provides bounded smoke, local regression and
+audited train modes. Regression is explicitly unaudited/non-generalizing, not
+an enlarged smoke run or a bypass of corpus ownership. Each session stops at
+100 updates for independent CPU evaluation. The accepted planned reference is
+the selected lifecycle input; training/evaluation outcomes follow below.
+
 ## 2026-09-07: simulation-first native23 generalist implementation
 
 **New architecture blocker:** with reference fixed, shifting robot XY by

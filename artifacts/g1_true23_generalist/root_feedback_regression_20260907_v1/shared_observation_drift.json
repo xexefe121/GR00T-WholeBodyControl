@@ -1,0 +1,2623 @@
+{
+  "counterfactual_action_only": true,
+  "deployment_ready": false,
+  "hardware_authorized": false,
+  "inputs": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/planned_v5_endpoint_root0_20260907_v1/nominal.npz": "acecab66fb441a71fd64b9fb0799ee63abbcece504ea33be191d94f3ef1acf7f",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/root_feedback_regression_20260907_v1/audit_shared_observation_drift.py": "af9ec579042f5d2330d7c77b8d72bea41f57db1a36073a19504616b34842c537",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/root_feedback_regression_20260907_v1/export_updated/decoder.root_feedback.diagnostic.onnx": "afff27ccec956ba755d16ec05ecd969a833728281ac94a8a26a2499a39f241ca",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/root_feedback_smoke_20260907_v1/export_initial/decoder.root_feedback.diagnostic.onnx": "da7abe98adc6345c59ac3a703ae47c53eb8b67d0d7bc05ecd872e7de8c5f0fdc"
+  },
+  "kind": "g1_root_feedback_shared_observation_drift_v1",
+  "new_dynamics_integrated": false,
+  "phase_summaries": {
+    "acquisition": {
+      "decoder_change_rms_p95": 0.12769873440265656,
+      "feedback_branch_effect_rms_p95": 4.010718421341154e-05,
+      "total_action_change_rms_p95": 0.12771132737398147
+    },
+    "dance": {
+      "decoder_change_rms_p95": 0.4730887860059738,
+      "feedback_branch_effect_rms_p95": 0.001002425025217235,
+      "total_action_change_rms_p95": 0.47356206774711607
+    },
+    "return_and_hold": {
+      "decoder_change_rms_p95": 0.35953678786754606,
+      "feedback_branch_effect_rms_p95": 0.00043555490410653866,
+      "total_action_change_rms_p95": 0.35915790200233455
+    },
+    "standing": {
+      "decoder_change_rms_p95": 0.13074701353907586,
+      "feedback_branch_effect_rms_p95": 4.3905264101340434e-05,
+      "total_action_change_rms_p95": 0.13076310455799103
+    }
+  },
+  "policy_improvement_proven": false,
+  "rows": [
+    {
+      "control_index": 0,
+      "decoder_change_rms": 0.06993710994720459,
+      "feedback_branch_effect_rms": 0.0,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.06993710994720459
+    },
+    {
+      "control_index": 5,
+      "decoder_change_rms": 0.12793958187103271,
+      "feedback_branch_effect_rms": 5.137048356118612e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12793245911598206
+    },
+    {
+      "control_index": 10,
+      "decoder_change_rms": 0.11719787120819092,
+      "feedback_branch_effect_rms": 8.6904430645518e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11716395616531372
+    },
+    {
+      "control_index": 15,
+      "decoder_change_rms": 0.11261871457099915,
+      "feedback_branch_effect_rms": 3.403806476853788e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11260934919118881
+    },
+    {
+      "control_index": 20,
+      "decoder_change_rms": 0.11620251834392548,
+      "feedback_branch_effect_rms": 4.151942994212732e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11621344834566116
+    },
+    {
+      "control_index": 25,
+      "decoder_change_rms": 0.12770217657089233,
+      "feedback_branch_effect_rms": 3.476228448562324e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1277105212211609
+    },
+    {
+      "control_index": 30,
+      "decoder_change_rms": 0.12857431173324585,
+      "feedback_branch_effect_rms": 2.8255739380256273e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12858428061008453
+    },
+    {
+      "control_index": 35,
+      "decoder_change_rms": 0.1187368780374527,
+      "feedback_branch_effect_rms": 2.51894580287626e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11875540763139725
+    },
+    {
+      "control_index": 40,
+      "decoder_change_rms": 0.11908233910799026,
+      "feedback_branch_effect_rms": 4.4290540245128796e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11911240965127945
+    },
+    {
+      "control_index": 45,
+      "decoder_change_rms": 0.12986986339092255,
+      "feedback_branch_effect_rms": 2.861318353097886e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12989108264446259
+    },
+    {
+      "control_index": 50,
+      "decoder_change_rms": 0.13165780901908875,
+      "feedback_branch_effect_rms": 2.406042767688632e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.13166549801826477
+    },
+    {
+      "control_index": 55,
+      "decoder_change_rms": 0.1194649189710617,
+      "feedback_branch_effect_rms": 2.6698198780650273e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11948191374540329
+    },
+    {
+      "control_index": 60,
+      "decoder_change_rms": 0.1196228638291359,
+      "feedback_branch_effect_rms": 4.343437103671022e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11965203285217285
+    },
+    {
+      "control_index": 65,
+      "decoder_change_rms": 0.13076002895832062,
+      "feedback_branch_effect_rms": 2.4899462005123496e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.13077804446220398
+    },
+    {
+      "control_index": 70,
+      "decoder_change_rms": 0.13173234462738037,
+      "feedback_branch_effect_rms": 2.2628617443842813e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.13173632323741913
+    },
+    {
+      "control_index": 75,
+      "decoder_change_rms": 0.1174914762377739,
+      "feedback_branch_effect_rms": 2.422363104415126e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11750577390193939
+    },
+    {
+      "control_index": 80,
+      "decoder_change_rms": 0.12051862478256226,
+      "feedback_branch_effect_rms": 4.081364022567868e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12054596841335297
+    },
+    {
+      "control_index": 85,
+      "decoder_change_rms": 0.13073110580444336,
+      "feedback_branch_effect_rms": 2.1796020519104786e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1307448446750641
+    },
+    {
+      "control_index": 90,
+      "decoder_change_rms": 0.12709397077560425,
+      "feedback_branch_effect_rms": 2.1882329747313634e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12709350883960724
+    },
+    {
+      "control_index": 95,
+      "decoder_change_rms": 0.11805379390716553,
+      "feedback_branch_effect_rms": 2.14756655623205e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11806460469961166
+    },
+    {
+      "control_index": 100,
+      "decoder_change_rms": 0.12081027030944824,
+      "feedback_branch_effect_rms": 3.370756166987121e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1208326444029808
+    },
+    {
+      "control_index": 105,
+      "decoder_change_rms": 0.12863557040691376,
+      "feedback_branch_effect_rms": 1.928057099576108e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12864699959754944
+    },
+    {
+      "control_index": 110,
+      "decoder_change_rms": 0.12531109154224396,
+      "feedback_branch_effect_rms": 2.2725553208147176e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12530772387981415
+    },
+    {
+      "control_index": 115,
+      "decoder_change_rms": 0.1193975955247879,
+      "feedback_branch_effect_rms": 2.342662810406182e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11940898001194
+    },
+    {
+      "control_index": 120,
+      "decoder_change_rms": 0.12020841985940933,
+      "feedback_branch_effect_rms": 3.2693515095161274e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1202298179268837
+    },
+    {
+      "control_index": 125,
+      "decoder_change_rms": 0.1294749528169632,
+      "feedback_branch_effect_rms": 1.9517245164024644e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12948736548423767
+    },
+    {
+      "control_index": 130,
+      "decoder_change_rms": 0.12351333349943161,
+      "feedback_branch_effect_rms": 2.721337295952253e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1235077753663063
+    },
+    {
+      "control_index": 135,
+      "decoder_change_rms": 0.12061825394630432,
+      "feedback_branch_effect_rms": 2.057842539215926e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12062609940767288
+    },
+    {
+      "control_index": 140,
+      "decoder_change_rms": 0.11758490651845932,
+      "feedback_branch_effect_rms": 2.459986717440188e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11760041117668152
+    },
+    {
+      "control_index": 145,
+      "decoder_change_rms": 0.12896379828453064,
+      "feedback_branch_effect_rms": 1.775275268300902e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12897321581840515
+    },
+    {
+      "control_index": 150,
+      "decoder_change_rms": 0.12390538305044174,
+      "feedback_branch_effect_rms": 1.6662097550579347e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12390729784965515
+    },
+    {
+      "control_index": 155,
+      "decoder_change_rms": 0.11900344491004944,
+      "feedback_branch_effect_rms": 1.9785453332588077e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11901316791772842
+    },
+    {
+      "control_index": 160,
+      "decoder_change_rms": 0.1200995221734047,
+      "feedback_branch_effect_rms": 2.3454429538105614e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12011504918336868
+    },
+    {
+      "control_index": 165,
+      "decoder_change_rms": 0.1283702850341797,
+      "feedback_branch_effect_rms": 1.7731046682456508e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1283780336380005
+    },
+    {
+      "control_index": 170,
+      "decoder_change_rms": 0.12376221269369125,
+      "feedback_branch_effect_rms": 1.6344611140084453e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12376297265291214
+    },
+    {
+      "control_index": 175,
+      "decoder_change_rms": 0.11560683697462082,
+      "feedback_branch_effect_rms": 2.9701555831707083e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11562278121709824
+    },
+    {
+      "control_index": 180,
+      "decoder_change_rms": 0.12348107993602753,
+      "feedback_branch_effect_rms": 2.827225034707226e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12350083887577057
+    },
+    {
+      "control_index": 185,
+      "decoder_change_rms": 0.12749060988426208,
+      "feedback_branch_effect_rms": 1.9212755432818085e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12749819457530975
+    },
+    {
+      "control_index": 190,
+      "decoder_change_rms": 0.12142430245876312,
+      "feedback_branch_effect_rms": 1.7541078705107793e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12142369896173477
+    },
+    {
+      "control_index": 195,
+      "decoder_change_rms": 0.11568831652402878,
+      "feedback_branch_effect_rms": 2.9208282285253517e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11570322513580322
+    },
+    {
+      "control_index": 200,
+      "decoder_change_rms": 0.12300644814968109,
+      "feedback_branch_effect_rms": 2.3012638848740608e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12302205711603165
+    },
+    {
+      "control_index": 205,
+      "decoder_change_rms": 0.12724561989307404,
+      "feedback_branch_effect_rms": 1.8779990568873473e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12725095450878143
+    },
+    {
+      "control_index": 210,
+      "decoder_change_rms": 0.12120019644498825,
+      "feedback_branch_effect_rms": 1.493911440775264e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1212015375494957
+    },
+    {
+      "control_index": 215,
+      "decoder_change_rms": 0.11171193420886993,
+      "feedback_branch_effect_rms": 3.3450909540988505e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11172911524772644
+    },
+    {
+      "control_index": 220,
+      "decoder_change_rms": 0.12586182355880737,
+      "feedback_branch_effect_rms": 2.6583835278870538e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1258806735277176
+    },
+    {
+      "control_index": 225,
+      "decoder_change_rms": 0.12758000195026398,
+      "feedback_branch_effect_rms": 2.1674450181308202e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12758459150791168
+    },
+    {
+      "control_index": 230,
+      "decoder_change_rms": 0.12070281058549881,
+      "feedback_branch_effect_rms": 1.572334804222919e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12070494890213013
+    },
+    {
+      "control_index": 235,
+      "decoder_change_rms": 0.1117117702960968,
+      "feedback_branch_effect_rms": 3.096502405242063e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11172788590192795
+    },
+    {
+      "control_index": 240,
+      "decoder_change_rms": 0.12684227526187897,
+      "feedback_branch_effect_rms": 2.1475734683917835e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1268569678068161
+    },
+    {
+      "control_index": 245,
+      "decoder_change_rms": 0.12714967131614685,
+      "feedback_branch_effect_rms": 2.350974864384625e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1271519809961319
+    },
+    {
+      "control_index": 250,
+      "decoder_change_rms": 0.12026519328355789,
+      "feedback_branch_effect_rms": 1.7278720406466164e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12027072161436081
+    },
+    {
+      "control_index": 255,
+      "decoder_change_rms": 0.11327990889549255,
+      "feedback_branch_effect_rms": 3.0213917852961458e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1132972463965416
+    },
+    {
+      "control_index": 260,
+      "decoder_change_rms": 0.1275743842124939,
+      "feedback_branch_effect_rms": 2.0248646251275204e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1275874525308609
+    },
+    {
+      "control_index": 265,
+      "decoder_change_rms": 0.12545748054981232,
+      "feedback_branch_effect_rms": 2.6767325834953226e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1254555732011795
+    },
+    {
+      "control_index": 270,
+      "decoder_change_rms": 0.12145902961492538,
+      "feedback_branch_effect_rms": 1.4920814464858267e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12145719677209854
+    },
+    {
+      "control_index": 275,
+      "decoder_change_rms": 0.11538343131542206,
+      "feedback_branch_effect_rms": 2.426645551167894e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11539578437805176
+    },
+    {
+      "control_index": 280,
+      "decoder_change_rms": 0.12633490562438965,
+      "feedback_branch_effect_rms": 1.5198791516013443e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12633655965328217
+    },
+    {
+      "control_index": 285,
+      "decoder_change_rms": 0.12587523460388184,
+      "feedback_branch_effect_rms": 3.2976331567624584e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12586574256420135
+    },
+    {
+      "control_index": 290,
+      "decoder_change_rms": 0.1197652593255043,
+      "feedback_branch_effect_rms": 1.8312441170564853e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11976530402898788
+    },
+    {
+      "control_index": 295,
+      "decoder_change_rms": 0.11366309225559235,
+      "feedback_branch_effect_rms": 3.9316280890489e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11368166655302048
+    },
+    {
+      "control_index": 300,
+      "decoder_change_rms": 0.13006138801574707,
+      "feedback_branch_effect_rms": 2.0523082639556378e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1300649493932724
+    },
+    {
+      "control_index": 305,
+      "decoder_change_rms": 0.12465842068195343,
+      "feedback_branch_effect_rms": 5.513434734893963e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12465758621692657
+    },
+    {
+      "control_index": 310,
+      "decoder_change_rms": 0.11671452224254608,
+      "feedback_branch_effect_rms": 3.260814628447406e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1166953593492508
+    },
+    {
+      "control_index": 315,
+      "decoder_change_rms": 0.11603319644927979,
+      "feedback_branch_effect_rms": 2.4182378183468245e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11603158712387085
+    },
+    {
+      "control_index": 320,
+      "decoder_change_rms": 0.1204182505607605,
+      "feedback_branch_effect_rms": 2.2869591703056358e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12041520327329636
+    },
+    {
+      "control_index": 325,
+      "decoder_change_rms": 0.11533352732658386,
+      "feedback_branch_effect_rms": 1.5409539628308266e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11532935500144958
+    },
+    {
+      "control_index": 330,
+      "decoder_change_rms": 0.11222846806049347,
+      "feedback_branch_effect_rms": 1.2116662219341379e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11222691833972931
+    },
+    {
+      "control_index": 335,
+      "decoder_change_rms": 0.11154486984014511,
+      "feedback_branch_effect_rms": 1.714040081424173e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11155278980731964
+    },
+    {
+      "control_index": 340,
+      "decoder_change_rms": 0.11369378864765167,
+      "feedback_branch_effect_rms": 2.0051355022587813e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11370381712913513
+    },
+    {
+      "control_index": 345,
+      "decoder_change_rms": 0.11412625759840012,
+      "feedback_branch_effect_rms": 1.685569077380933e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11413364857435226
+    },
+    {
+      "control_index": 350,
+      "decoder_change_rms": 0.11350932717323303,
+      "feedback_branch_effect_rms": 1.4614523934142198e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11351010948419571
+    },
+    {
+      "control_index": 355,
+      "decoder_change_rms": 0.11288442462682724,
+      "feedback_branch_effect_rms": 1.6306292309309356e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11289308965206146
+    },
+    {
+      "control_index": 360,
+      "decoder_change_rms": 0.1113673746585846,
+      "feedback_branch_effect_rms": 2.2226422515814193e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11138266324996948
+    },
+    {
+      "control_index": 365,
+      "decoder_change_rms": 0.11269841343164444,
+      "feedback_branch_effect_rms": 4.344782428233884e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11272721737623215
+    },
+    {
+      "control_index": 370,
+      "decoder_change_rms": 0.11528486758470535,
+      "feedback_branch_effect_rms": 3.5500761441653594e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11530962586402893
+    },
+    {
+      "control_index": 375,
+      "decoder_change_rms": 0.11862022429704666,
+      "feedback_branch_effect_rms": 4.964187610312365e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11865238100290298
+    },
+    {
+      "control_index": 380,
+      "decoder_change_rms": 0.11897064745426178,
+      "feedback_branch_effect_rms": 5.901000622543506e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11901037395000458
+    },
+    {
+      "control_index": 385,
+      "decoder_change_rms": 0.12561841309070587,
+      "feedback_branch_effect_rms": 3.8011166907381266e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1256401538848877
+    },
+    {
+      "control_index": 390,
+      "decoder_change_rms": 0.12878231704235077,
+      "feedback_branch_effect_rms": 3.581391501938924e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1287989467382431
+    },
+    {
+      "control_index": 395,
+      "decoder_change_rms": 0.12357331812381744,
+      "feedback_branch_effect_rms": 3.977600863436237e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12359321862459183
+    },
+    {
+      "control_index": 400,
+      "decoder_change_rms": 0.12779775261878967,
+      "feedback_branch_effect_rms": 4.577070285449736e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12782439589500427
+    },
+    {
+      "control_index": 405,
+      "decoder_change_rms": 0.13073325157165527,
+      "feedback_branch_effect_rms": 4.7757112042745575e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.13075964152812958
+    },
+    {
+      "control_index": 410,
+      "decoder_change_rms": 0.1354108303785324,
+      "feedback_branch_effect_rms": 4.192703272565268e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.13542801141738892
+    },
+    {
+      "control_index": 415,
+      "decoder_change_rms": 0.13716349005699158,
+      "feedback_branch_effect_rms": 4.654873191611841e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.13717876374721527
+    },
+    {
+      "control_index": 420,
+      "decoder_change_rms": 0.1294906586408615,
+      "feedback_branch_effect_rms": 4.132928734179586e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1295008361339569
+    },
+    {
+      "control_index": 425,
+      "decoder_change_rms": 0.13729065656661987,
+      "feedback_branch_effect_rms": 3.413865852053277e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.13729622960090637
+    },
+    {
+      "control_index": 430,
+      "decoder_change_rms": 0.137660950422287,
+      "feedback_branch_effect_rms": 3.451873271842487e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.13766071200370789
+    },
+    {
+      "control_index": 435,
+      "decoder_change_rms": 0.1304762363433838,
+      "feedback_branch_effect_rms": 3.270370507379994e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.13047704100608826
+    },
+    {
+      "control_index": 440,
+      "decoder_change_rms": 0.1272696703672409,
+      "feedback_branch_effect_rms": 3.111789555987343e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12728002667427063
+    },
+    {
+      "control_index": 445,
+      "decoder_change_rms": 0.1287626475095749,
+      "feedback_branch_effect_rms": 3.674481195048429e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12878134846687317
+    },
+    {
+      "control_index": 450,
+      "decoder_change_rms": 0.13264094293117523,
+      "feedback_branch_effect_rms": 4.088975765625946e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.13266146183013916
+    },
+    {
+      "control_index": 455,
+      "decoder_change_rms": 0.1366269737482071,
+      "feedback_branch_effect_rms": 4.638742393581197e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.13664387166500092
+    },
+    {
+      "control_index": 460,
+      "decoder_change_rms": 0.13676020503044128,
+      "feedback_branch_effect_rms": 5.2274590416345745e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1367744356393814
+    },
+    {
+      "control_index": 465,
+      "decoder_change_rms": 0.1362312138080597,
+      "feedback_branch_effect_rms": 6.413947994587943e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.13624922931194305
+    },
+    {
+      "control_index": 470,
+      "decoder_change_rms": 0.13824543356895447,
+      "feedback_branch_effect_rms": 6.87513966113329e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.13826628029346466
+    },
+    {
+      "control_index": 475,
+      "decoder_change_rms": 0.1424216479063034,
+      "feedback_branch_effect_rms": 6.886635674163699e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1424410492181778
+    },
+    {
+      "control_index": 480,
+      "decoder_change_rms": 0.1457514762878418,
+      "feedback_branch_effect_rms": 7.248718611663207e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1457681655883789
+    },
+    {
+      "control_index": 485,
+      "decoder_change_rms": 0.14444738626480103,
+      "feedback_branch_effect_rms": 7.333179382840171e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.14446322619915009
+    },
+    {
+      "control_index": 490,
+      "decoder_change_rms": 0.1443272829055786,
+      "feedback_branch_effect_rms": 7.069559796946123e-05,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.14434121549129486
+    },
+    {
+      "control_index": 495,
+      "decoder_change_rms": 0.1459784358739853,
+      "feedback_branch_effect_rms": 0.0001073088133125566,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.14599712193012238
+    },
+    {
+      "control_index": 500,
+      "decoder_change_rms": 0.1353740245103836,
+      "feedback_branch_effect_rms": 0.00010573008330538869,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1353929191827774
+    },
+    {
+      "control_index": 505,
+      "decoder_change_rms": 0.13928626477718353,
+      "feedback_branch_effect_rms": 0.00011299303150735795,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.13930398225784302
+    },
+    {
+      "control_index": 510,
+      "decoder_change_rms": 0.14379802346229553,
+      "feedback_branch_effect_rms": 0.00014061632100492716,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1438302844762802
+    },
+    {
+      "control_index": 515,
+      "decoder_change_rms": 0.1749291867017746,
+      "feedback_branch_effect_rms": 0.00019521306967362761,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1750164031982422
+    },
+    {
+      "control_index": 520,
+      "decoder_change_rms": 0.213330939412117,
+      "feedback_branch_effect_rms": 0.0002139553107554093,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.21341215074062347
+    },
+    {
+      "control_index": 525,
+      "decoder_change_rms": 0.24707086384296417,
+      "feedback_branch_effect_rms": 0.00016988236166071147,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.24713031947612762
+    },
+    {
+      "control_index": 530,
+      "decoder_change_rms": 0.3062247335910797,
+      "feedback_branch_effect_rms": 0.00015120593889150769,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3063044250011444
+    },
+    {
+      "control_index": 535,
+      "decoder_change_rms": 0.39634406566619873,
+      "feedback_branch_effect_rms": 0.00019858159066643566,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.39643365144729614
+    },
+    {
+      "control_index": 540,
+      "decoder_change_rms": 0.33406367897987366,
+      "feedback_branch_effect_rms": 0.0004226115415804088,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.33410507440567017
+    },
+    {
+      "control_index": 545,
+      "decoder_change_rms": 0.29867541790008545,
+      "feedback_branch_effect_rms": 0.0005408654687926173,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.2989886403083801
+    },
+    {
+      "control_index": 550,
+      "decoder_change_rms": 0.3364930748939514,
+      "feedback_branch_effect_rms": 0.0009636321919970214,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3371109068393707
+    },
+    {
+      "control_index": 555,
+      "decoder_change_rms": 0.3572497069835663,
+      "feedback_branch_effect_rms": 0.0010531778680160642,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.35809028148651123
+    },
+    {
+      "control_index": 560,
+      "decoder_change_rms": 0.28734034299850464,
+      "feedback_branch_effect_rms": 0.0006826958851888776,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.28766098618507385
+    },
+    {
+      "control_index": 565,
+      "decoder_change_rms": 0.3942640721797943,
+      "feedback_branch_effect_rms": 0.0007369178347289562,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.39484333992004395
+    },
+    {
+      "control_index": 570,
+      "decoder_change_rms": 0.4150095283985138,
+      "feedback_branch_effect_rms": 0.0003716860373970121,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.41531386971473694
+    },
+    {
+      "control_index": 575,
+      "decoder_change_rms": 0.3600373864173889,
+      "feedback_branch_effect_rms": 0.0002534560044296086,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.36024102568626404
+    },
+    {
+      "control_index": 580,
+      "decoder_change_rms": 0.3383481204509735,
+      "feedback_branch_effect_rms": 0.0002846942807082087,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.33855676651000977
+    },
+    {
+      "control_index": 585,
+      "decoder_change_rms": 0.3659960925579071,
+      "feedback_branch_effect_rms": 0.0002626109344419092,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3661661148071289
+    },
+    {
+      "control_index": 590,
+      "decoder_change_rms": 0.344491571187973,
+      "feedback_branch_effect_rms": 0.0003595958405639976,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3446776568889618
+    },
+    {
+      "control_index": 595,
+      "decoder_change_rms": 0.3221675455570221,
+      "feedback_branch_effect_rms": 0.0005592427914962173,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.32246649265289307
+    },
+    {
+      "control_index": 600,
+      "decoder_change_rms": 0.2992122173309326,
+      "feedback_branch_effect_rms": 0.0006426035542972386,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.2995425760746002
+    },
+    {
+      "control_index": 605,
+      "decoder_change_rms": 0.37304621934890747,
+      "feedback_branch_effect_rms": 0.0006108335801400244,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3733119070529938
+    },
+    {
+      "control_index": 610,
+      "decoder_change_rms": 0.37719255685806274,
+      "feedback_branch_effect_rms": 0.0006360217230394483,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.37751615047454834
+    },
+    {
+      "control_index": 615,
+      "decoder_change_rms": 0.4298899471759796,
+      "feedback_branch_effect_rms": 0.0007165455026552081,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4304240345954895
+    },
+    {
+      "control_index": 620,
+      "decoder_change_rms": 0.3946833312511444,
+      "feedback_branch_effect_rms": 0.0005717540625482798,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.39508673548698425
+    },
+    {
+      "control_index": 625,
+      "decoder_change_rms": 0.4558528959751129,
+      "feedback_branch_effect_rms": 0.0004389547975733876,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.45612195134162903
+    },
+    {
+      "control_index": 630,
+      "decoder_change_rms": 0.5605948567390442,
+      "feedback_branch_effect_rms": 0.0006030279910191894,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.5610226392745972
+    },
+    {
+      "control_index": 635,
+      "decoder_change_rms": 0.44142013788223267,
+      "feedback_branch_effect_rms": 0.0004172621120233089,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.44159388542175293
+    },
+    {
+      "control_index": 640,
+      "decoder_change_rms": 0.34769776463508606,
+      "feedback_branch_effect_rms": 0.0005325202364474535,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3477884531021118
+    },
+    {
+      "control_index": 645,
+      "decoder_change_rms": 0.46244746446609497,
+      "feedback_branch_effect_rms": 0.00075598678085953,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4630054831504822
+    },
+    {
+      "control_index": 650,
+      "decoder_change_rms": 0.3459295928478241,
+      "feedback_branch_effect_rms": 0.0004584538110066205,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.34628087282180786
+    },
+    {
+      "control_index": 655,
+      "decoder_change_rms": 0.33532625436782837,
+      "feedback_branch_effect_rms": 0.0005942152929492295,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3356921970844269
+    },
+    {
+      "control_index": 660,
+      "decoder_change_rms": 0.36652228236198425,
+      "feedback_branch_effect_rms": 0.0008601866429671645,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.36717644333839417
+    },
+    {
+      "control_index": 665,
+      "decoder_change_rms": 0.25160619616508484,
+      "feedback_branch_effect_rms": 0.0005667452933266759,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.2519432008266449
+    },
+    {
+      "control_index": 670,
+      "decoder_change_rms": 0.3029763400554657,
+      "feedback_branch_effect_rms": 0.000699266733136028,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3033609390258789
+    },
+    {
+      "control_index": 675,
+      "decoder_change_rms": 0.2203984558582306,
+      "feedback_branch_effect_rms": 0.00039023597491905093,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.2206050604581833
+    },
+    {
+      "control_index": 680,
+      "decoder_change_rms": 0.3404386639595032,
+      "feedback_branch_effect_rms": 0.00047652123612351716,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.34070828557014465
+    },
+    {
+      "control_index": 685,
+      "decoder_change_rms": 0.3910577595233917,
+      "feedback_branch_effect_rms": 0.00043845537584275007,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.391340434551239
+    },
+    {
+      "control_index": 690,
+      "decoder_change_rms": 0.42409011721611023,
+      "feedback_branch_effect_rms": 0.0006772723863832653,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.42451903223991394
+    },
+    {
+      "control_index": 695,
+      "decoder_change_rms": 0.34206828474998474,
+      "feedback_branch_effect_rms": 0.0006247279816307127,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3425471782684326
+    },
+    {
+      "control_index": 700,
+      "decoder_change_rms": 0.3686390519142151,
+      "feedback_branch_effect_rms": 0.0006099626189097762,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3690283000469208
+    },
+    {
+      "control_index": 705,
+      "decoder_change_rms": 0.30498775839805603,
+      "feedback_branch_effect_rms": 0.0007765967166051269,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.305588960647583
+    },
+    {
+      "control_index": 710,
+      "decoder_change_rms": 0.3416197597980499,
+      "feedback_branch_effect_rms": 0.0006915354169905186,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3420320153236389
+    },
+    {
+      "control_index": 715,
+      "decoder_change_rms": 0.3233286440372467,
+      "feedback_branch_effect_rms": 0.0006659986102022231,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3237469494342804
+    },
+    {
+      "control_index": 720,
+      "decoder_change_rms": 0.3229522705078125,
+      "feedback_branch_effect_rms": 0.0009886512998491526,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3236633539199829
+    },
+    {
+      "control_index": 725,
+      "decoder_change_rms": 0.6908469796180725,
+      "feedback_branch_effect_rms": 0.0006058104336261749,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.690953254699707
+    },
+    {
+      "control_index": 730,
+      "decoder_change_rms": 0.5876683592796326,
+      "feedback_branch_effect_rms": 0.001077188178896904,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.5885081887245178
+    },
+    {
+      "control_index": 735,
+      "decoder_change_rms": 0.4910823106765747,
+      "feedback_branch_effect_rms": 0.0004937208141200244,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.491378515958786
+    },
+    {
+      "control_index": 740,
+      "decoder_change_rms": 0.416696161031723,
+      "feedback_branch_effect_rms": 0.000726233993191272,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.41664791107177734
+    },
+    {
+      "control_index": 745,
+      "decoder_change_rms": 0.3247982859611511,
+      "feedback_branch_effect_rms": 0.0005231406539678574,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3249052166938782
+    },
+    {
+      "control_index": 750,
+      "decoder_change_rms": 0.2962735891342163,
+      "feedback_branch_effect_rms": 0.0007507008267566562,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.29640084505081177
+    },
+    {
+      "control_index": 755,
+      "decoder_change_rms": 0.2835674285888672,
+      "feedback_branch_effect_rms": 0.0009297802462242544,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.2838609516620636
+    },
+    {
+      "control_index": 760,
+      "decoder_change_rms": 0.32710176706314087,
+      "feedback_branch_effect_rms": 0.0008673587581142783,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.32739192247390747
+    },
+    {
+      "control_index": 765,
+      "decoder_change_rms": 0.3449847400188446,
+      "feedback_branch_effect_rms": 0.0006873625097796321,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3454321324825287
+    },
+    {
+      "control_index": 770,
+      "decoder_change_rms": 0.35354048013687134,
+      "feedback_branch_effect_rms": 0.0003903207543771714,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.35378310084342957
+    },
+    {
+      "control_index": 775,
+      "decoder_change_rms": 0.3621405363082886,
+      "feedback_branch_effect_rms": 0.0002852554607670754,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.36230573058128357
+    },
+    {
+      "control_index": 780,
+      "decoder_change_rms": 0.4171953499317169,
+      "feedback_branch_effect_rms": 0.00031165688415057957,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4173491299152374
+    },
+    {
+      "control_index": 785,
+      "decoder_change_rms": 0.4643096327781677,
+      "feedback_branch_effect_rms": 0.0005180978332646191,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4645262062549591
+    },
+    {
+      "control_index": 790,
+      "decoder_change_rms": 0.48226386308670044,
+      "feedback_branch_effect_rms": 0.0005783631931990385,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4825955033302307
+    },
+    {
+      "control_index": 795,
+      "decoder_change_rms": 0.4349491596221924,
+      "feedback_branch_effect_rms": 0.000553737161681056,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.43530791997909546
+    },
+    {
+      "control_index": 800,
+      "decoder_change_rms": 0.3866576850414276,
+      "feedback_branch_effect_rms": 0.00030334474286064506,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.38676854968070984
+    },
+    {
+      "control_index": 805,
+      "decoder_change_rms": 0.35491546988487244,
+      "feedback_branch_effect_rms": 0.00041372328996658325,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.35512441396713257
+    },
+    {
+      "control_index": 810,
+      "decoder_change_rms": 0.36613765358924866,
+      "feedback_branch_effect_rms": 0.0005047519807703793,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.36645594239234924
+    },
+    {
+      "control_index": 815,
+      "decoder_change_rms": 0.3569253981113434,
+      "feedback_branch_effect_rms": 0.000526023970451206,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.35720184445381165
+    },
+    {
+      "control_index": 820,
+      "decoder_change_rms": 0.34987175464630127,
+      "feedback_branch_effect_rms": 0.0006383358268067241,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.35020482540130615
+    },
+    {
+      "control_index": 825,
+      "decoder_change_rms": 0.3870075047016144,
+      "feedback_branch_effect_rms": 0.0006951424875296652,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.38754943013191223
+    },
+    {
+      "control_index": 830,
+      "decoder_change_rms": 0.349610298871994,
+      "feedback_branch_effect_rms": 0.0007819702732376754,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3499482274055481
+    },
+    {
+      "control_index": 835,
+      "decoder_change_rms": 0.2411346137523651,
+      "feedback_branch_effect_rms": 0.00036878135870210826,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.24137605726718903
+    },
+    {
+      "control_index": 840,
+      "decoder_change_rms": 0.4892595112323761,
+      "feedback_branch_effect_rms": 0.0008265214273706079,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.48996439576148987
+    },
+    {
+      "control_index": 845,
+      "decoder_change_rms": 0.5177963376045227,
+      "feedback_branch_effect_rms": 0.0006385012529790401,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.5182808637619019
+    },
+    {
+      "control_index": 850,
+      "decoder_change_rms": 0.31509536504745483,
+      "feedback_branch_effect_rms": 0.00048403162509202957,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.31540924310684204
+    },
+    {
+      "control_index": 855,
+      "decoder_change_rms": 0.392099529504776,
+      "feedback_branch_effect_rms": 0.0006089759990572929,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.39251384139060974
+    },
+    {
+      "control_index": 860,
+      "decoder_change_rms": 0.41215431690216064,
+      "feedback_branch_effect_rms": 0.0010009538382291794,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4127918481826782
+    },
+    {
+      "control_index": 865,
+      "decoder_change_rms": 0.3718419671058655,
+      "feedback_branch_effect_rms": 0.0008280925685539842,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3724437654018402
+    },
+    {
+      "control_index": 870,
+      "decoder_change_rms": 0.2962490916252136,
+      "feedback_branch_effect_rms": 0.0006643339875154197,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.29665836691856384
+    },
+    {
+      "control_index": 875,
+      "decoder_change_rms": 0.3204762041568756,
+      "feedback_branch_effect_rms": 0.0006007947959005833,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3209197521209717
+    },
+    {
+      "control_index": 880,
+      "decoder_change_rms": 0.356616348028183,
+      "feedback_branch_effect_rms": 0.0005687922239303589,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.35700640082359314
+    },
+    {
+      "control_index": 885,
+      "decoder_change_rms": 0.3591998219490051,
+      "feedback_branch_effect_rms": 0.001019195537082851,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3599802851676941
+    },
+    {
+      "control_index": 890,
+      "decoder_change_rms": 0.48183950781822205,
+      "feedback_branch_effect_rms": 0.0006573948194272816,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.48216885328292847
+    },
+    {
+      "control_index": 895,
+      "decoder_change_rms": 0.5539606213569641,
+      "feedback_branch_effect_rms": 0.0005457918159663677,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.5542116761207581
+    },
+    {
+      "control_index": 900,
+      "decoder_change_rms": 0.44473347067832947,
+      "feedback_branch_effect_rms": 0.000524739793036133,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.44507989287376404
+    },
+    {
+      "control_index": 905,
+      "decoder_change_rms": 0.4449434280395508,
+      "feedback_branch_effect_rms": 0.00045921336277388036,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4451620876789093
+    },
+    {
+      "control_index": 910,
+      "decoder_change_rms": 0.39094117283821106,
+      "feedback_branch_effect_rms": 0.0005590275977738202,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.39113885164260864
+    },
+    {
+      "control_index": 915,
+      "decoder_change_rms": 0.3262248635292053,
+      "feedback_branch_effect_rms": 0.0005359293427318335,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3266272246837616
+    },
+    {
+      "control_index": 920,
+      "decoder_change_rms": 0.3531820476055145,
+      "feedback_branch_effect_rms": 0.0005762649816460907,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.35362428426742554
+    },
+    {
+      "control_index": 925,
+      "decoder_change_rms": 0.27832871675491333,
+      "feedback_branch_effect_rms": 0.0006593084544874728,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.2787626087665558
+    },
+    {
+      "control_index": 930,
+      "decoder_change_rms": 0.3022654056549072,
+      "feedback_branch_effect_rms": 0.0007980236550793052,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.30292126536369324
+    },
+    {
+      "control_index": 935,
+      "decoder_change_rms": 0.24247591197490692,
+      "feedback_branch_effect_rms": 0.0008192448876798153,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.24318856000900269
+    },
+    {
+      "control_index": 940,
+      "decoder_change_rms": 0.37968727946281433,
+      "feedback_branch_effect_rms": 0.0007940120412968099,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.38037049770355225
+    },
+    {
+      "control_index": 945,
+      "decoder_change_rms": 0.417244553565979,
+      "feedback_branch_effect_rms": 0.000987562583759427,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4180809259414673
+    },
+    {
+      "control_index": 950,
+      "decoder_change_rms": 0.42190688848495483,
+      "feedback_branch_effect_rms": 0.0011867312714457512,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.42281585931777954
+    },
+    {
+      "control_index": 955,
+      "decoder_change_rms": 0.4664209187030792,
+      "feedback_branch_effect_rms": 0.0009201843058690429,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4670811891555786
+    },
+    {
+      "control_index": 960,
+      "decoder_change_rms": 0.3631189167499542,
+      "feedback_branch_effect_rms": 0.0004382980114314705,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3633067309856415
+    },
+    {
+      "control_index": 965,
+      "decoder_change_rms": 0.3750430941581726,
+      "feedback_branch_effect_rms": 0.0008755528833717108,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3757021725177765
+    },
+    {
+      "control_index": 970,
+      "decoder_change_rms": 0.37767499685287476,
+      "feedback_branch_effect_rms": 0.0010325523326173425,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.37842419743537903
+    },
+    {
+      "control_index": 975,
+      "decoder_change_rms": 0.3142114281654358,
+      "feedback_branch_effect_rms": 0.0008749945554882288,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.31474539637565613
+    },
+    {
+      "control_index": 980,
+      "decoder_change_rms": 0.31143882870674133,
+      "feedback_branch_effect_rms": 0.0007998442160896957,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3118882179260254
+    },
+    {
+      "control_index": 985,
+      "decoder_change_rms": 0.36871537566185,
+      "feedback_branch_effect_rms": 0.00037564709782600403,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3689537048339844
+    },
+    {
+      "control_index": 990,
+      "decoder_change_rms": 0.3671356439590454,
+      "feedback_branch_effect_rms": 0.0003710930177476257,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3674277663230896
+    },
+    {
+      "control_index": 995,
+      "decoder_change_rms": 0.3087954819202423,
+      "feedback_branch_effect_rms": 0.00040140602504834533,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.30901744961738586
+    },
+    {
+      "control_index": 1000,
+      "decoder_change_rms": 0.3470045328140259,
+      "feedback_branch_effect_rms": 0.00042699009645730257,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3472689092159271
+    },
+    {
+      "control_index": 1005,
+      "decoder_change_rms": 0.4769134819507599,
+      "feedback_branch_effect_rms": 0.0004904912202619016,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.47727134823799133
+    },
+    {
+      "control_index": 1010,
+      "decoder_change_rms": 0.4511511027812958,
+      "feedback_branch_effect_rms": 0.00042830492020584643,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4514372646808624
+    },
+    {
+      "control_index": 1015,
+      "decoder_change_rms": 0.37204477190971375,
+      "feedback_branch_effect_rms": 0.0003669881261885166,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.37231892347335815
+    },
+    {
+      "control_index": 1020,
+      "decoder_change_rms": 0.3869384825229645,
+      "feedback_branch_effect_rms": 0.00037106333184055984,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3871293067932129
+    },
+    {
+      "control_index": 1025,
+      "decoder_change_rms": 0.41180840134620667,
+      "feedback_branch_effect_rms": 0.000434821005910635,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4120665490627289
+    },
+    {
+      "control_index": 1030,
+      "decoder_change_rms": 0.3898378908634186,
+      "feedback_branch_effect_rms": 0.0005268118693493307,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3901835083961487
+    },
+    {
+      "control_index": 1035,
+      "decoder_change_rms": 0.38058871030807495,
+      "feedback_branch_effect_rms": 0.00040787653415463865,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.38086387515068054
+    },
+    {
+      "control_index": 1040,
+      "decoder_change_rms": 0.34149715304374695,
+      "feedback_branch_effect_rms": 0.0010704187443479896,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.34180954098701477
+    },
+    {
+      "control_index": 1045,
+      "decoder_change_rms": 0.32935547828674316,
+      "feedback_branch_effect_rms": 0.0008870038436725736,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.32982590794563293
+    },
+    {
+      "control_index": 1050,
+      "decoder_change_rms": 0.3459398150444031,
+      "feedback_branch_effect_rms": 0.0010313448728993535,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.346694678068161
+    },
+    {
+      "control_index": 1055,
+      "decoder_change_rms": 0.37501060962677,
+      "feedback_branch_effect_rms": 0.0010889898985624313,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.375784695148468
+    },
+    {
+      "control_index": 1060,
+      "decoder_change_rms": 0.24478866159915924,
+      "feedback_branch_effect_rms": 0.0006001101573929191,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.24523968994617462
+    },
+    {
+      "control_index": 1065,
+      "decoder_change_rms": 0.36945778131484985,
+      "feedback_branch_effect_rms": 0.0007486497634090483,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.37002211809158325
+    },
+    {
+      "control_index": 1070,
+      "decoder_change_rms": 0.43228408694267273,
+      "feedback_branch_effect_rms": 0.0006725348648615181,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.43270909786224365
+    },
+    {
+      "control_index": 1075,
+      "decoder_change_rms": 0.431342750787735,
+      "feedback_branch_effect_rms": 0.0006957896403037012,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.43155035376548767
+    },
+    {
+      "control_index": 1080,
+      "decoder_change_rms": 0.4203543961048126,
+      "feedback_branch_effect_rms": 0.00044828414684161544,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4206766188144684
+    },
+    {
+      "control_index": 1085,
+      "decoder_change_rms": 0.3694874942302704,
+      "feedback_branch_effect_rms": 0.0005807450506836176,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3698712885379791
+    },
+    {
+      "control_index": 1090,
+      "decoder_change_rms": 0.3452625274658203,
+      "feedback_branch_effect_rms": 0.0007095877663232386,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.34572431445121765
+    },
+    {
+      "control_index": 1095,
+      "decoder_change_rms": 0.3776392340660095,
+      "feedback_branch_effect_rms": 0.0007170960307121277,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3777565360069275
+    },
+    {
+      "control_index": 1100,
+      "decoder_change_rms": 0.3943592607975006,
+      "feedback_branch_effect_rms": 0.0007678581750951707,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3947129249572754
+    },
+    {
+      "control_index": 1105,
+      "decoder_change_rms": 0.37924230098724365,
+      "feedback_branch_effect_rms": 0.00034285991569049656,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.37942880392074585
+    },
+    {
+      "control_index": 1110,
+      "decoder_change_rms": 0.3381739556789398,
+      "feedback_branch_effect_rms": 0.0005912806955166161,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3384775221347809
+    },
+    {
+      "control_index": 1115,
+      "decoder_change_rms": 0.4007946252822876,
+      "feedback_branch_effect_rms": 0.0005109308985993266,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4010562598705292
+    },
+    {
+      "control_index": 1120,
+      "decoder_change_rms": 0.4157000780105591,
+      "feedback_branch_effect_rms": 0.0003748705785255879,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.41590404510498047
+    },
+    {
+      "control_index": 1125,
+      "decoder_change_rms": 0.3800855576992035,
+      "feedback_branch_effect_rms": 0.0004028767580166459,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3802493214607239
+    },
+    {
+      "control_index": 1130,
+      "decoder_change_rms": 0.38794851303100586,
+      "feedback_branch_effect_rms": 0.0003740049432963133,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3881729245185852
+    },
+    {
+      "control_index": 1135,
+      "decoder_change_rms": 0.41034066677093506,
+      "feedback_branch_effect_rms": 0.0003945116186514497,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.41056013107299805
+    },
+    {
+      "control_index": 1140,
+      "decoder_change_rms": 0.43879055976867676,
+      "feedback_branch_effect_rms": 0.00047640252159908414,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.43899065256118774
+    },
+    {
+      "control_index": 1145,
+      "decoder_change_rms": 0.378402441740036,
+      "feedback_branch_effect_rms": 0.00046346132876351476,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.37863069772720337
+    },
+    {
+      "control_index": 1150,
+      "decoder_change_rms": 0.3398336172103882,
+      "feedback_branch_effect_rms": 0.0005713658756576478,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3402077853679657
+    },
+    {
+      "control_index": 1155,
+      "decoder_change_rms": 0.3540045917034149,
+      "feedback_branch_effect_rms": 0.0010132401948794723,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3546680808067322
+    },
+    {
+      "control_index": 1160,
+      "decoder_change_rms": 0.3156473934650421,
+      "feedback_branch_effect_rms": 0.0004329783550929278,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3157467246055603
+    },
+    {
+      "control_index": 1165,
+      "decoder_change_rms": 0.3409579396247864,
+      "feedback_branch_effect_rms": 0.0010975581826642156,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3417961895465851
+    },
+    {
+      "control_index": 1170,
+      "decoder_change_rms": 0.40606239438056946,
+      "feedback_branch_effect_rms": 0.00118738051969558,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4068680703639984
+    },
+    {
+      "control_index": 1175,
+      "decoder_change_rms": 0.25354474782943726,
+      "feedback_branch_effect_rms": 0.0006473228568211198,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.2540525794029236
+    },
+    {
+      "control_index": 1180,
+      "decoder_change_rms": 0.42959079146385193,
+      "feedback_branch_effect_rms": 0.0008537175017409027,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.43018707633018494
+    },
+    {
+      "control_index": 1185,
+      "decoder_change_rms": 0.4461471140384674,
+      "feedback_branch_effect_rms": 0.0006926434580236673,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4465765357017517
+    },
+    {
+      "control_index": 1190,
+      "decoder_change_rms": 0.3979974389076233,
+      "feedback_branch_effect_rms": 0.000551048549823463,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3982240557670593
+    },
+    {
+      "control_index": 1195,
+      "decoder_change_rms": 0.40584513545036316,
+      "feedback_branch_effect_rms": 0.00046428199857473373,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4061485528945923
+    },
+    {
+      "control_index": 1200,
+      "decoder_change_rms": 0.3852763772010803,
+      "feedback_branch_effect_rms": 0.0005121452268213034,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3856017589569092
+    },
+    {
+      "control_index": 1205,
+      "decoder_change_rms": 0.33779120445251465,
+      "feedback_branch_effect_rms": 0.0006689588772132993,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.33830559253692627
+    },
+    {
+      "control_index": 1210,
+      "decoder_change_rms": 0.3877315819263458,
+      "feedback_branch_effect_rms": 0.0010012233396992087,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.38813066482543945
+    },
+    {
+      "control_index": 1215,
+      "decoder_change_rms": 0.4217182993888855,
+      "feedback_branch_effect_rms": 0.0007731828955002129,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4218851625919342
+    },
+    {
+      "control_index": 1220,
+      "decoder_change_rms": 0.3792994022369385,
+      "feedback_branch_effect_rms": 0.0007294471142813563,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3795459568500519
+    },
+    {
+      "control_index": 1225,
+      "decoder_change_rms": 0.3367760181427002,
+      "feedback_branch_effect_rms": 0.0004083312232978642,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3370732367038727
+    },
+    {
+      "control_index": 1230,
+      "decoder_change_rms": 0.34683850407600403,
+      "feedback_branch_effect_rms": 0.000439507479313761,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3470691442489624
+    },
+    {
+      "control_index": 1235,
+      "decoder_change_rms": 0.457806259393692,
+      "feedback_branch_effect_rms": 0.00046437152195721865,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4580155611038208
+    },
+    {
+      "control_index": 1240,
+      "decoder_change_rms": 0.48163774609565735,
+      "feedback_branch_effect_rms": 0.0004583356494549662,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.48183107376098633
+    },
+    {
+      "control_index": 1245,
+      "decoder_change_rms": 0.3942667841911316,
+      "feedback_branch_effect_rms": 0.00048408927978016436,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.39448198676109314
+    },
+    {
+      "control_index": 1250,
+      "decoder_change_rms": 0.4136001169681549,
+      "feedback_branch_effect_rms": 0.0003924199554603547,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4137730896472931
+    },
+    {
+      "control_index": 1255,
+      "decoder_change_rms": 0.4318981468677521,
+      "feedback_branch_effect_rms": 0.0005169720971025527,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4320219159126282
+    },
+    {
+      "control_index": 1260,
+      "decoder_change_rms": 0.378974586725235,
+      "feedback_branch_effect_rms": 0.0006203282973729074,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3791627585887909
+    },
+    {
+      "control_index": 1265,
+      "decoder_change_rms": 0.3764117658138275,
+      "feedback_branch_effect_rms": 0.0006274039624258876,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.37670958042144775
+    },
+    {
+      "control_index": 1270,
+      "decoder_change_rms": 0.4726638197898865,
+      "feedback_branch_effect_rms": 0.0007639653631485999,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4731499254703522
+    },
+    {
+      "control_index": 1275,
+      "decoder_change_rms": 0.34467726945877075,
+      "feedback_branch_effect_rms": 0.0006843784358352423,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.345096617937088
+    },
+    {
+      "control_index": 1280,
+      "decoder_change_rms": 0.29245415329933167,
+      "feedback_branch_effect_rms": 0.0005789200076833367,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.2928042709827423
+    },
+    {
+      "control_index": 1285,
+      "decoder_change_rms": 0.24365463852882385,
+      "feedback_branch_effect_rms": 0.00039792386814951897,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.24388372898101807
+    },
+    {
+      "control_index": 1290,
+      "decoder_change_rms": 0.3044358193874359,
+      "feedback_branch_effect_rms": 0.0005326736718416214,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3047952950000763
+    },
+    {
+      "control_index": 1295,
+      "decoder_change_rms": 0.3308230936527252,
+      "feedback_branch_effect_rms": 0.000618237885646522,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.33117222785949707
+    },
+    {
+      "control_index": 1300,
+      "decoder_change_rms": 0.32988831400871277,
+      "feedback_branch_effect_rms": 0.0005988734774291515,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.33016741275787354
+    },
+    {
+      "control_index": 1305,
+      "decoder_change_rms": 0.4111239016056061,
+      "feedback_branch_effect_rms": 0.00040134775917977095,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.411312460899353
+    },
+    {
+      "control_index": 1310,
+      "decoder_change_rms": 0.43296778202056885,
+      "feedback_branch_effect_rms": 0.0006118666497059166,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4333147704601288
+    },
+    {
+      "control_index": 1315,
+      "decoder_change_rms": 0.3913484513759613,
+      "feedback_branch_effect_rms": 0.0008995236712507904,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.39184924960136414
+    },
+    {
+      "control_index": 1320,
+      "decoder_change_rms": 0.34750866889953613,
+      "feedback_branch_effect_rms": 0.00034935190342366695,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3477170467376709
+    },
+    {
+      "control_index": 1325,
+      "decoder_change_rms": 0.3632954955101013,
+      "feedback_branch_effect_rms": 0.0007853262359276414,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3637671172618866
+    },
+    {
+      "control_index": 1330,
+      "decoder_change_rms": 0.34700441360473633,
+      "feedback_branch_effect_rms": 0.0005859393277205527,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3472619950771332
+    },
+    {
+      "control_index": 1335,
+      "decoder_change_rms": 0.3514955937862396,
+      "feedback_branch_effect_rms": 0.0009480592561885715,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3515494763851166
+    },
+    {
+      "control_index": 1340,
+      "decoder_change_rms": 0.3248029351234436,
+      "feedback_branch_effect_rms": 0.00044299234286881983,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3249855637550354
+    },
+    {
+      "control_index": 1345,
+      "decoder_change_rms": 0.38893425464630127,
+      "feedback_branch_effect_rms": 0.0005393457831814885,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3891713321208954
+    },
+    {
+      "control_index": 1350,
+      "decoder_change_rms": 0.430573046207428,
+      "feedback_branch_effect_rms": 0.00040081076440401375,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4306105971336365
+    },
+    {
+      "control_index": 1355,
+      "decoder_change_rms": 0.3849502205848694,
+      "feedback_branch_effect_rms": 0.0004738185671158135,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.38504308462142944
+    },
+    {
+      "control_index": 1360,
+      "decoder_change_rms": 0.44877731800079346,
+      "feedback_branch_effect_rms": 0.0008705259533599019,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.44894373416900635
+    },
+    {
+      "control_index": 1365,
+      "decoder_change_rms": 0.40683701634407043,
+      "feedback_branch_effect_rms": 0.00045303968363441527,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4069451689720154
+    },
+    {
+      "control_index": 1370,
+      "decoder_change_rms": 0.4113810062408447,
+      "feedback_branch_effect_rms": 0.0005765922833234072,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4115084707736969
+    },
+    {
+      "control_index": 1375,
+      "decoder_change_rms": 0.36675867438316345,
+      "feedback_branch_effect_rms": 0.0005756666068919003,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.36693012714385986
+    },
+    {
+      "control_index": 1380,
+      "decoder_change_rms": 0.3355464041233063,
+      "feedback_branch_effect_rms": 0.0005792943411506712,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3357655704021454
+    },
+    {
+      "control_index": 1385,
+      "decoder_change_rms": 0.3265087604522705,
+      "feedback_branch_effect_rms": 0.0008582797599956393,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3270682394504547
+    },
+    {
+      "control_index": 1390,
+      "decoder_change_rms": 0.3132409155368805,
+      "feedback_branch_effect_rms": 0.0007374395499937236,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3134170472621918
+    },
+    {
+      "control_index": 1395,
+      "decoder_change_rms": 0.29847821593284607,
+      "feedback_branch_effect_rms": 0.0005119077977724373,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.2987785041332245
+    },
+    {
+      "control_index": 1400,
+      "decoder_change_rms": 0.26274776458740234,
+      "feedback_branch_effect_rms": 0.0009354305802844465,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.26319029927253723
+    },
+    {
+      "control_index": 1405,
+      "decoder_change_rms": 0.29884418845176697,
+      "feedback_branch_effect_rms": 0.00048503107973374426,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.2990037500858307
+    },
+    {
+      "control_index": 1410,
+      "decoder_change_rms": 0.22887730598449707,
+      "feedback_branch_effect_rms": 0.0006457448471337557,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.22914810478687286
+    },
+    {
+      "control_index": 1415,
+      "decoder_change_rms": 0.3955175280570984,
+      "feedback_branch_effect_rms": 0.0006191465654410422,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.39578884840011597
+    },
+    {
+      "control_index": 1420,
+      "decoder_change_rms": 0.44482657313346863,
+      "feedback_branch_effect_rms": 0.0004309655341785401,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4449438750743866
+    },
+    {
+      "control_index": 1425,
+      "decoder_change_rms": 0.4006219506263733,
+      "feedback_branch_effect_rms": 0.000438213610323146,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.40079614520072937
+    },
+    {
+      "control_index": 1430,
+      "decoder_change_rms": 0.37864696979522705,
+      "feedback_branch_effect_rms": 0.0005527002504095435,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3788915276527405
+    },
+    {
+      "control_index": 1435,
+      "decoder_change_rms": 0.3401549458503723,
+      "feedback_branch_effect_rms": 0.00032161909621208906,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3401971161365509
+    },
+    {
+      "control_index": 1440,
+      "decoder_change_rms": 0.34781545400619507,
+      "feedback_branch_effect_rms": 0.00042240534094162285,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.34793969988822937
+    },
+    {
+      "control_index": 1445,
+      "decoder_change_rms": 0.3364219069480896,
+      "feedback_branch_effect_rms": 0.00028033528360538185,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3364015221595764
+    },
+    {
+      "control_index": 1450,
+      "decoder_change_rms": 0.3136432468891144,
+      "feedback_branch_effect_rms": 0.0002993797534145415,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.31364676356315613
+    },
+    {
+      "control_index": 1455,
+      "decoder_change_rms": 0.3228490948677063,
+      "feedback_branch_effect_rms": 0.0004344843327999115,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3228878974914551
+    },
+    {
+      "control_index": 1460,
+      "decoder_change_rms": 0.4691934287548065,
+      "feedback_branch_effect_rms": 0.00047639015247114,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.46912625432014465
+    },
+    {
+      "control_index": 1465,
+      "decoder_change_rms": 0.4285658299922943,
+      "feedback_branch_effect_rms": 0.0002690490800887346,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.4284544289112091
+    },
+    {
+      "control_index": 1470,
+      "decoder_change_rms": 0.386027455329895,
+      "feedback_branch_effect_rms": 0.00023953312484081835,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3859046399593353
+    },
+    {
+      "control_index": 1475,
+      "decoder_change_rms": 0.37211912870407104,
+      "feedback_branch_effect_rms": 0.0003840785939246416,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.3718414306640625
+    },
+    {
+      "control_index": 1480,
+      "decoder_change_rms": 0.3588745594024658,
+      "feedback_branch_effect_rms": 0.0005257930606603622,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.35849034786224365
+    },
+    {
+      "control_index": 1485,
+      "decoder_change_rms": 0.2874525487422943,
+      "feedback_branch_effect_rms": 0.0004558957589324564,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.2871955931186676
+    },
+    {
+      "control_index": 1490,
+      "decoder_change_rms": 0.25572094321250916,
+      "feedback_branch_effect_rms": 0.000473762716865167,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.2554389536380768
+    },
+    {
+      "control_index": 1495,
+      "decoder_change_rms": 0.21925827860832214,
+      "feedback_branch_effect_rms": 0.00042592844692990184,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.21909154951572418
+    },
+    {
+      "control_index": 1500,
+      "decoder_change_rms": 0.18910372257232666,
+      "feedback_branch_effect_rms": 0.00037008881918154657,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.18895353376865387
+    },
+    {
+      "control_index": 1505,
+      "decoder_change_rms": 0.14819210767745972,
+      "feedback_branch_effect_rms": 0.0003246667911298573,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.14802397787570953
+    },
+    {
+      "control_index": 1510,
+      "decoder_change_rms": 0.14447881281375885,
+      "feedback_branch_effect_rms": 0.0002976656542159617,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.14431923627853394
+    },
+    {
+      "control_index": 1515,
+      "decoder_change_rms": 0.13199543952941895,
+      "feedback_branch_effect_rms": 0.00027380557730793953,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1318642944097519
+    },
+    {
+      "control_index": 1520,
+      "decoder_change_rms": 0.1109352633357048,
+      "feedback_branch_effect_rms": 0.00023843056987971067,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1108289510011673
+    },
+    {
+      "control_index": 1525,
+      "decoder_change_rms": 0.12154076993465424,
+      "feedback_branch_effect_rms": 0.00022602621174883097,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1214032992720604
+    },
+    {
+      "control_index": 1530,
+      "decoder_change_rms": 0.11941790580749512,
+      "feedback_branch_effect_rms": 0.00020390836289152503,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11930135637521744
+    },
+    {
+      "control_index": 1535,
+      "decoder_change_rms": 0.12569719552993774,
+      "feedback_branch_effect_rms": 0.00017973942158278078,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12558741867542267
+    },
+    {
+      "control_index": 1540,
+      "decoder_change_rms": 0.13845549523830414,
+      "feedback_branch_effect_rms": 0.00016830868844408542,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.13833929598331451
+    },
+    {
+      "control_index": 1545,
+      "decoder_change_rms": 0.12242740392684937,
+      "feedback_branch_effect_rms": 0.00015624877414666116,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12232518941164017
+    },
+    {
+      "control_index": 1550,
+      "decoder_change_rms": 0.12342706322669983,
+      "feedback_branch_effect_rms": 0.00015627199900336564,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12332678586244583
+    },
+    {
+      "control_index": 1555,
+      "decoder_change_rms": 0.1305856704711914,
+      "feedback_branch_effect_rms": 0.00016944082744885236,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.13046583533287048
+    },
+    {
+      "control_index": 1560,
+      "decoder_change_rms": 0.12329962104558945,
+      "feedback_branch_effect_rms": 0.00015346691361628473,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12320518493652344
+    },
+    {
+      "control_index": 1565,
+      "decoder_change_rms": 0.12125948071479797,
+      "feedback_branch_effect_rms": 0.00016690422489773482,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12115509808063507
+    },
+    {
+      "control_index": 1570,
+      "decoder_change_rms": 0.12370146811008453,
+      "feedback_branch_effect_rms": 0.0001830768451327458,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12358670681715012
+    },
+    {
+      "control_index": 1575,
+      "decoder_change_rms": 0.12541724741458893,
+      "feedback_branch_effect_rms": 0.00019014274585060775,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12528812885284424
+    },
+    {
+      "control_index": 1580,
+      "decoder_change_rms": 0.12928175926208496,
+      "feedback_branch_effect_rms": 0.0001843863574322313,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12914793193340302
+    },
+    {
+      "control_index": 1585,
+      "decoder_change_rms": 0.1264418214559555,
+      "feedback_branch_effect_rms": 0.000181831099325791,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12632286548614502
+    },
+    {
+      "control_index": 1590,
+      "decoder_change_rms": 0.12764236330986023,
+      "feedback_branch_effect_rms": 0.00019396307470742613,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12752217054367065
+    },
+    {
+      "control_index": 1595,
+      "decoder_change_rms": 0.1280529797077179,
+      "feedback_branch_effect_rms": 0.00020067857985850424,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12791824340820312
+    },
+    {
+      "control_index": 1600,
+      "decoder_change_rms": 0.13065767288208008,
+      "feedback_branch_effect_rms": 0.00019666110165417194,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1305181235074997
+    },
+    {
+      "control_index": 1605,
+      "decoder_change_rms": 0.12768147885799408,
+      "feedback_branch_effect_rms": 0.00020037950889673084,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1275482326745987
+    },
+    {
+      "control_index": 1610,
+      "decoder_change_rms": 0.12904329597949982,
+      "feedback_branch_effect_rms": 0.00021584761270787567,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12890753149986267
+    },
+    {
+      "control_index": 1615,
+      "decoder_change_rms": 0.13171744346618652,
+      "feedback_branch_effect_rms": 0.00021797312365379184,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1315629780292511
+    },
+    {
+      "control_index": 1620,
+      "decoder_change_rms": 0.12973767518997192,
+      "feedback_branch_effect_rms": 0.00021619598555844277,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1295931488275528
+    },
+    {
+      "control_index": 1625,
+      "decoder_change_rms": 0.12265298515558243,
+      "feedback_branch_effect_rms": 0.00019137414346914738,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12253838777542114
+    },
+    {
+      "control_index": 1630,
+      "decoder_change_rms": 0.12873157858848572,
+      "feedback_branch_effect_rms": 0.00020739743195008487,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12858234345912933
+    },
+    {
+      "control_index": 1635,
+      "decoder_change_rms": 0.13030970096588135,
+      "feedback_branch_effect_rms": 0.0002178483991883695,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1301552951335907
+    },
+    {
+      "control_index": 1640,
+      "decoder_change_rms": 0.11839399486780167,
+      "feedback_branch_effect_rms": 0.00018681665824260563,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11828325688838959
+    },
+    {
+      "control_index": 1645,
+      "decoder_change_rms": 0.12320653349161148,
+      "feedback_branch_effect_rms": 0.00017201484297402203,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12310614436864853
+    },
+    {
+      "control_index": 1650,
+      "decoder_change_rms": 0.13439533114433289,
+      "feedback_branch_effect_rms": 0.00020435894839465618,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1342468112707138
+    },
+    {
+      "control_index": 1655,
+      "decoder_change_rms": 0.12231660634279251,
+      "feedback_branch_effect_rms": 0.0002163466124329716,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12218986451625824
+    },
+    {
+      "control_index": 1660,
+      "decoder_change_rms": 0.11610684543848038,
+      "feedback_branch_effect_rms": 0.00016617430082987994,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11602649837732315
+    },
+    {
+      "control_index": 1665,
+      "decoder_change_rms": 0.12823501229286194,
+      "feedback_branch_effect_rms": 0.00018112901307176799,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12812091410160065
+    },
+    {
+      "control_index": 1670,
+      "decoder_change_rms": 0.13000015914440155,
+      "feedback_branch_effect_rms": 0.00020765297813341022,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12985484302043915
+    },
+    {
+      "control_index": 1675,
+      "decoder_change_rms": 0.11807914078235626,
+      "feedback_branch_effect_rms": 0.00020166240574326366,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11797801405191422
+    },
+    {
+      "control_index": 1680,
+      "decoder_change_rms": 0.11837076395750046,
+      "feedback_branch_effect_rms": 0.00016595075430814177,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11828693747520447
+    },
+    {
+      "control_index": 1685,
+      "decoder_change_rms": 0.13137920200824738,
+      "feedback_branch_effect_rms": 0.00019834187696687877,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.13124215602874756
+    },
+    {
+      "control_index": 1690,
+      "decoder_change_rms": 0.12523803114891052,
+      "feedback_branch_effect_rms": 0.00021331301832105964,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12509404122829437
+    },
+    {
+      "control_index": 1695,
+      "decoder_change_rms": 0.11622016876935959,
+      "feedback_branch_effect_rms": 0.00017767565441317856,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11612233519554138
+    },
+    {
+      "control_index": 1700,
+      "decoder_change_rms": 0.12187788635492325,
+      "feedback_branch_effect_rms": 0.00016811181558296084,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12178610265254974
+    },
+    {
+      "control_index": 1705,
+      "decoder_change_rms": 0.1339956820011139,
+      "feedback_branch_effect_rms": 0.00020438160572666675,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.13385009765625
+    },
+    {
+      "control_index": 1710,
+      "decoder_change_rms": 0.12238207459449768,
+      "feedback_branch_effect_rms": 0.00021775270579382777,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12224721163511276
+    },
+    {
+      "control_index": 1715,
+      "decoder_change_rms": 0.11617034673690796,
+      "feedback_branch_effect_rms": 0.00016990641597658396,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11608321219682693
+    },
+    {
+      "control_index": 1720,
+      "decoder_change_rms": 0.1262713223695755,
+      "feedback_branch_effect_rms": 0.00017757578461896628,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1261643022298813
+    },
+    {
+      "control_index": 1725,
+      "decoder_change_rms": 0.13223733007907867,
+      "feedback_branch_effect_rms": 0.00020646094344556332,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.13209104537963867
+    },
+    {
+      "control_index": 1730,
+      "decoder_change_rms": 0.11951126158237457,
+      "feedback_branch_effect_rms": 0.0002128982450813055,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11940423399209976
+    },
+    {
+      "control_index": 1735,
+      "decoder_change_rms": 0.11804568022489548,
+      "feedback_branch_effect_rms": 0.00016471587878186256,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11796631664037704
+    },
+    {
+      "control_index": 1740,
+      "decoder_change_rms": 0.13056139647960663,
+      "feedback_branch_effect_rms": 0.0001964990224223584,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.13042904436588287
+    },
+    {
+      "control_index": 1745,
+      "decoder_change_rms": 0.12804804742336273,
+      "feedback_branch_effect_rms": 0.00021376869699452072,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1278974860906601
+    },
+    {
+      "control_index": 1750,
+      "decoder_change_rms": 0.11907325685024261,
+      "feedback_branch_effect_rms": 0.00019554307800717652,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11897129565477371
+    },
+    {
+      "control_index": 1755,
+      "decoder_change_rms": 0.11919675022363663,
+      "feedback_branch_effect_rms": 0.0001669532066443935,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11911172419786453
+    },
+    {
+      "control_index": 1760,
+      "decoder_change_rms": 0.1301300823688507,
+      "feedback_branch_effect_rms": 0.00020007767307106405,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12999270856380463
+    },
+    {
+      "control_index": 1765,
+      "decoder_change_rms": 0.1262967884540558,
+      "feedback_branch_effect_rms": 0.00021407325402833521,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12615148723125458
+    },
+    {
+      "control_index": 1770,
+      "decoder_change_rms": 0.11450912058353424,
+      "feedback_branch_effect_rms": 0.00017634950927458704,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1144154742360115
+    },
+    {
+      "control_index": 1775,
+      "decoder_change_rms": 0.12507788836956024,
+      "feedback_branch_effect_rms": 0.0001718704734230414,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12497881799936295
+    },
+    {
+      "control_index": 1780,
+      "decoder_change_rms": 0.12876318395137787,
+      "feedback_branch_effect_rms": 0.00020423714886419475,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12862129509449005
+    },
+    {
+      "control_index": 1785,
+      "decoder_change_rms": 0.12332841753959656,
+      "feedback_branch_effect_rms": 0.00021499137801583856,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12319985032081604
+    },
+    {
+      "control_index": 1790,
+      "decoder_change_rms": 0.11358080059289932,
+      "feedback_branch_effect_rms": 0.00016762962331995368,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11350120604038239
+    },
+    {
+      "control_index": 1795,
+      "decoder_change_rms": 0.12902143597602844,
+      "feedback_branch_effect_rms": 0.00018213401199318469,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12890659272670746
+    },
+    {
+      "control_index": 1800,
+      "decoder_change_rms": 0.12809327244758606,
+      "feedback_branch_effect_rms": 0.00020948440942447633,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12794727087020874
+    },
+    {
+      "control_index": 1805,
+      "decoder_change_rms": 0.12087161839008331,
+      "feedback_branch_effect_rms": 0.00020955131913069636,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12076300382614136
+    },
+    {
+      "control_index": 1810,
+      "decoder_change_rms": 0.1168464794754982,
+      "feedback_branch_effect_rms": 0.00016270014748442918,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11677104234695435
+    },
+    {
+      "control_index": 1815,
+      "decoder_change_rms": 0.12993596494197845,
+      "feedback_branch_effect_rms": 0.00019124890968669206,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1298093944787979
+    },
+    {
+      "control_index": 1820,
+      "decoder_change_rms": 0.12766125798225403,
+      "feedback_branch_effect_rms": 0.00021225401724223047,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12751458585262299
+    },
+    {
+      "control_index": 1825,
+      "decoder_change_rms": 0.11891405284404755,
+      "feedback_branch_effect_rms": 0.0001834454305935651,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.11881645768880844
+    },
+    {
+      "control_index": 1830,
+      "decoder_change_rms": 0.12049539387226105,
+      "feedback_branch_effect_rms": 0.0001630527840461582,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1204170435667038
+    },
+    {
+      "control_index": 1835,
+      "decoder_change_rms": 0.1294625848531723,
+      "feedback_branch_effect_rms": 0.0001979176013264805,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.12932904064655304
+    },
+    {
+      "control_index": 1840,
+      "decoder_change_rms": 0.12877286970615387,
+      "feedback_branch_effect_rms": 0.000214728745049797,
+      "saved_parent_reproduction_max_abs": 0.0,
+      "total_action_change_rms": 0.1286255270242691
+    }
+  ],
+  "sampled_controls": 369,
+  "stride": 5
+}

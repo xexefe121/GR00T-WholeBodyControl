@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import json
+from types import SimpleNamespace
 
 import mujoco
 import numpy as np
@@ -20,6 +21,7 @@ from gear_sonic.utils.g1_true23_generalist_retarget import (
     _resample,
     adapt_offline_motion,
     task_space_fidelity,
+    protected_frame_failure_categories,
     validate_named_motion,
 )
 from gear_sonic.scripts.retarget_g1_true23_generalist_offline import main
@@ -555,3 +557,29 @@ def test_root_refinement_never_runs_on_already_forbidden_task_distortion(models,
     )
     assert not result.accepted and result.arrays is None
     assert "already exceeds bound" in result.report["attempts"][0]["root_refinement_skipped"]
+
+
+def test_exact_protected_gate_categories_report_overlapping_frames():
+    diagnostics = {
+        "weighted_task_error_before": np.ones(4),
+        "weighted_task_error_after": np.ones(4),
+        "task_whole_robot_com_position_error_before_m": np.zeros(4),
+        "task_whole_robot_com_position_error_after_m": np.zeros(4),
+        "constraint_relaxation_count": np.zeros(4),
+    }
+    for foot in ("left_foot", "right_foot"):
+        for suffix in ("position_error_after_m", "orientation_error_before_rad", "orientation_error_after_rad"):
+            diagnostics[f"task_{foot}_{suffix}"] = np.zeros(4)
+    diagnostics["task_left_foot_orientation_error_after_rad"][[0, 3]] = 0.02
+    diagnostics["task_right_foot_orientation_error_after_rad"][0] = 0.02
+    diagnostics["task_whole_robot_com_position_error_after_m"][1] = 0.01
+    diagnostics["weighted_task_error_after"][2] = 2
+    result = SimpleNamespace(
+        diagnostics=diagnostics, config=ik.RetargetConfig(), action_target_native=np.zeros((4, 23))
+    )
+    result.expert_valid_mask = lambda: ik.RetargetResult.expert_valid_mask(result)
+    report = protected_frame_failure_categories(result)
+    assert report["invalid_frame_count"] == 4 and report["valid_frame_count"] == 0
+    assert report["categories"]["left_foot_orientation_regression"] == {"count": 2, "frame_indices": [0, 3]}
+    assert report["categories"]["right_foot_orientation_regression"]["frame_indices"] == [0]
+    assert sum(row["count"] for row in report["categories"].values()) == 5

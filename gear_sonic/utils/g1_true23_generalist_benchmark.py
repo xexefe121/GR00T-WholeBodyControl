@@ -248,7 +248,14 @@ def load_generalist_pair(manifest_path, *, session_options=None):
 
 
 def run_reference_diagnostic(
-    *, root, asset_root, motion_path, policy, profile="native_model", maximum_controls=None
+    *,
+    root,
+    asset_root,
+    motion_path,
+    policy,
+    profile="native_model",
+    maximum_controls=None,
+    runtime_adapter=None,
 ):
     """One uninterrupted causal rollout; prefixes explicitly cannot pass."""
     if profile not in PROFILES:
@@ -325,6 +332,8 @@ def run_reference_diagnostic(
     }
     arrays["qpos"].append(data.qpos.copy())
     arrays["qvel"].append(data.qvel.copy())
+    if runtime_adapter is not None:
+        arrays["physics_external_force_world_n"] = []
     failure, completed = None, 0
     warning_before = np.asarray([row.number for row in data.warning], dtype=np.int64)
     try:
@@ -335,7 +344,21 @@ def run_reference_diagnostic(
             current_pelvis = data.qpos[3:7].copy()
             controller.history = [*controller.history[1:], controller._policy_frame()]
             history = term_major_history(controller.history)
-            raw, decoder = policy.infer(encoder, history)
+            if runtime_adapter is None:
+                raw, decoder = policy.infer(encoder, history)
+            else:
+                # Only copies cross the optional adapter boundary. No model,
+                # MjData, pose setter, or integration callback is exposed.
+                raw, decoder = runtime_adapter.infer(
+                    policy,
+                    encoder.copy(),
+                    history.copy(),
+                    control_index=transition,
+                    desired_position_w=motion["body_pos_w"][q9 + 1, 0].copy(),
+                    previous_desired_position_w=motion["body_pos_w"][q9, 0].copy(),
+                    measured_qpos=data.qpos.copy(),
+                    measured_qvel=data.qvel.copy(),
+                )
             if (
                 raw.shape != (23,)
                 or decoder.shape != (994,)
@@ -364,6 +387,15 @@ def run_reference_diagnostic(
                 if invalid:
                     raise RuntimeError("invalid PD request before integration")
                 data.ctrl[:] = applied
+                if runtime_adapter is not None:
+                    force = np.asarray(runtime_adapter.external_force_world(len(arrays["physics_time"])))
+                    if force.shape != (3,) or not np.isfinite(force).all():
+                        raise ValueError("runtime adapter must supply a finite world-frame force3")
+                    # Scheduled simulator perturbation is an external pelvis
+                    # force, never a root pose/velocity rewrite or actuator.
+                    data.xfrc_applied[:] = 0
+                    data.xfrc_applied[1, :3] = force
+                    arrays["physics_external_force_world_n"].append(force.copy())
                 start_time = float(data.time)
                 module.mj_step(model, data)
                 for key, value in (
@@ -523,6 +555,8 @@ def run_reference_diagnostic(
         ),
         **FLAGS,
     )
+    if runtime_adapter is not None:
+        report["runtime_adapter"] = runtime_adapter.contract()
     if sha256_file(source) != source_sha:
         raise ValueError("source motion changed during benchmark")
     json.dumps(report, allow_nan=False)
