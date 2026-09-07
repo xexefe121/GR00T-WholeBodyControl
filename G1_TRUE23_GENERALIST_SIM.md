@@ -4,6 +4,14 @@ Status: training and evaluation infrastructure runs; general dance/teleop policy
 is **not qualified**. No robot, DDS, mode switching or hardware limits changed.
 Original `23dofsonic` repository and dirty hardware work remain separate.
 
+Existing BONES-SEED data has now been located and verified in WSL; dataset
+access is not the current blocker. See the corpus section below. The first
+evaluated continuation to root200 survives the full timeline but regresses
+tracking and final standing, so it is rejected for promotion. A second,
+explicit measured-posture objective also regresses dance tracking: root p95 is
+0.884/1.047/1.336 m. Lower final speed is not a passing result. See
+`artifacts/g1_true23_generalist/root_feedback_posture_20260907_v1/comparison.json`.
+
 Latest milestone: full planned happy-dance reference now passes native23
 kinematic/support gates (546 source frames, 1,091 adapted frames, 2x duration,
 10.04% adaptation). A separately versioned root-feedback actor and fixed-world
@@ -24,8 +32,10 @@ X-push errors worsen and final standing joint error rises from 0.645 to
 It is still experimental, not promoted or deployment-ready. See
 `artifacts/g1_true23_generalist/root_feedback_regression_20260907_v2/comparison.json`
 for matched-input comparisons and all 104 verified training source bindings.
-Current scoped verification: 448 tests pass; Python E/F checks pass across
-56 files. These checks validate implementation, not physical dance readiness.
+The previous root-feedback checkpoint passed 448 scoped tests. Dataset and
+continuation additions subsequently passed 508 tests; the newer posture and
+original-time audits passed their focused suites. Final combined results are
+recorded in `PROGRESS.md`. These validate code, not physical dance readiness.
 
 The [referenced SONIC-transfer method](https://sonic-agibot-x2.github.io/sonic-transfer/)
 freezes the released platform and trains small decoder LoRA adapters around an
@@ -185,10 +195,40 @@ Every training span must exactly match an audited train-split asset across all
 six motion arrays. A hash-valid manifest does not independently establish the
 truth of license declarations or physical feasibility.
 
-The local inventory found 127 candidate files, not 127 independent motions.
-It does not provide the required 100 held-out independent dances. Existing
-seven-request material plus synthetic standing is explicitly smoke-only.
-BONES-SEED requires user license acceptance/access; no gated data downloaded.
+The initial 127-file repository inventory omitted the existing WSL BONES-SEED
+download. The corrected local source inventory is:
+
+- Archive `/root/bones_seed/g1.tar.gz`: 23,499,973,647 bytes, SHA256
+  `52580ea8bced72ea9e2ff1e7b68f01c51c7f1099581e9a46b7c87e1dec106d8a`,
+  matching the pinned release `2f59b2077b9da34dd4e43618e705c7cb962c9a66`.
+- CSVs `/root/bones_seed/g1_extracted/g1/csv`; metadata
+  `/root/bones_seed/metadata/seed_metadata_v004.csv`.
+- 142,220 metadata rows group into 71,132 original capture takes; 98,854
+  nonempty CSVs include 8,229 dance files, some mirrored. Empty/missing files
+  are explicitly counted rather than treated as complete motions.
+- Frozen full-metadata capture split has 550 test dance groups, 423 with
+  nonempty original files. Neither source presence nor splitting qualifies them.
+- Twelve train-split originals have complete lossless named29 conversions and
+  independently verified archive membership. Native23 fitting and dynamics
+  qualification still determine which references may enter controller training.
+
+Entry points: `prepare_g1_true23_bones_seed` (`index`, `select-training`,
+`convert-source`), `audit_g1_true23_bones_seed_archive`,
+`retarget_g1_true23_bones_seed_source`, and
+`audit_g1_true23_bones_seed_source_timestamps`. Outputs use exclusive creation and remain
+under the Git-ignored `artifacts/g1_true23_generalist/bones_seed_local_*/` tree.
+No raw data or metadata is pushed. Motion Data by
+[Bones Studio](https://bones.studio/); use is subject to the
+[BONES-SEED license](https://bones.studio/info/seed-license).
+
+The three initial complete dance fits fail the unchanged protected-task gate.
+A standing-transition fit passes all 741 control-grid samples, but an added
+audit of all 890 original 120 Hz source samples detects two between-grid
+right-foot orientation violations. Thus it is not qualified training data.
+The audit recomputes FK with declared interpolation; it never treats stored
+achieved task positions, clip survival, or a grid-only pass as full fidelity.
+The original 5,318-clip joint-deletion corpus is not a substitute for this check.
+Existing seven-request material plus synthetic standing remains smoke-only.
 
 Offline adapter uses actual native23 MuJoCo task-space IK. Maximum adaptation
 is 2× duration and measured 20% task-space excursion distortion. Original and
@@ -360,7 +400,9 @@ byte-hash pin. Do not weaken the model pin to hide this difference.
    alone does not prove drift correction. Qualify its physical estimator later.
 2. Expand accepted **planned** references beyond the one full dance now passing
    kinematic gates; verify dynamic tracking and contact-force feasibility.
-3. Obtain licensed broad corpus; build and freeze original-recording splits.
+3. Finish source-to-feasible-native23 ingestion from the existing BONES-SEED
+   archive. Capture-group splits and selected source-byte provenance are now
+   frozen; corpus manifest integration and accepted broad references remain.
 4. Train full decoder through acquisition, diverse motion, full lifecycle and
    randomized/delayed/interrupted input curricula. The two single-reference
    100-update local regressions are not that broad campaign.

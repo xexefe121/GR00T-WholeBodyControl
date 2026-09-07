@@ -58,11 +58,8 @@ def initialize_base_actor(runner, parent):
 def feedback_training_contract(args, curriculum):
     from gear_sonic.trl.mjlab.native23_root_feedback_actor import ROOT_FEEDBACK_ARCHITECTURE
     from gear_sonic.trl.mjlab.native23_root_feedback_runner import OPTIMIZER_PROFILES
-    from gear_sonic.utils.g1_true23_root_feedback_objectives import objective_profile_contract
 
     return {
-        "objective_profile": args.objective_profile,
-        "objective_profile_contract": objective_profile_contract(args.objective_profile),
         "feature_contract": root_feedback_contract(),
         "architecture": ROOT_FEEDBACK_ARCHITECTURE,
         "optimizer_profile": args.optimizer_profile,
@@ -110,7 +107,6 @@ def install_hooks(args, inputs, curriculum, precision, guard):
             rows,
             reset_position_range_m=args.reset_position_range_m,
             reset_velocity_range_m_s=args.reset_velocity_range_m_s,
-            objective_profile=args.objective_profile,
         )
 
     task.make_causal_history_recovery_env_cfg = build_env
@@ -244,12 +240,6 @@ def make_parser():
         subparser.add_argument("--initialize-actor-from", type=Path)
         subparser.add_argument("--continue-from", type=Path)
         subparser.add_argument("--continuation-evaluation", type=Path)
-        subparser.add_argument(
-            "--objective-profile",
-            choices=("legacy_root_tracking", "root_and_posture_v1"),
-            default="legacy_root_tracking",
-        )
-        subparser.add_argument("--allow-objective-transition", action="store_true")
         subparser.add_argument("--reset-position-range-m", type=float, default=0.1)
         subparser.add_argument("--reset-velocity-range-m-s", type=float, default=0.1)
         subparser.add_argument("--ppo-epochs", type=int, default=2)
@@ -272,8 +262,6 @@ def make_parser():
 
 
 def validate_bounds(args):
-    if args.allow_objective_transition and args.mode != "campaign":
-        raise ValueError("explicit objective transitions apply only to evaluated campaign continuations")
     if args.mode == "smoke" and (args.iterations > 2 or args.num_envs > 4):
         raise ValueError("root-feedback smoke is bounded to 2 updates and 4 environments")
     if args.mode == "regression" and (args.iterations > 100 or args.num_envs > 32):

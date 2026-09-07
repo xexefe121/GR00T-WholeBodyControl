@@ -19,6 +19,7 @@ from gear_sonic.utils.g1_23dof_mjlab_training import (
     _validate_optimizer_state,
     validate_mjlab_training_lineage,
 )
+from gear_sonic.utils.g1_true23_generalist_corpus import sha256_file
 
 CHECKPOINT_HEADER = {
     "schema_version": 2,
@@ -128,6 +129,42 @@ def validate_root_feedback_checkpoint(value, *, actor, lineage, minimum_update_c
 
 
 class Native23RootFeedbackRunner(Native23GeneralistRunner):
+    def initialize_evaluated_continuation(self, contract):
+        """Preserve full PPO state under a new, explicitly parent-bound lineage."""
+        self._require_checkpointable()
+        configured = self._training_lineage["materials"]["resolved_config"]["payload"]
+        if configured["native23_root_feedback"].get("continuation") != contract:
+            raise ValueError("continuation must be bound by the new training lineage")
+        if self.completed_update_count != 0 or self.alg.optimizer.state:
+            raise ValueError("continuation initialization requires a fresh runner")
+        path = Path(contract["checkpoint_path"])
+        if path.is_symlink() or sha256_file(path) != contract["checkpoint_sha256"]:
+            raise ValueError("evaluated continuation checkpoint bytes changed")
+        loaded = torch.load(path, map_location="cpu", weights_only=True)
+        checkpoint = validate_root_feedback_checkpoint(
+            loaded, actor=self.alg.get_policy(), lineage=loaded["lineage"], minimum_update_count=1
+        )
+        if (
+            checkpoint["actor"]["state_sha256"] != contract["actor_state_sha256"]
+            or checkpoint["critic_state_sha256"] != contract["critic_state_sha256"]
+            or checkpoint["lineage_sha256"] != contract["lineage_sha256"]
+            or checkpoint["trainer_state"]["completed_update_count"] != contract["completed_update_count"]
+            or sha256_file(path) != contract["checkpoint_sha256"]
+        ):
+            raise ValueError("evaluated continuation checkpoint identity changed")
+        before = self._checkpoint_payload()
+        self._training_state_poisoned = True
+        try:
+            self._restore_payload(checkpoint)
+        except BaseException:
+            try:
+                self._restore_payload(before)
+            except BaseException as error:
+                raise RuntimeError("continuation rollback failed; discard runner") from error
+            self._training_state_poisoned = False
+            raise
+        self._training_state_poisoned = False
+
     def __init__(self, *args, **kwargs):
         # Parent initially builds uniform groups; activate declared ratios only
         # after its initialization boundary, before any PPO step/checkpoint.

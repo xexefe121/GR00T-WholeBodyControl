@@ -101,6 +101,29 @@ def objective_fixture():
     return command, env
 
 
+def test_measured_posture_cost_uses_actual23_and_current_received_target_only():
+    from gear_sonic.utils.g1_23dof_contract import HARDWARE_23_ACTION_SCALE
+
+    command, env = objective_fixture()
+    torch.testing.assert_close(task.q10_measured_joint_position_l2(env), torch.zeros(2))
+    command.robot_joint_pos[:, 16] += 0.5
+    desired_cost = (0.5 / HARDWARE_23_ACTION_SCALE[16]) ** 2 / 23
+    torch.testing.assert_close(task.q10_measured_joint_position_l2(env), torch.full((2,), desired_cost))
+    command.motion.joint_pos[11] = 1000
+    env.action_manager = None
+    torch.testing.assert_close(task.q10_measured_joint_position_l2(env), torch.full((2,), desired_cost))
+
+
+def test_measured_posture_rejects_wrong_shape_and_nonfinite_joint_state():
+    command, env = objective_fixture()
+    command.robot_joint_pos[:, 0] = float("nan")
+    with pytest.raises(ValueError, match="finite"):
+        task.q10_measured_joint_position_l2(env)
+    command.robot_joint_pos = torch.zeros(2, 22)
+    with pytest.raises(ValueError, match="native23"):
+        task.q10_measured_joint_position_l2(env)
+
+
 REWARDS = (
     task.q10_root_position_reward,
     task.q10_root_orientation_reward,

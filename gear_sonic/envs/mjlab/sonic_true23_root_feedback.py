@@ -149,6 +149,21 @@ def q10_joint_velocity_reward(env, command_name, std, joint_indices=None):
     return torch.exp(-((desired[:, indices] - command.robot_joint_vel[:, indices]) ** 2).mean(-1) / std**2)
 
 
+def q10_measured_joint_position_l2(env, command_name="motion"):
+    """Dense posture cost on actual physical joints, independent of PD request."""
+    from gear_sonic.utils.g1_23dof_contract import HARDWARE_23_ACTION_SCALE
+
+    command = env.command_manager.get_term(command_name)
+    desired = command.motion.joint_pos[_causal_indices(command)[1]]
+    measured = command.robot_joint_pos
+    if desired.shape != measured.shape or measured.ndim != 2 or measured.shape[1] != 23:
+        raise ValueError("measured posture objective requires matching native23 joint states")
+    if not torch.isfinite(desired).all() or not torch.isfinite(measured).all():
+        raise ValueError("measured posture objective requires finite states")
+    scale = torch.as_tensor(HARDWARE_23_ACTION_SCALE, dtype=measured.dtype, device=measured.device)
+    return ((measured - desired) / scale).square().mean(-1)
+
+
 def q10_action_target_reference_l2(env, command_name="motion", action_name="joint_pos"):
     from gear_sonic.envs.mjlab.sonic_true23_low_latency_recovery import _processed_target
     from gear_sonic.utils.g1_23dof_contract import HARDWARE_23_ACTION_SCALE
@@ -277,10 +292,19 @@ def install_root_feedback_command(spans):
     task.CausalHistoryMotionCommandCfg.build = build
 
 
-def configure_root_feedback_environment(cfg, spans, *, reset_position_range_m=0.0, reset_velocity_range_m_s=0.0):
+def configure_root_feedback_environment(
+    cfg,
+    spans,
+    *,
+    reset_position_range_m=0.0,
+    reset_velocity_range_m_s=0.0,
+    objective_profile="legacy_root_tracking",
+):
     from mjlab.managers.observation_manager import ObservationGroupCfg, ObservationTermCfg
     from mjlab.managers.reward_manager import RewardTermCfg
+    from gear_sonic.utils.g1_true23_root_feedback_objectives import objective_profile_contract
 
+    objectives = objective_profile_contract(objective_profile)
     if not 0 <= reset_position_range_m <= 0.15 or not 0 <= reset_velocity_range_m_s <= 0.15:
         raise ValueError("root reset perturbation exceeds bounded nominal acquisition range")
     configure_curriculum_environment(cfg, spans)
@@ -292,6 +316,11 @@ def configure_root_feedback_environment(cfg, spans, *, reset_position_range_m=0.
         nan_policy="error",
     )
     cfg.rewards["root_world_tracking_error"] = RewardTermCfg(func=root_tracking_squared_error, weight=-10.0)
+    if objectives["measured_joint_position_l2_weight"]:
+        cfg.rewards["measured_joint_posture_l2"] = RewardTermCfg(
+            func=q10_measured_joint_position_l2,
+            weight=objectives["measured_joint_position_l2_weight"],
+        )
     # Applied only by the inherited environment-reset routine, never mid-cycle.
     cfg.commands["motion"].pose_range = {
         key: (-reset_position_range_m, reset_position_range_m) for key in ("x", "y")

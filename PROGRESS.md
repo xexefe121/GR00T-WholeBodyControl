@@ -1,5 +1,118 @@
 # G1 true23 SONIC — progress log
 
+## 2026-09-07: existing BONES-SEED recovered; evaluated continuation rejected
+
+Correction to the earlier corpus-access claim: the dataset was already in
+Ubuntu-22.04, documented in `G1_TRUE23_TELEOP_HANDOFF.md` and the original
+`23dofsonic` work. No new download or license acceptance was needed to locate it.
+
+- Archive: `/root/bones_seed/g1.tar.gz`, 23,499,973,647 bytes. Independently
+  recomputed SHA256 matches the pinned release:
+  `52580ea8bced72ea9e2ff1e7b68f01c51c7f1099581e9a46b7c87e1dec106d8a`.
+- Existing CSV root: `/root/bones_seed/g1_extracted/g1/csv`.
+  Metadata v004 contains 142,220 rows: 71,132 originals and 71,088 mirrors.
+  Current filesystem has 98,854 nonempty files, 1,363 empty placeholders and
+  42,003 missing files. Nonempty does not itself establish a complete CSV.
+- Existing 5,318-clip native23 corpus remains at
+  `/root/bones_seed/corpus/g1_true23_corpus_v3.npz`; it is not substituted for
+  the new source-fidelity/feasibility-qualified training corpus.
+- New index groups capture date, day part, actor and original take name before
+  the 80/10/10 family split. All mirrors inherit the original's split. There
+  are 550 test-split dance capture groups, of which 423 have nonempty original
+  CSVs. These are available candidates, not 423 qualified dances.
+- Fixed training diagnostic cohort: three originals each from dance,
+  locomotion, standing and transition families. All 12 complete source CSVs
+  converted successfully: 9,574 original samples at 120 Hz, all 29 named
+  joints, original root trajectories and endpoints preserved. No test or
+  validation clips used. No joint deletion, clipping or root reanchoring.
+- A complete single-pass archive audit inspected 142,346 entries, recomputed
+  the compressed archive hash and verified all 12 selected CSVs byte-for-byte
+  against their archive members and conversion receipts. It extracted nothing.
+
+Local-only source evidence is under
+`artifacts/g1_true23_generalist/bones_seed_local_20260907_v1/`: metadata index,
+frozen cohort, source conversions, archive-member audit and retarget reports.
+The entire dataset-derived evidence directory is Git-ignored; raw motion and
+metadata are not published. Motion Data by [Bones Studio](https://bones.studio/).
+Underlying use remains subject to the
+[BONES-SEED license](https://bones.studio/info/seed-license); this indexing work
+does not independently establish license eligibility.
+
+The first two unrestricted-excursion 2x-duration dance fits fail the unchanged
+protected-task gates. A generic-source bug was fixed: hard refinement previously
+accepted only the old happy dance's exact 2x/0.9 candidate. It now reconstructs
+the declared bounded candidate and verifies the exact source-time map, including
+120-to-50 Hz duration quantization, without changing any task/trajectory limit.
+The two complete hard-refinement probes still report infeasible linearized
+subproblems; this is not proof of physical impossibility. They remain rejected,
+not accepted training data. Optional intermediate feasibility recovery was also
+tested on both: worst normalized constraint excess fell from 5.225 to 0.724 and
+12.737 to 0.448, but original protected-frame failures remain 493/664 and
+266/366. Both remain rejected. Intermediate task envelopes are explicitly
+diagnostic, with unchanged final acceptance and joint/root/temporal bounds.
+The third full dance fit also fails the protected gates. No rejected source has
+been promoted into controller training.
+
+The first full standing-transition probe passes the existing 50 Hz grid gate:
+890 original samples become 741 reference samples, actual duration scale
+1.9977502812, no excursion reduction, zero protected-frame failures. Head/hand
+p95 errors are 1.70/7.33/7.24 cm and maximum foot errors are 0.53/1.51 mm.
+However, the added all-original-timestamp FK audit evaluates all 890 source
+timestamps and finds two right-foot orientation regressions, at source indices
+489/490. Maximum excess above the unchanged regression budget is 0.00020234 rad.
+This clip is therefore **control-grid accepted only, not qualified training data**.
+The previous grid-only report is preserved, not rewritten to hide this failure.
+The v2 timestamp audit uses the existing serialized-joint tolerance of 1e-7 rad;
+the earlier diagnostic's joint-bound flags were only 2.83e-9 rad of float32
+rounding. Foot/task tolerances were not changed. No cached achieved task points
+are used: original/direct/native23 FK is recomputed from saved source and target
+joint/root data. This additional audit assumes linear joint/translation and
+root SLERP interpolation; it does not prove continuous-time or dynamic safety.
+
+Controller continuation is implemented with a new evaluated campaign boundary:
+each local block preserves actor, critic, optimizer and counters but uses fresh
+simulator/RNG state; each block is limited to 100 updates and requires the
+previous full three-case CPU evaluation. Independent real-checkpoint audit
+proved exact parent-state transfer at update 100, finite training state, unchanged
+encoder and changes to all decoder/feedback tensors by update 200.
+
+The update-200 candidate completed all 1,841 controls in all three cases, but
+root p95 worsened to 1.095/1.021/0.778 m and nominal final standing joint error
+to 0.761 rad, with final root speed 0.373 m/s. It is rejected for promotion.
+The earlier evaluated checkpoint and all failures remain intact; identical PPO
+was not blindly continued. Evidence:
+`root_feedback_campaign_20260907_v1/segment_0100_0200/` under the generalist
+artifact directory. Simulator qualification, broad-corpus training, live teleop
+and hardware readiness remain incomplete. No robot commands were issued.
+
+Verification checkpoint: 508 scoped tests passed (two ONNX deprecation warnings).
+A subsequent opt-in `root_and_posture_v1` objective adds a dense error on actual
+native23 joint position against the current received q10 reference, distinct
+from the inherited requested-PD-target penalty. Its objective transition is
+explicitly declared in a fresh continuation lineage; the legacy profile is
+numerically unchanged. Forty-eight focused objective/environment/launcher/
+campaign tests passed before starting a separate 100-update experiment from
+the earlier root100 parent. That experiment is now complete, exported and fully
+evaluated. All three cases complete 1,841 controls but root p95 is
+0.884/1.047/1.336 m, worse than the parent in every case. Nominal final joint
+error is 0.671 rad and speed 0.01297 m/s: lower speed does not compensate for
+poor posture and dance fidelity. Nominal dance landmark p95 spans 0.730–0.855 m.
+The posture candidate is also rejected; no automatic promotion or hardware run.
+Independent real-checkpoint audit proves exact actor/critic/optimizer/counter
+transfer, all ten encoder tensors unchanged and all decoder/feedback tensors
+updated. Decoder ONNX probe max error is 1.90735e-6; encoder probes are exact.
+Evidence is under `root_feedback_posture_20260907_v1/`, including the matched
+full CPU comparison. Its checkpoint SHA256 is
+`69ec9b9888d632c837c5cfb12057992d38f53b48cd4b6dbacfc34216fb7caa3a`.
+
+Twenty synthetic all-original-timestamp audit tests pass, including lost
+between-grid source poses, changed source-time maps, named-axis mismatches,
+nonfinite arrays and attempted threshold changes. Final combined verification:
+**534 tests passed**, zero failures or skips, two ONNX deprecation warnings,
+272.48 seconds. Scoped Python E/F checks and `git diff --check` pass. Active
+gantry source/header hashes remain unchanged. Earlier counts above are historical
+checkpoints, not policy passes. Raw BONES motions and metadata remain Git-ignored.
+
 ## 2026-09-07: full root-feedback regression evaluated, not deployment-ready
 
 The second GPU experiment completed 100 PPO updates / 51,200 environment
@@ -227,8 +340,10 @@ binds license/lineage evidence, named joints, timing and file hashes. Acceptance
 requires an external immutable full-source phase plan, at least 100 independent
 held-out dances, three seeds and 95% complete lifecycle success. Missing/rejected
 cases remain failures; a one-frame or cropped self-declared dance cannot pass.
-Local 127 candidate files are not 127 independent recordings. Licensed broad
-corpus access remains missing; no gated BONES-SEED license was accepted.
+Local 127 candidate files are not 127 independent recordings. The earlier claim
+that broad corpus access was missing was incorrect: the existing WSL BONES-SEED
+archive and metadata were subsequently located and verified; see the latest
+entry. No new gated dataset license was accepted.
 
 Nominal acquisition and lifecycle training modes now derive references from
 validated original train assets. Timed command resampling is bypassed: inherited

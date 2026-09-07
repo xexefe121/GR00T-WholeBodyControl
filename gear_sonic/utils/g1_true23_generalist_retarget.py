@@ -641,22 +641,48 @@ def _restore_retained_diagnostic(source_model, target_model, candidate, stored, 
     return refreshed
 
 
-def refine_retained_protected_motion(*, source_model, target_model, arrays, stored, forensic_report):
-    """One hard-protected refinement of a fully bound rejected 2x/0.9 candidate."""
+def retained_candidate_limits(forensic_report):
+    """Recover one bounded candidate without inheriting weakened task gates."""
+    if forensic_report.get("accepted") is not False or len(forensic_report.get("attempts", [])) != 1:
+        raise ValueError("hard refinement requires one explicitly rejected full candidate")
+    if forensic_report.get("source_role") != "requested_choreography":
+        raise ValueError("retained source role must be requested choreography")
+    declared = dict(forensic_report["limits"])
+    for key in ("duration_scales", "excursion_scales"):
+        declared[key] = tuple(declared[key])
+    limits = AdaptationLimits(**declared)
+    defaults = asdict(AdaptationLimits())
+    variable_fields = {"duration_scales", "excursion_scales", "maximum_output_frames"}
+    if any(value != defaults[key] for key, value in asdict(limits).items() if key not in variable_fields):
+        raise ValueError("retained candidate cannot change protected task or trajectory limits")
+    if len(limits.duration_scales) != 1 or len(limits.excursion_scales) != 1:
+        raise ValueError("hard refinement requires exactly one retained scale candidate")
+    parent = forensic_report["attempts"][0]
+    actual = parent.get("actual_duration_scale")
+    if (
+        parent.get("requested_duration_scale") != limits.duration_scales[0]
+        or parent.get("requested_excursion_scale") != limits.excursion_scales[0]
+        or isinstance(actual, bool)
+        or not isinstance(actual, (int, float))
+        or not math.isfinite(actual)
+        or not 1 <= actual <= limits.max_duration_scale
+    ):
+        raise ValueError("retained candidate adaptation bounds differ from declared limits")
+    return limits
+
+
+def refine_retained_protected_motion(
+    *, source_model, target_model, arrays, stored, forensic_report, feasibility_restoration=False
+):
+    """One hard-protected refinement of a fully bound rejected scale candidate."""
     from gear_sonic.utils.g1_23dof_trajectory_projection import project_nearest_trajectory
     from gear_sonic.utils.g1_true23_original_task_trajectory import OriginalTaskConfig, OriginalTaskPath
     from gear_sonic.utils.g1_true23_generalist_protected_root import fit_protected_task_path
 
-    limits = AdaptationLimits(duration_scales=(2.0,), excursion_scales=(0.9,))
-    if forensic_report.get("accepted") is not False or len(forensic_report.get("attempts", [])) != 1:
-        raise ValueError("hard refinement requires one explicitly rejected full candidate")
+    if type(feasibility_restoration) is not bool:
+        raise ValueError("feasibility restoration must be an explicit boolean")
+    limits = retained_candidate_limits(forensic_report)
     parent = forensic_report["attempts"][0]
-    if (
-        parent.get("actual_duration_scale") != 2
-        or parent.get("requested_excursion_scale") != 0.9
-        or forensic_report.get("source_role") != "requested_choreography"
-    ):
-        raise ValueError("retained candidate adaptation bounds or source role differ")
     source = validate_named_motion(arrays, source_model, allow_source_limit_excess=True)
     if "contact_flags" not in source:
         feet = ik._source_foot_positions(
@@ -669,8 +695,10 @@ def refine_retained_protected_motion(*, source_model, target_model, arrays, stor
         source["contact_flags"] = ik.infer_foot_contacts(
             feet, fps=float(source["fps"][0]), height_tolerance_m=0.035, speed_tolerance_m_s=0.45
         )
-    original, source_times, _ = _resample(source, 2.0, limits)
-    candidate = _reduce_excursion(original, 0.9)
+    original, source_times, actual_scale = _resample(source, limits.duration_scales[0], limits)
+    if not math.isclose(actual_scale, parent["actual_duration_scale"], rel_tol=0, abs_tol=1e-12):
+        raise ValueError("retained duration differs from complete source resampling")
+    candidate = _reduce_excursion(original, limits.excursion_scales[0])
     if not np.array_equal(source_times, stored["source_time_map_s"]):
         raise ValueError("retained source-time map differs or omits original endpoints")
     config = ik.RetargetConfig(**forensic_report["ik_config"])
@@ -705,12 +733,18 @@ def refine_retained_protected_motion(*, source_model, target_model, arrays, stor
             pose[:, 7:],
         )
     )
-    variables, fit_report = fit_protected_task_path(problem, initial, baseline)
+    if feasibility_restoration:
+        from gear_sonic.utils.g1_true23_generalist_feasibility_restore import fit_with_feasibility_restoration
+
+        variables, fit_report = fit_with_feasibility_restoration(problem, initial, baseline)
+    else:
+        variables, fit_report = fit_protected_task_path(problem, initial, baseline)
     fit_report["seed_projection"] = {"iterations": projection.iterations, "audit": asdict(projection.audit)}
     motion = problem.serialize(variables)
     fit_report["serialized_path_constraints"] = problem.audit(problem.serialized_variables(motion))
     receipt = {
-        "strategy": "hard_soc_protected_root_se3_and_all23",
+        "strategy": "hard_soc_protected_root_se3_and_all23"
+        + ("_with_intermediate_restoration" if feasibility_restoration else ""),
         "requested_frames": len(initial),
         "completed": False,
         "fit_report": fit_report,
@@ -724,6 +758,8 @@ def refine_retained_protected_motion(*, source_model, target_model, arrays, stor
         summary, fidelity, failures = _candidate_assessment(result, original_positions, limits)
         receipt.update(completed=True, completed_frames=len(qpos))
     report = deepcopy(forensic_report)
+    if "hard_refinement_error" in report:
+        report["retained_parent_hard_refinement_error"] = report.pop("hard_refinement_error")
     attempt = report["attempts"][0]
     attempt["before_hard_protected_refinement"] = {
         "ik_summary": parent["ik_summary"],
@@ -741,6 +777,7 @@ def refine_retained_protected_motion(*, source_model, target_model, arrays, stor
         accepted=not failures,
         selected_attempt=0 if not failures else None,
         hard_protected_refinement_requested=True,
+        intermediate_feasibility_restoration_requested=feasibility_restoration,
         hardware_authorized=False,
         deployment_ready=False,
     )

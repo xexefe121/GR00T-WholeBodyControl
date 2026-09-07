@@ -10,6 +10,7 @@ from gear_sonic.tests.test_native23_root_feedback_actor import actor as actor
 from gear_sonic.tests.test_native23_generalist_runner import lineage as lineage
 from gear_sonic.tests.test_native23_generalist_actor import WARM
 from gear_sonic.utils.g1_23dof_mjlab_training import build_mjlab_training_lineage
+from gear_sonic.utils.g1_true23_generalist_corpus import sha256_file
 from gear_sonic.trl.mjlab.native23_generalist_runner import (
     generalist_optimizer_groups,
     validate_generalist_checkpoint,
@@ -193,3 +194,51 @@ def test_unbound_checkpoint_learning_rate_is_rejected(actor, lineage, tmp_path):
     checkpoint["optimizer_state_dict"]["param_groups"][1]["lr"] *= 2
     with pytest.raises(ValueError, match="bound profile"):
         validate_root_feedback_checkpoint(checkpoint, actor=actor, lineage=lineage)
+
+
+def test_evaluated_continuation_preserves_full_state_but_binds_new_lineage(actor, lineage, tmp_path):
+    before = actor.export_training_artifact()
+    parent = fixture_runner(actor, lineage, tmp_path)
+    try:
+        actor.root_conditioner.weight.sum().backward()
+        parent.alg.optimizer.step()
+        parent.alg.optimizer.zero_grad(set_to_none=True)
+        path = tmp_path / "parent.pt"
+        parent.save(path)
+        payload = torch.load(path, map_location="cpu", weights_only=True)
+        contract = {
+            "checkpoint_path": str(path),
+            "checkpoint_sha256": sha256_file(path),
+            "actor_state_sha256": payload["actor"]["state_sha256"],
+            "critic_state_sha256": payload["critic_state_sha256"],
+            "lineage_sha256": payload["lineage_sha256"],
+            "completed_update_count": 2,
+        }
+        materials = lineage["materials"]
+        child_lineage = build_mjlab_training_lineage(
+            WARM,
+            resolved_config={"native23_root_feedback": {"continuation": contract}},
+            source_manifest=materials["source_files"],
+            asset_manifest=materials["robot_assets"],
+            dataset_manifest=materials["motion_dataset"],
+        )
+        child = fixture_runner(actor, child_lineage, tmp_path)
+        child.completed_update_count = child.current_learning_iteration = 0
+        child.env.unwrapped.common_step_counter = 0
+        with torch.no_grad():
+            actor.root_conditioner.weight.add_(1)
+        child.initialize_evaluated_continuation(contract)
+        restored = child._checkpoint_payload()
+        assert restored["lineage_sha256"] == child_lineage["lineage_sha256"] != payload["lineage_sha256"]
+        assert restored["actor"]["state_sha256"] == payload["actor"]["state_sha256"]
+        assert restored["critic_state_sha256"] == payload["critic_state_sha256"]
+        assert restored["trainer_state"] == payload["trainer_state"]
+        assert restored["optimizer_state_dict"]["param_groups"] == payload["optimizer_state_dict"]["param_groups"]
+        for key, values in restored["optimizer_state_dict"]["state"].items():
+            for name, value in values.items():
+                assert torch.equal(value, payload["optimizer_state_dict"]["state"][key][name])
+        with pytest.raises(ValueError, match="fresh runner"):
+            child.initialize_evaluated_continuation(contract)
+    finally:
+        actor.zero_grad(set_to_none=True)
+        actor.load_training_artifact(before)

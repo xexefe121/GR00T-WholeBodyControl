@@ -71,3 +71,33 @@ def test_training_retains_audited_mode_and_separate_outputs():
     args.curriculum_directory = Path("train")
     with pytest.raises(ValueError, match="separate"):
         validate_bounds(args)
+
+
+def test_campaign_requires_evaluated_parent_and_retains_short_sessions():
+    with pytest.raises(ValueError, match="evaluated"):
+        validate_bounds(arguments("campaign"))
+    args = arguments("campaign", "--continue-from", "parent.pt", "--continuation-evaluation", "report.json")
+    validate_bounds(args)
+    assert args.iterations == 2000 and args.session_updates == 100
+    contract = feedback_training_contract(args, {"stage": "lifecycle"})
+    assert contract["experiment_class"] == "evaluated_local_training_campaign"
+    assert contract["held_out_policy_generalization_verified"] is False
+    assert contract["hardware_authorized"] is False
+    args.session_updates = 101
+    with pytest.raises(ValueError, match="CPU evaluation"):
+        validate_bounds(args)
+
+
+@pytest.mark.parametrize("extra", [("--iterations", "5001"), ("--num-envs", "33"), ("--resume", "old.pt")])
+def test_campaign_limits_and_explicit_continuation(extra):
+    with pytest.raises(ValueError):
+        validate_bounds(
+            arguments(
+                "campaign", "--continue-from", "parent.pt", "--continuation-evaluation", "report.json", *extra
+            )
+        )
+
+
+def test_production_cannot_use_local_continuation_switch():
+    with pytest.raises(ValueError, match="only in explicit campaign"):
+        validate_bounds(arguments("train", "--continue-from", "parent.pt"))
