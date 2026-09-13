@@ -1,0 +1,69 @@
+{
+  "kind": "offline_native23_mjbatch_ilqr_probe",
+  "clip": "walk002",
+  "probe": "source-prefix",
+  "completed_controls": 379,
+  "requested_controls": 500,
+  "probe_completed": false,
+  "full_source_completed": false,
+  "failure": {
+    "kind": "physical_limit",
+    "control": 379,
+    "substep": 1,
+    "time": 7.561999999999389,
+    "range_excess": 0.0,
+    "velocity_ratio": 1.0389659828536455,
+    "effort_ratio": 1.0
+  },
+  "metrics": {
+    "phase": "source_motion",
+    "controls": 29,
+    "leg_rmse": 0.20799536725199258,
+    "arm_rmse": 0.07538916610639153,
+    "root_p95": 0.5372641207889242,
+    "tracked_body_position_p95": [
+      0.5372641207889242,
+      0.5546145018712022,
+      0.10125640707421779,
+      0.09728232687998303,
+      0.5042278177955762,
+      0.5676206686072284
+    ]
+  },
+  "range_excess_max": 0.0,
+  "velocity_ratio_max": 1.0389659828536455,
+  "effort_ratio_max": 1.0,
+  "feedback_correction_clip_rad": 0.1,
+  "feedback_correction_clipped_controls": 0,
+  "planning_ms_p50_p95_max": [
+    1932.0651425000506,
+    2229.9582865000502,
+    2323.7643119999802
+  ],
+  "planning_deadlines_missed": 76,
+  "elapsed_wall_seconds": 149.77562892900005,
+  "simulated_seconds": 7.561999999999389,
+  "physics_steps": 3781,
+  "declared_future_preview_seconds": 0.6,
+  "conservative_effective_source_preview_seconds": 0.74,
+  "recorded_target_seed": {
+    "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/bfm_walk002_feedback_v2",
+    "trace_sha256": "74bbd9c8e4cae7c8c8b421b4a1448f917872161b837efce04001810041b94f97",
+    "report_sha256": "05891f641b8cf7711fcd678bc5577d5d3973d3c653dacc2a77c238e303e06f05",
+    "controls": 1417,
+    "original_generator_preview_seconds": 0.14,
+    "selection": "lower actual-rollout cost of recorded BFM targets and shifted previous MPC plan",
+    "physical_states_copied": false
+  },
+  "mujoco": "3.2.3",
+  "controller": "iLQR position targets with measured-state feedback and native manualPD",
+  "physical_state_rewrites_after_initialization": 0,
+  "root_assistance_forces": 0,
+  "timing_qualified": false,
+  "full_body_tracking_qualified": false,
+  "hardware_authorized": false,
+  "native323_replay_required": true,
+  "request_sha256": "afd752a4dc0f82a4f7cedf80708bfe065dd20f4db9a57908a8df11ac400b2812",
+  "trace_sha256": "25683741678da0e42f9e2188dc748413b961f9d14c5a97ab2573ee2939442444",
+  "plans_sha256": "8c873f1d6611d55f6ed111dbdf001c5a72b8a75dbe2a80267f3650545caf1852"
+}

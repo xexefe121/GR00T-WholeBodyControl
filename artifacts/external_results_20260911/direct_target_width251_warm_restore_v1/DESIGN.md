@@ -1,0 +1,17 @@
+# Warm512 restoration adapter
+
+Source preparation only. No actual checkpoint or task data is opened. No model forward, gradient, optimizer update, GPU work, native step or fit is selected. Update count, learning-rate schedule and new recovery loss coefficient remain unselected.
+
+`warm512_restore.restore(model, optimizer, saved, current_rng, progress)` accepts an already loaded CPU checkpoint only after its caller's future concrete fit gate. It does not load files or create a model. The destination must be the exact copied `WiderContextTarget` with the same six 512-wide actor tensors, original split contractions, ELU configuration and AdamW parameter order. The fixed mean/std must already equal the saved frozen 1,323-column normalization.
+
+The source must be the original qualified causal81000 endpoint, optimizer age16000, architecture1323/512/512/23, original coefficient and response group weights/rule. The source's embedded request must declare the actual split512 float32 training forward and monolithic float64 export. This source validation is independent of the copied legacy expansion validator, which expects a different checkpoint and is never invoked.
+
+All six full actor tensors, all six complete AdamW moment/step states and the entire source parameter group are restored. Both actor and optimizer load arguments are deep copies, preventing later mutation of CPU optimizer state from changing expected source evidence. No learned context column, added-neuron incoming/outgoing block, or moment is zeroed. Existing added-neuron optimizer age remains16000. No expansion generator runs and no optimizer is reset.
+
+The unchanged `restoration_support.restore_rng` restores CPU/CUDA Torch, NumPy and Python global RNG. The adapter validates the source RNG payload using local generators before mutation, and compares the complete captured global state after restoration. CUDA device-count correspondence remains the unchanged helper's actual-runtime check. Source normalization, all actor bytes and the whole AdamW state dictionary are compared again before success. There is no LR override in the adapter; any later LR change must belong to the separately reviewed fit protocol and occur after this complete comparison.
+
+The caller owns a mutable progress record. Validation occurs before actor loading. Actor-load, optimizer-load and RNG-restore attempted/returned fields are separately updated. Exceptions propagate once, leaving the actual partial destination and progress available to the caller's failure preservation. The adapter never rolls back, swallows an exception, retries, or claims completion after a partial restoration.
+
+Three files are copied exactly from qualified width81000 source: `width512.py`, `restoration_support.py`, and `balance_contract.py`. Their unused legacy expansion/schedule functions remain present for byte preservation but are not imported or called by the new adapter. Only `WiderContextTarget`, ordered names/shapes, exact saved-state comparison, RNG restore and fixed response constants are consumed.
+
+Synthetic tests construct CPU tensors and synthetic model/AdamW containers without any forward, backward or step. They reject source/architecture/request/norm/moment/RNG corruption, changed destination forward/hooks/parameter order, and zeroing of learned added blocks. They demonstrate immutable source evidence after later destination tensor mutation, preservation of extra group metadata, exact global RNG recovery, and truthful partial-failure stages.

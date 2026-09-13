@@ -1,0 +1,63 @@
+{
+  "kind": "unselected_width512_capacity_engineering_proposal",
+  "actual_fit_selected": false,
+  "future_source_checkpoint_sha256": "395aabf879c0a40b5187a4265ae850de49cfb62583e144145c1986d65402143d",
+  "source_checkpoint_not_loaded_or_rehashed": true,
+  "architecture": [
+    1323,
+    512,
+    512,
+    23
+  ],
+  "old_architecture": [
+    1323,
+    256,
+    256,
+    23
+  ],
+  "source_step": 71000,
+  "final_step": 81000,
+  "updates": 10000,
+  "optimizer_start_step": 6000,
+  "optimizer_final_step": 16000,
+  "fresh_optimizer": false,
+  "group_count": 1,
+  "parameter_state_count": 6,
+  "new_moments": "zero",
+  "old_moments": "exact_old_blocks",
+  "shared_step_bias_correction": true,
+  "expansion_seed": 20260912,
+  "local_expansion_rng_separate_from_source_global_rng": true,
+  "learning_rate": {
+    "ramp_updates": 250,
+    "ramp_inclusive": [
+      1e-06,
+      1e-05
+    ],
+    "cosine_updates": 9750,
+    "cosine_inclusive": [
+      1e-05,
+      1e-06
+    ]
+  },
+  "weight_decay": 1e-05,
+  "gradient_clip": 10,
+  "coefficient": 1.8188207859141674,
+  "objective": "unchanged causal nominal + coefficient*teacher-energy-balanced54-cell full-state + physical",
+  "qualified_schedule_reuse_required": true,
+  "training_rows": 146860000,
+  "training_forwards": 30000,
+  "calibration_calls": 0,
+  "planned_Torch_diagnostic_rows": 1470280,
+  "planned_Torch_diagnostic_calls": 5748,
+  "planned_ORT_diagnostic_rows": 367570,
+  "planned_ORT_diagnostic_calls": 1437,
+  "public_dtype": "float32",
+  "export_internal_dtype": "float64",
+  "parity_tolerance_rad": 1e-05,
+  "learned_BFM_calls": 0,
+  "native_main_controls": 1569,
+  "conditional_hold_controls": 250,
+  "end_to_end_including_features_latency_requirement_ms": 20,
+  "actual_task_calls_permitted_by_this_proposal": 0
+}

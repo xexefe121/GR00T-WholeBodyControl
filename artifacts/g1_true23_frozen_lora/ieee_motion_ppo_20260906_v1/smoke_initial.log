@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_true23_ieee_standing_retention.py", line 73, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_true23_ieee_standing_retention.py", line 67, in main
+    with ieee_training_precision() as (contract, guard):
+  File "/root/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_training_precision.py", line 87, in ieee_training_precision
+    configure()
+  File "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_training_precision.py", line 83, in configure
+    guard()
+  File "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_training_precision.py", line 75, in guard
+    require_ieee(requested_environment)
+  File "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_training_precision.py", line 61, in require_ieee
+    raise ValueError("IEEE training precision or backend contract changed")
+ValueError: IEEE training precision or backend contract changed

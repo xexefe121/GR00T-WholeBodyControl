@@ -1,0 +1,136 @@
+{
+  "kind": "one_qualified_BFM250_actual_expert_transition_labels",
+  "samples": 1019,
+  "expert_controls": [
+    250,
+    1268
+  ],
+  "excluded_BFM_prefix_controls": [
+    0,
+    249
+  ],
+  "excluded_terminal_controls": [
+    1269,
+    1818
+  ],
+  "native_applied_target_labels_only": true,
+  "named_history_and_previous_action_exact": true,
+  "query250_input_and_initial_base_parity": {
+    "previous_action": {
+      "bitexact": true,
+      "max_abs_difference": 0.0
+    },
+    "history": {
+      "bitexact": true,
+      "max_abs_difference": 0.0
+    },
+    "qpos": {
+      "bitexact": true,
+      "max_abs_difference": 0.0
+    },
+    "qvel": {
+      "bitexact": true,
+      "max_abs_difference": 0.0
+    },
+    "integration": {
+      "bitexact": true,
+      "max_abs_difference": 0.0
+    },
+    "clipped_base_vs_initial_fresh_seed": {
+      "bitexact": true,
+      "max_abs_difference": 0.0
+    }
+  },
+  "labels_sha256": "bdcba927cd737a2ba74d75d7b31c427a5bfd4df7437983d13c391f9ca166f749",
+  "reconstruction_max_abs_rad": 2.220446049250313e-16,
+  "previous_action_max_abs": 6.017111778259277,
+  "previous_action_components_outside_five": 28,
+  "features": 1069,
+  "goal_offsets": [
+    0,
+    1,
+    2,
+    4,
+    8,
+    16,
+    24,
+    37
+  ],
+  "clock_or_clip_id_features": false,
+  "received_goal_preview_seconds": 0.74,
+  "raw_pose_support_seconds": 0.76,
+  "frozen_base_goal": "original native h8/position1/yaw2",
+  "seed_identity": {
+    "kind": "offline_native23_measured_history_BFM_rollout_seed",
+    "weights_sha256": "28a2d82a2975c37b8a1533f2e3b0224d27f8a0813283640ee7eeee348fe42c2e",
+    "graph_sha256": {
+      "actor": "7d9dc682dc38c6972c5023bb6bd069c8d9d28a99fa33a871906befaf9a1cc64e",
+      "backward": "2fe7cf1a0f76c101703fd53a855f2281763d47fef45c0f1455789bb04c21c3b7"
+    },
+    "graph_manifest_sha256": "a5650963f41838a6bf77bcfd12fcfa24ae939e6ee5f50d4b877527527d1e3878",
+    "original_goal_arrays_sha256": "486c94b8452302658762c62b3d29d20f87c6719e5e8669d9c594aae22f29ead3",
+    "contract_arrays_sha256": "03e879161cc82756b0346f1a9d18d36d16855ec2667a78abe2126b3edb2da4cd",
+    "native_model_parameters_sha256": "829064c5207223a22b18aede96cd1ef8f0549311cd2d62c9e071118cc52e8ade",
+    "runtime_version": "1.23.2",
+    "runtime_binary_sha256": {
+      "/mnt/e/codex_sonic_runtime/bfm_seed_20260910/onnx_deps/onnxruntime/capi/onnxruntime_pybind11_state.cpython-311-x86_64-linux-gnu.so": "f22a6994fbadefe3888cd3a5300a63021884372dafecaea9875987dce697c8c1"
+    },
+    "mujoco": "3.2.3",
+    "numpy": "1.26.4",
+    "threads": 1,
+    "module_sha256": "2f3d808b6a95fd80a3c1f9a0fabbe80264cf9cc93fbf01e2b2be65f6a5ec75de",
+    "observation_module_sha256": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d",
+    "original_goal_horizon": 8,
+    "position_gain": 1.0,
+    "yaw_gain": 2.0,
+    "conservative_original_derivative_future_pose_frames": 1,
+    "historical_action": "normalized actually applied MPC target, no clipping of action history",
+    "local_future_action": "BFM raw actor*5 before native target clipping",
+    "terminal_goal": "hold last known original goal beyond archive, available-window latent average",
+    "real_history_updated_only_by_record_control": true,
+    "private_physics_hz": 500,
+    "private_rollout_warning_or_clock_reset": "typed rejection; caller retains other seed candidates",
+    "root_assistance": false,
+    "robot_or_DDS_interface": false,
+    "deployment_qualified": false
+  },
+  "qualification_receipt_sha256": "46c4bf4d4b7cbaf146d85dc6daa311687a42f91ff426fc6251b632e9408c6bc8",
+  "qualification": {
+    "root_authorized_extraction": true,
+    "model_fitting_authorized": false,
+    "nominal_trace_sha256": "721a44a88ba3c8d1c9a42c23ab3ec1d0b39b529c78abaa54df19f07ebf5a886a",
+    "extension_trace_sha256": "e171f7e3cc6a1b08484f4f6d328bc43ebc4ff6a39555416157c4d5191d713780",
+    "independent_reports": {
+      "nominal_physics": {
+        "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/bfm250_expert_full_independent_physics_v1/report.json",
+        "sha256": "ccbeebc2d0669c7e30cd078fecaf0a81c215065da4fb32981a02f3d98511d2d5"
+      },
+      "nominal_intent": {
+        "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/bfm250_expert_full_independent_intent_v1/report.json",
+        "sha256": "b63db9083de921529695793df5befa7245240d259e095ff3abad37e4ce07d584"
+      },
+      "extension_physics": {
+        "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/bfm250_expert_hold_independent_physics_v1/report.json",
+        "sha256": "d71dfeb30703a70bda6de923240dce1e616cb27c1db25033cd47266f0f9997f8"
+      },
+      "extension_intent": {
+        "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/bfm250_expert_hold_independent_intent_v1/report.json",
+        "sha256": "5d5a1c8efb00be5fec9ebbf0276d585eed5b52c3fb0c296469767480790551dd"
+      }
+    },
+    "scope": "Collect and inspect expert labels controls250..1268 only; no fitting authorization",
+    "no_hardware_authorization": true,
+    "source_sha256": "10163e6f6eeeaecb22436abd5a14a0a60419c8796fc67914ae6640a306525b3f"
+  },
+  "collector_frozen_receipt_sha256": "392ca8fc00517fd818bc9df0e27a31690471cffebe5545b13c368333d89c1037",
+  "expert_branch_receipt_sha256": "ded3167e02f4374c927afb1244b5bb823e1221b309a9c158477a47e38258ecfd",
+  "expert_launch_clearance_sha256": "299f6575d3886a17bc8c15b3a1bc86c9f7fb24bf55c34855d20b9dbf23711216",
+  "baseline250_sha256": "8a2013cee1112aedc9a9e290382a7c7801d1c8c49f0e1bd0d978619873de8b41",
+  "normalization_refitted": false,
+  "optimizer_calls": 0,
+  "physics_steps": 0,
+  "fitting_launched": false,
+  "actor_inference_calls": 1019,
+  "elapsed_seconds": 7.141869447000005,
+  "hardware_authorized": false
+}

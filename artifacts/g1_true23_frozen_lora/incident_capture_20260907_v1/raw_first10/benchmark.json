@@ -1,0 +1,94 @@
+{
+  "kind": "g1_true23_incident_capture_offline_benchmark_v1",
+  "source_sha256": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/benchmark_g1_true23_incident_capture_no_robot.py": "3970d430781e9269f0063a27a434c0038a27f532b9b7b1ae53aae05192763572",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/record_g1_true23_incident_readonly.py": "800e0b7ca97d4140c5050991eb9c9bf8080f6232a2009f90f0801e263ea4b32e",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_incident_capture.py": "040d2d51b19854107b33ae04fe11480e5e4a2f40f42cd8228192ff98bfedb027"
+  },
+  "source_unchanged": true,
+  "host": "MSI",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+  "python_version": "3.10.12",
+  "requested_duration_s": 10.0,
+  "requested_pairs_per_second": 500,
+  "generated_pairs": 5000,
+  "producer_seconds": 9.9996813,
+  "total_seconds_including_drain": 10.0431627,
+  "offline_decode_seconds": 9.366983525000002,
+  "effective_callbacks_per_second": 1000.0318710157292,
+  "callback_latency_ms_p50": 0.3907,
+  "callback_latency_ms_p99": 0.7166,
+  "callback_latency_ms_max": 116.6769,
+  "producer_lateness_ms_p99": 74.6162,
+  "producer_lateness_ms_max": 115.7644,
+  "rising_synthetic_bit30_edges": 1,
+  "falling_synthetic_bit30_edges": 1,
+  "compressed_bytes": 4715835,
+  "capture": {
+    "kind": "g1_true23_readonly_incident_capture_v1",
+    "capture_end_monotonic_ns": 20020933600,
+    "received_callbacks": {
+      "rt/lowstate": 5000,
+      "rt/user_lowcmd": 5000
+    },
+    "written_packets": {
+      "rt/lowstate": 5000,
+      "rt/user_lowcmd": 5000
+    },
+    "collector_dropped_packets": {},
+    "errors": {},
+    "maximum_queue_depth": 318,
+    "worker_error": null,
+    "transport_error": null,
+    "interpretation_deferred": true,
+    "observations": {},
+    "capture_completed": true,
+    "all_observed_callbacks_preserved": true,
+    "upstream_DDS_or_network_loss_excluded": false,
+    "observed_lowstate": true,
+    "dds_subscriptions_opened": false,
+    "robot_commands_published": false,
+    "physical_cause_proven": false,
+    "hardware_authorized": false,
+    "deployment_ready": false,
+    "packets_sha256": "4f92ab5b6101430682e0ed865ba3f3d31d1e9237499507b8fa66c5001f7e1db6"
+  },
+  "interpretation": {
+    "kind": "g1_true23_incident_offline_decode_v1",
+    "source_directory": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/incident_capture_20260907_v1/raw_first10",
+    "source_packets_sha256": "4f92ab5b6101430682e0ed865ba3f3d31d1e9237499507b8fa66c5001f7e1db6",
+    "source_summary_sha256": "bec63d5265052c1566c56e64988f4e30cf461813753ec22c480464611234ae73",
+    "decoder_source_sha256": {
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/decode_g1_true23_incident_no_robot.py": "b8d43c4f8e3595626bd088261b70623ecc100fbb23a8f154e9515f925b229404",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/record_g1_true23_incident_readonly.py": "800e0b7ca97d4140c5050991eb9c9bf8080f6232a2009f90f0801e263ea4b32e",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_incident_capture.py": "040d2d51b19854107b33ae04fe11480e5e4a2f40f42cd8228192ff98bfedb027"
+    },
+    "decoder_source_unchanged": true,
+    "decoded_file_sha256": "2c6d7776612b0452433e3210026250f5e236870b5bed95258788dd6f6ebce403",
+    "packet_counts": {
+      "rt/lowstate": 5000,
+      "rt/user_lowcmd": 5000
+    },
+    "errors": {},
+    "observations": {
+      "initial_observation": 1,
+      "observed_status_change": 2
+    },
+    "offline_decode_completed": true,
+    "source_capture_completed": true,
+    "source_all_observed_callbacks_preserved": true,
+    "collector_dropped_packets": {},
+    "upstream_DDS_or_network_loss_excluded": false,
+    "dds_subscriptions_opened": false,
+    "robot_commands_published": false,
+    "physical_cause_proven": false,
+    "hardware_authorized": false,
+    "deployment_ready": false
+  },
+  "capture_integrity_pass": true,
+  "dds_transport_tested": false,
+  "real_time_scheduling_qualified": false,
+  "physical_cause_proven": false,
+  "hardware_authorized": false,
+  "deployment_ready": false
+}

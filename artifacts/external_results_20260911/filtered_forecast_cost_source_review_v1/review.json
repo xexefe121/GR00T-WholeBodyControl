@@ -1,0 +1,117 @@
+{
+  "kind": "readonly_exact_qualified_expert_objective_conventions",
+  "created_utc": "2026-09-11T06:44:14.249511+00:00",
+  "source_sha256": {
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\bfm_entry250_actual_oracle_v1\\source_snapshot_v1\\run_bfm250_actual_oracle.py": "9455394ba9d3e51af6976350b8c636907f5634baa566ea48f26faab68fae97bc",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\bfm_entry250_actual_oracle_v1\\source_snapshot_v1\\gear_sonic\\utils\\g1_true23_mjbatch_mpc.py": "7695d03787de93dc3d4b1fb2001d6b6b0dcdb9016af9c96734e8f7d94a5e5dde",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\bfm_entry250_actual_oracle_v1\\source_snapshot_v1\\gear_sonic\\utils\\g1_true23_mjbatch_ilqr_core.py": "1efc9cb21e446d8e41e3d3acebe05d12b951e8a0002b264ddf0a6b723e32f45a"
+  },
+  "qualified_controller": "query250 expert H30,10 iterations,all-joint margin.05/weight2000,relative-foot0",
+  "window_start": "global control c + 10",
+  "state_reference": "state knot t compares frame c+10+t",
+  "control_reference": "control t compares frame c+11+t",
+  "five_post_control_knots": "t1..5 compare frames c+11..c+15",
+  "five_control_regularizers": "t0..4 compare frames c+11..c+15",
+  "full_H30_objective": "sum state residual squared t0..30 plus .1 target deviation squared t0..29",
+  "terminal_multiplier": 1,
+  "timestep_multiplier": 1,
+  "half_factor": false,
+  "tracked_body_origins": [
+    "pelvis",
+    "torso_link",
+    "left_ankle_roll_link",
+    "right_ankle_roll_link",
+    "left_wrist_roll_rubber_hand",
+    "right_wrist_roll_rubber_hand"
+  ],
+  "position_weights": [
+    [
+      200,
+      200,
+      1000
+    ],
+    [
+      100,
+      100,
+      100
+    ],
+    [
+      400,
+      400,
+      400
+    ],
+    [
+      400,
+      400,
+      400
+    ],
+    [
+      60,
+      60,
+      60
+    ],
+    [
+      60,
+      60,
+      60
+    ]
+  ],
+  "rotation_weights": [
+    100,
+    50,
+    50,
+    50,
+    20,
+    20
+  ],
+  "rotation_residual": "quat_log(quat_mul(actual, reference*[1,-1,-1,-1])) times sqrt(weight), frozen quaternion expression",
+  "joint_weight": 2,
+  "velocity_weights": [
+    2,
+    2,
+    5,
+    1,
+    1,
+    1,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05
+  ],
+  "interior_joint_margin": 0.05,
+  "interior_joint_hinge_weight": 2000,
+  "speed_soft_threshold_fraction": 0.8,
+  "speed_hinge_weight": 5,
+  "control_weight": 0.1,
+  "control_reference_expression": "clip(joint_pos[frame]+kd/kp*joint_vel[frame],native target bounds)",
+  "relative_foot_weight": 0,
+  "scope_notes": [
+    "Five-control score is a truncated diagnostic prefix, not fullH30 optimization value or continuation feasibility.",
+    "Initial state t0 is common to all candidates. Include it for literal six-state/five-control truncated sum; document omission for candidate differences.",
+    "Native v4 body-origin cost differs from original29 hand/head acceptance metrics.",
+    "Unsafe early stops yield partial costs; do not treat missing knots as a completed objective.",
+    "No candidate selection, fitting, inference or dynamics executed by this review."
+  ],
+  "reviewer_inference_calls": 0,
+  "reviewer_dynamics_steps": 0,
+  "reviewer_optimizer_calls": 0
+}

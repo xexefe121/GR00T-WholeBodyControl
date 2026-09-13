@@ -1,0 +1,13 @@
+# Independent control-space damping review
+
+Recommend the single minimal private experiment with fixed control-space damping: `Qsym = .5*(Quu + Quu.T)`, `Qreg = Qsym + mu*I`, `Qux = B.T@V@A` without damping. Use this same symmetric `Qreg` for numerical SPD validation, box-QP and free-control feedback solve. Keep the factored value update on original stage costs/value matrices and evaluate unchanged original merit and box bounds.
+
+Keep existing schedule: mu1 initially; ×10 after rejection, ÷10 after acceptance, floor1e−6, stop above1e6, existing10-iteration budget. No eigenvalue clipping, extra diagonal perturbation or new acceptance threshold. The private final script SHA is `7b209e5c96aeda5c7dacdf35ad9c36700d6a52151f2b7b208291eeaf04cc1fe3`; code review found the formula, original shifted-seed regularization anchor, guided-final initial iterate and ordinary-final-only dual-certificate admission correctly preserved. Default/shared solver remains untouched.
+
+Independent matrix-only checks in pinned native NumPy1.26.4: all17 archived incoming matrices from knots13–29 pass Cholesky with fixed mu1. Maximum normalized linear-solve residual8.54e−17. At failing knot13, symmetric undamped minimum eigenvalue−.00105384 becomes .99917182 after +I; largest eigenvalue6.20923e12. Archived state-space damping instead magnified the matrix to~1.5e17, where the original .0002 control curvature is below numerical resolution.
+
+Condition remains high: worst estimate6.21437e12, epsilon×condition .00138. Small residual demonstrates backward stability of this fixed linear system; it does not establish accurate directions under every perturbation. These incoming value matrices came from the prior state-damped sweep. A new control-damped sweep changes value matrices recursively, so this check cannot prove that full backward pass or controller succeeds. Scalar damping is a declared search-direction change, not algebraic equivalence to the old state damping.
+
+No matrix evidence demands a scale-aware schedule before this one bounded trial. If the private run still fails, retain exact failed matrices and distinguish numerical failure from feasible-trajectory failure before proposing another schedule. Final proposal must pass both existing nominal and full-native certificates. No hardware or real-time claim follows.
+
+`report.json`, `matrix_checks.npz`, `source_review.json` and `review_saved_matrices.py` bind the evidence. No derivative, backward pass, box-QP, optimizer, inference or physics was run by this review. `attempt1_reader.py` preserves a reader attempt that assumed uniform archive keys and stopped before producing any matrix result; corrected reader recomputes missing Quu from the saved operands.

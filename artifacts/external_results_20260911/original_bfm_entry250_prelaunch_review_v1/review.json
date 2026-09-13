@@ -1,0 +1,33 @@
+{
+  "kind": "independent_read_only_original_BFM_entry250_prelaunch_review",
+  "verdict": "CLEAR_ONE_ORIGINAL_BFM_ENTRY250",
+  "requested_controls": 250,
+  "source_count": 16,
+  "input_count": 20,
+  "original15_source_copies_exact": true,
+  "checks": [
+    "All16 frozen sources and20 frozen inputs independently hashed exact; original15 pilot source files byte-identical; Python AST parses.",
+    "Frozen timeline initial_standing explicitly asserted0..249 with250 requested controls, source frames11..260.",
+    "Original canonical initialization motion frame10 into one new native MjData, followed by one initial forward; no state replacement thereafter.",
+    "Original yaw2/h8pos1 BFM calls use terminal=False and disable_head=True for every control; zero delta asserted. No residual model inference, optimizer, fresh MPC query, acquisition or source execution.",
+    "Original observation history and preclip raw BFM action*5 semantics retained across all250; no reset, substitution, cap or previous-action replacement.",
+    "Native500Hz PD clips torque only to original effort; original every2ms range/speed/actual-force/quaternion/fall/warning/independent-clock gates reused exactly.",
+    "Raw physics states, applied/commanded torques, clock and warnings appended before failure gates; terminal partial control retained.",
+    "At control99, all1001 states and1000 command torques compared exactly to prior zero-head witness; mismatch stops. Saved prefix used only for comparison.",
+    "Initial/final full integration plus precontrol integration and named history/prior action retained for independent replay and possible future boundary analysis.",
+    "Unchanged quiet metrics score final1500 native samples with original thresholds; full-segment completion does not alone assert quiet qualification.",
+    "Durable launcher requires exact approved clearance identity/bindings, refuses prior attempt outputs, pins WSL323 NumPy1.26.4 and BLAS1 with direct frozen driver.",
+    "All run output/log/status paths absent at review. No reviewer inference, optimizer or physics executed."
+  ],
+  "frozen_receipt_sha256": "9de90679f11bbcf22708750c266698ae10b1b1bffebacdde944aa70f22a8aa98",
+  "driver_sha256": "4fd7c25847758891667bb6d4a18f6edf3c48058fa5189bd19fe2cf8bf789cb4c",
+  "launcher_sha256": "3a7db9b2e160bee55763f1b91f983b22d3f251563fc5c805801e04ad3a97cf6a",
+  "draft_clearance_sha256": "1b0c20b0d082d5473286d0d9a502cad4245df08b92d125bc1db48d1ea8752bdc",
+  "reviewer_inference_calls": 0,
+  "reviewer_optimizer_calls": 0,
+  "reviewer_physics_steps": 0,
+  "hardware_authorized": false,
+  "source_acquisition_or_switch_authorized": false,
+  "remaining_qualification": "Owner may finalize clearance with authorized=true and this review binding, then launch one already-authorized baseline hidden. Root independent250-control physics replay and last3s quiet remain required.",
+  "review_attempt_note": "Initial inline hash-summary command had unmatched parenthesis and executed no Python statements. Corrected read-only hash check completed."
+}

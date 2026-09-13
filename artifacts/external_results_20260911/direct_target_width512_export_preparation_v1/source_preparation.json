@@ -1,0 +1,108 @@
+{
+  "source_preparation_passed": true,
+  "preparation_only": true,
+  "source_directory": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_export_preparation_v1/source_draft_v1",
+  "source_sha256": {
+    "SCHEMA.md": "060f0d5c651c60975ca66e21c100acd9486dbad4f139d33214a4b48ead24b4c0",
+    "test_width512_promoted.py": "a731c36b7bc7ce979a8821601bd1fdce1a3fed4d7fe8a9250187bf7ad1502baf",
+    "width512_promoted.py": "c34efe4853ccb88b2419c56d8fe40daa11fbb7922ee2e9b85dfc276d4bd9152f"
+  },
+  "source_derivation_sha256": "3721b064dd8512bba32d231d79eb5caca98740369a1692dd4efdfbb74d5f40f3",
+  "original_promoted_class_AST_exact": true,
+  "original_exporter_AST_exact_except_graph_name": true,
+  "source_changes": [
+    [
+      "saved['ordinary_final_step']!=71000",
+      "saved['ordinary_final_step']!=81000"
+    ],
+    [
+      "Exact warm ordinary71000 subject required",
+      "Exact proposed ordinary81000 subject required"
+    ],
+    [
+      "[(256,1323),(256,256),(23,256)]",
+      "[(512,1323),(512,512),(23,512)]"
+    ],
+    [
+      "same_71000_context_weights_fp64_execution",
+      "same_81000_width512_context_weights_fp64_execution"
+    ]
+  ],
+  "synthetic_tests": 20,
+  "tests_failed": 0,
+  "tests_skipped": 0,
+  "runtime": {
+    "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+    "executable": "E:\\codex_sonic_runtime\\direct_target_gpu_20260911\\venv\\Scripts\\python.exe",
+    "torch_version": "2.10.0+cu128",
+    "onnx_version": "1.22.0",
+    "torch_threads": 1,
+    "interop_threads": 1,
+    "cuda_initialized": false
+  },
+  "graph_nodes": 20,
+  "graph_initializers": 10,
+  "graph_opset": 17,
+  "graph_ir_version": 8,
+  "graph_input": [
+    "float32",
+    null,
+    1323
+  ],
+  "graph_output": [
+    "float32",
+    null,
+    23
+  ],
+  "original_parameter_dtype": "float32",
+  "internal_dtype": "float64",
+  "future_ordinary_step": 81000,
+  "unchanged_parity_tolerance_rad": 1e-05,
+  "final_admission_backends": [
+    "CPU64",
+    "GPU64",
+    "ORT64"
+  ],
+  "final_GPU32_drift_is_diagnostic": true,
+  "initialization_GPU32_comparison_gate_preserved": true,
+  "synthetic_graphs": {
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_export_preparation_v1/synthetic_only_temp/test_exact_manual_graph_withou0/synthetic_width512.onnx": "aa1c55ca10f1a8a74a6e2fd84409ea5e7300d1cf13023bb3ed95f16a294d59f7"
+  },
+  "input_sha256": {
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_response_balanced_student_v2/source_snapshot_v1/response_promoted.py": "cbe0ee93de4843ef2aeddc60adc9ae767972783a42fc3b70405a7c7c0e2d3959",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_export_preparation_v1/derive_source.py": "9bee1c8ac0435932ccea29e2fbbebafff00198d49b562a957508822e8faa99b1",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_export_preparation_v1/derivation.json": "3721b064dd8512bba32d231d79eb5caca98740369a1692dd4efdfbb74d5f40f3",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_export_preparation_v1/source_changes.diff": "105ac6ac3dd78a5b144c895b33cb93ff21d6f9abd15c3d7e0160df7f46d9a4f6",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_export_preparation_v1/run_synthetics.py": "f1ead59af7fdb40bc4a9e6d558a91a208f40fb2eb5831ad04f22367942ab97a3",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_export_preparation_v1/record_preparation.py": "a4d788f973c1e67ecfaf69755a8b7c045cae7695758d8b4a9bed15e532136a87",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_export_preparation_v1/runtime.json": "d430428ba19f384be7ee9696d65dea07561df2bc8cf43ec679b8602142dc456c",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_export_preparation_v1/test_exit.json": "b81ae420c446810308b4ead664ca1816978aeebc62fe92d506140cca6ef09a70",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_export_preparation_v1/synthetic_tests.xml": "771fce48e7b0b04697200be66bd89187596d9d16537edfb9e31dacb39e9beaef",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_export_preparation_v1/synthetic_tests.log": "f5f01ad84e060d5e276abbb89d0126db37bda55fbc5c39863c737e9b06fa8af6",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_export_preparation_v1/SCHEMA_before_gate_clarification.md": "fa84f8ad74f65c73f4e91214deb7d2ea828c647764de04ff847503b53684e0d5",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_preparation_v1/proposal.json": "c4882558c35c6281f19e945277490e1e416770b2f21e997729d20b6a54062aab",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_preparation_v1/source_preparation.json": "33c12592a71a709b78e0843219541e6cfc9124ba25027ff103820c77c7617ac2",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_independent_source_review_v1/review.json": "f70d2f83a841d5ffeffe8d4f3244cd846dfc2a73c22f0ad2618e7c651050b5ee",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_export_preparation_v1/source_draft_v1/SCHEMA.md": "060f0d5c651c60975ca66e21c100acd9486dbad4f139d33214a4b48ead24b4c0",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_export_preparation_v1/source_draft_v1/test_width512_promoted.py": "a731c36b7bc7ce979a8821601bd1fdce1a3fed4d7fe8a9250187bf7ad1502baf",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_export_preparation_v1/source_draft_v1/width512_promoted.py": "c34efe4853ccb88b2419c56d8fe40daa11fbb7922ee2e9b85dfc276d4bd9152f",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_export_preparation_v1/synthetic_only_temp/test_exact_manual_graph_withou0/synthetic_width512.onnx": "aa1c55ca10f1a8a74a6e2fd84409ea5e7300d1cf13023bb3ed95f16a294d59f7"
+  },
+  "actual_checkpoint_loads": 0,
+  "task_arrays_loaded": 0,
+  "Torch_forward_calls": 0,
+  "ORT_sessions": 0,
+  "ORT_calls": 0,
+  "cuda_initialized": false,
+  "native_steps": 0,
+  "optimizer_updates": 0,
+  "actual_fit_created": false,
+  "actual_export_created": false,
+  "actual_training_selected": false,
+  "execution_clearance": false,
+  "limitations": [
+    "Parameter/graph evidence only; actual forward numerical parity is not tested or qualified.",
+    "Synthetic ONNX artifact is not a trained head and cannot serve as release, witness or canonical input.",
+    "Future immutable checkpoint/data/fit release subjects, numerical diagnostics and native acceptance remain required."
+  ]
+}

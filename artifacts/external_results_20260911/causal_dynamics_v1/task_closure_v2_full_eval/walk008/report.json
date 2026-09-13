@@ -1,0 +1,68 @@
+{
+  "clip": "walk008",
+  "actor": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\causal_dynamics_v1\\task_closure_v2_candidate\\actor.onnx",
+  "requested_controls": 2614,
+  "completed_controls": 460,
+  "physical_complete": false,
+  "source": {
+    "passed": false,
+    "source_controls": 110,
+    "requested_source_controls": 364,
+    "root_p95_m": 0.48357920305307084,
+    "yaw_p95_deg": 10.935586407820146,
+    "hand_head_relative_p95_m": [
+      0.42149852544758937,
+      0.30741024274957746,
+      0.030770346327939596
+    ],
+    "foot_relative_p95_m": [
+      0.1587161015083715,
+      0.12149301167094192
+    ],
+    "leg_rmse_rad": 0.19617985671615387
+  },
+  "main_quiet": null,
+  "hold_quiet": null,
+  "failure": {
+    "kind": "physics",
+    "control": 460,
+    "substep": 6,
+    "time": 9.211999999999746,
+    "reasons": [
+      "native_joint_bound"
+    ],
+    "speed_ratio": 0.14070932933435404,
+    "range_excess": 0.0022847286972482728,
+    "effort_ratio": 0.6166108336418034,
+    "tilt": 0.11943963650175178
+  },
+  "passed": false,
+  "elapsed_s": 5.764999999999418,
+  "physics_steps": 4606,
+  "maximum_speed_ratio": 0.339555614314439,
+  "policy_ms_p50_p95_max": [
+    10.212499997578561,
+    12.074800004484132,
+    14.061400011996739
+  ],
+  "packet_report": {
+    "epoch": 0,
+    "received": 472,
+    "consumed": 472,
+    "ignored": 0,
+    "rejected": 0,
+    "final_received": false,
+    "full_source_consumed": false,
+    "fault": null,
+    "calibration": null
+  },
+  "future_reference_frames": 0,
+  "prepared_feedback_gains": false,
+  "initial_root_x_velocity_offset": 0.0,
+  "independent_realtime": false,
+  "hardware_authorized": false,
+  "controller_variant": "causal_full_range_actor",
+  "fault_control": null,
+  "fault_quiet": null,
+  "fault_scenario_passed": false
+}

@@ -82,6 +82,17 @@ def test_approved_config_and_exact_model_physics(config, model_bundle):
     assert model.jnt_actfrcrange[6, 1] == 35.0
 
 
+def test_native_inertia_override_refreshes_compiled_solver_constants(model_bundle):
+    from copy import copy
+
+    module, model, physics = model_bundle
+    assert physics["derived_constants"] == "mj_setConst_after_native_physics_override_v1"
+    refreshed = copy(model)
+    module.mj_setConst(refreshed, module.MjData(refreshed))
+    for name in ("dof_M0", "dof_invweight0", "body_invweight0", "actuator_acc0"):
+        np.testing.assert_array_equal(getattr(model, name), getattr(refreshed, name))
+
+
 def test_neutral_reference_is_semantic_fk_not_zero_vector(config, model_bundle):
     module, model, _physics = model_bundle
     reference = NeutralReference(model, module, config["initial_state"])

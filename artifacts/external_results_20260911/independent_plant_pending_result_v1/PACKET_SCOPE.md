@@ -1,0 +1,13 @@
+# Pending-result clock helper scope
+
+Source preparation only. No clock request, launch receipt, clearance or actual process is created by this preparation. The future packet builder requires the actual reviewed 24-file producer and 20-file saved auditor, each with an explicit preparation path and SHA plus the full source map. The auditor review must directly bind this producer preparation and its independent source review. Root helper review precedes any actual metadata freeze; a separate concrete selection and review precede any timed launch.
+
+The future input packet inherits all 3,689 external files from the original 3,718-pin clock launch, the original consumed reference/native/runtime roles, canonical full291 initial state and recorded command-table digest. New source/review/helper and prior failure/diagnosis receipts are additive. It does not decode task arrays or regenerate the command table. Model, optimizer and policy calls remain zero.
+
+The benchmark scope remains 1,819 controls / 18,190 native steps: full original 1,569 plus continuous 250 hold. Four model serializations, packed373/full291 captures, 2ms fixed plant epoch, 20ms control boundaries, strict limits, debt cap100 and 60s elapsed cap remain unchanged. Setup240s, plant120s, preservation180s and outer555s budgets remain unchanged. No timing failure is excused by the BUSY fix.
+
+Plant job publication retains the previous immutable-job BUSY-only maximum10 attempts, once per eligible physics tick. Worker result publication adds the reviewed immutable-result BUSY-only maximum20 attempts, once per existing1ms worker loop, with up to2 owned polled jobs. Pending result blocks another job poll or response computation. Every result remains bound to literal `Job.deadline_ns = epoch_ns + activation*20_000_000`; no rebasing or late admission extension. Unknown write, FULL, CORRUPT, expiry, observer/log failure or late publication remains a failure.
+
+`prepare_clock_stage.py`, preserved PowerShell template, saved verdict and completion accounting helper are byte-identical to the completed pending-publication package. They retain hidden child/handle ownership, CreateNew start lock, known raw exit requirement, pre/post pin checks, no automatic resume and explicit process-absence accounting. Fixed output/source paths resolve through the fresh helper namespace. Generated PowerShell is parsed as text only during preparation.
+
+The original worker-result656 BUSY loss, preceding plant timing misses and strict failure remain preserved. New saved auditor reconstruction is required for the new worker ledger; the old single-publication auditor cannot qualify it. This component benchmark is recorded-command transport/scheduling work, not online controller balance qualification.

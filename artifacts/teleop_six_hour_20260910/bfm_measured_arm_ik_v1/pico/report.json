@@ -1,0 +1,71 @@
+{
+  "clip": "pico",
+  "completed": 3902,
+  "requested": 6530,
+  "available": 6530,
+  "failure": {
+    "kind": "physical_limit",
+    "control": 3901,
+    "range_excess": 0.013251535324997565,
+    "velocity_ratio": 0.05877509654539118
+  },
+  "full_lifecycle_completed": false,
+  "source_metrics": {
+    "source_controls": 3552,
+    "source_requested": 5780,
+    "leg_rmse": 0.17834006921620757,
+    "arm_rmse": 0.268362333578648,
+    "root_p95": 0.32613965527749456,
+    "landmark_p95": [
+      0.3630773296330819,
+      0.3833770408077412,
+      0.38696312485973106,
+      0.38958681201237527,
+      0.333866463718262
+    ],
+    "relative_landmark_p95": [
+      0.2159225181349789,
+      0.2031950761386895,
+      0.19873560435917573,
+      0.2427960910525624,
+      0.07206553430888445
+    ]
+  },
+  "range_excess_max": 0.013251535324997565,
+  "effort_ratio_max": 0.9729365198516992,
+  "velocity_ratio_max": 0.4699468311645133,
+  "inference_ms_p95": 19.29538499534828,
+  "elapsed_seconds": 67.63367920000746,
+  "goal_horizon": 8,
+  "goal_buffer_ms": 140,
+  "reference_path": "C:\\Users\\camer\\sonic23_sim_artifacts\\internet_pico_20260909_v1\\pico_freedancing_v1\\optical_reference_v2\\lifecycle23.npz",
+  "motion_override": null,
+  "reference_geometry_retargeted": false,
+  "ground_truth_pose_feedback": true,
+  "root_xy_feedback_used": true,
+  "heading_feedback_sensor_equivalent": "pelvis_IMU_orientation_with_initial_calibration",
+  "position_gain": 1.0,
+  "yaw_gain": 2.0,
+  "arm_reference": false,
+  "arm_intent_ik": true,
+  "waist_intent_yaw": false,
+  "arm_ik_goal": "original29 hand positions relative to original root, world axes, translated to measured current root; original hand rotations",
+  "arm_ik_evaluation_budget": 6,
+  "arm_ik_target_step_rad": 0.12,
+  "arm_ik_ms_p95": 8.994735000305806,
+  "arm_ik_position_residual_p95": [
+    0.024437028157912696,
+    0.04407829002829736
+  ],
+  "arm_ik_budget_exhausted_count": [
+    3171,
+    3341
+  ],
+  "leg_error_gain": 0.0,
+  "residual_checkpoint": null,
+  "residual_updates": null,
+  "model_path": "Z:\\codex\\GR00T-WholeBodyControl\\gear_sonic\\data\\robots\\g1\\g1_23dof_rev_1_0.xml",
+  "action_contract": "target=default_q+5*tanh_actor*.25*training_effort/training_kp; native effort clipped",
+  "hardware_authorized": false,
+  "deployment_ready": false
+}

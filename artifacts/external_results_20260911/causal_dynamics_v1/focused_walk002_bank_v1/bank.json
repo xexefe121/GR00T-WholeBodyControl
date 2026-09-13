@@ -1,0 +1,136 @@
+{
+  "clips": [
+    {
+      "name": "walk003",
+      "file": "walk003.npz",
+      "training": true,
+      "length": 1580,
+      "total": 1569,
+      "initial_frame": 10,
+      "source_start": 350,
+      "source_stop": 1169,
+      "reference_sha256": "2d3b508e1b489499ece5cea8e88a885d9b94aeca82a6a0e8542bc39e690b8033",
+      "original_sha256": "4d462a077f10bda04c97deaf5a5ff29ec5f891a29b8bae30a6f0080cfaf06f84"
+    },
+    {
+      "name": "walk002",
+      "file": "walk002.npz",
+      "training": true,
+      "length": 1428,
+      "total": 1417,
+      "initial_frame": 10,
+      "source_start": 350,
+      "source_stop": 1017,
+      "reference_sha256": "9486ae6a58942cbe636f70a90e8006fbbec98d228519bda7a59f0e0331c6c562",
+      "original_sha256": "0e6ac0dcea5c3f2335bf281aa75de91cfecb41dff0b8d31fce69a87d258380e5"
+    },
+    {
+      "name": "pico",
+      "file": "pico.npz",
+      "training": true,
+      "length": 6541,
+      "total": 6530,
+      "initial_frame": 10,
+      "source_start": 350,
+      "source_stop": 6130,
+      "reference_sha256": "a1b3bd672551acc800e8b28d4d3d2b68c044f7a80ab3b8fb798d46c9dda70c24",
+      "original_sha256": "58c65ea2805cfe740989661fe26d09e9b8d9b5f1e2c5ac0697167074fef82c5e"
+    },
+    {
+      "name": "walk008",
+      "file": "walk008.npz",
+      "training": false,
+      "length": 1125,
+      "total": 1114,
+      "initial_frame": 10,
+      "source_start": 350,
+      "source_stop": 714,
+      "reference_sha256": "80cc60d81afd712a98fed1d3af5f59ca6a181742246a26538c11a7a776175e6a",
+      "original_sha256": "2eefb50d4484f302bde776fd82173532143cdf51f75a6ce42ce83f3a6eca939c"
+    }
+  ],
+  "expert_rows": 9216,
+  "features": 1323,
+  "reference_offsets": [
+    0,
+    -1,
+    -2,
+    -4,
+    -8,
+    -16,
+    -24,
+    -37
+  ],
+  "derivatives": "backward_only",
+  "future_reference_access": false,
+  "simulation_privileged_root": true,
+  "heldout": "walk008",
+  "tasks": [
+    {
+      "name": "left_hand",
+      "kind": "body",
+      "source_body": "left_wrist_yaw_link",
+      "target_body": "left_wrist_roll_rubber_hand",
+      "source_point": [
+        0.18,
+        -0.025,
+        0.0
+      ],
+      "target_point": [
+        0.2640000000000001,
+        -0.025000000000000033,
+        1.521609986447625e-17
+      ],
+      "priority": 3,
+      "orientation_priority": 5,
+      "position_weight": 6.0,
+      "orientation_weight": 0.2,
+      "contact_side": null
+    },
+    {
+      "name": "right_hand",
+      "kind": "body",
+      "source_body": "right_wrist_yaw_link",
+      "target_body": "right_wrist_roll_rubber_hand",
+      "source_point": [
+        0.18,
+        0.025,
+        0.0
+      ],
+      "target_point": [
+        0.2640000000000001,
+        0.025000000000000033,
+        1.521609986447625e-17
+      ],
+      "priority": 3,
+      "orientation_priority": 5,
+      "position_weight": 6.0,
+      "orientation_weight": 0.2,
+      "contact_side": null
+    },
+    {
+      "name": "head_proxy",
+      "kind": "body",
+      "source_body": "torso_link",
+      "target_body": "torso_link",
+      "source_point": [
+        0.0,
+        0.0,
+        0.35
+      ],
+      "target_point": [
+        0.0,
+        0.0,
+        0.35
+      ],
+      "priority": 2,
+      "orientation_priority": null,
+      "position_weight": 8.0,
+      "orientation_weight": 0.0,
+      "contact_side": null
+    }
+  ],
+  "hardware_authorized": false,
+  "supplemental_walk002_quiet_rows": 550,
+  "original_bank": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\causal_dynamics_v1\\bank"
+}

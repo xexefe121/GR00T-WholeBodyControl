@@ -1,0 +1,44 @@
+{
+  "source_sha256": "68f57314b2bf36ae33fd7eaf3fa50e603ade751a2727af6b9547fa8dd890b725",
+  "layers": [
+    {
+      "name": ".mem_encoder.mem_encoder.0",
+      "input": 210,
+      "output": 256
+    },
+    {
+      "name": ".mem_encoder.mem_encoder.2",
+      "input": 256,
+      "output": 128
+    },
+    {
+      "name": ".mem_encoder.mem_encoder.4",
+      "input": 128,
+      "output": 64
+    },
+    {
+      "name": ".low_level_net.low_level_net.0",
+      "input": 72,
+      "output": 256
+    },
+    {
+      "name": ".low_level_net.low_level_net.2",
+      "input": 256,
+      "output": 128
+    },
+    {
+      "name": ".low_level_net.low_level_net.4",
+      "input": 128,
+      "output": 32
+    },
+    {
+      "name": "act__matmul_converted",
+      "input": 32,
+      "output": 12
+    }
+  ],
+  "schema_sources": [
+    "https://github.com/alibaba/MNN/blob/master/schema/default/MNN.fbs",
+    "https://github.com/alibaba/MNN/blob/master/schema/default/CaffeOp.fbs"
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "schema": "independent_source_prelaunch_review_v1",
+  "reviewer": "/root/review_continuation",
+  "created_utc": "2026-09-11T07:49:05.4195708Z",
+  "verdict": "CLEAR",
+  "approved": true,
+  "scope": "ONE root-selected velocity-chord generation from frozen source_snapshot_v2 only. No fit, controller rollout, or hardware approval.",
+  "source_files_verified": 25,
+  "input_files_verified": 549,
+  "bindings": [
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/velocity_chord_student_v1/generation_frozen_inputs_v2.json",
+      "sha256": "a79321d317438c2a3817b0db74e8acb1b6ec92479e44736da1d587ad1d912f08"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/velocity_chord_student_v1/generation_clearance_DRAFT_v2.json",
+      "sha256": "465ae92423feddc990b7c9d650c84756ca3cec1f2f276312e67e3ae34885c041"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/velocity_chord_student_v1/run_generation_durable_v2.ps1",
+      "sha256": "93108796d32af1d984a479a0aab1b9136b12a38cbe1b71629c7a44eb11f4b9b4"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/velocity_chord_student_v1/source_snapshot_v2/generate_velocity_chords.py",
+      "sha256": "93810015192415aa9cf82335e6bab9d4a1cbbe258391b2cda2851a7da334415f"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/velocity_chord_student_v1/source_snapshot_v2/chord_common.py",
+      "sha256": "a23c9557b3f560a84283fb0977fdcb2fd58a63fd49f1d0365561d2dfa575d081"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/velocity_chord_student_v1/source_snapshot_v2/saved_committed_map.py",
+      "sha256": "886be88ce9582f6a851e28c3788f55d0b3482ac1ab6e14ed289652dd018b7b95"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/velocity_chord_student_v1/saved_center_pure_test_v2.json",
+      "sha256": "4edceb5f2f8690199f8f6fa76d6bf275364688598b852a985397b3905e599982"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/velocity_chord_student_v1/generation_preservation_tests_v2.json",
+      "sha256": "e5aed447acd86d22e7fd91409f9d506bcf8c6111ea7a4ec74b04d23561ed5751"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/learner_stability_design_v1/proposal.json",
+      "sha256": "2beea3bbd343393a494958a7086a5d3f0cde91e0345eb9e21512bfed33c38cf5"
+    }
+  ],
+  "checks": {
+    "frozen_hashes_exact": true,
+    "launcher_ast_errors": 0,
+    "prelaunch_outputs_absent": true,
+    "original_18_phase_sources_unchanged": true,
+    "unexecuted_v1_preserved": true,
+    "saved_center_pure_test": {
+      "passed": true,
+      "rows": 3057,
+      "physics_steps": 0,
+      "note": "Pure test exercised the v1 reconstruction body; its AST is unchanged in v2."
+    },
+    "preservation_stub_tests": {
+      "passed": true,
+      "model_calls": 0,
+      "physics_steps": 0,
+      "optimizer_updates": 0
+    },
+    "nominal_centers_gate_all_before_probes": true,
+    "actor_calls": 143679,
+    "backward_calls": 3057,
+    "total_bfm_onnx_calls": 146736,
+    "center_rows": 3057,
+    "probe_rows": 140622,
+    "axes": 23,
+    "symmetric_signs": 2,
+    "full_committed_plan_difference_and_matrix_product": true,
+    "correction_clip_rad": 0.1,
+    "native_target_clip_unchanged": true,
+    "only_selected_joint_velocity_and_bfm_base_feature_changes": true,
+    "original_history_prior_goal_state_preserved": true,
+    "unchanged_qpos_goal_latent_cached_once_per_center": true,
+    "teacher_static_velocity_bounds_checked": true,
+    "atomic_progress_and_explicit_committed_prefix": true,
+    "failed_returned_arrays_and_full_history_context_preserved": true,
+    "all_memmaps_flushed_on_exception": true,
+    "postcompletion_failure_distinguishes_already_committed_active_row": true,
+    "final_all_source_input_rehash_before_complete": true,
+    "no_physics_functions_permitted": true
+  },
+  "limitations": [
+    "Teacher labels are bounded perturbations of the saved committed feedback map, not newly replanned expert actions.",
+    "Static native velocity bounds do not qualify the perturbed states or targets dynamically.",
+    "Old normalization and all difficult nominal rows remain; no PICO or walk002 rows enter this experiment.",
+    "Dataset completeness, exact center/mask/provenance checks and independent data review remain prerequisites to the separately frozen fit stage."
+  ],
+  "reviewer_execution": {
+    "source_reads": true,
+    "hash_checks": true,
+    "model_inference": 0,
+    "physics_steps": 0,
+    "optimizer_updates": 0,
+    "controller_runs": 0
+  }
+}

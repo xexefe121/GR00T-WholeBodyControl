@@ -1,0 +1,41 @@
+{
+  "kind": "planner_portable_retarget_numeric_validation",
+  "mujoco": "3.2.3",
+  "verifier_sha256": "a803df7e7ae56efb58fd6d0d6e0a226d86fd89515e808f5776681d63eec930de",
+  "records": {
+    "pico": {
+      "receipt": {
+        "path": "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_floor_inputs_v1/pico/reference.npz",
+        "reference_sha256": "a1b3bd672551acc800e8b28d4d3d2b68c044f7a80ab3b8fb798d46c9dda70c24",
+        "portable_receipt_sha256": "a02da5b44b0a5112dd1be236a32fcd9ddb731068a2f9c59cb8b0eaade859c59e",
+        "base_native_reference_sha256": "72ae0f04333ebc18e03fbe2a6e5640c895ceda9e37ce83418f4bca6e9540d953",
+        "original29_sha256": "58c65ea2805cfe740989661fe26d09e9b8d9b5f1e2c5ac0697167074fef82c5e",
+        "reference_floor_transform": {
+          "kind": "causal_upward_whole_pose_translation",
+          "lift_min_m": 0.02,
+          "lift_max_m": 0.07538641412457402,
+          "physical_floor_changed": false,
+          "root_relative_intent_preserved": true,
+          "joints_unchanged": true,
+          "source_timing_changed": false,
+          "transform_receipt_file": "floor_transform_receipt.json",
+          "transform_receipt_sha256": "7b38b99a4bd029adefb698b825cbd5c0587a24e7d0b1c1f0827789ec0bb4023d",
+          "frame_lift_file": "frame_lift.npz",
+          "frame_lift_sha256": "0d32b2079a9af1d9d0c13d75cec0d5667fe550bf4f892e8407d0a1ffa0d9f465",
+          "transform_receipt_path": "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_floor_inputs_v1/pico/floor_transform_receipt.json",
+          "frame_lift_path": "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_floor_inputs_v1/pico/frame_lift.npz",
+          "input_reference_sha256": "571fb2723f9a8a9f99c35e724e3dd7e9d88c384152ba0777595fece4cae1cfb9",
+          "independent_numeric_whole_pose_and_native_clearance_validation": true
+        }
+      },
+      "all_frames_checked": true,
+      "frames": 6541,
+      "source_controls": 5780,
+      "root_initial_change_m": 0.02999995272877376,
+      "joint_initial_change_max_rad": 0.1038285542347438
+    }
+  },
+  "total_frames_checked": 6541,
+  "all_passed": true,
+  "qualification": "Reference geometry and time only; no physical tracking proof"
+}

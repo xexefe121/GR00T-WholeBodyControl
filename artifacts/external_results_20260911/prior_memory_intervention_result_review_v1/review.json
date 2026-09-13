@@ -1,0 +1,120 @@
+{
+  "passed": true,
+  "checks": 1000,
+  "producer_report_sha256": "fd10d932b66a15755292cb6c24f69860aeeef78a1e3860a687e570a523cd470c",
+  "arrays_sha256": "ab5abd25375854c45ae1858c0a9f3b189efd442275c27c0bb0afc6507e132dc6",
+  "request_sha256": "7a098565f31b356b3a9358125391884069dd6140766d3286193025956c477d28",
+  "process_status_sha256": "96fe3496391277f63435d07e3340ed8467ed2b04309754900340eac8a27d2271",
+  "source_prelaunch_review_sha256": "53a8f8812f2a482a72ea3645bccfc760dbd3c3d1f197f5f7f418145395e638fa",
+  "all12_baselines_and_current_prior_coherence_checked_from_saved_arrays": true,
+  "control250_noop_exact": true,
+  "graph_calls": {
+    "backward": {
+      "attempted": 12,
+      "returned": 12
+    },
+    "actor": {
+      "attempted": 24,
+      "returned": 24
+    },
+    "head": {
+      "attempted": 24,
+      "returned": 24
+    }
+  },
+  "rows": [
+    {
+      "control": 250,
+      "baseline_RMS": 0.02860632838363124,
+      "intervention_RMS": 0.02860632838363124,
+      "relative_error_reduction": 0.0,
+      "target_change_RMS": 0.0
+    },
+    {
+      "control": 251,
+      "baseline_RMS": 0.11900662025180307,
+      "intervention_RMS": 0.1147610312825515,
+      "relative_error_reduction": 0.035675233531281214,
+      "target_change_RMS": 0.019043793025092005
+    },
+    {
+      "control": 252,
+      "baseline_RMS": 0.2967816953870947,
+      "intervention_RMS": 0.23212536021668104,
+      "relative_error_reduction": 0.21785823106806468,
+      "target_change_RMS": 0.11497637018404683
+    },
+    {
+      "control": 253,
+      "baseline_RMS": 0.39468562026658066,
+      "intervention_RMS": 0.2652835666575769,
+      "relative_error_reduction": 0.3278610797160594,
+      "target_change_RMS": 0.26438623192553146
+    },
+    {
+      "control": 254,
+      "baseline_RMS": 0.2703372431393458,
+      "intervention_RMS": 0.31621707279516353,
+      "relative_error_reduction": -0.1697133148323513,
+      "target_change_RMS": 0.2582314459669757
+    },
+    {
+      "control": 255,
+      "baseline_RMS": 0.34913759174464454,
+      "intervention_RMS": 0.2779288162884438,
+      "relative_error_reduction": 0.20395619704074164,
+      "target_change_RMS": 0.2002712766329214
+    },
+    {
+      "control": 256,
+      "baseline_RMS": 0.3876562396052762,
+      "intervention_RMS": 0.35522105198637355,
+      "relative_error_reduction": 0.08366997433584245,
+      "target_change_RMS": 0.2517663219817988
+    },
+    {
+      "control": 257,
+      "baseline_RMS": 0.34468738338418903,
+      "intervention_RMS": 0.3239774504389341,
+      "relative_error_reduction": 0.06008323467462573,
+      "target_change_RMS": 0.2144633305974414
+    },
+    {
+      "control": 258,
+      "baseline_RMS": 0.6216008305809905,
+      "intervention_RMS": 0.4084776453549144,
+      "relative_error_reduction": 0.34286180896328056,
+      "target_change_RMS": 0.41298594622092444
+    },
+    {
+      "control": 259,
+      "baseline_RMS": 0.4677514292800811,
+      "intervention_RMS": 0.37147468394078964,
+      "relative_error_reduction": 0.2058288640346253,
+      "target_change_RMS": 0.3298452272319661
+    },
+    {
+      "control": 260,
+      "baseline_RMS": 0.7787360835186689,
+      "intervention_RMS": 0.7477912314448122,
+      "relative_error_reduction": 0.039737277787404324,
+      "target_change_RMS": 0.3819186020548689
+    },
+    {
+      "control": 261,
+      "baseline_RMS": 1.0373282276650027,
+      "intervention_RMS": 0.7482994793529925,
+      "relative_error_reduction": 0.2786280567748609,
+      "target_change_RMS": 0.5530013999032729
+    }
+  ],
+  "interpretation": "Immediate prior-memory replacement only modestly reduces the first departure; it does not explain most control251 error. Results favor collecting the already selected coupled physical one-step behavior states over a blind prior-input mask or a prior-only fit.",
+  "limitations": [
+    "No model calls rerun; authentic graph calls are supported by reviewed frozen producer, per-call feeds/outputs and exact baseline parity.",
+    "Intervention keeps state and lag-history fixed; its effect is not a closed-loop recovery or physically coherent previous-command trajectory.",
+    "Teacher comparison uses fixed same-clock committed map, not a newly replanned expert or safety qualification."
+  ],
+  "reviewer_model_calls": 0,
+  "reviewer_physics_steps": 0,
+  "reviewer_optimizer_updates": 0
+}

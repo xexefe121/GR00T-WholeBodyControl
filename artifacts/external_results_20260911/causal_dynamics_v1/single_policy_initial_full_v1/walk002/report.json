@@ -1,0 +1,92 @@
+{
+  "clip": "walk002",
+  "actor": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\causal_dynamics_v1\\single_policy_smoke_v2\\actor_initial.onnx",
+  "requested_controls": 2917,
+  "completed_controls": 2917,
+  "physical_complete": true,
+  "source": {
+    "passed": false,
+    "source_controls": 667,
+    "requested_source_controls": 667,
+    "root_p95_m": 0.40220815881042105,
+    "yaw_p95_deg": 50.03768003527088,
+    "hand_head_relative_p95_m": [
+      0.3340386082790639,
+      0.3146665231363722,
+      0.09516576933047814
+    ],
+    "foot_relative_p95_m": [
+      0.31319262203472187,
+      0.23339514372921427
+    ],
+    "leg_rmse_rad": 0.2824395340753526
+  },
+  "main_quiet": {
+    "passed": true,
+    "values": {
+      "xy_p95": 0.046043607844140085,
+      "yaw_p95_deg": 1.1296510454219024,
+      "root_speed_p95": 0.00043193295224855437,
+      "joint_speed_p95": 0.005958351360161422,
+      "joint_speed_max": 0.006190873521634223,
+      "tilt_max": 0.04649084202235197
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "hold_quiet": {
+    "passed": true,
+    "values": {
+      "xy_p95": 0.04441403187342817,
+      "yaw_p95_deg": 1.4496921373103862,
+      "root_speed_p95": 1.0890830084423875e-05,
+      "joint_speed_p95": 0.0001739119626668711,
+      "joint_speed_max": 0.0001756324199426887,
+      "tilt_max": 0.04888650544367654
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "failure": null,
+  "passed": false,
+  "elapsed_s": 28.5,
+  "physics_steps": 29170,
+  "maximum_speed_ratio": 0.33736431704904357,
+  "policy_ms_p50_p95_max": [
+    7.429899997077882,
+    9.684340003877878,
+    15.372299996670336
+  ],
+  "packet_report": {
+    "epoch": 0,
+    "received": 1428,
+    "consumed": 1428,
+    "ignored": 0,
+    "rejected": 0,
+    "final_received": true,
+    "full_source_consumed": true,
+    "fault": null,
+    "calibration": null
+  },
+  "future_reference_frames": 0,
+  "prepared_feedback_gains": false,
+  "initial_root_x_velocity_offset": 0.0,
+  "independent_realtime": false,
+  "hardware_authorized": false,
+  "controller_variant": "causal_full_range_actor",
+  "fault_control": null,
+  "fault_quiet": null,
+  "fault_scenario_passed": false
+}

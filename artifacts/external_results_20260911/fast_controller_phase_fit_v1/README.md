@@ -1,0 +1,9 @@
+One fixed phase-only student experiment. The standing prefix uses the independently qualified original BFM for controls 0–249. The learned residual applies for acquisition, source motion, and return at controls 250–1268. The existing terminal BFM yaw4 takes over at 1269, followed by the separate continuous 250-control hold.
+
+The three qualified datasets each contribute exactly 1,019 moving-phase labels: 100 acquisition, 819 source, and 100 return controls. Collection and independent data audit passed, including exact actual targets, full state and measured history, unchanged normalization, and all nearest-neighbor indices. No exact duplicate-feature or conflicting-label groups exist. No rows are averaged or deleted.
+
+Training restores the ordinary final60000 model, all AdamW moments/steps, and RNG state. Exactly 5,000 full-batch updates use equal weight for the nine dataset-by-phase cells, with a fixed cosine learning rate from 3e-5 to 3e-6. Architecture, original mean/std, native joint span, weight decay, and gradient clipping remain unchanged. Only ordinary final65000 is exported; intermediate metrics cannot select a checkpoint.
+
+Sources are frozen in `source_snapshot_v1`; `frozen_inputs_v2.json` binds 18 sources and 115 inputs. Root authorized this one fit after source and launcher review. `training_clearance_DRAFT.json` remains non-executable until review is complete. No fit or simulation has started in this artifact as of source freeze.
+
+Final checkpoint and prediction arrays are saved before export validation. Canonical execution requires lower finite full-data objective, Torch/ONNX parity below 1e-5, and final export review. The runtime generates its own canonical BFM prefix; all saved prefix states/torques/history and the first enabled label inputs must match exactly before learned control is applied. Saved expert targets serve only as comparison references. No robot, DDS, or live PICO use is authorized.

@@ -1,0 +1,53 @@
+{
+  "preparation_only": true,
+  "root_selected": false,
+  "source_condition": "causal",
+  "source_ordinary_step": 68000,
+  "source_checkpoint_sha256": "10d238198e2d7826c35eaa9bd4a13ff2e05050a7f601c1f212b585c4a90eaefd",
+  "loss": "N + original_coefficient * group_energy_balanced_F + P",
+  "coefficient": 1.8188207859141674,
+  "group_order": [
+    "root_position",
+    "root_rotation",
+    "joint_position",
+    "root_linear_velocity",
+    "root_angular_velocity",
+    "joint_velocity"
+  ],
+  "group_weights": [
+    5.901096772528486,
+    0.7122640541039265,
+    5.684180872160203,
+    0.44567938947852637,
+    0.5454780461142876,
+    5.759716089786164
+  ],
+  "group_energy_rule": "Emean/Eg",
+  "proposed_additional_updates": 3000,
+  "proposed_ordinary_final_step": 71000,
+  "proposed_optimizer_steps": [
+    3000,
+    6000
+  ],
+  "proposed_learning_rate": [
+    1e-06,
+    1e-07
+  ],
+  "fresh_optimizer": false,
+  "saved_schedule_reused": true,
+  "sampler_draws": 0,
+  "coefficient_recalibration": false,
+  "normalization_change": false,
+  "context_change": false,
+  "labels_change": false,
+  "original_metrics_preserved": true,
+  "weighted_metric_additional": true,
+  "numerical_tolerance_rad": 1e-05,
+  "source_checkpoint_read": false,
+  "task_prediction_arrays_read": 0,
+  "actual_task_model_calls": 0,
+  "actual_task_gradient_calls": 0,
+  "actual_optimizer_updates": 0,
+  "actual_native_steps": 0,
+  "causal_comparison_to_extra_epochs_claimed": false
+}

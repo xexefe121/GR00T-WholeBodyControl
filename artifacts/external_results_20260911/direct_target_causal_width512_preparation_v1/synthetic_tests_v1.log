@@ -1,0 +1,22 @@
+...........F...............                                              [100%]
+================================== FAILURES ===================================
+__________ test_warm_optimizer_load_and_synthetic_zero_gradient_step __________
+
+    def test_warm_optimizer_load_and_synthetic_zero_gradient_step():
+        saved=source();snapshot=copy.deepcopy(saved);capsule=expand_source(saved);model=network(capsule)
+        old_parameters=[torch.nn.Parameter(saved['actor_state'][name].clone()) for name in NAMES]
+        old_optimizer=torch.optim.AdamW(old_parameters,lr=1e-6,foreach=False,fused=False)
+        new_optimizer=torch.optim.AdamW(model.parameters(),lr=1e-6,foreach=False,fused=False)
+        old_optimizer.load_state_dict(copy.deepcopy(saved['optimizer_state']))
+        new_optimizer.load_state_dict(copy.deepcopy(capsule['optimizer_state']))
+>       assert same(new_optimizer.state_dict(),capsule['optimizer_state'])
+E       AssertionError: assert False
+E        +  where False = same({'param_groups': [{'amsgrad': False, 'betas': (0.9, 0.999), 'capturable': False, 'decoupled_weight_decay': True, ...}]...00e+00, 0.0000e+00, 0.0000e+00, 0.0000e+00, 0.0000e+00,\n        0.0000e+00, 0.0000e+00]), 'step': tensor(6000.)}, ...}}, {'param_groups': [{'amsgrad': False, 'betas': (0.9, 0.999), 'capturable': False, 'differentiable': False, ...}], 'stat...00e+00, 0.0000e+00, 0.0000e+00, 0.0000e+00, 0.0000e+00,\n        0.0000e+00, 0.0000e+00]), 'step': tensor(6000.)}, ...}})
+E        +    where {'param_groups': [{'amsgrad': False, 'betas': (0.9, 0.999), 'capturable': False, 'decoupled_weight_decay': True, ...}]...00e+00, 0.0000e+00, 0.0000e+00, 0.0000e+00, 0.0000e+00,\n        0.0000e+00, 0.0000e+00]), 'step': tensor(6000.)}, ...}} = state_dict()
+E        +      where state_dict = AdamW (\nParameter Group 0\n    amsgrad: False\n    betas: (0.9, 0.999)\n    capturable: False\n    decoupled_weight_decay:...e: False\n    eps: 1e-08\n    foreach: False\n    fused: False\n    lr: 1e-06\n    maximize: False\n    weight_decay: 1e-05\n).state_dict
+
+test_width512.py:133: AssertionError
+- generated xml file: E:\codex-artifacts\sonic23_teleop_resume_20260911\direct_target_causal_width512_preparation_v1\synthetic_tests_v1.xml -
+=========================== short test summary info ===========================
+FAILED test_width512.py::test_warm_optimizer_load_and_synthetic_zero_gradient_step
+1 failed, 26 passed in 5.23s

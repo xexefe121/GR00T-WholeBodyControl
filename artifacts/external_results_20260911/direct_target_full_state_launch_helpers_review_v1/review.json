@@ -1,0 +1,74 @@
+{
+  "passed": false,
+  "preparation_sha256": "d46933f64315157329d5fb64206ccd732e737a49e972f168cc591f65ecb50e39",
+  "helper_sha256": {
+    "runtime_inventory.py": "52280eacfe512a36bd3669d1188b55978084ba87720f606f140ffd516e4e381a",
+    "freeze_final_package.py": "580b550721e3fb48a0aa932c954004deea3b8fd784248a2b233e14e56579e47f",
+    "prepare_review_configuration.py": "ee6bd97ace114a3a7763129eb561c264fef1e2914ad621f602541a52d4fd835e",
+    "prepare_bound_launcher.py": "3f1c5ad3970029fdf8893ac4aadc499dbd43fca9fcfe69c3a760f921507329d0",
+    "diagnostic_verdict.py": "37ff6c3d1d97ff3d0d2ab448405a3c12529f5b58eece3958457af066590b36a6",
+    "verify_completed_stage.py": "135f8f4a012dfc10d8bd7e27efc1c2c0e29f56a929ada375aebf57c7917e57e4",
+    "test_launch_helpers.py": "13631309b42765d9226ee3cb8fbe29f643943b216d5d4d214c8ca8a8da113ceb",
+    "test_release_helpers.py": "a0b32f6a470a94abb078cc323c305cef2594904064d73cdd9e58b4042a15a2cf"
+  },
+  "capture": {
+    "runtime_inventory.py": {
+      "expected": "52280eacfe512a36bd3669d1188b55978084ba87720f606f140ffd516e4e381a",
+      "actual": "52280eacfe512a36bd3669d1188b55978084ba87720f606f140ffd516e4e381a",
+      "matched": true
+    },
+    "freeze_final_package.py": {
+      "expected": "580b550721e3fb48a0aa932c954004deea3b8fd784248a2b233e14e56579e47f",
+      "actual": "580b550721e3fb48a0aa932c954004deea3b8fd784248a2b233e14e56579e47f",
+      "matched": true
+    },
+    "prepare_review_configuration.py": {
+      "expected": "ee6bd97ace114a3a7763129eb561c264fef1e2914ad621f602541a52d4fd835e",
+      "actual": "ee6bd97ace114a3a7763129eb561c264fef1e2914ad621f602541a52d4fd835e",
+      "matched": true
+    },
+    "prepare_bound_launcher.py": {
+      "expected": "3f1c5ad3970029fdf8893ac4aadc499dbd43fca9fcfe69c3a760f921507329d0",
+      "actual": "17254824dfba9de3851c8dcdc896a32c5db6db2a9d225c2406bbd8b24e06d3c2",
+      "matched": false
+    },
+    "diagnostic_verdict.py": {
+      "expected": "37ff6c3d1d97ff3d0d2ab448405a3c12529f5b58eece3958457af066590b36a6",
+      "actual": "37ff6c3d1d97ff3d0d2ab448405a3c12529f5b58eece3958457af066590b36a6",
+      "matched": true
+    },
+    "verify_completed_stage.py": {
+      "expected": "135f8f4a012dfc10d8bd7e27efc1c2c0e29f56a929ada375aebf57c7917e57e4",
+      "actual": "135f8f4a012dfc10d8bd7e27efc1c2c0e29f56a929ada375aebf57c7917e57e4",
+      "matched": true
+    },
+    "test_launch_helpers.py": {
+      "expected": "13631309b42765d9226ee3cb8fbe29f643943b216d5d4d214c8ca8a8da113ceb",
+      "actual": "13631309b42765d9226ee3cb8fbe29f643943b216d5d4d214c8ca8a8da113ceb",
+      "matched": true
+    },
+    "test_release_helpers.py": {
+      "expected": "a0b32f6a470a94abb078cc323c305cef2594904064d73cdd9e58b4042a15a2cf",
+      "actual": "a0b32f6a470a94abb078cc323c305cef2594904064d73cdd9e58b4042a15a2cf",
+      "matched": true
+    }
+  },
+  "findings": [
+    {
+      "id": "receipt_path_normalization",
+      "file": "prepare_bound_launcher.py",
+      "expression": "$receiptPath.Replace('\\\\','/')",
+      "problem": "PowerShell single quoted strings treat backslashes literally; replacing two does not canonicalize a Join-Path result containing single separators. Valid concrete review path comparison fails before launch.",
+      "reproduction": {
+        "joined": "E:\\synthetic_case\\witness_process\\launch_receipt.json",
+        "review": "E:/synthetic_case/witness_process/launch_receipt.json",
+        "comparison": false
+      },
+      "fix": "Replace a single literal backslash or normalize both paths consistently; add an actual PowerShell synthetic assertion."
+    }
+  ],
+  "task_model_calls": 0,
+  "native_steps": 0,
+  "optimizer_updates": 0,
+  "actual_bindings_created": false
+}

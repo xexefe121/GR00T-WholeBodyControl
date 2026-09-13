@@ -1,0 +1,52 @@
+{
+  "clip": "walk002",
+  "completed": 1417,
+  "requested": 1417,
+  "available": 1417,
+  "failure": null,
+  "full_lifecycle_completed": true,
+  "source_metrics": {
+    "source_controls": 667,
+    "source_requested": 667,
+    "leg_rmse": 0.17978834417166373,
+    "arm_rmse": 0.14626222214016033,
+    "root_p95": 0.4168070380847545,
+    "landmark_p95": [
+      0.49246696024330644,
+      0.416942003320379,
+      0.47248076605831235,
+      0.4153633486359376,
+      0.432707749482748
+    ],
+    "relative_landmark_p95": [
+      0.19803820665418578,
+      0.22110180040505853,
+      0.129472690755511,
+      0.13193198288562372,
+      0.04402512523841784
+    ]
+  },
+  "range_excess_max": 0.0,
+  "effort_ratio_max": 1.0,
+  "velocity_ratio_max": 0.3607322789428759,
+  "inference_ms_p95": 25.032419999479337,
+  "elapsed_seconds": 20.13148990001355,
+  "goal_horizon": 8,
+  "goal_buffer_ms": 140,
+  "reference_path": "C:\\Users\\camer\\sonic23_sim_artifacts\\internet_pico_20260909_v1\\walk002\\buffered_initial_lifecycle_v1\\lifecycle_reference.npz",
+  "motion_override": null,
+  "reference_geometry_retargeted": false,
+  "ground_truth_pose_feedback": true,
+  "root_xy_feedback_used": true,
+  "heading_feedback_sensor_equivalent": "pelvis_IMU_orientation_with_initial_calibration",
+  "position_gain": 1.0,
+  "yaw_gain": 2.0,
+  "arm_reference": false,
+  "leg_error_gain": 0.0,
+  "residual_checkpoint": "artifacts\\g1_true23_bfm_residual_20260911_v1\\train3h_v1\\residual_00600.pt",
+  "residual_updates": 600,
+  "model_path": "Z:\\codex\\GR00T-WholeBodyControl\\gear_sonic\\data\\robots\\g1\\g1_23dof_rev_1_0.xml",
+  "action_contract": "target=default_q+5*tanh_actor*.25*training_effort/training_kp; native effort clipped",
+  "hardware_authorized": false,
+  "deployment_ready": false
+}

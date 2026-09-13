@@ -1,0 +1,51 @@
+{
+  "source_review_pass": true,
+  "helper_review_pass": true,
+  "reviewer": "root",
+  "source_preparation_sha256": "d252b0a8875636601d90bf538f342097043bce86666d6ddb23c4d708e00f0d2e",
+  "source_sha256": {
+    "audit_balanced_math.py": "019ffe991e75f5d8ddad90c455ab7d89e73d632f252708de4970825970e09ed0",
+    "audit_context_math.py": "35a3759f2d5c37974768977d9a0c1d2ce36c0ed1e4b94a9f28347fb296819c74",
+    "audit_full_state_math.py": "e467f5f581c8983e11bcce74ad783015f0bd5fc1c84964f1b6f5d6a105eabd81",
+    "audit_graph.py": "0f3c2fd727a5cb2ad092e77c78cd6ea4ee602abd9ae9afec3a147bb335d564f1",
+    "audit_math.py": "6313988b729ac56f51dfd8c75bcde6d201d9aef237690a5bbd25a659f2aaa82f",
+    "audit_release.py": "6bee1225ab2c30aad64175a7a7dd20467ba9bcc56564b0e8c2f0920f0fe0a970",
+    "audit_restoration.py": "24b25ba9914e511461e00c8413e21ba0cc5b3742d93f8ff8f5e322c1e71c3092",
+    "audit_saved_warm.py": "8c1f36892c3cbf5d3ab5268e64866c68140de87409e8407db93fb2dcaf3a35da",
+    "audit_width_math.py": "ee332f05f7b4e79b5b688fe92fef9b581c187777c646aa603d91564632dfcb62",
+    "test_balanced_audit.py": "0877c869df1d1d967e3e3dec260e64f3ac7620e61b214f6e1e7e6f751b29f14f",
+    "test_metadata.py": "ee48f0e17c5dd0181ba89c6780415fcfc31cbae07ba178f19b15c6108ff9cf57",
+    "test_nominal_reduction.py": "297138db600e858ef0eaf461abc5129fabee881ced8ac39a5280e27940fa135e",
+    "test_prior_math.py": "a7b3b7ddc95e02c55974a1ca36c36e7048f5afc920c16e009749a5ed3616a654",
+    "test_producer_metadata.py": "0176a8e8f0498354752461a6c886b054cb649dddc658e01a61b77349f4b5da61",
+    "test_rule_metadata.py": "a4e775b872a976b5c4a525c5d71a4beb1f266e4e6b4475e74269cac692b168e9",
+    "test_width_audit.py": "3d677e2c0490bf984716a9a4a41a72518c881690498c9023fa540610b97b6d2c"
+  },
+  "helper_sha256": {
+    "prepare_audit_request.py": "855ec4aafbfe39d1f1bb1aa20062f0bce375d1203fc52a1a28975f6d1f7665a0",
+    "freeze_launch.py": "a0e23e7ab1e484245fbaaad9766d81a47f920edf2f99f9e1dbf70aa9ddedb070",
+    "run_audit_durable.ps1": "79523f5303231f86bca562be1fe17365a3bc9ac55316cc70a147b246a1dc0ac9",
+    "verify_completion.py": "67e868c9ba64528b737e56d2107d7d0e31b2bf743ebc7bf73a59bb8c0c42e75a"
+  },
+  "prior_source_review_sha256": "532a93fc2e8e44aec75a0792802537877f84643243d2f3abf8ec0e271fff0c8b",
+  "root_synthetic_tests": 77,
+  "root_tests_sha256": "802da76c1abbb3b7a9446eb2f1405aaa407f6a6c71c2c642a9dc539110953ed3",
+  "unchanged_source_count": 9,
+  "reviewed_semantics": [
+    "Independent explicit old/new tensor concatenation reconstructs all six actor tensors, every warm moment, whole AdamW group, shared step6000, local generator state and unchanged source/global RNG without constructing a model or optimizer.",
+    "Full10000 schedule independently reconstructs all8.64M pair slots and exact original3000 prefix; original context chronology and normalization arithmetic remain byte-identical.",
+    "Warm6000-to16000 scalar steps,250-update inclusive ramp and9750-update cosine, width512 FP64 graph shapes and exact30000/146860000 training counters match frozen producer schema.",
+    "Original nominal3e-7 relative gate and other5e-12 reductions retained; invalid NumPy-f32 reduction-order check remains removed. Original initial1e-5 and nine finalFP64 gates unchanged; finalGPU32 drift diagnostic only.",
+    "Sixteen direct release subjects, owner/pre-post pin and process accounting retained. Saved algebra cannot prove output or gradient authenticity, or closed-loop stability."
+  ],
+  "actual_audit_selected": false,
+  "task_array_loads": 0,
+  "task_checkpoint_loads": 0,
+  "model_calls": 0,
+  "ORT_calls": 0,
+  "gradient_calls": 0,
+  "optimizer_updates": 0,
+  "native_steps": 0,
+  "synthetic_model_forwards": 0,
+  "writer_sha256": "1624eeb20a56b673f692f0e0b6a6e37cece4ffe0424d44b1f5a99fbd181f42ab"
+}

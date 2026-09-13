@@ -1,0 +1,71 @@
+{
+  "kind": "independent_real_saved_matrix_arithmetic_only",
+  "witnesses": [
+    {
+      "input": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/pico_final3800_riccati_diagnostic_v1/guided_initial_expanded_mu1e+00_knot13.npz",
+      "input_sha256": "2c3295ba594b9e0fa14e2068025c0651ac10f32d6c2debef700199de0f7d7fe1",
+      "archived_expanded_reproduced": true,
+      "native_joint_limits_changed": false,
+      "physical_steps": 0,
+      "entries": {
+        "gradient": {
+          "extended_truth_scale": 1772.074390887352,
+          "expanded_max_absolute_error": 9.139644963074289e-08,
+          "factored_max_absolute_error": 1.7322154821641789e-10,
+          "expanded_relative_error": 5.1575966618972954e-11,
+          "factored_relative_error": 9.775072034627091e-14,
+          "archived_grouped_max_difference": 0.0
+        },
+        "hessian": {
+          "extended_truth_scale": 3060710.121495994,
+          "expanded_max_absolute_error": 0.002117992095755028,
+          "factored_max_absolute_error": 1.0093913260789122e-07,
+          "expanded_relative_error": 6.919936915554125e-10,
+          "factored_relative_error": 3.2978991345496925e-14,
+          "archived_grouped_max_difference": 0.0
+        }
+      },
+      "minimum_hessian_eigenvalues": {
+        "expanded": -3.086663321990191e-06,
+        "factored": -2.7890162809937554e-10,
+        "extended_then_cast": -3.121612423765333e-10
+      }
+    },
+    {
+      "input": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/pico_final3800_riccati_diagnostic_v1/refined_final_expanded_mu1e+05_knot13.npz",
+      "input_sha256": "e9bbbfdc78bd3369cecce2e87bf8258fb579dc860cf0f25ae40c36848e07e58d",
+      "archived_expanded_reproduced": true,
+      "native_joint_limits_changed": false,
+      "physical_steps": 0,
+      "entries": {
+        "gradient": {
+          "extended_truth_scale": 8407.264052994684,
+          "expanded_max_absolute_error": 2.987691782863067e-08,
+          "factored_max_absolute_error": 4.030407385613444e-08,
+          "expanded_relative_error": 3.5537028027552495e-12,
+          "factored_relative_error": 4.793958367678251e-12,
+          "archived_grouped_max_difference": 0.0
+        },
+        "hessian": {
+          "extended_truth_scale": 85123489.8109507,
+          "expanded_max_absolute_error": 0.3647673774830764,
+          "factored_max_absolute_error": 0.00028297964308876544,
+          "expanded_relative_error": 4.285155346581561e-09,
+          "factored_relative_error": 3.324342595883112e-12,
+          "archived_grouped_max_difference": 0.0
+        }
+      },
+      "minimum_hessian_eigenvalues": {
+        "expanded": -0.00020900825910482554,
+        "factored": -7.457300798759805e-08,
+        "extended_then_cast": -1.7812147218532443e-07
+      }
+    }
+  ],
+  "full_backward_or_controller_qualified": false,
+  "limitation": "Factorization reduces cancellation; it cannot restore a diagonal smaller than floating-point resolution in a later normal equation.",
+  "source_hashes": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_resume_20260911/verify_saved_riccati_algebra.py": "367a983068919e1243563ae3a82a4d705fa019dfc9cae718f6fedcec6d80ec4d",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_resume_20260911/verify_riccati_closed_loop_algebra.py": "e6408bbae751935fa92f0e70f3c3927f3c9ccbc10e0302056eb40c9aeeedb20d"
+  }
+}

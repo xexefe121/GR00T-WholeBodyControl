@@ -1,0 +1,210 @@
+{
+  "breadth_plateaued": true,
+  "config": {
+    "breadth_plateau_tolerance": 0.002,
+    "breadth_plateau_window": 3,
+    "in_distribution_success_gate": 0.8,
+    "ood_decline_patience": 2,
+    "ood_success_gate": 0.6,
+    "polish_behavior_bank_share": 0.1,
+    "second_referee_survival_gate": 0.8,
+    "tail_success_gate": 0.65
+  },
+  "consecutive_ood_declines": 0,
+  "deployment_ready": false,
+  "hardware_authorized": false,
+  "kind": "g1_true23_frozen_lora_independent_gate_ledger",
+  "promotion_evaluation_eligible": true,
+  "recommended_phase": "polish",
+  "records": [
+    {
+      "checkpoint": "breadth/frozen_lora_model_25.pt",
+      "in_distribution": {
+        "mean_tracking_error": 0.3550183957238132,
+        "success_rate": 0.8
+      },
+      "out_of_distribution": {
+        "mean_tracking_error": 0.4869926181408941,
+        "success_rate": 0.6666666666666666
+      },
+      "phase": "breadth",
+      "second_referee": {
+        "survival_rate": 0.8325205986211536
+      },
+      "tail": {
+        "mean_tracking_error": 0.4836642133387701,
+        "success_rate": 0.6666666666666666
+      },
+      "update_count": 25
+    },
+    {
+      "checkpoint": "breadth/frozen_lora_model_50.pt",
+      "in_distribution": {
+        "mean_tracking_error": 0.3352037783120657,
+        "success_rate": 0.8
+      },
+      "out_of_distribution": {
+        "mean_tracking_error": 0.7347479428305448,
+        "success_rate": 0.3333333333333333
+      },
+      "phase": "breadth",
+      "second_referee": {
+        "survival_rate": 0.7977131326719354
+      },
+      "tail": {
+        "mean_tracking_error": 0.4532074937768417,
+        "success_rate": 0.6666666666666666
+      },
+      "update_count": 50
+    },
+    {
+      "checkpoint": "breadth/frozen_lora_model_75.pt",
+      "in_distribution": {
+        "mean_tracking_error": 0.3385617571197699,
+        "success_rate": 0.8
+      },
+      "out_of_distribution": {
+        "mean_tracking_error": 0.6000064446446642,
+        "success_rate": 0.6666666666666666
+      },
+      "phase": "breadth",
+      "second_referee": {
+        "survival_rate": 0.8215907180090802
+      },
+      "tail": {
+        "mean_tracking_error": 0.45635706237566714,
+        "success_rate": 0.6666666666666666
+      },
+      "update_count": 75
+    },
+    {
+      "checkpoint": "breadth/frozen_lora_model_100.pt",
+      "in_distribution": {
+        "mean_tracking_error": 0.34984241138670513,
+        "success_rate": 0.8
+      },
+      "out_of_distribution": {
+        "mean_tracking_error": 0.5613742296461975,
+        "success_rate": 0.6666666666666666
+      },
+      "phase": "breadth",
+      "second_referee": {
+        "survival_rate": 0.8217588700184967
+      },
+      "tail": {
+        "mean_tracking_error": 0.4635859475947565,
+        "success_rate": 0.6666666666666666
+      },
+      "update_count": 100
+    },
+    {
+      "checkpoint": "polish/frozen_lora_model_25.pt",
+      "in_distribution": {
+        "mean_tracking_error": 0.3330862000092923,
+        "success_rate": 0.8
+      },
+      "out_of_distribution": {
+        "mean_tracking_error": 0.5596801756858555,
+        "success_rate": 0.6666666666666666
+      },
+      "phase": "polish",
+      "second_referee": {
+        "survival_rate": 0.8141920295947537
+      },
+      "tail": {
+        "mean_tracking_error": 0.45698741209139687,
+        "success_rate": 0.6666666666666666
+      },
+      "update_count": 25
+    },
+    {
+      "checkpoint": "polish/frozen_lora_model_50.pt",
+      "in_distribution": {
+        "mean_tracking_error": 0.3519114405200666,
+        "success_rate": 0.8
+      },
+      "out_of_distribution": {
+        "mean_tracking_error": 0.6483974591804582,
+        "success_rate": 0.3333333333333333
+      },
+      "phase": "polish",
+      "second_referee": {
+        "survival_rate": 0.7718177232217925
+      },
+      "tail": {
+        "mean_tracking_error": 0.48201578426493713,
+        "success_rate": 0.6666666666666666
+      },
+      "update_count": 50
+    },
+    {
+      "checkpoint": "polish/frozen_lora_model_75.pt",
+      "in_distribution": {
+        "mean_tracking_error": 0.35531033198765527,
+        "success_rate": 0.8
+      },
+      "out_of_distribution": {
+        "mean_tracking_error": 0.6468964330922866,
+        "success_rate": 0.3333333333333333
+      },
+      "phase": "polish",
+      "second_referee": {
+        "survival_rate": 0.7587018664873045
+      },
+      "tail": {
+        "mean_tracking_error": 0.48433155742980244,
+        "success_rate": 0.6666666666666666
+      },
+      "update_count": 75
+    },
+    {
+      "checkpoint": "polish/frozen_lora_model_100.pt",
+      "in_distribution": {
+        "mean_tracking_error": 0.35554464781864403,
+        "success_rate": 0.8
+      },
+      "out_of_distribution": {
+        "mean_tracking_error": 0.6969765812509024,
+        "success_rate": 0.3333333333333333
+      },
+      "phase": "polish",
+      "second_referee": {
+        "survival_rate": 0.7726584832688751
+      },
+      "tail": {
+        "mean_tracking_error": 0.4752069897574547,
+        "success_rate": 0.6666666666666666
+      },
+      "update_count": 100
+    }
+  ],
+  "sampling_contract": {
+    "breadth": {
+      "corpus": "full_retargeted_corpus",
+      "plateau_tolerance": 0.002,
+      "plateau_window": 3,
+      "sampler": "adaptive_motion_sampler",
+      "transition": "in_distribution_plateau"
+    },
+    "deployment_ready": false,
+    "hardware_authorized": false,
+    "independent_second_physics_referee_required": true,
+    "polish": {
+      "bank_override_and_dedup_required": true,
+      "behavior_bank_share": 0.1,
+      "behavior_bank_takeover_forbidden": true,
+      "corpus": "full_corpus_plus_curated_target_behavior_bank",
+      "feasibility_screen_required": true,
+      "sampler": "near_uniform_with_fixed_behavior_bank_share"
+    },
+    "schema_version": 1,
+    "selection_metric": "out_of_distribution.success_rate",
+    "stop_after_consecutive_ood_declines": 2,
+    "training_reward_used_for_selection": false
+  },
+  "schema_version": 1,
+  "second_physics_referee_gate_passed": true,
+  "selected_checkpoint": "breadth/frozen_lora_model_25.pt",
+  "stop_training": false,
+  "training_simulator_gate_passed": true
+}

@@ -1,0 +1,132 @@
+{
+  "kind": "two_predeclared_earlier_BFM_recovery_witnesses",
+  "cases": [
+    {
+      "mode": "3770_shift15_bfm15",
+      "initial_control": 3770,
+      "requested_controls": 30,
+      "retained_shifted_prefix": 15,
+      "full_horizon_physical_pass": false,
+      "physics_steps": 164,
+      "full_controls": 16,
+      "partial_substeps": 4,
+      "failure": {
+        "kind": "physical_feasibility",
+        "control": 16,
+        "global_control": 3786,
+        "substep": 4,
+        "range_excess": 0.005362335757401637,
+        "speed_ratio": 0.13577425513953167,
+        "effort_ratio": 0.828068125502545,
+        "height": 0.39722498648281024,
+        "tilt": 0.278437565848676,
+        "joints": [
+          {
+            "name": "right_ankle_pitch_joint",
+            "q": -0.8780323357574016,
+            "lower": -0.87267,
+            "upper": 0.5236,
+            "target": -0.04000769421058936
+          }
+        ]
+      },
+      "first30_control_same_v4_allmargin_relativefoot_cost": null,
+      "range_excess_max": 0.005362335757401637,
+      "speed_ratio_max": 0.21930217011346148,
+      "effort_ratio_max": 1.0,
+      "warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "clock_max_error": 7.673861546209082e-13,
+      "trace_sha256": "e1eb5a062b4ef2bad845a96304c70c631738795cf2cab5414eca1a27298d231a",
+      "source_seconds_end": 68.72800000000001,
+      "retained_or_golden_physics_prefix_bitexact": true
+    },
+    {
+      "mode": "3740_continuous_bfm2s",
+      "initial_control": 3740,
+      "requested_controls": 100,
+      "retained_shifted_prefix": 0,
+      "full_horizon_physical_pass": true,
+      "physics_steps": 1000,
+      "full_controls": 100,
+      "partial_substeps": 0,
+      "failure": null,
+      "first30_control_same_v4_allmargin_relativefoot_cost": 3890.6218804002515,
+      "range_excess_max": 0.0,
+      "speed_ratio_max": 0.19905280856040442,
+      "effort_ratio_max": 1.0,
+      "warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "clock_max_error": 4.661160346586257e-12,
+      "trace_sha256": "146527742f8983d14cffc4abff24291bf0a4f1f33444ed1d32ff559b83f1d7ab",
+      "source_seconds_end": 69.8,
+      "retained_or_golden_physics_prefix_bitexact": true
+    }
+  ],
+  "source_goal_unchanged": true,
+  "no_optimizer": true,
+  "no_physics_statewrites_after_initialization": true,
+  "no_full_source_qualification": true,
+  "history": "actual normalized prior targets until BFM takeover; subsequent BFM predictions retain own rawactor*5 prioraction",
+  "first30_cost_scope": "unchanged H30 objective only, no comparison of600ms and2s totals",
+  "elapsed_seconds": 8.2579685,
+  "seed_identity": {
+    "kind": "offline_native23_measured_history_BFM_rollout_seed",
+    "weights_sha256": "28a2d82a2975c37b8a1533f2e3b0224d27f8a0813283640ee7eeee348fe42c2e",
+    "graph_sha256": {
+      "actor": "7d9dc682dc38c6972c5023bb6bd069c8d9d28a99fa33a871906befaf9a1cc64e",
+      "backward": "2fe7cf1a0f76c101703fd53a855f2281763d47fef45c0f1455789bb04c21c3b7"
+    },
+    "graph_manifest_sha256": "a5650963f41838a6bf77bcfd12fcfa24ae939e6ee5f50d4b877527527d1e3878",
+    "original_goal_arrays_sha256": "b0cf94d3fe789fbf3a2d4f0ef9a5e7f4e66055bb2dd67bd5323889cddcbbce5d",
+    "contract_arrays_sha256": "03e879161cc82756b0346f1a9d18d36d16855ec2667a78abe2126b3edb2da4cd",
+    "native_model_parameters_sha256": "829064c5207223a22b18aede96cd1ef8f0549311cd2d62c9e071118cc52e8ade",
+    "runtime_version": "1.23.2",
+    "runtime_binary_sha256": {
+      "/mnt/e/codex_sonic_runtime/bfm_seed_20260910/onnx_deps/onnxruntime/capi/onnxruntime_pybind11_state.cpython-311-x86_64-linux-gnu.so": "f22a6994fbadefe3888cd3a5300a63021884372dafecaea9875987dce697c8c1"
+    },
+    "mujoco": "3.2.3",
+    "numpy": "1.26.4",
+    "threads": 1,
+    "module_sha256": "2f3d808b6a95fd80a3c1f9a0fabbe80264cf9cc93fbf01e2b2be65f6a5ec75de",
+    "observation_module_sha256": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d",
+    "original_goal_horizon": 8,
+    "position_gain": 1.0,
+    "yaw_gain": 2.0,
+    "conservative_original_derivative_future_pose_frames": 1,
+    "historical_action": "normalized actually applied MPC target, no clipping of action history",
+    "local_future_action": "BFM raw actor*5 before native target clipping",
+    "terminal_goal": "hold last known original goal beyond archive, available-window latent average",
+    "real_history_updated_only_by_record_control": true,
+    "private_physics_hz": 500,
+    "private_rollout_warning_or_clock_reset": "typed rejection; caller retains other seed candidates",
+    "root_assistance": false,
+    "robot_or_DDS_interface": false,
+    "deployment_qualified": false
+  },
+  "hashes": {
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/earlier_bfm_completion_v1/probe_earlier_bfm.py": "414c847cdfce7fb0b9a30cf05578222945f10866e54f59195f4a31c9591d73c5",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/hard_feasibility_continuation_3740_v1/trace.npz": "dede4a53b51393d7fde3889070af13c615463aab7f32c62ef28437f07c6b87df",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/hard_feasibility_continuation_3740_v1/report.json": "cf25b72bfef5a6563e299387fbe1b3467cacba6870253b12a58435af008d3878",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/recovery_probe_v1/actual_3740_integration_state.npz": "52060ba5f7892aa97808a0cda623af5a5ab0875a268340acaad6197f9d7878d6",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/recovery_probe_v1/actual_3740_bfm_history.npz": "23d3117e495cf1c52739e6eb3996e519bc75a8ffc830419aa560e3824a20857d",
+    "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_floor_inputs_v1/pico/reference.npz": "a1b3bd672551acc800e8b28d4d3d2b68c044f7a80ab3b8fb798d46c9dda70c24",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/contract.json": "d1641ce4f2e9016f5008e5d4be3cc24ded46d7f9daf9cfddaab84095f98eb99b"
+  }
+}

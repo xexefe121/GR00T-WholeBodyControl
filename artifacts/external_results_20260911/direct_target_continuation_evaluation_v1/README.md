@@ -1,0 +1,15 @@
+# Direct target continuation evaluation preparation
+
+This package prepares the selected ordinary step 55000 export for one separate WSL batch-one witness, then one original walk003 lifecycle of 1569 controls and a conditional continuous 250-control hold. No final 55000 model is bound and no model, native or optimizer call has run here.
+
+The 5000-step predecessor failed at control 315, native substep 8, with a left ankle position-limit violation. Its trace and reports remain in `direct_target_student_evaluation_v1`. This package preserves its reviewed direct runtime arithmetic; that earlier rollout was not a full-body qualification.
+
+`source_derivation.json` records 29 byte-identical files and two numeric gate substitutions in `evaluation_gate.py`: ordinary final step 55000 and 50000 additional updates. Startup BFM controls 0–249, direct head controls 250–1268, terminal yaw-4 BFM from 1269, actual-applied inverse prior during the learned phase, staged history, native output rounding and clamp, strict native checks and failure preservation are unchanged. The native stepper/clock preparation is not connected.
+
+`runtime_inventory.json` explicitly pins 417.17 MiB of runtime assets and code, including native model/meshes/options, selected reference and original task data, BFM graphs, WSL MuJoCo/NumPy/SciPy/ORT dependencies, source modules and actual query/startup parity archives. Imported package code is conservatively pinned, including some lazy modules. The inventory excludes the Windows CUDA trainer, velocity population, physical branch arrays and broader training labels. Full center and query250 archives remain because the unchanged evaluator actually reads them. System CPython and OS libraries remain within the established WSL runtime boundary.
+
+The future freezer requires real completed final55000 report/PT/ONNX, the small immutable training request and manifest, owner completion and producer exit, and direct-subject dataset/fit/export/source/root audit receipts. The inherited `training_dataset_sha256` role now names the complete training manifest qualified by the dataset review. It does not cause traversal of nested training file paths. Final receipts must directly bind the manifest, actual export/report and independent audit subjects. There are no placeholder bindings.
+
+The durable launcher and saved verdict helpers are copied unchanged from the reviewed predecessor. Final concrete launch review is required before a one-shot clearance is written. Raw Python exit is preserved separately; physical incompletion or failed quiet checks yield a nonzero diagnostic verdict. Missing controls and a skipped hold retain their original requested counts. No automatic retry, reset, optimizer continuation or checkpoint selection is present.
+
+Preparation validation: 30 runtime stub tests and 21 launcher/verdict tests passed. These validate source contracts and bookkeeping only. Future fit/export review, one real WSL witness, canonical source/physics/intent audits and live timing evidence remain separate gates.

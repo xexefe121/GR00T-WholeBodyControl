@@ -1,0 +1,66 @@
+{
+  "original_path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/student_velocity_chord_saved_outcome_v1/audit_saved.py",
+  "original_sha256": "ba26977c44845c2141e4f655f995fb913c05a5ab46c6af81218f7879885b3c95",
+  "derived_sha256": "ad7ac32df923267e2f7c0974a7cbc483090656a4499532f6bb83cb97b1b754ad",
+  "changes": [
+    {
+      "old": "RUN=NEW/'velocity_chord_student_evaluation_v1'",
+      "new": "RUN=NEW/'one_step_physical_student_evaluation_v1'"
+    },
+    {
+      "old": "FIT=NEW/'velocity_chord_student_v1'",
+      "new": "FIT=NEW/'one_step_physical_student_v1'\nGEN=NEW/'velocity_chord_student_v1'"
+    },
+    {
+      "old": "centers=FIT/'generation/centers.npz',probes=FIT/'generation/features.npy',",
+      "new": "centers=GEN/'generation/centers.npz',probes=GEN/'generation/features.npy',\n        physical_manifest=NEW/'one_step_policy_branch_collection_resume2969_v1/collection/data/manifest.json',\n        physical_features=NEW/'one_step_policy_branch_collection_resume2969_v1/collection/data/endpoint_features.npy',\n        physical_valid=NEW/'one_step_policy_branch_collection_resume2969_v1/collection/data/label_valid.npy',\n        root_physics=NEW/'student_physical_response_independent_physics_v1/report.json',\n        root_intent=NEW/'student_physical_response_independent_intent_v1/report.json',"
+    },
+    {
+      "old": "final_export_review=NEW/'velocity_chord_final_export_review_v1/review.json',",
+      "new": "final_export_review=NEW/'one_step_physical_final_fit_review_v1/review.json',"
+    },
+    {
+      "old": "root_fit_review=NEW/'velocity_fit_evidence_independent_v1/report.json',",
+      "new": "root_fit_review=NEW/'physical_fit_evidence_independent_v1/report.json',"
+    },
+    {
+      "old": "driver=SRC/'evaluate_velocity_chord_student.py',",
+      "new": "driver=SRC/'evaluate_physical_response_student.py',"
+    },
+    {
+      "old": "assert sha(p['nominal_trace'])==report['trace_sha256']",
+      "new": "assert sha(p['nominal_trace'])==report['trace_sha256']=='38428ae27055be7c2e771c5a23056c858f004ef38f260a0b45a57662d8d0aae3'\n    assert sha(p['root_physics'])=='ede8ff939da69885f509785e62e6c6cc8d0ecb190b2cb8fb15eb1e5ec4394133'\n    physics=read(p['root_physics']);assert physics['compared_physics_steps']==3193\n    assert all(physics['original_trace_comparison'].values())\n    manifest=read(p['physical_manifest'])\n    assert manifest['complete'] is True and manifest['labels_valid']==3054\n    for key,path in [('endpoint_features',p['physical_features']),('label_valid',p['physical_valid'])]:\n        assert sha(path)==manifest['arrays'][key]['sha256']"
+    },
+    {
+      "old": "kind='one_saved_final70000_outcome_audit'",
+      "new": "kind='one_saved_final75000_outcome_audit'"
+    },
+    {
+      "old": "augmented_lo=np.minimum(nominal_lo,probes.min(0));augmented_hi=np.maximum(nominal_hi,probes.max(0))",
+      "new": "augmented_lo=np.minimum(nominal_lo,probes.min(0));augmented_hi=np.maximum(nominal_hi,probes.max(0))\n        physical_features=np.load(p['physical_features'],mmap_mode='r');physical_valid=np.load(p['physical_valid'],mmap_mode='r')\n        assert physical_features.shape==(3054,1069) and physical_valid.shape==(3054,) and physical_valid.all()\n        augmented_lo=np.minimum(augmented_lo,physical_features[physical_valid].min(0))\n        augmented_hi=np.maximum(augmented_hi,physical_features[physical_valid].max(0))"
+    },
+    {
+      "old": "saved_fit_at_query250_expert_input_rmse_rad=rms(matched_target[i]-labels['expert_target'][qindices[i]]),",
+      "new": "saved_fit_at_query250_expert_input_rmse_rad=rms(matched_target[i]-labels['expert_target'][qindices[i]]),\n                actual_vs_saved_query250_base_rms_rad=rms(row['base_target']-labels['base_target'][qindices[i]]),\n                actual_vs_saved_query250_head_rms_rad=rms(row['delta']-matching_delta[i]),\n                actual_vs_saved_query250_unclipped_proposal_rms_rad=rms(row['raw_proposal']-(labels['base_target'][qindices[i]]+matching_delta[i])),"
+    },
+    {
+      "old": "speed_ratio=float(ratios[j]),qpos=float(a['physics_qpos'][-1,7+j])))",
+      "new": "speed_ratio=float(ratios[j]),qpos=float(a['physics_qpos'][-1,7+j]),\n                maximum_range_joint=names[int(np.maximum(limits[:,0]-a['physics_qpos'][-1,7:],a['physics_qpos'][-1,7:]-limits[:,1]).argmax())],\n                maximum_range_excess_rad=float(np.maximum(np.maximum(limits[:,0]-a['physics_qpos'][-1,7:],a['physics_qpos'][-1,7:]-limits[:,1]),0).max())))"
+    },
+    {
+      "old": "training_envelope='Both3057 nominal centers and full143679 nominal+probe feature universe; coordinate ranges are descriptive, not a feasibility or stability gate.'",
+      "new": "training_envelope='All3057 nominal centers,140622 velocity probes and3054 valid physical endpoint features; coordinate ranges are descriptive, not a feasibility or stability gate.'"
+    },
+    {
+      "old": "comparison_limitation='Same-clock targets and saved head predictions belong to distinct expert trajectories after control250; no expert counterfactual evaluated at actual student states.'",
+      "new": "comparison_limitation='Same-clock targets and saved Windows Torch head predictions belong to distinct expert trajectories after control250; comparisons are descriptive. The WSL first activation has its own exact witness. No expert counterfactual evaluated by this audit.'"
+    },
+    {
+      "old": "write(BASE/'checks.json',CHECKS)",
+      "new": "write(BASE/'checks.json',CHECKS)\n    assert sha(__file__)==request['source_sha256']\n    for name,digest in request['input_sha256'].items():assert sha(local(name))==digest,name"
+    }
+  ],
+  "observation_goal_history_action_arithmetic_unchanged": true,
+  "physical_envelope_extension": true,
+  "no_model_or_native_calls": true
+}

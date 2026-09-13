@@ -1,0 +1,44 @@
+{
+  "kind": "native23_bfm_linear_span_student_nominal_v2",
+  "experiment": "one_continued_nominal_supervised_fit_v1",
+  "original_configuration": {
+    "seed": 773,
+    "steps": 1000,
+    "batch_size": 256,
+    "learning_rate": 0.0003,
+    "weight_decay": 1e-05,
+    "hidden": [
+      256,
+      256
+    ],
+    "activation": "ELU",
+    "output": "linear23 times nativejointspan, no tanh or radius",
+    "feature_std_floor": 0.05,
+    "gradient_clip_norm": 10.0,
+    "device": "cpu",
+    "threads": 1,
+    "phase_sampling": "64each initial250/acquisition100/source819/return100",
+    "validation": "all1269 labels train; full closed-loop nominal rollout is behavioral test, no heldout-generalization claim"
+  },
+  "total_step_limit": 20000,
+  "diagnostic_interval": 1000,
+  "fit_stop": {
+    "full1269_applied_target_RMSE_at_most_rad": 0.01,
+    "maximum_first24_perjoint_absolute_error_p95_at_most_rad": 0.03,
+    "logic": "both at the same fixed1000-step diagnostic; no physical acceptance implied"
+  },
+  "seed": 773,
+  "threads": 1,
+  "configuration_changes": [
+    "maximum total steps and declared fit-only early stop"
+  ],
+  "unchanged": "labels/features/normalization/architecture/span/outputbounds/phasebatches/AdamW/seed/runtime/physics",
+  "previous_fit_checkpoint_sha256": "7de4aee4d89672e07da93dae46e7177e68447dff42965d3e13a0da04b866fbf1",
+  "original_frozen_sources_sha256": "37c1e14971080f49f901ada0d17e9da87bf8c547a7c3186879b4ac1020d6dfea",
+  "frozen_sources_sha256": "423d4ed517053816ce5d841a287e8abb5073eec208c23e76f1050a83aa26809c",
+  "labels_sha256": "8003407282b01f2c66fe1720d7eb038f43377c1d6eab80dce47f1f75911e8083",
+  "prior_zero_preflight_report_sha256": "b4dba763518901f269435fac388c6c380afd014708cb45650398f501af1359bf",
+  "no_dagger_labels": true,
+  "no_hardware": true,
+  "training_metric_is_not_validation": true
+}

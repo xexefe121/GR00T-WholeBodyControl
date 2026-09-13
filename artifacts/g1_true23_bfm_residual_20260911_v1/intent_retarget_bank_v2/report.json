@@ -1,0 +1,82 @@
+{
+  "kind": "native23_intent_retarget_original29_training_bank_v2",
+  "training_recording_ids": [
+    "existing_pico_derived_walk002",
+    "existing_pico_derived_walk003",
+    "existing_pico_derived_pico"
+  ],
+  "evaluation_only_recording_ids": [
+    "existing_pico_derived_walk008"
+  ],
+  "source_frames": 7266,
+  "lifecycle_frames": 9549,
+  "original29_archive_bit_exact": true,
+  "lifecycle_spans_bit_exact": true,
+  "original29_task_and_vr21_sources_unchanged": true,
+  "retarget_native_lifecycles_bit_exact": true,
+  "native_root_and_retained_joints_changed": true,
+  "source_timing_scale": 1.0,
+  "source_frame_mapping": "identity within each existing lifecycle span",
+  "physical_state_transition_between_recordings": false,
+  "checks": [
+    {
+      "clip": "walk002",
+      "original29_arrays_bit_exact": true,
+      "frames": 1428,
+      "body_position_fk_max_abs_m": 4.440892098500626e-16,
+      "body_quaternion_fk_max_abs_one_minus_dot": 1.3322676295501878e-15,
+      "joint_ranges_passed": true,
+      "dynamics_qualified": false
+    },
+    {
+      "clip": "walk003",
+      "original29_arrays_bit_exact": true,
+      "frames": 1580,
+      "body_position_fk_max_abs_m": 8.881784197001252e-16,
+      "body_quaternion_fk_max_abs_one_minus_dot": 1.3322676295501878e-15,
+      "joint_ranges_passed": true,
+      "dynamics_qualified": false
+    },
+    {
+      "clip": "pico",
+      "original29_arrays_bit_exact": true,
+      "frames": 6541,
+      "body_position_fk_max_abs_m": 3.434752482434078e-16,
+      "body_quaternion_fk_max_abs_one_minus_dot": 1.3322676295501878e-15,
+      "joint_ranges_passed": true,
+      "dynamics_qualified": false
+    }
+  ],
+  "inputs": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/bank_v1/report.json": "1ed51fb48efa5ee6ec2e8c32d0fe58d5455ac1b77ce001abb1f034b65df09291",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/bank_v1/original_intent.spec.json": "0c5220c55c751b6c54bb8c54d4926277be0f8339cfe8a5ceaae36d58a202f2a1",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/bank_v1/curriculum/curriculum.spans.json": "3337268a0e1566744b7d7949d00071b7e08a15700face82ffb24416923627d3f",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/bank_v1/original_reference.npz": "36201c4da4d6cb437e2db7e36fd4ed4b89fc5f783a6b2c86801559437f23ee60",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/bank_v1/curriculum/curriculum.npz": "72e66eb2bf34f37236f73150098fe8326da4ce495e08d1c979c61c8bb8fa40f6",
+    "/mnt/z/codex/GR00T-WholeBodyControl/gear_sonic/data/robots/g1/g1_29dof.xml": "386b1bb9ea5b69ccd6fd0283a73ffea1ee052df95564e23a780125fbcbe2c645",
+    "/mnt/z/codex/GR00T-WholeBodyControl/gear_sonic/data/robots/g1/g1_23dof_rev_1_0.xml": "16e304c970bfc68783ea69d01d05192e6bd9d83d62f6ee4aac0ac72ff18db612",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/intent_retarget_v2/walk002/report.json": "78ccbcf1857dd75a00afac5e66aef04a386d6d2d4034737fcb04742b5002ad84",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/intent_retarget_v2/walk002/reference.npz": "ad9bc8fce491caac98bd38dd1a52d439ec621fc3e4342164261ba0b40c4db5f1",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/walk002/original_source_bundle_v1/original_reference.npz": "0e6ac0dcea5c3f2335bf281aa75de91cfecb41dff0b8d31fce69a87d258380e5",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/intent_retarget_v2/walk003/report.json": "8922a0e156a80a0bcddfe1f648f3619f8e9743372c13ea5df5d2943080c15df7",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/intent_retarget_v2/walk003/reference.npz": "2766d4dec4a91a5b2bdba323571c439154ebf3cc59c9be0e595ba4974537eeb8",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/walk003/original_source_bundle_v1/original_reference.npz": "4d462a077f10bda04c97deaf5a5ff29ec5f891a29b8bae30a6f0080cfaf06f84",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/intent_retarget_v2/pico/report.json": "5a0cd5e57c59e2e3ab7f8c56515f37e5062bdcada0690b84faae4fb814e46147",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/intent_retarget_v2/pico/reference.npz": "70b5c855ac9afaec23218e8645eea0e2b1a778129aaad5cad7d400a0b3193932",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/pico_freedancing_v1/optical_reference_v2/original29.npz": "58c65ea2805cfe740989661fe26d09e9b8d9b5f1e2c5ac0697167074fef82c5e"
+  },
+  "files": {
+    "spec": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_bfm_residual_20260911_v1/intent_retarget_bank_v2/original_intent.spec.json",
+    "spans": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_bfm_residual_20260911_v1/intent_retarget_bank_v2/lifecycle.spans.json",
+    "motion": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_bfm_residual_20260911_v1/intent_retarget_bank_v2/native_reference.npz",
+    "original_reference": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_bfm_residual_20260911_v1/intent_retarget_bank_v2/original_reference.npz"
+  },
+  "outputs": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_bfm_residual_20260911_v1/intent_retarget_bank_v2/original_intent.spec.json": "1fb3666451ebc8dc1bde2ddd65a6c28ef6794b9e2709072ec59d1d91d53b86cf",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_bfm_residual_20260911_v1/intent_retarget_bank_v2/lifecycle.spans.json": "3337268a0e1566744b7d7949d00071b7e08a15700face82ffb24416923627d3f",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_bfm_residual_20260911_v1/intent_retarget_bank_v2/native_reference.npz": "4d828471d845dedbc5e79035bdd72ce2017e7d005bfe9fd710ea1c1d5a922ed4",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_bfm_residual_20260911_v1/intent_retarget_bank_v2/original_reference.npz": "36201c4da4d6cb437e2db7e36fd4ed4b89fc5f783a6b2c86801559437f23ee60"
+  },
+  "dynamics_qualified": false,
+  "hardware_authorized": false
+}

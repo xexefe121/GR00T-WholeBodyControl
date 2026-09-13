@@ -1,0 +1,99 @@
+{
+  "clip": "pico",
+  "mode": "executed-target",
+  "mujoco": "3.2.3",
+  "source_mujoco": "3.2.3",
+  "metric_revision": 2,
+  "motion_override": "E:\\codex-artifacts\\sonic23_teleop_six_hour_20260910\\mjbatch_intent_floor_inputs_v1\\pico\\reference.npz",
+  "feedback_correction_clip_rad": null,
+  "feedback_gain_regularization": null,
+  "feedback_clip_active_controls": 0,
+  "completed_controls": 487,
+  "planned_controls": 535,
+  "completed_full_controls": 486,
+  "partial_final_control_substeps": 9,
+  "plan_replayed": false,
+  "source_plan_failed": true,
+  "full_source_completed": false,
+  "full_lifecycle_completed": false,
+  "failure": {
+    "kind": "physical_limit",
+    "control": 486,
+    "substep": 9,
+    "range_excess": 0.010405151007928437,
+    "velocity_ratio": 0.32335077115532995,
+    "effort_ratio": 0.6497224707327421
+  },
+  "metrics": {
+    "phase": "source_motion",
+    "controls": 137,
+    "includes_partial_final_control": true,
+    "leg_rmse": 0.09699582291007389,
+    "arm_rmse": 0.037143306224799194,
+    "root_p95": 0.1415990261146476,
+    "yaw_p95_deg": 29.887698104260714,
+    "original_root_p95": 0.12374852765822549,
+    "original_yaw_p95_deg": 30.494146711361985,
+    "relative_landmark_p95_m": [
+      0.1318469694063765,
+      0.2718946695915519,
+      0.07330391040000682,
+      0.183538725914269,
+      0.12676857969761685
+    ],
+    "original_relative_hand_head_p95_m": [
+      0.07390233446000584,
+      0.20555081996463284,
+      0.12885613790707473
+    ]
+  },
+  "range_excess_max": 0.010405151007928437,
+  "velocity_ratio_max": 0.480569175320667,
+  "effort_ratio_max": 1.0,
+  "source_physics_qpos_max_abs_difference": 0.4597632115700434,
+  "source_physics_qvel_max_abs_difference": 13.549896915696307,
+  "feedback_only_ms_p50_p95_max": [
+    0.010200004908256233,
+    0.019440002506598827,
+    0.05490001058205962
+  ],
+  "feedback_timing_excludes_offline_planning": true,
+  "planning_ms_p50_p95_max": [
+    5123.524452999959,
+    7240.053085400026,
+    8605.574639999986
+  ],
+  "declared_future_preview_seconds": 0.6,
+  "conservative_effective_source_preview_seconds": 0.74,
+  "recorded_target_seed": {
+    "path": "artifacts/teleop_six_hour_20260910/bfm_pico_feedback_v2",
+    "trace_sha256": "f7ce1cb7764de7b86e2ed7011f003054dfeb045c171165a07d133f2d8314a1f9",
+    "report_sha256": "faab2b621d27c6511960ab788fbe761d77958449af7deafd0aa1a3d155d82ff9",
+    "controls": 6530,
+    "original_generator_preview_seconds": 0.14,
+    "selection": "lower actual-rollout cost of recorded BFM targets and shifted previous MPC plan",
+    "physical_states_copied": false,
+    "seed_reference_differs_from_optimization_goal": true
+  },
+  "physical_state_rewrites_after_initialization": 0,
+  "root_assistance_forces": 0,
+  "elapsed_wall_seconds": 4.968071399998735,
+  "simulated_seconds": 9.737999999999921,
+  "engine_warning_counts": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "physical_steps": 4869,
+  "hardware_authorized": false,
+  "received_stream_controller": false,
+  "full_body_tracking_qualified": false,
+  "timing_qualified": false,
+  "trace_sha256": "ea8e3e9344bafe44deeca1340bf418cd0e6a446ad93cfa41a727e9f350cde3d2",
+  "provenance_sha256": "473e18881dc943b003aab3bd60f0a1476707d3dc6a3ae13945115c16f1afd6de"
+}

@@ -1,0 +1,52 @@
+{
+  "source_review_passed": false,
+  "findings": [
+    {
+      "id": "producer-accounting",
+      "file": "audit_saved_data.py",
+      "finding": "No exact producer call_accounting or centers/signed/overlap/new report-counter checks.",
+      "required": "Bind expected feature/map attempted/returned357669 and3057/354612/140622/213990 report totals; retain independent loop counts."
+    },
+    {
+      "id": "centers-output-membership",
+      "file": "audit_saved_data.py",
+      "finding": "generation/centers.npz is consumed without explicit report.output_sha256 membership; other actual arrays require it.",
+      "required": "Require centers.npz output pin and bind before archive load."
+    },
+    {
+      "id": "nonfinite-label",
+      "file": "saved_math.py",
+      "finding": "Unique finite feature plus NaN target is silently indexed as a normalized label; synthetic probe reproduced.",
+      "required": "Reject nonfinite targets and normalized float32 labels; verify23-value target schema and finite positive spans/defaults. Add synthetic regression."
+    }
+  ],
+  "existing_synthetic_tests_exit_code": 0,
+  "existing_synthetic_tests_expected": 7,
+  "synthetic_nonfinite_target_acceptance_reproduced": true,
+  "input_sha256": {
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_full_state_data_root_review_v1\\audit_saved_data.py": "3bb7bea53391a1a5cab4e1bec9c4b8738cc46c42086a6ab6aaeca5e2b02238be",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_full_state_data_root_review_v1\\saved_math.py": "c7b79a92375958108896fa643b00276d3ab3406129134c4fda25bd7fae7518bf",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_full_state_data_root_review_v1\\test_saved_math.py": "fe4e0fc2cab7609ba684cffbac6f506c44e707abc2cdc694680774db66dca9dc",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_full_state_data_root_review_v1\\source_preparation.json": "12818da37006dfd3b02864be701909ec6866147e5cd1975a2c99b56453646126",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_full_state_auditor_pico_review_v1\\review_source.py": "2d2263521a19d231d4f65b9a4066f2619cc23134c36358d60550d1fe91facfe1",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\bfm_entry250_actual_oracle_v1\\source_snapshot_v1\\gear_sonic\\utils\\g1_true23_mjbatch_ilqr_core.py": "1efc9cb21e446d8e41e3d3acebe05d12b951e8a0002b264ddf0a6b723e32f45a"
+  },
+  "all_inputs_unchanged": true,
+  "source_preparation_sha256": "12818da37006dfd3b02864be701909ec6866147e5cd1975a2c99b56453646126",
+  "test_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "test_stderr_sha256": "8c416b3278bb5d8536b23ae3f2a56a73c9c497fad021672cc90a42456c7959c0",
+  "correct_in_scope": [
+    "Fixed58 coordinate chart/group mapping and2e-12 change tolerance.",
+    "Literal native radii,58 axes x2 x3057=354612; old23 velocity axes140622, new35axes213990.",
+    "Independent new feature source hash and original difference AST; no generator helper imported.",
+    "Raw feedback gain@tangent then feedback clamp+/-.1 and native clamp.",
+    "Normalized absolute target label ((target-default64)/span32 promoted64).astype(float32); signed zeros canonicalized and raw rounding differences retained.",
+    "9904nominal+354612fullstate+3054physical=367570, no averaging or row removal."
+  ],
+  "task_array_loads": 0,
+  "task_feature_evaluations": 0,
+  "task_map_evaluations": 0,
+  "model_calls": 0,
+  "native_steps": 0,
+  "optimizer_updates": 0
+}

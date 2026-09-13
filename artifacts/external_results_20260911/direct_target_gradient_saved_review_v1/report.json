@@ -1,0 +1,110 @@
+{
+  "saved_gradient_math_passed": true,
+  "input_sha256": {
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_fp64_followup_analysis_v1\\gradient_results\\report.json": "41feae732e5b594efdf37720671c7aa85503322f285acbbfc92afc09b6300bf0",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_fp64_followup_analysis_v1\\gradient_results\\nominal_gradients.npz": "7168c804cef52ff71b0e3bf2fef71b95567adbab442561410b902c03fc5440ad",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_fp64_followup_analysis_v1\\gradient_results\\velocity_gradients.npz": "ade45038bd996229b40f7139d3dcd28f3515f27c5d1b5cc00b21cb702f8d4bdb",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_fp64_followup_analysis_v1\\gradient_results\\physical_gradients.npz": "8064500b8f9d06ea826ee10ae677923b47dfe8eaad74f4567b3d07280c8aa826"
+  },
+  "source_sha256": "d50adee9ce85fc2b96364cf1b4cdcaf6d36b57c1f2838130be050a8f0a13a49d",
+  "names": [
+    "nominal",
+    "velocity",
+    "physical"
+  ],
+  "gram_matrix": [
+    [
+      7.094132626013365e-06,
+      -3.025893972555308e-08,
+      -3.0774769790859964e-07
+    ],
+    [
+      -3.025893972555308e-08,
+      1.3901493758954784e-07,
+      5.895645701308319e-09
+    ],
+    [
+      -3.0774769790859964e-07,
+      5.895645701308319e-09,
+      2.717189770285302e-07
+    ]
+  ],
+  "norms": {
+    "nominal": 0.002663481298228573,
+    "velocity": 0.0003728470699758117,
+    "physical": 0.0005212667043160633
+  },
+  "cosine_matrix": [
+    [
+      1.0000000000000002,
+      -0.030470060743988763,
+      -0.22165890105228545
+    ],
+    [
+      -0.030470060743988763,
+      1.0,
+      0.03033476652850715
+    ],
+    [
+      -0.22165890105228545,
+      0.03033476652850715,
+      1.0
+    ]
+  ],
+  "compositions": {
+    "original": {
+      "velocity_weight": 1.0,
+      "total_norm": 0.002615462589441064,
+      "descent_dot_per_loss": {
+        "nominal": 6.756125988379213e-06,
+        "velocity": 1.1465164356530308e-07,
+        "physical": -3.013307517876112e-08
+      },
+      "cosine_nominal": 0.9698388463917677
+    },
+    "literal_secant": {
+      "velocity_weight": 10000.0,
+      "total_norm": 3.728406260512728,
+      "descent_dot_per_loss": {
+        "nominal": -0.000295803012327426,
+        "velocity": 0.001390125012601454,
+        "physical": 5.892042829220312e-05
+      },
+      "cosine_nominal": -0.029787202104725744
+    },
+    "equal_nominal_gradient": {
+      "velocity_weight": 7.143629419969333,
+      "total_norm": 0.0036737452477437985,
+      "descent_dot_per_loss": {
+        "nominal": 6.570226276064226e-06,
+        "velocity": 9.687079039556498e-07,
+        "physical": 6.087587201512373e-09
+      },
+      "cosine_nominal": 0.6714623062016016
+    }
+  },
+  "first_order_common_descent_interval": {
+    "feasible": true,
+    "minimum_weight": 6.111072935077192,
+    "maximum_weight": 224.2770232419544,
+    "inequalities": {
+      "nominal": {
+        "constant": 6.786384928104766e-06,
+        "coefficient": -3.025893972555308e-08
+      },
+      "velocity": {
+        "constant": -2.4363294024244762e-08,
+        "coefficient": 1.3901493758954784e-07
+      },
+      "physical": {
+        "constant": -3.602872088006946e-08,
+        "coefficient": 5.895645701308319e-09
+      }
+    }
+  },
+  "limitation": "One fixed sampled velocity batch at current weights; no finite-step, later-update or full-trajectory guarantee. This checks saved vector arithmetic, not autograd itself.",
+  "model_calls": 0,
+  "native_steps": 0,
+  "optimizer_updates": 0,
+  "selected_weight": null
+}

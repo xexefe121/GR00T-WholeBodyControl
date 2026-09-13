@@ -1,0 +1,984 @@
+{
+  "kind": "g1_true23_motion_fidelity_audit_v1",
+  "sources": [
+    {
+      "source": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original_sonic_happy_residual_v1/full_suite_plus_0p002/happy_dance.json",
+      "source_sha256": "bcd674314a48f86ce111ea13a5389ac0acf7a9549ffef6de9f45a059014a1a4f",
+      "cases": [
+        {
+          "label": "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_happy_physical_reference_v1/happy_dance.true23.npz",
+          "legacy_completion_passed": true,
+          "completed_transitions": 535,
+          "requested_transitions": 535,
+          "metrics": {
+            "horizontal_displacement_m": 8.67247490238085,
+            "maximum_absolute_raw_action": 8.544421195983887,
+            "maximum_absolute_torque_nm": 139.0,
+            "maximum_base_tilt_rad": 0.5676083185146076,
+            "maximum_joint_tracking_rmse_rad": 0.7169669863342937,
+            "maximum_pelvis_orientation_error_rad": 1.0217539843675276,
+            "maximum_pelvis_position_error_m": 5.010444868233086,
+            "maximum_relative_tracked_body_position_error_m": 0.607180838243832,
+            "maximum_tracked_body_position_error_m": 5.135115866911017,
+            "minimum_base_height_m": 0.5371979951361604
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": true,
+            "failed_checks": [
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        }
+      ]
+    },
+    {
+      "source": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/deployment_envelope_20260905_v2/summary.json",
+      "source_sha256": "ac8f3869a1f514664be185b2120bd156b2284373ecb960a8120c01f5c5df13e1",
+      "cases": [
+        {
+          "label": "stage_one_fraction0.6_ankle35_slew5_reference",
+          "legacy_completion_passed": false,
+          "completed_transitions": 49,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.6902808753988969,
+            "maximum_pelvis_orientation_error_rad": 1.532113848008634,
+            "maximum_relative_tracked_body_position_error_m": 0.7002062175734073,
+            "maximum_joint_tracking_rmse_rad": 0.7077347325523773
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "stage_one_fraction0.6_ankle35_slewnone_reference",
+          "legacy_completion_passed": false,
+          "completed_transitions": 50,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.7036004374844523,
+            "maximum_pelvis_orientation_error_rad": 1.5756313187961983,
+            "maximum_relative_tracked_body_position_error_m": 0.7138037125209998,
+            "maximum_joint_tracking_rmse_rad": 0.7125553506784168
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "stage_one_fraction0.6_ankle50_slew5_reference",
+          "legacy_completion_passed": false,
+          "completed_transitions": 49,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.6902808753988969,
+            "maximum_pelvis_orientation_error_rad": 1.532113848008634,
+            "maximum_relative_tracked_body_position_error_m": 0.7002062175734073,
+            "maximum_joint_tracking_rmse_rad": 0.7077347325523773
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "stage_one_fraction0.6_ankle50_slewnone_reference",
+          "legacy_completion_passed": false,
+          "completed_transitions": 50,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.7036004374844523,
+            "maximum_pelvis_orientation_error_rad": 1.5756313187961983,
+            "maximum_relative_tracked_body_position_error_m": 0.7138037125209998,
+            "maximum_joint_tracking_rmse_rad": 0.7125553506784168
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "stage_one_fraction1_ankle35_slew5_reference",
+          "legacy_completion_passed": false,
+          "completed_transitions": 41,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.3448346161277396,
+            "maximum_pelvis_orientation_error_rad": 0.2993129060977442,
+            "maximum_relative_tracked_body_position_error_m": 0.3451853673634011,
+            "maximum_joint_tracking_rmse_rad": 0.7548164185862007
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "stage_one_fraction1_ankle35_slewnone_reference",
+          "legacy_completion_passed": false,
+          "completed_transitions": 42,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.3512573075711315,
+            "maximum_pelvis_orientation_error_rad": 0.3519511108863541,
+            "maximum_relative_tracked_body_position_error_m": 0.35174964964191713,
+            "maximum_joint_tracking_rmse_rad": 0.7570426479870191
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "stage_one_fraction1_ankle50_slew5_reference",
+          "legacy_completion_passed": false,
+          "completed_transitions": 41,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.3448346161277396,
+            "maximum_pelvis_orientation_error_rad": 0.2993129060977442,
+            "maximum_relative_tracked_body_position_error_m": 0.3451853673634011,
+            "maximum_joint_tracking_rmse_rad": 0.7548164185862007
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "stage_one_fraction1_ankle50_slewnone_reference",
+          "legacy_completion_passed": false,
+          "completed_transitions": 42,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.3512573075711315,
+            "maximum_pelvis_orientation_error_rad": 0.3519511108863541,
+            "maximum_relative_tracked_body_position_error_m": 0.35174964964191713,
+            "maximum_joint_tracking_rmse_rad": 0.7570426479870191
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "released_retained_fraction0.6_ankle35_slew5_reference",
+          "legacy_completion_passed": false,
+          "completed_transitions": 148,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.7117369289006872,
+            "maximum_pelvis_orientation_error_rad": 1.5132623849059592,
+            "maximum_relative_tracked_body_position_error_m": 0.8194214731354783,
+            "maximum_joint_tracking_rmse_rad": 0.5414073646492169
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "released_retained_fraction0.6_ankle35_slewnone_reference",
+          "legacy_completion_passed": false,
+          "completed_transitions": 145,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.7173871254830531,
+            "maximum_pelvis_orientation_error_rad": 1.5663584931050427,
+            "maximum_relative_tracked_body_position_error_m": 0.9802523217415898,
+            "maximum_joint_tracking_rmse_rad": 0.5765278319325596
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "released_retained_fraction0.6_ankle50_slew5_reference",
+          "legacy_completion_passed": false,
+          "completed_transitions": 148,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.7117369289006872,
+            "maximum_pelvis_orientation_error_rad": 1.5132623849059592,
+            "maximum_relative_tracked_body_position_error_m": 0.8194214731354783,
+            "maximum_joint_tracking_rmse_rad": 0.5414073646492169
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "released_retained_fraction0.6_ankle50_slewnone_reference",
+          "legacy_completion_passed": false,
+          "completed_transitions": 145,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.7173871254830531,
+            "maximum_pelvis_orientation_error_rad": 1.5663584931050427,
+            "maximum_relative_tracked_body_position_error_m": 0.9802523217415898,
+            "maximum_joint_tracking_rmse_rad": 0.5765278319325596
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "released_retained_fraction1_ankle35_slew5_reference",
+          "legacy_completion_passed": false,
+          "completed_transitions": 156,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.8226046433480615,
+            "maximum_pelvis_orientation_error_rad": 1.5426291168124444,
+            "maximum_relative_tracked_body_position_error_m": 0.8710604372355468,
+            "maximum_joint_tracking_rmse_rad": 0.6488125513592344
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "released_retained_fraction1_ankle35_slewnone_reference",
+          "legacy_completion_passed": false,
+          "completed_transitions": 516,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 6.034561489698713,
+            "maximum_pelvis_orientation_error_rad": 1.5802289559306226,
+            "maximum_relative_tracked_body_position_error_m": 0.8585149416255716,
+            "maximum_joint_tracking_rmse_rad": 0.7169669863342845
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "released_retained_fraction1_ankle50_slew5_reference",
+          "legacy_completion_passed": false,
+          "completed_transitions": 156,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.8226046433480615,
+            "maximum_pelvis_orientation_error_rad": 1.5426291168124444,
+            "maximum_relative_tracked_body_position_error_m": 0.8710604372355468,
+            "maximum_joint_tracking_rmse_rad": 0.6488125513592344
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "released_retained_fraction1_ankle50_slewnone_reference",
+          "legacy_completion_passed": false,
+          "completed_transitions": 533,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 4.4668447622000205,
+            "maximum_pelvis_orientation_error_rad": 1.3246869568036388,
+            "maximum_relative_tracked_body_position_error_m": 1.070507139572231,
+            "maximum_joint_tracking_rmse_rad": 0.7255653671832415
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        }
+      ]
+    },
+    {
+      "source": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/deployment_envelope_neutral_20260905_v1/summary.json",
+      "source_sha256": "800eb62e5d20e974d1b8b96e0ccd7da914bee8cc5d05fbfef2549850654bff07",
+      "cases": [
+        {
+          "label": "stage_one_fraction0.6_ankle35_slew5_neutral",
+          "legacy_completion_passed": false,
+          "completed_transitions": 53,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.7189212574208984,
+            "maximum_pelvis_orientation_error_rad": 1.580065889216694,
+            "maximum_relative_tracked_body_position_error_m": 0.7455757390590901,
+            "maximum_joint_tracking_rmse_rad": 0.7025736923543051
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "stage_one_fraction0.6_ankle35_slewnone_neutral",
+          "legacy_completion_passed": false,
+          "completed_transitions": 52,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.688175584794586,
+            "maximum_pelvis_orientation_error_rad": 1.5283192918808193,
+            "maximum_relative_tracked_body_position_error_m": 0.7135792723981248,
+            "maximum_joint_tracking_rmse_rad": 0.7046629229390035
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "stage_one_fraction1_ankle35_slew5_neutral",
+          "legacy_completion_passed": false,
+          "completed_transitions": 49,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.33235105072090787,
+            "maximum_pelvis_orientation_error_rad": 0.36489420951198176,
+            "maximum_relative_tracked_body_position_error_m": 0.34217081866213267,
+            "maximum_joint_tracking_rmse_rad": 0.7503817310259774
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "stage_one_fraction1_ankle35_slewnone_neutral",
+          "legacy_completion_passed": false,
+          "completed_transitions": 43,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.3180302273526605,
+            "maximum_pelvis_orientation_error_rad": 0.35967632351118584,
+            "maximum_relative_tracked_body_position_error_m": 0.3288070544793323,
+            "maximum_joint_tracking_rmse_rad": 0.7536731436814933
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "released_retained_fraction0.6_ankle35_slew5_neutral",
+          "legacy_completion_passed": false,
+          "completed_transitions": 132,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.48872725068866235,
+            "maximum_pelvis_orientation_error_rad": 1.5101605671528628,
+            "maximum_relative_tracked_body_position_error_m": 0.8023907850658792,
+            "maximum_joint_tracking_rmse_rad": 0.49680993291308057
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "released_retained_fraction0.6_ankle35_slewnone_neutral",
+          "legacy_completion_passed": false,
+          "completed_transitions": 136,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.5444532413174297,
+            "maximum_pelvis_orientation_error_rad": 1.5606931748867143,
+            "maximum_relative_tracked_body_position_error_m": 0.9556417377120913,
+            "maximum_joint_tracking_rmse_rad": 0.45556098986899235
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "released_retained_fraction1_ankle35_slew5_neutral",
+          "legacy_completion_passed": false,
+          "completed_transitions": 147,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.6247809621132085,
+            "maximum_pelvis_orientation_error_rad": 1.5141905378927107,
+            "maximum_relative_tracked_body_position_error_m": 0.9862682280073536,
+            "maximum_joint_tracking_rmse_rad": 0.5782360038300269
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "released_retained_fraction1_ankle35_slewnone_neutral",
+          "legacy_completion_passed": false,
+          "completed_transitions": 274,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 2.5419943041073787,
+            "maximum_pelvis_orientation_error_rad": 1.51585366428813,
+            "maximum_relative_tracked_body_position_error_m": 0.9278080002456014,
+            "maximum_joint_tracking_rmse_rad": 0.6886417702658062
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "configured_sim_fraction0.6_ankle35_slew5_neutral",
+          "legacy_completion_passed": false,
+          "completed_transitions": 142,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.5448437146779432,
+            "maximum_pelvis_orientation_error_rad": 1.547092846743856,
+            "maximum_relative_tracked_body_position_error_m": 1.038520541739204,
+            "maximum_joint_tracking_rmse_rad": 0.5211076984602827
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "configured_sim_fraction0.6_ankle35_slewnone_neutral",
+          "legacy_completion_passed": false,
+          "completed_transitions": 137,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 0.5898474533910749,
+            "maximum_pelvis_orientation_error_rad": 1.365550140948279,
+            "maximum_relative_tracked_body_position_error_m": 1.0380297384161217,
+            "maximum_joint_tracking_rmse_rad": 0.589328969400223
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "configured_sim_fraction1_ankle35_slew5_neutral",
+          "legacy_completion_passed": false,
+          "completed_transitions": 147,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 2.043958028178754,
+            "maximum_pelvis_orientation_error_rad": 1.156103708931656,
+            "maximum_relative_tracked_body_position_error_m": 0.9591177847095351,
+            "maximum_joint_tracking_rmse_rad": 0.7559056982061164
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        },
+        {
+          "label": "configured_sim_fraction1_ankle35_slewnone_neutral",
+          "legacy_completion_passed": false,
+          "completed_transitions": 249,
+          "requested_transitions": 535,
+          "metrics": {
+            "maximum_pelvis_position_error_m": 1.6312889019643673,
+            "maximum_pelvis_orientation_error_rad": 1.1319800522717094,
+            "maximum_relative_tracked_body_position_error_m": 1.0198024674813129,
+            "maximum_joint_tracking_rmse_rad": 0.7087186085802112
+          },
+          "motion_fidelity": {
+            "kind": "g1_true23_reference_motion_fidelity_v1",
+            "passed": false,
+            "full_clip_completed": false,
+            "failed_checks": [
+              "full_clip_completion",
+              "maximum_pelvis_position_error_m",
+              "maximum_pelvis_orientation_error_rad",
+              "maximum_relative_tracked_body_position_error_m",
+              "maximum_joint_tracking_rmse_rad"
+            ],
+            "maximum_errors": {
+              "maximum_pelvis_position_error_m": 0.25,
+              "maximum_pelvis_orientation_error_rad": 0.5,
+              "maximum_relative_tracked_body_position_error_m": 0.2,
+              "maximum_joint_tracking_rmse_rad": 0.35
+            },
+            "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+            "hardware_authorized": false,
+            "deployment_ready": false
+          }
+        }
+      ]
+    }
+  ],
+  "case_count": 29,
+  "motion_fidelity_passed_count": 0,
+  "hardware_authorized": false,
+  "robot_commands_published": false,
+  "deployment_ready": false
+}

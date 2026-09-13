@@ -1,0 +1,59 @@
+{
+  "kind": "independent_read_only_prepared_packet_gate_review",
+  "verdict": "TWO_ADMISSION_PARITY_FIXES_REQUIRED",
+  "reviewed_gate_sha256": "170915e61c5bf8a88cfba44dc2d6edea8bc5db44b3138080f4557f83df456fdd",
+  "findings": [
+    {
+      "priority": "P2",
+      "name": "mutable_source_timestamp_survives_admission",
+      "location": "StudentPacketGate.receive validation and accepted StudentPacket construction",
+      "evidence": "StudentPacket(source_time=np.array(0.0), final=True) is accepted at now0. Mutating original array to99 after receive changes the accepted window timestamp to99 with no fault.",
+      "fix": "Require a finite real scalar, reject array/bool metadata and store an immutable canonical float in accepted packet. Test mutation/rejection explicitly."
+    },
+    {
+      "priority": "P2",
+      "name": "silent_dtype_conversion_breaks_exact_GoalFeatures_parity",
+      "location": "_array returns unconditional float64 buffer",
+      "evidence": "Float32 version of existing80-frame synthetic fixture is admitted but34 of80 windows differ from offline GoalFeatures; max component delta1.1920928955078125e-7. Offline task finite differences run in original input dtype; promotion before difference changes rounding.",
+      "fix": "Preserve supported prepared per-field dtype with bytes-backed storage and pin it for the epoch, or explicitly require canonical dtype and reject others. Cover float32/float64 and per-field dtype changes. Avoid silent promotion."
+    }
+  ],
+  "counterexample_execution": {
+    "gate_source_unchanged_during_check": true,
+    "mutable_source_time_admitted": true,
+    "mutated_accepted_time": 99.0,
+    "fault_after_mutation": null,
+    "float32_windows": 80,
+    "float32_mismatching_windows": 34,
+    "float32_max_feature_delta": 1.1920928955078125e-07,
+    "policy_inference_calls": 0,
+    "optimizer_calls": 0,
+    "physics_steps": 0
+  },
+  "recorded_parity_review": {
+    "report_sha256": "8424b4013560973e1470ea979bdfb9634902ec8cbc31b0380fcfa689015bd899",
+    "source_reviewed": true,
+    "verdict": "Valid narrow evidence for current canonical prepared samples",
+    "packets": 1580,
+    "feature_rows": 2537,
+    "feature_width": 1069,
+    "reference_samples_without_extra_previous": 59337,
+    "all_features_bitexact": true,
+    "scope": "Uses saved qpos/qvel, prior actions and BFM base; tests received goal encoding, not base actor inference or full online1069 observation generation."
+  },
+  "scope_limits": [
+    "Prepared samples only; no upstream raw-pose derivative causality proven.",
+    "Source50Hz and delivery-clock checks are enforced; controller consumption pacing is not. EOF is intentionally drained at one timestamp in parity harness and report correctly marks pacing unqualified.",
+    "Current synthetic data are float64; canonical recorded parity does not establish support for every dtype admitted by API.",
+    "No controller import/integration, transport, policy, physics, rearm/standing behavior or teleoperation qualification."
+  ],
+  "positive_checks": [
+    "One packet carries original native, retargeted native and original task banks; invalid bank prevents queue admission.",
+    "Accepted numeric arrays are bytes-backed and mapping-protected; sender mutation and setflags cannot change admitted payload arrays.",
+    "True preceding task sample retained; local frame offset preserves backward task derivatives across full and explicitEOF windows.",
+    "FIFO sequence/epoch/sourceclock/delivery age and bounded queue fault rules preserve failure latch until explicit rearm."
+  ],
+  "reviewer_policy_inference_calls": 0,
+  "reviewer_optimizer_calls": 0,
+  "reviewer_physics_steps": 0
+}

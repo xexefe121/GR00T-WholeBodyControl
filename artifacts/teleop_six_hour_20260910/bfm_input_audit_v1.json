@@ -1,0 +1,54 @@
+{
+  "kind": "bfm_baseline_actor_input_reconstruction_v1",
+  "cases": [
+    {
+      "clip": "walk002",
+      "trace_path": "artifacts\\teleop_six_hour_20260910\\bfm_walk002_v1\\trace.npz",
+      "trace_sha256": "c1d449e0defbc2c20aa8efbbb5a160ab34fb758cd8c99c13361f0c37f4ddacb3",
+      "checked_controls": 1417,
+      "state_max_error": 0.0,
+      "history_max_error": 0.0,
+      "independent_rotation_library": "scipy.spatial.transform.Rotation",
+      "zero_history_start": true,
+      "state_shape": [
+        1417,
+        52
+      ],
+      "history_shape": [
+        1417,
+        300
+      ],
+      "passed": true
+    },
+    {
+      "clip": "pico",
+      "trace_path": "artifacts\\teleop_six_hour_20260910\\bfm_pico_v1\\trace.npz",
+      "trace_sha256": "9f8f211b0b535e50177f0a54ad517381b6cb38978a3fda85da4247e81cffea40",
+      "checked_controls": 6530,
+      "state_max_error": 0.0,
+      "history_max_error": 0.0,
+      "independent_rotation_library": "scipy.spatial.transform.Rotation",
+      "zero_history_start": true,
+      "state_shape": [
+        6530,
+        52
+      ],
+      "history_shape": [
+        6530,
+        300
+      ],
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "deployment_ready": false,
+  "hardware_authorized": false,
+  "validation_scope": "Independent SciPy gravity and explicit numeric field/history offsets; actual saved baseline states, no physical success inference.",
+  "files": {
+    "gear_sonic\\tests\\test_g1_true23_bfmzero.py": "09f67cdd1df506638787d3e8530def9dc2f8ff5af43c605db3054417c39c5ab2",
+    "gear_sonic\\utils\\g1_true23_bfmzero_inference.py": "b2d6166371abf39d76d9b12177f7e3f43a1e6b48f2348ea290ba49f6a9f490eb",
+    "gear_sonic\\scripts\\evaluate_g1_true23_bfmzero.py": "f9647035f40e29cdae0896a91f7d1d8481ad02d4e380bf9529e813ddf932b056",
+    "artifacts\\g1_true23_six_hour_replan_20260910_v1\\bfmzero_inspect_v1\\config.yaml": "f3ba93872527acba52aa567187f225aa1d2825fef82f4a8497807a654153978d",
+    "artifacts\\teleop_six_hour_20260910\\bfm_tests_v3.xml": "757f4508008c94a7b9e72b485822aa985180a04ea95e3776dd4b94d78c9d316f"
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "scope": "Pure floating-point regression only; no physics or optimization",
+  "timestep_seconds": 0.002,
+  "unchanged_comparison_tolerance_seconds": 1e-10,
+  "expected_clock_rule": "Initialize once; add dt independently per scheduled step; never reset from observed clock",
+  "normal": {
+    "start_time": 0.0,
+    "steps": 65300,
+    "fault": null,
+    "first_old_ideal_formula_failure": {
+      "step": 60370,
+      "actual_time": 120.73999999990001,
+      "ideal_time": 120.74000000000001,
+      "error": -1.000017846308765e-10
+    },
+    "first_independent_accumulation_failure": null,
+    "maximum_accumulated_error_seconds": 0.0,
+    "final_ideal_roundoff_diagnostic": -1.0450662557559554e-10
+  },
+  "nonzero_start": {
+    "start_time": 123.456,
+    "steps": 65300,
+    "fault": null,
+    "first_old_ideal_formula_failure": {
+      "step": 13855,
+      "actual_time": 151.1660000001,
+      "ideal_time": 151.166,
+      "error": 1.000159954855917e-10
+    },
+    "first_independent_accumulation_failure": null,
+    "maximum_accumulated_error_seconds": 0.0,
+    "final_ideal_roundoff_diagnostic": 5.913136646995554e-10
+  },
+  "faults": {
+    "reset": {
+      "start_time": 0.0,
+      "steps": 65300,
+      "fault": "reset",
+      "first_old_ideal_formula_failure": {
+        "step": 37000,
+        "actual_time": 0.0,
+        "ideal_time": 74.0,
+        "error": -74.0
+      },
+      "first_independent_accumulation_failure": {
+        "step": 37000,
+        "actual_time": 0.0,
+        "expected_time": 74.00000000000894,
+        "error": -74.00000000000894
+      },
+      "maximum_accumulated_error_seconds": 74.00000000000894,
+      "final_ideal_roundoff_diagnostic": -73.99999999997678
+    },
+    "missing_step": {
+      "start_time": 0.0,
+      "steps": 65300,
+      "fault": "missing_step",
+      "first_old_ideal_formula_failure": {
+        "step": 37000,
+        "actual_time": 73.99800000000894,
+        "ideal_time": 74.0,
+        "error": -0.0019999999910567112
+      },
+      "first_independent_accumulation_failure": {
+        "step": 37000,
+        "actual_time": 73.99800000000894,
+        "expected_time": 74.00000000000894,
+        "error": -0.001999999999995339
+      },
+      "maximum_accumulated_error_seconds": 0.0020000000000095497,
+      "final_ideal_roundoff_diagnostic": -0.0020000001045161753
+    },
+    "extra_step": {
+      "start_time": 0.0,
+      "steps": 65300,
+      "fault": "extra_step",
+      "first_old_ideal_formula_failure": {
+        "step": 37000,
+        "actual_time": 74.00200000000893,
+        "ideal_time": 74.0,
+        "error": 0.0020000000089339665
+      },
+      "first_independent_accumulation_failure": {
+        "step": 37000,
+        "actual_time": 74.00200000000893,
+        "expected_time": 74.00000000000894,
+        "error": 0.001999999999995339
+      },
+      "maximum_accumulated_error_seconds": 0.0020000000000095497,
+      "final_ideal_roundoff_diagnostic": 0.001999999895502924
+    },
+    "small_cumulative_drift": {
+      "start_time": 0.0,
+      "steps": 65300,
+      "fault": "small_cumulative_drift",
+      "first_old_ideal_formula_failure": {
+        "step": 100,
+        "actual_time": 0.20000000010000052,
+        "ideal_time": 0.2,
+        "error": 1.0000050787439818e-10
+      },
+      "first_independent_accumulation_failure": {
+        "step": 100,
+        "actual_time": 0.20000000010000052,
+        "expected_time": 0.20000000000000015,
+        "error": 1.000003690965201e-10
+      },
+      "maximum_accumulated_error_seconds": 6.514252959277655e-08,
+      "final_ideal_roundoff_diagnostic": 6.503802296720096e-08
+    }
+  },
+  "script_sha256": "a1342fa332d06d20aae622982af7ce329e7c69e3818033237ef63bbd7a9cbf9d"
+}

@@ -1,0 +1,32 @@
+{
+  "kind": "root source-only closed-restore correction",
+  "old_source_pins": {
+    "bfm_observations.py": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d",
+    "capture_schema.py": "dff89834dff1f897f73041e5cd285e1f9179bcc2482170975987818c25a6f4ae",
+    "clock_core.py": "9bc6f725c469ded387b15d1e829ba0c16ed6692baab8b7d00dbe66fb3e3a2432",
+    "history.py": "cc89415bed7e235a9cd1acdec8311ba51f0811605ed22d43709fd9f5879fde8f",
+    "mailbox.py": "01f68ee330e68dd229199d214316a35dee33d474f66afb6fbfe5d4378def7d28",
+    "model_identity.py": "e85e5c5eaeb4a8c76c8ef5cfa01c48bc33b6df15884ed21dc6d41d2ede6a87f4",
+    "native_stepper.py": "38af2e297272d4ab8bd176b461ba74eff468b40c4b64d8ed4d8739dcc139c60e",
+    "oracle_source.py": "0027210cda5a44255debecd7151ecd454e2281a5ff4e3137641d102701fb1330",
+    "test_native_stub.py": "7080357c08ffac922aa8f9749da8a7130fd5369c217885534439e361eae11838"
+  },
+  "new_source_pins": {
+    "bfm_observations.py": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d",
+    "capture_schema.py": "dff89834dff1f897f73041e5cd285e1f9179bcc2482170975987818c25a6f4ae",
+    "clock_core.py": "9bc6f725c469ded387b15d1e829ba0c16ed6692baab8b7d00dbe66fb3e3a2432",
+    "history.py": "cc89415bed7e235a9cd1acdec8311ba51f0811605ed22d43709fd9f5879fde8f",
+    "mailbox.py": "01f68ee330e68dd229199d214316a35dee33d474f66afb6fbfe5d4378def7d28",
+    "model_identity.py": "e85e5c5eaeb4a8c76c8ef5cfa01c48bc33b6df15884ed21dc6d41d2ede6a87f4",
+    "native_stepper.py": "126b5585deecabe70a6453ba4040707d40bea138100383131a7482cf0c7a580f",
+    "oracle_source.py": "0027210cda5a44255debecd7151ecd454e2281a5ff4e3137641d102701fb1330",
+    "test_closed_restore.py": "4c44b88611c7a4ee8472f1e3252e4848f775b5bb8dc6e1b1ddfda4eb881322e5",
+    "test_native_stub.py": "7080357c08ffac922aa8f9749da8a7130fd5369c217885534439e361eae11838"
+  },
+  "exact_change": {
+    "old": "if self.restore_attempted or self.returned or self.attempted:raise NativeAdapterError('initial restoration is allowed once; no rearm/reset')",
+    "new": "if self.closed or self.failure is not None or self.restore_attempted or self.returned or self.attempted:raise NativeAdapterError('initial restoration requires an open, unfailed adapter and is allowed once; no rearm/reset')"
+  },
+  "real_model_constructions": 0,
+  "real_native_steps": 0
+}

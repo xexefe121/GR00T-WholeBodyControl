@@ -1,0 +1,123 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "frame": 10,
+      "body": 1,
+      "jac_velocity_error": 3.102981760427781e-11,
+      "jdot_velocity_error": 5.204170427930421e-18,
+      "rotation_jdot_velocity_error": 8.673617379884035e-19
+    },
+    {
+      "frame": 10,
+      "body": 7,
+      "jac_velocity_error": 8.009803931230408e-11,
+      "jdot_velocity_error": 6.354205182856898e-11,
+      "rotation_jdot_velocity_error": 1.2436981999819352e-11
+    },
+    {
+      "frame": 10,
+      "body": 24,
+      "jac_velocity_error": 1.6667223157185163e-10,
+      "jdot_velocity_error": 1.5033660427654638e-10,
+      "rotation_jdot_velocity_error": 3.649948789388735e-11
+    },
+    {
+      "frame": 400,
+      "body": 1,
+      "jac_velocity_error": 3.0849822696410456e-11,
+      "jdot_velocity_error": 2.7755575615628914e-17,
+      "rotation_jdot_velocity_error": 1.108028989740828e-11
+    },
+    {
+      "frame": 400,
+      "body": 7,
+      "jac_velocity_error": 3.827876904338723e-11,
+      "jdot_velocity_error": 2.00978192421708e-11,
+      "rotation_jdot_velocity_error": 8.005306140201895e-11
+    },
+    {
+      "frame": 400,
+      "body": 24,
+      "jac_velocity_error": 1.7274892627483496e-10,
+      "jdot_velocity_error": 6.228435822652756e-11,
+      "rotation_jdot_velocity_error": 1.061624121945215e-10
+    },
+    {
+      "frame": 900,
+      "body": 1,
+      "jac_velocity_error": 1.0676559636380034e-10,
+      "jdot_velocity_error": 2.7755575615628914e-17,
+      "rotation_jdot_velocity_error": 5.1260970078056967e-11
+    },
+    {
+      "frame": 900,
+      "body": 7,
+      "jac_velocity_error": 9.253092736472013e-11,
+      "jdot_velocity_error": 8.052225553001335e-11,
+      "rotation_jdot_velocity_error": 1.1261586108091137e-10
+    },
+    {
+      "frame": 900,
+      "body": 24,
+      "jac_velocity_error": 1.037766539369045e-10,
+      "jdot_velocity_error": 1.9208148960281335e-11,
+      "rotation_jdot_velocity_error": 5.1382842425340414e-11
+    }
+  ],
+  "native_root_frictionloss": [
+    0.1,
+    0.1,
+    0.1,
+    0.1,
+    0.1,
+    0.1
+  ],
+  "failure": {
+    "joint": "left_ankle_roll_joint",
+    "q": 0.261945412606269,
+    "qvel": 1.3621443460807408,
+    "limits": [
+      -0.2618,
+      0.2618
+    ],
+    "lower_acceleration": -261.9839388857372,
+    "upper_acceleration": -717.425324607632,
+    "actual_complete_controls": 360,
+    "original_v1_report_count_issue": "v1 counted the next unexecuted control once;360 full controls, not361",
+    "source_complete_controls": 10
+  },
+  "actual_minus_qp_acceleration_rms_by_dof": [
+    0.07467622493652695,
+    0.09129326738120211,
+    0.2370401643847272,
+    0.5863759713713618,
+    0.2530852435391617,
+    2.6554698139167963,
+    2.079816883891931,
+    2.0816755586973668,
+    13.30165127305694,
+    3.0690918230183875,
+    5.917195637129435,
+    13.44974561331168,
+    1.8194424824895956,
+    2.3420209391578557,
+    8.306686272850323,
+    2.643808136435561,
+    5.255876192588545,
+    6.235634697217208,
+    2.123404081458345,
+    0.9517312676428383,
+    0.4437235854189825,
+    0.47578181430158234,
+    1.395269372180638,
+    0.00818638417612801,
+    0.851971544370738,
+    1.501890989205892,
+    3.74989500756894,
+    1.83661583226954,
+    1.899694942900279
+  ],
+  "actual_minus_qp_acceleration_max": 322.7716578661035,
+  "model_note": "v1 dynamics includes mass/bias/passive and contact forces; native free-root frictionloss0.1 is not represented in its prediction. Physical execution retains it. Contact force/compliance mismatch also remains."
+}

@@ -1,0 +1,53 @@
+# Conditional integration of one recovered trajectory
+
+This is a source/text proposal only. No update count, learning-rate schedule, new gradient calibration, model forward, fit, or controller evaluation is selected. Recovery and collection must first qualify. The candidate adds exactly1018 executed expert controls251..1268; only the first state is a fresh query from the failed width81000 student. The other1017 states belong to the connected expert continuation.
+
+The smallest implementation can retain the current width512 model, the original data loader and all three existing losses, then add a separate recovery-data loader and supervised target term. Keep the current9904 nominal rows,3054 physical endpoints and354612 signed full-state endpoints byte-identical. Their original index maps,15 nominal cells,9 physical cells,54 response cells, fixed six response weights, coefficient1.8188207859141674, target/span conventions and causal context remain unchanged. The new committed plan gains are provenance; they do not become response-probe labels through this integration.
+
+## Restore the trained512 model, without expanding it again
+
+`train_response_balanced.py` currently calls `expand_source()` and `verify_width_restoration()`. Both implement71000 width256 to81000 width512 expansion, including zero new moments and zero outgoing paths. They must not be reused as the next initialization procedure. The81000 model has already learned those paths and context columns.
+
+Keep `WiderContextTarget` and its exact forward implementation. Construct it with the existing float32 normalization, load all six512 actor tensors strictly, construct AdamW, load a deep copy of the complete source optimizer state, restore source RNG, then verify every actor tensor, both moment tensors for all six parameters, the scalar step16000 for all six, the entire parameter group and all RNG payloads. Shapes remain(512,1323),(512,),(512,512),(512,),(23,512),(23,). No expansion generator, new zero slots, resetting of learned context, or fresh AdamW is involved. The old expansion metadata can remain historical provenance, not a newly performed operation.
+
+The source parameter group must be verified before any explicitly selected LR change. Preserve AdamW betas/epsilon/weight decay and foreach/fused settings, gradient clip10, and original deterministic runtime. New ordinary and optimizer counters are81000+U and16000+U for a future fixed U. This note assigns no U or LR values. A later protocol must also say exactly how the existing10000-row response schedule is consumed; do not silently wrap, truncate, regenerate or extend it.
+
+## Keep new data separate from benchmark indices
+
+Use the collected raw `causal_features` float32[1018,1323] and `expert_target` float64[1018,23]. Verify collection report/owner/root qualification and all source artifacts directly. Preserve `features[:,:1000]`, incoming prior23 and history300 identities. Copy the frozen81000 normalization; do not invoke `weighted_normalization()` or refit context statistics. Use the unchanged `normalized_labels(target,default,span32)` conversion when a training request is selected.
+
+The new arrays should have separate keys such as `recovery_features`, `recovery_target`, `recovery_cells` and immutable control/phase/provenance arrays. Keep `data['target']`, `data['features']`, `center_map`, `physical_successor`, existing dataset IDs and response schedules unchanged. Appending recovery rows inside the old nominal arrays would change assumptions throughout the loader, diagnostics and center/physical lookup paths. Replacing nominal15 with18 cells would also silently reduce each old nominal cell's weight. Neither is necessary.
+
+The direct new-data loss can call unchanged `nominal_loss` on the new prediction/label arrays and three new phase index lists. Record it as a separate D3 metric. Keep old N15, P9, original F54 and balanced F54 metrics exactly as before; report a new optimization total separately. New rows do not alter the historical full-state teacher energy used for the six group weights.
+
+## Sampling and weighting choices requiring evidence
+
+| Choice | Meaning and tradeoff |
+|---|---|
+| Full1018 branch each update, equal three-phase mean | Closest to the current full-nominal/full-physical style. Deterministic, no new sampler or RNG consumption. Gives acquisition99, source819 and return100 equal phase mass, matching the existing phase-balanced intent. Short phases receive more weight per row. |
+| Full1018 branch each update, uniform row mean | Uses the connected trajectory's duration weighting. About80% of branch loss belongs to source execution; acquisition and return errors can be hidden. Still deterministic and useful as a reported secondary metric. |
+| Fixed phase-stratified subset with frozen schedule | Reduces new per-update rows if necessary, but adds sampling variance, duplicates and another audited schedule. It should not be chosen merely for convention when1018 extra rows are modest relative to the existing14686 training rows per update. |
+
+A straightforward engineering candidate is a separate phase-balanced branch term D3 added to the existing objective: `N15 + coefficient * balanced_F54 + P9 + lambda_D * D3`. Preserve the old three terms' coefficients and define `lambda_D` explicitly only after the saved first-target/collection diagnosis. No value is selected here. Equal new and old nominal-cell contribution could be expressed by a transparent coefficient derived from15 versus3 cells; it is a design option, not a validated optimum. A combined18-cell mean is another option only if the resulting15/18 old-nominal and3/18 new-branch masses are disclosed; it would change the old nominal term's scale.
+
+The first implementation need not rebalance all tasks or repeat the old gradient calibration. The source/task evidence must justify whether any new coefficient calibration is worth selecting. An added supervised trajectory alone cannot establish whether response-loss conflict, local feedback fidelity or coverage is the dominant issue.
+
+## Counting and numerical release
+
+For the full1018 option, use a fourth explicitly counted training forward for the branch. Preserve the shapes/order of the existing nominal9904, selected endpoint1728 and physical3054 calls. Concatenating the new branch with the old nominal input would alter GEMM dimensions and make old initialization drift harder to attribute. Per-update accounting would be4 calls and15704 rows, so selected totals would be4U and15704U. These are conditional arithmetic formulas, not an approved budget.
+
+Retain all existing367570 diagnostic inputs and their current batch256 partitions. Add the new branch as a separate corpus with4 partitions. If the same five backends are selected, each backend would see368588 rows in1441 calls; the old1437 calls and all old outputs remain separately identifiable. New branch initial_GPU32 predictions provide its pre-training fit baseline within the selected run, without an extra scouting pass. There are currently no saved81000 predictions for those future new inputs, so do not claim or require an initial byte comparison to nonexistent outputs.
+
+On the three old corpora, initial_GPU32 must still meet the existing1e-5 rad preclamp gate against saved81000 outputs, with byte equality reported as a diagnostic. Same architecture/forward/batch partitions make exact equality plausible, not an extra hard gate. Preserve the original nine CPU64/GPU64/ORT64 parity comparisons and add three analogous comparisons for the new corpus at the same1e-5 tolerance. Preserve original drift/clipping outputs and add new-corpus versions. Manual FP64 export remains a no-tracing-call construction with the same public float32 input/output and monolithic promoted512 math. Its literal ordinary81000 metadata check and graph name require a surgical future-endpoint update; graph arithmetic must not change.
+
+Save the full initialization capsule, all per-step old and new cell losses, original and balanced response ledgers, exact used schedule, attempted/returned/synchronized/verified forward counters, optimizer progress and partial failure state. The existing invalid CPU-float32 reduction-order comparison stays removed; retain the qualified CUDA-to-float64 mean checks and original release tolerances. Saved audit and owner reports must separate completed optimization, numerical release and physical behavior. Original1569 plus conditional250 physical/intent qualification remains necessary for any released endpoint.
+
+## What must be learned before selecting a fit
+
+1. Full recovery qualification comes first. A first optimized target, feasible seed, partial branch or successful launcher is not an admissible trajectory.
+2. Root's saved comparison at exact state251 should compare the freshly optimized target, actual student's applied target and old committed-map target using identical full state, incoming prior/history and goals. If fresh and old-map targets differ, the stale map is not fresh optimizer truth. If they agree while the student differs, it supports a fitting/feedback gap at that state. Neither case identifies the sole cause of later instability.
+3. After collection, inspect raw1323 feature identity/near-duplicate support against old data, target conflicts at exact duplicate inputs, phase coverage, native/feedback clipping and deviation from old neighborhoods. Preserve the fixed normalization even if new standardized inputs are large. Source/control index may identify diagnostic matches but must not become a new model feature or runtime selector.
+4. Distinguish recovery success from broad on-policy coverage: new states252 onward follow the expert, not the failed student trajectory. A successful connected branch still leaves unqueried student departures after251. Do not label1018 rows as1018 independent DAgger queries.
+5. Choose phase balance and `lambda_D` from those observations and the intended acquisition/source/return tradeoff. Keep secondary uniform-row and per-phase metrics visible. Any future model evaluation on new rows must be counted in a selected protocol; this design performs none.
+
+Implementation edits can remain confined to a warm512 restoration adapter, a recovery-data loader, one new target-loss/counter path, a four-corpus diagnostic wrapper, and literal protocol/owner/auditor/release bindings. Existing model forward, original data arithmetic, physical and response objectives, goal/history contracts and export math can remain unchanged. No fit should be implemented by globally replacing every occurrence of9904,1437,367570 or81000: several are historical benchmark or source-checkpoint identities that must stay fixed.

@@ -1,0 +1,119 @@
+{
+  "schema": "fixed_fit_source_and_launcher_review_v1",
+  "reviewer": "/root/review_continuation",
+  "created_utc": "2026-09-11T08:21:48.7006212Z",
+  "verdict": "CLEAR",
+  "approved": true,
+  "scope": "ONE root-selected fixed velocity-chord continuation from ordinary65000 through70000 (5000 updates), with its fixed initial/final numerical diagnostics and1126 head ONNX calls. No canonical simulation or hardware launch is approved by this receipt.",
+  "bindings": [
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/velocity_chord_student_v1/training_frozen_inputs.json",
+      "sha256": "1c9854317d178959c40d59aaa915746a8bd101f0d44e46237c9d1fd2a7a46ba2"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/velocity_chord_student_v1/training_clearance_DRAFT.json",
+      "sha256": "42b39f00cfc9ba0208ed4f740a965404d0847b96be78f24670e360b1099a381f"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/velocity_chord_student_v1/run_fit_durable.ps1",
+      "sha256": "1149fc626ea0d6f3e924732ed1f441b69637c5308c9e305cfe2a0207bb412336"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/velocity_chord_student_v1/source_snapshot_v3/fit_velocity_chords.py",
+      "sha256": "0ec709025546e4b7e16784afeb81c4eb0f46efcfb355c0c6f50908262ecc0b20"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/velocity_chord_student_v1/source_snapshot_v3/chord_training_objective.py",
+      "sha256": "9949f70c67e94197e3ffa97c5ecd48b64b2318cb3e7168d77627c8bc669135e9"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/velocity_chord_student_v1/source_snapshot_v3/chord_fit_diagnostics.py",
+      "sha256": "57f221c95d58a69905713a53b6998d9a63eb790bde356c29022806504ddc7302"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/velocity_chord_student_v1/source_snapshot_v3/chord_head_sensitivity.py",
+      "sha256": "1a09251e82c77736bf7c1b8c75770a0d77ba2483382a156709aff65687903439"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/velocity_chord_student_v1/training_runtime_identity.json",
+      "sha256": "b942ef8fc844be8bb2f2304e19a0a8a81c58e539022813047ba93c736deb7430"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/velocity_chord_student_v1/chord_objective_pure_tests_v2.json",
+      "sha256": "a3c98ed9b5080b2e4040811540c94a47218c61cc9db335f06a291c21425c1ac2"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/velocity_chord_completed_data_review_v1/review.json",
+      "sha256": "c85e2e9a29007a8c80f496fe567098e08f1d6e397f72af71e3f56cf4658a305c"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/velocity_chords_independent_v1/report.json",
+      "sha256": "2cc2346257ccedbc09ac406f5e4fcd8dc1b68851198c76646de28aebc4d0fc70"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/learner_stability_design_v1/proposal.json",
+      "sha256": "2beea3bbd343393a494958a7086a5d3f0cde91e0345eb9e21512bfed33c38cf5"
+    }
+  ],
+  "source_count": 32,
+  "input_count": 598,
+  "all_frozen_sources_inputs_exact": true,
+  "all_original25_generator_sources_byteexact": true,
+  "prior_original18_phase_sources_preserved": true,
+  "checks": {
+    "approved_completed_data_review_bound": true,
+    "root_full_data_audit_bound": true,
+    "selected_proposal_exact": true,
+    "original_windows_python31011_numpy1235_torch210_cpu_runtime_pinned": true,
+    "cpu_threads": 1,
+    "full_model_all_six_AdamW_and_Torch_NumPy_RNG_restore_gates": true,
+    "original3057_predictions_objective_and_export_bytes_restore_gate": true,
+    "original_norm_span_and_normalized_residual_anchor_arithmetic_unchanged": true,
+    "full_nominal_rows_per_update": 3057,
+    "equal_dataset_phase_cells": 9,
+    "axis_pairs_per_cell": 64,
+    "axis_pairs_per_update": 576,
+    "exact_ordered_nine_Torch_randint_draws_with_replacement": true,
+    "probe_rows_per_update": 1152,
+    "differentiable_full_center_outputs_reused": true,
+    "student_chords_unclipped": true,
+    "teacher_chords_both_original_clips": true,
+    "physical_chord_arithmetic_float64_after_float32_span_scaled_head": true,
+    "lambda_chord": 1,
+    "learning_rate_fixed_cosine": "3e-6 to3e-7 over5000 updates",
+    "weight_decay": 1E-05,
+    "gradient_clip_norm": 10,
+    "no_early_stop_sweep_checkpoint_selection_or_intermediate_physics": true,
+    "training_head_row_evaluations": 21045000,
+    "initial_final_diagnostic_torch_rows": 287372,
+    "analytical_saved_head_evaluations": 14,
+    "maximum_head_ONNX_calls": 1126,
+    "first24_chord_and_nominal_diagnostics_present": true,
+    "full_chord_and_fixed_pair_diagnostics_present": true,
+    "counted_attempted_and_returned_diagnostic_calls": true,
+    "partial_diagnostic_outputs_preserved": true,
+    "optimizer_started_returned_flags_and_actual_six_counters": true,
+    "committed_sample_loss_rows_separate_from_completed_steps": true,
+    "current_loss_prefix_saved_on_failure": true,
+    "failed_checkpoint_not_automatically_resume_qualified": true,
+    "ordinary_final_checkpoint_optimizer_RNG_fit_arrays_saved_before_export": true,
+    "optimization_export_diagnostic_and_numerical_completion_separate": true,
+    "final_input_source_runtime_rehash": true,
+    "pure_objective_gradient_cell_sign_axis_RNG_tests_passed": true,
+    "launcher_powershell_ast_errors": 0,
+    "launcher_missing_native_exit_is_nonzero": true,
+    "prelaunch_fit_outputs_status_logs_absent": true
+  },
+  "validation_scope": "Pure objective test receipt covers unchanged tested helpers. Its full draft-source map predates the final bookkeeping-only trainer edit; that final edit and launcher were inspected directly. Reviewer ran no model, optimizer or physics.",
+  "limitations": [
+    "The fixed chord labels are committed-map perturbations, not independently qualified perturbed physical trajectories.",
+    "Lower training loss does not establish closed-loop stability. No loss-improvement threshold or intermediate checkpoint selection is introduced.",
+    "Ordinary-final fit/export evidence, the separately selected WSL batch1 activation witness, and final canonical runtime source/launch review remain future gates."
+  ],
+  "reviewer_execution": {
+    "model_inference": 0,
+    "optimizer_updates": 0,
+    "physics_steps": 0,
+    "source_reads_hash_checks_and_launcher_parse_only": true
+  }
+}

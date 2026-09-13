@@ -1,0 +1,134 @@
+{
+  "kind": "cost_ranked_completed_attempt_saved_consistency",
+  "saved_consistency_pass": true,
+  "actual_controls": 430,
+  "actual_physics_steps": 4300,
+  "all_candidate_initial_saved_states_exact": 724,
+  "all_candidate_saved_scalar_costs_exact": 724,
+  "all_minimum_feasible_and_tie_order_selections_exact": 181,
+  "selected_actual_forecast_substeps_exact": 1800,
+  "final_rejected_full_history_prior_count_integration_warnings_unchanged": true,
+  "actual_control_arrays_aligned": true,
+  "learned_primary_applied_controls": [
+    318
+  ],
+  "final_rejected_candidates": [
+    {
+      "candidate": "primary",
+      "reasons": [
+        "native_joint_speed"
+      ],
+      "checked_ms": 8,
+      "final_root_height_m": 0.33470081117859013,
+      "final_tilt_rad": 0.8181122434554473,
+      "max_speed_joint": "left_knee_joint",
+      "signed_joint_speed_radps": 20.662879237639693,
+      "speed_cap_radps": 20.0
+    },
+    {
+      "candidate": "original_BFM",
+      "reasons": [
+        "fall"
+      ],
+      "checked_ms": 90,
+      "final_root_height_m": 0.30808212534620333,
+      "final_tilt_rad": 1.2035394634744332,
+      "max_speed_joint": "right_hip_roll_joint",
+      "signed_joint_speed_radps": -6.63332224850466,
+      "speed_cap_radps": 20.0
+    },
+    {
+      "candidate": "previous_applied",
+      "reasons": [
+        "fall"
+      ],
+      "checked_ms": 84,
+      "final_root_height_m": 0.29590008536473156,
+      "final_tilt_rad": 1.2018597158944817,
+      "max_speed_joint": "right_hip_roll_joint",
+      "signed_joint_speed_radps": -5.748037197783436,
+      "speed_cap_radps": 20.0
+    },
+    {
+      "candidate": "current_q",
+      "reasons": [
+        "fall"
+      ],
+      "checked_ms": 84,
+      "final_root_height_m": 0.24997184087128568,
+      "final_tilt_rad": 1.0400134498816707,
+      "max_speed_joint": "right_shoulder_yaw_joint",
+      "signed_joint_speed_radps": 3.2510301924899734,
+      "speed_cap_radps": 37.0
+    }
+  ],
+  "source_controls": 80,
+  "source_metrics": {
+    "source_controls": 80,
+    "requested_source_controls": 819,
+    "original_root_world_p95_m": 0.5886566231535257,
+    "original_root_yaw_abs_p95_deg": 23.978670455341586,
+    "original_hand_head_relative_p95_m": [
+      0.18393030080375972,
+      0.1429262252793281,
+      0.18002807565151538
+    ],
+    "original_hand_head_world_p95_m": [
+      0.7239482281955429,
+      0.5975706452926867,
+      0.7587190298884943
+    ],
+    "world_axis_relative_foot_p95_m": [
+      0.5586246810555793,
+      0.7332823723914327
+    ],
+    "leg_rmse_rad": 0.24985311898325727,
+    "arm_rmse_rad": 0.6085186346357114,
+    "joint_rmse_by_hardware_joint": [
+      0.1528924393453739,
+      0.07229389452737969,
+      0.19704518813842342,
+      0.1540398423834979,
+      0.32563444171754014,
+      0.05948904470222674,
+      0.25638569039241244,
+      0.17603571757895697,
+      0.15484949100353634,
+      0.5451275437675298,
+      0.3436561752789243,
+      0.1114472321942692,
+      0.06655001166261566,
+      0.0656672856000528,
+      0.10129180148256763,
+      0.4964068490252534,
+      0.15481313976365654,
+      0.3604355660880004,
+      0.14702676778935217,
+      0.21745507661863303,
+      1.255595320672903,
+      0.0840820602961258,
+      1.2788992991187664
+    ]
+  },
+  "ranked_cycle_ms_p50_p95_max": [
+    46.97119999999799,
+    52.131499999998,
+    67.68180000000257
+  ],
+  "ranked_deadline_misses": 181,
+  "no_hold_reached": true,
+  "full_teleoperation_qualified": false,
+  "new_physics_steps": 0,
+  "actor_calls": 0,
+  "optimizer_calls": 0,
+  "input_sha256": {
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_cost_ranked_v1\\nominal\\trace.npz": "9c2f6b781a5b0568db9e4b7b7a8d92ed585284e971823b23f0be095920f6381d",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_cost_ranked_v1\\nominal\\private_forecasts.npz": "9ecf026b55fb612eadeb5ebe389f2b1b5a69b78f8dda12553bbf5cbbcd80d190",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_cost_ranked_v1\\nominal\\candidate_costs.npz": "c171cbb63dcd2ae3685fce1842ecfc0f903260208d781cb11164b588b6ee0e03",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_cost_ranked_v1\\nominal\\rejected_proposal.npz": "0f9b9a64b793e3441e467bfee883559cb13d0cb9a3950bf7962c6ab2ea45596a",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_cost_ranked_v1\\nominal\\admission_ledger.json": "3b61edbcbabc0167946de60688bacd2c20ff01ab6126799229a386e98c5fc059",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_cost_ranked_v1\\nominal\\report.json": "03fae85b95a9889a2440f551e2a63c0a50d05e79845c8b39993f99f6d22006ef",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\cost_ranked_student_saved_outcome_v1\\audit_saved.py": "0cf28a9dee37d961b833fdba64c10eb4c0d0d7d8908b76c5ee5ded3fbe9099b4",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native23_inputs_v1\\contract.json": "d1641ce4f2e9016f5008e5d4be3cc24ded46d7f9daf9cfddaab84095f98eb99b"
+  }
+}

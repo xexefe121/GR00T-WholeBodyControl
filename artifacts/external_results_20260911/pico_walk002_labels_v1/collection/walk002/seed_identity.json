@@ -1,0 +1,34 @@
+{
+  "kind": "offline_native23_measured_history_BFM_rollout_seed",
+  "weights_sha256": "28a2d82a2975c37b8a1533f2e3b0224d27f8a0813283640ee7eeee348fe42c2e",
+  "graph_sha256": {
+    "actor": "7d9dc682dc38c6972c5023bb6bd069c8d9d28a99fa33a871906befaf9a1cc64e",
+    "backward": "2fe7cf1a0f76c101703fd53a855f2281763d47fef45c0f1455789bb04c21c3b7"
+  },
+  "graph_manifest_sha256": "a5650963f41838a6bf77bcfd12fcfa24ae939e6ee5f50d4b877527527d1e3878",
+  "original_goal_arrays_sha256": "0ee625bbf3530fb6ef0e70ff96629e7301023b4b88cb6eb181258fa1f5c81dc8",
+  "contract_arrays_sha256": "03e879161cc82756b0346f1a9d18d36d16855ec2667a78abe2126b3edb2da4cd",
+  "native_model_parameters_sha256": "829064c5207223a22b18aede96cd1ef8f0549311cd2d62c9e071118cc52e8ade",
+  "runtime_version": "1.23.2",
+  "runtime_binary_sha256": {
+    "/mnt/e/codex_sonic_runtime/bfm_seed_20260910/onnx_deps/onnxruntime/capi/onnxruntime_pybind11_state.cpython-311-x86_64-linux-gnu.so": "f22a6994fbadefe3888cd3a5300a63021884372dafecaea9875987dce697c8c1"
+  },
+  "mujoco": "3.2.3",
+  "numpy": "1.26.4",
+  "threads": 1,
+  "module_sha256": "2f3d808b6a95fd80a3c1f9a0fabbe80264cf9cc93fbf01e2b2be65f6a5ec75de",
+  "observation_module_sha256": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d",
+  "original_goal_horizon": 8,
+  "position_gain": 1.0,
+  "yaw_gain": 2.0,
+  "conservative_original_derivative_future_pose_frames": 1,
+  "historical_action": "normalized actually applied MPC target, no clipping of action history",
+  "local_future_action": "BFM raw actor*5 before native target clipping",
+  "terminal_goal": "hold last known original goal beyond archive, available-window latent average",
+  "real_history_updated_only_by_record_control": true,
+  "private_physics_hz": 500,
+  "private_rollout_warning_or_clock_reset": "typed rejection; caller retains other seed candidates",
+  "root_assistance": false,
+  "robot_or_DDS_interface": false,
+  "deployment_qualified": false
+}

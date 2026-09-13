@@ -1,0 +1,297 @@
+{
+  "kind": "saved_proposal_private_replay_only",
+  "actual_control": 3800,
+  "actual_controls_executed": 0,
+  "solver_calls": 0,
+  "results": [
+    {
+      "case": "shifted_warm",
+      "hard_nominal_first_failure": {
+        "control": 25,
+        "substep": 8,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.006690893357540473,
+        "speed_ratio": 0.2614386390769209,
+        "effort_ratio": 0.5912989272442287,
+        "root_height_m": 0.310016730453807,
+        "root_tilt_rad": 0.76734012288618,
+        "worst_joint_index": 10,
+        "worst_joint": "right_ankle_pitch_joint",
+        "q": -0.8793608933575404,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      },
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": false,
+        "first_failure": {
+          "reasons": [
+            "native_joint_bound"
+          ],
+          "physics_step": 259,
+          "control_index": 25,
+          "substep": 9,
+          "worst_joint_index": 10,
+          "joint_excess_rad": 0.011212758689142177,
+          "speed_ratio": 0.26023045606529205,
+          "effort_ratio": 0.5929604052952936,
+          "tilt_rad": 0.774932399950156,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.2079226507921703e-12,
+          "worst_joint_name": "right_ankle_pitch_joint"
+        },
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0887973582171937,
+          "speed_ratio": 0.7742674367986814,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8706764300644336,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.29372312258966715,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": true,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "violated_joints": [
+        {
+          "index": 4,
+          "name": "left_ankle_pitch_joint",
+          "maximum_excess_rad": 0.057831791965235135,
+          "final_excess_rad": 0.035254555332273396
+        },
+        {
+          "index": 10,
+          "name": "right_ankle_pitch_joint",
+          "maximum_excess_rad": 0.0887973582171937,
+          "final_excess_rad": 0.07428176538362885
+        }
+      ],
+      "final": {
+        "root_height": 0.2938905434736828,
+        "root_vertical_speed": 0.0377096512540028,
+        "root_tilt_rad": 0.8706764300644336
+      },
+      "trace_sha256": "75878d12498c1c9ad280adeca88ddccdd21d92e86a968b74fd5e256b13a40dc4"
+    },
+    {
+      "case": "guided",
+      "hard_nominal_first_failure": {
+        "control": 14,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0009765036312873732,
+        "speed_ratio": 0.9056556055219489,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3819080561376071,
+        "root_tilt_rad": 0.2144618862030593,
+        "worst_joint_index": 5,
+        "worst_joint": "left_ankle_roll_joint",
+        "q": -0.26277650363128735,
+        "lower": -0.2618,
+        "upper": 0.2618,
+        "direction": "below_lower"
+      },
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": false,
+        "first_failure": {
+          "reasons": [
+            "native_joint_bound"
+          ],
+          "physics_step": 141,
+          "control_index": 14,
+          "substep": 1,
+          "worst_joint_index": 5,
+          "joint_excess_rad": 0.0008344795581521347,
+          "speed_ratio": 0.9017739894957512,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.21405627700361488,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 6.536993168992922e-13,
+          "worst_joint_name": "left_ankle_roll_joint"
+        },
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.006089873278418256,
+          "speed_ratio": 1.0876336888374878,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8001248661178317,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3125985721606478,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": true,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "violated_joints": [
+        {
+          "index": 5,
+          "name": "left_ankle_roll_joint",
+          "maximum_excess_rad": 0.0008344795581521347,
+          "final_excess_rad": 0.0
+        },
+        {
+          "index": 9,
+          "name": "right_knee_joint",
+          "maximum_excess_rad": 0.006089873278418256,
+          "final_excess_rad": 0.0
+        }
+      ],
+      "final": {
+        "root_height": 0.3359233623524373,
+        "root_vertical_speed": -0.06637015399605087,
+        "root_tilt_rad": 0.7982971350470673
+      },
+      "trace_sha256": "08ac0bc2cae883ca63ae1352a28de489df399b073a40b2bdd96750aff234e0b0"
+    },
+    {
+      "case": "zero_feedback",
+      "hard_nominal_first_failure": {
+        "control": 25,
+        "substep": 6,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.005612909455992465,
+        "speed_ratio": 0.22830601896398883,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.31826536565453306,
+        "root_tilt_rad": 0.8536890956643375,
+        "worst_joint_index": 10,
+        "worst_joint": "right_ankle_pitch_joint",
+        "q": -0.8782829094559924,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      },
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": false,
+        "first_failure": {
+          "reasons": [
+            "native_joint_bound"
+          ],
+          "physics_step": 256,
+          "control_index": 25,
+          "substep": 6,
+          "worst_joint_index": 10,
+          "joint_excess_rad": 0.004584308833701867,
+          "speed_ratio": 0.22736420408127925,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8527892645813355,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.1937117960769683e-12,
+          "worst_joint_name": "right_ankle_pitch_joint"
+        },
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.047742130185311815,
+          "speed_ratio": 0.7688745393837053,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.980382622813079,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3007930434932314,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": true,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "violated_joints": [
+        {
+          "index": 10,
+          "name": "right_ankle_pitch_joint",
+          "maximum_excess_rad": 0.047742130185311815,
+          "final_excess_rad": 0.0
+        }
+      ],
+      "final": {
+        "root_height": 0.30149230847107356,
+        "root_vertical_speed": -0.20559127841643796,
+        "root_tilt_rad": 0.980382622813079
+      },
+      "trace_sha256": "ca65ac6e1618442d0bf4fec2c41626ff62c533bca62bf32e2d8fad969b7ea877"
+    }
+  ],
+  "actual_root_position": [
+    0.27111015616982576,
+    -0.18588455962573205,
+    0.4319070651903963
+  ],
+  "actual_velocity": [
+    -0.11306172031817265,
+    0.7423918580913639,
+    -0.1371130681611292,
+    -1.2579645644863997,
+    -0.3603283540178134,
+    1.5165317397915725
+  ],
+  "input_hashes": {
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/pico_full_hard_restoration_v1/request.json": "1380951040885f4625041d1c143e2974accf7f0b33fa5b1a09863d502bb5dc21",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/pico_full_hard_restoration_v1/restoration_03800_guided.npz": "5e42c57498d30d0994b0fd75cda2fdd338c2b2d34769eda8846ff4acc17c4fe8",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/pico_full_hard_restoration_v1/restoration_03800_zero_feedback.npz": "902bf3f95ae1a7d68b846b3b2e518dfaca9301a31a64a49ed54da6b4f3aea182",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/diagnose_pico_final3800.py": "db8bcd331717fb88da3f2aeceb1e3a6da8effe1f2127c52fa4d219166a2d3a01"
+  }
+}

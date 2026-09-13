@@ -1,0 +1,59 @@
+{
+  "source_sha256": "43446bd2f191152fd2c05d034405196a23c9ee57680eeeef55e3329cde240096",
+  "layers": [
+    {
+      "name": "mem_encoder.mem_encoder.0",
+      "input": 375,
+      "output": 256
+    },
+    {
+      "name": "mem_encoder.mem_encoder.2",
+      "input": 256,
+      "output": 128
+    },
+    {
+      "name": "mem_encoder.mem_encoder.4",
+      "input": 128,
+      "output": 32
+    },
+    {
+      "name": "state_estimator.state_estimator.0",
+      "input": 32,
+      "output": 64
+    },
+    {
+      "name": "state_estimator.state_estimator.2",
+      "input": 64,
+      "output": 32
+    },
+    {
+      "name": "state_estimator.state_estimator.4",
+      "input": 32,
+      "output": 3
+    },
+    {
+      "name": "low_level_net.low_level_net.0",
+      "input": 36,
+      "output": 256
+    },
+    {
+      "name": "low_level_net.low_level_net.2",
+      "input": 256,
+      "output": 128
+    },
+    {
+      "name": "low_level_net.low_level_net.4",
+      "input": 128,
+      "output": 32
+    },
+    {
+      "name": "low_level_net.low_level_net.6",
+      "input": 32,
+      "output": 23
+    }
+  ],
+  "schema_sources": [
+    "https://github.com/alibaba/MNN/blob/master/schema/default/MNN.fbs",
+    "https://github.com/alibaba/MNN/blob/master/schema/default/CaffeOp.fbs"
+  ]
+}

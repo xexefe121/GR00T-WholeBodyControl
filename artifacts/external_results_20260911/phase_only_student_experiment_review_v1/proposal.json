@@ -1,0 +1,73 @@
+{
+  "kind": "conditional_unexecuted_one_phase_only_student_experiment",
+  "status": "proposal_only_new_expert_full_qualification_pending",
+  "authorization": false,
+  "prerequisite": "BFM250 actual expert branch independently passes complete1569 lifecycle, all819 source and return, both quiet diagnostics and separate250 hold; frozen label collection and three-dataset compatibility audited.",
+  "training": {
+    "datasets": [
+      "qualified original nominal",
+      "qualified query1 actual-state",
+      "conditionally qualified BFM250 actual-state"
+    ],
+    "controls_each": [
+      250,
+      1269
+    ],
+    "samples_each": 1019,
+    "total_samples": 3057,
+    "phase_counts_each": {
+      "acquisition": 100,
+      "source": 819,
+      "return_phase": 100
+    },
+    "excluded_controls": "initial standing0..249 and all terminal controls>=1269",
+    "weights": "equal1/9 for each dataset x phase cell; mean over rows and23 outputs within each cell",
+    "architecture": "unchanged1069-256ELU-256ELU-23linear times native joint span",
+    "normalization": "original1069 mean/std and native span unchanged",
+    "restore_checkpoint_sha256": "484d20d30408edccb00b22370f1ddf2152d04e4cdabbd92272d4d19175d1900b",
+    "restore": "ordinary final60000 full model, all AdamW moments/steps, and all RNG states after construction",
+    "optimizer": "AdamW",
+    "full_batch_rows": 3057,
+    "additional_updates": 5000,
+    "first_global_step": 60001,
+    "last_global_step": 65000,
+    "learning_rate": "3e-6+0.5*(3e-5-3e-6)*(1+cos(pi*k/4999)), k=0..4999",
+    "weight_decay": 1e-05,
+    "gradient_clip_norm": 10.0,
+    "threads": 1,
+    "device": "cpu",
+    "sampling": "none; fixed dataset order original/query1/query250, ascending controls",
+    "objective": "mean of nine cell MSEs of predicted normalized residual minus expert normalized residual",
+    "checkpoint_selection": "ordinary final65000 only; no EMA, early stop or rollback"
+  },
+  "runtime": {
+    "initial_standing": "original BFM yaw2/h8pos1 residual disabled for declared initial_standing phase0..249",
+    "learned_residual": "enabled through full acquisition250..349, source350..1168 and return1169..1268",
+    "terminal": "unchanged original BFM yaw4 at1269, through1569 and separate250 hold",
+    "initialization": "one fresh canonical initial state; no injected prefix, query snapshot or later state/history",
+    "prefix_gate": "all2501 state samples and2500 torque commands plus available action/history/target fields exactly match qualified BFM250 before activation",
+    "first_enabled_gate": "actual control250 features/base/prior action/history/state equal first new label before first applied learned command",
+    "physical": "same native every2ms raw range/speed/force/quaternion/fall/clock/warning gates; preserve partial failure",
+    "acceptance": "one complete1569 lifecycle with all original source-intent gates and both unchanged quiet diagnostics including separate250 continuous hold, independently reproduced; report50Hz inference budget separately"
+  },
+  "stop_criteria": [
+    "Missing prerequisite qualification or provenance: no collection/fit.",
+    "Exact duplicate feature groups with differing target/residual labels: stop and preserve; no averaging/deletion.",
+    "Restoration or deterministic source/history parity mismatch: stop before updates or application.",
+    "Nonfinite training loss/gradient/model state: preserve actual progress and stop; no new candidate.",
+    "Exactly5000 updates then save full ordinaryfinal65000 checkpoint before export. No additional optimization.",
+    "Final nine-cell training objective must be finite and lower than initial60000 on same3057 rows; otherwise no rollout.",
+    "Torch/ONNX all3057 residual parity must be<1e-5, sources frozen and export review clear; otherwise no rollout.",
+    "One fresh canonical run stops at first physical or transition-parity failure; source/quiet failure remains failed, no immediate retry, tuning, switch delay or source skipping."
+  ],
+  "not_qualified": [
+    "new teacher branch until its complete independent audits",
+    "history augmentation",
+    "direct K derivative supervision",
+    "robustness or unseen motion generalization",
+    "hardware or live Pico"
+  ],
+  "reviewer_inference_calls": 0,
+  "reviewer_optimizer_calls": 0,
+  "reviewer_physics_steps": 0
+}

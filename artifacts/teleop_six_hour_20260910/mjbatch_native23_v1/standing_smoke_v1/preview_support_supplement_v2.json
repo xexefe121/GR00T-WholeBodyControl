@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "kind": "supplementary_packet_vs_raw_pose_preview_disclosure",
+  "request_file": "request.json",
+  "request_sha256": "2c9d3af7a5cea9d2eb910065b1f27eb708bf4e435600d9d31250f681da7d3de0",
+  "audit_source_sha256": "b26382d8c165116d1793d16ee9682949215b1202e3c924e0126849c0b60db1bc",
+  "source_evidence": [
+    {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/original_native_derivative_audit_v2/report.json",
+      "sha256": "971912a63917c0c26b2fe34050bc5fd1a841e2977b99b315d94b63c08ebbb1ca"
+    },
+    {
+      "path": "gear_sonic/utils/g1_true23_generalist_lifecycle.py",
+      "sha256": "318e7d5eb633f769f211870f50cd25283c2e0ea224629e1a0015ef37aefe91e2"
+    }
+  ],
+  "original_reference_hash_checked_against_derivative_audit": true,
+  "raw_pose_bound_evidence_scope": "common reference generator source; numeric audit additionally covers its listed clips",
+  "clip": "walk002",
+  "source_clock_hz": 50,
+  "measured_state_source_frame": "r = completed_control_count + 10",
+  "horizon_frames": 15,
+  "last_planner_reference_packet_frame": "r+15",
+  "last_recorded_seed_reference_packet_frame": null,
+  "central_derivative_additional_raw_pose_frames": 1,
+  "central_derivative_channels": [
+    "joint_vel",
+    "body_lin_vel_w"
+  ],
+  "original_angular_derivative_convention": "backward world intervals",
+  "derivative_scope": "central joint/linear fields except two preserved splice samples; upper bound",
+  "planner_reference_packet_preview_seconds": 0.3,
+  "planner_raw_pose_support_seconds": 0.32,
+  "effective_reference_packet_preview_seconds": 0.3,
+  "conservative_effective_raw_pose_support_seconds": 0.32,
+  "legacy_effective_preview_field_meaning": "reference packet fields; excludes their upstream derivative support",
+  "legacy_field_value_seconds": 0.3,
+  "raw_pose_support_scope": "Includes one-frame central joint/linear derivative support upstream of the supplied packets. Recorded BFM action history is causal; it adds no further future samples. End clamping can reduce these conservative bounds. The v4 common-Z pose filter is causal; its central velocity support is this same extra sample, not a second extra sample.",
+  "request_and_report_bytes_rewritten": false,
+  "controller_behavior_changed": false,
+  "received_only_140ms_stream_qualification": false,
+  "timing_scope": "offline MPC experiment"
+}

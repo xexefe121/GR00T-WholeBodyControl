@@ -1,0 +1,86 @@
+{
+  "policy": "received_native23_response_servo",
+  "actor": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/onboard_factory_firmware_v1/received_pico_demo_v1/controller.onnx",
+  "clip": "walk002",
+  "simulation_seconds": 10.78200000000027,
+  "requested_seconds": 58.34,
+  "physical_complete": false,
+  "complete_requested_lifecycle": false,
+  "failure": {
+    "time": 10.78200000000027,
+    "reasons": [
+      "fall"
+    ],
+    "speed_ratio": 0.2117895017086627,
+    "range_excess": 0.0,
+    "effort_ratio": 0.4364365149985822,
+    "tilt": 1.2032417036470477
+  },
+  "source": {
+    "passed": false,
+    "source_controls": 190,
+    "requested_source_controls": 667,
+    "root_p95_m": 0.8434024477553376,
+    "yaw_p95_deg": 26.739006183836263,
+    "hand_head_relative_p95_m": [
+      0.3359745053474889,
+      0.24733932197861858,
+      0.35473850077138636
+    ],
+    "foot_relative_p95_m": [
+      0.8025201385465097,
+      0.4540160760616578
+    ],
+    "leg_rmse_rad": 0.25246492808385207
+  },
+  "quiet": {
+    "passed": false,
+    "values": {
+      "xy_p95": 2.6373548646027922,
+      "yaw_p95_deg": 133.4103843651686,
+      "root_speed_p95": 2.365396516016616,
+      "joint_speed_p95": 7.590488757790777,
+      "joint_speed_max": 16.5684558115729,
+      "tilt_max": 1.2032417036470477
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "max_speed_ratio": 0.5522818603857633,
+  "max_effort_ratio": 0.8755398695809569,
+  "inference_ms_p50_p95_max": [
+    16.69695,
+    21.02716,
+    40.4593
+  ],
+  "wall_seconds": 10.701721699999998,
+  "future_reference_frames": 0,
+  "independent_realtime": false,
+  "hardware_commands": false,
+  "lookahead_steps": 10,
+  "lookahead_candidates": 5,
+  "reference_prediction": "constant velocity from current/past received poses; no recorded suffix",
+  "packet_report": {
+    "epoch": 0,
+    "received": 551,
+    "consumed": 551,
+    "ignored": 0,
+    "rejected": 0,
+    "final_received": false,
+    "full_source_consumed": false,
+    "fault": null,
+    "calibration": null
+  },
+  "passed": false,
+  "general_live_teleop_qualified": false,
+  "differentiated_targets": 23,
+  "prediction_queries": 52,
+  "leg_target_filter_alpha": 0.9,
+  "preserve_factory_base_motion": true
+}

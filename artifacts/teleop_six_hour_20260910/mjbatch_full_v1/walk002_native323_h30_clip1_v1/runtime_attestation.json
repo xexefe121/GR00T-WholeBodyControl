@@ -1,0 +1,129 @@
+{
+  "kind": "running_mpc_native323_runtime_attestation",
+  "utc": "2026-09-10T15:54:52.913421+00:00",
+  "pid": 342,
+  "request_sha256": "774607e2ebb32d45424fe03fcb465b4431b200fe6052a9921e16ac358d855ac4",
+  "mapped_library_hashes": {
+    "/mnt/e/codex_sonic_runtime/mjbatch323_20260910/venv/lib/python3.11/site-packages/mjbatch/_bindings.cpython-311-x86_64-linux-gnu.so": "776154eb0b91b73c54323b4bf3ebd6558efca9159fd83f40c9603401781d76a1",
+    "/mnt/e/codex_sonic_runtime/mjbatch323_20260910/venv/lib/python3.11/site-packages/mujoco/libmujoco.so.3.2.3": "78f5455cbcbc2b4c1452f09a096aaa1d79893d63bbeb0bad93f610ddde19d264"
+  },
+  "build_receipt_sha256": "65f8a707fdfbcfe8675f47cbd7e1246bea2371d70ed973521defc6374564339b",
+  "compatibility_patch_sha256": "b4fda9fb392f707a96fbed4d766c704d4abf75b5f4d2c2615364c38796cf2318",
+  "build_receipt": {
+    "status": "built_and_native_parity_passed",
+    "python": "3.11.15 (main, Mar 24 2026, 22:50:29) [Clang 22.1.1 ]",
+    "executable": "/mnt/e/codex_sonic_runtime/mjbatch323_20260910/venv/bin/python",
+    "versions": {
+      "mjbatch": "0.1.0",
+      "mujoco": "3.2.3",
+      "numpy": "1.26.4",
+      "scipy": "1.15.3",
+      "nanobind": "3.0.1",
+      "scikit-build-core": "1.0.3"
+    },
+    "upstream_commit": "77966f85bcd8f7ef4351cb4a1a6f42e133d19725",
+    "changed_files": {
+      "pyproject.toml": {
+        "original_sha256": "3c21968fb13683e043c7ee5069e63dabfcf1ce874dd6a726f68554475756e9f1",
+        "adapted_sha256": "fdddf785129569ffe0aae00dcd67947fa7f5e3ef50db345f9c176f9a1476df36",
+        "original_matches_git_head_after_crlf_normalization": true
+      },
+      "src/mjbatch/csrc/batch.h": {
+        "original_sha256": "40827224b2c89ca5d9981f2cabf3a6e3aafe5c8b8c71407c4740340a75a7bbe6",
+        "adapted_sha256": "932deb0600b2e72c8d63e3a86342d16adb6c575d359997d112eb771482de025b",
+        "original_matches_git_head_after_crlf_normalization": true
+      },
+      "tests/test_batch.py": {
+        "original_sha256": "137650c914251497a7ca0acf8d06f580099aad4909c271cf4aac392d3d7792e0",
+        "adapted_sha256": "32c6f7712d57af414a077d15e8a1c3f45f31821274519a63ce195e16a093c53e",
+        "original_matches_git_head_after_crlf_normalization": true
+      }
+    },
+    "binary": "/mnt/e/codex_sonic_runtime/mjbatch323_20260910/venv/lib/python3.11/site-packages/mjbatch/_bindings.cpython-311-x86_64-linux-gnu.so",
+    "binary_sha256": "776154eb0b91b73c54323b4bf3ebd6558efca9159fd83f40c9603401781d76a1",
+    "mujoco_library": "/mnt/e/codex_sonic_runtime/mjbatch323_20260910/venv/lib/python3.11/site-packages/mujoco/libmujoco.so.3.2.3",
+    "mujoco_library_sha256": "78f5455cbcbc2b4c1452f09a096aaa1d79893d63bbeb0bad93f610ddde19d264",
+    "ldd": "\tlinux-vdso.so.1 (0x0000700e45630000)\n\tlibmujoco.so.3.2.3 => /mnt/e/codex_sonic_runtime/mjbatch323_20260910/venv/lib/python3.11/site-packages/mjbatch/../mujoco/libmujoco.so.3.2.3 (0x0000700e451b2000)\n\tlibstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x0000700e44e00000)\n\tlibgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x0000700e45180000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x0000700e44a00000)\n\t/lib64/ld-linux-x86-64.so.2 (0x0000700e45632000)\n\tlibdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x0000700e4517b000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x0000700e45092000)\n\tlibpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x0000700e4508d000)\n",
+    "patch_sha256": "b4fda9fb392f707a96fbed4d766c704d4abf75b5f4d2c2615364c38796cf2318",
+    "changes": [
+      "Build and runtime MuJoCo pin3.2.3; new build323 directory and wheel library exclusion names.",
+      "3.2.3 option-field macro and pointer preamble adapters; old mjtByte and integer/stat scalar layout.",
+      "3.2.3 fatal-error callback adapter preserves previous handler outside workers and existing local unwind within workers.",
+      "No sleep or newer mesh/scalar fields in3.2.3; corresponding unsupported guards omitted only in323 branch.",
+      "Toy upstream test fixture keyframe explicitly pads third joint with0, matching newer MuJoCo implicit padding."
+    ],
+    "upstream_test_result": "22 passed,16 deselected; initial12passed10fixtureerrors resolved by explicit toy keyframe padding. No native model changes.",
+    "native_torque_parity": {
+      "qpos": {
+        "max_abs": 0.0,
+        "bit_exact": true
+      },
+      "qvel": {
+        "max_abs": 0.0,
+        "bit_exact": true
+      },
+      "ctrl": {
+        "max_abs": 0.0,
+        "bit_exact": true
+      },
+      "qfrc_actuator": {
+        "max_abs": 0.0,
+        "bit_exact": true
+      },
+      "time": {
+        "max_abs": 0.0,
+        "bit_exact": true
+      }
+    },
+    "native_affine_pd_conformance": {
+      "mujoco": "3.2.3",
+      "manual_formula": "clip(kp*(clip(target,joint_bounds)-q)-kd*dq, native_effort)",
+      "native23_dimensions": [
+        30,
+        29,
+        23
+      ],
+      "physical_model_fields_unchanged": true,
+      "single_step_cases": 128,
+      "target_clipped_joint_cases": 725,
+      "torque_saturated_joint_cases": 973,
+      "one_step_max_abs_errors": {
+        "qpos": 1.1102230246251565e-16,
+        "qvel": 5.3290705182007514e-14,
+        "force": 2.842170943040401e-14
+      },
+      "batch_count": 8,
+      "controls": 100,
+      "batch_nstep": 10,
+      "physics_substep_s": 0.002,
+      "continuous_physics_steps_per_sim": 1000,
+      "continuous_every_substep_max_abs_errors": {
+        "qpos": 2.6867397195928788e-14,
+        "qvel": 3.358535671793561e-12,
+        "force": 4.393985175710213e-12,
+        "time": 0.0
+      },
+      "tolerances": {
+        "qpos": 1e-08,
+        "qvel": 1e-06,
+        "force": 0.0001,
+        "time": 1e-12
+      },
+      "numerical_parity_passed": true,
+      "batch_only_seconds": 0.15716267100032155,
+      "batch_only_physics_steps_per_second": 50902.672683538396,
+      "dynamics_qualification_claimed": false,
+      "sources": {
+        "artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/native_prepared.xml": "03fd1633c0f5080eb21c1b9786143eeaa36c8eed2eb388d1346581ae33bd76fa",
+        "artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/prepared_model_arrays.npz": "38b4eb8f2f42030b76ffb106c016acb6be92253d4c42971529f739962cc68cdb",
+        "artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/contract.json": "d1641ce4f2e9016f5008e5d4be3cc24ded46d7f9daf9cfddaab84095f98eb99b",
+        "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/verify_g1_true23_mjbatch_servo.py": "54deb23456424ff5ebc40febe82b94b4b90da94e04e807539a9e226f904134be"
+      }
+    },
+    "timing_metadata_correction": "Benchmark script retains a legacy concurrent_gpu_training_and_cpu_jobs flag; this build had no GPU training, with possible concurrent CPU MPC. Timing is incidental.",
+    "existing_311_and_350_environments_untouched": true,
+    "physics_model_or_integrator_changes": false,
+    "fresh_wsl_mount": "mountpoint -q /mnt/e || mount -t drvfs E: /mnt/e"
+  },
+  "claim": "Matched active evaluator command and inspected its mapped shared libraries; hashes verified against isolated build receipt."
+}

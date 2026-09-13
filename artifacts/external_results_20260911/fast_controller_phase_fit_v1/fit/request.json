@@ -1,0 +1,77 @@
+{
+  "kind": "native23_bfm_linear_span_student_nominal_v2",
+  "experiment": "one_phase_only_fullbatch_continuation",
+  "first_global_step": 60001,
+  "last_global_step": 65000,
+  "additional_updates": 5000,
+  "samples_each": 1019,
+  "total_samples": 3057,
+  "phase_rows": [
+    [
+      100,
+      819,
+      100
+    ],
+    [
+      100,
+      819,
+      100
+    ],
+    [
+      100,
+      819,
+      100
+    ]
+  ],
+  "fixed_dataset_order": [
+    "old",
+    "query1",
+    "query250"
+  ],
+  "sampling": "none; every3057 rows once per update, ascending controls within dataset",
+  "objective": "mean of nine dataset-by-phase MSE means over rows and23 normalized residual outputs",
+  "learning_rate": "3e-6+0.5*(3e-5-3e-6)*(1+cos(pi*k/4999)), k=0..4999",
+  "optimizer": {
+    "name": "AdamW",
+    "weight_decay": 1e-05,
+    "gradient_clip_norm": 10.0,
+    "device": "cpu",
+    "threads": 1
+  },
+  "original_configuration": {
+    "seed": 773,
+    "steps": 1000,
+    "batch_size": 256,
+    "learning_rate": 0.0003,
+    "weight_decay": 1e-05,
+    "hidden": [
+      256,
+      256
+    ],
+    "activation": "ELU",
+    "output": "linear23 times nativejointspan, no tanh or radius",
+    "feature_std_floor": 0.05,
+    "gradient_clip_norm": 10.0,
+    "device": "cpu",
+    "threads": 1,
+    "phase_sampling": "64each initial250/acquisition100/source819/return100",
+    "validation": "all1269 labels train; full closed-loop nominal rollout is behavioral test, no heldout-generalization claim"
+  },
+  "original_normalization_refitted": false,
+  "full_final60000_model_optimizer_rng_restored": true,
+  "prior_checkpoint_sha256": "484d20d30408edccb00b22370f1ddf2152d04e4cdabbd92272d4d19175d1900b",
+  "label_sha256": {
+    "old": "8003407282b01f2c66fe1720d7eb038f43377c1d6eab80dce47f1f75911e8083",
+    "query1": "e93753597450881c08a46fd520113abd21470653083dba0226c6450469d16ad1",
+    "query250": "bdcba927cd737a2ba74d75d7b31c427a5bfd4df7437983d13c391f9ca166f749"
+  },
+  "compatibility_report_sha256": "197c609bc40d83956f718e60d02e2ff92a7566d921bd9ce9db791b0b57de742d",
+  "frozen_sources_sha256": "0d472a5caa041152936871ff00ce287b779e7a1f3b4b8d17e0893663ffc0cf80",
+  "training_clearance_sha256": "420d7cd9ce53c7202dc439638cf52b71dd211e9b78d440324cb0c6fb3987012f",
+  "ordinary_final_only": true,
+  "early_stopping": false,
+  "diagnostics_every_updates": 250,
+  "intermediate_physics_evaluations": false,
+  "new_expert_queries": false,
+  "hardware_authorized": false
+}

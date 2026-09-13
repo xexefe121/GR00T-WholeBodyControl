@@ -1,0 +1,33 @@
+{
+  "command": [
+    "/root/.venvs/g1_true23_mjlab/bin/python",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_true23_v14_native_ieee.py",
+    "smoke",
+    "--warm-start",
+    "/mnt/z/codex/GR00T-WholeBodyControl/sonic_release/g1_23dof_rev_1_0_low_latency_init.pt",
+    "--motion-file",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/standing_motion_ppo_20260906_v1/corpus/corpus.npz",
+    "--motion-metadata",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/standing_motion_ppo_20260906_v1/corpus/corpus.recovery.json",
+    "--spans",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/standing_motion_ppo_20260906_v1/corpus/corpus.spans.json",
+    "--learning-rate",
+    "5e-6",
+    "--seed",
+    "20260906",
+    "--run-dir",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/v14_native_ieee_20260906_v1/smoke",
+    "--num-envs",
+    "4",
+    "--iterations",
+    "2",
+    "--session-updates",
+    "2",
+    "--save-interval",
+    "2"
+  ],
+  "elapsed_s": 64.50503197199998,
+  "log": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/v14_native_ieee_20260906_v1/smoke.log",
+  "name": "smoke",
+  "return_code": 0
+}

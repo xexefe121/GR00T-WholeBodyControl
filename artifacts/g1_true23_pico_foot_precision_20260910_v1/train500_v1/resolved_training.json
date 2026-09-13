@@ -1,0 +1,549 @@
+{
+  "action_count": 23,
+  "actual_event_names": [],
+  "agent": {
+    "actor": {
+      "activation": "silu",
+      "class_name": "gear_sonic.trl.mjlab.native23_normal_lora_actor:True23NormalLoraActorModel",
+      "cnn_cfg": null,
+      "distribution_cfg": {
+        "class_name": "GaussianDistribution",
+        "init_std": 0.1,
+        "std_type": "scalar"
+      },
+      "hidden_dims": [],
+      "obs_normalization": false,
+      "proprioception_obs_group": "policy",
+      "reference_timing": "received_normal_source_horizon_920ms_v1",
+      "root_feedback_obs_group": "root_feedback",
+      "source_checkpoint_path": "/mnt/z/codex/GR00T-WholeBodyControl/sonic_release/last.pt",
+      "std_max": 0.5,
+      "std_min": 0.02,
+      "tokenizer_obs_group": "tokenizer",
+      "warm_start_path": "/mnt/z/codex/GR00T-WholeBodyControl/sonic_release/g1_23dof_rev_1_0_init.pt"
+    },
+    "algorithm": {
+      "class_name": "PPO",
+      "clip_param": 0.2,
+      "desired_kl": null,
+      "entropy_coef": 0.002,
+      "gamma": 0.99,
+      "lam": 0.95,
+      "learning_rate": 5e-07,
+      "max_grad_norm": 0.5,
+      "normalize_advantage_per_mini_batch": false,
+      "num_learning_epochs": 2,
+      "num_mini_batches": 4,
+      "optimizer": "adam",
+      "schedule": "fixed",
+      "share_cnn_encoders": false,
+      "use_clipped_value_loss": false,
+      "value_loss_coef": 1.0
+    },
+    "class_name": "OnPolicyRunner",
+    "clip_actions": 10.0,
+    "critic": {
+      "activation": "elu",
+      "class_name": "MLPModel",
+      "cnn_cfg": null,
+      "distribution_cfg": null,
+      "hidden_dims": [
+        512,
+        256,
+        128
+      ],
+      "obs_normalization": true
+    },
+    "experiment_name": "sonic_native23_normal_core_lora_simulation",
+    "logger": "tensorboard",
+    "max_iterations": 500,
+    "num_steps_per_env": 16,
+    "obs_groups": {
+      "actor": [
+        "tokenizer",
+        "policy",
+        "root_feedback"
+      ],
+      "critic": [
+        "critic",
+        "root_feedback",
+        "original_intent_value_reference"
+      ]
+    },
+    "run_name": "original_core_920ms_fresh",
+    "save_interval": 500,
+    "seed": 20260803,
+    "upload_model": false,
+    "wandb_project": "mjlab",
+    "wandb_tags": []
+  },
+  "deployment_ready": false,
+  "domain_randomization": [],
+  "evaluation_only_recording_ids": [
+    "existing_pico_derived_walk008"
+  ],
+  "foot_precision_adaptation": {
+    "actor_critic_and_adam_preserved": true,
+    "deployment_ready": false,
+    "environment_and_rng_reinitialized": true,
+    "fresh_actor_or_critic": false,
+    "hardware_authorized": false,
+    "kind": "native23_pico_foot_precision_training_v1",
+    "optimizer_multipliers": {
+      "critic": 600.0,
+      "decoder_adapters": 200.0,
+      "exploration": 1.0,
+      "root_conditioner": 200.0
+    },
+    "overlay": {
+      "changes_optimization_objective": true,
+      "deployment_ready": false,
+      "existing_foot_normalization_m": 0.05,
+      "foot_error_scale_m": 0.15,
+      "formula": "2/(1+existing_normalized_foot_cost/9) on non_done; zero on done",
+      "hardware_authorized": false,
+      "independent_of_root_and_upper_cost_denominator": true,
+      "kind": "native23_independent_foot_precision_bonus_v1",
+      "measured_quantity": "mean_two_ankle_world_position_squared_error",
+      "original_rewards_termination_physics_and_reference_unchanged": true,
+      "rate": 100.0,
+      "reward_bounds_per_control": [
+        0.0,
+        2.0
+      ],
+      "reward_scale_is_not_acceptance_threshold": true,
+      "source": "existing_synchronized_post_step_world_cost_parts_before_usable_reset_substitution",
+      "step_dt": 0.02
+    },
+    "parent_checkpoint_sha256": "047b7387f8268d2ff8032c8b74764de6a3f0321f4245814c0f5a909e805dc065",
+    "parent_completed_updates": 500,
+    "policy_architecture_unchanged": true,
+    "prior_recipe": {
+      "actor_clip": 0.2,
+      "adapters": {
+        "a_initialization": "kaiming_uniform_sqrt5_private_generator",
+        "a_seed_by_layer": [
+          20260910,
+          20260911,
+          20260912,
+          20260913,
+          20260914,
+          20260915,
+          20260916
+        ],
+        "b_initialization": "exact_zero",
+        "bias": false,
+        "decoder_outputs": 23,
+        "dimensions": [
+          994,
+          2048,
+          2048,
+          1024,
+          1024,
+          512,
+          512,
+          23
+        ],
+        "global_rng_consumed": false,
+        "kind": "original_sonic_native23_seven_affine_lora16_v1",
+        "parameters": 245648,
+        "phantom_action_outputs": false,
+        "rank": 16,
+        "retained_base_encoder_and_decoder_frozen": true,
+        "scaling": 1.0
+      },
+      "bounded_reward": {
+        "actor_inputs_or_action_transform_changed": false,
+        "additional_reward_scaled_by_dt_again": false,
+        "alive_weight": 115.3,
+        "deployment_ready": false,
+        "gamma": 0.99,
+        "hardware_authorized": false,
+        "kind": "native23_bounded_costs_discounted_world_progress_v1",
+        "near_zero_cost_derivative": 1.0,
+        "negative_weights": {
+          "action_rate_l2": -0.2,
+          "action_target_reference_l2": -2.0,
+          "action_target_soft_limit_barrier": -10.0,
+          "joint_limit": -20.0,
+          "measured_feet_world_position_l2": -1.0,
+          "measured_joint_posture_l2": -10.0,
+          "original_task_orientation_l2": -1.0,
+          "original_task_position_l2": -1.0,
+          "requested_effort_excess": -0.1,
+          "right_wrist_prethreshold_barrier": -25.0,
+          "root_world_tracking_error": -10.0,
+          "self_collisions": -10.0,
+          "worst_ee_z_normalized_squared": -20.0
+        },
+        "non_timeout_termination_weight": -5000.0,
+        "nonterminal_base_reward_bounds_per_control": [
+          0.1,
+          2.406
+        ],
+        "normal_shaping": "gamma*phi_next-phi_previous",
+        "old_original_intent_spec_role": "raw_reference_and_cost_definitions_before_this_explicit_transform",
+        "positive_weights": {
+          "motion_body_ang_vel": 1.0,
+          "motion_body_lin_vel": 1.0,
+          "motion_body_ori": 1.0,
+          "motion_body_pos": 1.0,
+          "motion_global_root_ori": 0.5,
+          "motion_global_root_pos": 0.5
+        },
+        "post_reset_potential_used_for_done_transition": false,
+        "potential": "-log1p(10*root_position_error_squared+feet_world_cost+original_task_world_cost)",
+        "potential_changes_optimal_policy_relative_to_new_base_claimed": false,
+        "potential_sampling": "synchronized_actor_state_and_current_received_q1_before_and_after_env_step",
+        "raw_nonnegative_cost_transform": "x/(1+x)",
+        "same_objective_as_unbounded_predecessor": false,
+        "step_dt": 0.02,
+        "termination_flags_or_physics_changed": false,
+        "timeout_reason": "installed_RSL_process_env_step_bootstraps_V(previous)_not_V(terminal_next)",
+        "timeout_shaping_including_simultaneous_termination": "(gamma-1)*phi_previous",
+        "training_resume_supported": false,
+        "true_terminal_base_reward_bounds_per_control": [
+          -102.206,
+          -99.9
+        ],
+        "true_terminal_shaping_without_timeout": "-phi_previous"
+      },
+      "critic_value_clipped": false,
+      "deployment_ready": false,
+      "fresh_only": true,
+      "hardware_authorized": false,
+      "kind": "native23_original_core_lora_root9_world_quality_training_v1",
+      "optimizer_multipliers": {
+        "critic": 600.0,
+        "decoder_adapters": 200.0,
+        "exploration": 1.0,
+        "root_conditioner": 200.0
+      },
+      "quality": {
+        "actor_inputs_weights_initialization_physics_and_failures_unchanged": true,
+        "all_existing_base_rewards_and_potential_shaping_unchanged": true,
+        "bonus": "100*0.02/(1+error_after) on non-done transitions; zero on termination or timeout",
+        "changes_optimization_objective": true,
+        "deployment_ready": false,
+        "done_bonus": 0.0,
+        "error": "10*root_position_error_squared+normalized_feet_world_cost+original29_hand_head_world_cost",
+        "hardware_authorized": false,
+        "kind": "native23_joint_world_task_quality_bonus_v1",
+        "non_done_bonus_bounds": [
+          0.0,
+          2.0
+        ],
+        "post_reset_potential_rewarded": false,
+        "rate": 100.0,
+        "reward_backpropagation_through_physics_claimed": false,
+        "source": "existing synchronized post-step world potential before any usable reset substitution",
+        "step_dt": 0.02,
+        "training_resume_supported": false
+      },
+      "reference": {
+        "contract_sha256": "f2aa9bddf9b5a6ca09cf44a86d04b50777e50e1bfe053731f0e077a85ac2e26d",
+        "deployment_ready": false,
+        "generated_standing_tail_samples": 46,
+        "hardware_authorized": false,
+        "kind": "native23_normal_received_training_reference_v1",
+        "missing_proprioception": "physical_absence_zero_never_reference_motion",
+        "old_200ms_checkpoint_relabelling": false,
+        "received_buffer": {
+          "automatic_terminal_padding": false,
+          "deployment_ready": false,
+          "hardware_authorized": false,
+          "kind": "sonic_received_normal_step5_horizon_920ms_v1",
+          "measured_robot_state": "current_control_boundary_not_delayed",
+          "position_sample_indices": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45
+          ],
+          "prediction_or_unreceived_samples": false,
+          "received_samples_required": 47,
+          "reference_anchor_age_s": 0.92,
+          "source_profile": {
+            "command_layout": "positions_120_then_velocities_120",
+            "future_frame_count": 10,
+            "future_frame_offsets_s": [
+              0.0,
+              0.1,
+              0.2,
+              0.3,
+              0.4,
+              0.5,
+              0.6,
+              0.7,
+              0.8,
+              0.9
+            ],
+            "future_frame_step": 5,
+            "horizon_s": 0.9,
+            "profile": "true23_step5_0p1s",
+            "source_sample_period_s": 0.02,
+            "source_sample_rate_hz": 50
+          },
+          "velocity_definition": "float32(q[i+1]-q[i])/float32(0.02), i=0,5,...,45",
+          "vr_reference": "received_q0_original29_geometry"
+        },
+        "reference_timing": "received_normal_source_horizon_920ms_v1",
+        "root_setpoint_age_s": 0.9,
+        "scored_reference_phase": "unchanged_post_control_q2",
+        "source_frames_retimed_or_reanchored": false
+      },
+      "same_low_latency_checkpoint_or_optimizer": false,
+      "termination": {
+        "acceptance_threshold_or_physical_limit_changed": false,
+        "comparison": "strict_greater_than",
+        "deployment_ready": false,
+        "existing_termination_terms_preserved": true,
+        "hardware_authorized": false,
+        "kind": "native23_additive_world_root_failure_v1",
+        "measured_phase": "unchanged_pre_final_forward_reward_phase_2ms_stale",
+        "metric": "Euclidean_world_root_position_error_xyz",
+        "nonfinite_fails": true,
+        "reference": "held_received_q1_plus_environment_origin",
+        "reset_routine_and_reference_sampling_unchanged": true,
+        "reward_equations_weights_and_terminal_penalty_unchanged": true,
+        "term_name": "world_root_tracking_failure",
+        "threshold_is_not_motion_success": true,
+        "threshold_m": 0.3,
+        "timeout": false
+      }
+    },
+    "source_encoder_and_decoder_frozen": true,
+    "uninterrupted_simulator_resume_claimed": false
+  },
+  "hardware_authorized": false,
+  "history_length": 10,
+  "initial_full_batch_reset_rejection": true,
+  "initial_simulation_prime_steps": 0,
+  "initial_target_refresh_max_attempts": 32,
+  "low_latency_checkpoint_relabelled": false,
+  "mode": "bounded_pico_foot_precision",
+  "motion_filename": "curriculum.npz",
+  "num_envs": 128,
+  "optimizer_or_critic_reused": true,
+  "original_bank_report_sha256": "1ed51fb48efa5ee6ec2e8c32d0fe58d5455ac1b77ce001abb1f034b65df09291",
+  "original_intent_spec": {
+    "files": {
+      "native_model": {
+        "path": "/mnt/z/codex/GR00T-WholeBodyControl/gear_sonic/data/robots/g1/g1_23dof_rev_1_0.xml",
+        "sha256": "16e304c970bfc68783ea69d01d05192e6bd9d83d62f6ee4aac0ac72ff18db612"
+      },
+      "native_motion": {
+        "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/bank_v1/curriculum/curriculum.npz",
+        "sha256": "72e66eb2bf34f37236f73150098fe8326da4ce495e08d1c979c61c8bb8fa40f6"
+      },
+      "original_reference": {
+        "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/bank_v1/original_reference.npz",
+        "sha256": "36201c4da4d6cb437e2db7e36fd4ed4b89fc5f783a6b2c86801559437f23ee60"
+      },
+      "source_model": {
+        "path": "/mnt/z/codex/GR00T-WholeBodyControl/gear_sonic/data/robots/g1/g1_29dof.xml",
+        "sha256": "386b1bb9ea5b69ccd6fd0283a73ffea1ee052df95564e23a780125fbcbe2c645"
+      }
+    },
+    "kind": "native23_original_source_tasks_v1",
+    "objective": {
+      "actor_measured_state_phase": "existing_synchronized_post_forward",
+      "critic_extra_input": "received_q1_original29_VR21_separate21_value_only_group",
+      "deployment_ready": false,
+      "dynamic_feasibility_or_tracking_improvement_proven": false,
+      "existing_ee_height_threshold_m": 0.25,
+      "existing_right_hand_barrier": {
+        "denominator_floor": 0.05,
+        "onset_m": 0.15,
+        "termination_m": 0.25
+      },
+      "hardware_authorized": false,
+      "measured_and_requested_joint_posture_restricted_to_hardware_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "name": "native23_original_source_tasks_v1",
+      "native_body_reference_rewards_restricted_to": [
+        "pelvis",
+        "left_hip_roll_link",
+        "left_knee_link",
+        "left_ankle_roll_link",
+        "right_hip_roll_link",
+        "right_knee_link",
+        "right_ankle_roll_link"
+      ],
+      "observation_target": "received_q0_original29_VR21",
+      "old_upper_posture_cost_removed": true,
+      "original_hand_height_targets_replace_native_wrist_origin_targets": true,
+      "original_task_orientation": {
+        "normalization_rad": 0.4,
+        "reduction": "mean_3_shortest_angle_squared",
+        "weight": -1.0
+      },
+      "original_task_position": {
+        "normalization_m": 0.1,
+        "reduction": "mean_3_points_sum_xyz_squared",
+        "weight": -1.0
+      },
+      "physical_penalties_limits_gains_and_acceptance_criteria_unchanged": true,
+      "reward_measured_state_phase": "existing_MJLab_last_preintegration_substep_2ms_stale",
+      "reward_target": "received_q1_original29_world_hand_hand_head",
+      "root_feet_world_rewards_unchanged": true,
+      "source_reference_kind": "original29_all_axes_source_intent_for_native23_v1",
+      "upper_joint_imitation_removed": true
+    },
+    "sha256": "b0f6a6de9a3c7f58544f5878eac13dbdfea017521917a658729d83e851c7dc62"
+  },
+  "parent_checkpoint_sha256": "047b7387f8268d2ff8032c8b74764de6a3f0321f4245814c0f5a909e805dc065",
+  "parent_completed_updates": 500,
+  "pico_used_for_training": true,
+  "planned_additional_updates": 500,
+  "planned_total_updates": 1000,
+  "planned_updates": 500,
+  "policy_dim": 930,
+  "precision": {
+    "applies_before_anchor_creation_and_rollouts": true,
+    "changed_from_inherited_backend_defaults": [
+      "global_fp32",
+      "cuda_matmul_fp32",
+      "cudnn_fp32",
+      "cudnn_conv_fp32",
+      "cudnn_rnn_fp32"
+    ],
+    "deployment_ready": false,
+    "environment_overrides": {
+      "NVIDIA_TF32_OVERRIDE": null,
+      "TORCH_ALLOW_TF32_CUBLAS_OVERRIDE": null
+    },
+    "existing_tf32_checkpoint_relabelled": false,
+    "hardware_authorized": false,
+    "kind": "g1_true23_ieee_training_precision_v1",
+    "mjlab_helper_path": "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/mjlab/src/mjlab/utils/torch.py",
+    "mjlab_helper_sha256": "87e0673c850ae6cd5306c9533c928ddb570396323b904f7bbbab589990bc44b1",
+    "requested_state": {
+      "cuda_autocast": false,
+      "cuda_matmul_fp32": "ieee",
+      "cudnn_benchmark": true,
+      "cudnn_conv_fp32": "ieee",
+      "cudnn_deterministic": false,
+      "cudnn_fp32": "ieee",
+      "cudnn_rnn_fp32": "ieee",
+      "default_dtype": "torch.float32",
+      "deterministic_algorithms": false,
+      "global_fp32": "ieee"
+    },
+    "torch_cuda_version": "12.8",
+    "torch_version": "2.9.0+cu128"
+  },
+  "prime_after_rsl_wrapper_reset": true,
+  "push_disturbances_enabled": false,
+  "randomize_initial_episode_lengths": false,
+  "reference": {
+    "contract_sha256": "f2aa9bddf9b5a6ca09cf44a86d04b50777e50e1bfe053731f0e077a85ac2e26d",
+    "deployment_ready": false,
+    "generated_standing_tail_samples": 46,
+    "hardware_authorized": false,
+    "kind": "native23_normal_received_training_reference_v1",
+    "missing_proprioception": "physical_absence_zero_never_reference_motion",
+    "old_200ms_checkpoint_relabelling": false,
+    "received_buffer": {
+      "automatic_terminal_padding": false,
+      "deployment_ready": false,
+      "hardware_authorized": false,
+      "kind": "sonic_received_normal_step5_horizon_920ms_v1",
+      "measured_robot_state": "current_control_boundary_not_delayed",
+      "position_sample_indices": [
+        0,
+        5,
+        10,
+        15,
+        20,
+        25,
+        30,
+        35,
+        40,
+        45
+      ],
+      "prediction_or_unreceived_samples": false,
+      "received_samples_required": 47,
+      "reference_anchor_age_s": 0.92,
+      "source_profile": {
+        "command_layout": "positions_120_then_velocities_120",
+        "future_frame_count": 10,
+        "future_frame_offsets_s": [
+          0.0,
+          0.1,
+          0.2,
+          0.3,
+          0.4,
+          0.5,
+          0.6,
+          0.7,
+          0.8,
+          0.9
+        ],
+        "future_frame_step": 5,
+        "horizon_s": 0.9,
+        "profile": "true23_step5_0p1s",
+        "source_sample_period_s": 0.02,
+        "source_sample_rate_hz": 50
+      },
+      "velocity_definition": "float32(q[i+1]-q[i])/float32(0.02), i=0,5,...,45",
+      "vr_reference": "received_q0_original29_geometry"
+    },
+    "reference_timing": "received_normal_source_horizon_920ms_v1",
+    "root_setpoint_age_s": 0.9,
+    "scored_reference_phase": "unchanged_post_control_q2",
+    "source_frames_retimed_or_reanchored": false
+  },
+  "reference_profile": "received_normal_source_horizon_920ms_v1",
+  "reset_xy_position_range_m": 0.1,
+  "reset_xy_velocity_range_m_s": 0.1,
+  "robot": "g1_23dof_rev_1_0",
+  "runtime_packages": {
+    "mjlab": "1.2.0",
+    "mujoco": "3.5.0",
+    "mujoco-warp": "3.5.0.2",
+    "numpy": "2.3.4",
+    "rsl-rl-lib": "5.0.1",
+    "scipy": "1.16.2",
+    "tensordict": "0.10.0",
+    "torch": "2.9.0+cu128",
+    "warp-lang": "1.12.0"
+  },
+  "runtime_source_commits": {
+    "mjlab": "5af32e378dcb93c9e881ace83cc5a3f5d373fe60",
+    "mujoco_warp": "5a86ec28aa07741eb2e000d158f4ca4068ec146e",
+    "unitree_rl_mjlab": "1425b15f73bd4095f0df53709d7c389c3eb9e790"
+  },
+  "schema": "g1_true23_pico_foot_precision_training_v1",
+  "seed": 20260803,
+  "simulator_and_rng_state_reinitialized": true,
+  "simulator_qualified": false,
+  "source_weight_profile": "true23_step5_0p1s",
+  "start_schedule": "mixed_reference_reset_v1",
+  "task": "Unitree-G1-Native23-PICO-FootPrecision-Received920ms",
+  "tokenizer_dim": 268,
+  "training_recording_ids": [
+    "existing_pico_derived_walk002",
+    "existing_pico_derived_walk003",
+    "existing_pico_derived_pico"
+  ]
+}

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 from pathlib import Path
 import subprocess
 import tempfile
@@ -34,6 +35,74 @@ _DIRECT_EVENTS = [
     "session_complete",
 ]
 _DIRECT_DIAGNOSTIC_EVENTS = {"pre_arm_causal_reacquisition"}
+# Mirrors kMaximumDirectDancePostArmSeconds in true23_active_gantry_core.hpp.
+# The saved SONIC routine is 535 packets at a 20 ms control period (~10.7 s).
+_MAXIMUM_DIRECT_DANCE_SECONDS = 11
+# Minimum measured travel of any controlled joint while armed, in radians
+# (~1.7 deg). Well below real choreography, far above sensor noise on a
+# stationary robot.
+_MINIMUM_ARMED_EXCURSION_RAD = 0.03
+# Conservative evidence screen for the single reviewed standing dance, not a
+# generic fall detector or an actuator limit. A rejected run still completes
+# the existing recovery sequence. Live teleop/crouch motions do not use it.
+_MAXIMUM_DIRECT_DANCE_TERMINAL_KNEE_FLEXION_RAD = 0.5
+_UNITREE_LOCKED_STAND_FSM_ID = 4
+_PRE_RELEASE_FSM_IDS = frozenset({500, 801, _UNITREE_LOCKED_STAND_FSM_ID})
+_RESTORED_STAND_FSM_ID = 801
+
+
+def _finite_number(value: object) -> bool:
+    return type(value) in (int, float) and math.isfinite(value)
+
+
+def _validate_physical_state(value: object, *, label: str) -> None:
+    """Check measured motor evidence, independently of locomotion RPC state.
+
+    This verifies enabled, responsive actuators. It does not establish balance
+    or choreography tracking; those require trajectory/physical qualification.
+    """
+    if not isinstance(value, dict):
+        raise ValueError(f"{label}: physical motor evidence missing")
+    if (
+        value.get("verified") is not True
+        or value.get("fresh") is not True
+        or type(value.get("sampled_controlled_joints")) is not int
+        or value["sampled_controlled_joints"] != 23
+        or type(value.get("enabled_motor_count")) is not int
+        or value["enabled_motor_count"] != 23
+        or type(value.get("observed_latched_disabled_motor_count")) is not int
+        or value["observed_latched_disabled_motor_count"] != 0
+        or value.get("crc_valid") is not True
+        or type(value.get("mode_machine")) is not int
+        or value["mode_machine"] != 4
+        or not _finite_number(value.get("maximum_abs_tau_est_nm"))
+        or value["maximum_abs_tau_est_nm"] <= 0.0
+        or type(value.get("tick")) is not int
+        or type(value.get("received_monotonic_ns")) is not int
+        or value["received_monotonic_ns"] <= 0
+    ):
+        raise ValueError(f"{label}: physical motor evidence did not pass")
+    for field, length in (("knee_q_rad", 2), ("imu_rpy_rad", 3), ("q_hardware_rad", 23)):
+        vector = value.get(field)
+        if (
+            not isinstance(vector, list)
+            or len(vector) != length
+            or not all(_finite_number(item) for item in vector)
+        ):
+            raise ValueError(f"{label}: invalid measured {field}")
+    modes = value.get("motor_modes_hardware")
+    statuses = value.get("motor_status_hardware")
+    if (
+        not isinstance(modes, list)
+        or len(modes) != 23
+        or any(type(mode) is not int or mode != 1 for mode in modes)
+        or not isinstance(statuses, list)
+        or len(statuses) != 23
+        or any(type(status) is not int or not 0 <= status <= 0xFFFFFFFF
+               or status & (1 << 30) for status in statuses)
+        or value["knee_q_rad"] != [value["q_hardware_rad"][3], value["q_hardware_rad"][9]]
+    ):
+        raise ValueError(f"{label}: physical motor evidence arrays mismatch")
 
 
 def _existing_file(path: Path, label: str) -> Path:
@@ -53,13 +122,37 @@ def _new_output(path: Path, label: str) -> Path:
 
 def _wsl_path(path: Path, distro: str) -> str:
     del distro
-    normalized = str(path.resolve()).replace("\\", "/")
+    # Inputs are resolved by the launcher's file checks. Do not resolve a
+    # Windows path with POSIX pathlib when this pure conversion is tested in WSL.
+    normalized = str(path).replace("\\", "/")
     if len(normalized) < 3 or normalized[1:3] != ":/":
         raise ValueError(f"launcher requires a Windows drive path: {path}")
     drive = normalized[0].lower()
-    if not drive.isalpha():
+    if drive not in "abcdefghijklmnopqrstuvwxyz" or ".." in normalized[3:].split("/"):
         raise ValueError(f"invalid Windows drive path: {path}")
     return f"/mnt/{drive}/{normalized[3:]}"
+
+
+def _validate_direct_dance_terminal_posture(terminal: dict) -> None:
+    vectors = [terminal.get(field) for field in ("armed_q_first_rad", "armed_q_last_rad")]
+    if terminal.get("armed_q_seen") is not True or any(
+        not isinstance(vector, list) or len(vector) != 23
+        or not all(_finite_number(value) for value in vector)
+        for vector in vectors
+    ):
+        raise ValueError("controller armed posture evidence missing or invalid")
+    first, last = vectors
+    delta = min(last[index] - first[index] for index in (3, 9))
+    reported = terminal.get("armed_knee_flexion_delta_rad")
+    if (
+        not _finite_number(reported)
+        or not math.isclose(delta, reported, rel_tol=0.0, abs_tol=1e-9)
+        or terminal.get("direct_dance_terminal_posture_screen_passed") is not True
+        or terminal.get("maximum_direct_dance_terminal_knee_flexion_rad")
+        != _MAXIMUM_DIRECT_DANCE_TERMINAL_KNEE_FLEXION_RAD
+        or delta > _MAXIMUM_DIRECT_DANCE_TERMINAL_KNEE_FLEXION_RAD
+    ):
+        raise ValueError("controller standing-dance terminal posture screen failed")
 
 
 def _active_command(
@@ -78,6 +171,7 @@ def _active_command(
     evidence: str,
     duration_seconds: int,
     gantry_authorize: str,
+    control_cpu_set: str,
     direct_dance_command: str | None = None,
     frozen_lora_policy: bool = True,
 ) -> list[str]:
@@ -86,6 +180,15 @@ def _active_command(
         "-d",
         distro,
         "--",
+        # Keep the control thread on its own cores. The controller must meet a
+        # 100 ms policy-freshness budget between first_policy_ready_for_arm and
+        # PreparePreArmHold; unpinned, unrelated host load starves it past that
+        # and the session aborts before motion-mode release. taskset and stdbuf
+        # both exec through, so the process cmdline still starts with the
+        # binary path that _signal_active_controller matches on.
+        "taskset",
+        "-c",
+        control_cpu_set,
         "stdbuf",
         "-oL",
         "-eL",
@@ -201,6 +304,29 @@ def validate_direct_dance_execution_evidence(
     return_hold = operational_records[10]
     restored = operational_records[11]
     terminal = operational_records[12]
+    _validate_direct_dance_terminal_posture(terminal)
+    for record, label in (
+        (hold_prepared, "prepared"), (motion_release, "pre-release"),
+        (restored, "restored"),
+    ):
+        _validate_physical_state(record.get("physical_state"), label=label)
+        # ReleaseMode is a blocking RPC. Its evidence is emitted afterwards,
+        # but the physical check must occur immediately BEFORE releasing.
+        checked_ns = (
+            record["monotonic_ns"] if record is hold_prepared
+            else record.get("sample_check_monotonic_ns")
+        )
+        if type(checked_ns) is not int or not 0 < checked_ns <= record["monotonic_ns"]:
+            raise ValueError("controller physical state check timestamp is invalid")
+        state_age_ns = checked_ns - record["physical_state"]["received_monotonic_ns"]
+        if not 0 <= state_age_ns <= 40_000_000:
+            raise ValueError("controller physical state timestamp is stale or future")
+    if (
+        terminal.get("pre_release_physical_state")
+        != motion_release["physical_state"]
+        or terminal.get("restored_physical_state") != restored["physical_state"]
+    ):
+        raise ValueError("controller physical evidence summary mismatch")
     if (
         start.get("operator_contract") != "bounded_direct_dance_command_v1"
         or start.get("post_arm_duration_seconds") != duration_seconds
@@ -261,11 +387,11 @@ def validate_direct_dance_execution_evidence(
         or not restored.get("restored_name")
         or restored.get("restored_name")
         != motion_release.get("captured_pre_release_name")
-        or motion_release.get("captured_pre_release_fsm_id") not in {500, 801}
-        or restored.get("restored_fsm_id")
-        not in {motion_release.get("captured_pre_release_fsm_id"), 500}
-        or not isinstance(restored.get("restored_fsm_mode"), int)
-        or restored.get("restored_fsm_mode", -1) < 0
+        or motion_release.get("captured_pre_release_fsm_id")
+        not in _PRE_RELEASE_FSM_IDS
+        or restored.get("restored_fsm_id") != _RESTORED_STAND_FSM_ID
+        or type(restored.get("restored_fsm_mode")) is not int
+        or restored.get("restored_fsm_mode") != 0
         or terminal.get("final_fault") != "none"
         or terminal.get("stop_reason")
         != "reviewed_post_arm_duration_complete"
@@ -291,6 +417,14 @@ def validate_direct_dance_execution_evidence(
         or terminal.get("rejected_non_positive_gain_commands") != 0
         or terminal.get("normal_return_hold_frames", 0) < 250
         or terminal.get("required_normal_return_hold_frames") != 250
+        # Proof the robot physically moved. A session can otherwise satisfy
+        # every other gate on a robot whose motors are disabled: frames get
+        # written, timings are met, the mode restores, and nothing notices that
+        # no joint ever moved. Observed: a full 11 s run reported passed=true
+        # with zero measured motion because the motors were latched off.
+        or not _finite_number(terminal.get("measured_armed_excursion_rad"))
+        or terminal.get("measured_armed_excursion_rad", 0.0)
+        < _MINIMUM_ARMED_EXCURSION_RAD
         or terminal.get("motion_mode_restored") is not True
         or terminal.get("restored_motion_mode_name")
         != restored.get("restored_name")
@@ -327,6 +461,11 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--network", default="eth0")
     parser.add_argument("--pico-endpoint", default="tcp://127.0.0.1:5557")
     parser.add_argument("--distro", default="Ubuntu-22.04")
+    # Mirrors the CPU isolation the reviewed read-only shadow wrapper enforces:
+    # control and publisher on disjoint core sets, with cores left over for the
+    # kernel and the Unitree robotics service.
+    parser.add_argument("--control-cpu-set", default="0-3")
+    parser.add_argument("--publisher-cpu-set", default="6-15")
     return parser
 
 
@@ -336,8 +475,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         raise ValueError("exact explicit gantry authorization phrase is required")
     if args.direct_dance_command != DIRECT_DANCE_COMMAND:
         raise ValueError("exact direct dance command DANCE is required")
-    if not 1 <= args.duration_seconds <= 5:
-        raise ValueError("duration-seconds must be between 1 and 5")
+    if not 1 <= args.duration_seconds <= _MAXIMUM_DIRECT_DANCE_SECONDS:
+        raise ValueError(
+            "duration-seconds must be between 1 and "
+            f"{_MAXIMUM_DIRECT_DANCE_SECONDS}"
+        )
     if not 1 <= args.repeat_count <= 100:
         raise ValueError("repeat-count must be between 1 and 100")
     if args.publisher_warmup_s < 2.0:
@@ -391,6 +533,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         evidence=converted["evidence"],
         duration_seconds=args.duration_seconds,
         gantry_authorize=args.gantry_authorize,
+        control_cpu_set=args.control_cpu_set,
         direct_dance_command=args.direct_dance_command,
     )
 
@@ -401,9 +544,11 @@ def main(argv: Sequence[str] | None = None) -> int:
             "-d",
             args.distro,
             "--",
+            # Disjoint from the control set. This previously pinned the
+            # publisher to CPU 1, inside the cores the controller now owns.
             "taskset",
             "-c",
-            "1",
+            args.publisher_cpu_set,
             "env",
             f"PYTHONPATH={_wsl_path(root, args.distro)}",
             args.publisher_python,

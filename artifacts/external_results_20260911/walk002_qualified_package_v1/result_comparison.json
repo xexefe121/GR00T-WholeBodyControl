@@ -1,0 +1,102 @@
+{
+  "kind": "qualified_walk002_same_MPC_vs_recorded_prefix_terminal_BFM",
+  "qualification_sha256": "a7eaec31dd572724921e2d2986ab8c6ab5db33008f6b3c1af5d2dbd72bf92e4b",
+  "original_same_MPC_quiet_failure_preserved": true,
+  "original_source667_metrics_exactly_unchanged": true,
+  "source_metrics": {
+    "source_controls": 667,
+    "requested_source_controls": 667,
+    "original_root_p95_m": 0.159139043076485,
+    "original_yaw_p95_deg": 2.841138057975889,
+    "original_relative_hand_head_p95_m": [
+      0.05032405312323184,
+      0.05056943322648422,
+      0.03725870032869996
+    ],
+    "world_axis_relative_foot_p95_m": [
+      0.07802684119709698,
+      0.07021671672902548
+    ],
+    "native_leg_rmse_rad": 0.11027993594478021
+  },
+  "original_MPC_terminal": {
+    "samples": 1500,
+    "interval": [
+      25.339999999996834,
+      28.33999999999517
+    ],
+    "root_xy_p95_m": 0.005336011597047681,
+    "original_yaw_p95_deg": 0.14760444944616927,
+    "root_linear_speed_p95_mps": 0.09403812548554474,
+    "joint_speed_p95_radps": 1.0957677780594604,
+    "joint_speed_max_radps": 5.577074462741868,
+    "tilt_max_rad": 0.009265897227737914,
+    "gates": {
+      "root_xy_p95_m": true,
+      "original_yaw_p95_deg": true,
+      "root_linear_speed_p95_mps": false,
+      "joint_speed_p95_radps": false,
+      "joint_speed_max_radps": false,
+      "tilt_max_rad": true
+    }
+  },
+  "hybrid_original_terminal": {
+    "samples": 1500,
+    "interval": [
+      25.339999999996834,
+      28.33999999999517
+    ],
+    "root_xy_p95_m": 0.009696885401811243,
+    "original_yaw_p95_deg": 2.6567985375916443,
+    "root_linear_speed_p95_mps": 0.0004266634330145091,
+    "joint_speed_p95_radps": 0.008891324510234975,
+    "joint_speed_max_radps": 0.009583993619544364,
+    "tilt_max_rad": 0.06796367136200455,
+    "gates": {
+      "root_xy_p95_m": true,
+      "original_yaw_p95_deg": true,
+      "root_linear_speed_p95_mps": true,
+      "joint_speed_p95_radps": true,
+      "joint_speed_max_radps": true,
+      "tilt_max_rad": true
+    }
+  },
+  "hybrid_separate_hold": {
+    "samples": 1500,
+    "interval": [
+      30.339999999994063,
+      33.33999999999478
+    ],
+    "root_xy_p95_m": 0.010423331924619956,
+    "original_yaw_p95_deg": 2.8051986029090585,
+    "root_linear_speed_p95_mps": 0.00024833767165873916,
+    "joint_speed_p95_radps": 0.0018407537114719138,
+    "joint_speed_max_radps": 0.0018947791118546528,
+    "tilt_max_rad": 0.06792141659603433,
+    "gates": {
+      "root_xy_p95_m": true,
+      "original_yaw_p95_deg": true,
+      "root_linear_speed_p95_mps": true,
+      "joint_speed_p95_radps": true,
+      "joint_speed_max_radps": true,
+      "tilt_max_rad": true
+    }
+  },
+  "source_controller": "qualified original recorded MPC prefix0..1116; no replanning in hybrid",
+  "terminal_controller": "unchanged BFM horizon8/position1/yaw4, actual inference at original terminal start1117",
+  "result": "one qualified offline hybrid lifecycle plus separate quiet hold",
+  "new_dynamics": false,
+  "timing_qualified": false,
+  "live_teleoperation_qualified": false,
+  "hardware_authorized": false,
+  "inputs": {
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\walk002_hybrid_root_qualification_v1\\qualification.json": "a7eaec31dd572724921e2d2986ab8c6ab5db33008f6b3c1af5d2dbd72bf92e4b",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\walk002_terminal_bfm_hybrid_v1\\trace.npz": "a7e548b4a684d6c9755c590f1a7002844c4cd1e13450ed56181ee38126992284",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\walk002_terminal_bfm_hybrid_v1\\post_lifecycle_hold_5s\\trace.npz": "5c7c9f3408603ff90cf1ce2c231192490d3f0ab72a82766a2eaab12ee650e612",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\walk002_hybrid_independent_physics_v1\\report.json": "ed4ff0d24bd66da00ecac72c997b81801b29d475bfbb96cce1e33079ffe8c130",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\walk002_hybrid_independent_intent_v1\\report.json": "b024d73e66d2490aa0c149aa522659bd3a6d987febae020c88f0711d9f0ba898",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\walk002_hybrid_hold_independent_physics_v1\\report.json": "8db776bd08a58f54981decb95767f6e583358a7463eed351ecf686197e3a62aa",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\walk002_hybrid_hold_independent_intent_v1\\report.json": "4d54b1f15d09f6fccf41ed95502776066f5c11cc80bc1faaeca3753318e66bd5",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\walk002_full_control_lm_independent_intent_v1\\report.json": "67324c622a71dea016b085f9b8dfe7ad1db7e15cc2e29467b603779ab8bf1f98"
+  }
+}

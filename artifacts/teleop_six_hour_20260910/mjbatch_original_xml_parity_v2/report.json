@@ -1,0 +1,69 @@
+{
+  "python": "3.11.15",
+  "executable": "/root/.venvs/g1_true23_mjbatch/bin/python",
+  "mujoco": "3.11.0",
+  "numpy": "2.4.6",
+  "logical_cpus": 16,
+  "native_dimensions": [
+    30,
+    29,
+    23
+  ],
+  "physics_timestep_s": 0.002,
+  "pd_substep_recompute": true,
+  "target_hold_controls": 10,
+  "model_and_config_sha256": {
+    "/mnt/z/codex/GR00T-WholeBodyControl/gear_sonic/data/robots/g1/g1_23dof_rev_1_0.xml": "16e304c970bfc68783ea69d01d05192e6bd9d83d62f6ee4aac0ac72ff18db612",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/config/sim_validation/g1_23dof_mujoco_sim2sim.json": "bc4dab246e709604f435dea7c584adc01f1c38a6abb6ac1bc22fc699c42272c3"
+  },
+  "concurrent_gpu_training_and_cpu_jobs": true,
+  "benchmarking_only": true,
+  "cross_version_trace_difference": {
+    "qpos": 0.0,
+    "qvel": 0.0,
+    "ctrl": 0.0,
+    "qfrc_actuator": 0.0,
+    "time": 0.0
+  },
+  "mjbatch": "0.1.0",
+  "batch_single_parity": {
+    "qpos": {
+      "max_abs": 0.0,
+      "bit_exact": true
+    },
+    "qvel": {
+      "max_abs": 0.0,
+      "bit_exact": true
+    },
+    "ctrl": {
+      "max_abs": 0.0,
+      "bit_exact": true
+    },
+    "qfrc_actuator": {
+      "max_abs": 0.0,
+      "bit_exact": true
+    },
+    "time": {
+      "max_abs": 0.0,
+      "bit_exact": true
+    }
+  },
+  "throughput": [
+    {
+      "batch_size": 1,
+      "physics_steps_per_sim": 100,
+      "repeats": 1,
+      "plain_seconds_median": 0.01605853199998819,
+      "plain_physics_steps_per_second": 6227.219275091493,
+      "batches": [
+        {
+          "threads": 1,
+          "seconds_median": 0.010339632000068377,
+          "physics_steps_per_second": 9671.52409286314,
+          "speedup_vs_plain": 1.5531047913389948,
+          "equivalent_50hz_controls_per_second": 967.152409286314
+        }
+      ]
+    }
+  ]
+}

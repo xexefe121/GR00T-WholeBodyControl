@@ -1,0 +1,102 @@
+{
+  "status": "REJECTED before source: right hip roll speed exceeded native20rad/s",
+  "total_fit_steps": 20000,
+  "fit_stop_reason": "declared total20000 maximum reached",
+  "fit_stop_criteria_met": false,
+  "continuation_fit_attempts": 1,
+  "ordinary_final_checkpoint_used": true,
+  "intermediate_physics_evaluations": 0,
+  "learned_nominal_attempts": 1,
+  "full_lifecycle_completed": false,
+  "source_controls_reached": 0,
+  "extension_attempts": 0,
+  "DAgger_queries": 0,
+  "completed_physical_controls": 15,
+  "partial_control_substeps": 6,
+  "physics_steps": 156,
+  "seconds": 0.3120000000000002,
+  "failure_joint": "right_hip_roll_joint",
+  "actual_joint_velocity_rad_s": -21.25168896438328,
+  "native_velocity_bound_rad_s": 20.0,
+  "velocity_ratio": 1.062584448219164,
+  "final_applied_target_rad": -2.143703229793024,
+  "final_BFM_base_target_rad": 0.14727472507147807,
+  "final_learned_delta_rad": -2.290977954864502,
+  "range_excess_max": 0.0,
+  "actual_effort_ratio_max": 1.0,
+  "warnings": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "physics_clock_exact": true,
+  "identical_initial_input": {
+    "features": true,
+    "state": true,
+    "history": true,
+    "previous_action": true,
+    "base_target": true
+  },
+  "same_time_diagnostics": [
+    {
+      "control": 0,
+      "precontrol_time_seconds": 0.0,
+      "qpos_max_delta_to_teacher": 0.0,
+      "qvel_max_delta_to_teacher": 0.0,
+      "teacher_input_target_RMSE_rad": 0.024087490578966586,
+      "actual_rollout_target_RMSE_rad": 0.02408749406258502
+    },
+    {
+      "control": 1,
+      "precontrol_time_seconds": 0.02,
+      "qpos_max_delta_to_teacher": 0.007822022034288056,
+      "qvel_max_delta_to_teacher": 0.5127406724025912,
+      "teacher_input_target_RMSE_rad": 0.0230649367235944,
+      "actual_rollout_target_RMSE_rad": 0.09801025747813716
+    },
+    {
+      "control": 5,
+      "precontrol_time_seconds": 0.1,
+      "qpos_max_delta_to_teacher": 0.09328250945192869,
+      "qvel_max_delta_to_teacher": 6.799995403826593,
+      "teacher_input_target_RMSE_rad": 0.020793949101163285,
+      "actual_rollout_target_RMSE_rad": 0.7506335810070728
+    },
+    {
+      "control": 10,
+      "precontrol_time_seconds": 0.2,
+      "qpos_max_delta_to_teacher": 0.5145777138746793,
+      "qvel_max_delta_to_teacher": 19.05565015267529,
+      "teacher_input_target_RMSE_rad": 0.016967033443344395,
+      "actual_rollout_target_RMSE_rad": 0.778488672135562
+    },
+    {
+      "control": 15,
+      "precontrol_time_seconds": 0.3,
+      "qpos_max_delta_to_teacher": 0.9886729987264313,
+      "qvel_max_delta_to_teacher": 14.69770617026352,
+      "teacher_input_target_RMSE_rad": 0.037741331174377904,
+      "actual_rollout_target_RMSE_rad": 1.1015275893879215
+    }
+  ],
+  "full1269_fit_RMSE_rad": 0.02683579122799566,
+  "first24_worst_joint_target_error_p95_rad": 0.15702848836033861,
+  "comparison": "Improved teacher-state and initial-state fit did not stabilize this controller; small first-step departure grew rapidly. No further fit or DAgger inference follows from this diagnosis.",
+  "preserved_states": "Every actual precontrol integration vector/history/previous action and final partial-control failure state are retained in nominal/trace.npz.",
+  "hashes": {
+    "frozen_inputs_v2.json": "423d4ed517053816ce5d841a287e8abb5073eec208c23e76f1050a83aa26809c",
+    "fit/reconstruction_parity.json": "29ddcf08a067ff734f3a88811b021c515a3fd03d32f74297db15e92f1f95cedb",
+    "fit/full_fit_metrics.json": "4e319e0ddc7def6fc5dadc945a07c4db95d8a2874e142f2fee3b3a5065ce97f1",
+    "fit/report.json": "9dc9d5445be60aa22b0aab225a3040ff8c086738c2862d76a6aac19783aa4988",
+    "fit/student_head.onnx": "a902b8363cf399c7df119bdebde4d39e4e2dbb2a59d57b018b8539f9a6448fff",
+    "fit/student_head.pt": "59475de36cd5a3f03ba805a77221dff0a3d219aaab23df5e404e3f6acf6f02e1",
+    "nominal/report.json": "877998c76a2a7cfb67acf9ca1665ad4beb046d23a4998499f0cc98a62e52bc4f",
+    "nominal/trace.npz": "c419119a3945a4255930d3ec423e04a5653d103e35ae916f8ba57149018a2ac0"
+  },
+  "document_script_sha256": "50912eab42ccbb93e2a5ee8631381a9c0230cb88da5f4f3e22f083afbfb16d99"
+}

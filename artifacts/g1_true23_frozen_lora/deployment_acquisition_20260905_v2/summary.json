@@ -1,0 +1,390 @@
+{
+  "kind": "g1_true23_deployment_envelope_diagnostic_v1",
+  "cases": [
+    {
+      "completed_transitions": 49,
+      "requested_transitions": 535,
+      "library_completion_passed": false,
+      "upright_physical_bounds_passed": false,
+      "failure": {
+        "transition": 48,
+        "gates": [
+          "pelvis_orientation_tracking"
+        ]
+      },
+      "first_predicted_quarter_effort_guard_violation": {
+        "transition": 17,
+        "substep": 7,
+        "maximum_ratio": 1.0031510439973976
+      },
+      "first_target_margin_guard_violation": null,
+      "slew_clipped_joint_step_fraction": 0.1948535936113576,
+      "maximums": {
+        "height_m": 0.7784116735206518,
+        "tilt_rad": 1.543135977086424,
+        "joint_rmse_rad": 0.7243596717389403,
+        "relative_body_error_m": 0.7171106944273223,
+        "pelvis_orientation_error_rad": 1.5533152024005008,
+        "pelvis_position_error_m": 0.6780142128819917,
+        "maximum_ankle_torque_nm": 8.811049996881895,
+        "knee_flexion_delta_rad": 1.9066458660808936
+      },
+      "minimum_base_height_m": 0.23516493649124717,
+      "horizontal_displacement_m": 0.37518403894310837,
+      "gain_kp_hardware": [
+        12.0,
+        12.0,
+        12.0,
+        16.0,
+        8.0,
+        8.0,
+        12.0,
+        12.0,
+        12.0,
+        16.0,
+        8.0,
+        8.0,
+        8.0,
+        4.0,
+        4.0,
+        4.0,
+        4.0,
+        3.0,
+        4.0,
+        4.0,
+        4.0,
+        4.0,
+        3.0
+      ],
+      "gain_kd_hardware": [
+        1.0,
+        1.0,
+        1.0,
+        1.25,
+        0.8,
+        0.8,
+        1.0,
+        1.0,
+        1.0,
+        1.25,
+        0.8,
+        0.8,
+        0.8,
+        0.45,
+        0.45,
+        0.45,
+        0.45,
+        0.35,
+        0.45,
+        0.45,
+        0.45,
+        0.45,
+        0.35
+      ],
+      "effort_limit_hardware_nm": [
+        88.0,
+        139.0,
+        88.0,
+        139.0,
+        35.0,
+        35.0,
+        88.0,
+        139.0,
+        88.0,
+        139.0,
+        35.0,
+        35.0,
+        88.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0
+      ],
+      "motion_fidelity": {
+        "kind": "g1_true23_reference_motion_fidelity_v1",
+        "passed": false,
+        "full_clip_completed": false,
+        "failed_checks": [
+          "full_clip_completion",
+          "maximum_pelvis_position_error_m",
+          "maximum_pelvis_orientation_error_rad",
+          "maximum_relative_tracked_body_position_error_m",
+          "maximum_joint_tracking_rmse_rad"
+        ],
+        "maximum_errors": {
+          "maximum_pelvis_position_error_m": 0.25,
+          "maximum_pelvis_orientation_error_rad": 0.5,
+          "maximum_relative_tracked_body_position_error_m": 0.2,
+          "maximum_joint_tracking_rmse_rad": 0.35
+        },
+        "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+        "hardware_authorized": false,
+        "deployment_ready": false
+      },
+      "startup_hold": {
+        "duration_s": 0.05,
+        "completed_physics_steps": 25,
+        "minimum_height_m": 0.7806897803962464,
+        "maximum_knee_flexion_delta_rad": 0.048360900602972656,
+        "maximum_abs_effort_nm": 3.002349595136952,
+        "first_tenth_effort_guard_violation": null,
+        "finite": true,
+        "mode_transfer_simulated": false
+      },
+      "return_hold": {
+        "duration_s": 0.5,
+        "completed_physics_steps": 250,
+        "minimum_height_m": 0.0613802428148064,
+        "maximum_knee_flexion_delta_rad": 0.040844787192419574,
+        "maximum_abs_effort_nm": 11.419066695333301,
+        "first_tenth_effort_guard_violation": {
+          "physics_step": 0,
+          "ratio": 1.3156961780845626
+        },
+        "finite": true,
+        "mode_transfer_simulated": false
+      },
+      "measured_contact_estimate": {
+        "method": "lowest_native23_foot_collision_sphere_tangent_to_ground",
+        "root_height_m": 0.7877132778330452,
+        "foot_sphere_clearances_m": [
+          0.0014594177844813316,
+          0.0013782565413452685,
+          0.0038774371167930033,
+          0.0037800436250297054,
+          0.005935646932164085,
+          0.007464265346809551,
+          0.0,
+          0.0018343420975746039
+        ],
+        "gantry_forces_modeled": false,
+        "root_position_measured": false
+      },
+      "measured_initial_state": {
+        "source": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/readiness_audit_20260905_v1/motor_health.json",
+        "source_sha256": "7a9806e76f6cb7f503427e995698b14974eb36c61d8865738f207f755e332fff"
+      },
+      "label": "stage_one_fraction0.6_ankle35_slew5_measured",
+      "gain_profile": "stage_one",
+      "action_fraction": 0.6,
+      "ankle_effort_nm": 35.0,
+      "target_slew_rad_s": 5.0,
+      "initial_state": "measured"
+    },
+    {
+      "completed_transitions": 49,
+      "requested_transitions": 535,
+      "library_completion_passed": false,
+      "upright_physical_bounds_passed": false,
+      "failure": {
+        "transition": 48,
+        "gates": [
+          "pelvis_orientation_tracking"
+        ]
+      },
+      "first_predicted_quarter_effort_guard_violation": null,
+      "first_target_margin_guard_violation": null,
+      "slew_clipped_joint_step_fraction": 0.1948535936113576,
+      "maximums": {
+        "height_m": 0.7784116735206518,
+        "tilt_rad": 1.543135977086424,
+        "joint_rmse_rad": 0.7243596717389403,
+        "relative_body_error_m": 0.7171106944273223,
+        "pelvis_orientation_error_rad": 1.5533152024005008,
+        "pelvis_position_error_m": 0.6780142128819917,
+        "maximum_ankle_torque_nm": 8.811049996881895,
+        "knee_flexion_delta_rad": 1.9066458660808936
+      },
+      "minimum_base_height_m": 0.23516493649124717,
+      "horizontal_displacement_m": 0.37518403894310837,
+      "gain_kp_hardware": [
+        12.0,
+        12.0,
+        12.0,
+        16.0,
+        8.0,
+        8.0,
+        12.0,
+        12.0,
+        12.0,
+        16.0,
+        8.0,
+        8.0,
+        8.0,
+        4.0,
+        4.0,
+        4.0,
+        4.0,
+        3.0,
+        4.0,
+        4.0,
+        4.0,
+        4.0,
+        3.0
+      ],
+      "gain_kd_hardware": [
+        1.0,
+        1.0,
+        1.0,
+        1.25,
+        0.8,
+        0.8,
+        1.0,
+        1.0,
+        1.0,
+        1.25,
+        0.8,
+        0.8,
+        0.8,
+        0.45,
+        0.45,
+        0.45,
+        0.45,
+        0.35,
+        0.45,
+        0.45,
+        0.45,
+        0.45,
+        0.35
+      ],
+      "effort_limit_hardware_nm": [
+        88.0,
+        139.0,
+        88.0,
+        139.0,
+        50.0,
+        50.0,
+        88.0,
+        139.0,
+        88.0,
+        139.0,
+        50.0,
+        50.0,
+        88.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0
+      ],
+      "motion_fidelity": {
+        "kind": "g1_true23_reference_motion_fidelity_v1",
+        "passed": false,
+        "full_clip_completed": false,
+        "failed_checks": [
+          "full_clip_completion",
+          "maximum_pelvis_position_error_m",
+          "maximum_pelvis_orientation_error_rad",
+          "maximum_relative_tracked_body_position_error_m",
+          "maximum_joint_tracking_rmse_rad"
+        ],
+        "maximum_errors": {
+          "maximum_pelvis_position_error_m": 0.25,
+          "maximum_pelvis_orientation_error_rad": 0.5,
+          "maximum_relative_tracked_body_position_error_m": 0.2,
+          "maximum_joint_tracking_rmse_rad": 0.35
+        },
+        "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+        "hardware_authorized": false,
+        "deployment_ready": false
+      },
+      "startup_hold": {
+        "duration_s": 0.05,
+        "completed_physics_steps": 25,
+        "minimum_height_m": 0.7806897803962464,
+        "maximum_knee_flexion_delta_rad": 0.048360900602972656,
+        "maximum_abs_effort_nm": 3.002349595136952,
+        "first_tenth_effort_guard_violation": null,
+        "finite": true,
+        "mode_transfer_simulated": false
+      },
+      "return_hold": {
+        "duration_s": 0.5,
+        "completed_physics_steps": 250,
+        "minimum_height_m": 0.0613802428148064,
+        "maximum_knee_flexion_delta_rad": 0.040844787192419574,
+        "maximum_abs_effort_nm": 11.419066695333301,
+        "first_tenth_effort_guard_violation": {
+          "physics_step": 19,
+          "ratio": 1.0527496273409709
+        },
+        "finite": true,
+        "mode_transfer_simulated": false
+      },
+      "measured_contact_estimate": {
+        "method": "lowest_native23_foot_collision_sphere_tangent_to_ground",
+        "root_height_m": 0.7877132778330452,
+        "foot_sphere_clearances_m": [
+          0.0014594177844813316,
+          0.0013782565413452685,
+          0.0038774371167930033,
+          0.0037800436250297054,
+          0.005935646932164085,
+          0.007464265346809551,
+          0.0,
+          0.0018343420975746039
+        ],
+        "gantry_forces_modeled": false,
+        "root_position_measured": false
+      },
+      "measured_initial_state": {
+        "source": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/readiness_audit_20260905_v1/motor_health.json",
+        "source_sha256": "7a9806e76f6cb7f503427e995698b14974eb36c61d8865738f207f755e332fff"
+      },
+      "label": "stage_one_fraction0.6_ankle50_slew5_measured",
+      "gain_profile": "stage_one",
+      "action_fraction": 0.6,
+      "ankle_effort_nm": 50.0,
+      "target_slew_rad_s": 5.0,
+      "initial_state": "measured"
+    }
+  ],
+  "sources": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/true23_active_gantry_core.hpp": "5c7965251b49d4f3005e9802aebddb03f60534603992c11837078e5ac41badaf",
+    "/mnt/z/codex/GR00T-WholeBodyControl/gear_sonic/data/robots/g1/g1_23dof_rev_1_0.xml": "16e304c970bfc68783ea69d01d05192e6bd9d83d62f6ee4aac0ac72ff18db612",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/config/sim_validation/g1_23dof_mujoco_sim2sim.json": "bc4dab246e709604f435dea7c584adc01f1c38a6abb6ac1bc22fc699c42272c3",
+    "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/causal_model_250_20260803/causal_model_250.encoder.onnx": "733353148bef1eb8dd83a96416b7a89f0b5c3530ceb9e0cec9c25fdb04f56ff2",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original_sonic_happy_residual_v1/candidate.plus_0p002.decoder.onnx": "44d1fb2701f1e65460f1c2c23f676bce4f1d4a44b3b112798dc5034af37946b8",
+    "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_happy_physical_reference_v1/happy_dance.true23.npz": "e5b73bc131721c630500870c6ce7185c538dd237942ad58e2d02d0aad5a05e04",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/evaluate_g1_true23_deployment_envelope.py": "7d12d5038cf6167b3a9b81e6cb97fb17fc9586a3b1dc38ece345c1866bd9b283",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_clean_mujoco_teleop.py": "7cbb05828cf97fd7a59289139c3a72830db71b7e7b6eba1c56d8096faa9f614e",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_sonic_library_replay.py": "109d2bc03ed023686d953759bdef1e4ef235defd7a1a792cd08b445fd0a58a25",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_step1b_mujoco.py": "98f5183ad5afb21136ca4add267740e6c3c420e8b8331c1c21af9ad9e6206d47",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_motion_fidelity.py": "689de00a422e7071ee4ba60e5ebb2087b77d11faccc20d6bfb5d0af587d2a863",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_safe_target_transform.py": "13bb352b59faa83195c7b423d40056ab37deab197a8aa66f8e0aaa33641503cf"
+  },
+  "runtime": {
+    "onnxruntime": "1.28.0",
+    "numpy": "2.3.4",
+    "intra_op_threads": 1,
+    "inter_op_threads": 1
+  },
+  "authorization": {
+    "simulator_only": true,
+    "robot_commands_published": false,
+    "dds_opened": false,
+    "network_used": false,
+    "hardware_authorized": false,
+    "deployment_ready": false
+  },
+  "limitations": [
+    "Ideal 500 Hz actuation and 50 Hz inference; no transport or ownership lifecycle.",
+    "Optional holds model only explicit sampled-posture PD, not Unitree mode transfer.",
+    "Measured start uses recorded joints/IMU; root position, zero base velocity and ground contact are estimated, gantry forces absent.",
+    "Hardware guard crossings recorded diagnostically, not used to stop physics.",
+    "Ankle limits are hypothetical model ablations, not verified hardware ratings.",
+    "Neutral initial state is a simulated default pose, not measured FSM801 acquisition.",
+    "Legacy library completion tolerates large world drift and tracking error; not dance fidelity."
+  ]
+}

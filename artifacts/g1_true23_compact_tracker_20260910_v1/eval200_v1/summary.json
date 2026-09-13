@@ -1,0 +1,111 @@
+{
+  "cases": [
+    {
+      "name": "pico",
+      "completed": 109,
+      "requested": 6530,
+      "failure": {
+        "type": "RuntimeError",
+        "message": "absolute height/tilt diagnostic stop",
+        "completed_controls": 109,
+        "physics_steps": 1090
+      },
+      "source_metrics": {
+        "source_controls": 0
+      },
+      "report_sha256": "72ee39b76c584fbe97cca05fb6afb64dd3c3149e85181339e23935c0b6b4b380",
+      "deployment_ready": false,
+      "hardware_authorized": false,
+      "simulator_qualified": false
+    },
+    {
+      "name": "walk002",
+      "completed": 109,
+      "requested": 1417,
+      "failure": {
+        "type": "RuntimeError",
+        "message": "absolute height/tilt diagnostic stop",
+        "completed_controls": 109,
+        "physics_steps": 1090
+      },
+      "source_metrics": {
+        "source_controls": 0
+      },
+      "report_sha256": "4e9f2a9dd4a91734779de04f7dc0d5b6f0b74c22197a801069fbb748b675d85b",
+      "deployment_ready": false,
+      "hardware_authorized": false,
+      "simulator_qualified": false
+    },
+    {
+      "name": "walk003",
+      "completed": 109,
+      "requested": 1569,
+      "failure": {
+        "type": "RuntimeError",
+        "message": "absolute height/tilt diagnostic stop",
+        "completed_controls": 109,
+        "physics_steps": 1090
+      },
+      "source_metrics": {
+        "source_controls": 0
+      },
+      "report_sha256": "e77a1ed29696a1b8795eb0a3755cc90ef31fbb4e01160358a90f887904dda902",
+      "deployment_ready": false,
+      "hardware_authorized": false,
+      "simulator_qualified": false
+    },
+    {
+      "name": "walk008",
+      "completed": 109,
+      "requested": 1114,
+      "failure": {
+        "type": "RuntimeError",
+        "message": "absolute height/tilt diagnostic stop",
+        "completed_controls": 109,
+        "physics_steps": 1090
+      },
+      "source_metrics": {
+        "source_controls": 0
+      },
+      "report_sha256": "8b8726b26007b7affa4be1e6e1cb4e77652569f79a4118f269fa3abfa85d4984",
+      "deployment_ready": false,
+      "hardware_authorized": false,
+      "simulator_qualified": false
+    }
+  ],
+  "identity": {
+    "kind": "compact_native23_cpu_referee_v1",
+    "checkpoint_sha256": "634d50cd156f11612b03c7bcac066c762574c3a86949f791ba284848e663449e",
+    "completed_training_updates": 200,
+    "actor_contract": {
+      "kind": "native23_explicit_goal_residual165_v1",
+      "input_dim": 165,
+      "goal_dim": 90,
+      "proprioception_dim": 75,
+      "output_dim": 23,
+      "current_proprioception": "latest_frame_of_existing_term_major_history930",
+      "goal_order": [
+        "hardware_q23",
+        "hardware_dq23",
+        "root9",
+        "root_rotation6",
+        "original29_vr21",
+        "feet_error_current_pelvis6",
+        "root_heights2"
+      ],
+      "source_target": "received_q1; adjacent_q1_minus_q0_velocity",
+      "source_timing_unchanged": true,
+      "source_motion_is_sonic_compatible": true,
+      "actor_is_frozen_sonic": false,
+      "ground_truth_root_is_sim_only": true,
+      "deployment_ready": false,
+      "hardware_authorized": false
+    },
+    "frozen_sonic_policy_parity_claimed": false,
+    "deployment_ready": false,
+    "hardware_authorized": false
+  },
+  "deployment_ready": false,
+  "hardware_authorized": false,
+  "simulator_qualified": false
+}

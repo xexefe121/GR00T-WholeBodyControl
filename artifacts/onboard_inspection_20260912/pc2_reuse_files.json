@@ -1,0 +1,192 @@
+{
+  "files": {
+    "/unitree/etc/ota_pipe/ota_pipe_hosts.json": "{\n    \"default\": \"tcp://192.168.123.164:1026\"\n}\n",
+    "/unitree/robot/pkg/version/version.json": "{\n    \"Module\": {\n        \"master_service_pc4\": \"1.0.0.2\",\n        \"unitree_patch_pc4\": \"1.0.0.6\",\n        \"video_hub_pc4\": \"1.0.2.3\"\n    },\n    \"Package\": \"\"\n}",
+    "/unitree/robot/pkg/module/master_service_pc4/module.json": "{\n    \"Commit\": \"dc964a3354534a80881d92daaf18d421fafc7916\",\n    \"FileList\": {\n        \"/unitree/module/master_service/default_logconf.json\": 452,\n        \"/unitree/module/master_service/master_service\": 9083232,\n        \"/unitree/module/master_service/master_service.json\": 468\n    },\n    \"Install\": {\n        \"CmdPostList\": [\n            {\n                \"Cmd\": \"chmod +x /unitree/module/master_service/master_service\",\n                \"Delay\": 0.0,\n                \"ExpectCode\": [\n                    0\n                ],\n                \"IgnoreUnexpected\": false\n            },\n            {\n                \"Cmd\": \"service master_service start\",\n                \"Delay\": 0.0,\n                \"ExpectCode\": [\n                    0\n                ],\n                \"IgnoreUnexpected\": false\n            },\n            {\n                \"Cmd\": \"c=0; while [ $c -lt 30 ]; do c=$(expr $c + 1); /unitree/sbin/mscli ls; r=$?; [ $r -ne 102 ] && exit $r; sleep 1; done\",\n                \"Delay\": 0.0,\n                \"ExpectCode\": [\n                    0\n                ],\n                \"IgnoreUnexpected\": true\n            }\n        ],\n        \"CmdPreList\": [\n            {\n                \"Cmd\": \"service master_service stop\",\n                \"Delay\": 0.0,\n                \"ExpectCode\": [\n                    0,\n                    1,\n                    4\n                ],\n                \"IgnoreUnexpected\": false\n            }\n        ]\n    },\n    \"Method\": \"\",\n    \"Name\": \"master_service_pc4\",\n    \"Remove\": {\n        \"CmdPostList\": [\n            {\n                \"Cmd\": \"/bin/rm -rf /unitree/module/master_service\",\n                \"Delay\": 0.0,\n                \"ExpectCode\": [\n                    0\n                ],\n                \"IgnoreUnexpected\": true\n            }\n        ],\n        \"CmdPreList\": [\n            {\n                \"Cmd\": \"service master_service stop\",\n                \"Delay\": 0.0,\n                \"ExpectCode\": [\n                    0,\n                    1,\n                    4\n                ],\n                \"IgnoreUnexpected\": false\n            }\n        ]\n    },\n    \"Time\": \"2025-02-28 10:35:54\",\n    \"Type\": \"NORMAL\",\n    \"Version\": \"1.0.0.2\"\n}",
+    "/unitree/robot/pkg/module/video_hub_pc4/module.json": "{\n    \"Commit\": \"1899ba6f9237dd2c323d5feb9877bb540e57ca61\",\n    \"FileList\": {\n        \"/unitree/etc/master_service/service/video_hub_pc4\": 750,\n        \"/unitree/etc/master_service/service/video_hub_pc4_chest\": 787,\n        \"/unitree/module/video_hub_pc4/cyclonedds.xml\": 158,\n        \"/unitree/module/video_hub_pc4/videohub_pc4\": 63696,\n        \"/unitree/module/video_hub_pc4/videohub_pc4_chest\": 63408\n    },\n    \"Install\": {\n        \"CmdPostList\": [\n            {\n                \"Cmd\": \"/unitree/sbin/mscli startservice video_hub_pc4\",\n                \"Delay\": 0.0,\n                \"ExpectCode\": [\n                    0\n                ],\n                \"IgnoreUnexpected\": false\n            },\n            {\n                \"Cmd\": \"/unitree/sbin/mscli startservice video_hub_pc4_chest\",\n                \"Delay\": 0.0,\n                \"ExpectCode\": [\n                    0\n                ],\n                \"IgnoreUnexpected\": false\n            }\n        ],\n        \"CmdPreList\": [\n            {\n                \"Cmd\": \"/unitree/sbin/mscli stopservice video_hub_pc4\",\n                \"Delay\": 0.0,\n                \"ExpectCode\": [\n                    1,\n                    108,\n                    120\n                ],\n                \"IgnoreUnexpected\": false\n            },\n            {\n                \"Cmd\": \"/unitree/sbin/mscli stopservice video_hub_pc4_chest\",\n                \"Delay\": 0.0,\n                \"ExpectCode\": [\n                    1,\n                    108,\n                    120\n                ],\n                \"IgnoreUnexpected\": false\n            }\n        ]\n    },\n    \"Method\": \"\",\n    \"Name\": \"video_hub_pc4\",\n    \"Remove\": {\n        \"CmdPostList\": [\n            {\n                \"Cmd\": \"/unitree/sbin/mscli removeservice video_hub_pc4\",\n                \"Delay\": 0.0,\n                \"ExpectCode\": [\n                    0\n                ],\n                \"IgnoreUnexpected\": false\n            },\n            {\n                \"Cmd\": \"/unitree/sbin/mscli removeservice video_hub_pc4_chest\",\n                \"Delay\": 0.0,\n                \"ExpectCode\": [\n                    0\n                ],\n                \"IgnoreUnexpected\": false\n            },\n            {\n                \"Cmd\": \"/bin/rm -rf /unitree/module/video_hub_pc4\",\n                \"Delay\": 0.0,\n                \"ExpectCode\": [\n                    0\n                ],\n                \"IgnoreUnexpected\": true\n            }\n        ],\n        \"CmdPreList\": [\n            {\n                \"Cmd\": \"/unitree/sbin/mscli stopservice video_hub_pc4\",\n                \"Delay\": 0.0,\n                \"ExpectCode\": [\n                    1,\n                    108,\n                    120\n                ],\n                \"IgnoreUnexpected\": false\n            },\n            {\n                \"Cmd\": \"/unitree/sbin/mscli stopservice video_hub_pc4_chest\",\n                \"Delay\": 0.0,\n                \"ExpectCode\": [\n                    1,\n                    108,\n                    120\n                ],\n                \"IgnoreUnexpected\": false\n            }\n        ]\n    },\n    \"Time\": \"2025-04-30 10:59:30\",\n    \"Type\": \"NORMAL\",\n    \"Version\": \"1.0.2.3\"\n}",
+    "/unitree/robot/pkg/module/unitree_patch_pc4/module.json": "{\n    \"Commit\": \"81529bedcf0a4ada51747bca72b246a4f533e774\",\n    \"FileList\": {\n        \"/etc/chrony/chrony.config\": 784,\n        \"/etc/chrony/chrony.service\": 615,\n        \"/etc/ld.so.conf.d/unitree.conf\": 30,\n        \"/root/.asoundrc\": 40,\n        \"/unitree/bin/json_checker\": 98192,\n        \"/unitree/etc/master_service/cmd/am-init\": 72,\n        \"/unitree/etc/master_service/cmd/core-init\": 93,\n        \"/unitree/etc/master_service/cmd/ota-pipe\": 236,\n        \"/unitree/etc/master_service/cmd/ota-update\": 199,\n        \"/unitree/etc/master_service/cmd/pd-init\": 218,\n        \"/unitree/etc/master_service/conflict\": 3,\n        \"/unitree/etc/master_service/forbid\": 0,\n        \"/unitree/etc/master_service/init\": 52,\n        \"/unitree/etc/master_service/manual\": 3,\n        \"/unitree/etc/master_service/once\": 52,\n        \"/unitree/etc/master_service/path\": 3,\n        \"/unitree/etc/master_service/plan\": 3,\n        \"/unitree/etc/master_service/prio\": 3,\n        \"/unitree/etc/master_service/protect\": 21,\n        \"/unitree/etc/ota_pipe/ota_pipe_hosts.json\": 48,\n        \"/unitree/sbin/mscli\": 5951720,\n        \"/unitree/sbin/ota_pipe_cli\": 6078920,\n        \"/unitree/sbin/start-stop-daemon\": 127936,\n        \"/unitree/var/data/chrony/chrony_3.5-6ubuntu6.2_arm64.deb\": 212496,\n        \"/unitree/var/data/chrony/chrony_setup.sh\": 1629,\n        \"/unitree/var/data/ota_update/ota_pipe/ota_pipe_service\": 9213664,\n        \"/unitree/var/data/ota_update/ota_update.sh\": 4103\n    },\n    \"Install\": {\n        \"CmdPostList\": [\n            {\n                \"Cmd\": \"chown root:root -R /unitree\",\n                \"Delay\": 0.0,\n                \"ExpectCode\": [\n                    0\n                ],\n                \"IgnoreUnexpected\": true\n            },\n            {\n                \"Cmd\": \"chmod +x /unitree/var/data/chrony/chrony_setup.sh; /unitree/var/data/chrony/chrony_setup.sh\",\n                \"Delay\": 0.0,\n                \"ExpectCode\": [\n                    0\n                ],\n                \"IgnoreUnexpected\": true\n            },\n            {\n                \"Cmd\": \"ldconfig\",\n                \"Delay\": 0.0,\n                \"ExpectCode\": [\n                    0\n                ],\n                \"IgnoreUnexpected\": false\n            },\n            {\n                \"Cmd\": \"systemctl stop unitree-upgrade.service; systemctl disable unitree-upgrade.service; rm /etc/systemd/system/unitree-upgrade.service; systemctl daemon-reload; rm -rf /upgradePythonServer\",\n                \"Delay\": 0.0,\n                \"ExpectCode\": [\n                    0\n                ],\n                \"IgnoreUnexpected\": false\n            }\n        ],\n        \"CmdPreList\": []\n    },\n    \"Method\": \"\",\n    \"Name\": \"unitree_patch_pc4\",\n    \"Remove\": {\n        \"CmdPostList\": [],\n        \"CmdPreList\": []\n    },\n    \"Time\": \"2026-04-04 22:43:53\",\n    \"Type\": \"VIRTUAL\",\n    \"Version\": \"1.0.0.6\"\n}",
+    "/home/robot_emb/unitree_sdk2_python/unitree_sdk2py/g1/loco/g1_loco_client.py": "import json\n\nfrom ...rpc.client import Client\nfrom .g1_loco_api import *\n\n\"\"\"\n\" class SportClient\n\"\"\"\nclass LocoClient(Client):\n    def __init__(self):\n        super().__init__(LOCO_SERVICE_NAME, False)\n        self.first_shake_hand_stage_ = -1\n\n    def Init(self):\n        # set api version\n        self._SetApiVerson(LOCO_API_VERSION)\n\n        # regist api\n        self._RegistApi(ROBOT_API_ID_LOCO_GET_FSM_ID, 0)\n        self._RegistApi(ROBOT_API_ID_LOCO_GET_FSM_MODE, 0)\n        self._RegistApi(ROBOT_API_ID_LOCO_GET_BALANCE_MODE, 0)\n        self._RegistApi(ROBOT_API_ID_LOCO_GET_SWING_HEIGHT, 0)\n        self._RegistApi(ROBOT_API_ID_LOCO_GET_STAND_HEIGHT, 0)\n        self._RegistApi(ROBOT_API_ID_LOCO_GET_PHASE, 0) # deprecated\n\n        self._RegistApi(ROBOT_API_ID_LOCO_SET_FSM_ID, 0)\n        self._RegistApi(ROBOT_API_ID_LOCO_SET_BALANCE_MODE, 0)\n        self._RegistApi(ROBOT_API_ID_LOCO_SET_SWING_HEIGHT, 0)\n        self._RegistApi(ROBOT_API_ID_LOCO_SET_STAND_HEIGHT, 0)\n        self._RegistApi(ROBOT_API_ID_LOCO_SET_VELOCITY, 0)\n        self._RegistApi(ROBOT_API_ID_LOCO_SET_ARM_TASK, 0)\n\n    def GetFsmId(self):\n        p = {}\n        parameter = json.dumps(p)\n        code, data = self._Call(ROBOT_API_ID_LOCO_GET_FSM_ID, parameter)\n        if code == 0:\n            return code, json.loads(data)\n        else:\n            return code, None\n\n    # 7101\n    def SetFsmId(self, fsm_id: int):\n        p = {}\n        p[\"data\"] = fsm_id\n        parameter = json.dumps(p)\n        code, data = self._Call(ROBOT_API_ID_LOCO_SET_FSM_ID, parameter)\n        return code\n\n    # 7102\n    def SetBalanceMode(self, balance_mode: int):\n        p = {}\n        p[\"data\"] = balance_mode\n        parameter = json.dumps(p)\n        code, data = self._Call(ROBOT_API_ID_LOCO_SET_BALANCE_MODE, parameter)\n        return code\n\n    # 7104\n    def SetStandHeight(self, stand_height: float):\n        p = {}\n        p[\"data\"] = stand_height\n        parameter = json.dumps(p)\n        code, data = self._Call(ROBOT_API_ID_LOCO_SET_STAND_HEIGHT, parameter)\n        return code\n\n    # 7105\n    def SetVelocity(self, vx: float, vy: float, omega: float, duration: float = 1.0):\n        p = {}\n        velocity = [vx,vy,omega]\n        p[\"velocity\"] = velocity\n        p[\"duration\"] = duration\n        parameter = json.dumps(p)\n        code, data = self._Call(ROBOT_API_ID_LOCO_SET_VELOCITY, parameter)\n        return code\n    \n    # 7106\n    def SetTaskId(self, task_id: float):\n        p = {}\n        p[\"data\"] = task_id\n        parameter = json.dumps(p)\n        code, data = self._Call(ROBOT_API_ID_LOCO_SET_ARM_TASK, parameter)\n        return code\n\n    def Damp(self):\n        self.SetFsmId(1)\n    \n    def Start(self):\n        self.SetFsmId(200)\n\n    def Squat2StandUp(self):\n        self.SetFsmId(706)\n\n    def Lie2StandUp(self):\n        self.SetFsmId(702)\n\n    def Sit(self):\n        self.SetFsmId(3)\n\n    def StandUp2Squat(self):\n        self.SetFsmId(706)\n\n    def ZeroTorque(self):\n        self.SetFsmId(0)\n\n    def StopMove(self):\n        self.SetVelocity(0., 0., 0.)\n\n    def HighStand(self):\n        UINT32_MAX = (1 << 32) - 1\n        self.SetStandHeight(UINT32_MAX)\n\n    def LowStand(self):\n        UINT32_MIN = 0\n        self.SetStandHeight(UINT32_MIN)\n\n    def Move(self, vx: float, vy: float, vyaw: float, continous_move: bool = False):\n        duration = 864000.0 if continous_move else 1\n        self.SetVelocity(vx, vy, vyaw, duration)\n\n    def BalanceStand(self, balance_mode: int):\n        self.SetBalanceMode(balance_mode)\n\n    def WaveHand(self, turn_flag: bool = False):\n        self.SetTaskId(1 if turn_flag else 0)\n\n    def ShakeHand(self, stage: int = -1):\n        if stage == 0:\n            self.first_shake_hand_stage_ = False\n            self.SetTaskId(2)\n        elif stage == 1:\n            self.first_shake_hand_stage_ = True\n            self.SetTaskId(3)\n        else:\n            self.first_shake_hand_stage_ = not self.first_shake_hand_stage_\n            return self.SetTaskId(3 if self.first_shake_hand_stage_ else 2)\n    ",
+    "/home/robot_emb/unitree_sdk2_python/unitree_sdk2py/g1/loco/g1_loco_api.py": "\"\"\"\n\" service name\n\"\"\"\nLOCO_SERVICE_NAME = \"sport\"\n\n\n\"\"\"\n\" service api version\n\"\"\"\nLOCO_API_VERSION = \"1.0.0.0\"\n\n\n\"\"\"\n\" api id\n\"\"\"\nROBOT_API_ID_LOCO_GET_FSM_ID = 7001\nROBOT_API_ID_LOCO_GET_FSM_MODE = 7002\nROBOT_API_ID_LOCO_GET_BALANCE_MODE = 7003\nROBOT_API_ID_LOCO_GET_SWING_HEIGHT = 7004\nROBOT_API_ID_LOCO_GET_STAND_HEIGHT = 7005\nROBOT_API_ID_LOCO_GET_PHASE = 7006 # deprecated\n\nROBOT_API_ID_LOCO_SET_FSM_ID = 7101\nROBOT_API_ID_LOCO_SET_BALANCE_MODE = 7102\nROBOT_API_ID_LOCO_SET_SWING_HEIGHT = 7103\nROBOT_API_ID_LOCO_SET_STAND_HEIGHT = 7104\nROBOT_API_ID_LOCO_SET_VELOCITY = 7105\nROBOT_API_ID_LOCO_SET_ARM_TASK = 7106\n\n\"\"\"\n\" error code\n\"\"\"",
+    "/home/robot_emb/robot_python/start.sh": "#!/bin/bash\n\n# Robot AI Service \u542f\u52a8\u811a\u672c\n# \u4f7f\u7528\u65b9\u6cd5: ./start.sh\n\n# \u83b7\u53d6\u811a\u672c\u6240\u5728\u76ee\u5f55\u7684\u7edd\u5bf9\u8def\u5f84\nSCRIPT_DIR=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")\" && pwd)\"\ncd \"$SCRIPT_DIR\"\n\n# \u6fc0\u6d3b\u865a\u62df\u73af\u5883\nif [ -d \"venv\" ]; then\n    source venv/bin/activate\nelse\n    echo \"\u9519\u8bef: \u672a\u627e\u5230\u865a\u62df\u73af\u5883 venv\uff0c\u8bf7\u5148\u8fd0\u884c python3 -m venv venv\"\n    exit 1\nfi\n\n# \u8bbe\u7f6e\u9879\u76ee\u6839\u76ee\u5f55\u73af\u5883\u53d8\u91cf\nexport PROJECT_ROOT=\"$SCRIPT_DIR\"\n\n# \u542f\u52a8\u670d\u52a1 (\u76f4\u63a5\u4f7f\u7528 uvicorn \u6307\u5b9a\u7aef\u53e3)\necho \"\u6b63\u5728\u542f\u52a8 Robot AI Service (\u7aef\u53e3: 12000)...\"\nuvicorn src.main:app --host 0.0.0.0 --port 12000 --log-level info\n\n"
+  },
+  "directories": {
+    "/home/robot_emb/robot_python/src": [
+      {
+        "name": "utils",
+        "directory": true,
+        "symlink": false,
+        "bytes": 4096
+      },
+      {
+        "name": "main.py",
+        "directory": false,
+        "symlink": false,
+        "bytes": 5411
+      },
+      {
+        "name": "core",
+        "directory": true,
+        "symlink": false,
+        "bytes": 4096
+      },
+      {
+        "name": "__pycache__",
+        "directory": true,
+        "symlink": false,
+        "bytes": 4096
+      },
+      {
+        "name": "schemas",
+        "directory": true,
+        "symlink": false,
+        "bytes": 4096
+      },
+      {
+        "name": "api",
+        "directory": true,
+        "symlink": false,
+        "bytes": 4096
+      },
+      {
+        "name": "__init__.py",
+        "directory": false,
+        "symlink": false,
+        "bytes": 23
+      },
+      {
+        "name": "services",
+        "directory": true,
+        "symlink": false,
+        "bytes": 4096
+      }
+    ],
+    "/home/unitree/g1_true23_onboard/gear_sonic_deploy/policy": [
+      {
+        "name": "observation_config_example.yaml",
+        "directory": false,
+        "symlink": false,
+        "bytes": 6483
+      },
+      {
+        "name": "release",
+        "directory": true,
+        "symlink": false,
+        "bytes": 4096
+      }
+    ],
+    "/unitree/etc/master_service": [
+      {
+        "name": "plan",
+        "directory": false,
+        "symlink": false,
+        "bytes": 3
+      },
+      {
+        "name": "init",
+        "directory": false,
+        "symlink": false,
+        "bytes": 52
+      },
+      {
+        "name": "service",
+        "directory": true,
+        "symlink": false,
+        "bytes": 4096
+      },
+      {
+        "name": "cmd",
+        "directory": true,
+        "symlink": false,
+        "bytes": 4096
+      },
+      {
+        "name": "once",
+        "directory": false,
+        "symlink": false,
+        "bytes": 52
+      },
+      {
+        "name": "protect",
+        "directory": false,
+        "symlink": false,
+        "bytes": 21
+      },
+      {
+        "name": "forbid",
+        "directory": false,
+        "symlink": false,
+        "bytes": 0
+      },
+      {
+        "name": "conflict",
+        "directory": false,
+        "symlink": false,
+        "bytes": 3
+      },
+      {
+        "name": "manual",
+        "directory": false,
+        "symlink": false,
+        "bytes": 3
+      },
+      {
+        "name": "prio",
+        "directory": false,
+        "symlink": false,
+        "bytes": 3
+      },
+      {
+        "name": "path",
+        "directory": false,
+        "symlink": false,
+        "bytes": 3
+      }
+    ],
+    "/unitree/robot/pkg/module": [
+      {
+        "name": "master_service_pc4",
+        "directory": true,
+        "symlink": false,
+        "bytes": 4096
+      },
+      {
+        "name": "video_hub_pc4",
+        "directory": true,
+        "symlink": false,
+        "bytes": 4096
+      },
+      {
+        "name": "unitree_patch_pc4",
+        "directory": true,
+        "symlink": false,
+        "bytes": 4096
+      }
+    ],
+    "/unitree/module": [
+      {
+        "name": "master_service",
+        "directory": true,
+        "symlink": false,
+        "bytes": 4096
+      },
+      {
+        "name": "graph_pid_ws",
+        "directory": true,
+        "symlink": false,
+        "bytes": 4096
+      },
+      {
+        "name": "video_hub_pc4",
+        "directory": true,
+        "symlink": false,
+        "bytes": 4096
+      },
+      {
+        "name": "slam_app_bridge",
+        "directory": true,
+        "symlink": false,
+        "bytes": 4096
+      }
+    ]
+  }
+}

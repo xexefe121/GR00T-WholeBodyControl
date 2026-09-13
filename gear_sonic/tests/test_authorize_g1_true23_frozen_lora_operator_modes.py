@@ -52,9 +52,9 @@ def test_operator_modes_get_distinct_bound_envelopes(
 
     assert direct["kind"] == authorize.KIND
     assert direct["stage_one_envelope"] == {
-        "action_fraction": 0.10,
-        "maximum_target_rate_rad_per_second": 0.25,
-        "maximum_post_arm_duration_seconds": 5,
+        "action_fraction": 0.60,
+        "maximum_target_rate_rad_per_second": 5.0,
+        "maximum_post_arm_duration_seconds": 11,
         "wireless_deadman_required": False,
         "wireless_stop_required": False,
         "direct_dance_command_required": "DANCE",
@@ -63,8 +63,8 @@ def test_operator_modes_get_distinct_bound_envelopes(
     }
     assert live["kind"] == authorize.LIVE_KIND
     assert live["stage_one_envelope"] == {
-        "action_fraction": 0.10,
-        "maximum_target_rate_rad_per_second": 0.25,
+        "action_fraction": 0.60,
+        "maximum_target_rate_rad_per_second": 5.0,
         "maximum_post_arm_duration_seconds": 10,
         "wireless_deadman_required": True,
         "wireless_stop_required": True,

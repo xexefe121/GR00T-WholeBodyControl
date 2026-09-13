@@ -1,0 +1,102 @@
+{
+  "standing_qpos": [
+    0.0,
+    0.0,
+    0.76,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    -0.312,
+    0.0,
+    0.0,
+    0.669,
+    -0.363,
+    0.0,
+    -0.312,
+    0.0,
+    0.0,
+    0.669,
+    -0.363,
+    0.0,
+    0.0,
+    0.2,
+    0.2,
+    0.0,
+    0.6,
+    0.0,
+    0.2,
+    -0.2,
+    0.0,
+    0.6,
+    0.0
+  ],
+  "tasks": [
+    {
+      "name": "left_hand",
+      "kind": "body",
+      "source_body": "left_wrist_yaw_link",
+      "target_body": "left_wrist_roll_rubber_hand",
+      "source_point": [
+        0.18,
+        -0.025,
+        0.0
+      ],
+      "target_point": [
+        0.2640000000000001,
+        -0.025000000000000033,
+        1.521609986447625e-17
+      ],
+      "priority": 3,
+      "orientation_priority": 5,
+      "position_weight": 6.0,
+      "orientation_weight": 0.2,
+      "contact_side": null
+    },
+    {
+      "name": "right_hand",
+      "kind": "body",
+      "source_body": "right_wrist_yaw_link",
+      "target_body": "right_wrist_roll_rubber_hand",
+      "source_point": [
+        0.18,
+        0.025,
+        0.0
+      ],
+      "target_point": [
+        0.2640000000000001,
+        0.025000000000000033,
+        1.521609986447625e-17
+      ],
+      "priority": 3,
+      "orientation_priority": 5,
+      "position_weight": 6.0,
+      "orientation_weight": 0.2,
+      "contact_side": null
+    },
+    {
+      "name": "head_proxy",
+      "kind": "body",
+      "source_body": "torso_link",
+      "target_body": "torso_link",
+      "source_point": [
+        0.0,
+        0.0,
+        0.35
+      ],
+      "target_point": [
+        0.0,
+        0.0,
+        0.35
+      ],
+      "priority": 2,
+      "orientation_priority": null,
+      "position_weight": 8.0,
+      "orientation_weight": 0.0,
+      "contact_side": null
+    }
+  ],
+  "packet_period_s": 0.02,
+  "stale_seconds": 0.1,
+  "stop_transition_controls": 100
+}

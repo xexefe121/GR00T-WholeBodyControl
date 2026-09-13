@@ -1,0 +1,63 @@
+{
+  "kind": "offline_native23_mjbatch_ilqr_probe",
+  "clip": "walk002",
+  "probe": "full-lifecycle",
+  "completed_controls": 1417,
+  "requested_controls": 1417,
+  "probe_completed": true,
+  "full_source_completed": true,
+  "failure": null,
+  "metrics": {
+    "phase": "source_motion",
+    "controls": 667,
+    "leg_rmse": 0.11670716186737833,
+    "arm_rmse": 0.02852306471081312,
+    "root_p95": 0.1414126855711311,
+    "tracked_body_position_p95": [
+      0.1414126855711311,
+      0.14479365856326604,
+      0.07587110690551922,
+      0.1059984834393351,
+      0.14878823205620473,
+      0.12210387453200261
+    ]
+  },
+  "range_excess_max": 0.004805007933222444,
+  "velocity_ratio_max": 0.5036549140870865,
+  "effort_ratio_max": 1.0,
+  "feedback_correction_clip_rad": 0.1,
+  "feedback_correction_clipped_controls": 0,
+  "planning_ms_p50_p95_max": [
+    3801.5797105000074,
+    4498.628894950007,
+    4968.134028000009
+  ],
+  "planning_deadlines_missed": 284,
+  "elapsed_wall_seconds": 1046.400006313,
+  "simulated_seconds": 28.33999999999517,
+  "physics_steps": 14170,
+  "declared_future_preview_seconds": 0.6,
+  "conservative_effective_source_preview_seconds": 0.74,
+  "recorded_target_seed": {
+    "path": "artifacts/teleop_six_hour_20260910/bfm_walk002_feedback_v2",
+    "trace_sha256": "74bbd9c8e4cae7c8c8b421b4a1448f917872161b837efce04001810041b94f97",
+    "report_sha256": "05891f641b8cf7711fcd678bc5577d5d3973d3c653dacc2a77c238e303e06f05",
+    "controls": 1417,
+    "original_generator_preview_seconds": 0.14,
+    "selection": "lower actual-rollout cost of recorded BFM targets and shifted previous MPC plan",
+    "physical_states_copied": false,
+    "seed_reference_differs_from_optimization_goal": false
+  },
+  "motion_override": null,
+  "mujoco": "3.2.3",
+  "controller": "iLQR position targets with measured-state feedback and native manualPD",
+  "physical_state_rewrites_after_initialization": 0,
+  "root_assistance_forces": 0,
+  "timing_qualified": false,
+  "full_body_tracking_qualified": false,
+  "hardware_authorized": false,
+  "native323_replay_required": true,
+  "request_sha256": "62d0ed662dc305f2ac527606785aa52cd5683cc19cdf34744eecc399c55594cc",
+  "trace_sha256": "670c31d900f358ec4f50beedb1362ffe187b7a9aa07d6bfed137485b6cbecb0e",
+  "plans_sha256": "7a4eaa2cf6f32afac04e772431ce43b8c4b357ac10b7740049503b487362c267"
+}

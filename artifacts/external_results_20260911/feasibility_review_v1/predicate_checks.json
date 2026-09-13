@@ -1,0 +1,27 @@
+{
+  "scope": "Pure array validation only; no MjModel, MjData, mj_step or solver call",
+  "source_file": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\gear_sonic\\utils\\g1_true23_mjbatch_model.py",
+  "source_sha256": "61d1c168ba5db189fc1e882bfb1e2c9f7773584353b8e2251713ae0d0dd7dc9e",
+  "checks": {
+    "force_Nx1_rejected": true,
+    "force_singleton_wrong_batch_rejected": true,
+    "warning_Nx1_rejected": true,
+    "time_Nx1_rejected": true,
+    "well_formed_quiet_state_accepted": true,
+    "zero_quaternion_rejected": true,
+    "quaternion_norm_matches_oracle_1e10_tolerance": true,
+    "nonfinite_clock_rejected": true,
+    "nonfinite_force_rejected": true
+  },
+  "contract": {
+    "joint_excess_tolerance_rad": 1e-06,
+    "maximum_speed_ratio": 1.0,
+    "maximum_effort_ratio": 1.000000001,
+    "minimum_root_height_m": 0.25,
+    "maximum_root_tilt_rad": 1.2,
+    "maximum_warning_count": 0,
+    "clock_tolerance_seconds": 1e-10,
+    "sample_seconds": 0.002,
+    "root_quaternion_norm_tolerance": 1e-10
+  }
+}

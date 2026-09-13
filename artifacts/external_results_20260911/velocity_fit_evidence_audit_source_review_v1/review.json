@@ -1,0 +1,45 @@
+{
+  "schema": "saved_fit_audit_source_review_v1",
+  "reviewer": "/root/review_continuation",
+  "created_utc": "2026-09-11T08:23:01.6963493Z",
+  "verdict": "CLEAR",
+  "approved": true,
+  "scope": "ONE root saved-evidence audit after the selected fixed fit has completed optimization and final numerical diagnostics. No model inference, optimizer replay, physics, candidate selection or hardware.",
+  "source_path": "Z:/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_resume_20260911/audit_velocity_fit_evidence.py",
+  "source_sha256": "bfeb932aa8d2eea3e83e20a7c731c36c31c0ab46f4f66ff9c49e3145565c7fed",
+  "known_training_receipt_sha256": "1c9854317d178959c40d59aaa915746a8bd101f0d44e46237c9d1fd2a7a46ba2",
+  "training_source_review_path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/velocity_chord_fit_prelaunch_review_v1/review.json",
+  "training_source_review_sha256": "d7e5ee1375d826dc0f25a8708a918dbb819328ff68ee3fc19b0637345ab70178",
+  "checks": {
+    "matches_final_snapshot_v3_report_schema": true,
+    "original_windows_python31011_numpy1235_torch210_cpu_onnx122_and_threads1": true,
+    "full_frozen_source_input_mapping_checks": true,
+    "request_clearance_reviews_restoration_optimization_receipts_bound": true,
+    "checkpoint_request_equal_and_steps65001_to70000_fixed": true,
+    "all_six_final_optimizer_counters70000_and_finite": true,
+    "old_normalization_and_span_exact": true,
+    "ONNX_parameter_transpose_bias_normalization_matches_final_checkpoint": true,
+    "ONNX_structure_without_initializers_matches_prior65000": true,
+    "private_Torch_generator_reconstructs45000_draws_and2880000_row_axis_pairs": true,
+    "final_Torch_RNG_and_unchanged_NumPy_RNG_exact": true,
+    "all5000_cosine_rates_and_objective_compositions_rebuilt": true,
+    "initial3057_predictions_and_objective_match_prior65000": true,
+    "both143679_saved_prediction_sets_plus_actual7_export_parity_recomputed": true,
+    "full_nine_cell_normalized_anchor_chord_means_and_clip_counts_recomputed": true,
+    "overall_and_query250_target_RMSE_recomputed": true,
+    "output_source_request_and_failure_receipt_preserved": true,
+    "final_all_bound_inputs_source_rehashed": true
+  },
+  "limitations": [
+    "Saved predictions and reviewed fit source are audited; optimization and model predictions are not replayed.",
+    "Per-joint, fixed-pair, first24 and analytical sensitivity report fields are explicitly outside this core-metrics audit.",
+    "Passing this future audit will not itself establish canonical simulation success or hardware readiness."
+  ],
+  "reviewer_execution": {
+    "read_only_source_review": true,
+    "model_inference": 0,
+    "optimizer_updates": 0,
+    "physics_steps": 0,
+    "audit_execution": 0
+  }
+}

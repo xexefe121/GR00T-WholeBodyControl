@@ -1,0 +1,42 @@
+{
+  "kind": "retarget_v3_multistart_independent_prefix_causality_check",
+  "frames": 800,
+  "source_clip": "pico",
+  "includes_single_start_v3_failure_onset": true,
+  "all_pose_and_diagnostic_arrays_exact": true,
+  "exact_arrays": {
+    "qpos": true,
+    "body_pos_w": true,
+    "body_quat_w": true,
+    "foot_position_error": true,
+    "foot_orientation_error": true,
+    "leg_nfev": true,
+    "arm_nfev": true,
+    "original_task_error": true,
+    "leg_solver_success": true,
+    "leg_solver_status": true,
+    "leg_solver_cost": true,
+    "leg_solver_optimality": true,
+    "leg_solver_attempt_failures": true,
+    "leg_nfev_total": true,
+    "leg_selected_initialization": true,
+    "arm_solver_success": true,
+    "arm_orientation_error": true
+  },
+  "derivatives_before_prefix_endpoint_exact": {
+    "joint_vel": true,
+    "body_lin_vel_w": true,
+    "body_ang_vel_w": true
+  },
+  "endpoint_derivative_difference": {
+    "joint_vel": 1.6253706292336618,
+    "body_lin_vel_w": 0.23271779955890623,
+    "body_ang_vel_w": 0.8892258747388655
+  },
+  "endpoint_difference_reason": "Declared offline central derivatives use a following sample; prefix endpoint uses backward difference.",
+  "full_reference_sha256": "571fb2723f9a8a9f99c35e724e3dd7e9d88c384152ba0777595fece4cae1cfb9",
+  "prefix_reference_sha256": "b66abf4199237c5a1b3c4fb5a5547f46fbe0643195eec2ed1c6b2cbf49c41b14",
+  "source_file_sha256": "c7cb76ac884dd8b7aab01cf80c5da340c6a38c02cd6551edb04bb1bea140847b",
+  "dynamics_qualified": false,
+  "hardware_authorized": false
+}

@@ -1,0 +1,249 @@
+{
+  "kind": "native23_prepared_reference_fk_preflight_v1",
+  "passed": true,
+  "packet_equality": {
+    "walk002": {
+      "all_packet_fields_exact": true,
+      "calls": 656,
+      "legacy": {
+        "count": 656,
+        "median_ms": 1.3766500000000002,
+        "p95_ms": 1.900479,
+        "max_ms": 3.088708
+      },
+      "prepared": {
+        "count": 656,
+        "median_ms": 0.4994005,
+        "p95_ms": 0.7075065,
+        "max_ms": 1.152708
+      }
+    },
+    "walk003": {
+      "all_packet_fields_exact": true,
+      "calls": 808,
+      "legacy": {
+        "count": 808,
+        "median_ms": 1.3918665,
+        "p95_ms": 1.87380405,
+        "max_ms": 2.853584
+      },
+      "prepared": {
+        "count": 808,
+        "median_ms": 0.502242,
+        "p95_ms": 0.7009380999999999,
+        "max_ms": 0.988258
+      }
+    },
+    "walk008": {
+      "all_packet_fields_exact": true,
+      "calls": 353,
+      "legacy": {
+        "count": 353,
+        "median_ms": 1.333292,
+        "p95_ms": 1.7697534,
+        "max_ms": 2.738358
+      },
+      "prepared": {
+        "count": 353,
+        "median_ms": 0.493258,
+        "p95_ms": 0.6367163999999998,
+        "max_ms": 1.024375
+      }
+    }
+  },
+  "sources": {
+    "walk002": {
+      "path": "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/walk002/causal_packets.json",
+      "sha256": "a6fdd99a5ab924204d469751bb6aaebf38c19d7b7428366b09a406d88fc000c1",
+      "packets": 656
+    },
+    "walk003": {
+      "path": "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/walk003/causal_packets.json",
+      "sha256": "8b6d7d1d4b6ddc978b1c220b8f46d97d4e9f7b251f8fe8840230972ca90d5c57",
+      "packets": 808
+    },
+    "walk008": {
+      "path": "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/walk008/causal_packets.json",
+      "sha256": "3ae04d871dfa795a3e5a664891a54d8d8e9f7e7f52e11378dc29245398f40990",
+      "packets": 353
+    }
+  },
+  "native_physics": {
+    "legacy": {
+      "integration": {
+        "passed": true,
+        "requested_controls": 656,
+        "successful_controls": 656,
+        "controller_completed_controls": 656,
+        "recorded_post_attempt_states": 656,
+        "failure": null,
+        "failed_control_source_frame_index": null,
+        "failed_attempt_integrated": null,
+        "attempted_controls": 656,
+        "recorded_state_scope": "initial_state_and_completed_physics_transitions_including_integrated_failure",
+        "final_simulation_time_s": 13.12000000000105,
+        "fallback_active": false,
+        "fallback_trigger": null,
+        "fallback_first_transition": null,
+        "minimum_base_height_m": 0.7373243536398111,
+        "maximum_base_tilt_rad": 0.2650079690685038
+      },
+      "baseline_exact": {
+        "qpos": true,
+        "qvel": true,
+        "simulation_time": true
+      },
+      "stages": {
+        "reference_root_height": {
+          "count": 658,
+          "median_ms": 1.353229,
+          "p95_ms": 1.5887524,
+          "max_ms": 5.486525
+        },
+        "retarget_pico_reference_packet": {
+          "count": 656,
+          "median_ms": 2.407166,
+          "p95_ms": 2.86103125,
+          "max_ms": 6.651791
+        },
+        "_policy_frame": {
+          "count": 656,
+          "median_ms": 0.18117899999999998,
+          "p95_ms": 0.2283645,
+          "max_ms": 1.7072
+        },
+        "policy_inference": {
+          "count": 656,
+          "median_ms": 4.787153999999999,
+          "p95_ms": 6.2450660000000005,
+          "max_ms": 40.864173
+        },
+        "step": {
+          "count": 656,
+          "median_ms": 6.806478500000001,
+          "p95_ms": 8.3586015,
+          "max_ms": 43.928681
+        }
+      },
+      "trace_sha256": "2d72f8e55627312e660d5fa90e39057b8a3eb6166f0de5c9212d625ebcab36c1"
+    },
+    "prepared": {
+      "integration": {
+        "passed": true,
+        "requested_controls": 656,
+        "successful_controls": 656,
+        "controller_completed_controls": 656,
+        "recorded_post_attempt_states": 656,
+        "failure": null,
+        "failed_control_source_frame_index": null,
+        "failed_attempt_integrated": null,
+        "attempted_controls": 656,
+        "recorded_state_scope": "initial_state_and_completed_physics_transitions_including_integrated_failure",
+        "final_simulation_time_s": 13.12000000000105,
+        "fallback_active": false,
+        "fallback_trigger": null,
+        "fallback_first_transition": null,
+        "minimum_base_height_m": 0.7373243536398111,
+        "maximum_base_tilt_rad": 0.2650079690685038
+      },
+      "baseline_exact": {
+        "qpos": true,
+        "qvel": true,
+        "simulation_time": true
+      },
+      "stages": {
+        "reference_root_height": {
+          "count": 2,
+          "median_ms": 0.016774999999999998,
+          "p95_ms": 0.0213128,
+          "max_ms": 0.021817
+        },
+        "retarget_pico_reference_packet": {
+          "count": 656,
+          "median_ms": 0.9303710000000001,
+          "p95_ms": 1.13565825,
+          "max_ms": 2.19835
+        },
+        "_policy_frame": {
+          "count": 656,
+          "median_ms": 0.183929,
+          "p95_ms": 0.227814,
+          "max_ms": 0.482167
+        },
+        "policy_inference": {
+          "count": 656,
+          "median_ms": 4.5459785,
+          "p95_ms": 5.78817675,
+          "max_ms": 10.297008
+        },
+        "step": {
+          "count": 656,
+          "median_ms": 6.569108,
+          "p95_ms": 7.94969975,
+          "max_ms": 12.178466
+        }
+      },
+      "trace_sha256": "c088b20f7371b00435b492140d9b543bf9d540ca7f369fac2a46198528b1fa3a"
+    }
+  },
+  "policy_identity": {
+    "diagnostic_pair": {
+      "kind": "g1_true23_diagnostic_pair_provenance_v1",
+      "validated": true,
+      "encoder": {
+        "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/paired_encoder_20260905_v2/original_breadth25/model_25.diagnostic.encoder.onnx",
+        "sha256": "3806b2b63ebadf4d6cbf9f79b7072f2bf27ab8eb8bc6a9b3042f97739cc5428a",
+        "report_path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/paired_encoder_20260905_v2/original_breadth25/model_25.diagnostic.encoder.json",
+        "report_sha256": "c38bb793284b2c05623b259a3781902fc66885da1098388a74634b4898440634"
+      },
+      "decoder": {
+        "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/paired_encoder_20260905_v2/original_breadth25/model_25.diagnostic.decoder.onnx",
+        "sha256": "f4416889023eb629656fa189649d8cd071cdc3ae61fc1bfd888d07815d21bdc8",
+        "report_path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/paired_encoder_20260905_v2/original_breadth25/model_25.diagnostic.decoder.json",
+        "report_sha256": "e4b10011d8e9cead9264ae1b23a0f439d41c572d0a06f78c8785183cba2ee80d"
+      },
+      "paired_encoder_state_sha256": "3625edb10aabd266196702aefd464ad07c93847f2d1722a977e18ef2a0143990",
+      "encoder_contract": {
+        "input_shape": [
+          1,
+          267
+        ],
+        "output_shape": [
+          1,
+          64
+        ],
+        "dtype": "float32",
+        "fsq_level": 32,
+        "fsq_formula": "fsq_tanh_round_ste_even_levels_v1"
+      },
+      "source": {
+        "adapter_state_sha256": "72af9514750d1a2cb76a710e29f24f071e36cd062beee1daac6e24015fcc8652",
+        "filename": "model_25.diagnostic.pt",
+        "policy_state_sha256": "e194a3ac0fc110d06897b940c5e910d20caf292977d24a510c2622de9af62604",
+        "sha256": "033d5b3218506081d6390ba7f0b430e0e72b269b80e72cc51b9306d160926fae",
+        "update_count": 25
+      },
+      "hardware_authorized": false,
+      "deployment_ready": false,
+      "scope": "same_checkpoint_export_provenance_and_model_bytes_not_new_numerical_or_physical_qualification"
+    },
+    "original_native23_v14_diagnostic": false,
+    "legacy_unpaired_diagnostic": false,
+    "encoder_sha256": "3806b2b63ebadf4d6cbf9f79b7072f2bf27ab8eb8bc6a9b3042f97739cc5428a",
+    "decoder_sha256": "f4416889023eb629656fa189649d8cd071cdc3ae61fc1bfd888d07815d21bdc8",
+    "decoder_report": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/paired_encoder_20260905_v2/original_breadth25/model_25.diagnostic.decoder.json",
+    "decoder_report_sha256": "e4b10011d8e9cead9264ae1b23a0f439d41c572d0a06f78c8785183cba2ee80d",
+    "checkpoint_update_count": 25,
+    "residual_alpha": null
+  },
+  "baseline_sha256": "00f1695879d36229c3f02e623cfbb5c57e70ef360d55942166e9e39ba90c7a0a",
+  "source_files": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_reference_runtime_20260910_v1/preflight.py": "6058c3ea48a9a2ccaedcb763d9104faccd36f846c47c08875c25adc9c4a36b2b",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_reference_runtime_20260910_v1/EXPERIMENT.md": "fc09db99747395ee47b18ac762d7e07e367b5a22c0a8158bac0e70f338298c1c",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/teleop/kinematic_reference.py": "8dd0f4da6bdfbee7c2cceb55ba6498f1c530e04145e12280ec4b25324f98308f"
+  },
+  "actual_references_or_policy_changed": false,
+  "tracking_improved": false,
+  "deployment_ready": false,
+  "hardware_authorized": false
+}

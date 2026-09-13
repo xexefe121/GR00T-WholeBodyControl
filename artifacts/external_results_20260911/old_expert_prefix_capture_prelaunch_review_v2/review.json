@@ -1,0 +1,53 @@
+{
+  "kind": "independent_old_expert_prefix_capture_final_source_and_launch_review",
+  "passed": true,
+  "source_review_pass": true,
+  "launch_review_pass": true,
+  "decision": "CLEAR",
+  "utc": "2026-09-11T09:22:23.377406+00:00",
+  "root_selected_scope": "ONE recorded-command replay controls 0..1267, exactly 12680 native steps, capturing full291 boundaries 0..1268. No inference, new labels, perturbations or controller rollout.",
+  "request_path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\old_expert_prefix_snapshots_v2\\capture_request.json",
+  "request_sha256": "415905ad1e5ea5938ff0bda82155342caaae7ed13b72ed952832ff65b69a6c9a",
+  "launch_receipt_path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\old_expert_prefix_snapshots_v2\\capture_process\\launch_receipt.json",
+  "launch_receipt_sha256": "e21ebd367a25b57e1f9af782e748393ae94a669d87db8ad41e686a93350b7ae1",
+  "verification_sha256": "a225fa794e1d10d982d144f5e8ba4aa3d6b3b6abc1bcad4a76be876530cd91f1",
+  "powershell_parse_sha256": "eb09b88e095c07d7ed92a6a282091b58dd4b0672b8d5bff8e1401460ffe92dab",
+  "reviewed_source_and_launcher_hashes": {
+    "source_snapshot_v1\\capture_old_prefix.py": "a50d277ae11f3c1d42d774aeb70f67137b7947ca43f7fdfd3d2822197b5965eb",
+    "source_snapshot_v1\\capture_checks.py": "5fef280a7a656eba8366aa26819ca9655521f01f0697c03ef7550bfe563402a3",
+    "source_snapshot_v1\\strict_native.py": "0d3a59a0a97ea9ca997e1fba568951dc0230137ab01e6bd8e35259d1fc746e6b",
+    "capture_process\\run.ps1": "3fc3088c0c7b44564e5b758c59e858d9fc7952070181cc2469472b7006785143",
+    "capture_process\\run_durable.ps1": "1a408f2d3bbb1c9cc60648e5b116517fa2e38a333c4b5823af02b4287cdc6a46"
+  },
+  "all_153_launch_pins_exact": true,
+  "all_18_original_helper_sources_byteexact": true,
+  "strict_oracle_ast_unchanged": true,
+  "tests_passed": 16,
+  "tests_skipped": 0,
+  "prelaunch_artifacts_absent": {
+    "capture": true,
+    "capture_process\\started.lock": true,
+    "capture_process\\start.json": true,
+    "capture_process\\child.json": true,
+    "capture_process\\stdout.log": true,
+    "capture_process\\stderr.log": true,
+    "capture_process\\exit.json": true
+  },
+  "findings": [],
+  "resolved_prior_finding": "Snapshot rows distinguish attempted, completed, and verified native steps; was_started and fully_verified flags remain honest on partial or thrown native steps. V1 remains preserved and unexecuted.",
+  "checks": [
+    "Exact canonical full291 fixture restored only at initialization, initial qpos/qvel/time/warnings compared to original before any step.",
+    "Every returned native sample is preserved before qpos/qvel/command torque/actual actuator force/time/warning byte comparison and unchanged strict gate.",
+    "Old warning ledger int64 compared through explicit native int32 to int64 serialization; no presumed old full291 endpoint.",
+    "Independent repeated clock uses +=.002; full291 captures follow actual integration and no state writes after initialization.",
+    "Partial samples, boundary states, active native state and attempted/completed/verified counters preserved on exceptions; final rehash precedes success report.",
+    "Absolute frozen WSL script and PYTHONPATH, pinned MuJoCo3.2.3 and NumPy1.26.4, BLAS1, CreateNew launch lock, hidden child with retained handle, explicit null/nonzero exit rejection and report-count gate."
+  ],
+  "limitations": [
+    "Source review authorizes the previously selected single capture only; runtime equality and capture success remain to be established.",
+    "Prefix evidence makes no new full-source, quiet, learned-controller or real-hardware qualification claim."
+  ],
+  "reviewer_native_steps": 0,
+  "reviewer_inference_calls": 0,
+  "reviewer_optimizer_calls": 0
+}

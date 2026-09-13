@@ -1,0 +1,133 @@
+{
+  "candidates": [
+    {
+      "alpha": -0.02,
+      "decoder_filename": "candidate.minus_0p020.decoder.onnx",
+      "decoder_sha256": "aab674c084ccfb686480ac80e4b28bca9f57bec9b6585be957e55d44f75fb2d8",
+      "name": "minus_0p020",
+      "teacher_state_rmse": 2.3211752764967364
+    },
+    {
+      "alpha": -0.01,
+      "decoder_filename": "candidate.minus_0p010.decoder.onnx",
+      "decoder_sha256": "92a125e76a26f8bc3ed4d7f6338cf207ff97608083b91c0bbb3af33eed1bf4c6",
+      "name": "minus_0p010",
+      "teacher_state_rmse": 2.303205893886773
+    },
+    {
+      "alpha": -0.005,
+      "decoder_filename": "candidate.minus_0p005.decoder.onnx",
+      "decoder_sha256": "64e062508165c7272faf4f57d28cdd187f007f28a2142d3fc56e865a6ce03ee5",
+      "name": "minus_0p005",
+      "teacher_state_rmse": 2.2942321055023944
+    },
+    {
+      "alpha": -0.002,
+      "decoder_filename": "candidate.minus_0p002.decoder.onnx",
+      "decoder_sha256": "4fb7ac260ee1d7cd3aa78bafa5f4226df5fb715584367b3d8b9a0b2a664a4a92",
+      "name": "minus_0p002",
+      "teacher_state_rmse": 2.288851370664348
+    },
+    {
+      "alpha": -0.001,
+      "decoder_filename": "candidate.minus_0p001.decoder.onnx",
+      "decoder_sha256": "b167fa901f8a4e820b89605921aeba42a9656f006b2de9d1eca5428c6e538187",
+      "name": "minus_0p001",
+      "teacher_state_rmse": 2.2870583862465783
+    },
+    {
+      "alpha": 0.001,
+      "decoder_filename": "candidate.plus_0p001.decoder.onnx",
+      "decoder_sha256": "954c3bfad06f2ba72d02ef6cac905f061c408f15342758df02678c568f404fc6",
+      "name": "plus_0p001",
+      "teacher_state_rmse": 2.283473312400286
+    },
+    {
+      "alpha": 0.002,
+      "decoder_filename": "candidate.plus_0p002.decoder.onnx",
+      "decoder_sha256": "44d1fb2701f1e65460f1c2c23f676bce4f1d4a44b3b112798dc5034af37946b8",
+      "name": "plus_0p002",
+      "teacher_state_rmse": 2.281681224378008
+    },
+    {
+      "alpha": 0.005,
+      "decoder_filename": "candidate.plus_0p005.decoder.onnx",
+      "decoder_sha256": "7b0ceffd74267df0030e2bae65d851d24c6ce8c15ea374cf3172019622e39765",
+      "name": "plus_0p005",
+      "teacher_state_rmse": 2.276306764396135
+    },
+    {
+      "alpha": 0.01,
+      "decoder_filename": "candidate.plus_0p010.decoder.onnx",
+      "decoder_sha256": "2f167c709aa2eee6085561590ac33e2e3e173018b9eaf53e8275b4efa9627c8e",
+      "name": "plus_0p010",
+      "teacher_state_rmse": 2.2673553874657753
+    },
+    {
+      "alpha": 0.02,
+      "decoder_filename": "candidate.plus_0p020.decoder.onnx",
+      "decoder_sha256": "bb78dc1f03809fbdbc1be641dd8d040d029503f9772040d1af5665edee16442b",
+      "name": "plus_0p020",
+      "teacher_state_rmse": 2.249475670259697
+    },
+    {
+      "alpha": 0.05,
+      "decoder_filename": "candidate.plus_0p050.decoder.onnx",
+      "decoder_sha256": "12646a1f6dbda8db056b20dee62959ef3bd33ebe721f907566c8fcade54c7339",
+      "name": "plus_0p050",
+      "teacher_state_rmse": 2.196027556831054
+    }
+  ],
+  "closed_loop_screening_required": true,
+  "deployment_ready": false,
+  "diagnostic_only": true,
+  "fit": {
+    "base_teacher_state_rmse": 2.2852656841278076,
+    "delta_bias_l2": 0.30471001966377936,
+    "delta_weight_frobenius": 6.782308252466989,
+    "ridge_grid": [
+      {
+        "ridge": 0.0001,
+        "validation_rmse": 1.661128565654449
+      },
+      {
+        "ridge": 0.0003,
+        "validation_rmse": 1.5901414294331404
+      },
+      {
+        "ridge": 0.001,
+        "validation_rmse": 1.5283274011851704
+      },
+      {
+        "ridge": 0.003,
+        "validation_rmse": 1.4844971050144284
+      },
+      {
+        "ridge": 0.01,
+        "validation_rmse": 1.45282176595408
+      },
+      {
+        "ridge": 0.03,
+        "validation_rmse": 1.4338573509598185
+      },
+      {
+        "ridge": 0.1,
+        "validation_rmse": 1.4229301459083603
+      }
+    ],
+    "rows": 536,
+    "selected_ridge": 0.1
+  },
+  "hardware_authorized": false,
+  "kind": "g1_true23_frozen_lora_happy_residual_diagnostic_v1",
+  "robot_network_commands": false,
+  "schema_version": 1,
+  "source": {
+    "base_adapter_state_sha256": "72af9514750d1a2cb76a710e29f24f071e36cd062beee1daac6e24015fcc8652",
+    "base_decoder_report": "model_25.diagnostic.decoder.json",
+    "base_decoder_report_sha256": "c322dc480fa69b5e8b2e3d084cb73687b9f001d9cf2d562aeb1d0448b94bc409",
+    "base_decoder_sha256": "c12038c5f606b59eda370779f9a877c1ecb27687d65c2310e9efc3af73ae1355",
+    "motion_sha256": "e5b73bc131721c630500870c6ce7185c538dd237942ad58e2d02d0aad5a05e04",
+    "teacher_rollout_sha256": "d75562a98ac0351d6e5832197fe0df7ed52d8f22a6a02ee25061694594cf3239"
+  }
+}

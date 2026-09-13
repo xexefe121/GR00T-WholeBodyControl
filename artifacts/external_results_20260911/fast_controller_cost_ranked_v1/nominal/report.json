@@ -1,0 +1,199 @@
+{
+  "kind": "native23_fixed65000_cost_ranked_admission_student",
+  "clip": "walk003",
+  "mujoco": "3.2.3",
+  "segment": "original_lifecycle",
+  "requested_controls": 1569,
+  "completed_full_controls": 430,
+  "completed_controls": 430,
+  "attempted_controls": 430,
+  "partial_substeps": 0,
+  "physics_steps": 4300,
+  "full_segment_completed": false,
+  "probe_completed": false,
+  "failure": {
+    "reasons": [
+      "no_feasible_admission_candidate"
+    ],
+    "global_control": 430,
+    "local_control": 430,
+    "substep": 0,
+    "time": 8.599999999999541,
+    "candidate_count": 4,
+    "executed_rejected_controls": 0
+  },
+  "range_excess_max": 0.0,
+  "velocity_ratio_max": 0.565248273788276,
+  "effort_ratio_max": 1.0,
+  "engine_warning_counts": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "engine_warning_lastinfo": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "independent_accumulated_clock_max_error": 0.0,
+  "policy_ms_p50_p95_max": [
+    9.281599999999557,
+    49.967290000000375,
+    67.68180000000257
+  ],
+  "proposal_ms_p50_p95_max": [
+    6.620299999999801,
+    8.330089999998336,
+    42.22600000000121
+  ],
+  "admission_ms_p50_p95_max": [
+    0.0,
+    39.872399999998365,
+    44.07359999999727
+  ],
+  "policy_20ms_deadline_misses": 181,
+  "attempted_policy_ms_p50_p95_max": [
+    9.28169999999895,
+    50.01674999999928,
+    67.68180000000257
+  ],
+  "attempted_admission_ms_p50_p95_max": [
+    36.59760000000034,
+    40.94560000000058,
+    44.07359999999727
+  ],
+  "attempted_policy_20ms_deadline_misses": 182,
+  "attempted_admissions": 181,
+  "attempted_control_transactions": 431,
+  "ranked_attempted_policy_ms_p50_p95_max": [
+    46.97119999999799,
+    52.131499999998,
+    67.68180000000257
+  ],
+  "ranked_attempted_policy_20ms_deadline_misses": 181,
+  "cost_evaluation_ms_p50_p95_max": [
+    0.0,
+    4.198995000000493,
+    4.7739999999976135
+  ],
+  "selection": "lowest_exact_feasible_prefix_cost",
+  "all_four_candidates_each_admission": true,
+  "tracking_cost_component_order": [
+    "world_body_position",
+    "body_rotation_log",
+    "joint_position",
+    "generalized_velocity",
+    "lower_joint_margin",
+    "upper_joint_margin",
+    "native_speed_soft_margin"
+  ],
+  "runtime_optimizer_calls": 0,
+  "timing_scope": "Per-control proposals, forecasts and evidence copies, selection, actual physics/checks, and trace/ledger preparation; final compressed persistence included in elapsed_seconds only.",
+  "selected_forecast_actual_substeps_checked": 1800,
+  "private_forecasts": 724,
+  "private_physics_steps": 35324,
+  "selected_candidate_counts": {
+    "primary": 1,
+    "original_BFM": 66,
+    "previous_applied": 99,
+    "current_q": 14
+  },
+  "source_metrics": {
+    "source_controls": 80,
+    "requested_source_controls": 819,
+    "original_root_world_p95_m": 0.5886566231535257,
+    "original_root_yaw_abs_p95_deg": 23.978670455341586,
+    "original_hand_head_relative_p95_m": [
+      0.18393030080375972,
+      0.1429262252793281,
+      0.18002807565151538
+    ],
+    "original_hand_head_world_p95_m": [
+      0.7239482281955429,
+      0.5975706452926867,
+      0.7587190298884943
+    ],
+    "world_axis_relative_foot_p95_m": [
+      0.5586246810555793,
+      0.7332823723914327
+    ],
+    "leg_rmse_rad": 0.24985311898325727,
+    "arm_rmse_rad": 0.6085186346357114,
+    "joint_rmse_by_hardware_joint": [
+      0.1528924393453739,
+      0.07229389452737969,
+      0.19704518813842342,
+      0.1540398423834979,
+      0.32563444171754014,
+      0.05948904470222674,
+      0.25638569039241244,
+      0.17603571757895697,
+      0.15484949100353634,
+      0.5451275437675298,
+      0.3436561752789243,
+      0.1114472321942692,
+      0.06655001166261566,
+      0.0656672856000528,
+      0.10129180148256763,
+      0.4964068490252534,
+      0.15481313976365654,
+      0.3604355660880004,
+      0.14702676778935217,
+      0.21745507661863303,
+      1.255595320672903,
+      0.0840820602961258,
+      1.2788992991187664
+    ]
+  },
+  "quiet_standing_diagnostic": null,
+  "simulation_start_time": 0.0,
+  "simulation_end_time": 8.599999999999541,
+  "simulated_seconds": 8.599999999999541,
+  "full_body_teleoperation_qualified": false,
+  "hardware_authorized": false,
+  "elapsed_seconds": 12.344894783,
+  "trace_sha256": "9c2f6b781a5b0568db9e4b7b7a8d92ed585284e971823b23f0be095920f6381d",
+  "request_sha256": "5172571e42845712b3bb78d04f9725f50d4be246859fb88366a0a5b157f32ec2",
+  "private_forecasts_sha256": "9ecf026b55fb612eadeb5ebe389f2b1b5a69b78f8dda12553bbf5cbbcd80d190",
+  "admission_ledger_sha256": "3b61edbcbabc0167946de60688bacd2c20ff01ab6126799229a386e98c5fc059",
+  "candidate_costs_sha256": "c171cbb63dcd2ae3685fce1842ecfc0f903260208d781cb11164b588b6ee0e03",
+  "motion_override": {
+    "path": "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_floor_inputs_v1/walk003/reference.npz",
+    "reference_sha256": "2d3b508e1b489499ece5cea8e88a885d9b94aeca82a6a0e8542bc39e690b8033",
+    "portable_receipt_sha256": "67a703db8e3bf839ae9b4527fdbfc1dc35968fa0a25f9cb2e7432fa4ef52217f",
+    "base_native_reference_sha256": "08deea5cb5cd716ff0e645fd2d53564a8710efb8a28c9740977662099d7aee85",
+    "original29_sha256": "4d462a077f10bda04c97deaf5a5ff29ec5f891a29b8bae30a6f0080cfaf06f84",
+    "reference_floor_transform": {
+      "kind": "causal_upward_whole_pose_translation",
+      "lift_min_m": 0.02,
+      "lift_max_m": 0.03761963419034562,
+      "physical_floor_changed": false,
+      "root_relative_intent_preserved": true,
+      "joints_unchanged": true,
+      "source_timing_changed": false,
+      "transform_receipt_file": "floor_transform_receipt.json",
+      "transform_receipt_sha256": "9d343b32fd18b7bda45b43801e0ad0e24ac1d890123cb213ce01d5c632b56e33",
+      "frame_lift_file": "frame_lift.npz",
+      "frame_lift_sha256": "88f8c980af9ea03ab8799500a633497ab32569ab8a2ed208e1335f93a59b1d1b",
+      "transform_receipt_path": "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_floor_inputs_v1/walk003/floor_transform_receipt.json",
+      "frame_lift_path": "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_floor_inputs_v1/walk003/frame_lift.npz",
+      "input_reference_sha256": "541b7841c6a86eb6a72ed3057751132d200f86ba0e2988e8a433b6decece6924",
+      "pose_preview_frames": 0,
+      "exported_linear_velocity_future_pose_support_frames": 1,
+      "exported_linear_velocity_future_pose_support_seconds": 0.02,
+      "independent_numeric_whole_pose_and_native_clearance_validation": true
+    }
+  },
+  "no_real_state_rollback": true,
+  "closed_loop_online_delay_qualification": false
+}

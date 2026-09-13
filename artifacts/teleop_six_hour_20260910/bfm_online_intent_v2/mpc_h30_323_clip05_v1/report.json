@@ -1,0 +1,77 @@
+{
+  "clip": "walk002",
+  "mode": "feedback",
+  "mujoco": "3.2.3",
+  "source_mujoco": "3.11.0",
+  "metric_revision": 2,
+  "feedback_correction_clip_rad": 0.05,
+  "feedback_clip_active_controls": 160,
+  "completed_controls": 500,
+  "planned_controls": 500,
+  "completed_full_controls": 500,
+  "partial_final_control_substeps": null,
+  "plan_replayed": true,
+  "source_plan_failed": false,
+  "full_source_completed": false,
+  "full_lifecycle_completed": false,
+  "failure": null,
+  "metrics": {
+    "phase": "source_motion",
+    "controls": 150,
+    "includes_partial_final_control": false,
+    "leg_rmse": 0.11972165892494965,
+    "arm_rmse": 0.03472786140827651,
+    "root_p95": 0.2625297637770694,
+    "yaw_p95_deg": 72.98426519609217,
+    "relative_landmark_p95_m": [
+      0.33061233505891596,
+      0.35750740258371116,
+      0.2862041991944381,
+      0.3028547189606857,
+      0.17498740694078868
+    ],
+    "original_relative_hand_head_p95_m": [
+      0.3542374397814271,
+      0.23168157546851104,
+      0.1316147846005993
+    ]
+  },
+  "range_excess_max": 0.0,
+  "velocity_ratio_max": 0.36895007691837484,
+  "effort_ratio_max": 1.0,
+  "source_physics_qpos_max_abs_difference": 0.6493357840671049,
+  "source_physics_qvel_max_abs_difference": 10.703274260011728,
+  "feedback_only_ms_p50_p95_max": [
+    0.051700000767596066,
+    0.08480000542476773,
+    0.18339999951422215
+  ],
+  "feedback_timing_excludes_offline_planning": true,
+  "planning_ms_p50_p95_max": [
+    5865.535753000017,
+    6940.3433168499705,
+    7495.052972999929
+  ],
+  "declared_future_preview_seconds": 0.6,
+  "conservative_effective_source_preview_seconds": 0.74,
+  "recorded_target_seed": {
+    "path": "artifacts/teleop_six_hour_20260910/bfm_walk002_feedback_v2",
+    "trace_sha256": "74bbd9c8e4cae7c8c8b421b4a1448f917872161b837efce04001810041b94f97",
+    "report_sha256": "05891f641b8cf7711fcd678bc5577d5d3973d3c653dacc2a77c238e303e06f05",
+    "controls": 1417,
+    "original_generator_preview_seconds": 0.14,
+    "selection": "lower actual-rollout cost of recorded BFM targets and shifted previous MPC plan",
+    "physical_states_copied": false
+  },
+  "physical_state_rewrites_after_initialization": 0,
+  "root_assistance_forces": 0,
+  "elapsed_wall_seconds": 1.2504211999912513,
+  "simulated_seconds": 10.000000000000009,
+  "physical_steps": 5000,
+  "hardware_authorized": false,
+  "received_stream_controller": false,
+  "full_body_tracking_qualified": false,
+  "timing_qualified": false,
+  "trace_sha256": "1aa6f5d0130271d51a9a06b644deaf4a9a0d3940278ace2dee8d626375b4e249",
+  "provenance_sha256": "2196a90a955fe2459e000c2f0394a5defc66457746b38afb6cb1442acd3a099d"
+}

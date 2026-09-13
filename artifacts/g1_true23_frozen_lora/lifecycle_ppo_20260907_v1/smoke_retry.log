@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_true23_lifecycle_ppo.py", line 354, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_true23_lifecycle_ppo.py", line 108, in main
+    bind(path, expected)
+  File "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_true23_lifecycle_ppo.py", line 72, in bind
+    path = Path(path).resolve(strict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 993, in resolve
+    s = os.path.realpath(self, strict=strict)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen posixpath>", line 413, in realpath
+  File "<frozen posixpath>", line 457, in _joinrealpath
+FileNotFoundError: [Errno 2] No such file or directory: 'kind'

@@ -1,0 +1,165 @@
+{
+  "kind": "PREPARE_ONLY_one_offline_saved_MPC_prefix_then_actual_BFM_terminal_hybrid",
+  "execution_authorized": false,
+  "controller_source_ready": false,
+  "clip": "walk002",
+  "original_main_physics_and_all667_source_pass": true,
+  "original_main_quiet_pass": false,
+  "original_quiet_metrics": {
+    "samples": 1500,
+    "interval": [
+      25.339999999996834,
+      28.33999999999517
+    ],
+    "root_xy_p95_m": 0.005336011597047681,
+    "original_yaw_p95_deg": 0.14760444944616927,
+    "root_linear_speed_p95_mps": 0.09403812548554474,
+    "joint_speed_p95_radps": 1.0957677780594604,
+    "joint_speed_max_radps": 5.577074462741868,
+    "tilt_max_rad": 0.009265897227737914,
+    "gates": {
+      "root_xy_p95_m": true,
+      "original_yaw_p95_deg": true,
+      "root_linear_speed_p95_mps": false,
+      "joint_speed_p95_radps": false,
+      "joint_speed_max_radps": false,
+      "tilt_max_rad": true
+    }
+  },
+  "checks": {
+    "all_1118_precontrol_previous_actions_bitexact": true,
+    "independent_direct_algebra_histories_value_exact": true,
+    "all_1118_frozen_contract_flat300_histories_bitexact": true,
+    "independent_direct_algebra_actor_states_value_exact": true,
+    "prefix1117_all_native_substeps_complete": true,
+    "prefix_source_frames11_through1127_exact": true,
+    "original_source667_finished_before_switch": true,
+    "return100_finished_at_original_switch": true,
+    "terminal250_plus_original_margin50": true,
+    "root_oracle_prefix_physics_qpos_bitexact": true,
+    "root_oracle_prefix_physics_qvel_bitexact": true,
+    "root_oracle_prefix_physics_torque_bitexact": true,
+    "root_oracle_prefix_physics_actuator_force_bitexact": true,
+    "root_oracle_prefix_physics_time_bitexact": true,
+    "root_oracle_prefix_physics_warning_number_bitexact": true,
+    "root_oracle_prefix_physics_warning_lastinfo_bitexact": true
+  },
+  "saved_array_checks_pass": true,
+  "independent_algebra_difference": {
+    "numerically_equal": true,
+    "signed_zero_history_components": 8,
+    "note": "Archived vector gravity expression differs in eight signed-zero components at initial history only. Exact frozen observation expression matches every source byte; runtime gate will use that expression. No tolerance introduced."
+  },
+  "main_trace_sha256": "ca656be5b4af07a05a9af3b9ac51b150e300404feb6274c170baa4d6cd734b51",
+  "source_metrics": {
+    "source_controls": 667,
+    "requested_source_controls": 667,
+    "original_root_p95_m": 0.159139043076485,
+    "original_yaw_p95_deg": 2.841138057975889,
+    "original_relative_hand_head_p95_m": [
+      0.05032405312323184,
+      0.05056943322648422,
+      0.03725870032869996
+    ],
+    "world_axis_relative_foot_p95_m": [
+      0.07802684119709698,
+      0.07021671672902548
+    ],
+    "native_leg_rmse_rad": 0.11027993594478021
+  },
+  "intended_lifecycle_controls": 1417,
+  "intended_extension_controls": 250,
+  "prefix": {
+    "global_controls_inclusive": [
+      0,
+      1116
+    ],
+    "physics_steps": 11170,
+    "execution": "recompute native manual PD from original applied MPC targets, one fresh canonical MjData at unchanged v4 frame10",
+    "origin": "qualified exact-controller walk002 full trace; never call this fresh MPC",
+    "source_controls": 667,
+    "return_controls": 100
+  },
+  "terminal": {
+    "global_controls_inclusive": [
+      1117,
+      1416
+    ],
+    "actual_BFM_controls": 300,
+    "original_terminal_start": 1117,
+    "reference_frame_first": 1128,
+    "reference_frame_last": 1427,
+    "yaw_gain": 4.0,
+    "position_gain": 1.0,
+    "horizon": 8,
+    "inference_threads": 1,
+    "reference": "unchanged walk002 native_original.npz; unchanged v4 reference remains evaluation/initialization only",
+    "controller": "archived walk003 terminal_goal_yaw4 plus unchanged original BFM actor/backward"
+  },
+  "extension": {
+    "global_controls_inclusive": [
+      1417,
+      1666
+    ],
+    "actual_BFM_controls": 250,
+    "reference_frame": 1427,
+    "continuity": "same live MjData, controller history, previous raw action and repeated clock; separate trace",
+    "launch_condition": "complete lifecycle and every strict physical gate; preserve original lifecycle quiet failure even if extension later passes"
+  },
+  "required_adapter_changes": [
+    "Explicit walk002 and fixed timeline assertions: source350:1017, return1017:1117, terminal1117:1417, separate250.",
+    "Bind root current report schema and hashes; replace old walk003 baseline schema assumptions.",
+    "Before first BFM command compare every native prefix q/dq/requested+applied torque/actual force/time/warning count+lastinfo, every actual target/source frame/history/prior action to qualified trace and root audit; mismatch stops before inference.",
+    "Independent expected clock starts zero and adds .002 each physical step; never assign it from observed data.time.",
+    "Snapshot complete integration8191/291, qacc_warmstart, ctrl, warning ledger and named controller history at switch1117 and lifecycle boundary1417; comparison/recording only, no setter or forward at handoff.",
+    "Copy live measured history at switch; prior raw action comes from actual MPC target normalized with training effort. After switch preserve actor raw*5 before native target clipping.",
+    "Preserve goal/observation/actor numerical expressions exactly. Do not append reference rows or change latent averaging at EOF.",
+    "Abort at first native range excess>1e-6 (old runner waited .01), speedratio>1, effortratio>1+1e-9, warning, nonfinite/fall or repeated-clock mismatch; save partial current substep and first failure.",
+    "Canonical trace schema with physics_requested_torque, physics_actuator_force, physics_expected_time, physics_warning_number/lastinfo, source_frame/global_control/controller_mode and actual policy inputs; normalize empty array trailing shapes.",
+    "Save final main and initial extension complete291/history/clock exactly equal; never use extra250 to replace the original300 quiet window.",
+    "Freeze artifact-local runner and import tree; preflight input hashes; durable hidden launcher with start/exit/command/provenance, no duplicate output; root independent full source and both quiet reports afterward."
+  ],
+  "permitted_claim_on_success": "one offline hybrid original-source lifecycle and separate quiet hold; recorded MPC prefix with actual terminal BFM",
+  "fresh_MPC_or_live_or_realtime_claim": false,
+  "physics_or_inference_executed": false,
+  "hardware_authorized": false,
+  "input_hashes": {
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\walk002_terminal_bfm_hybrid_proposal_v1\\prepare.py": "5f027e2f68b87ce6e67cf223c5badba0eff6fe35e8101f23da9090144b29bd15",
+    "E:\\codex-artifacts\\sonic23_teleop_six_hour_20260910\\bfm_online_intent_v2\\walk003_terminal_bfm_yaw4_hybrid_v1\\runner_snapshot.py": "64962de360760f9a961bffe5048b164fd664cb315eb4fda10788da328b0a3a4e",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\preserved_walk_demo_v1\\mapping.json": "48c5f19404203b335730c28b875b78ec3456bad7a9fce162827e9d54d1cc482d",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\walk002_full_control_lm_v1\\trace.npz": "ca656be5b4af07a05a9af3b9ac51b150e300404feb6274c170baa4d6cd734b51",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\walk002_full_control_lm_v1\\report.json": "721eebf1ec4550b0286f3492096d6d4e26901a0ea523c4cc024a26242f6f9884",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\walk002_full_control_lm_v1\\request.json": "397a6c9e59cf493cc546aa870adc57be92b9dcdbebe4bd7301c360d3fbcf127a",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\walk002_full_control_lm_v1_process\\exit_status.json": "4d3ee13e33dd0b953a249edcf75b365062a20f23fda1ac4a44b6589bf822510e",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\walk002_full_control_lm_v1_process\\postrun_provenance.json": "d3c2aed0f7eefce93b9789373e618f98cc6b7617a8b686a33d1838d495bfe4ae",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\walk002_full_control_lm_v1_process\\actual_request_verification.json": "a0062473f8cfa51d6967b9b19486a21ee61326ed5bb711c4ffa7e1e976959797",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\walk002_full_control_lm_independent_physics_v1\\report.json": "60c7869824920db2f9949f80c741c7f1272f02c8cfedc5a4996003158190a1aa",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\walk002_full_control_lm_independent_physics_v1\\trace.npz": "2786c5bbb3cb40e37f7a9043d06303c994cd276389e3ef4abc08f294ec175229",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\walk002_full_control_lm_independent_intent_v1\\report.json": "67324c622a71dea016b085f9b8dfe7ad1db7e15cc2e29467b603779ab8bf1f98",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\walk002_full_endpoint_independent_v1\\report.json": "03305c546727e2d47107f19dfc4b9f729fcd3c4913bc13349c6cb573640935bf",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\walk002_full_endpoint_independent_v1\\endpoint.npz": "5b5b2663e9d3fe678fdefdcca89a0b1a8f93be489a6fa5078aafacf12c5587b9",
+    "E:\\codex-artifacts\\sonic23_teleop_six_hour_20260910\\mjbatch_intent_floor_inputs_v1\\walk002\\reference.npz": "9486ae6a58942cbe636f70a90e8006fbbec98d228519bda7a59f0e0331c6c562",
+    "E:\\codex-artifacts\\sonic23_teleop_six_hour_20260910\\mjbatch_intent_floor_inputs_v1\\walk002\\portable_receipt.json": "9d0cf2717b200373f23e83371dac2250837556a7a74f2970da12c775873ffc36",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\walk002_terminal_bfm_hybrid_proposal_v1\\saved_boundary1117_comparison_only.npz": "a7fb96bf00f32e7b330265d4c70c4da59b93abf68bed6df444772d9dfaca05f0",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native23_inputs_v1\\manifest.json": "e69ca1427703b1f3b2e3468573373b276aff67d034c7e0284f3d58249e3b4182",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native23_inputs_v1\\contract.json": "d1641ce4f2e9016f5008e5d4be3cc24ded46d7f9daf9cfddaab84095f98eb99b",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native23_inputs_v1\\native_prepared.xml": "03fd1633c0f5080eb21c1b9786143eeaa36c8eed2eb388d1346581ae33bd76fa",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native23_inputs_v1\\prepared_model_arrays.npz": "38b4eb8f2f42030b76ffb106c016acb6be92253d4c42971529f739962cc68cdb",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native23_inputs_v1\\walk002\\timeline.json": "493a7ddf338fba67a793595cf67a72e43090d5e890a85a20a23b44801bd5e42b",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native23_inputs_v1\\walk002\\native_original.npz": "94cbd249255716cfd4cfe6eac290b8e0767a3efb262c1bde22402b971a729990",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native23_inputs_v1\\walk002\\original29.npz": "0e6ac0dcea5c3f2335bf281aa75de91cfecb41dff0b8d31fce69a87d258380e5",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\bfm_onnx_v2\\manifest.json": "a5650963f41838a6bf77bcfd12fcfa24ae939e6ee5f50d4b877527527d1e3878",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\bfm_onnx_v2\\actor.onnx": "7d9dc682dc38c6972c5023bb6bd069c8d9d28a99fa33a871906befaf9a1cc64e",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\bfm_onnx_v2\\backward.onnx": "2fe7cf1a0f76c101703fd53a855f2281763d47fef45c0f1455789bb04c21c3b7",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\preserved_walk_demo_v1\\repo\\artifacts\\teleop_six_hour_20260910\\bfm_terminal_yaw4_goal.py": "93cbf143e614cbc92204c27053c3cc7a1a02ab14049fa0aeee412f285d33918c",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\preserved_walk_demo_v1\\repo\\artifacts\\teleop_six_hour_20260910\\evaluate_walk003_terminal_bfm_yaw4_hybrid.py": "64962de360760f9a961bffe5048b164fd664cb315eb4fda10788da328b0a3a4e",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\preserved_walk_demo_v1\\repo\\gear_sonic\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\preserved_walk_demo_v1\\repo\\gear_sonic\\utils\\g1_true23_bfm_seed_observations.py": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\preserved_walk_demo_v1\\repo\\gear_sonic\\utils\\g1_true23_mjbatch_bfm_seed.py": "2f3d808b6a95fd80a3c1f9a0fabbe80264cf9cc93fbf01e2b2be65f6a5ec75de",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\preserved_walk_demo_v1\\repo\\gear_sonic\\utils\\g1_true23_mjbatch_ilqr_core.py": "5ef946bb0f07ea8f1d688748343bf9f6a3ccc2a10806cfe58963100aca7c06f1",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\preserved_walk_demo_v1\\repo\\gear_sonic\\utils\\g1_true23_mjbatch_model.py": "b0be87b3f2e9d1f6fc6695d668c62e2df355bf944d5b181b333c12038f532e25",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\preserved_walk_demo_v1\\repo\\gear_sonic\\utils\\g1_true23_mjbatch_mpc.py": "624b4abe93a20314141da39c6703055cb5c6ce5169030d863816b244610bafbd",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\preserved_walk_demo_v1\\repo\\gear_sonic\\utils\\g1_true23_relative_foot_cost.py": "36f89cac4374364cd155184c7c6f098de913ebca22976c0d59c8d1489089cc35",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\preserved_walk_demo_v1\\repo\\gear_sonic\\utils\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

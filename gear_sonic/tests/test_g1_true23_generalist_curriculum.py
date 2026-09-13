@@ -25,6 +25,7 @@ from gear_sonic.utils.g1_true23_generalist_curriculum import (
 @pytest.fixture(scope="module")
 def source():
     import mujoco
+
     from gear_sonic.utils.g1_true23_step1b_mujoco import prepare_true23_model
 
     root = Path(__file__).resolve().parents[2]
@@ -77,6 +78,56 @@ def test_full_source_channels_preserved_and_not_qualified(source):
     assert timeline["total_requested_controls"] == 766
     assert not contract["full_lifecycle_training_completed"]
     assert not contract["deployment_ready"]
+
+
+def test_once_registered_curriculum_keeps_original_source_digest_and_complete_joint_motion(source):
+    from gear_sonic.utils.g1_true23_registered_bank_reference import START_REGISTRATION_PROFILE
+    from gear_sonic.utils.g1_true23_start_registration import register_motion_start
+
+    original, input_spans, model, config = source
+    turned, _ = register_motion_start(original, target_root_xy=(2.0, 3.0), target_yaw_rad=-1.5)
+    frozen = deepcopy(turned)
+    expected, proof = register_motion_start(turned)
+    result, spans, contract = derive_curriculum(
+        turned,
+        input_spans,
+        {"smoke_only": True},
+        stage="lifecycle",
+        model=model,
+        simulation_config=config,
+        return_target="planned_endpoint",
+        source_start_registration=START_REGISTRATION_PROFILE,
+    )
+    row = spans["spans"][0]
+    timeline = row["timeline"]
+    selected = slice(timeline["source_start_frame"], timeline["source_stop_frame_exclusive"])
+    for key in MOTION_KEYS:
+        np.testing.assert_array_equal(result[key][selected], expected[key])
+        np.testing.assert_array_equal(turned[key], frozen[key])
+    assert row["source_arrays_sha256"] == array_digest(turned)
+    assert row["registered_source_arrays_sha256"] == array_digest(expected)
+    assert row["source_start_registration"] == proof
+    assert row["original_source_indices_requested"] == list(range(16))
+    assert timeline["total_requested_controls"] == 766
+    assert contract["source_start_registration"] == START_REGISTRATION_PROFILE
+    assert not contract["deployment_ready"]
+
+
+@pytest.mark.parametrize(
+    "stage,profile", [("acquisition", "once_only_source_start_se2_v1"), ("lifecycle", "auto")]
+)
+def test_registration_cannot_relabel_acquisition_or_use_an_implicit_transform(source, stage, profile):
+    motion, spans, model, config = source
+    with pytest.raises(ValueError, match="registration"):
+        derive_curriculum(
+            motion,
+            spans,
+            {"smoke_only": True},
+            stage=stage,
+            model=model,
+            simulation_config=config,
+            source_start_registration=profile,
+        )
 
 
 def test_acquisition_has_pose_hold_not_shortened_dance(source):
@@ -233,3 +284,20 @@ def test_array_hash_changes_when_one_frame_changes(source):
     altered = deepcopy(source[0])
     altered["joint_pos"][3, 2] += 0.001
     assert array_digest(altered) != array_digest(source[0])
+
+
+@pytest.mark.parametrize(
+    "stage, repairs", [("acquisition", {"test": {}}), ("lifecycle", {}), ("lifecycle", {"wrong": {}})]
+)
+def test_generated_ramp_repairs_cannot_skip_members_or_replace_an_acquisition_pose(source, stage, repairs):
+    motion, spans, model, config = source
+    with pytest.raises(ValueError, match="every named full-lifecycle"):
+        derive_curriculum(
+            motion,
+            spans,
+            {"smoke_only": True},
+            stage=stage,
+            model=model,
+            simulation_config=config,
+            lifecycle_repairs=repairs,
+        )

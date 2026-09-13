@@ -1,0 +1,62 @@
+{
+  "actor": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/causal_dynamics_v1/motion_curriculum_run_v1/training/actor_00226.pt",
+  "noise_comparison": [
+    {
+      "moving_std_rad": 0.03,
+      "starts": 64,
+      "physical_failures": 0,
+      "tracking_terminations": 5,
+      "survived_first_second": 59,
+      "source_fraction": 0.79453125
+    },
+    {
+      "moving_std_rad": 0.06,
+      "starts": 64,
+      "physical_failures": 1,
+      "tracking_terminations": 6,
+      "survived_first_second": 57,
+      "source_fraction": 0.811875
+    }
+  ],
+  "selected_moving_noise_rad": 0.06,
+  "selection": "retain .06 unless physical failures increase by more than3 of64 paired starts",
+  "quota_counts": [
+    96,
+    16,
+    16
+  ],
+  "minimum_source_fraction": 0.765625,
+  "timeout_bootstrap_checked": true,
+  "actual_pre_reset_observation_checked": true,
+  "transitions_cross_boundaries": true,
+  "transition_rollouts": [
+    {
+      "kind": "acquisition",
+      "initial_frame": 360,
+      "source_motion": [
+        false,
+        true,
+        true,
+        true
+      ],
+      "physical_controls_without_reset": 4,
+      "sampler_attempts": 3
+    },
+    {
+      "kind": "braking",
+      "initial_frame": 1027,
+      "source_motion": [
+        true,
+        false,
+        false,
+        false
+      ],
+      "physical_controls_without_reset": 4,
+      "sampler_attempts": 10
+    }
+  ],
+  "cuda_peak_memory_gib": 0.41930580139160156,
+  "num_envs": 128,
+  "trained_updates": 0,
+  "simulation_qualified": false
+}

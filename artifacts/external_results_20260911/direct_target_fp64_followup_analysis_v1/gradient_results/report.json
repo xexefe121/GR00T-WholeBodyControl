@@ -1,0 +1,66 @@
+{
+  "passed": true,
+  "request_sha256": "eba680f416038f93c11abcbd0214e0c2f374819fa56fbbb8a79f477f21c07f78",
+  "clearance_sha256": "b1573efa2c979cde2450be23b40456c4801f5f5d82dceef91141a7ba80b3971d",
+  "counters": {
+    "forward_attempted": 3,
+    "forward_returned": 3,
+    "forward_rows_attempted": 14110,
+    "forward_rows_returned": 14110,
+    "gradient_attempted": 3,
+    "gradient_returned": 3
+  },
+  "losses": {
+    "nominal": 0.00044877512846142054,
+    "velocity": 6.47422319092398e-05,
+    "physical": 9.564614648599003e-05
+  },
+  "parameter_names": [
+    "actor.0.weight",
+    "actor.0.bias",
+    "actor.2.weight",
+    "actor.2.bias",
+    "actor.4.weight",
+    "actor.4.bias"
+  ],
+  "parameter_gradient_norms": {
+    "nominal": 0.002663481298228603,
+    "velocity": 0.00037284706997581273,
+    "physical": 0.0005212667043160512
+  },
+  "pairwise_cosines": {
+    "nominal_velocity": -0.030470060743988274,
+    "nominal_physical": -0.2216589010522883,
+    "velocity_physical": 0.030334766528507678
+  },
+  "fixed_weight_compositions": {
+    "1.0": {
+      "total_norm": 0.0026154625894410782,
+      "velocity_contribution_norm": 0.00037284706997581273,
+      "velocity_to_nominal_norm": 0.13998486500497734,
+      "total_cosine_nominal": 0.9698388463917499
+    },
+    "10000.0": {
+      "total_norm": 3.728406260512731,
+      "velocity_contribution_norm": 3.728470699758127,
+      "velocity_to_nominal_norm": 1399.8486500497731,
+      "total_cosine_nominal": -0.029787202104725397
+    }
+  },
+  "parameter_state_unchanged": true,
+  "optimizer_updates": 0,
+  "native_calls": 0,
+  "model_scope": "original FP32 training model; no FP64 export calls",
+  "inference_or_generalization_claim": false,
+  "selected_weight": null,
+  "output_sha256": {
+    "losses.npz": "58d2a5ee2bc71d604f92fee9e60af6bf18eca52c1dc2d9de16a8eab4792453c1",
+    "nominal_gradients.npz": "7168c804cef52ff71b0e3bf2fef71b95567adbab442561410b902c03fc5440ad",
+    "nominal_prediction.npy": "00f940758febace2ccfd38daaff73b4ea85caecf01627bb5500bbf38795ccded",
+    "physical_gradients.npz": "8064500b8f9d06ea826ee10ae677923b47dfe8eaad74f4567b3d07280c8aa826",
+    "physical_prediction.npy": "7173d9cbd80860a8a48b8c31b42ba55d3ae0a519027dac57f692ee68a45497ab",
+    "schedule.npz": "637fe2487c0e54fc6e833954b638bea2fb11dbd442357aeda21776d5145f7f51",
+    "velocity_gradients.npz": "ade45038bd996229b40f7139d3dcd28f3515f27c5d1b5cc00b21cb702f8d4bdb",
+    "velocity_prediction.npy": "5b0552a13741061e8744e7273901d90e2a4a577a1c365e5e6ddadac3cbcaa783"
+  }
+}

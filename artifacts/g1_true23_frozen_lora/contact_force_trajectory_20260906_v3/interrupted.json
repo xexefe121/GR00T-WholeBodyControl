@@ -1,0 +1,22 @@
+{
+  "kind": "g1_true23_interrupted_contact_force_experiment_v3",
+  "source_commit": "d626eea7c4c548549610536c6b698d68b3f1a2bc",
+  "source_and_input_pins": "started.json",
+  "process_id": 364,
+  "terminal_exit_code": 1,
+  "stopped_by_agent": true,
+  "reason": "Original-planner lineage check found legacy happy-dance and elbow-crawl source references came from controller rollouts. Their root paths cannot be restored to the original planner paths inside the existing per-frame XYZ correction boxes. Rebuild original-motion references instead of promoting force-restored legacy-rollout paths.",
+  "completed_clips": ["pico_upright_anchor", "pico_standing_anchor"],
+  "partial_clip": "pico_crouch_anchor",
+  "partial_clip_frames": 1024,
+  "partial_accepted_updates_from_terminal_output": 10,
+  "last_partial_force_residual_squared": 4.458876462773899,
+  "last_partial_maximum_generalized_force_residual": 44.28652189131918,
+  "last_partial_contact_violated_frames": 1,
+  "partial_candidate_was_not_serialized": true,
+  "full_corpus_completed": false,
+  "closed_loop_replays_run": false,
+  "teacher_accepted": false,
+  "hardware_authorized": false,
+  "deployment_ready": false
+}

@@ -1,0 +1,53 @@
+{
+  "status": "REJECTED: nominal native joint bound failure before source motion",
+  "fit_attempts": 1,
+  "learned_rollout_attempts": 1,
+  "DAgger_queries": 0,
+  "source_controls_reached": 0,
+  "lifecycle_complete": false,
+  "extension_attempted": false,
+  "hardware_qualified": false,
+  "failure_joint": "right_knee_joint",
+  "joint_index": 9,
+  "actual_joint_position_rad": -0.08936481284485362,
+  "native_bounds_rad": [
+    -0.087267,
+    2.8798
+  ],
+  "applied_target_rad": -0.087267,
+  "unclipped_base_target_rad": 0.32600423677120066,
+  "learned_residual_rad": -0.4846653938293457,
+  "actual_range_excess_rad": 0.002097812844853622,
+  "complete_physical_control_intervals": 24,
+  "failed_control_zero_based": 23,
+  "failure_substep_one_based": 10,
+  "physics_steps": 240,
+  "simulated_seconds": 0.48000000000000037,
+  "failure_phase": "initial_entry",
+  "clock_array_bit_exact": true,
+  "engine_warnings": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "history_preclip_action_abs_max": 4.517001152038574,
+  "history_preclip_action_components_outside_5": 0,
+  "learned_residual_abs_max_rad": 1.6015561819076538,
+  "all_control_targets_inside_native_bounds": true,
+  "interpretation": "Final target clipping does not guarantee actual joint limits. Output-range restriction was removed, but this single nominal fit still fails. Neither command capacity nor training error establishes a usable controller.",
+  "retained_state": "nominal/trace.npz contains every precontrol full integration vector, history, previous action, and final failure integration/history.",
+  "hashes": {
+    "frozen_inputs_v2.json": "37c1e14971080f49f901ada0d17e9da87bf8c547a7c3186879b4ac1020d6dfea",
+    "fit/report.json": "226b6457598287e2037b03649a476086ee82d2669d12d80082d12813f048f3d1",
+    "fit/student_head.onnx": "3f749af49ba0343c45175d7875e2006cb33d08df75534207384379789df79513",
+    "nominal/report.json": "3bf1d48438f6821e473d157ce0183603f21ceb4134480894c70550a7affa6896",
+    "nominal/request.json": "750f24d5ad772ab193d23d82f9bf849f69f03cdc7ea234e6813bca380255ea73",
+    "nominal/trace.npz": "62b05301f5ab8f7f7d53c5a7d9177bf1bbb5f14cf7187da4d30f33401a5fbff8"
+  },
+  "document_script_sha256": "eebc5d57d87be2cacf10ed79f1a4a1ced157858b6158bb4663b953eb61877acb"
+}

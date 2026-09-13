@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/usr/bin/g++",
+    "-std=c++20",
+    "-O0",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-I",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include",
+    "-I",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/restore_rpc_20260907_v1/build_attempt1",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/tests/true23_restore_rpc_driver.cpp",
+    "-o",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/restore_rpc_20260907_v1/build_attempt1/restore_rpc_offline"
+  ],
+  "returncode": 1,
+  "stdout": "",
+  "stderr": "In file included from /mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/tests/true23_restore_rpc_fixture.hpp:7,\n                 from /mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/tests/true23_restore_rpc_driver.cpp:3:\n/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/true23_active_gantry_core.hpp: In function \u2018gear_sonic::true23::active::LiveShadowEvidenceSummary gear_sonic::true23::active::ValidateLiveShadowEvidenceJsonl(std::string_view, const gear_sonic::true23::active::LiveShadowEvidenceBinding&)\u2019:\n/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/true23_active_gantry_core.hpp:120:19: error: loop variable \u2018value\u2019 creates a copy from type \u2018const std::__cxx11::basic_string<char>\u2019 [-Werror=range-loop-construct]\n  120 |   for (const auto value : {\n      |                   ^~~~~\n/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/true23_active_gantry_core.hpp:120:19: note: use reference type to prevent copying\n  120 |   for (const auto value : {\n      |                   ^~~~~\n      |                   &\nIn file included from /mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/tests/true23_restore_rpc_driver.cpp:3:\n/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/tests/true23_restore_rpc_fixture.hpp: In member function \u2018std::optional<gear_sonic::true23::active::StateSample> StateMonitor::LatestPhysicalState() const\u2019:\n/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/tests/true23_restore_rpc_fixture.hpp:137:34: error: \u2018kRequiredModeMachine\u2019 is not a member of \u2018active\u2019; did you mean \u2018gear_sonic::true23::kRequiredModeMachine\u2019?\n  137 |     state.mode_machine = active::kRequiredModeMachine;\n      |                                  ^~~~~~~~~~~~~~~~~~~~\nIn file included from /mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/true23_live_shadow_core.hpp:6,\n                 from /mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/true23_active_gantry_core.hpp:7,\n                 from /mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/tests/true23_restore_rpc_fixture.hpp:7,\n                 from /mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/tests/true23_restore_rpc_driver.cpp:3:\n/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/true23_shadow_gate.hpp:29:22: note: \u2018gear_sonic::true23::kRequiredModeMachine\u2019 declared here\n   29 | inline constexpr int kRequiredModeMachine = 4;\n      |                      ^~~~~~~~~~~~~~~~~~~~\ncc1plus: all warnings being treated as errors\n"
+}

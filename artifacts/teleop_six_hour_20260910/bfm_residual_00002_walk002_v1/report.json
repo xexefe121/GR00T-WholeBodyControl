@@ -1,0 +1,48 @@
+{
+  "clip": "walk002",
+  "completed": 1417,
+  "requested": 1417,
+  "available": 1417,
+  "failure": null,
+  "full_lifecycle_completed": true,
+  "source_metrics": {
+    "source_controls": 667,
+    "source_requested": 667,
+    "leg_rmse": 0.18786555754933854,
+    "arm_rmse": 0.1666892942389128,
+    "root_p95": 0.5126137746625243,
+    "landmark_p95": [
+      0.536989010738031,
+      0.6383754903852498,
+      0.5280726146137815,
+      0.4371481709363346,
+      0.5502269000377608
+    ],
+    "relative_landmark_p95": [
+      0.2095825734506117,
+      0.2604444620746136,
+      0.17441740802603223,
+      0.22503191303940595,
+      0.05438000360759446
+    ]
+  },
+  "range_excess_max": 0.0,
+  "effort_ratio_max": 1.0,
+  "velocity_ratio_max": 0.40175428757229065,
+  "inference_ms_p95": 11.189560013008304,
+  "elapsed_seconds": 16.029000900001847,
+  "goal_horizon": 8,
+  "goal_buffer_ms": 140,
+  "reference_path": "C:\\Users\\camer\\sonic23_sim_artifacts\\internet_pico_20260909_v1\\walk002\\buffered_initial_lifecycle_v1\\lifecycle_reference.npz",
+  "ground_truth_pose_feedback": true,
+  "position_gain": 1.0,
+  "yaw_gain": 2.0,
+  "arm_reference": false,
+  "leg_error_gain": 0.0,
+  "residual_checkpoint": "artifacts\\g1_true23_bfm_residual_20260911_v1\\smoke64_v2\\residual_00002_portable.pt",
+  "residual_updates": 2,
+  "model_path": "Z:\\codex\\GR00T-WholeBodyControl\\gear_sonic\\data\\robots\\g1\\g1_23dof_rev_1_0.xml",
+  "action_contract": "target=default_q+5*tanh_actor*.25*training_effort/training_kp; native effort clipped",
+  "hardware_authorized": false,
+  "deployment_ready": false
+}

@@ -1,0 +1,118 @@
+{
+  "policy": "native_locomotion_full_body_conditioned",
+  "actor": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\onboard_factory_firmware_v1\\native_mjbatch_lifecycle_ppo_v1\\actor_00100.onnx",
+  "clip": "pico",
+  "simulation_seconds": 160.60000000003873,
+  "requested_seconds": 160.6,
+  "physical_complete": true,
+  "failure": null,
+  "wall_seconds": 56.171409200003836,
+  "max_speed_ratio": 0.6865957035764124,
+  "max_effort_ratio": 1.0,
+  "inference_ms_p50_p95_max": [
+    2.8109,
+    5.854759999999999,
+    20.3912
+  ],
+  "future_reference_frames": 0,
+  "reference_velocity": "backward differences; current measured heading",
+  "absent_vendor_joints": null,
+  "independent_realtime": false,
+  "hardware_commands": false,
+  "clock_expected_time": "independent repeated addition of .002; tolerance unchanged at1e-10",
+  "command_delay_substeps": 0,
+  "command_delay_physics_seconds": 0.0,
+  "received_gait_phase": false,
+  "factory_command_limits": false,
+  "source": {
+    "passed": false,
+    "source_controls": 5780,
+    "requested_source_controls": 5780,
+    "root_p95_m": 0.23194881802678502,
+    "yaw_p95_deg": 10.021567995187251,
+    "hand_head_relative_p95_m": [
+      0.1607281407826534,
+      0.19285952697190015,
+      0.13681603543948823
+    ],
+    "foot_relative_p95_m": [
+      0.2776505356638937,
+      0.35179481565046655
+    ],
+    "leg_rmse_rad": 0.31115808770605924
+  },
+  "quiet": {
+    "passed": true,
+    "values": {
+      "xy_p95": 0.01618490997951744,
+      "yaw_p95_deg": 1.7947456145829654,
+      "root_speed_p95": 2.202391980719058e-05,
+      "joint_speed_p95": 0.00027917793874467577,
+      "joint_speed_max": 0.00028161075507178836,
+      "tilt_max": 0.06056292244854718
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "continuous_quiet30": {
+    "passed": true,
+    "values": {
+      "xy_p95": 0.016164515325564965,
+      "yaw_p95_deg": 1.77464774906259,
+      "root_speed_p95": 0.0002321473472934945,
+      "joint_speed_p95": 0.0019601442109032485,
+      "joint_speed_max": 0.0022934658912689763,
+      "tilt_max": 0.06056292244854718
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "packet_report": {
+    "epoch": 0,
+    "received": 6541,
+    "consumed": 6541,
+    "ignored": 0,
+    "rejected": 0,
+    "final_received": true,
+    "full_source_consumed": true,
+    "fault": null,
+    "calibration": null
+  },
+  "controller_status": {
+    "mode": "source",
+    "epoch": 0,
+    "fault": null,
+    "explicit_rearm_required": false,
+    "future_reference_frames": 0,
+    "qualified": false,
+    "controller": "native_locomotion_full_body_conditioned",
+    "velocity_command": [
+      -0.02900689283632102,
+      -0.02821657391437253,
+      -0.0940705544406504
+    ],
+    "velocity_command_limits": [
+      1.2,
+      1.0,
+      6.0
+    ],
+    "motion_fraction": 0.0
+  },
+  "input_loss_control": null,
+  "automatic_rearm": false,
+  "fault_scenario_passed": false,
+  "passed": false
+}
+The device supports: i8sdot:0, fp16:0, i8mm: 0, sve2: 0, sme2: 0

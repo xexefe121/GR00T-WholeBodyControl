@@ -1,3 +1,19 @@
+# Native23 G1 teleoperation — complete work snapshot
+
+Public source, experiment reports and artifact archive for the native 23-DOF Unitree G1 work through 2026-09-13.
+
+**Research snapshot: full-body teleoperation is NOT qualified.** The corrected controller-memory comparison did not improve tracking; both seeds scored 1/192 fixed movement passes. No resulting controller was promoted. The robot was not actuated in that cycle.
+
+- [Work index and reproduction notes](NATIVE23_WORK.md)
+- [Current result](artifacts/teleop_resume_20260911/CURRENT.md)
+- [Controller-memory experiment](artifacts/onboard_inspection_20260912/CONTROLLER_MEMORY_EXPERIMENT.md)
+- [Large artifact downloads](https://github.com/xexefe121/GR00T-WholeBodyControl/releases/tag/native23-work-2026-09-13)
+- [Publication inventory](publication/manifest.jsonl) · [Explicit exclusions](publication/exclusions.json)
+
+The source history below is preserved from NVIDIA's upstream project. Its general capabilities are not a claim that this native23 adaptation is ready for hardware. The proposed next-training plan was removed at the owner's request.
+
+---
+
 <div align="center">
 
   <img src="media/groot_wbc.png" width="800" alt="GEAR SONIC Header">

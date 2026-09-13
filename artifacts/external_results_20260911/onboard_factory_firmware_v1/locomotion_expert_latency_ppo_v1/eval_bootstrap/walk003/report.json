@@ -1,0 +1,66 @@
+{
+  "policy": "native_locomotion_full_body_conditioned",
+  "actor": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\onboard_factory_firmware_v1\\locomotion_expert_latency_ppo_v1\\actor_bootstrap.onnx",
+  "clip": "walk003",
+  "simulation_seconds": 6.337999999999524,
+  "requested_seconds": 61.38,
+  "physical_complete": false,
+  "failure": {
+    "time": 6.337999999999524,
+    "reasons": [
+      "native_joint_bound"
+    ],
+    "speed_ratio": 0.12506530362346185,
+    "range_excess": 0.000872707566083708,
+    "effort_ratio": 0.3793742127652913,
+    "tilt": 0.4936408079479302
+  },
+  "wall_seconds": 1.705206399987219,
+  "max_speed_ratio": 0.37903295090603006,
+  "max_effort_ratio": 0.47306246506642624,
+  "inference_ms_p50_p95_max": [
+    2.5228,
+    3.2927,
+    4.1352
+  ],
+  "future_reference_frames": 0,
+  "reference_velocity": "backward differences; current measured heading",
+  "absent_vendor_joints": null,
+  "independent_realtime": false,
+  "hardware_commands": false,
+  "clock_expected_time": "independent repeated addition of .002; tolerance unchanged at1e-10",
+  "source": {
+    "passed": false,
+    "source_controls": 0
+  },
+  "packet_report": {
+    "epoch": 0,
+    "received": 328,
+    "consumed": 328,
+    "ignored": 0,
+    "rejected": 0,
+    "final_received": false,
+    "full_source_consumed": false,
+    "fault": null,
+    "calibration": null
+  },
+  "controller_status": {
+    "mode": "source",
+    "epoch": 0,
+    "fault": null,
+    "explicit_rearm_required": false,
+    "future_reference_frames": 0,
+    "qualified": false,
+    "controller": "native_locomotion_full_body_conditioned",
+    "velocity_command": [
+      0.6906829460138663,
+      -0.04383251941034999,
+      2.3791369626822623
+    ],
+    "motion_fraction": 1.0
+  },
+  "input_loss_control": null,
+  "automatic_rearm": false,
+  "fault_scenario_passed": false,
+  "passed": false
+}

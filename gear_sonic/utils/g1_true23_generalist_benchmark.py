@@ -9,14 +9,14 @@ integration, never motion playback pose writes.
 
 from __future__ import annotations
 
+from dataclasses import replace
 import hashlib
 import json
-from dataclasses import replace
 from pathlib import Path
 
 import numpy as np
 
-from gear_sonic.utils.g1_23dof_contract import HARDWARE_23_JOINT_NAMES
+from gear_sonic.utils.g1_23dof_contract import HARDWARE_23_JOINT_NAMES, SOURCE_MJ29_KEEP_INDICES
 from gear_sonic.utils.g1_23dof_safe_target_transform import safe_target_transform_numpy
 from gear_sonic.utils.g1_true23_clean_mujoco_teleop import (
     CleanTrue23MujocoController,
@@ -24,11 +24,11 @@ from gear_sonic.utils.g1_true23_clean_mujoco_teleop import (
     motion_reference_terms,
     sha256_file,
 )
-from gear_sonic.utils.g1_true23_reference_floor import compiled_model_sha256
 from gear_sonic.utils.g1_true23_native_model_actuation import (
     NativeModelActuationProfile,
     native_model_pd_numpy,
 )
+from gear_sonic.utils.g1_true23_reference_floor import compiled_model_sha256
 from gear_sonic.utils.g1_true23_sonic_library_replay import (
     RELEASED_RETAINED_KD,
     RELEASED_RETAINED_KP,
@@ -44,7 +44,7 @@ from gear_sonic.utils.g1_true23_step1b_mujoco import (
 
 MODEL = "gear_sonic/data/robots/g1/g1_23dof_rev_1_0.xml"
 PHYSICS = "gear_sonic/config/sim_validation/g1_23dof_mujoco_sim2sim.json"
-PROFILES = ("native_model", "historical_released_gains")
+PROFILES = ("native_model", "historical_released_gains", "original_cpp_gains_diagnostic")
 LANDMARKS = (
     ("left_ankle_origin", 6, (0.0, 0.0, 0.0)),
     ("right_ankle_origin", 12, (0.0, 0.0, 0.0)),
@@ -247,6 +247,63 @@ def load_generalist_pair(manifest_path, *, session_options=None):
     )
 
 
+def install_training_model_counterfactual(controller, path):
+    """Swap only to a native23 compiled training model; never a promotion.
+
+    Kinematics, mass and physical joint/effort limits must stay identical.
+    Contact geometry, free-root passive terms and solver settings are the
+    explicit independent variables of this simulation diagnostic.
+    """
+    from gear_sonic.scripts.audit_g1_true23_training_replay_parity import validate_native_layout
+
+    path = Path(path).resolve(strict=True)
+    old = controller.model
+    model = controller.module.MjModel.from_binary_path(str(path))
+    validate_native_layout(model, "robot/")
+    body_ids = np.array([model.body("robot/" + old.body(i).name).id for i in range(1, old.nbody)])
+    extras = set(range(1, model.nbody)) - set(body_ids)
+    if len(set(body_ids)) != 24 or any(model.body_mass[i] != 0 or model.body_dofnum[i] != 0 for i in extras):
+        raise ValueError("training counterfactual contains an extra dynamic body")
+    parent_map = {0: 0, **{int(actual): i + 1 for i, actual in enumerate(body_ids)}}
+    if [parent_map.get(int(model.body_parentid[i]), -1) for i in body_ids] != old.body_parentid[1:].tolist():
+        raise ValueError("training counterfactual changed native23 body topology")
+    for field in (
+        "jnt_range",
+        "jnt_axis",
+        "actuator_gear",
+        "jnt_actfrcrange",
+    ):
+        if not np.allclose(getattr(model, field), getattr(old, field), atol=1e-9, rtol=0):
+            raise ValueError(f"training counterfactual changed physical robot field: {field}")
+    for field in ("body_pos", "body_quat", "body_mass", "body_inertia", "body_ipos", "body_iquat"):
+        # The free joint's initial pose is explicitly reset, not a link transform.
+        selected, reference = (
+            (body_ids[1:], slice(2, None)) if field in ("body_pos", "body_quat") else (body_ids, slice(1, None))
+        )
+        if not np.allclose(getattr(model, field)[selected], getattr(old, field)[reference], atol=1e-9, rtol=0):
+            raise ValueError(f"training counterfactual changed physical robot field: {field}")
+    for field in ("dof_armature", "dof_damping", "dof_frictionloss"):
+        if not np.allclose(getattr(model, field)[6:], getattr(old, field)[6:], atol=1e-9, rtol=0):
+            raise ValueError(f"training counterfactual changed driven-joint field: {field}")
+    if model.opt.timestep != old.opt.timestep or model.opt.integrator != old.opt.integrator:
+        raise ValueError("training counterfactual changed integration cadence/type")
+    controller.model = model
+    controller.data = controller.module.MjData(model)
+    controller.reference_probe = controller.module.MjData(model)
+    controller.diagnostic_pelvis_name = "robot/pelvis"
+    controller.diagnostic_body_ids = body_ids
+    return dict(
+        kind="exact_compiled_training_model_counterfactual_v1",
+        path=str(path),
+        sha256=sha256_file(path),
+        original_compiled_model_sha256=compiled_model_sha256(old),
+        contact_geometry_free_root_passive_and_solver_changed=True,
+        robot_kinematics_mass_and_driven_limits_unchanged=True,
+        original_replay_model_qualification=False,
+        deployment_ready=False,
+    )
+
+
 def run_reference_diagnostic(
     *,
     root,
@@ -256,6 +313,7 @@ def run_reference_diagnostic(
     profile="native_model",
     maximum_controls=None,
     runtime_adapter=None,
+    training_model_counterfactual=None,
 ):
     """One uninterrupted causal rollout; prefixes explicitly cannot pass."""
     if profile not in PROFILES:
@@ -270,13 +328,26 @@ def run_reference_diagnostic(
     available = count - 11
     requested = available if maximum_controls is None else min(available, maximum_controls)
     controller = CleanTrue23MujocoController(model_path=assets / MODEL, physics_path=root / PHYSICS, policy=policy)
+    model_counterfactual = None
+    if training_model_counterfactual is not None:
+        model_counterfactual = install_training_model_counterfactual(controller, training_model_counterfactual)
     module, model, data, physics = controller.module, controller.model, controller.data, controller.physics
     actuation = NativeModelActuationProfile.from_sim_config(root / PHYSICS)
     if profile == "historical_released_gains":
         np.copyto(physics.kp, RELEASED_RETAINED_KP)
         np.copyto(physics.kd, RELEASED_RETAINED_KD)
         actuation = replace(actuation, kp=tuple(physics.kp), kd=tuple(physics.kd))
-    if (model.nq, model.nv, model.nu, model.nbody) != (30, 29, 23, 25):
+    source_gain_capture = None
+    if profile == "original_cpp_gains_diagnostic":
+        from gear_sonic.scripts.audit_g1_true23_source_action_codec import compile_source_oracle
+
+        source_gain_capture = compile_source_oracle(assets)
+        indices = np.asarray(SOURCE_MJ29_KEEP_INDICES)
+        np.copyto(physics.kp, np.asarray(source_gain_capture["kp_hardware29"])[indices])
+        np.copyto(physics.kd, np.asarray(source_gain_capture["kd_hardware29"])[indices])
+        actuation = replace(actuation, kp=tuple(physics.kp), kd=tuple(physics.kd))
+    body_ids = getattr(controller, "diagnostic_body_ids", np.arange(1, model.nbody))
+    if (model.nq, model.nv, model.nu, len(body_ids)) != (30, 29, 23, 24):
         raise ValueError("benchmark requires exact native23 body topology")
     for _, index, _ in LANDMARKS:
         if index >= model.nbody - 1:
@@ -344,6 +415,13 @@ def run_reference_diagnostic(
             current_pelvis = data.qpos[3:7].copy()
             controller.history = [*controller.history[1:], controller._policy_frame()]
             history = term_major_history(controller.history)
+            if runtime_adapter is not None and hasattr(runtime_adapter, "transform_history"):
+                # Pure copied-observation codec, never a physical-state setter.
+                native_history = history.copy()
+                history = runtime_adapter.transform_history(native_history.copy())
+                if history.shape != (930,) or history.dtype != np.float32 or not np.isfinite(history).all():
+                    raise ValueError("runtime history codec changed finite float32 history930 ABI")
+                arrays.setdefault("native_precodec_history930", []).append(native_history)
             if runtime_adapter is None:
                 raw, decoder = policy.infer(encoder, history)
             else:
@@ -394,7 +472,7 @@ def run_reference_diagnostic(
                     # Scheduled simulator perturbation is an external pelvis
                     # force, never a root pose/velocity rewrite or actuator.
                     data.xfrc_applied[:] = 0
-                    data.xfrc_applied[1, :3] = force
+                    data.xfrc_applied[body_ids[0], :3] = force
                     arrays["physics_external_force_world_n"].append(force.copy())
                 start_time = float(data.time)
                 module.mj_step(model, data)
@@ -434,7 +512,7 @@ def run_reference_diagnostic(
             probe.qpos[:] = data.qpos
             probe.qvel[:] = data.qvel
             module.mj_forward(model, probe)
-            actual = task_points(probe.xpos[1:], probe.xquat[1:])
+            actual = task_points(probe.xpos[body_ids], probe.xquat[body_ids])
             reference = task_points(motion["body_pos_w"][reference_index], motion["body_quat_w"][reference_index])
             arrays["landmark_error_m"].append(np.linalg.norm(actual - reference, axis=1))
             arrays["relative_landmark_error_m"].append(
@@ -474,6 +552,7 @@ def run_reference_diagnostic(
             type="ActuatorForceMismatch", message="integrated generalized actuator force differs from command"
         )
     report = dict(
+        **({"training_model_counterfactual": model_counterfactual} if model_counterfactual is not None else {}),
         schema_version=1,
         kind="g1_true23_generalist_reference_reset_diagnostic_v1",
         actuator_profile=profile,
@@ -557,6 +636,14 @@ def run_reference_diagnostic(
     )
     if runtime_adapter is not None:
         report["runtime_adapter"] = runtime_adapter.contract()
+        codec = report["runtime_adapter"].get("source_action_codec")
+        if codec is not None:
+            report["stored_controller_previous_action_semantics"] = report["previous_action_semantics"]
+            report["previous_action_semantics"] = codec["previous_action"]
+            report["decoder_history_is_explicit_source_codec_output"] = True
+    if source_gain_capture is not None:
+        report["source_gain_capture"] = source_gain_capture
+        report["original_cpp_gain_counterfactual_not_nominal_qualification"] = True
     if sha256_file(source) != source_sha:
         raise ValueError("source motion changed during benchmark")
     json.dumps(report, allow_nan=False)

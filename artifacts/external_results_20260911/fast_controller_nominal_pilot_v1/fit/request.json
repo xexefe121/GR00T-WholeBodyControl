@@ -1,0 +1,53 @@
+{
+  "kind": "native23_bfm_linear_span_student_nominal_v2",
+  "configuration": {
+    "seed": 773,
+    "steps": 1000,
+    "batch_size": 256,
+    "learning_rate": 0.0003,
+    "weight_decay": 1e-05,
+    "hidden": [
+      256,
+      256
+    ],
+    "activation": "ELU",
+    "output": "linear23 times nativejointspan, no tanh or radius",
+    "feature_std_floor": 0.05,
+    "gradient_clip_norm": 10.0,
+    "device": "cpu",
+    "threads": 1,
+    "phase_sampling": "64each initial250/acquisition100/source819/return100",
+    "validation": "all1269 labels train; full closed-loop nominal rollout is behavioral test, no heldout-generalization claim"
+  },
+  "labels_sha256": "8003407282b01f2c66fe1720d7eb038f43377c1d6eab80dce47f1f75911e8083",
+  "frozen_sources_sha256": "37c1e14971080f49f901ada0d17e9da87bf8c547a7c3186879b4ac1020d6dfea",
+  "joint_span": [
+    5.4105000495910645,
+    3.4907000064849854,
+    5.515200138092041,
+    2.967067003250122,
+    1.3962700366973877,
+    0.5235999822616577,
+    5.4105000495910645,
+    3.4907000064849854,
+    5.515200138092041,
+    2.967067003250122,
+    1.3962700366973877,
+    0.5235999822616577,
+    5.236000061035156,
+    5.7596001625061035,
+    3.8396999835968018,
+    5.236000061035156,
+    3.1415998935699463,
+    3.9444398880004883,
+    5.7596001625061035,
+    3.8396999835968018,
+    5.236000061035156,
+    3.1415998935699463,
+    3.9444398880004883
+  ],
+  "samples": 1269,
+  "no_dagger_labels": true,
+  "no_hardware": true,
+  "training_metric_is_not_validation": true
+}

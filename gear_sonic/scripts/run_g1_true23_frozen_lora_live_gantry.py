@@ -118,6 +118,7 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--capture-python", default="/usr/bin/python3")
     parser.add_argument("--soma-source-root", default="/root/.cache/g1_true23_soma/source")
     parser.add_argument("--network", default="eth0")
+    parser.add_argument("--control-cpu-set", default="0-3")
     parser.add_argument("--pico-endpoint", default="tcp://127.0.0.1:5557")
     parser.add_argument("--distro", default="Ubuntu-22.04")
     return parser
@@ -206,6 +207,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         evidence=converted["evidence"],
         duration_seconds=args.duration_seconds,
         gantry_authorize=args.gantry_authorize,
+        control_cpu_set=args.control_cpu_set,
         frozen_lora_policy=True,
     )
 

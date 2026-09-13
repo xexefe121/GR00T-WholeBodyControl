@@ -1,0 +1,107 @@
+{
+  "kind": "independent_synthetic_riccati_algebra_check",
+  "no_physics_or_controller_execution": true,
+  "assumption": "zero mixed state-control stage cost, as in current tracker expansion",
+  "variables": "V,v are the unmodified next-knot value Hessian and gradient",
+  "seed": 773,
+  "nx": 58,
+  "nu": 23,
+  "float64_epsilon": 2.220446049250313e-16,
+  "extended_epsilon": 1.0842021724855044e-19,
+  "cases": [
+    {
+      "name": "ordinary",
+      "errors": {
+        "gradient": {
+          "truth_scale": 577.2776504405814,
+          "expanded_max_absolute_error": 2.403337945322548e-13,
+          "factored_max_absolute_error": 1.3133938381315602e-13,
+          "extended_precision_formula_difference": 1.0581813203458523e-16,
+          "factored_relative_error": 2.275151025038248e-16,
+          "declared_relative_check_bound": 2e-12
+        },
+        "hessian": {
+          "truth_scale": 1788.0546099198534,
+          "expanded_max_absolute_error": 4.862776847858186e-13,
+          "factored_max_absolute_error": 7.607248164731573e-13,
+          "extended_precision_formula_difference": 4.440892098500626e-16,
+          "factored_relative_error": 4.254483125139313e-16,
+          "declared_relative_check_bound": 2e-12
+        }
+      },
+      "expanded_hessian_min_eigenvalue": 0.3120601403856956,
+      "factored_hessian_min_eigenvalue": 0.31206014038540736
+    },
+    {
+      "name": "zero_feedback",
+      "errors": {
+        "gradient": {
+          "truth_scale": 41.478084971610556,
+          "expanded_max_absolute_error": 3.3643227093094197e-14,
+          "factored_max_absolute_error": 2.135271126579852e-14,
+          "extended_precision_formula_difference": 1.734723475976807e-17,
+          "factored_relative_error": 5.147950123640776e-16,
+          "declared_relative_check_bound": 2e-12
+        },
+        "hessian": {
+          "truth_scale": 62.96539580629798,
+          "expanded_max_absolute_error": 2.0355245267111854e-14,
+          "factored_max_absolute_error": 2.0355245267111854e-14,
+          "extended_precision_formula_difference": 0.0,
+          "factored_relative_error": 3.232766983587494e-16,
+          "declared_relative_check_bound": 2e-12
+        }
+      },
+      "expanded_hessian_min_eigenvalue": 0.21266440090243122,
+      "factored_hessian_min_eigenvalue": 0.21266440090243122
+    },
+    {
+      "name": "large_feedback",
+      "errors": {
+        "gradient": {
+          "truth_scale": 82269734103.59418,
+          "expanded_max_absolute_error": 3.1366944313049316e-05,
+          "factored_max_absolute_error": 1.4409422874450684e-05,
+          "extended_precision_formula_difference": 2.2351741790771484e-08,
+          "factored_relative_error": 1.751485285743882e-16,
+          "declared_relative_check_bound": 2e-12
+        },
+        "hessian": {
+          "truth_scale": 1956250362406521.5,
+          "expanded_max_absolute_error": 0.752197265625,
+          "factored_max_absolute_error": 0.747802734375,
+          "extended_precision_formula_difference": 0.0003662109375,
+          "factored_relative_error": 3.822633077777811e-16,
+          "declared_relative_check_bound": 2e-12
+        }
+      },
+      "expanded_hessian_min_eigenvalue": 0.839322069555966,
+      "factored_hessian_min_eigenvalue": 0.7323702708732389
+    },
+    {
+      "name": "near_cancelling",
+      "errors": {
+        "gradient": {
+          "truth_scale": 90862.98105116698,
+          "expanded_max_absolute_error": 3.460460247239894e-05,
+          "factored_max_absolute_error": 5.151350741527949e-06,
+          "extended_precision_formula_difference": 1.5282051180065537e-08,
+          "factored_relative_error": 5.669361363597688e-11,
+          "declared_relative_check_bound": 2e-07
+        },
+        "hessian": {
+          "truth_scale": 926928.7023397139,
+          "expanded_max_absolute_error": 0.9589626972619385,
+          "factored_max_absolute_error": 4.2817930534511106e-08,
+          "extended_precision_formula_difference": 0.0005425459883667827,
+          "factored_relative_error": 4.6193337660633347e-14,
+          "declared_relative_check_bound": 2e-07
+        }
+      },
+      "expanded_hessian_min_eigenvalue": 0.9635969385468808,
+      "factored_hessian_min_eigenvalue": 1.1086989293943765
+    }
+  ],
+  "no_real_failure_or_policy_qualification": true,
+  "source_sha256": "e6408bbae751935fa92f0e70f3c3927f3c9ccbc10e0302056eb40c9aeeedb20d"
+}

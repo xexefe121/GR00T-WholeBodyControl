@@ -1,0 +1,614 @@
+{
+  "kind": "private_single_lane_active_row_parity",
+  "passed": true,
+  "results": [
+    {
+      "name": "soft_unguided_before",
+      "baseline_ms": 601.2112949993025,
+      "optimized_ms": 82.5020130005214,
+      "feasibility_baseline": null,
+      "feasibility_optimized": null,
+      "observed_mixed_valid_invalid": false,
+      "observed_substep_records": 0,
+      "output_sha256": "3268a287b4ee4a1760417264290772c63d0d9be7798df335349d8d8409eb9837",
+      "parity_pass": true
+    },
+    {
+      "name": "soft_guided_saved_nonzero",
+      "baseline_ms": 690.2657319997161,
+      "optimized_ms": 635.0821259993609,
+      "feasibility_baseline": null,
+      "feasibility_optimized": null,
+      "observed_mixed_valid_invalid": false,
+      "observed_substep_records": 0,
+      "output_sha256": "5643a7c05aac645f3c4cd4cbb5078c2be436599a8b73f0b9a7a5e3a70292443e",
+      "parity_pass": true
+    },
+    {
+      "name": "soft_unguided_after",
+      "baseline_ms": 553.6455550000028,
+      "optimized_ms": 64.76102999931754,
+      "feasibility_baseline": null,
+      "feasibility_optimized": null,
+      "observed_mixed_valid_invalid": false,
+      "observed_substep_records": 0,
+      "output_sha256": "5c994c15c3bdecb8c134e9cb1b9b1d74f04dbf9ecd7d98e0041fc3e0fdec7eab",
+      "parity_pass": true
+    },
+    {
+      "name": "hard_unguided_before",
+      "baseline_ms": 671.4524330000131,
+      "optimized_ms": 201.07155699952273,
+      "feasibility_baseline": {
+        "feasible": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "first_violation": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "peaks": {
+          "range_excess_rad": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "speed_ratio": [
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455
+          ],
+          "effort_ratio": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "inspection": "every2ms including the initial state; invalid lanes latched"
+      },
+      "feasibility_optimized": {
+        "feasible": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "first_violation": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "peaks": {
+          "range_excess_rad": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "speed_ratio": [
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455
+          ],
+          "effort_ratio": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "inspection": "every2ms including the initial state; invalid lanes latched"
+      },
+      "observed_mixed_valid_invalid": false,
+      "observed_substep_records": 331,
+      "output_sha256": "ec4af18716b5e6cc02cc47e4b7589be583967b7bb200f7993cfe30d076a571ed",
+      "parity_pass": true
+    },
+    {
+      "name": "hard_guided_saved_nonzero",
+      "baseline_ms": 699.1162399999666,
+      "optimized_ms": 662.4410499998703,
+      "feasibility_baseline": {
+        "feasible": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+          true
+        ],
+        "first_violation": [
+          {
+            "control": 25,
+            "substep": 7,
+            "reasons": [
+              "joint_range"
+            ],
+            "range_excess_rad": 0.0004496675403294903,
+            "speed_ratio": 0.15581097371278063,
+            "effort_ratio": 0.4253655073320157,
+            "root_height_m": 0.29580450195695757,
+            "root_tilt_rad": 0.18738287589195182
+          },
+          {
+            "control": 26,
+            "substep": 8,
+            "reasons": [
+              "joint_range"
+            ],
+            "range_excess_rad": 0.002482550664485217,
+            "speed_ratio": 0.16941243236945064,
+            "effort_ratio": 0.38985328297915506,
+            "root_height_m": 0.3051688271564425,
+            "root_tilt_rad": 0.1789516360842169
+          },
+          {
+            "control": 27,
+            "substep": 7,
+            "reasons": [
+              "joint_range"
+            ],
+            "range_excess_rad": 0.0019384594793941945,
+            "speed_ratio": 0.19687811574187145,
+            "effort_ratio": 0.41148409019249355,
+            "root_height_m": 0.31316837963122185,
+            "root_tilt_rad": 0.18147671624053982
+          },
+          {
+            "control": 27,
+            "substep": 3,
+            "reasons": [
+              "joint_range"
+            ],
+            "range_excess_rad": 0.0013155896882786067,
+            "speed_ratio": 0.18198608578998615,
+            "effort_ratio": 0.41300370731866726,
+            "root_height_m": 0.31275156437042,
+            "root_tilt_rad": 0.1722878801586675
+          },
+          {
+            "control": 27,
+            "substep": 5,
+            "reasons": [
+              "joint_range"
+            ],
+            "range_excess_rad": 0.0019132848929390711,
+            "speed_ratio": 0.19918456583786653,
+            "effort_ratio": 0.4128917011407233,
+            "root_height_m": 0.31462451724706236,
+            "root_tilt_rad": 0.17155911553261438
+          },
+          {
+            "control": 27,
+            "substep": 6,
+            "reasons": [
+              "joint_range"
+            ],
+            "range_excess_rad": 0.0007363232452849422,
+            "speed_ratio": 0.20576047120104055,
+            "effort_ratio": 0.41280585076910375,
+            "root_height_m": 0.3155393878071043,
+            "root_tilt_rad": 0.17081772760696706
+          },
+          {
+            "control": 27,
+            "substep": 7,
+            "reasons": [
+              "joint_range"
+            ],
+            "range_excess_rad": 0.0015499039722416397,
+            "speed_ratio": 0.2100977305581317,
+            "effort_ratio": 0.41253832772811694,
+            "root_height_m": 0.3162978124940554,
+            "root_tilt_rad": 0.1705987996406146
+          },
+          null,
+          null
+        ],
+        "peaks": {
+          "range_excess_rad": [
+            0.0004496675403294903,
+            0.002482550664485217,
+            0.0019384594793941945,
+            0.0013155896882786067,
+            0.0019132848929390711,
+            0.0007363232452849422,
+            0.0015499039722416397,
+            0.0,
+            0.0
+          ],
+          "speed_ratio": [
+            0.8188871197055757,
+            0.8200489853655586,
+            0.8206907187274401,
+            0.8209839765610486,
+            0.8211310759867242,
+            0.8212043234741044,
+            0.821240946851372,
+            0.8212592584483911,
+            0.8212623736027332
+          ],
+          "effort_ratio": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "inspection": "every2ms including the initial state; invalid lanes latched"
+      },
+      "feasibility_optimized": {
+        "feasible": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+          true
+        ],
+        "first_violation": [
+          {
+            "control": 25,
+            "substep": 7,
+            "reasons": [
+              "joint_range"
+            ],
+            "range_excess_rad": 0.0004496675403294903,
+            "speed_ratio": 0.15581097371278063,
+            "effort_ratio": 0.4253655073320157,
+            "root_height_m": 0.29580450195695757,
+            "root_tilt_rad": 0.18738287589195182
+          },
+          {
+            "control": 26,
+            "substep": 8,
+            "reasons": [
+              "joint_range"
+            ],
+            "range_excess_rad": 0.002482550664485217,
+            "speed_ratio": 0.16941243236945064,
+            "effort_ratio": 0.38985328297915506,
+            "root_height_m": 0.3051688271564425,
+            "root_tilt_rad": 0.1789516360842169
+          },
+          {
+            "control": 27,
+            "substep": 7,
+            "reasons": [
+              "joint_range"
+            ],
+            "range_excess_rad": 0.0019384594793941945,
+            "speed_ratio": 0.19687811574187145,
+            "effort_ratio": 0.41148409019249355,
+            "root_height_m": 0.31316837963122185,
+            "root_tilt_rad": 0.18147671624053982
+          },
+          {
+            "control": 27,
+            "substep": 3,
+            "reasons": [
+              "joint_range"
+            ],
+            "range_excess_rad": 0.0013155896882786067,
+            "speed_ratio": 0.18198608578998615,
+            "effort_ratio": 0.41300370731866726,
+            "root_height_m": 0.31275156437042,
+            "root_tilt_rad": 0.1722878801586675
+          },
+          {
+            "control": 27,
+            "substep": 5,
+            "reasons": [
+              "joint_range"
+            ],
+            "range_excess_rad": 0.0019132848929390711,
+            "speed_ratio": 0.19918456583786653,
+            "effort_ratio": 0.4128917011407233,
+            "root_height_m": 0.31462451724706236,
+            "root_tilt_rad": 0.17155911553261438
+          },
+          {
+            "control": 27,
+            "substep": 6,
+            "reasons": [
+              "joint_range"
+            ],
+            "range_excess_rad": 0.0007363232452849422,
+            "speed_ratio": 0.20576047120104055,
+            "effort_ratio": 0.41280585076910375,
+            "root_height_m": 0.3155393878071043,
+            "root_tilt_rad": 0.17081772760696706
+          },
+          {
+            "control": 27,
+            "substep": 7,
+            "reasons": [
+              "joint_range"
+            ],
+            "range_excess_rad": 0.0015499039722416397,
+            "speed_ratio": 0.2100977305581317,
+            "effort_ratio": 0.41253832772811694,
+            "root_height_m": 0.3162978124940554,
+            "root_tilt_rad": 0.1705987996406146
+          },
+          null,
+          null
+        ],
+        "peaks": {
+          "range_excess_rad": [
+            0.0004496675403294903,
+            0.002482550664485217,
+            0.0019384594793941945,
+            0.0013155896882786067,
+            0.0019132848929390711,
+            0.0007363232452849422,
+            0.0015499039722416397,
+            0.0,
+            0.0
+          ],
+          "speed_ratio": [
+            0.8188871197055757,
+            0.8200489853655586,
+            0.8206907187274401,
+            0.8209839765610486,
+            0.8211310759867242,
+            0.8212043234741044,
+            0.821240946851372,
+            0.8212592584483911,
+            0.8212623736027332
+          ],
+          "effort_ratio": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "inspection": "every2ms including the initial state; invalid lanes latched"
+      },
+      "observed_mixed_valid_invalid": true,
+      "observed_substep_records": 331,
+      "output_sha256": "07d0f3f703db1bfd5d39197600b6d802f8df9f578a0e0cb0a25e33fad4ec14b5",
+      "parity_pass": true
+    },
+    {
+      "name": "hard_unguided_after",
+      "baseline_ms": 649.1320589993848,
+      "optimized_ms": 200.89610699960758,
+      "feasibility_baseline": {
+        "feasible": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "first_violation": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "peaks": {
+          "range_excess_rad": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "speed_ratio": [
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455
+          ],
+          "effort_ratio": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "inspection": "every2ms including the initial state; invalid lanes latched"
+      },
+      "feasibility_optimized": {
+        "feasible": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "first_violation": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "peaks": {
+          "range_excess_rad": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "speed_ratio": [
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455,
+            0.821271528300455
+          ],
+          "effort_ratio": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "inspection": "every2ms including the initial state; invalid lanes latched"
+      },
+      "observed_mixed_valid_invalid": false,
+      "observed_substep_records": 331,
+      "output_sha256": "71e376b67aa5566b1942dbdaaa9e0621a49fdb1ccaf923c83b86f38a0340a0f6",
+      "parity_pass": true
+    }
+  ],
+  "fixture_sha256": "33370743ce3132156294dbd87963a79acfc50124c68ce298c994c1f551cfda78",
+  "saved_backward_sha256": "4b40ebb5ffef6701591b93756bba31e20e15059c0c91bf88a3f3a2680ec16956",
+  "saved_backward_index": -1,
+  "feedforward_max_abs": 0.6739373926014884,
+  "feedback_max_abs": 97.38423255354186,
+  "guidance_semantics": "Saved nonzero final backward k/K used around same certified seed nominal states; declared parity stress, not reproduction of original restoration line search.",
+  "native_version": "3.2.3",
+  "numpy_version": "1.26.4",
+  "cpu_threads": 1,
+  "shared_host_not_quiet": true,
+  "timing_scope": "One paired call per stage including identical audit hooks; no standalone performance qualification or speedup claim.",
+  "loaded_modules": {
+    "gear_sonic.utils.g1_true23_mjbatch_ilqr_core": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/unguided_single_lane_v2/source_snapshot/gear_sonic/utils/g1_true23_mjbatch_ilqr_core.py",
+    "gear_sonic.utils.g1_true23_mjbatch_model": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/unguided_single_lane_v2/source_snapshot/gear_sonic/utils/g1_true23_mjbatch_model.py",
+    "gear_sonic.utils.g1_true23_relative_foot_cost": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/unguided_single_lane_v2/source_snapshot/gear_sonic/utils/g1_true23_relative_foot_cost.py",
+    "gear_sonic.utils.g1_true23_mjbatch_mpc": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/unguided_single_lane_v2/source_snapshot/gear_sonic/utils/g1_true23_mjbatch_mpc.py"
+  },
+  "source_hashes": {
+    "single_lane_tracker.py": "92f1890184b037a5cb57d2c065ca1b9fdf85a8d314a0488efc77716fc3667ae2",
+    "verify_nonzero_guided.py": "6568120e91c59eecc036de59fabd9e3efa5389254df67deb4d6793abfac33b1a",
+    "source_snapshot/gear_sonic/utils/g1_true23_bfm_seed_observations.py": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d",
+    "source_snapshot/gear_sonic/utils/g1_true23_feasibility_referee.py": "0027210cda5a44255debecd7151ecd454e2281a5ff4e3137641d102701fb1330",
+    "source_snapshot/gear_sonic/utils/g1_true23_mjbatch_bfm_seed.py": "2f3d808b6a95fd80a3c1f9a0fabbe80264cf9cc93fbf01e2b2be65f6a5ec75de",
+    "source_snapshot/gear_sonic/utils/g1_true23_mjbatch_ilqr_core.py": "1efc9cb21e446d8e41e3d3acebe05d12b951e8a0002b264ddf0a6b723e32f45a",
+    "source_snapshot/gear_sonic/utils/g1_true23_mjbatch_model.py": "61d1c168ba5db189fc1e882bfb1e2c9f7773584353b8e2251713ae0d0dd7dc9e",
+    "source_snapshot/gear_sonic/utils/g1_true23_mjbatch_mpc.py": "7695d03787de93dc3d4b1fb2001d6b6b0dcdb9016af9c96734e8f7d94a5e5dde",
+    "source_snapshot/gear_sonic/utils/g1_true23_mjbatch_restoration.py": "3fb4aa5a786d8acb3de44a3c96a4ac9ea26cfbaf17887c0aecbb7d3915bd71c5",
+    "source_snapshot/gear_sonic/utils/g1_true23_relative_foot_cost.py": "36f89cac4374364cd155184c7c6f098de913ebca22976c0d59c8d1489089cc35"
+  },
+  "fullsolver_calls": 0,
+  "policy_calls": 0,
+  "physical_controller_trials": 0,
+  "production_integration": false,
+  "realtime_qualified": false
+}

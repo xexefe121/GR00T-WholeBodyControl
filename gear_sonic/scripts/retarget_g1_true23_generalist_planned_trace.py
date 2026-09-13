@@ -42,13 +42,17 @@ def planned_named_source(trace, source_model):
     }
 
 
-def planned_adaptation_options(*, root_reference_refinement: bool):
+def planned_adaptation_options(*, root_reference_refinement: bool, preserve_source_excursion: bool = False):
     """Root refinement is one bounded diagnostic, never a larger hidden sweep."""
     if type(root_reference_refinement) is not bool:
         raise ValueError("root_reference_refinement must be boolean")
+    if type(preserve_source_excursion) is not bool:
+        raise ValueError("preserve_source_excursion must be boolean")
+    if preserve_source_excursion and not root_reference_refinement:
+        raise ValueError("full source excursion requires the single bounded root-refinement candidate")
     return {
         "limits": (
-            AdaptationLimits(duration_scales=(2.0,), excursion_scales=(0.9,))
+            AdaptationLimits(duration_scales=(2.0,), excursion_scales=(1.0 if preserve_source_excursion else 0.9,))
             if root_reference_refinement
             else AdaptationLimits()
         ),
@@ -72,9 +76,23 @@ def main(argv=None):
         type=Path,
         help="One hard-constrained refinement of a hash-bound rejected diagnostic report",
     )
+    parser.add_argument(
+        "--preserve-source-excursion",
+        action="store_true",
+        help="With --root-reference-refinement, fit one 2x-duration/full-excursion source; no amplitude reduction",
+    )
+    parser.add_argument(
+        "--feasibility-restoration",
+        action="store_true",
+        help="With a retained rejected diagnostic, recover intermediate feasibility; final bounds stay unchanged",
+    )
     args = parser.parse_args(argv)
     if args.root_reference_refinement and args.protected_root_refinement_from is not None:
         parser.error("choose weighted root refinement or retained hard refinement, not both")
+    if args.preserve_source_excursion and not args.root_reference_refinement:
+        parser.error("--preserve-source-excursion requires --root-reference-refinement")
+    if args.feasibility_restoration and args.protected_root_refinement_from is None:
+        parser.error("--feasibility-restoration requires --protected-root-refinement-from")
     output = args.output_directory.resolve()
     if output.exists() or output.is_symlink():
         raise FileExistsError(output)
@@ -98,6 +116,7 @@ def main(argv=None):
             "g1_true23_reference_floor.py",
             "g1_true23_generalist_corpus.py",
             "g1_true23_generalist_protected_root.py",
+            "g1_true23_generalist_feasibility_restore.py",
         )
     )
     bindings = {str(path.resolve(strict=True)): sha256_file(path) for path in paths}
@@ -157,6 +176,7 @@ def main(argv=None):
                 arrays=arrays,
                 stored=stored,
                 forensic_report=forensic_report,
+                feasibility_restoration=args.feasibility_restoration,
             )
         else:
             result = adapt_offline_motion(
@@ -164,7 +184,10 @@ def main(argv=None):
                 target_model=target,
                 arrays=arrays,
                 source_role="requested_choreography",
-                **planned_adaptation_options(root_reference_refinement=args.root_reference_refinement),
+                **planned_adaptation_options(
+                    root_reference_refinement=args.root_reference_refinement,
+                    preserve_source_excursion=args.preserve_source_excursion,
+                ),
             )
         report = result.report
         if result.diagnostic_arrays is not None:
@@ -191,6 +214,7 @@ def main(argv=None):
         recorded_policy_pose_used_as_choreography=False,
         root_reference_refinement_requested=args.root_reference_refinement or forensic_report is not None,
         hard_protected_refinement_requested=forensic_report is not None,
+        intermediate_feasibility_restoration_requested=args.feasibility_restoration,
         named_source_sha256=sha256_file(output / "planned.named29.npz"),
         compiled_models={"source": compiled_model_sha256(source), "target": compiled_model_sha256(target)},
         hardware_authorized=False,

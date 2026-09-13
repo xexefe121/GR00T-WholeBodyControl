@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="1" failures="0" skipped="0" tests="1" time="3.107" timestamp="2026-09-11T15:23:55.133441+10:00" hostname="MSI"><testcase classname="" name="e" time="0.000"><error message="collection failure">/mnt/e/codex_sonic_runtime/mjbatch323_20260910/venv/lib/python3.11/site-packages/pluggy/_hooks.py:512: in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/mnt/e/codex_sonic_runtime/mjbatch323_20260910/venv/lib/python3.11/site-packages/pluggy/_manager.py:120: in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/mnt/e/codex_sonic_runtime/mjbatch323_20260910/venv/lib/python3.11/site-packages/_pytest/python.py:186: in pytest_collect_directory
+    has_pkginit = pkginit.is_file()
+                  ^^^^^^^^^^^^^^^^^
+/root/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py:1267: in is_file
+    return S_ISREG(self.stat().st_mode)
+                   ^^^^^^^^^^^
+/root/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py:1013: in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   OSError: [Errno 22] Invalid argument: '/mnt/e/WpSystem/__init__.py'</error></testcase></testsuite></testsuites>

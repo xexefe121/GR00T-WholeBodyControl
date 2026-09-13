@@ -1,0 +1,138 @@
+{
+  "saved_timing_analysis_complete": true,
+  "trace_sha256": "04c7704e08c158e04c00191e26bdbd16a013632f4833623c81e8051c29b3488e",
+  "saved_audit_sha256": "48e1a6275a70998da3a2dfdda6f017b5a488c8ff4bd422d3329b4f98267ec8b1",
+  "returned_steps": 4694,
+  "deadline_misses": 6,
+  "misses": [
+    {
+      "index": 610,
+      "control_boundary": true,
+      "wake_delay_ns": 26128,
+      "body_ns": 2268109,
+      "deadline_overrun_ns": 294237,
+      "wake_already_overdue": false
+    },
+    {
+      "index": 3235,
+      "control_boundary": false,
+      "wake_delay_ns": 87928,
+      "body_ns": 2090550,
+      "deadline_overrun_ns": 178478,
+      "wake_already_overdue": false
+    },
+    {
+      "index": 4250,
+      "control_boundary": true,
+      "wake_delay_ns": 88628,
+      "body_ns": 1993016,
+      "deadline_overrun_ns": 81644,
+      "wake_already_overdue": false
+    },
+    {
+      "index": 4669,
+      "control_boundary": false,
+      "wake_delay_ns": 118043,
+      "body_ns": 2286075,
+      "deadline_overrun_ns": 404118,
+      "wake_already_overdue": false
+    },
+    {
+      "index": 4670,
+      "control_boundary": true,
+      "wake_delay_ns": 451509,
+      "body_ns": 2649534,
+      "deadline_overrun_ns": 1101043,
+      "wake_already_overdue": false
+    },
+    {
+      "index": 4671,
+      "control_boundary": false,
+      "wake_delay_ns": 1194268,
+      "body_ns": 1368950,
+      "deadline_overrun_ns": 563218,
+      "wake_already_overdue": false
+    }
+  ],
+  "first_miss_neighbors": [
+    {
+      "index": 608,
+      "wake_delay_ns": 70528,
+      "body_ns": 482717,
+      "deadline_overrun_ns": 0
+    },
+    {
+      "index": 609,
+      "wake_delay_ns": 67212,
+      "body_ns": 695566,
+      "deadline_overrun_ns": 0
+    },
+    {
+      "index": 610,
+      "wake_delay_ns": 26128,
+      "body_ns": 2268109,
+      "deadline_overrun_ns": 294237
+    },
+    {
+      "index": 611,
+      "wake_delay_ns": 330262,
+      "body_ns": 558066,
+      "deadline_overrun_ns": 0
+    },
+    {
+      "index": 612,
+      "wake_delay_ns": 39478,
+      "body_ns": 500684,
+      "deadline_overrun_ns": 0
+    }
+  ],
+  "all_steps": {
+    "wake_delay_ns": {
+      "p50": 71623.5,
+      "p95": 124632.6499999999,
+      "p99": 169514.94,
+      "max": 1194268.0
+    },
+    "body_ns": {
+      "p50": 489637.5,
+      "p95": 973931.0499999999,
+      "p99": 1355224.1299999957,
+      "max": 2649534.0
+    }
+  },
+  "boundary_steps": {
+    "wake_delay_ns": {
+      "p50": 70497.0,
+      "p95": 113709.54999999994,
+      "p99": 225117.7200000001,
+      "max": 457478.0
+    },
+    "body_ns": {
+      "p50": 938712.5,
+      "p95": 1446555.15,
+      "p99": 1740829.52,
+      "max": 2649534.0
+    }
+  },
+  "nonboundary_steps": {
+    "wake_delay_ns": {
+      "p50": 71687.5,
+      "p95": 125250.65,
+      "p99": 168897.10999999984,
+      "max": 1194268.0
+    },
+    "body_ns": {
+      "p50": 483725.0,
+      "p95": 822090.1499999999,
+      "p99": 1081640.9999999984,
+      "max": 2286075.0
+    }
+  },
+  "limitations": [
+    "Saved timestamp attribution only; body combines Python boundary/history/mailbox, native step/capture/check and OS preemption.",
+    "Wake delay alone does not identify hypervisor/OS scheduling cause. No replay or fresh clock run performed."
+  ],
+  "model_calls": 0,
+  "native_steps": 0,
+  "writer_sha256": "585b33b0f42b53ed2df63d5bfdf470df405616c8aca3c06a381f3b5980446351"
+}

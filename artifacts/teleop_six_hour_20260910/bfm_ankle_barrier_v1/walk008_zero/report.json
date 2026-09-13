@@ -1,0 +1,66 @@
+{
+  "kind": "bfmzero_explicit_ankle_repulsion_simulation",
+  "clip": "walk008",
+  "completed": 472,
+  "requested": 1114,
+  "available": 1114,
+  "failure": {
+    "kind": "physical_limit",
+    "control": 471,
+    "range_excess": 0.01004778915651644,
+    "velocity_ratio": 0.19899990946900728
+  },
+  "full_lifecycle_completed": false,
+  "source_metrics": {
+    "source_controls": 122,
+    "source_requested": 364,
+    "leg_rmse": 0.15309105768277526,
+    "arm_rmse": 0.36867806269340264,
+    "root_p95": 0.5536037820067005,
+    "landmark_p95": [
+      0.48075917396193507,
+      0.5036194114539133,
+      0.6175163985025466,
+      0.6157490770636194,
+      0.5796655865746417
+    ],
+    "relative_landmark_p95": [
+      0.16386248085309604,
+      0.12040936574201462,
+      0.3940042343145057,
+      0.26936338165428225,
+      0.02832450778278289
+    ]
+  },
+  "range_excess_max": 0.01004778915651644,
+  "effort_ratio_max": 0.7412508306221693,
+  "velocity_ratio_max": 0.2657447247852931,
+  "elapsed_seconds": 6.355042600000161,
+  "barrier": {
+    "kind": "measured_ankle_roll_inward_spring_outward_damping",
+    "joint_indices": [
+      5,
+      11
+    ],
+    "margin_rad": 0.05,
+    "stiffness_Nm_per_rad": 0.0,
+    "damping_Nm_per_rad_per_second": 0.0,
+    "effort_clip_order": "clip(BFM_PD_torque + declared_ankle_torque, native_effort)",
+    "zero_other_joint_torque": true,
+    "formal_safety_guarantee": false
+  },
+  "barrier_torque_max_Nm": 0.0,
+  "barrier_active_physics_steps": 0,
+  "arm_reference": false,
+  "goal_horizon": 8,
+  "position_gain": 1.0,
+  "yaw_gain": 2.0,
+  "ground_truth_pose_feedback": true,
+  "source_tracking_qualified": false,
+  "hardware_authorized": false,
+  "deployment_ready": false,
+  "simulator_pose_writes_after_initialization": 0,
+  "root_assistance_forces": 0,
+  "request_sha256": "1fc31192968d31237c416ea9bcf47a5a00563cfffb861946a3b6ef799ec4268f",
+  "trace_sha256": "1f255b0a35b4ca0035a6358fb616e87d02a695849878492101d8870e89d20d80"
+}

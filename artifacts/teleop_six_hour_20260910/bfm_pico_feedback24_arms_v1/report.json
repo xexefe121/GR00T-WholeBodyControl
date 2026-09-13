@@ -1,0 +1,50 @@
+{
+  "clip": "pico",
+  "completed": 6530,
+  "requested": 6530,
+  "available": 6530,
+  "failure": null,
+  "full_lifecycle_completed": true,
+  "source_metrics": {
+    "source_controls": 5780,
+    "source_requested": 5780,
+    "leg_rmse": 0.1611740457411627,
+    "arm_rmse": 0.07110068490915872,
+    "root_p95": 0.26802871065723705,
+    "landmark_p95": [
+      0.31382652938943095,
+      0.267608773142573,
+      0.28564411547569596,
+      0.3001603715191036,
+      0.2705720142674526
+    ],
+    "relative_landmark_p95": [
+      0.1889724696338995,
+      0.20030215840287963,
+      0.1723531361761913,
+      0.20774835924914062,
+      0.07279276330436918
+    ]
+  },
+  "range_excess_max": 0.007361678291695872,
+  "effort_ratio_max": 1.0,
+  "velocity_ratio_max": 0.5929910119525253,
+  "inference_ms_p95": 16.376374996616466,
+  "elapsed_seconds": 82.35295290000795,
+  "goal_horizon": 8,
+  "goal_buffer_ms": 140,
+  "reference_path": "C:\\Users\\camer\\sonic23_sim_artifacts\\internet_pico_20260909_v1\\pico_freedancing_v1\\optical_reference_v2\\lifecycle23.npz",
+  "ground_truth_pose_feedback": true,
+  "root_xy_feedback_used": true,
+  "heading_feedback_sensor_equivalent": "pelvis_IMU_orientation_with_initial_calibration",
+  "position_gain": 2.0,
+  "yaw_gain": 4.0,
+  "arm_reference": true,
+  "leg_error_gain": 0.0,
+  "residual_checkpoint": null,
+  "residual_updates": null,
+  "model_path": "Z:\\codex\\GR00T-WholeBodyControl\\gear_sonic\\data\\robots\\g1\\g1_23dof_rev_1_0.xml",
+  "action_contract": "target=default_q+5*tanh_actor*.25*training_effort/training_kp; native effort clipped",
+  "hardware_authorized": false,
+  "deployment_ready": false
+}

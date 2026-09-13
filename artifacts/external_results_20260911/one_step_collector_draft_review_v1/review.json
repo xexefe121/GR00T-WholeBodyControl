@@ -1,0 +1,41 @@
+{
+  "kind": "independent_selected_one_step_branch_collector_draft_source_review",
+  "decision": "FIX_TWO_PRESERVATION_ITEMS_THEN_FREEZE",
+  "source_review_pass": false,
+  "utc": "2026-09-11T09:32:59.758654+00:00",
+  "hashes": {
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_policy_branch_collection_v1\\draft\\collect_branches.py": "82808896d616afc089cf141cf4c7b3985579cd240dd1fbf72ddb1a0211ffdd9e",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_policy_branch_collection_v1\\draft\\collection_arrays.py": "99e1b69afb32180370d98a394dcf7ca59d7e2c2b248d7758b3dc44c76c3d0695",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_policy_branch_collection_v1\\draft\\native_capture.py": "0cfc1b9d8625c0385c92838c4d9b9eb195175efd4eda1c47d66722dc468ab260",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_policy_branch_collection_v1\\draft\\branch_inputs.py": "c1c75e99e2877d3db229396109c76769bbb2fcd767ea1a4e45d7f5cf0c3f3731",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_policy_branch_collection_v1\\draft\\native_forecast.py": "81af01274f55c703850cb3ec3801bb41912e3f3786440af5099b769b7bd28824",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_policy_branch_collection_v1\\draft\\stateless_adapter.py": "5f932ab291ebed5abbe900f793869420208f51f688fe64c91e21fe712d964848"
+  },
+  "copied_native_forecast_byteexact": true,
+  "copied_stateless_adapter_byteexact": true,
+  "math_findings": [],
+  "checked": [
+    "All3054 original nominal transitions and full291 successors verified before any graph call.",
+    "Fixed policy order begins row2036/query250 once; original batch1 witness and actual251 full native10step/state/history/base/head gate before any broader policy row.",
+    "Exact native10step private capture wraps unchanged forecast and copies expiring trace views, with global/per-row attempted/returned/captured step counters.",
+    "All3 datasets controls250..1267 retained; successor uses exact saved center_index+1 plan/local mapping and full58 signed difference with both clips.",
+    "History advanced once from original precontrol state52 terms and incoming previous action; endpoint current prior is raw combined command, including postclip discrepancy.",
+    "Strict-failed policy rows retain native evidence and remain unlabeled; native/model/parity exceptions stop whole collection without retry.",
+    "BFM goal framec+12, actor state/history/prior and original1069 feature construction preserved.",
+    "Graph ceilings3054 backward/3054actor/6108head and native61080 attempts include calibration; no planner query, fit or connected rollout."
+  ],
+  "findings": [
+    {
+      "id": "stale_graph_return_in_active",
+      "fix": "Before every graph call remove existing same-graph output fields and set explicit returned=false; only associate returned=true/current outputs after this call returns. Nominal head raw output remains separately stored."
+    },
+    {
+      "id": "bind_final_ledgers",
+      "fix": "Bind graph_calls.jsonl, native_rows.jsonl, all_nominal_parity.json and calibration receipt into final manifest/report; preserve schema and execution-order identities."
+    }
+  ],
+  "final_freeze_pending": true,
+  "reviewer_native_steps": 0,
+  "reviewer_graph_calls": 0,
+  "reviewer_optimizer_updates": 0
+}

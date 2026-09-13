@@ -1,0 +1,35 @@
+{
+  "kind": "independent_zero_residual_baseline_comparison",
+  "source_controls": 150,
+  "full_lifecycle": false,
+  "zero_delta_exact": true,
+  "metrics": {
+    "qpos": {
+      "max_abs_difference": 1.0722598650092507e-06,
+      "bit_exact": false,
+      "first_nonzero_index": 1
+    },
+    "qvel": {
+      "max_abs_difference": 3.339673463065296e-05,
+      "bit_exact": false,
+      "first_nonzero_index": 1
+    },
+    "target": {
+      "max_abs_difference": 5.123683336688556e-06,
+      "bit_exact": false,
+      "first_nonzero_index": 0
+    },
+    "combined_action": {
+      "max_abs_difference": 1.1682510375976562e-05,
+      "bit_exact": false,
+      "first_nonzero_index": 313
+    }
+  },
+  "hashes": {
+    "E:\\codex_sonic_runtime\\mpc_student_20260910\\bfm_residual_fit_3s_r025_v1\\replay_zero\\trace.npz": "62f8e5ee422013475c5a321c45e2de0c071b008ee000aa78aa84c0c500c02bc6",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\bfm_walk002_feedback_v2\\trace.npz": "74bbd9c8e4cae7c8c8b421b4a1448f917872161b837efce04001810041b94f97"
+  },
+  "finding": "Residual is exact zero. Precomputed target scale reassociates float64 arithmetic: target differs 1.39e-17 at control0, first combined action difference at313, measured q difference at most1.08e-6 over500 controls. Not bit-exact root-referee parity. Student own zero baseline remains matched to its own evaluator.",
+  "candidate_rejected": true,
+  "hardware_authorized": false
+}

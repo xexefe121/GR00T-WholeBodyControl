@@ -1,0 +1,42 @@
+{
+  "kind": "scoped_one_step_physical_branch_design_review",
+  "passed": true,
+  "design_review_passed": true,
+  "root_selected_collection_only": true,
+  "source_implementation_or_launch_clear": false,
+  "proposal_document_sha256": "cb5d9950520a65b46599346959767290b3c62980edd90911c0b86fcad5e30f5e",
+  "behavior_report_sha256": "f6c0ac3f60ed1b9776e30aefb5ddbcf48b507ff2eefa15e21368d0ed49b0c0d4",
+  "input_hashes": {
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_resume_20260911\\PROPOSED_ONE_STEP_DISTILLATION.md": "cb5d9950520a65b46599346959767290b3c62980edd90911c0b86fcad5e30f5e",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\previous_command_perturbation_feasibility_v1\\behavior_report.json": "f6c0ac3f60ed1b9776e30aefb5ddbcf48b507ff2eefa15e21368d0ed49b0c0d4",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\student_velocity_chord_saved_outcome_v1\\report.json": "7a24e28350e138af70949a71cfeefffb1d734b51baa3fadd836d56d52fc7e7d0",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\student_velocity_chord_fixed_map_v1\\report.json": "82a743ee3ce6136d4d1a265ee89505e2cfab1744e6f0348a22b4d059a04197aa"
+  },
+  "requested_branches": 3054,
+  "maximum_private_steps": 61080,
+  "maximum_graph_calls": 12216,
+  "mechanism": "One physical action from measured qualified teacher occupancy jointly changes pose, root/joint velocity and raw policy memory, directly covering a gap left by independent velocity-axis probes and same-state memory interventions.",
+  "correctness_findings": [],
+  "source_review_requirements": [
+    "Freeze exactly3054 branch starts: each dataset controls250..1267; endpoint label control c+1=251..1268, source frame c+12. Keep all3057 original nominal anchors; do not drop original control250.",
+    "Use complete independently reconstructed291-value start and successor states plus warning ledgers. Nominal10-step replay must match every saved sample and full successor; a nominal mismatch aborts collection.",
+    "Run query250/c250 witness first, count it among3054 rather than adding a branch: nominal head output must match WSL witness, then all10 student samples/full291/history/prior must reproduce actual251 before accepting broader rows.",
+    "Run true frozen WSL batch1 nominal head on exact saved features. Use original base+delta/nativeclip and raw combined-action expression; do not replace raw prior with inverse applied target, Windows batch predictions, smoothing or adaptive scale.",
+    "Advance history once using actual nominal precontrol c observations and incoming prior; endpoint actor history newest action remains c-1, separate last_action is outgoing command c. Save named/flat pre-endpoint history before any endpoint update.",
+    "Policy branch stops at first strict native2ms failure with full attempted metadata and actual partial samples. No endpoint label inference on invalid endpoint. Native/model exceptions preserve active returned values and stop; no retries or hidden row substitution.",
+    "Maximum native computation61080 steps includes30540 nominal plus up to30540 policy steps. Freeze separate attempted/returned graph caps:3054 nominal heads plus up to3054 each backward,actor,endpoint head=12216 maximum. Reuse first witness row, do not add hidden parity calls.",
+    "Resolve c+1 teacher plan/local using each dataset original recorded mapping, not floor(control/5): query1 has a different commit origin. Keep610 replan-boundary cases, zero gains and all target-clipped cases explicit.",
+    "Teacher label uses complete58D original tangent difference, signed full K product, correctionclip plus nativeclip. It is a local fixed-plan target, not replanning, recursively feasible control or teacher continuation qualification.",
+    "Recompute endpoint original-native BFM goal from actual resulting root pose and frame c+12, actor state/history/rawprior, and v4+original29 residual features. Save endpoint head output as diagnostic only; no candidate selection.",
+    "Every requested row retains an outcome. Final source/request/input rehash and complete/failed counters must match raw arrays. Compatibility/conflict review and any later objective, update budget, export or canonical rollout remain separate gates."
+  ],
+  "selection_note": "Root selected collection after the bound design document was written as unselected; this review does not select any learner fit or runtime.",
+  "limits": [
+    "One-step occupancy is not successive student drift/recovery; endpoint fixed map does not certify a safe next command or complete source.",
+    "Strict-failed branches are retained as failures without labels; successful data counts may be below3054.",
+    "Clipped rows and replan boundaries cannot be excluded merely for being difficult."
+  ],
+  "reviewer_inference_calls": 0,
+  "reviewer_physics_steps": 0,
+  "reviewer_optimizer_updates": 0
+}

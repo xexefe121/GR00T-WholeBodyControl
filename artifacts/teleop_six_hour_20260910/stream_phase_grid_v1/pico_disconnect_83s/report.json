@@ -1,0 +1,170 @@
+{
+  "kind": "bfmzero_received_stream_simulation_v1",
+  "mode": "latched_standing",
+  "controls": 4600,
+  "physics_steps": 46000,
+  "physics_steps_per_control": 10,
+  "control_hz": 50,
+  "physics_hz": 500,
+  "received_source_buffer_seconds": 0.14,
+  "stale_seconds": 0.1,
+  "epochs": [
+    {
+      "epoch": 0,
+      "received": 4150,
+      "consumed": 4148,
+      "ignored": 0,
+      "rejected": 0,
+      "final_received": false,
+      "full_source_consumed": false,
+      "fault": {
+        "reason": "packet_timeout",
+        "time": 83.10000000000001,
+        "epoch": 0,
+        "last_sequence": 4149,
+        "consumed": 4148
+      },
+      "calibration": null
+    }
+  ],
+  "any_fault_latched": true,
+  "physical_failure": null,
+  "full_uninterrupted_source_consumed": false,
+  "standing_return_verified": true,
+  "range_excess_max_rad": 0.0,
+  "range_excess_controls": 0,
+  "effort_ratio_max": 1.0,
+  "velocity_ratio_max": 0.46108040767657166,
+  "events": [
+    {
+      "kind": "source_control_started",
+      "time": 0.14,
+      "epoch": 0,
+      "received_window": 8
+    },
+    {
+      "kind": "active_bfm_standing_transition",
+      "reason": "packet_timeout",
+      "time": 83.10000000000001,
+      "control": 4155,
+      "target_qpos": [
+        0.17514780665697494,
+        -0.34326429295113436,
+        0.76,
+        0.9973430976999574,
+        0.0,
+        0.0,
+        -0.07284741224129465,
+        -0.312,
+        0.0,
+        0.0,
+        0.669,
+        -0.363,
+        0.0,
+        -0.312,
+        0.0,
+        0.0,
+        0.669,
+        -0.363,
+        0.0,
+        0.0,
+        0.2,
+        0.2,
+        0.0,
+        0.6,
+        0.0,
+        0.2,
+        -0.2,
+        0.0,
+        0.6,
+        0.0
+      ],
+      "simulator_state_rewritten": false,
+      "root_force_applied": false
+    },
+    {
+      "kind": "measured_standing_verified",
+      "time": 86.08,
+      "mode": "latched_standing",
+      "consecutive_controls": 50
+    },
+    {
+      "kind": "latched_fault",
+      "reason": "packet_timeout",
+      "time": 83.10000000000001,
+      "epoch": 0,
+      "last_sequence": 4149,
+      "consumed": 4148
+    }
+  ],
+  "ground_truth_pose_feedback": true,
+  "simulator_pose_writes_after_initialization": 0,
+  "root_assistance_forces": 0,
+  "controller_fallback": false,
+  "deployment_ready": false,
+  "hardware_authorized": false,
+  "scenario": "disconnect",
+  "clip": "pico",
+  "paced": false,
+  "timing_environment": "shared_cpu_with_training_and_replay",
+  "requested_controls": 4600,
+  "budget_completed": true,
+  "source_packets_requested": 6530,
+  "rearm_events": [],
+  "wall_elapsed_seconds": 59.93978960000095,
+  "simulated_seconds": 92.0,
+  "full_loop_ms_p50_p95_max": [
+    11.969699997280259,
+    18.3634449960664,
+    56.16210000880528
+  ],
+  "control_start_late_ms_p95_max": [
+    0.0,
+    0.0
+  ],
+  "deadline_misses": 173,
+  "timing_qualified": false,
+  "source_tracking_qualified": false,
+  "request_sha256": "0563e3de6ddca46e849ae9b5029cb15288a05197f0b926be5b235a3a86c29c76",
+  "trace_sha256": "85c6dd7159bc060606647b02421efe31ba7b4ac7a3fd40674d00217a592c1c89",
+  "phase_ms_p50_p95_max": {
+    "receive_ms": [
+      0.9068000072147697,
+      1.5509049939282704,
+      9.604699996998534
+    ],
+    "reference_window_ms": [
+      0.006300004315562546,
+      0.01820000761654228,
+      19.632499999715947
+    ],
+    "goal_feedback_ms": [
+      0.5653500047628768,
+      1.0046199953649193,
+      7.144399991375394
+    ],
+    "backward_ms": [
+      0.5305000013322569,
+      0.8316500025102871,
+      6.1677000048803166
+    ],
+    "actor_ms": [
+      7.74364999961108,
+      11.515070000314157,
+      36.244300004909746
+    ],
+    "physics_ms": [
+      1.622049996512942,
+      2.736214995820774,
+      13.59509999747388
+    ],
+    "diagnostics_ms": [
+      0.30949999927543104,
+      0.5059249961050228,
+      4.207599995424971
+    ]
+  },
+  "protocol_scenario_passed": true,
+  "physical_lifecycle_passed": true,
+  "scenario_passed": true
+}

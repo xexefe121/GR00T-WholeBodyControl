@@ -1,0 +1,177 @@
+{
+  "completed_transitions": 1,
+  "requested_transitions": 1,
+  "library_completion_passed": false,
+  "upright_physical_bounds_passed": false,
+  "failure": {
+    "transition": 0,
+    "gates": [
+      "pelvis_orientation_tracking",
+      "joint_tracking"
+    ]
+  },
+  "first_predicted_quarter_effort_guard_violation": {
+    "transition": 0,
+    "substep": 0,
+    "maximum_ratio": 1.1862411327648443
+  },
+  "first_target_margin_guard_violation": null,
+  "slew_clipped_joint_step_fraction": 0.7608695652173914,
+  "maximums": {
+    "height_m": 0.13787642748596066,
+    "tilt_rad": 1.7234007284300674,
+    "joint_rmse_rad": 0.7811100785616512,
+    "relative_body_error_m": 0.7218553301661137,
+    "pelvis_orientation_error_rad": 1.796553313801026,
+    "pelvis_position_error_m": 0.6481307196412935,
+    "maximum_ankle_torque_nm": 6.508276909122129,
+    "knee_flexion_delta_rad": -0.005896271016114341
+  },
+  "minimum_base_height_m": 0.13787642748596066,
+  "horizontal_displacement_m": 0.0015600826375761134,
+  "gain_kp_hardware": [
+    12.0,
+    12.0,
+    12.0,
+    16.0,
+    8.0,
+    8.0,
+    12.0,
+    12.0,
+    12.0,
+    16.0,
+    8.0,
+    8.0,
+    8.0,
+    4.0,
+    4.0,
+    4.0,
+    4.0,
+    3.0,
+    4.0,
+    4.0,
+    4.0,
+    4.0,
+    3.0
+  ],
+  "gain_kd_hardware": [
+    1.0,
+    1.0,
+    1.0,
+    1.25,
+    0.8,
+    0.8,
+    1.0,
+    1.0,
+    1.0,
+    1.25,
+    0.8,
+    0.8,
+    0.8,
+    0.45,
+    0.45,
+    0.45,
+    0.45,
+    0.35,
+    0.45,
+    0.45,
+    0.45,
+    0.45,
+    0.35
+  ],
+  "effort_limit_hardware_nm": [
+    88.0,
+    139.0,
+    88.0,
+    139.0,
+    50.0,
+    50.0,
+    88.0,
+    139.0,
+    88.0,
+    139.0,
+    50.0,
+    50.0,
+    88.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "motion_fidelity": {
+    "kind": "g1_true23_reference_motion_fidelity_v1",
+    "passed": false,
+    "full_clip_completed": false,
+    "failed_checks": [
+      "full_clip_completion",
+      "maximum_pelvis_position_error_m",
+      "maximum_pelvis_orientation_error_rad",
+      "maximum_relative_tracked_body_position_error_m",
+      "maximum_joint_tracking_rmse_rad"
+    ],
+    "maximum_errors": {
+      "maximum_pelvis_position_error_m": 0.25,
+      "maximum_pelvis_orientation_error_rad": 0.5,
+      "maximum_relative_tracked_body_position_error_m": 0.2,
+      "maximum_joint_tracking_rmse_rad": 0.35
+    },
+    "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+    "hardware_authorized": false,
+    "deployment_ready": false
+  },
+  "startup_hold": {
+    "duration_s": 1.0,
+    "completed_physics_steps": 500,
+    "minimum_height_m": 0.135928761041118,
+    "maximum_knee_flexion_delta_rad": 2.608708202818215,
+    "maximum_abs_effort_nm": 17.295227617915497,
+    "first_tenth_effort_guard_violation": {
+      "physics_step": 184,
+      "ratio": 1.0047880925032204
+    },
+    "finite": true,
+    "mode_transfer_simulated": false
+  },
+  "return_hold": {
+    "duration_s": 0.0,
+    "completed_physics_steps": 0,
+    "minimum_height_m": 0.13787642748596066,
+    "maximum_knee_flexion_delta_rad": 0.0,
+    "maximum_abs_effort_nm": 0.0,
+    "first_tenth_effort_guard_violation": null,
+    "finite": true,
+    "mode_transfer_simulated": false
+  },
+  "measured_contact_estimate": {
+    "method": "lowest_native23_foot_collision_sphere_tangent_to_ground",
+    "root_height_m": 0.7877132778330452,
+    "foot_sphere_clearances_m": [
+      0.0014594177844813316,
+      0.0013782565413452685,
+      0.0038774371167930033,
+      0.0037800436250297054,
+      0.005935646932164085,
+      0.007464265346809551,
+      0.0,
+      0.0018343420975746039
+    ],
+    "gantry_forces_modeled": false,
+    "root_position_measured": false
+  },
+  "measured_initial_state": {
+    "source": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/readiness_audit_20260905_v1/motor_health.json",
+    "source_sha256": "7a9806e76f6cb7f503427e995698b14974eb36c61d8865738f207f755e332fff"
+  },
+  "label": "stage_one_fraction0.6_ankle50_slew5_measured",
+  "gain_profile": "stage_one",
+  "action_fraction": 0.6,
+  "ankle_effort_nm": 50.0,
+  "target_slew_rad_s": 5.0,
+  "initial_state": "measured"
+}

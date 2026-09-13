@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="10" skipped="0" tests="10" time="0.365" timestamp="2026-09-12T11:19:28.903053+10:00" hostname="MSI"><testcase classname="test_audit_process" name="test_saved_process_chain_rejects_mismatches[None]" time="0.013"><failure message="KeyError: 'Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec0/fit_process_v1/dispatch_attempt.json'">tmp_path = WindowsPath('Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x00000193C5458F10&gt;
+change = None
+
+    @pytest.mark.parametrize('change',[None,'argument','wrapper','handle','raw_bool','start_scope','absence','owner_path','owner_hash','output_omission'])
+    def test_saved_process_chain_rejects_mismatches(tmp_path,monkeypatch,change):
+        args,dispatch,absence,owner=fixture(tmp_path,monkeypatch)
+        if change=='argument':dispatch['arguments'].remove('-NonInteractive')
+        if change=='wrapper':dispatch['wrapper_pid']=13
+        if change=='handle':dispatch['captured_handle_nonzero']=False
+        if change=='raw_bool':args[6]['raw_python_exit_code']=False
+        if change=='start_scope':args[4]['updates']=3
+        if change=='absence':absence['child_absent']=False
+        if change=='owner_path':owner['direct_subjects']['source_checkpoint']['path']=str(tmp_path/'wrong.pt')
+        if change=='owner_hash':owner['direct_subjects']['source_checkpoint']['sha256']='bad'
+        if change=='output_omission':owner['output_sha256'].pop(str(tmp_path/'fit_process_v1/start.json'))
+&gt;       if change is None:process.validate_process_chain(*args)
+
+test_audit_process.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+audit_fit_process.py:7: in validate_process_chain
+    attempt=read(bind(process/'dispatch_attempt.json'))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+p = WindowsPath('Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec0/fit_process_v1/dispatch_attempt.json')
+
+&gt;   args=[base,request,{},launch_sha,start,{},end,owner,{k:v['sha256'] for k,v in direct.items()},lambda p:records[canonical(p)],lambda p:p,sha,check,compare,canonical]
+E   KeyError: 'Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec0/fit_process_v1/dispatch_attempt.json'
+
+test_audit_process.py:27: KeyError</failure></testcase><testcase classname="test_audit_process" name="test_saved_process_chain_rejects_mismatches[argument]" time="0.010"><failure message="KeyError: 'Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec1/fit_process_v1/dispatch_attempt.json'">tmp_path = WindowsPath('Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec1')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x00000193C54F3F40&gt;
+change = 'argument'
+
+    @pytest.mark.parametrize('change',[None,'argument','wrapper','handle','raw_bool','start_scope','absence','owner_path','owner_hash','output_omission'])
+    def test_saved_process_chain_rejects_mismatches(tmp_path,monkeypatch,change):
+        args,dispatch,absence,owner=fixture(tmp_path,monkeypatch)
+        if change=='argument':dispatch['arguments'].remove('-NonInteractive')
+        if change=='wrapper':dispatch['wrapper_pid']=13
+        if change=='handle':dispatch['captured_handle_nonzero']=False
+        if change=='raw_bool':args[6]['raw_python_exit_code']=False
+        if change=='start_scope':args[4]['updates']=3
+        if change=='absence':absence['child_absent']=False
+        if change=='owner_path':owner['direct_subjects']['source_checkpoint']['path']=str(tmp_path/'wrong.pt')
+        if change=='owner_hash':owner['direct_subjects']['source_checkpoint']['sha256']='bad'
+        if change=='output_omission':owner['output_sha256'].pop(str(tmp_path/'fit_process_v1/start.json'))
+        if change is None:process.validate_process_chain(*args)
+        else:
+&gt;           with pytest.raises(AssertionError):process.validate_process_chain(*args)
+
+test_audit_process.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+audit_fit_process.py:7: in validate_process_chain
+    attempt=read(bind(process/'dispatch_attempt.json'))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+p = WindowsPath('Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec1/fit_process_v1/dispatch_attempt.json')
+
+&gt;   args=[base,request,{},launch_sha,start,{},end,owner,{k:v['sha256'] for k,v in direct.items()},lambda p:records[canonical(p)],lambda p:p,sha,check,compare,canonical]
+E   KeyError: 'Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec1/fit_process_v1/dispatch_attempt.json'
+
+test_audit_process.py:27: KeyError</failure></testcase><testcase classname="test_audit_process" name="test_saved_process_chain_rejects_mismatches[wrapper]" time="0.009"><failure message="KeyError: 'Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec2/fit_process_v1/dispatch_attempt.json'">tmp_path = WindowsPath('Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec2')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x00000193C544E740&gt;
+change = 'wrapper'
+
+    @pytest.mark.parametrize('change',[None,'argument','wrapper','handle','raw_bool','start_scope','absence','owner_path','owner_hash','output_omission'])
+    def test_saved_process_chain_rejects_mismatches(tmp_path,monkeypatch,change):
+        args,dispatch,absence,owner=fixture(tmp_path,monkeypatch)
+        if change=='argument':dispatch['arguments'].remove('-NonInteractive')
+        if change=='wrapper':dispatch['wrapper_pid']=13
+        if change=='handle':dispatch['captured_handle_nonzero']=False
+        if change=='raw_bool':args[6]['raw_python_exit_code']=False
+        if change=='start_scope':args[4]['updates']=3
+        if change=='absence':absence['child_absent']=False
+        if change=='owner_path':owner['direct_subjects']['source_checkpoint']['path']=str(tmp_path/'wrong.pt')
+        if change=='owner_hash':owner['direct_subjects']['source_checkpoint']['sha256']='bad'
+        if change=='output_omission':owner['output_sha256'].pop(str(tmp_path/'fit_process_v1/start.json'))
+        if change is None:process.validate_process_chain(*args)
+        else:
+&gt;           with pytest.raises(AssertionError):process.validate_process_chain(*args)
+
+test_audit_process.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+audit_fit_process.py:7: in validate_process_chain
+    attempt=read(bind(process/'dispatch_attempt.json'))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+p = WindowsPath('Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec2/fit_process_v1/dispatch_attempt.json')
+
+&gt;   args=[base,request,{},launch_sha,start,{},end,owner,{k:v['sha256'] for k,v in direct.items()},lambda p:records[canonical(p)],lambda p:p,sha,check,compare,canonical]
+E   KeyError: 'Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec2/fit_process_v1/dispatch_attempt.json'
+
+test_audit_process.py:27: KeyError</failure></testcase><testcase classname="test_audit_process" name="test_saved_process_chain_rejects_mismatches[handle]" time="0.010"><failure message="KeyError: 'Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec3/fit_process_v1/dispatch_attempt.json'">tmp_path = WindowsPath('Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec3')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x00000193C5459CF0&gt;
+change = 'handle'
+
+    @pytest.mark.parametrize('change',[None,'argument','wrapper','handle','raw_bool','start_scope','absence','owner_path','owner_hash','output_omission'])
+    def test_saved_process_chain_rejects_mismatches(tmp_path,monkeypatch,change):
+        args,dispatch,absence,owner=fixture(tmp_path,monkeypatch)
+        if change=='argument':dispatch['arguments'].remove('-NonInteractive')
+        if change=='wrapper':dispatch['wrapper_pid']=13
+        if change=='handle':dispatch['captured_handle_nonzero']=False
+        if change=='raw_bool':args[6]['raw_python_exit_code']=False
+        if change=='start_scope':args[4]['updates']=3
+        if change=='absence':absence['child_absent']=False
+        if change=='owner_path':owner['direct_subjects']['source_checkpoint']['path']=str(tmp_path/'wrong.pt')
+        if change=='owner_hash':owner['direct_subjects']['source_checkpoint']['sha256']='bad'
+        if change=='output_omission':owner['output_sha256'].pop(str(tmp_path/'fit_process_v1/start.json'))
+        if change is None:process.validate_process_chain(*args)
+        else:
+&gt;           with pytest.raises(AssertionError):process.validate_process_chain(*args)
+
+test_audit_process.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+audit_fit_process.py:7: in validate_process_chain
+    attempt=read(bind(process/'dispatch_attempt.json'))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+p = WindowsPath('Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec3/fit_process_v1/dispatch_attempt.json')
+
+&gt;   args=[base,request,{},launch_sha,start,{},end,owner,{k:v['sha256'] for k,v in direct.items()},lambda p:records[canonical(p)],lambda p:p,sha,check,compare,canonical]
+E   KeyError: 'Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec3/fit_process_v1/dispatch_attempt.json'
+
+test_audit_process.py:27: KeyError</failure></testcase><testcase classname="test_audit_process" name="test_saved_process_chain_rejects_mismatches[raw_bool]" time="0.009"><failure message="KeyError: 'Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec4/fit_process_v1/dispatch_attempt.json'">tmp_path = WindowsPath('Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec4')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x00000193C54F0D60&gt;
+change = 'raw_bool'
+
+    @pytest.mark.parametrize('change',[None,'argument','wrapper','handle','raw_bool','start_scope','absence','owner_path','owner_hash','output_omission'])
+    def test_saved_process_chain_rejects_mismatches(tmp_path,monkeypatch,change):
+        args,dispatch,absence,owner=fixture(tmp_path,monkeypatch)
+        if change=='argument':dispatch['arguments'].remove('-NonInteractive')
+        if change=='wrapper':dispatch['wrapper_pid']=13
+        if change=='handle':dispatch['captured_handle_nonzero']=False
+        if change=='raw_bool':args[6]['raw_python_exit_code']=False
+        if change=='start_scope':args[4]['updates']=3
+        if change=='absence':absence['child_absent']=False
+        if change=='owner_path':owner['direct_subjects']['source_checkpoint']['path']=str(tmp_path/'wrong.pt')
+        if change=='owner_hash':owner['direct_subjects']['source_checkpoint']['sha256']='bad'
+        if change=='output_omission':owner['output_sha256'].pop(str(tmp_path/'fit_process_v1/start.json'))
+        if change is None:process.validate_process_chain(*args)
+        else:
+&gt;           with pytest.raises(AssertionError):process.validate_process_chain(*args)
+
+test_audit_process.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+audit_fit_process.py:7: in validate_process_chain
+    attempt=read(bind(process/'dispatch_attempt.json'))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+p = WindowsPath('Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec4/fit_process_v1/dispatch_attempt.json')
+
+&gt;   args=[base,request,{},launch_sha,start,{},end,owner,{k:v['sha256'] for k,v in direct.items()},lambda p:records[canonical(p)],lambda p:p,sha,check,compare,canonical]
+E   KeyError: 'Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec4/fit_process_v1/dispatch_attempt.json'
+
+test_audit_process.py:27: KeyError</failure></testcase><testcase classname="test_audit_process" name="test_saved_process_chain_rejects_mismatches[start_scope]" time="0.009"><failure message="KeyError: 'Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec5/fit_process_v1/dispatch_attempt.json'">tmp_path = WindowsPath('Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec5')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x00000193C544B9A0&gt;
+change = 'start_scope'
+
+    @pytest.mark.parametrize('change',[None,'argument','wrapper','handle','raw_bool','start_scope','absence','owner_path','owner_hash','output_omission'])
+    def test_saved_process_chain_rejects_mismatches(tmp_path,monkeypatch,change):
+        args,dispatch,absence,owner=fixture(tmp_path,monkeypatch)
+        if change=='argument':dispatch['arguments'].remove('-NonInteractive')
+        if change=='wrapper':dispatch['wrapper_pid']=13
+        if change=='handle':dispatch['captured_handle_nonzero']=False
+        if change=='raw_bool':args[6]['raw_python_exit_code']=False
+        if change=='start_scope':args[4]['updates']=3
+        if change=='absence':absence['child_absent']=False
+        if change=='owner_path':owner['direct_subjects']['source_checkpoint']['path']=str(tmp_path/'wrong.pt')
+        if change=='owner_hash':owner['direct_subjects']['source_checkpoint']['sha256']='bad'
+        if change=='output_omission':owner['output_sha256'].pop(str(tmp_path/'fit_process_v1/start.json'))
+        if change is None:process.validate_process_chain(*args)
+        else:
+&gt;           with pytest.raises(AssertionError):process.validate_process_chain(*args)
+
+test_audit_process.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+audit_fit_process.py:7: in validate_process_chain
+    attempt=read(bind(process/'dispatch_attempt.json'))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+p = WindowsPath('Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec5/fit_process_v1/dispatch_attempt.json')
+
+&gt;   args=[base,request,{},launch_sha,start,{},end,owner,{k:v['sha256'] for k,v in direct.items()},lambda p:records[canonical(p)],lambda p:p,sha,check,compare,canonical]
+E   KeyError: 'Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec5/fit_process_v1/dispatch_attempt.json'
+
+test_audit_process.py:27: KeyError</failure></testcase><testcase classname="test_audit_process" name="test_saved_process_chain_rejects_mismatches[absence]" time="0.009"><failure message="KeyError: 'Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec6/fit_process_v1/dispatch_attempt.json'">tmp_path = WindowsPath('Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec6')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x00000193C545B190&gt;
+change = 'absence'
+
+    @pytest.mark.parametrize('change',[None,'argument','wrapper','handle','raw_bool','start_scope','absence','owner_path','owner_hash','output_omission'])
+    def test_saved_process_chain_rejects_mismatches(tmp_path,monkeypatch,change):
+        args,dispatch,absence,owner=fixture(tmp_path,monkeypatch)
+        if change=='argument':dispatch['arguments'].remove('-NonInteractive')
+        if change=='wrapper':dispatch['wrapper_pid']=13
+        if change=='handle':dispatch['captured_handle_nonzero']=False
+        if change=='raw_bool':args[6]['raw_python_exit_code']=False
+        if change=='start_scope':args[4]['updates']=3
+        if change=='absence':absence['child_absent']=False
+        if change=='owner_path':owner['direct_subjects']['source_checkpoint']['path']=str(tmp_path/'wrong.pt')
+        if change=='owner_hash':owner['direct_subjects']['source_checkpoint']['sha256']='bad'
+        if change=='output_omission':owner['output_sha256'].pop(str(tmp_path/'fit_process_v1/start.json'))
+        if change is None:process.validate_process_chain(*args)
+        else:
+&gt;           with pytest.raises(AssertionError):process.validate_process_chain(*args)
+
+test_audit_process.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+audit_fit_process.py:7: in validate_process_chain
+    attempt=read(bind(process/'dispatch_attempt.json'))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+p = WindowsPath('Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec6/fit_process_v1/dispatch_attempt.json')
+
+&gt;   args=[base,request,{},launch_sha,start,{},end,owner,{k:v['sha256'] for k,v in direct.items()},lambda p:records[canonical(p)],lambda p:p,sha,check,compare,canonical]
+E   KeyError: 'Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec6/fit_process_v1/dispatch_attempt.json'
+
+test_audit_process.py:27: KeyError</failure></testcase><testcase classname="test_audit_process" name="test_saved_process_chain_rejects_mismatches[owner_path]" time="0.010"><failure message="KeyError: 'Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec7/fit_process_v1/dispatch_attempt.json'">tmp_path = WindowsPath('Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec7')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x00000193C550CE50&gt;
+change = 'owner_path'
+
+    @pytest.mark.parametrize('change',[None,'argument','wrapper','handle','raw_bool','start_scope','absence','owner_path','owner_hash','output_omission'])
+    def test_saved_process_chain_rejects_mismatches(tmp_path,monkeypatch,change):
+        args,dispatch,absence,owner=fixture(tmp_path,monkeypatch)
+        if change=='argument':dispatch['arguments'].remove('-NonInteractive')
+        if change=='wrapper':dispatch['wrapper_pid']=13
+        if change=='handle':dispatch['captured_handle_nonzero']=False
+        if change=='raw_bool':args[6]['raw_python_exit_code']=False
+        if change=='start_scope':args[4]['updates']=3
+        if change=='absence':absence['child_absent']=False
+        if change=='owner_path':owner['direct_subjects']['source_checkpoint']['path']=str(tmp_path/'wrong.pt')
+        if change=='owner_hash':owner['direct_subjects']['source_checkpoint']['sha256']='bad'
+        if change=='output_omission':owner['output_sha256'].pop(str(tmp_path/'fit_process_v1/start.json'))
+        if change is None:process.validate_process_chain(*args)
+        else:
+&gt;           with pytest.raises(AssertionError):process.validate_process_chain(*args)
+
+test_audit_process.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+audit_fit_process.py:7: in validate_process_chain
+    attempt=read(bind(process/'dispatch_attempt.json'))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+p = WindowsPath('Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec7/fit_process_v1/dispatch_attempt.json')
+
+&gt;   args=[base,request,{},launch_sha,start,{},end,owner,{k:v['sha256'] for k,v in direct.items()},lambda p:records[canonical(p)],lambda p:p,sha,check,compare,canonical]
+E   KeyError: 'Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec7/fit_process_v1/dispatch_attempt.json'
+
+test_audit_process.py:27: KeyError</failure></testcase><testcase classname="test_audit_process" name="test_saved_process_chain_rejects_mismatches[owner_hash]" time="0.009"><failure message="KeyError: 'Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec8/fit_process_v1/dispatch_attempt.json'">tmp_path = WindowsPath('Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec8')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x00000193C544DBA0&gt;
+change = 'owner_hash'
+
+    @pytest.mark.parametrize('change',[None,'argument','wrapper','handle','raw_bool','start_scope','absence','owner_path','owner_hash','output_omission'])
+    def test_saved_process_chain_rejects_mismatches(tmp_path,monkeypatch,change):
+        args,dispatch,absence,owner=fixture(tmp_path,monkeypatch)
+        if change=='argument':dispatch['arguments'].remove('-NonInteractive')
+        if change=='wrapper':dispatch['wrapper_pid']=13
+        if change=='handle':dispatch['captured_handle_nonzero']=False
+        if change=='raw_bool':args[6]['raw_python_exit_code']=False
+        if change=='start_scope':args[4]['updates']=3
+        if change=='absence':absence['child_absent']=False
+        if change=='owner_path':owner['direct_subjects']['source_checkpoint']['path']=str(tmp_path/'wrong.pt')
+        if change=='owner_hash':owner['direct_subjects']['source_checkpoint']['sha256']='bad'
+        if change=='output_omission':owner['output_sha256'].pop(str(tmp_path/'fit_process_v1/start.json'))
+        if change is None:process.validate_process_chain(*args)
+        else:
+&gt;           with pytest.raises(AssertionError):process.validate_process_chain(*args)
+
+test_audit_process.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+audit_fit_process.py:7: in validate_process_chain
+    attempt=read(bind(process/'dispatch_attempt.json'))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+p = WindowsPath('Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec8/fit_process_v1/dispatch_attempt.json')
+
+&gt;   args=[base,request,{},launch_sha,start,{},end,owner,{k:v['sha256'] for k,v in direct.items()},lambda p:records[canonical(p)],lambda p:p,sha,check,compare,canonical]
+E   KeyError: 'Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec8/fit_process_v1/dispatch_attempt.json'
+
+test_audit_process.py:27: KeyError</failure></testcase><testcase classname="test_audit_process" name="test_saved_process_chain_rejects_mismatches[output_omission]" time="0.009"><failure message="KeyError: 'Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec9/fit_process_v1/dispatch_attempt.json'">tmp_path = WindowsPath('Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec9')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x00000193C5427760&gt;
+change = 'output_omission'
+
+    @pytest.mark.parametrize('change',[None,'argument','wrapper','handle','raw_bool','start_scope','absence','owner_path','owner_hash','output_omission'])
+    def test_saved_process_chain_rejects_mismatches(tmp_path,monkeypatch,change):
+        args,dispatch,absence,owner=fixture(tmp_path,monkeypatch)
+        if change=='argument':dispatch['arguments'].remove('-NonInteractive')
+        if change=='wrapper':dispatch['wrapper_pid']=13
+        if change=='handle':dispatch['captured_handle_nonzero']=False
+        if change=='raw_bool':args[6]['raw_python_exit_code']=False
+        if change=='start_scope':args[4]['updates']=3
+        if change=='absence':absence['child_absent']=False
+        if change=='owner_path':owner['direct_subjects']['source_checkpoint']['path']=str(tmp_path/'wrong.pt')
+        if change=='owner_hash':owner['direct_subjects']['source_checkpoint']['sha256']='bad'
+        if change=='output_omission':owner['output_sha256'].pop(str(tmp_path/'fit_process_v1/start.json'))
+        if change is None:process.validate_process_chain(*args)
+        else:
+&gt;           with pytest.raises(AssertionError):process.validate_process_chain(*args)
+
+test_audit_process.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+audit_fit_process.py:7: in validate_process_chain
+    attempt=read(bind(process/'dispatch_attempt.json'))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+p = WindowsPath('Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec9/fit_process_v1/dispatch_attempt.json')
+
+&gt;   args=[base,request,{},launch_sha,start,{},end,owner,{k:v['sha256'] for k,v in direct.items()},lambda p:records[canonical(p)],lambda p:p,sha,check,compare,canonical]
+E   KeyError: 'Y:/temp/pytest-of-camer/pytest-1762/test_saved_process_chain_rejec9/fit_process_v1/dispatch_attempt.json'
+
+test_audit_process.py:27: KeyError</failure></testcase></testsuite></testsuites>

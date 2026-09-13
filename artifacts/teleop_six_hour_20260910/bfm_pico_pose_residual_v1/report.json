@@ -1,0 +1,51 @@
+{
+  "clip": "pico",
+  "completed": 3778,
+  "requested": 6530,
+  "available": 6530,
+  "failure": {
+    "kind": "physical_limit",
+    "control": 3777,
+    "range_excess": 0.011093979896322104,
+    "velocity_ratio": 0.035805604753177435
+  },
+  "full_lifecycle_completed": false,
+  "source_metrics": {
+    "source_controls": 3428,
+    "source_requested": 5780,
+    "leg_rmse": 0.11009851675793066,
+    "arm_rmse": 0.07221025998705816,
+    "root_p95": 0.3856338689719871,
+    "landmark_p95": [
+      0.46380838163546056,
+      0.4134220111327663,
+      0.4322863485848225,
+      0.4381922144786805,
+      0.3850217937768081
+    ],
+    "relative_landmark_p95": [
+      0.1959661211778315,
+      0.17936378079374612,
+      0.19919774698787174,
+      0.2131324988361808,
+      0.06354672076030582
+    ]
+  },
+  "range_excess_max": 0.011093979896322104,
+  "effort_ratio_max": 0.984982106412475,
+  "velocity_ratio_max": 0.7389301993022482,
+  "inference_ms_p95": 9.163874998921523,
+  "elapsed_seconds": 35.90173340000911,
+  "goal_horizon": 8,
+  "goal_buffer_ms": 140,
+  "reference_path": "C:\\Users\\camer\\sonic23_sim_artifacts\\internet_pico_20260909_v1\\pico_freedancing_v1\\optical_reference_v2\\lifecycle23.npz",
+  "ground_truth_pose_feedback": true,
+  "position_gain": 1.0,
+  "yaw_gain": 2.0,
+  "arm_reference": true,
+  "leg_error_gain": 0.5,
+  "model_path": "Z:\\codex\\GR00T-WholeBodyControl\\gear_sonic\\data\\robots\\g1\\g1_23dof_rev_1_0.xml",
+  "action_contract": "target=default_q+5*tanh_actor*.25*training_effort/training_kp; native effort clipped",
+  "hardware_authorized": false,
+  "deployment_ready": false
+}

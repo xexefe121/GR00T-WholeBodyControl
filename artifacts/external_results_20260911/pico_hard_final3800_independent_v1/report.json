@@ -1,0 +1,1144 @@
+{
+  "kind": "independent_native23_manual_PD_private_segment",
+  "feasible": true,
+  "first_failure": null,
+  "requested_controls": 3800,
+  "physics_steps": 38000,
+  "complete_controls": 3800,
+  "partial_substeps": 0,
+  "original_data_unchanged": true,
+  "root_forces": false,
+  "source_state_copy_after_initialization": false,
+  "initial_time": 0.0,
+  "final_time": 76.00000000000428,
+  "maximum": {
+    "joint_excess_rad": 0.0,
+    "speed_ratio": 0.8645983763838244,
+    "effort_ratio": 1.0,
+    "tilt_rad": 0.6940473852529071,
+    "clock_error_seconds": 0.0,
+    "ideal_clock_difference_seconds": 3.2244429348793346e-11
+  },
+  "minimum_root_height_m": 0.299952593423702,
+  "final_warning_counts": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "diagnostic_continued_after_failure": false,
+  "live_or_hardware_qualified": false,
+  "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time",
+  "evaluated_saved_controls": 3800,
+  "recorded_physics_steps": 38000,
+  "recorded_full_controls": 3800,
+  "recorded_partial_substeps": 0,
+  "compared_physics_steps": 38000,
+  "recorded_trace_reproduced_through_last_sample": true,
+  "private_replay_steps_beyond_recorded_prefix": 0,
+  "independent_joint_witnesses": [],
+  "intended_segment_controls": 6530,
+  "requested_segment_completed": false,
+  "original_trace_comparison": {
+    "all_qpos_bitexact": true,
+    "all_qvel_bitexact": true,
+    "all_command_torque_bitexact": true,
+    "physics_actuator_force_bitexact": true,
+    "all_physics_time_bitexact": true,
+    "physics_warning_number_bitexact": true,
+    "physics_warning_lastinfo_bitexact": true
+  },
+  "independent_segment_pass": false,
+  "restored_state_diagnostic": true,
+  "full_source_qualified": false,
+  "feedback_replanning_reproduced": false,
+  "producer_completion": {
+    "completed": null,
+    "failure": {
+      "kind": "no_feasible_seed",
+      "control": 3800,
+      "executed_rejected_controls": 0,
+      "seed_selection": {
+        "selected": "shifted_mpc",
+        "recorded_cost": null,
+        "warm_cost": null,
+        "fresh_cost": null,
+        "fresh_diagnostics": {
+          "control": 3800,
+          "horizon": 30,
+          "elapsed_ms": 241.99247199976526,
+          "inference_ms_p50_p95_max": [
+            6.19203699989157,
+            6.779272349922393,
+            7.169983000039792
+          ],
+          "recorded_actual_controls": 3800,
+          "actual_history_action_max_abs": 10.274089813232422,
+          "actual_history_action_components_outside_five": 527,
+          "current_history_action_max_abs": 5.923099994659424,
+          "private_range_excess_max_rad": 0.011558287938525313,
+          "private_velocity_ratio_max": 0.3243160390332852,
+          "private_effort_ratio_max": 0.880050014537653,
+          "private_root_height_min_m": 0.4315488520133747,
+          "private_root_tilt_max_rad": 0.29342817390918224,
+          "private_engine_warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "terminal_goal_hold_controls": 0,
+          "conservative_raw_pose_support_seconds": 0.76,
+          "actual_history_mutated_by_proposal": false,
+          "real_physics_state_mutated": false,
+          "real_controller_or_teacher_qualified": false
+        }
+      },
+      "seed_feasibility": {
+        "recorded_bfm": {
+          "feasible": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "first_violation": [
+            {
+              "control": 1,
+              "substep": 2,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006855488307444868,
+              "speed_ratio": 0.2367981228384227,
+              "effort_ratio": 0.30496289861820014,
+              "root_height_m": 0.4309378226166737,
+              "root_tilt_rad": 0.2778861864557912
+            },
+            {
+              "control": 1,
+              "substep": 2,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006855488307444868,
+              "speed_ratio": 0.2367981228384227,
+              "effort_ratio": 0.30496289861820014,
+              "root_height_m": 0.4309378226166737,
+              "root_tilt_rad": 0.2778861864557912
+            },
+            {
+              "control": 1,
+              "substep": 2,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006855488307444868,
+              "speed_ratio": 0.2367981228384227,
+              "effort_ratio": 0.30496289861820014,
+              "root_height_m": 0.4309378226166737,
+              "root_tilt_rad": 0.2778861864557912
+            },
+            {
+              "control": 1,
+              "substep": 2,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006855488307444868,
+              "speed_ratio": 0.2367981228384227,
+              "effort_ratio": 0.30496289861820014,
+              "root_height_m": 0.4309378226166737,
+              "root_tilt_rad": 0.2778861864557912
+            },
+            {
+              "control": 1,
+              "substep": 2,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006855488307444868,
+              "speed_ratio": 0.2367981228384227,
+              "effort_ratio": 0.30496289861820014,
+              "root_height_m": 0.4309378226166737,
+              "root_tilt_rad": 0.2778861864557912
+            },
+            {
+              "control": 1,
+              "substep": 2,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006855488307444868,
+              "speed_ratio": 0.2367981228384227,
+              "effort_ratio": 0.30496289861820014,
+              "root_height_m": 0.4309378226166737,
+              "root_tilt_rad": 0.2778861864557912
+            },
+            {
+              "control": 1,
+              "substep": 2,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006855488307444868,
+              "speed_ratio": 0.2367981228384227,
+              "effort_ratio": 0.30496289861820014,
+              "root_height_m": 0.4309378226166737,
+              "root_tilt_rad": 0.2778861864557912
+            },
+            {
+              "control": 1,
+              "substep": 2,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006855488307444868,
+              "speed_ratio": 0.2367981228384227,
+              "effort_ratio": 0.30496289861820014,
+              "root_height_m": 0.4309378226166737,
+              "root_tilt_rad": 0.2778861864557912
+            },
+            {
+              "control": 1,
+              "substep": 2,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006855488307444868,
+              "speed_ratio": 0.2367981228384227,
+              "effort_ratio": 0.30496289861820014,
+              "root_height_m": 0.4309378226166737,
+              "root_tilt_rad": 0.2778861864557912
+            }
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.006855488307444868,
+              0.006855488307444868,
+              0.006855488307444868,
+              0.006855488307444868,
+              0.006855488307444868,
+              0.006855488307444868,
+              0.006855488307444868,
+              0.006855488307444868,
+              0.006855488307444868
+            ],
+            "speed_ratio": [
+              0.2799494229004385,
+              0.2799494229004385,
+              0.2799494229004385,
+              0.2799494229004385,
+              0.2799494229004385,
+              0.2799494229004385,
+              0.2799494229004385,
+              0.2799494229004385,
+              0.2799494229004385
+            ],
+            "effort_ratio": [
+              0.6517567486036676,
+              0.6517567486036676,
+              0.6517567486036676,
+              0.6517567486036676,
+              0.6517567486036676,
+              0.6517567486036676,
+              0.6517567486036676,
+              0.6517567486036676,
+              0.6517567486036676
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "shifted_mpc": {
+          "feasible": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "first_violation": [
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006690893357540473,
+              "speed_ratio": 0.2614386390769209,
+              "effort_ratio": 0.5912989272442287,
+              "root_height_m": 0.310016730453807,
+              "root_tilt_rad": 0.76734012288618
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006690893357540473,
+              "speed_ratio": 0.2614386390769209,
+              "effort_ratio": 0.5912989272442287,
+              "root_height_m": 0.310016730453807,
+              "root_tilt_rad": 0.76734012288618
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006690893357540473,
+              "speed_ratio": 0.2614386390769209,
+              "effort_ratio": 0.5912989272442287,
+              "root_height_m": 0.310016730453807,
+              "root_tilt_rad": 0.76734012288618
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006690893357540473,
+              "speed_ratio": 0.2614386390769209,
+              "effort_ratio": 0.5912989272442287,
+              "root_height_m": 0.310016730453807,
+              "root_tilt_rad": 0.76734012288618
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006690893357540473,
+              "speed_ratio": 0.2614386390769209,
+              "effort_ratio": 0.5912989272442287,
+              "root_height_m": 0.310016730453807,
+              "root_tilt_rad": 0.76734012288618
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006690893357540473,
+              "speed_ratio": 0.2614386390769209,
+              "effort_ratio": 0.5912989272442287,
+              "root_height_m": 0.310016730453807,
+              "root_tilt_rad": 0.76734012288618
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006690893357540473,
+              "speed_ratio": 0.2614386390769209,
+              "effort_ratio": 0.5912989272442287,
+              "root_height_m": 0.310016730453807,
+              "root_tilt_rad": 0.76734012288618
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006690893357540473,
+              "speed_ratio": 0.2614386390769209,
+              "effort_ratio": 0.5912989272442287,
+              "root_height_m": 0.310016730453807,
+              "root_tilt_rad": 0.76734012288618
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006690893357540473,
+              "speed_ratio": 0.2614386390769209,
+              "effort_ratio": 0.5912989272442287,
+              "root_height_m": 0.310016730453807,
+              "root_tilt_rad": 0.76734012288618
+            }
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.006690893357540473,
+              0.006690893357540473,
+              0.006690893357540473,
+              0.006690893357540473,
+              0.006690893357540473,
+              0.006690893357540473,
+              0.006690893357540473,
+              0.006690893357540473,
+              0.006690893357540473
+            ],
+            "speed_ratio": [
+              0.7737492694972227,
+              0.7737492694972227,
+              0.7737492694972227,
+              0.7737492694972227,
+              0.7737492694972227,
+              0.7737492694972227,
+              0.7737492694972227,
+              0.7737492694972227,
+              0.7737492694972227
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "fresh_bfm": {
+          "feasible": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "first_violation": [
+            {
+              "control": 1,
+              "substep": 6,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.000717839160028988,
+              "speed_ratio": 0.3011949586661716,
+              "effort_ratio": 0.8543259471385137,
+              "root_height_m": 0.43316211652021236,
+              "root_tilt_rad": 0.28986741448223574
+            },
+            {
+              "control": 1,
+              "substep": 6,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.000717839160028988,
+              "speed_ratio": 0.3011949586661716,
+              "effort_ratio": 0.8543259471385137,
+              "root_height_m": 0.43316211652021236,
+              "root_tilt_rad": 0.28986741448223574
+            },
+            {
+              "control": 1,
+              "substep": 6,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.000717839160028988,
+              "speed_ratio": 0.3011949586661716,
+              "effort_ratio": 0.8543259471385137,
+              "root_height_m": 0.43316211652021236,
+              "root_tilt_rad": 0.28986741448223574
+            },
+            {
+              "control": 1,
+              "substep": 6,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.000717839160028988,
+              "speed_ratio": 0.3011949586661716,
+              "effort_ratio": 0.8543259471385137,
+              "root_height_m": 0.43316211652021236,
+              "root_tilt_rad": 0.28986741448223574
+            },
+            {
+              "control": 1,
+              "substep": 6,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.000717839160028988,
+              "speed_ratio": 0.3011949586661716,
+              "effort_ratio": 0.8543259471385137,
+              "root_height_m": 0.43316211652021236,
+              "root_tilt_rad": 0.28986741448223574
+            },
+            {
+              "control": 1,
+              "substep": 6,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.000717839160028988,
+              "speed_ratio": 0.3011949586661716,
+              "effort_ratio": 0.8543259471385137,
+              "root_height_m": 0.43316211652021236,
+              "root_tilt_rad": 0.28986741448223574
+            },
+            {
+              "control": 1,
+              "substep": 6,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.000717839160028988,
+              "speed_ratio": 0.3011949586661716,
+              "effort_ratio": 0.8543259471385137,
+              "root_height_m": 0.43316211652021236,
+              "root_tilt_rad": 0.28986741448223574
+            },
+            {
+              "control": 1,
+              "substep": 6,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.000717839160028988,
+              "speed_ratio": 0.3011949586661716,
+              "effort_ratio": 0.8543259471385137,
+              "root_height_m": 0.43316211652021236,
+              "root_tilt_rad": 0.28986741448223574
+            },
+            {
+              "control": 1,
+              "substep": 6,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.000717839160028988,
+              "speed_ratio": 0.3011949586661716,
+              "effort_ratio": 0.8543259471385137,
+              "root_height_m": 0.43316211652021236,
+              "root_tilt_rad": 0.28986741448223574
+            }
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.000717839160028988,
+              0.000717839160028988,
+              0.000717839160028988,
+              0.000717839160028988,
+              0.000717839160028988,
+              0.000717839160028988,
+              0.000717839160028988,
+              0.000717839160028988,
+              0.000717839160028988
+            ],
+            "speed_ratio": [
+              0.3011949586661716,
+              0.3011949586661716,
+              0.3011949586661716,
+              0.3011949586661716,
+              0.3011949586661716,
+              0.3011949586661716,
+              0.3011949586661716,
+              0.3011949586661716,
+              0.3011949586661716
+            ],
+            "effort_ratio": [
+              0.880050014537653,
+              0.880050014537653,
+              0.880050014537653,
+              0.880050014537653,
+              0.880050014537653,
+              0.880050014537653,
+              0.880050014537653,
+              0.880050014537653,
+              0.880050014537653
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        }
+      },
+      "solver_feasibility": {
+        "initial_rollout": {
+          "feasible": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "first_violation": [
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006690893357540473,
+              "speed_ratio": 0.2614386390769209,
+              "effort_ratio": 0.5912989272442287,
+              "root_height_m": 0.310016730453807,
+              "root_tilt_rad": 0.76734012288618
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006690893357540473,
+              "speed_ratio": 0.2614386390769209,
+              "effort_ratio": 0.5912989272442287,
+              "root_height_m": 0.310016730453807,
+              "root_tilt_rad": 0.76734012288618
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006690893357540473,
+              "speed_ratio": 0.2614386390769209,
+              "effort_ratio": 0.5912989272442287,
+              "root_height_m": 0.310016730453807,
+              "root_tilt_rad": 0.76734012288618
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006690893357540473,
+              "speed_ratio": 0.2614386390769209,
+              "effort_ratio": 0.5912989272442287,
+              "root_height_m": 0.310016730453807,
+              "root_tilt_rad": 0.76734012288618
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006690893357540473,
+              "speed_ratio": 0.2614386390769209,
+              "effort_ratio": 0.5912989272442287,
+              "root_height_m": 0.310016730453807,
+              "root_tilt_rad": 0.76734012288618
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006690893357540473,
+              "speed_ratio": 0.2614386390769209,
+              "effort_ratio": 0.5912989272442287,
+              "root_height_m": 0.310016730453807,
+              "root_tilt_rad": 0.76734012288618
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006690893357540473,
+              "speed_ratio": 0.2614386390769209,
+              "effort_ratio": 0.5912989272442287,
+              "root_height_m": 0.310016730453807,
+              "root_tilt_rad": 0.76734012288618
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006690893357540473,
+              "speed_ratio": 0.2614386390769209,
+              "effort_ratio": 0.5912989272442287,
+              "root_height_m": 0.310016730453807,
+              "root_tilt_rad": 0.76734012288618
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006690893357540473,
+              "speed_ratio": 0.2614386390769209,
+              "effort_ratio": 0.5912989272442287,
+              "root_height_m": 0.310016730453807,
+              "root_tilt_rad": 0.76734012288618
+            }
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.006690893357540473,
+              0.006690893357540473,
+              0.006690893357540473,
+              0.006690893357540473,
+              0.006690893357540473,
+              0.006690893357540473,
+              0.006690893357540473,
+              0.006690893357540473,
+              0.006690893357540473
+            ],
+            "speed_ratio": [
+              0.7737492694972227,
+              0.7737492694972227,
+              0.7737492694972227,
+              0.7737492694972227,
+              0.7737492694972227,
+              0.7737492694972227,
+              0.7737492694972227,
+              0.7737492694972227,
+              0.7737492694972227
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "iterations": [],
+        "cached_seed_revalidated": true,
+        "incumbent_gain_semantics": "last accepted rollout's generating backward sweep",
+        "status": "no_feasible_seed"
+      },
+      "recovery_success": false,
+      "restoration": {
+        "trigger": "all standard seeds infeasible",
+        "attempts": [
+          {
+            "mode": "guided",
+            "contract": {
+              "joint_inner_margin_rad": 0.02,
+              "joint_margin_normalizer_rad": 0.02,
+              "speed_fraction": 0.9,
+              "speed_normalizer_fraction": 0.1,
+              "minimum_root_height_m": 0.3,
+              "height_normalizer_m": 0.05,
+              "maximum_root_tilt_rad": 1.1,
+              "tilt_normalizer_rad": 0.1,
+              "target_regularization_weight": 0.0001,
+              "target_regularization_reference": "original shifted warm targets",
+              "zero_rollout_feedback": false,
+              "feedback_suppression_scope": "private restoration line search only",
+              "execution_policy": false,
+              "main_tracking_objective_changed": false
+            },
+            "initial_merit": 144.5328693180296,
+            "final_merit": 7.278705671108272,
+            "nominal_feasibility": {
+              "feasible": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "first_violation": [
+                {
+                  "control": 14,
+                  "substep": 1,
+                  "reasons": [
+                    "joint_range"
+                  ],
+                  "range_excess_rad": 0.0009765036312873732,
+                  "speed_ratio": 0.9056556055219489,
+                  "effort_ratio": 1.0,
+                  "root_height_m": 0.3819080561376071,
+                  "root_tilt_rad": 0.2144618862030593
+                },
+                {
+                  "control": 14,
+                  "substep": 1,
+                  "reasons": [
+                    "joint_range"
+                  ],
+                  "range_excess_rad": 0.0009765036312873732,
+                  "speed_ratio": 0.9056556055219489,
+                  "effort_ratio": 1.0,
+                  "root_height_m": 0.3819080561376071,
+                  "root_tilt_rad": 0.2144618862030593
+                },
+                {
+                  "control": 14,
+                  "substep": 1,
+                  "reasons": [
+                    "joint_range"
+                  ],
+                  "range_excess_rad": 0.0009765036312873732,
+                  "speed_ratio": 0.9056556055219489,
+                  "effort_ratio": 1.0,
+                  "root_height_m": 0.3819080561376071,
+                  "root_tilt_rad": 0.2144618862030593
+                },
+                {
+                  "control": 14,
+                  "substep": 1,
+                  "reasons": [
+                    "joint_range"
+                  ],
+                  "range_excess_rad": 0.0009765036312873732,
+                  "speed_ratio": 0.9056556055219489,
+                  "effort_ratio": 1.0,
+                  "root_height_m": 0.3819080561376071,
+                  "root_tilt_rad": 0.2144618862030593
+                },
+                {
+                  "control": 14,
+                  "substep": 1,
+                  "reasons": [
+                    "joint_range"
+                  ],
+                  "range_excess_rad": 0.0009765036312873732,
+                  "speed_ratio": 0.9056556055219489,
+                  "effort_ratio": 1.0,
+                  "root_height_m": 0.3819080561376071,
+                  "root_tilt_rad": 0.2144618862030593
+                },
+                {
+                  "control": 14,
+                  "substep": 1,
+                  "reasons": [
+                    "joint_range"
+                  ],
+                  "range_excess_rad": 0.0009765036312873732,
+                  "speed_ratio": 0.9056556055219489,
+                  "effort_ratio": 1.0,
+                  "root_height_m": 0.3819080561376071,
+                  "root_tilt_rad": 0.2144618862030593
+                },
+                {
+                  "control": 14,
+                  "substep": 1,
+                  "reasons": [
+                    "joint_range"
+                  ],
+                  "range_excess_rad": 0.0009765036312873732,
+                  "speed_ratio": 0.9056556055219489,
+                  "effort_ratio": 1.0,
+                  "root_height_m": 0.3819080561376071,
+                  "root_tilt_rad": 0.2144618862030593
+                },
+                {
+                  "control": 14,
+                  "substep": 1,
+                  "reasons": [
+                    "joint_range"
+                  ],
+                  "range_excess_rad": 0.0009765036312873732,
+                  "speed_ratio": 0.9056556055219489,
+                  "effort_ratio": 1.0,
+                  "root_height_m": 0.3819080561376071,
+                  "root_tilt_rad": 0.2144618862030593
+                },
+                {
+                  "control": 14,
+                  "substep": 1,
+                  "reasons": [
+                    "joint_range"
+                  ],
+                  "range_excess_rad": 0.0009765036312873732,
+                  "speed_ratio": 0.9056556055219489,
+                  "effort_ratio": 1.0,
+                  "root_height_m": 0.3819080561376071,
+                  "root_tilt_rad": 0.2144618862030593
+                }
+              ],
+              "peaks": {
+                "range_excess_rad": [
+                  0.0009765036312873732,
+                  0.0009765036312873732,
+                  0.0009765036312873732,
+                  0.0009765036312873732,
+                  0.0009765036312873732,
+                  0.0009765036312873732,
+                  0.0009765036312873732,
+                  0.0009765036312873732,
+                  0.0009765036312873732
+                ],
+                "speed_ratio": [
+                  0.9167186940903136,
+                  0.9167186940903136,
+                  0.9167186940903136,
+                  0.9167186940903136,
+                  0.9167186940903136,
+                  0.9167186940903136,
+                  0.9167186940903136,
+                  0.9167186940903136,
+                  0.9167186940903136
+                ],
+                "effort_ratio": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "inspection": "every2ms including the initial state; invalid lanes latched"
+            },
+            "proposal_file": "restoration_03800_guided.npz",
+            "proposal_sha256": "5e42c57498d30d0994b0fd75cda2fdd338c2b2d34769eda8846ff4acc17c4fe8",
+            "accepted": false,
+            "elapsed_ms": 2164.505183000074
+          },
+          {
+            "mode": "zero_feedback",
+            "contract": {
+              "joint_inner_margin_rad": 0.02,
+              "joint_margin_normalizer_rad": 0.02,
+              "speed_fraction": 0.9,
+              "speed_normalizer_fraction": 0.1,
+              "minimum_root_height_m": 0.3,
+              "height_normalizer_m": 0.05,
+              "maximum_root_tilt_rad": 1.1,
+              "tilt_normalizer_rad": 0.1,
+              "target_regularization_weight": 0.0001,
+              "target_regularization_reference": "original shifted warm targets",
+              "zero_rollout_feedback": true,
+              "feedback_suppression_scope": "private restoration line search only",
+              "execution_policy": false,
+              "main_tracking_objective_changed": false
+            },
+            "initial_merit": 144.5328693180296,
+            "final_merit": 18.306479180075822,
+            "nominal_feasibility": {
+              "feasible": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "first_violation": [
+                {
+                  "control": 25,
+                  "substep": 6,
+                  "reasons": [
+                    "joint_range"
+                  ],
+                  "range_excess_rad": 0.005612909455992465,
+                  "speed_ratio": 0.22830601896398883,
+                  "effort_ratio": 1.0,
+                  "root_height_m": 0.31826536565453306,
+                  "root_tilt_rad": 0.8536890956643375
+                },
+                {
+                  "control": 25,
+                  "substep": 6,
+                  "reasons": [
+                    "joint_range"
+                  ],
+                  "range_excess_rad": 0.005612909455992465,
+                  "speed_ratio": 0.22830601896398883,
+                  "effort_ratio": 1.0,
+                  "root_height_m": 0.31826536565453306,
+                  "root_tilt_rad": 0.8536890956643375
+                },
+                {
+                  "control": 25,
+                  "substep": 6,
+                  "reasons": [
+                    "joint_range"
+                  ],
+                  "range_excess_rad": 0.005612909455992465,
+                  "speed_ratio": 0.22830601896398883,
+                  "effort_ratio": 1.0,
+                  "root_height_m": 0.31826536565453306,
+                  "root_tilt_rad": 0.8536890956643375
+                },
+                {
+                  "control": 25,
+                  "substep": 6,
+                  "reasons": [
+                    "joint_range"
+                  ],
+                  "range_excess_rad": 0.005612909455992465,
+                  "speed_ratio": 0.22830601896398883,
+                  "effort_ratio": 1.0,
+                  "root_height_m": 0.31826536565453306,
+                  "root_tilt_rad": 0.8536890956643375
+                },
+                {
+                  "control": 25,
+                  "substep": 6,
+                  "reasons": [
+                    "joint_range"
+                  ],
+                  "range_excess_rad": 0.005612909455992465,
+                  "speed_ratio": 0.22830601896398883,
+                  "effort_ratio": 1.0,
+                  "root_height_m": 0.31826536565453306,
+                  "root_tilt_rad": 0.8536890956643375
+                },
+                {
+                  "control": 25,
+                  "substep": 6,
+                  "reasons": [
+                    "joint_range"
+                  ],
+                  "range_excess_rad": 0.005612909455992465,
+                  "speed_ratio": 0.22830601896398883,
+                  "effort_ratio": 1.0,
+                  "root_height_m": 0.31826536565453306,
+                  "root_tilt_rad": 0.8536890956643375
+                },
+                {
+                  "control": 25,
+                  "substep": 6,
+                  "reasons": [
+                    "joint_range"
+                  ],
+                  "range_excess_rad": 0.005612909455992465,
+                  "speed_ratio": 0.22830601896398883,
+                  "effort_ratio": 1.0,
+                  "root_height_m": 0.31826536565453306,
+                  "root_tilt_rad": 0.8536890956643375
+                },
+                {
+                  "control": 25,
+                  "substep": 6,
+                  "reasons": [
+                    "joint_range"
+                  ],
+                  "range_excess_rad": 0.005612909455992465,
+                  "speed_ratio": 0.22830601896398883,
+                  "effort_ratio": 1.0,
+                  "root_height_m": 0.31826536565453306,
+                  "root_tilt_rad": 0.8536890956643375
+                },
+                {
+                  "control": 25,
+                  "substep": 6,
+                  "reasons": [
+                    "joint_range"
+                  ],
+                  "range_excess_rad": 0.005612909455992465,
+                  "speed_ratio": 0.22830601896398883,
+                  "effort_ratio": 1.0,
+                  "root_height_m": 0.31826536565453306,
+                  "root_tilt_rad": 0.8536890956643375
+                }
+              ],
+              "peaks": {
+                "range_excess_rad": [
+                  0.005612909455992465,
+                  0.005612909455992465,
+                  0.005612909455992465,
+                  0.005612909455992465,
+                  0.005612909455992465,
+                  0.005612909455992465,
+                  0.005612909455992465,
+                  0.005612909455992465,
+                  0.005612909455992465
+                ],
+                "speed_ratio": [
+                  0.7688750604610729,
+                  0.7688750604610729,
+                  0.7688750604610729,
+                  0.7688750604610729,
+                  0.7688750604610729,
+                  0.7688750604610729,
+                  0.7688750604610729,
+                  0.7688750604610729,
+                  0.7688750604610729
+                ],
+                "effort_ratio": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "inspection": "every2ms including the initial state; invalid lanes latched"
+            },
+            "proposal_file": "restoration_03800_zero_feedback.npz",
+            "proposal_sha256": "902bf3f95ae1a7d68b846b3b2e518dfaca9301a31a64a49ed54da6b4f3aea182",
+            "accepted": false,
+            "elapsed_ms": 1648.566983999899
+          }
+        ],
+        "accepted": false,
+        "elapsed_ms": 3813.086009000017,
+        "control": 3800
+      },
+      "solve_ms": 4519.947439000134
+    },
+    "requested_controls": 6530,
+    "completed_controls": 3800
+  },
+  "initialization": "full actual mjSTATE_INTEGRATION fixture; forward then restore again before the first step",
+  "input_hashes": {
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/pico_canonical_initial_fixture_v1/initial_integration_state.npz": "4f99f1bd0d9559ec23bd0a73afe5e49a711a90c3dcecafd1a121bae89b0dbde3",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/pico_full_hard_restoration_v1/trace.npz": "419ceb38d95ae1a6314089b56274cea2e576153b72bfa78e6d2f276886299612",
+    "gear_sonic/utils/g1_true23_feasibility_referee.py": "0027210cda5a44255debecd7151ecd454e2281a5ff4e3137641d102701fb1330",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_resume_20260911/audit_restored_native_segment.py": "d9ff4da640b6814e5d6f1aa5a550230b53ca202e8be6a2f7679bdef1aa715a4e",
+    "artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/contract.json": "d1641ce4f2e9016f5008e5d4be3cc24ded46d7f9daf9cfddaab84095f98eb99b",
+    "artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/native_prepared.xml": "03fd1633c0f5080eb21c1b9786143eeaa36c8eed2eb388d1346581ae33bd76fa",
+    "artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/prepared_model_arrays.npz": "38b4eb8f2f42030b76ffb106c016acb6be92253d4c42971529f739962cc68cdb",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/preserved_walk_demo_v1/repo/gear_sonic/utils/g1_true23_mjbatch_mpc.py": "624b4abe93a20314141da39c6703055cb5c6ce5169030d863816b244610bafbd",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/pico_full_hard_restoration_v1/report.json": "cfece5c385674912963e0bf6ef80305551fcef034bdeaeddcc4a73a56ec276a5"
+  },
+  "trace_sha256": "27326186e601bf89e5271852629e697f709a46ff694f637425716a944f4fca00"
+}

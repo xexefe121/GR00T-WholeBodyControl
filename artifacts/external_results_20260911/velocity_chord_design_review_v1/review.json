@@ -1,0 +1,34 @@
+{
+  "recommendation": "Finite velocity-only symmetric proposal-displacement regularization against clipped committed-plan target differences, with all3057 nominal anchors preserved and original BFM recomputed at every perturbed physical observation.",
+  "implementation_constraints": [
+    "Reuse differentiable3057 anchor outputs for sampled chord centers; no extra576 forward evaluations hidden in row budget.",
+    "Evaluate teacher K@difference in original operation order, with full ±0.1 feedback and native target clips; do not substitute algebraically equivalent correction updates if claiming bitexact arithmetic.",
+    "Cache backward goals only after source review proves identical qpos/frame dependencies; preserve unchanged history/prior and unaffected feature blocks byteexact.",
+    "Coefficient1, fixed radius/budget/LR and ordinary-final-only are hypotheses fixed before execution, not evidence of convergence.",
+    "Unchanged raw combined-action prior semantics retains known later clipping/history mismatch; velocity regularization does not solve that limitation.",
+    "No prior-action augmentation, raw Jacobian loss, gain sign edits, hard row filtering, or architecture mask selected."
+  ],
+  "radius": "Fixed per-axis ±1% native speed caps; lies within saved static velocity bounds, does not cover the whole actual c251 multi-joint vector or establish dynamic feasibility.",
+  "bindings": {
+    "scales.json": "0f9604447b893c744706a5f04cf41cc6e60121ca481a04e7760abcd4b190cef8",
+    "analyze_saved_scales.py": "6cf8ee353767ae08c966e9a4e2c2753e1f3ad9bc2e10aabe266e141e725f6b5d",
+    "proposal.json": "2beea3bbd343393a494958a7086a5d3f0cde91e0345eb9e21512bfed33c38cf5",
+    "PROPOSAL.md": "f87a68d6f4fa493738071b5efe591da5b6528a0c8be01f2e0ecee95471d406ff"
+  },
+  "reviewer_physics": 0,
+  "reviewer_optimizer": 0,
+  "kind": "independent_conditional_velocity_chord_design_review",
+  "budget_checks": {
+    "center_plus_perturbed_rows": 143679,
+    "perturbed_rows": 140622,
+    "axis_pairs": 70311,
+    "fixed_training_row_evaluations": 21045000,
+    "backward_goals": 3057,
+    "head_parity_calls": 1126,
+    "actor_calls": 143679
+  },
+  "verdict": "No conceptual or arithmetic blocker; no execution selected by this review",
+  "reviewer_inference": 0,
+  "loss": "Unclipped student U differences plus unchanged unclipped nominal anchor loss consistently target bounded teacher commands while retaining gradients outside student target bounds. Report applied-target chords and clipping separately.",
+  "execution_authorized": false
+}

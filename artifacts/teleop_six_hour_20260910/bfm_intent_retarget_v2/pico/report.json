@@ -1,0 +1,57 @@
+{
+  "clip": "pico",
+  "completed": 2018,
+  "requested": 6530,
+  "available": 6530,
+  "failure": {
+    "kind": "physical_limit",
+    "control": 2017,
+    "range_excess": 0.012746718799829804,
+    "velocity_ratio": 0.06429510296082044
+  },
+  "full_lifecycle_completed": false,
+  "source_metrics": {
+    "source_controls": 1668,
+    "source_requested": 5780,
+    "leg_rmse": 0.16211859005562443,
+    "arm_rmse": 0.0691592207133306,
+    "root_p95": 0.3265384494473094,
+    "landmark_p95": [
+      0.421258023478434,
+      0.4156439349600107,
+      0.6521753426763534,
+      0.535691723276734,
+      0.2991686155527567
+    ],
+    "relative_landmark_p95": [
+      0.3419415065397302,
+      0.3563117714645743,
+      0.48987676608891184,
+      0.5389435629545276,
+      0.11326252120936578
+    ]
+  },
+  "range_excess_max": 0.012746718799829804,
+  "effort_ratio_max": 0.984461379533665,
+  "velocity_ratio_max": 0.4911972881739697,
+  "inference_ms_p95": 16.815995004435536,
+  "elapsed_seconds": 29.13875850000477,
+  "goal_horizon": 8,
+  "goal_buffer_ms": 140,
+  "reference_path": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\intent_retarget_v2\\pico\\reference.npz",
+  "motion_override": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\intent_retarget_v2\\pico\\reference.npz",
+  "reference_geometry_retargeted": true,
+  "ground_truth_pose_feedback": true,
+  "root_xy_feedback_used": true,
+  "heading_feedback_sensor_equivalent": "pelvis_IMU_orientation_with_initial_calibration",
+  "position_gain": 1.0,
+  "yaw_gain": 2.0,
+  "arm_reference": true,
+  "leg_error_gain": 0.0,
+  "residual_checkpoint": null,
+  "residual_updates": null,
+  "model_path": "Z:\\codex\\GR00T-WholeBodyControl\\gear_sonic\\data\\robots\\g1\\g1_23dof_rev_1_0.xml",
+  "action_contract": "target=default_q+5*tanh_actor*.25*training_effort/training_kp; native effort clipped",
+  "hardware_authorized": false,
+  "deployment_ready": false
+}

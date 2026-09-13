@@ -1,0 +1,27 @@
+{
+  "kind": "full_range_causal_native23_dynamics_ppo",
+  "initial_checkpoint": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_student_v1/fit/student_head.pt",
+  "actor_width": 512,
+  "features": 1323,
+  "future_reference_frames": 0,
+  "reference_derivatives": "backward",
+  "native_pd": true,
+  "physics_hz": 500,
+  "control_hz": 50,
+  "simulator": "MJLab MuJoCo-Warp 3.5.0",
+  "final_referee": "MuJoCo3.2.3",
+  "num_envs": 128,
+  "rollout_steps": 64,
+  "updates": 800,
+  "bootstrap_updates": 1000,
+  "wall_hours": 3.0,
+  "milestones": [
+    400,
+    800
+  ],
+  "heldout": "walk008",
+  "root_state": "simulation_privileged",
+  "reset_schedule": "50pct canonical lifecycle;50pct actual expert states;root XY velocity +/-0.03mps",
+  "hardware_authorized": false,
+  "simulation_qualified": false
+}

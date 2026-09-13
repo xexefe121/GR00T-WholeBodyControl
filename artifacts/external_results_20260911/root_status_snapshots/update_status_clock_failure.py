@@ -1,0 +1,44 @@
+from pathlib import Path
+from datetime import datetime,timezone
+NEW=Path(__file__).resolve().parent.parent
+OUT=NEW/'root_status_snapshots'
+ART=Path('Z:/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_resume_20260911')
+stamp=datetime.now(timezone.utc).isoformat()
+for name in ('CURRENT.md','SIM_RESULT.md'):
+    with (OUT/(name.replace('.md','')+'_before_clock_failure.md')).open('x',encoding='utf-8') as f:f.write((ART/name).read_text())
+current=f'''# Current native23 simulation work
+
+Updated {stamp}. User says continue. Continue autonomously. Fast full-body controller is still unqualified. Real Pico/DDS/robot remains outside this simulation stage. NEW means E:/codex-artifacts/sonic23_teleop_resume_20260911. Earlier status is preserved in NEW/root_status_snapshots/CURRENT_before_clock_failure.md.
+
+## Active work
+
+ONE warm balanced-response continuation from causal68000 to71000 is source-reviewed, not yet dispatched. NEW/direct_target_causal_response_balanced_student_v1/source_preparation.json 1d9635f256508c34e4a8ffc7ba893da6c8fff755216fc878a94d8162b2135d2c; independent warm review b9970d61ddcca81d8072a5b3b925d9e59fb049ceaf27f0f02cfb4a1a99aec15d; root data/export source review ff54ed8d7e9b96d2c254b9e27dba436cdbc9169d52ab985a3248dcb0a4fd35f7. Exact learned1323 actor, AdamW moments/step3000, RNG, normalization, completed shared data and3000 schedules restored. Same N/P/coefficient1.8188207859141674; response groups weighted by fixed mean teacher energy/group energy.3000updates/9000forwards/44,058,000rows, endpointoptimizer6000, inclusive LR1e-5→1e-6. Same initial/final1e-5rad gates, original and balanced54metrics. Expert owns concrete request/launcher and eventual sole fit after root review. Reviewer prepares independent saved-fit audit. Single engineering trial cannot isolate weighting from extra epochs/optimizer choices.
+
+ONE saved corrected-clock audit selected, with Pico sole dispatcher. NEW/independent_plant_clock_saved_actual_v1/request.json a4f6ddd9a8468c667e3de2b533d1f8098c7b93548c1c89de82909e839f30713f; launch2579e1c45cc7686934fe344e8682ba8485b8aca4ad41cf1a098766fbd3c0bdf0. Root concrete review NEW/independent_plant_clock_saved_actual_root_review_v1/concrete_review.json b7fe2f00a2fc20977666fd68611543c778a7a22bc2e084aa83f669487c13a0dd verifies3802pins and unchanged14-source v3 audit. No new model/native calls. Pico also prepares bounded pending publication source/tests; no next clock run selected. Heavy-work pause has ended; all corrected-clock processes are absent.
+
+## Latest controller: completed failure, all audits done
+
+Causal68000 canonical failed at control302/sub1/time6.042s: right_hip_roll_joint -21.03141822079579rad/s vs20.3021native/303issued/53learned/source0/hold0. Trace589cbab8051ab9c1257049d62098248e7866b10e6c0eb085e73cbaf32d79082d; ownerc1e578569bd9f7e1bb0c86342f196440573ecbfc2f574e6fa3dce7fafc32f97e, raw0/diagnostic2/wrapper2/all5241pins/PIDsabsent. Root native audit fccc2ec215c8536529161eb98982038232ac9116bcfdbec685233807b60f0753 reproduced all3021steps/sevenfields bitexact, no extra steps. Intent complete/sourcefalse/quietfalse. Saved semantics audit e633e27d39cde9b24026519c2aeae68f44d22450cc70e33cb55b1c292ed492ae passed6967checks; owner512bed04e808a1a3fd1659ca6838c852e3a80a85ead7afe56f2d614b12a453ee. Firstdeparture251/clip253;46of53clipped. Matched state250 targetRMSE0.04737772244rad. All fit/witness/canonical/physics/intent/semantics work COMPLETE; never repeat stored commands.
+
+## Corrected independent clock: completed failure, no retry
+
+NEW/independent_plant_clock_timeout_correction_v1/run/report.json b63896a22b00a032f9d1ac5e9fcb420d796778607374d11e4a1ad7fec3ec52fc; owner3bf9f7ee97c7feb74434f1f928a33bb4827e62420a8f68f12f49ce5b73dd816e. ONE run18:15:58→18:19:11. Raw/diagnostic/wrapper2, no watchdog timeout, all3745pins, Windows26816/27240 and Linux384/465/466 absent.4694attempted/returned/captured,4693verified,13496unexecuted; count known. Allfour95,115,288-byte MJB exact717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4. Native joint bound failed step4694. Command420 deadline missed;50controls420..469 held419. Six2ms plant misses, first step610 by294237ns. Original command420 publish returned BUSY at132991903623..132991908848,19,464,140ns before original133011372988deadline, and was never retried. All419 delivered jobs had replies; no420 reached worker. Worker lock interval unrecorded because EMPTY polls omitted. BUSY drop is confirmed; fixing it alone cannot qualify timing.
+
+Original whole-process timeout attempt remains preserved with actual native count UNKNOWN. Do not repeat original/corrected runs. No timing or strict-limit relaxation selected.
+
+## Acceptance
+
+Same fast controller must pass full PICO/walk002/walk003/held-outwalk008, original tracking/source coverage, every2ms strict native limits, measured final3s quiet and continuous5s hold; then500Hzplant/50Hzpolicy, received-only inputs, faultstop/rearm/perturbations. Prepared preview and ground-truth root disclosed. No crops/retiming/rootforces/reference edits/limit relaxation. Slow expert PICO6530+250,walk0021417+250,walk0031569+250 passed offline physics/intent and independent replay; not fast/rawPico/hardware proof. Video: NEW/pico_qualified_full_video_v1/full_pico_and_continuous_hold.fixed_world.mp4.
+'''
+(ART/'CURRENT.md').write_text(current,encoding='utf-8')
+result=(ART/'SIM_RESULT.md').read_text()
+result=result.replace('Updated 2026-09-11 18:16 UTC.',f'Updated {stamp}.')
+old='One corrected recorded-command clock benchmark has been selected.'
+start=result.index(old);end=result.index('\n\n## Existing qualified offline evidence',start)
+replacement='''The corrected recorded-command clock benchmark completed and failed, with all evidence preserved. It returned4694 native steps and all four identical MJB snapshots, without watchdog timeout. Command420 hit a BUSY mailbox19.464ms before its original activation deadline, was never retried and never reached the worker. The command deadline then expired; the plant held command419 through control469 and reached a native joint-bound failure at step4694. Independent saved-byte diagnosis confirms the dropped publication. Six2ms plant deadline misses also occurred, including step610 before the transport failure; fixing publication alone cannot qualify timing. All processes have stopped. One saved-only audit is selected; no new clock trial is selected. A source-only bounded nonblocking retry is being prepared, retaining original deadlines and strict limits.
+
+Warm-training source reviews passed:35 owner synthetic tests and15 independent warm tests, plus16 reviewed balancing-math tests. Exact data reuse/export source review passed. Concrete training request/launcher preparation is underway; no new fit has launched as of this update.'''
+result=result[:start]+replacement+result[end:]
+(ART/'SIM_RESULT.md').write_text(result,encoding='utf-8')
+with (ART/'SESSION.md').open('a',encoding='utf-8') as f:f.write('\n\nLatest durable state '+stamp+': see CURRENT.md. Corrected clock complete failed with known4694native count and command420 BUSY drop; all processes absent. Saved audit selected b7fe2f00. Warm71000 source reviews passed ff54ed8d/b9970d61; concrete fit package pending. All causal68000 work and audits complete; never repeat.\n')
+print('CURRENT.md and SIM_RESULT.md updated; previous versions preserved.')

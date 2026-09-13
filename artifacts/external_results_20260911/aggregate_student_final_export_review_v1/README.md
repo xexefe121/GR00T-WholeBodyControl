@@ -1,0 +1,3 @@
+Final export and one canonical launch clear. Ordinary final60000 follows40000 fixed additional updates; all62 frozen source/input hashes and all19 final evidence bindings match. Saved2537-row error arrays agree exactly; old/new RMSE0.03155669/0.03188988rad. Producer export parity2.14577e-6rad passes1e-5.
+
+Launch only unchanged frozen canonical evaluator: fresh student control0,1569 controls, terminal1269, conditional250 continuous hold. Final authorized clearance must bind this review. Independent physical, source-intent and quiet qualification remains required. No reviewer inference, optimization, physics or hardware.

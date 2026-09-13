@@ -1,0 +1,103 @@
+{
+  "kind": "g1_true23_standing_retention_training_state_drift_v1",
+  "inputs": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/standing_retention_ppo_20260906_v1/measure_retained_drift_matched_backend.py": "48ed4c22f78f332cd6b63164b8c6e6ac287bc1fe6d94cfcfa32e3c79aaed73b5",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/standing_retention_ppo_20260906_v1/measure_retained_drift.py": "3c9f2bad4a2b791a584032761d7f746f5e543f9a338acf598d3961e79e3aa6b7",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/standing_retention_ppo_20260906_v1/post_measure_retained_drift.log": "2295be7062f094a54a3435c37a4f2fd21dfe4a57f353e135d5a2ba7afb608e42",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab_causal_history.py": "5fce5b3f88f5e66497ee38806b1184677e17c3c7b0f64b855afa88348e263e83",
+    "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/mjlab/src/mjlab/utils/torch.py": "87e0673c850ae6cd5306c9533c928ddb570396323b904f7bbbab589990bc44b1",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/standing_retention_ppo_20260906_v1/experiment_report.json": "ce690191534f1cb8fdf58ca60c311446becbb00f3aea8494fd27e7a9837b6dae",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/standing_retention_ppo_20260906_v1/breadth_serial/standing_retention.json": "74b726262f7359815b811ba4c3f858a20b0cdaf3030b37439b2beee9249eb3ea",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/standing_retention_ppo_20260906_v1/previous_drift.json": "22dc912afca20a74631d8175be880a54d088ad10aae6df209c29f4d1f623b290",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/interior_effort_20260906_v1/standing_lora500/report.json": "5411ee4b95d8003ffc50047f01e6535ac95138b37852d3a2a88ef6f89e874f52",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/interior_effort_20260906_v1/representable_standing/report.json": "7adc1c626ac577ee33ba1301b3b10163b716a3431bdf73e5ae4b86dc12ff683c",
+    "/mnt/z/codex/GR00T-WholeBodyControl/sonic_release/g1_23dof_rev_1_0_low_latency_init.pt": "5e5be23982f15eaf2eb1d52b2433d081b5f43c260ecb5055457edf222b77c9bb",
+    "/mnt/z/codex/GR00T-WholeBodyControl/low_latency/last.pt": "0031ae7db24747445d6eb7c27697640973a837546f0b8763e775143c47d4507c",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/standing_retention_ppo_20260906_v1/breadth_serial/checkpoints/frozen_lora_model_0.pt": "55ba4dadd3463db75d403b1ad71a8cbbfc42a2497ae42ca9fc5364f72e24f098",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/standing_retention_ppo_20260906_v1/breadth_serial/checkpoints/frozen_lora_model_100.pt": "2bfd05e514b5c77606b59ee51ee302e9a280d7aeacef0fbb5bf758b011835c28"
+  },
+  "records": [
+    {
+      "update_count": 0,
+      "adapter_sha256": "60482bc1c129fc0bc2190b9a058e36a9bd86502cfac3178deaa4dff1b9aaf86a",
+      "metrics": {
+        "target_rmse_rad": 0.0,
+        "raw_rmse": 0.0,
+        "maximum_target_drift_rad": 0.0
+      }
+    },
+    {
+      "update_count": 100,
+      "adapter_sha256": "f0444891ae6306b1eacf010bd95ce04c38785d6c7c057bf5d496bee7dac4d34f",
+      "metrics": {
+        "target_rmse_rad": 0.007584144361317158,
+        "raw_rmse": 0.01784638874232769,
+        "maximum_target_drift_rad": 0.028437674045562744
+      }
+    }
+  ],
+  "training": {
+    "kind": "g1_true23_standing_only_retention_inputs_v1",
+    "teacher_report_path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/interior_effort_20260906_v1/representable_standing/report.json",
+    "teacher_report_sha256": "7adc1c626ac577ee33ba1301b3b10163b716a3431bdf73e5ae4b86dc12ff683c",
+    "episodes": [
+      {
+        "name": "bounded_nominal",
+        "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/interior_effort_20260906_v1/representable_standing/bounded_nominal.npz",
+        "sha256": "e6708b8bc0776db4169e095b322fdf91519609b1694c0db436eef1f4e6aabd72",
+        "rows": 500
+      },
+      {
+        "name": "bounded_plus",
+        "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/interior_effort_20260906_v1/representable_standing/bounded_plus.npz",
+        "sha256": "f4707049c7444164d1f6d3ce7e729a40672bfb74f97844759f8ad670fd4070b2",
+        "rows": 500
+      },
+      {
+        "name": "bounded_minus",
+        "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/interior_effort_20260906_v1/representable_standing/bounded_minus.npz",
+        "sha256": "62f57140aa628b94b6bdb01eee0430922598b025cad82de8dd5e7839332553d7",
+        "rows": 500
+      }
+    ],
+    "train_rows": 1500,
+    "held_out_rows_loaded": 0,
+    "full_motion_teacher_accepted": false,
+    "failed_motion_actions_used": false,
+    "hardware_authorized": false,
+    "deployment_ready": false
+  },
+  "backend": {
+    "actual_training_gpu_cache_reconstructed": true
+  },
+  "backend_comparisons": [
+    {
+      "precision": "ieee",
+      "token_differing_elements": 0,
+      "token_differing_rows": 0,
+      "proprio_max_abs_error": 0.0,
+      "raw_max_abs_error": 1.430511474609375e-06,
+      "safe_target_max_abs_error_rad": 4.470348358154297e-07,
+      "gpu_cache_sha256": "a93e6b92c957979b813f0188c4ffc629fcd27dc8daa87be8762a23f3c7d0d968",
+      "matches_recorded_training_cache": false
+    },
+    {
+      "precision": "tf32",
+      "token_differing_elements": 204,
+      "token_differing_rows": 204,
+      "proprio_max_abs_error": 0.0,
+      "raw_max_abs_error": 0.05491381883621216,
+      "safe_target_max_abs_error_rad": 0.03010176122188568,
+      "gpu_cache_sha256": "6429d8cd2d1c8870c426269ca4c11c463aee1f3ca2246b6f142fb76e2628ff87",
+      "matches_recorded_training_cache": true
+    }
+  ],
+  "actual_training_precision": "tf32",
+  "cpu_anchor_cache_sha256": "c8d226d956583d97ec2a0a88c1872fcc04928b8eeba7f5bbb211208093c4c83a",
+  "previous_default_fp32_reconstruction_failed": true,
+  "optimization_performed": false,
+  "held_out_arrays_loaded": false,
+  "full_motion_qualified": false,
+  "hardware_authorized": false,
+  "deployment_ready": false
+}

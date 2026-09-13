@@ -1,0 +1,361 @@
+{
+  "initial_H30_feasible_seed_exists": true,
+  "selection": {
+    "control": 250,
+    "candidates": [
+      {
+        "candidate": "fresh_BFM_proposal",
+        "diagnostics": {
+          "control": 250,
+          "horizon": 30,
+          "elapsed_ms": 270.0017100005425,
+          "inference_ms_p50_p95_max": [
+            7.493669999803387,
+            8.486545499954445,
+            8.823239999401267
+          ],
+          "recorded_actual_controls": 250,
+          "actual_history_action_max_abs": 2.149127960205078,
+          "actual_history_action_components_outside_five": 0,
+          "current_history_action_max_abs": 1.4736288785934448,
+          "private_range_excess_max_rad": 0.0,
+          "private_velocity_ratio_max": 0.07454370630371868,
+          "private_effort_ratio_max": 0.2779734088729093,
+          "private_root_height_min_m": 0.7439384803014204,
+          "private_root_tilt_max_rad": 0.06834305136739519,
+          "private_engine_warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "terminal_goal_hold_controls": 0,
+          "conservative_raw_pose_support_seconds": 0.76,
+          "actual_history_mutated_by_proposal": false,
+          "real_physics_state_mutated": false,
+          "real_controller_or_teacher_qualified": false
+        }
+      },
+      {
+        "candidate": "shifted_or_initial_reference",
+        "cost": 246.71136311856054,
+        "nominal_feasibility": {
+          "feasible": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "first_violation": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "speed_ratio": [
+              0.0415824737772673,
+              0.0415824737772673,
+              0.0415824737772673,
+              0.0415824737772673,
+              0.0415824737772673,
+              0.0415824737772673,
+              0.0415824737772673,
+              0.0415824737772673,
+              0.0415824737772673
+            ],
+            "effort_ratio": [
+              0.16531331091223841,
+              0.16531331091223841,
+              0.16531331091223841,
+              0.16531331091223841,
+              0.16531331091223841,
+              0.16531331091223841,
+              0.16531331091223841,
+              0.16531331091223841,
+              0.16531331091223841
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "actual_full_integration_horizon": {
+          "kind": "independent_native23_manual_PD_private_segment",
+          "feasible": true,
+          "first_failure": null,
+          "requested_controls": 30,
+          "physics_steps": 300,
+          "complete_controls": 30,
+          "partial_substeps": 0,
+          "original_data_unchanged": true,
+          "root_forces": false,
+          "source_state_copy_after_initialization": false,
+          "initial_time": 4.999999999999671,
+          "final_time": 5.599999999999605,
+          "maximum": {
+            "joint_excess_rad": 0.0,
+            "speed_ratio": 0.04158247377726708,
+            "effort_ratio": 0.1653133109122384,
+            "tilt_rad": 0.06942375023362878,
+            "clock_error_seconds": 0.0,
+            "ideal_clock_difference_seconds": 6.572520305780927e-14
+          },
+          "minimum_root_height_m": 0.7439384803014204,
+          "final_warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "diagnostic_continued_after_failure": false,
+          "live_or_hardware_qualified": false,
+          "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+        },
+        "actual_trace_sha256": "64705a7d68dc88066fc3dad5f91c6fb9dc298d8f1b3552aca84b9f4c461231e6",
+        "eligible": true
+      },
+      {
+        "candidate": "recorded_bfm",
+        "cost": 194.8306880735303,
+        "nominal_feasibility": {
+          "feasible": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "first_violation": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "speed_ratio": [
+              0.07220401659261012,
+              0.07220401659261012,
+              0.07220401659261012,
+              0.07220401659261012,
+              0.07220401659261012,
+              0.07220401659261012,
+              0.07220401659261012,
+              0.07220401659261012,
+              0.07220401659261012
+            ],
+            "effort_ratio": [
+              0.3130471720128038,
+              0.3130471720128038,
+              0.3130471720128038,
+              0.3130471720128038,
+              0.3130471720128038,
+              0.3130471720128038,
+              0.3130471720128038,
+              0.3130471720128038,
+              0.3130471720128038
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "actual_full_integration_horizon": {
+          "kind": "independent_native23_manual_PD_private_segment",
+          "feasible": true,
+          "first_failure": null,
+          "requested_controls": 30,
+          "physics_steps": 300,
+          "complete_controls": 30,
+          "partial_substeps": 0,
+          "original_data_unchanged": true,
+          "root_forces": false,
+          "source_state_copy_after_initialization": false,
+          "initial_time": 4.999999999999671,
+          "final_time": 5.599999999999605,
+          "maximum": {
+            "joint_excess_rad": 0.0,
+            "speed_ratio": 0.07220401659261134,
+            "effort_ratio": 0.31304717201280424,
+            "tilt_rad": 0.06825303376281111,
+            "clock_error_seconds": 0.0,
+            "ideal_clock_difference_seconds": 6.572520305780927e-14
+          },
+          "minimum_root_height_m": 0.7439384803014204,
+          "final_warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "diagnostic_continued_after_failure": false,
+          "live_or_hardware_qualified": false,
+          "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+        },
+        "actual_trace_sha256": "53a31cc24691aba1af8cc6e47844b011e5279475e2ceaee469693a173c650614",
+        "eligible": true
+      },
+      {
+        "candidate": "fresh_bfm",
+        "cost": 209.18549182488425,
+        "nominal_feasibility": {
+          "feasible": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "first_violation": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "speed_ratio": [
+              0.07454370630371804,
+              0.07454370630371804,
+              0.07454370630371804,
+              0.07454370630371804,
+              0.07454370630371804,
+              0.07454370630371804,
+              0.07454370630371804,
+              0.07454370630371804,
+              0.07454370630371804
+            ],
+            "effort_ratio": [
+              0.27797340887290883,
+              0.27797340887290883,
+              0.27797340887290883,
+              0.27797340887290883,
+              0.27797340887290883,
+              0.27797340887290883,
+              0.27797340887290883,
+              0.27797340887290883,
+              0.27797340887290883
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "actual_full_integration_horizon": {
+          "kind": "independent_native23_manual_PD_private_segment",
+          "feasible": true,
+          "first_failure": null,
+          "requested_controls": 30,
+          "physics_steps": 300,
+          "complete_controls": 30,
+          "partial_substeps": 0,
+          "original_data_unchanged": true,
+          "root_forces": false,
+          "source_state_copy_after_initialization": false,
+          "initial_time": 4.999999999999671,
+          "final_time": 5.599999999999605,
+          "maximum": {
+            "joint_excess_rad": 0.0,
+            "speed_ratio": 0.07454370630371908,
+            "effort_ratio": 0.277973408872909,
+            "tilt_rad": 0.06834305136739519,
+            "clock_error_seconds": 0.0,
+            "ideal_clock_difference_seconds": 6.572520305780927e-14
+          },
+          "minimum_root_height_m": 0.7439384803014204,
+          "final_warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "diagnostic_continued_after_failure": false,
+          "live_or_hardware_qualified": false,
+          "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+        },
+        "actual_trace_sha256": "932e45d92d5aece3b0d632006bcb7e65b680e849252461e2d17948168bce1c03",
+        "eligible": true
+      }
+    ],
+    "restoration": null,
+    "selected": "recorded_bfm"
+  },
+  "physical_branch_started": false,
+  "labels_admissible": false,
+  "request_sha256": "48070ed701459061723aec057fa55a6ea01f1982e7979a061ceb84ba48f4452b",
+  "actual_plant_and_history_unchanged": true,
+  "first_global_control": 250,
+  "planner_window_frame": 260,
+  "first_output_frame": 261,
+  "selected_sha256": "28bfcb412cf8336eef519003eaf34c8ef4ea293c9f4dbee65397c474e78ca08f"
+}

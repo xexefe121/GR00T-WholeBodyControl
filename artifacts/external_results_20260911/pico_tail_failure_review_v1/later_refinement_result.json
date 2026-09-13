@@ -1,0 +1,75 @@
+{
+  "report": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_final3800_guided_k0_refinement_v1\\report.json",
+  "sha256": "51a149cc822e558d08eaef14a97ff4bae53310fd3d20e79a02369ce21b035709",
+  "initial_merit": 7.278705671108272,
+  "final_merit": 7.074547366116891,
+  "ordinary_final_certificate": {
+    "hard_nominal_pass": false,
+    "nominal_first_failure": {
+      "control": 14,
+      "substep": 1,
+      "reasons": [
+        "joint_range"
+      ],
+      "range_excess_rad": 0.0011354074325394814,
+      "speed_ratio": 0.9085483211986027,
+      "effort_ratio": 1.0,
+      "root_height_m": 0.3818193426303475,
+      "root_tilt_rad": 0.21510245267640704
+    },
+    "tracking_cost": null,
+    "full_native_oracle": {
+      "kind": "independent_native23_manual_PD_private_segment",
+      "feasible": false,
+      "first_failure": {
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "physics_step": 141,
+        "control_index": 14,
+        "substep": 1,
+        "worst_joint_index": 5,
+        "joint_excess_rad": 0.001166798017438908,
+        "speed_ratio": 0.9031558007979581,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.21470110859665809,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 6.536993168992922e-13
+      },
+      "requested_controls": 30,
+      "physics_steps": 300,
+      "complete_controls": 30,
+      "partial_substeps": 0,
+      "original_data_unchanged": true,
+      "root_forces": false,
+      "source_state_copy_after_initialization": false,
+      "initial_time": 76.00000000000428,
+      "final_time": 76.60000000000288,
+      "maximum": {
+        "joint_excess_rad": 0.005457019239186955,
+        "speed_ratio": 1.0875754485032476,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.8000163597628894,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 1.3926637620897964e-12
+      },
+      "minimum_root_height_m": 0.31288978595484607,
+      "final_warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "diagnostic_continued_after_failure": true,
+      "live_or_hardware_qualified": false,
+      "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+    },
+    "dual_certificate_pass": false
+  },
+  "actual_controls_executed": 0,
+  "assessment": "Authorized sequential refinement completed after read-only diagnosis; final still rejected. No fix established. Shared source/actual physical state unchanged."
+}

@@ -1,0 +1,4459 @@
+{
+  "kind": "one_identical_instrumented_restoration_solve",
+  "control": 3805,
+  "horizon": 30,
+  "maximum_iterations": 10,
+  "zero_rollout_feedback": true,
+  "zero_feedback_scope": "private restoration line search only; backward feedforward algebra unchanged",
+  "initial_full_horizon": {
+    "kind": "independent_native23_manual_PD_private_segment",
+    "feasible": false,
+    "first_failure": {
+      "reasons": [
+        "native_joint_bound"
+      ],
+      "physics_step": 285,
+      "control_index": 28,
+      "substep": 5,
+      "worst_joint_index": 11,
+      "joint_excess_rad": 4.1112776061114076e-05,
+      "speed_ratio": 0.20997341838242187,
+      "effort_ratio": 0.41493495384970785,
+      "tilt_rad": 0.20439208997070915,
+      "clock_error_seconds": 0.0,
+      "ideal_clock_difference_seconds": 1.3216094885137863e-12
+    },
+    "requested_controls": 30,
+    "physics_steps": 300,
+    "complete_controls": 30,
+    "partial_substeps": 0,
+    "original_data_unchanged": true,
+    "root_forces": false,
+    "source_state_copy_after_initialization": false,
+    "initial_time": 76.10000000000404,
+    "final_time": 76.70000000000265,
+    "maximum": {
+      "joint_excess_rad": 0.002892101256966484,
+      "speed_ratio": 0.8213027910032575,
+      "effort_ratio": 1.0,
+      "tilt_rad": 0.3693614218629375,
+      "clock_error_seconds": 0.0,
+      "ideal_clock_difference_seconds": 1.3926637620897964e-12
+    },
+    "minimum_root_height_m": 0.2785138053987133,
+    "final_warning_counts": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "diagnostic_continued_after_failure": true,
+    "live_or_hardware_qualified": false,
+    "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time",
+    "joint_excess_max_rad": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.002892101256966484,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "joint_excess_final_rad": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0027966882306357244,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "joint_names": [
+      "left_hip_pitch_joint",
+      "left_hip_roll_joint",
+      "left_hip_yaw_joint",
+      "left_knee_joint",
+      "left_ankle_pitch_joint",
+      "left_ankle_roll_joint",
+      "right_hip_pitch_joint",
+      "right_hip_roll_joint",
+      "right_hip_yaw_joint",
+      "right_knee_joint",
+      "right_ankle_pitch_joint",
+      "right_ankle_roll_joint",
+      "waist_yaw_joint",
+      "left_shoulder_pitch_joint",
+      "left_shoulder_roll_joint",
+      "left_shoulder_yaw_joint",
+      "left_elbow_joint",
+      "left_wrist_roll_joint",
+      "right_shoulder_pitch_joint",
+      "right_shoulder_roll_joint",
+      "right_shoulder_yaw_joint",
+      "right_elbow_joint",
+      "right_wrist_roll_joint"
+    ]
+  },
+  "initial_merit": 4.292815755335639,
+  "final_merit": 0.00025182496167593587,
+  "final_targets_equal_initial": false,
+  "initial_fixed_state_merit": 0.0,
+  "state_merit_by_knot": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.007328260708310911,
+    0.04404135686680133,
+    0.09737201523868426,
+    0.14715891378448948,
+    0.17666471027040817,
+    0.18464726875348791,
+    0.1716231380046888,
+    0.189167380871189,
+    0.6890406062997295,
+    1.2822272006729563,
+    1.303544903864894
+  ],
+  "solver_tolerance": 0.0001,
+  "maximum_regularization": 1000000.0,
+  "source_hashes": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/diagnose_g1_true23_restoration_stall.py": "6bf66578ba0f95e7c1019dcfe1bb2606b17f29b2328ebd34f3e52080f43c8ad1",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_mjbatch_ilqr_core.py": "1efc9cb21e446d8e41e3d3acebe05d12b951e8a0002b264ddf0a6b723e32f45a",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_mjbatch_mpc.py": "7695d03787de93dc3d4b1fb2001d6b6b0dcdb9016af9c96734e8f7d94a5e5dde",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_mjbatch_model.py": "61d1c168ba5db189fc1e882bfb1e2c9f7773584353b8e2251713ae0d0dd7dc9e",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_mjbatch_restoration.py": "809a0cc557350715fc4af0ddb368ada55386e027921b61adaac237e5613227a9",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_feasibility_referee.py": "0027210cda5a44255debecd7151ecd454e2281a5ff4e3137641d102701fb1330"
+  },
+  "backward_calls": [
+    {
+      "mu": 1.0,
+      "returned_sweep": true,
+      "derivatives": {
+        "A": {
+          "all_finite": true,
+          "max_abs": 89471.30836635121
+        },
+        "B": {
+          "all_finite": true,
+          "max_abs": 85961.6323259984
+        },
+        "lx": {
+          "all_finite": true,
+          "max_abs": 113.98522851599535
+        },
+        "lxx": {
+          "all_finite": true,
+          "max_abs": 5000.000000010002
+        },
+        "lu": {
+          "all_finite": true,
+          "max_abs": 0.0
+        },
+        "luu": {
+          "all_finite": true,
+          "max_abs": 0.0002
+        },
+        "lower": {
+          "all_finite": true,
+          "max_abs": 5.141439032560317
+        },
+        "upper": {
+          "all_finite": true,
+          "max_abs": 5.409904083711517
+        }
+      }
+    },
+    {
+      "mu": 0.1,
+      "returned_sweep": true,
+      "derivatives": {
+        "A": {
+          "all_finite": true,
+          "max_abs": 81127.81170219296
+        },
+        "B": {
+          "all_finite": true,
+          "max_abs": 53197.1950702963
+        },
+        "lx": {
+          "all_finite": true,
+          "max_abs": 120.5102293279995
+        },
+        "lxx": {
+          "all_finite": true,
+          "max_abs": 5000.000000287557
+        },
+        "lu": {
+          "all_finite": true,
+          "max_abs": 0.00013963792094952906
+        },
+        "luu": {
+          "all_finite": true,
+          "max_abs": 0.0002
+        },
+        "lower": {
+          "all_finite": true,
+          "max_abs": 5.168470245512497
+        },
+        "upper": {
+          "all_finite": true,
+          "max_abs": 5.410202041855758
+        }
+      }
+    },
+    {
+      "mu": 0.01,
+      "returned_sweep": true,
+      "derivatives": {
+        "A": {
+          "all_finite": true,
+          "max_abs": 16308.806928154507
+        },
+        "B": {
+          "all_finite": true,
+          "max_abs": 12181.214154951547
+        },
+        "lx": {
+          "all_finite": true,
+          "max_abs": 0.0
+        },
+        "lxx": {
+          "all_finite": true,
+          "max_abs": 0.0
+        },
+        "lu": {
+          "all_finite": true,
+          "max_abs": 0.0002684848349077243
+        },
+        "luu": {
+          "all_finite": true,
+          "max_abs": 0.0002
+        },
+        "lower": {
+          "all_finite": true,
+          "max_abs": 5.18445419715366
+        },
+        "upper": {
+          "all_finite": true,
+          "max_abs": 5.4105
+        }
+      }
+    },
+    {
+      "mu": 0.001,
+      "returned_sweep": true,
+      "derivatives": {
+        "A": {
+          "all_finite": true,
+          "max_abs": 21850.477407307833
+        },
+        "B": {
+          "all_finite": true,
+          "max_abs": 10659.046385824046
+        },
+        "lx": {
+          "all_finite": true,
+          "max_abs": 0.0
+        },
+        "lxx": {
+          "all_finite": true,
+          "max_abs": 0.0
+        },
+        "lu": {
+          "all_finite": true,
+          "max_abs": 0.0002010324072732654
+        },
+        "luu": {
+          "all_finite": true,
+          "max_abs": 0.0002
+        },
+        "lower": {
+          "all_finite": true,
+          "max_abs": 5.187048598246182
+        },
+        "upper": {
+          "all_finite": true,
+          "max_abs": 5.4105
+        }
+      }
+    },
+    {
+      "mu": 0.0001,
+      "returned_sweep": true,
+      "derivatives": {
+        "A": {
+          "all_finite": true,
+          "max_abs": 10727.278070533865
+        },
+        "B": {
+          "all_finite": true,
+          "max_abs": 10727.678805908525
+        },
+        "lx": {
+          "all_finite": true,
+          "max_abs": 0.0
+        },
+        "lxx": {
+          "all_finite": true,
+          "max_abs": 0.0
+        },
+        "lu": {
+          "all_finite": true,
+          "max_abs": 0.00019144815169758607
+        },
+        "luu": {
+          "all_finite": true,
+          "max_abs": 0.0002
+        },
+        "lower": {
+          "all_finite": true,
+          "max_abs": 5.176463261093014
+        },
+        "upper": {
+          "all_finite": true,
+          "max_abs": 5.4105
+        }
+      }
+    },
+    {
+      "mu": 1e-05,
+      "returned_sweep": true,
+      "derivatives": {
+        "A": {
+          "all_finite": true,
+          "max_abs": 19173.020364956716
+        },
+        "B": {
+          "all_finite": true,
+          "max_abs": 19174.98006267637
+        },
+        "lx": {
+          "all_finite": true,
+          "max_abs": 0.0
+        },
+        "lxx": {
+          "all_finite": true,
+          "max_abs": 0.0
+        },
+        "lu": {
+          "all_finite": true,
+          "max_abs": 0.00018424968719142913
+        },
+        "luu": {
+          "all_finite": true,
+          "max_abs": 0.0002
+        },
+        "lower": {
+          "all_finite": true,
+          "max_abs": 5.174800441062732
+        },
+        "upper": {
+          "all_finite": true,
+          "max_abs": 5.409949159424672
+        }
+      }
+    },
+    {
+      "mu": 1.0000000000000002e-06,
+      "returned_sweep": true,
+      "derivatives": {
+        "A": {
+          "all_finite": true,
+          "max_abs": 20369.79940513617
+        },
+        "B": {
+          "all_finite": true,
+          "max_abs": 19216.318503358034
+        },
+        "lx": {
+          "all_finite": true,
+          "max_abs": 0.0
+        },
+        "lxx": {
+          "all_finite": true,
+          "max_abs": 0.0
+        },
+        "lu": {
+          "all_finite": true,
+          "max_abs": 0.00015711406927023235
+        },
+        "luu": {
+          "all_finite": true,
+          "max_abs": 0.0002
+        },
+        "lower": {
+          "all_finite": true,
+          "max_abs": 5.171688205216668
+        },
+        "upper": {
+          "all_finite": true,
+          "max_abs": 5.406006935525632
+        }
+      }
+    },
+    {
+      "mu": 1e-06,
+      "returned_sweep": true,
+      "derivatives": {
+        "A": {
+          "all_finite": true,
+          "max_abs": 24902.6825607499
+        },
+        "B": {
+          "all_finite": true,
+          "max_abs": 24901.846998165223
+        },
+        "lx": {
+          "all_finite": true,
+          "max_abs": 0.0440621521429853
+        },
+        "lxx": {
+          "all_finite": true,
+          "max_abs": 799.9999999571912
+        },
+        "lu": {
+          "all_finite": true,
+          "max_abs": 0.00015604262897069295
+        },
+        "luu": {
+          "all_finite": true,
+          "max_abs": 0.0002
+        },
+        "lower": {
+          "all_finite": true,
+          "max_abs": 5.171519939930637
+        },
+        "upper": {
+          "all_finite": true,
+          "max_abs": 5.40600255375308
+        }
+      }
+    },
+    {
+      "mu": 1e-06,
+      "returned_sweep": true,
+      "derivatives": {
+        "A": {
+          "all_finite": true,
+          "max_abs": 29736.68642636196
+        },
+        "B": {
+          "all_finite": true,
+          "max_abs": 29736.343803162148
+        },
+        "lx": {
+          "all_finite": true,
+          "max_abs": 0.0
+        },
+        "lxx": {
+          "all_finite": true,
+          "max_abs": 0.0
+        },
+        "lu": {
+          "all_finite": true,
+          "max_abs": 0.00015497867439339508
+        },
+        "luu": {
+          "all_finite": true,
+          "max_abs": 0.0002
+        },
+        "lower": {
+          "all_finite": true,
+          "max_abs": 5.17151134092313
+        },
+        "upper": {
+          "all_finite": true,
+          "max_abs": 5.4060376900518845
+        }
+      }
+    },
+    {
+      "mu": 1e-06,
+      "returned_sweep": true,
+      "derivatives": {
+        "A": {
+          "all_finite": true,
+          "max_abs": 37498.75432904881
+        },
+        "B": {
+          "all_finite": true,
+          "max_abs": 37506.05434290155
+        },
+        "lx": {
+          "all_finite": true,
+          "max_abs": 0.0076309080681636905
+        },
+        "lxx": {
+          "all_finite": true,
+          "max_abs": 799.9999999571912
+        },
+        "lu": {
+          "all_finite": true,
+          "max_abs": 0.00015445035846906396
+        },
+        "luu": {
+          "all_finite": true,
+          "max_abs": 0.0002
+        },
+        "lower": {
+          "all_finite": true,
+          "max_abs": 5.17140453329085
+        },
+        "upper": {
+          "all_finite": true,
+          "max_abs": 5.406030665922108
+        }
+      }
+    }
+  ],
+  "alpha_searches": [
+    {
+      "kind": "initial",
+      "costs": [
+        4.292815755335639,
+        4.292815755335639,
+        4.292815755335639,
+        4.292815755335639,
+        4.292815755335639,
+        4.292815755335639,
+        4.292815755335639,
+        4.292815755335639,
+        4.292815755335639
+      ],
+      "finite_count": 9
+    },
+    {
+      "kind": "alpha_search",
+      "costs": [
+        8.280984653508826,
+        2.243289531625749,
+        6.457003217806374,
+        4.822687608592435,
+        5.174844207932509,
+        4.132805206845471,
+        4.261006832141912,
+        4.2833256836567095,
+        4.317881587700274
+      ],
+      "finite_count": 9
+    },
+    {
+      "kind": "alpha_search",
+      "costs": [
+        0.0007428298985616384,
+        3.644003489962806,
+        6.432160536553116,
+        6.915009495274578,
+        1.8262330297882186,
+        2.071107795817394,
+        2.1686597534200067,
+        2.217528831039493,
+        2.250721923716861
+      ],
+      "finite_count": 9
+    },
+    {
+      "kind": "alpha_search",
+      "costs": [
+        0.0005073554639549195,
+        0.000610799332382134,
+        0.00067324127825285,
+        0.000707142254102485,
+        0.0007247627427558719,
+        0.0007337404872647075,
+        0.0007382712345646611,
+        0.0007405470769760217,
+        0.000741687615372048
+      ],
+      "finite_count": 9
+    },
+    {
+      "kind": "alpha_search",
+      "costs": [
+        0.3742384554970625,
+        0.00040957789953198096,
+        0.00045407028125727625,
+        0.00047961377248455445,
+        0.0004932098431893511,
+        0.0005002139598145388,
+        0.00050376753844533,
+        0.0005055572078402751,
+        0.0005064552625576349
+      ],
+      "finite_count": 9
+    },
+    {
+      "kind": "alpha_search",
+      "costs": [
+        0.10126582119054334,
+        0.9711210594131084,
+        0.9761060207824808,
+        0.0003698507091268741,
+        0.000389231193652327,
+        0.0003992837689228788,
+        0.00040440063981011105,
+        0.00040698172106671626,
+        0.00040827792314826613
+      ],
+      "finite_count": 9
+    },
+    {
+      "kind": "alpha_search",
+      "costs": [
+        8.22584379034344,
+        0.004038882520699307,
+        0.0002623048030018132,
+        0.0003131094353208808,
+        0.0003407379920380117,
+        0.0003551088305359765,
+        0.0003624333898198087,
+        0.0003661304544704372,
+        0.0003679876830479296
+      ],
+      "finite_count": 9
+    },
+    {
+      "kind": "alpha_search",
+      "costs": [
+        1.7717221383584973,
+        0.11299939008576655,
+        0.0145072229874685,
+        0.0027128522423267767,
+        0.0007279484686068384,
+        0.00031454285914675494,
+        0.0002661836749690334,
+        0.00025984738639486685,
+        0.0002604660474521073
+      ],
+      "finite_count": 9
+    },
+    {
+      "kind": "alpha_search",
+      "costs": [
+        19.670163591807047,
+        7.558116408357305,
+        6.0594012777705775,
+        6.742063867697416,
+        0.07477689652284882,
+        0.02788875363603832,
+        0.007688953360293571,
+        0.00025525066162163714,
+        0.0002569429476547307
+      ],
+      "finite_count": 9
+    },
+    {
+      "kind": "alpha_search",
+      "costs": [
+        1.7810723136240834,
+        0.11672807859572708,
+        0.016939274831097265,
+        0.0029830477444781245,
+        0.0008211379916326493,
+        0.0003249846093390629,
+        0.0002598948663120197,
+        0.00025444417219564126,
+        0.00025350881277670857
+      ],
+      "finite_count": 9
+    },
+    {
+      "kind": "alpha_search",
+      "costs": [
+        17.376263437252472,
+        8.814465666940597,
+        4.61629518940156,
+        6.6021000885021355,
+        0.11206976903432912,
+        0.036215323202277945,
+        0.01962607149387003,
+        0.010639191406134911,
+        0.00025182496167593587
+      ],
+      "finite_count": 9
+    }
+  ],
+  "all_candidate_certificates": [
+    {
+      "rollout_call": 0,
+      "lane": 0,
+      "merit": 4.292815755335639,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 28,
+        "substep": 5,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 4.270546830920097e-05,
+        "speed_ratio": 0.20997774954882198,
+        "effort_ratio": 0.4149330600509872,
+        "root_height_m": 0.28750300568778536,
+        "root_tilt_rad": 0.2043823392139697,
+        "joint_index": 11,
+        "joint_name": "right_ankle_roll_joint",
+        "q": 0.2618427054683092,
+        "lower": -0.2618,
+        "upper": 0.2618,
+        "direction": "above_upper"
+      }
+    },
+    {
+      "rollout_call": 1,
+      "lane": 0,
+      "merit": 8.280984653508826,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 28,
+        "substep": 2,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 2.9421353135994366e-06,
+        "speed_ratio": 0.2085364719259882,
+        "effort_ratio": 0.4271673737644269,
+        "root_height_m": 0.31098929134687037,
+        "root_tilt_rad": 0.20593671317995388,
+        "joint_index": 4,
+        "joint_name": "left_ankle_pitch_joint",
+        "q": -0.8726729421353135,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      }
+    },
+    {
+      "rollout_call": 1,
+      "lane": 1,
+      "merit": 2.243289531625749,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 29,
+        "substep": 8,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0007032134456869121,
+        "speed_ratio": 0.17624628167432962,
+        "effort_ratio": 0.4014112389434193,
+        "root_height_m": 0.30812463288815756,
+        "root_tilt_rad": 0.21483379632670555,
+        "joint_index": 4,
+        "joint_name": "left_ankle_pitch_joint",
+        "q": -0.8733732134456869,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      }
+    },
+    {
+      "rollout_call": 1,
+      "lane": 2,
+      "merit": 6.457003217806374,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 28,
+        "substep": 7,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0021221549654637517,
+        "speed_ratio": 0.20905225958813378,
+        "effort_ratio": 0.41544090523442617,
+        "root_height_m": 0.2978865475086668,
+        "root_tilt_rad": 0.18697721057807212,
+        "joint_index": 4,
+        "joint_name": "left_ankle_pitch_joint",
+        "q": -0.8747921549654637,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      }
+    },
+    {
+      "rollout_call": 1,
+      "lane": 3,
+      "merit": 4.822687608592435,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 29,
+        "substep": 2,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0008138582357755109,
+        "speed_ratio": 0.1927526529511363,
+        "effort_ratio": 0.3990509103593626,
+        "root_height_m": 0.29750673966274754,
+        "root_tilt_rad": 0.1964776383622957,
+        "joint_index": 4,
+        "joint_name": "left_ankle_pitch_joint",
+        "q": -0.8734838582357755,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      }
+    },
+    {
+      "rollout_call": 1,
+      "lane": 4,
+      "merit": 5.174844207932509,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 28,
+        "substep": 5,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0003168873888131918,
+        "speed_ratio": 0.20960280344757742,
+        "effort_ratio": 0.4152582922553097,
+        "root_height_m": 0.29165866917445055,
+        "root_tilt_rad": 0.1927790119269642,
+        "joint_index": 11,
+        "joint_name": "right_ankle_roll_joint",
+        "q": 0.26211688738881317,
+        "lower": -0.2618,
+        "upper": 0.2618,
+        "direction": "above_upper"
+      }
+    },
+    {
+      "rollout_call": 1,
+      "lane": 5,
+      "merit": 4.132805206845471,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 28,
+        "substep": 6,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0002890854041933677,
+        "speed_ratio": 0.20981439620634523,
+        "effort_ratio": 0.41442437431215107,
+        "root_height_m": 0.28850631864841453,
+        "root_tilt_rad": 0.2060288911786466,
+        "joint_index": 11,
+        "joint_name": "right_ankle_roll_joint",
+        "q": 0.26208908540419334,
+        "lower": -0.2618,
+        "upper": 0.2618,
+        "direction": "above_upper"
+      }
+    },
+    {
+      "rollout_call": 1,
+      "lane": 6,
+      "merit": 4.261006832141912,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 28,
+        "substep": 5,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 6.837999524211824e-05,
+        "speed_ratio": 0.20720938848772413,
+        "effort_ratio": 0.41551862820845137,
+        "root_height_m": 0.2877358303280949,
+        "root_tilt_rad": 0.20440961663075694,
+        "joint_index": 11,
+        "joint_name": "right_ankle_roll_joint",
+        "q": 0.2618683799952421,
+        "lower": -0.2618,
+        "upper": 0.2618,
+        "direction": "above_upper"
+      }
+    },
+    {
+      "rollout_call": 1,
+      "lane": 7,
+      "merit": 4.2833256836567095,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 28,
+        "substep": 6,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0006300646203425408,
+        "speed_ratio": 0.2096520173468843,
+        "effort_ratio": 0.4144106080419893,
+        "root_height_m": 0.2882118361846644,
+        "root_tilt_rad": 0.20606459087312423,
+        "joint_index": 11,
+        "joint_name": "right_ankle_roll_joint",
+        "q": 0.2624300646203425,
+        "lower": -0.2618,
+        "upper": 0.2618,
+        "direction": "above_upper"
+      }
+    },
+    {
+      "rollout_call": 1,
+      "lane": 8,
+      "merit": 4.317881587700274,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 28,
+        "substep": 6,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0006990811460119151,
+        "speed_ratio": 0.20967194659757638,
+        "effort_ratio": 0.41437439971717005,
+        "root_height_m": 0.28810322823960594,
+        "root_tilt_rad": 0.2063454976653981,
+        "joint_index": 11,
+        "joint_name": "right_ankle_roll_joint",
+        "q": 0.2624990811460119,
+        "lower": -0.2618,
+        "upper": 0.2618,
+        "direction": "above_upper"
+      }
+    },
+    {
+      "rollout_call": 2,
+      "lane": 0,
+      "merit": 0.0007428298985616384,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.82120456037743,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37024392507002185,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.30394960461407533,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 2,
+      "lane": 1,
+      "merit": 3.644003489962806,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 28,
+        "substep": 9,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0019268527497106058,
+        "speed_ratio": 0.21024215184207282,
+        "effort_ratio": 0.4164467174282203,
+        "root_height_m": 0.31627321198824376,
+        "root_tilt_rad": 0.18293807806161747,
+        "joint_index": 4,
+        "joint_name": "left_ankle_pitch_joint",
+        "q": -0.8745968527497106,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      }
+    },
+    {
+      "rollout_call": 2,
+      "lane": 2,
+      "merit": 6.432160536553116,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 28,
+        "substep": 3,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.00038176805823453286,
+        "speed_ratio": 0.21659890059878792,
+        "effort_ratio": 0.4186711385636923,
+        "root_height_m": 0.30784448079690185,
+        "root_tilt_rad": 0.18266134935258121,
+        "joint_index": 4,
+        "joint_name": "left_ankle_pitch_joint",
+        "q": -0.8730517680582345,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      }
+    },
+    {
+      "rollout_call": 2,
+      "lane": 3,
+      "merit": 6.915009495274578,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 28,
+        "substep": 3,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.001031465536309728,
+        "speed_ratio": 0.215893461870738,
+        "effort_ratio": 0.4185353216483858,
+        "root_height_m": 0.3043585200753461,
+        "root_tilt_rad": 0.18216689960600552,
+        "joint_index": 4,
+        "joint_name": "left_ankle_pitch_joint",
+        "q": -0.8737014655363097,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      }
+    },
+    {
+      "rollout_call": 2,
+      "lane": 4,
+      "merit": 1.8262330297882186,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 29,
+        "substep": 8,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 4.360777331791077e-05,
+        "speed_ratio": 0.17631216389470114,
+        "effort_ratio": 0.39909092453517664,
+        "root_height_m": 0.30979179585310257,
+        "root_tilt_rad": 0.2119325680391029,
+        "joint_index": 4,
+        "joint_name": "left_ankle_pitch_joint",
+        "q": -0.8727136077733179,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      }
+    },
+    {
+      "rollout_call": 2,
+      "lane": 5,
+      "merit": 2.071107795817394,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 29,
+        "substep": 8,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0007891220606538463,
+        "speed_ratio": 0.17894849624490233,
+        "effort_ratio": 0.4000416938364084,
+        "root_height_m": 0.3088976108171437,
+        "root_tilt_rad": 0.21352684621049994,
+        "joint_index": 4,
+        "joint_name": "left_ankle_pitch_joint",
+        "q": -0.8734591220606538,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      }
+    },
+    {
+      "rollout_call": 2,
+      "lane": 6,
+      "merit": 2.1686597534200067,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 29,
+        "substep": 8,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0008825149817403011,
+        "speed_ratio": 0.17630701874615803,
+        "effort_ratio": 0.4008448189078503,
+        "root_height_m": 0.30856441536769036,
+        "root_tilt_rad": 0.21402159334222218,
+        "joint_index": 4,
+        "joint_name": "left_ankle_pitch_joint",
+        "q": -0.8735525149817402,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      }
+    },
+    {
+      "rollout_call": 2,
+      "lane": 7,
+      "merit": 2.217528831039493,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 29,
+        "substep": 8,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0008864631899434539,
+        "speed_ratio": 0.17629755250752263,
+        "effort_ratio": 0.4011678536586163,
+        "root_height_m": 0.3083537021022997,
+        "root_tilt_rad": 0.21440538106547674,
+        "joint_index": 4,
+        "joint_name": "left_ankle_pitch_joint",
+        "q": -0.8735564631899434,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      }
+    },
+    {
+      "rollout_call": 2,
+      "lane": 8,
+      "merit": 2.250721923716861,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 29,
+        "substep": 8,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0009409276991960702,
+        "speed_ratio": 0.17628380373858135,
+        "effort_ratio": 0.40123715542759697,
+        "root_height_m": 0.30825328536243346,
+        "root_tilt_rad": 0.21458828873143293,
+        "joint_index": 4,
+        "joint_name": "left_ankle_pitch_joint",
+        "q": -0.873610927699196,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      }
+    },
+    {
+      "rollout_call": 3,
+      "lane": 0,
+      "merit": 0.0005073554639549195,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.821237133810592,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37014873291577227,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.30419335021612226,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 3,
+      "lane": 1,
+      "merit": 0.000610799332382134,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212208447331556,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3701909567292612,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.30458900148836154,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 3,
+      "lane": 2,
+      "merit": 0.00067324127825285,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.82120654338511,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3702276654008684,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.30384264129807903,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 3,
+      "lane": 3,
+      "merit": 0.000707142254102485,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212024746321688,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37024595697223384,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.30389944631713534,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 3,
+      "lane": 4,
+      "merit": 0.0007247627427558719,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212004403660337,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3702459601548795,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3039244959989229,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 3,
+      "lane": 5,
+      "merit": 0.0007337404872647075,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8211994232605531,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3705773652967414,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.30430926269219877,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 3,
+      "lane": 6,
+      "merit": 0.0007382712345646611,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.821205069192036,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3702497724818859,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3039454465661085,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 3,
+      "lane": 7,
+      "merit": 0.0007405470769760217,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8211986604435122,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3702512971897463,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.30394826899329996,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 3,
+      "lane": 8,
+      "merit": 0.000741687615372048,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212046875806485,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.370250917341065,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3039505335150597,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 4,
+      "lane": 0,
+      "merit": 0.3742384554970625,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8213534149541505,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3705837127151249,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3053377068680556,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 4,
+      "lane": 1,
+      "merit": 0.00040957789953198096,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8213060841748354,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3702040234370021,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.30385363879952937,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 4,
+      "lane": 2,
+      "merit": 0.00045407028125727625,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212794015593967,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37019676995643186,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.30392181401276885,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 4,
+      "lane": 3,
+      "merit": 0.00047961377248455445,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212552300365503,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37017938956397245,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.30405046187104207,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 4,
+      "lane": 4,
+      "merit": 0.0004932098431893511,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212430955299487,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37017466093336315,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3041253538704433,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 4,
+      "lane": 5,
+      "merit": 0.0005002139598145388,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212431981834314,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3701638325572799,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3041608470150239,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 4,
+      "lane": 6,
+      "merit": 0.00050376753844533,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212339953423224,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.370156448685198,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.30417604975296686,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 4,
+      "lane": 7,
+      "merit": 0.0005055572078402751,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212320985532935,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3701568510435224,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3041854305415976,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 4,
+      "lane": 8,
+      "merit": 0.0005064552625576349,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212317203881397,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37015443531984876,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3041895322703768,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 5,
+      "lane": 0,
+      "merit": 0.10126582119054334,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.821454044054575,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.36929621891925624,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3014489653015379,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 5,
+      "lane": 1,
+      "merit": 0.9711210594131084,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8214019500205997,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.36997121376361214,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3041746363466924,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 5,
+      "lane": 2,
+      "merit": 0.9761060207824808,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8213573918474592,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3701132443200322,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3053901610580275,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 5,
+      "lane": 3,
+      "merit": 0.0003698507091268741,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8213257897350258,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3703209665240296,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3023267455173877,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 5,
+      "lane": 4,
+      "merit": 0.000389231193652327,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8213189999207272,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3703911548606274,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.30261911188992596,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 5,
+      "lane": 5,
+      "merit": 0.0003992837689228788,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8213064133359914,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3701417127414179,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3027550254527235,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 5,
+      "lane": 6,
+      "merit": 0.00040440063981011105,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8213089516671879,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.370162222617234,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3028432949762832,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 5,
+      "lane": 7,
+      "merit": 0.00040698172106671626,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8213076986415795,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3701461808377983,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.30363119039368514,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 5,
+      "lane": 8,
+      "merit": 0.00040827792314826613,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8213007619017899,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37019569556788895,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3038319071553349,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 6,
+      "lane": 0,
+      "merit": 8.22584379034344,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 27,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0003270416297740386,
+        "speed_ratio": 0.16227446229104858,
+        "effort_ratio": 0.40998291887737154,
+        "root_height_m": 0.30379042521437183,
+        "root_tilt_rad": 0.15895151406538294,
+        "joint_index": 4,
+        "joint_name": "left_ankle_pitch_joint",
+        "q": -0.872997041629774,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      }
+    },
+    {
+      "rollout_call": 6,
+      "lane": 1,
+      "merit": 0.004038882520699307,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212932868954759,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37031222162800076,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.297615217908107,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 6,
+      "lane": 2,
+      "merit": 0.0002623048030018132,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8213077685484542,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3703561511756057,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.2999553154614731,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 6,
+      "lane": 3,
+      "merit": 0.0003131094353208808,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8213238562151534,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3704586116827834,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3012840699239584,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 6,
+      "lane": 4,
+      "merit": 0.0003407379920380117,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8213217824913548,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3702603225965974,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3045495098129464,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 6,
+      "lane": 5,
+      "merit": 0.0003551088305359765,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8213234147810764,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37029252539706803,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3019562049917686,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 6,
+      "lane": 6,
+      "merit": 0.0003624333898198087,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8213247884074557,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37029761818262025,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3021579730418718,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 6,
+      "lane": 7,
+      "merit": 0.0003661304544704372,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8213294414799412,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3702987457612981,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.30222102028165204,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 6,
+      "lane": 8,
+      "merit": 0.0003679876830479296,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8213251667228069,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3703024132211562,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3022708898128636,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 7,
+      "lane": 0,
+      "merit": 1.7717221383584973,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8200351281330889,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37012902424944244,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.2817549379351774,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 7,
+      "lane": 1,
+      "merit": 0.11299939008576655,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8206818287121769,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37045143727259255,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.29140486406853444,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 7,
+      "lane": 2,
+      "merit": 0.0145072229874685,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8209990507871584,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37039212481327966,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.29610066008165553,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 7,
+      "lane": 3,
+      "merit": 0.0027128522423267767,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8211513953441509,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37026671262887395,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.2980672360753539,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 7,
+      "lane": 4,
+      "merit": 0.0007279484686068384,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212305667123125,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37031509709754873,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.2989985003422573,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 7,
+      "lane": 5,
+      "merit": 0.00031454285914675494,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212697825032439,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37031506147857185,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.2994679948973331,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 7,
+      "lane": 6,
+      "merit": 0.0002661836749690334,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212956323768207,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3703351154161783,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.29971798327669624,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 7,
+      "lane": 7,
+      "merit": 0.00025984738639486685,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.82130588088529,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3703426081736414,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.29983578580095976,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 7,
+      "lane": 8,
+      "merit": 0.0002604660474521073,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8213108287376377,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37033714019467706,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.29989270293304454,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 8,
+      "lane": 0,
+      "merit": 19.670163591807047,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 26,
+        "substep": 5,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0016842457549692824,
+        "speed_ratio": 0.17633817314091707,
+        "effort_ratio": 0.39105731573084085,
+        "root_height_m": 0.31220526604905735,
+        "root_tilt_rad": 0.20093149830951285,
+        "joint_index": 4,
+        "joint_name": "left_ankle_pitch_joint",
+        "q": -0.8743542457549692,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      }
+    },
+    {
+      "rollout_call": 8,
+      "lane": 1,
+      "merit": 7.558116408357305,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 27,
+        "substep": 9,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0022697382489007545,
+        "speed_ratio": 0.19376989647894452,
+        "effort_ratio": 0.41023900466147617,
+        "root_height_m": 0.3161022347476629,
+        "root_tilt_rad": 0.18441751002105367,
+        "joint_index": 4,
+        "joint_name": "left_ankle_pitch_joint",
+        "q": -0.8749397382489007,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      }
+    },
+    {
+      "rollout_call": 8,
+      "lane": 2,
+      "merit": 6.0594012777705775,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 27,
+        "substep": 8,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0005265958027770301,
+        "speed_ratio": 0.19423395735497695,
+        "effort_ratio": 0.41124136637179143,
+        "root_height_m": 0.3171864702381607,
+        "root_tilt_rad": 0.17468332468124997,
+        "joint_index": 4,
+        "joint_name": "left_ankle_pitch_joint",
+        "q": -0.873196595802777,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      }
+    },
+    {
+      "rollout_call": 8,
+      "lane": 3,
+      "merit": 6.742063867697416,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 27,
+        "substep": 4,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0009035079969449411,
+        "speed_ratio": 0.19226269582550887,
+        "effort_ratio": 0.41333081506738933,
+        "root_height_m": 0.31815670800462775,
+        "root_tilt_rad": 0.1826209219075139,
+        "joint_index": 4,
+        "joint_name": "left_ankle_pitch_joint",
+        "q": -0.8735735079969449,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      }
+    },
+    {
+      "rollout_call": 8,
+      "lane": 4,
+      "merit": 0.07477689652284882,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8211370870868372,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3704773909011555,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3014117922539418,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 8,
+      "lane": 5,
+      "merit": 0.02788875363603832,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212244969626658,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.370399775331973,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3010109054018621,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 8,
+      "lane": 6,
+      "merit": 0.007688953360293571,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212651885799226,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3703615201412837,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3007669602962151,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 8,
+      "lane": 7,
+      "merit": 0.00025525066162163714,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212851819712287,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3703588272551638,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.29993208628253315,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 8,
+      "lane": 8,
+      "merit": 0.0002569429476547307,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212892964922609,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3703514602874036,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.2998848371009123,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 9,
+      "lane": 0,
+      "merit": 1.7810723136240834,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8215650190818005,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3685761443607107,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.28334956877256345,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 9,
+      "lane": 1,
+      "merit": 0.11672807859572708,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.821417357952571,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.36938776411787294,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.29221220000928877,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 9,
+      "lane": 2,
+      "merit": 0.016939274831097265,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8213599105111481,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3699601621272328,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.29582321650525906,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 9,
+      "lane": 3,
+      "merit": 0.0029830477444781245,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8213176362879187,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37005409517465704,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.29794671913365284,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 9,
+      "lane": 4,
+      "merit": 0.0008211379916326493,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8213045909009888,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.370187189258212,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.2989195479883328,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 9,
+      "lane": 5,
+      "merit": 0.0003249846093390629,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212886619933097,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3702841962953242,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.299382729281923,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 9,
+      "lane": 6,
+      "merit": 0.0002598948663120197,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212842594964932,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37031136114586477,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.29968405401194526,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 9,
+      "lane": 7,
+      "merit": 0.00025444417219564126,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212818751632116,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37035352920504827,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.2998267339376533,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 9,
+      "lane": 8,
+      "merit": 0.00025350881277670857,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212806829827213,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3703440772370165,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.29987472803533277,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 10,
+      "lane": 0,
+      "merit": 17.376263437252472,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 26,
+        "substep": 7,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0006594810493764092,
+        "speed_ratio": 0.17613528272864387,
+        "effort_ratio": 0.3895277686892621,
+        "root_height_m": 0.3115992116957034,
+        "root_tilt_rad": 0.19963797666166355,
+        "joint_index": 4,
+        "joint_name": "left_ankle_pitch_joint",
+        "q": -0.8733294810493764,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      }
+    },
+    {
+      "rollout_call": 10,
+      "lane": 1,
+      "merit": 8.814465666940597,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 27,
+        "substep": 6,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0018541222055071804,
+        "speed_ratio": 0.1872590296062593,
+        "effort_ratio": 0.41096849774944194,
+        "root_height_m": 0.31552732995220967,
+        "root_tilt_rad": 0.1877991025235942,
+        "joint_index": 4,
+        "joint_name": "left_ankle_pitch_joint",
+        "q": -0.8745241222055071,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      }
+    },
+    {
+      "rollout_call": 10,
+      "lane": 2,
+      "merit": 4.61629518940156,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 28,
+        "substep": 2,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0006204861498101399,
+        "speed_ratio": 0.20646076583109643,
+        "effort_ratio": 0.4139014205002847,
+        "root_height_m": 0.31911693095804505,
+        "root_tilt_rad": 0.1840317577962603,
+        "joint_index": 4,
+        "joint_name": "left_ankle_pitch_joint",
+        "q": -0.8732904861498101,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      }
+    },
+    {
+      "rollout_call": 10,
+      "lane": 3,
+      "merit": 6.6021000885021355,
+      "hard_nominal_pass": false,
+      "first_failure": {
+        "control": 27,
+        "substep": 5,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0015457102644993448,
+        "speed_ratio": 0.19441147868727607,
+        "effort_ratio": 0.4129913471069604,
+        "root_height_m": 0.3178444910221023,
+        "root_tilt_rad": 0.17855746729042085,
+        "joint_index": 4,
+        "joint_name": "left_ankle_pitch_joint",
+        "q": -0.8742157102644993,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "direction": "below_lower"
+      }
+    },
+    {
+      "rollout_call": 10,
+      "lane": 4,
+      "merit": 0.11206976903432912,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8211398781600618,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37050098390132247,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3014193215936406,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 10,
+      "lane": 5,
+      "merit": 0.036215323202277945,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.821213479341324,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3704072815664753,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.301043984906108,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 10,
+      "lane": 6,
+      "merit": 0.01962607149387003,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.821243697530139,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.3704053614591241,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.30083387780318477,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 10,
+      "lane": 7,
+      "merit": 0.010639191406134911,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212620071149029,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37036697146967923,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3007598867624675,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    },
+    {
+      "rollout_call": 10,
+      "lane": 8,
+      "merit": 0.00025182496167593587,
+      "hard_nominal_pass": true,
+      "first_failure": null,
+      "independent_actual_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.10000000000404,
+        "final_time": 76.70000000000265,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8212715283004551,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.37034503551794085,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.29990685999032957,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      }
+    }
+  ],
+  "feasible_generated_candidates": [
+    {
+      "file": "feasible_02_0.npz",
+      "merit": 0.0007428298985616384,
+      "tracking_cost": 1102.9859000769807
+    },
+    {
+      "file": "feasible_03_0.npz",
+      "merit": 0.0005073554639549195,
+      "tracking_cost": 1089.8930067163167
+    },
+    {
+      "file": "feasible_03_1.npz",
+      "merit": 0.000610799332382134,
+      "tracking_cost": 1085.120408546285
+    },
+    {
+      "file": "feasible_03_2.npz",
+      "merit": 0.00067324127825285,
+      "tracking_cost": 1104.00743006
+    },
+    {
+      "file": "feasible_03_3.npz",
+      "merit": 0.000707142254102485,
+      "tracking_cost": 1103.4999759687216
+    },
+    {
+      "file": "feasible_03_4.npz",
+      "merit": 0.0007247627427558719,
+      "tracking_cost": 1103.254829966629
+    },
+    {
+      "file": "feasible_03_5.npz",
+      "merit": 0.0007337404872647075,
+      "tracking_cost": 1103.0622024425213
+    },
+    {
+      "file": "feasible_03_6.npz",
+      "merit": 0.0007382712345646611,
+      "tracking_cost": 1102.9821538777267
+    },
+    {
+      "file": "feasible_03_7.npz",
+      "merit": 0.0007405470769760217,
+      "tracking_cost": 1103.084136390751
+    },
+    {
+      "file": "feasible_03_8.npz",
+      "merit": 0.000741687615372048,
+      "tracking_cost": 1102.9536608571666
+    },
+    {
+      "file": "feasible_04_0.npz",
+      "merit": 0.3742384554970625,
+      "tracking_cost": 1063.440826149477
+    },
+    {
+      "file": "feasible_04_1.npz",
+      "merit": 0.00040957789953198096,
+      "tracking_cost": 1095.3522986580065
+    },
+    {
+      "file": "feasible_04_2.npz",
+      "merit": 0.00045407028125727625,
+      "tracking_cost": 1094.0966544003313
+    },
+    {
+      "file": "feasible_04_3.npz",
+      "merit": 0.00047961377248455445,
+      "tracking_cost": 1091.2731672427365
+    },
+    {
+      "file": "feasible_04_4.npz",
+      "merit": 0.0004932098431893511,
+      "tracking_cost": 1090.5288671824849
+    },
+    {
+      "file": "feasible_04_5.npz",
+      "merit": 0.0005002139598145388,
+      "tracking_cost": 1090.218202626678
+    },
+    {
+      "file": "feasible_04_6.npz",
+      "merit": 0.00050376753844533,
+      "tracking_cost": 1090.0782780781974
+    },
+    {
+      "file": "feasible_04_7.npz",
+      "merit": 0.0005055572078402751,
+      "tracking_cost": 1089.9087947854866
+    },
+    {
+      "file": "feasible_04_8.npz",
+      "merit": 0.0005064552625576349,
+      "tracking_cost": 1089.8929813501447
+    },
+    {
+      "file": "feasible_05_0.npz",
+      "merit": 0.10126582119054334,
+      "tracking_cost": 1125.352343013871
+    },
+    {
+      "file": "feasible_05_1.npz",
+      "merit": 0.9711210594131084,
+      "tracking_cost": 1078.5005820461058
+    },
+    {
+      "file": "feasible_05_2.npz",
+      "merit": 0.9761060207824808,
+      "tracking_cost": 1065.9317114844348
+    },
+    {
+      "file": "feasible_05_3.npz",
+      "merit": 0.0003698507091268741,
+      "tracking_cost": 1123.6142181996024
+    },
+    {
+      "file": "feasible_05_4.npz",
+      "merit": 0.000389231193652327,
+      "tracking_cost": 1119.5818604490266
+    },
+    {
+      "file": "feasible_05_5.npz",
+      "merit": 0.0003992837689228788,
+      "tracking_cost": 1117.6748918775904
+    },
+    {
+      "file": "feasible_05_6.npz",
+      "merit": 0.00040440063981011105,
+      "tracking_cost": 1116.385651201053
+    },
+    {
+      "file": "feasible_05_7.npz",
+      "merit": 0.00040698172106671626,
+      "tracking_cost": 1095.7652851563628
+    },
+    {
+      "file": "feasible_05_8.npz",
+      "merit": 0.00040827792314826613,
+      "tracking_cost": 1095.6453467265492
+    },
+    {
+      "file": "feasible_06_1.npz",
+      "merit": 0.004038882520699307,
+      "tracking_cost": 1156.395972797211
+    },
+    {
+      "file": "feasible_06_2.npz",
+      "merit": 0.0002623048030018132,
+      "tracking_cost": 1137.2410797362297
+    },
+    {
+      "file": "feasible_06_3.npz",
+      "merit": 0.0003131094353208808,
+      "tracking_cost": 1122.9164180816838
+    },
+    {
+      "file": "feasible_06_4.npz",
+      "merit": 0.0003407379920380117,
+      "tracking_cost": 1129.7018340128839
+    },
+    {
+      "file": "feasible_06_5.npz",
+      "merit": 0.0003551088305359765,
+      "tracking_cost": 1127.3633140073932
+    },
+    {
+      "file": "feasible_06_6.npz",
+      "merit": 0.0003624333898198087,
+      "tracking_cost": 1125.2418860822058
+    },
+    {
+      "file": "feasible_06_7.npz",
+      "merit": 0.0003661304544704372,
+      "tracking_cost": 1124.4891060324105
+    },
+    {
+      "file": "feasible_06_8.npz",
+      "merit": 0.0003679876830479296,
+      "tracking_cost": 1124.1309988799073
+    },
+    {
+      "file": "feasible_07_0.npz",
+      "merit": 1.7717221383584973,
+      "tracking_cost": 1330.2740670041396
+    },
+    {
+      "file": "feasible_07_1.npz",
+      "merit": 0.11299939008576655,
+      "tracking_cost": 1226.4703334832761
+    },
+    {
+      "file": "feasible_07_2.npz",
+      "merit": 0.0145072229874685,
+      "tracking_cost": 1179.8028035641198
+    },
+    {
+      "file": "feasible_07_3.npz",
+      "merit": 0.0027128522423267767,
+      "tracking_cost": 1157.3230390499643
+    },
+    {
+      "file": "feasible_07_4.npz",
+      "merit": 0.0007279484686068384,
+      "tracking_cost": 1146.4491151161783
+    },
+    {
+      "file": "feasible_07_5.npz",
+      "merit": 0.00031454285914675494,
+      "tracking_cost": 1142.0325009860478
+    },
+    {
+      "file": "feasible_07_6.npz",
+      "merit": 0.0002661836749690334,
+      "tracking_cost": 1139.7330751941709
+    },
+    {
+      "file": "feasible_07_7.npz",
+      "merit": 0.00025984738639486685,
+      "tracking_cost": 1138.3963539710144
+    },
+    {
+      "file": "feasible_07_8.npz",
+      "merit": 0.0002604660474521073,
+      "tracking_cost": 1137.8428683830266
+    },
+    {
+      "file": "feasible_08_4.npz",
+      "merit": 0.07477689652284882,
+      "tracking_cost": 1123.0592622381073
+    },
+    {
+      "file": "feasible_08_5.npz",
+      "merit": 0.02788875363603832,
+      "tracking_cost": 1126.3917487576543
+    },
+    {
+      "file": "feasible_08_6.npz",
+      "merit": 0.007688953360293571,
+      "tracking_cost": 1126.8362113445482
+    },
+    {
+      "file": "feasible_08_7.npz",
+      "merit": 0.00025525066162163714,
+      "tracking_cost": 1137.6408400866562
+    },
+    {
+      "file": "feasible_08_8.npz",
+      "merit": 0.0002569429476547307,
+      "tracking_cost": 1137.9823597283173
+    },
+    {
+      "file": "feasible_09_0.npz",
+      "merit": 1.7810723136240834,
+      "tracking_cost": 1299.7587916767468
+    },
+    {
+      "file": "feasible_09_1.npz",
+      "merit": 0.11672807859572708,
+      "tracking_cost": 1220.6997971952173
+    },
+    {
+      "file": "feasible_09_2.npz",
+      "merit": 0.016939274831097265,
+      "tracking_cost": 1183.1544220246174
+    },
+    {
+      "file": "feasible_09_3.npz",
+      "merit": 0.0029830477444781245,
+      "tracking_cost": 1158.616415889011
+    },
+    {
+      "file": "feasible_09_4.npz",
+      "merit": 0.0008211379916326493,
+      "tracking_cost": 1147.2964397218093
+    },
+    {
+      "file": "feasible_09_5.npz",
+      "merit": 0.0003249846093390629,
+      "tracking_cost": 1143.172662637851
+    },
+    {
+      "file": "feasible_09_6.npz",
+      "merit": 0.0002598948663120197,
+      "tracking_cost": 1140.4755080412247
+    },
+    {
+      "file": "feasible_09_7.npz",
+      "merit": 0.00025444417219564126,
+      "tracking_cost": 1138.256731951794
+    },
+    {
+      "file": "feasible_09_8.npz",
+      "merit": 0.00025350881277670857,
+      "tracking_cost": 1138.5049438415788
+    },
+    {
+      "file": "feasible_10_4.npz",
+      "merit": 0.11206976903432912,
+      "tracking_cost": 1123.7123407486483
+    },
+    {
+      "file": "feasible_10_5.npz",
+      "merit": 0.036215323202277945,
+      "tracking_cost": 1125.4480671599044
+    },
+    {
+      "file": "feasible_10_6.npz",
+      "merit": 0.01962607149387003,
+      "tracking_cost": 1127.6842046484194
+    },
+    {
+      "file": "feasible_10_7.npz",
+      "merit": 0.010639191406134911,
+      "tracking_cost": 1127.7191130312876
+    },
+    {
+      "file": "feasible_10_8.npz",
+      "merit": 0.00025182496167593587,
+      "tracking_cost": 1137.2608274877853
+    }
+  ],
+  "actual_controls_executed": 0,
+  "input_hashes": {
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/hard_feasibility_restoration_continuation_3740_v1/trace.npz": "029928f7832a886c59fadc1c8f5bc82a3b845108111547b2c313ba5fecb7474d",
+    "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_floor_inputs_v1/pico/reference.npz": "a1b3bd672551acc800e8b28d4d3d2b68c044f7a80ab3b8fb798d46c9dda70c24",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/diagnose_g1_true23_restoration_stall.py": "6bf66578ba0f95e7c1019dcfe1bb2606b17f29b2328ebd34f3e52080f43c8ad1"
+  }
+}

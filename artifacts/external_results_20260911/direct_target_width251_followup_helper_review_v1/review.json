@@ -1,0 +1,54 @@
+{
+  "passed": false,
+  "source_review_pass": false,
+  "review_complete": true,
+  "source_sha256": {
+    "run_saved_comparison.py": "40ca64f1ac2f3d44209a8b4002bd132e61e3aba1d87eea46ca6e45accf6f40b0",
+    "prepare_audit_commands.py": "b4ec0c3ccc7b106704c9983132839aec5df419f472fe622d2156805be266874e",
+    "prepare_qualified_collection.py": "7f119cdd442575fec25a48c727d940f33eb568c54d301d7319ccabd1ec02f50b"
+  },
+  "input_sha256": {
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width251_followup_design_v1/compare_first_target.py": "f0c9da43e3650198c9ebf05a01a779f5c61e7462d81d0d9acfe1071182096cc7",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width251_followup_design_v1/test_first_target.py": "b6023fcb37a04bd2b0625a9539f899984c222f310e0b81f27559980db1a2209c",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_expert_recovery_v2/verify_recovery_completed.py": "f06fb5e730cdb3416c058719f91d27ad17ccc07784538371cd6f72c500e263b8",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_expert_recovery_v2/source_snapshot_v1/recovery_contract.py": "1060efa49e8b46f8ecb8ce4f382969e88be0a6dd2d3290a4ba44a73016deeea7",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_expert_recovery_v2/source_snapshot_v1/run_width251_actual_oracle.py": "bcf99ab4ffdc1ce5fc894ce0af791cfcf66213dab4d5ae252cabb43c8daec094",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_expert_recovery_v2/source_snapshot_v1/run_actual_student_oracle.py": "c96045c577e9047b58128c47cc098ae2f9f53d4e25eba08787c413cffe3a9086",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width251_collection_v1/source_prepared_v1/qualification_gate.py": "6afc1bb5c036f08f1ca9d65906db486bdcc2f1aaaf8492303baa5a1c42800ee2"
+  },
+  "findings": [
+    {
+      "priority": 2,
+      "file": "prepare_audit_commands.py",
+      "line": 53,
+      "problem": "Partial conditional hold is omitted from independent audit commands.",
+      "trigger": "Main1569 completed; hold250 was attempted and failed partway; owner.requested_recovery_completed=false.",
+      "observed": "Only main_physics and main_intent commands are emitted despite owned hold trace/report.",
+      "requested_fix": "Route any saved nonempty conditional hold trace to original250 fixture/physics/intent audits; do not require full hold completion to audit its failure."
+    }
+  ],
+  "synthetic_tests": 6,
+  "synthetic_failures": 0,
+  "no_other_blocker_found": true,
+  "v2_owner_schema_matches": true,
+  "collection_scope": {
+    "rows": 1018,
+    "plans": 204,
+    "cell_counts": [
+      99,
+      819,
+      100
+    ],
+    "fresh_query_rows": 1,
+    "connected_rows": 1017
+  },
+  "comparison_requires_exact_actual_boundary": true,
+  "comparison_does_not_qualify_labels": true,
+  "actual_task_arrays_loaded": 0,
+  "actual_audits_executed": 0,
+  "actual_requests_created": 0,
+  "native_steps": 0,
+  "model_calls": 0,
+  "review_writer_sha256": "20c37d66761d8a5f65295ce01b619979ab1450c0935ff1029b30f0ef26174460",
+  "test_receipt_sha256": "2a613af4f9f4c13602f69c218a9e5a0a9c37ad7178afede58a3e88580c367592"
+}

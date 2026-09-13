@@ -1,0 +1,52 @@
+{
+  "review": "read-only prepared collector and compatibility v1",
+  "reviewed_at_utc": "2026-09-11T03:25:36.452645+00:00",
+  "source_receipt_sha256": "d60caaf2773298b6d62939f7b296819c844ff150f4eccc60cfe6580e897df479",
+  "source_hashes": {
+    "audit_label_compatibility.py": "d6b6c07cfd4732f8af4e476cd05c5b2a6a339c56acac458a253709e5a72ae0ee",
+    "collect_actual_branch_labels.py": "1ae804b31257250f88693a4c24fb27bffce2a89fe2175e0b3ad80369ad6b86d6",
+    "collect_nominal_labels.py": "4756570fd0bf01cbbec397d5ecb0e286a61057d4e2f57db906cfa325bac26a50",
+    "evaluate_nominal_pilot.py": "b36599789ef612d3f0c02338cfd8f526fb6552ed16d8636aa66da62a1920ca43",
+    "fit_linear_head.py": "ef26f98e8e2b2c8449381ebcb2e95f2db3416a02f423f52894b96791f08e6ff0",
+    "initialize_zero_head.py": "7906124b640e977ad0af9de2a8faf2887bb0799ccc16edfd369cf4a336b631aa",
+    "quiet_metrics.py": "1d3b480507c475564c2d172adc6ba0947199db3d2d44da0b12fb813d22fc8c69",
+    "student_linear_runtime.py": "35b3e3dd4f4c2966ae224a77afc5213d02cead3200bf63218fb0aab26710f543",
+    "terminal_yaw4_goal.py": "93cbf143e614cbc92204c27053c3cc7a1a02ab14049fa0aeee412f285d33918c",
+    "gear_sonic/utils/g1_true23_bfm_seed_observations.py": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d",
+    "gear_sonic/utils/g1_true23_mjbatch_bfm_seed.py": "2f3d808b6a95fd80a3c1f9a0fabbe80264cf9cc93fbf01e2b2be65f6a5ec75de",
+    "gear_sonic/utils/g1_true23_mjbatch_ilqr_core.py": "5ef946bb0f07ea8f1d688748343bf9f6a3ccc2a10806cfe58963100aca7c06f1",
+    "gear_sonic/utils/g1_true23_mjbatch_model.py": "b0be87b3f2e9d1f6fc6695d668c62e2df355bf944d5b181b333c12038f532e25",
+    "gear_sonic/utils/g1_true23_mjbatch_mpc.py": "624b4abe93a20314141da39c6703055cb5c6ce5169030d863816b244610bafbd",
+    "gear_sonic/utils/g1_true23_mpc_student.py": "6d71e82b4b7e491f4bbfd3c2a99e05df2ee27f9fb5e6febb4cc9c39c8c39d905",
+    "gear_sonic/utils/g1_true23_relative_foot_cost.py": "36f89cac4374364cd155184c7c6f098de913ebca22976c0d59c8d1489089cc35"
+  },
+  "source_status": "v2 clarity/provenance corrections requested before execution",
+  "checked": [
+    "All16 source hashes and22 input hashes exact.",
+    "Original14 pilot source files byte-identical.",
+    "Qualifier gates all4 independent reports and nominal1569/extension250 trace SHA before model/session creation.",
+    "Source history before_update returns prior flat lag then pushes current terms, matching actual branch convention; student0 combined preclip action preserved.",
+    "Labels exactly controls1..1268; target and state offsets align. teacher_qpos1:1270 provides1268 prestates plus endpoint.",
+    "Collector uses same1069features/base actor, source clocks and original normalization; input parity control1 includes exact history/action/state and1e-5 feature/base tolerance.",
+    "All-by-all cross distances use explicit float64 differences; duplicate signed zeros normalized; zero-distance ratios remain undefined.",
+    "No production optimizer/physics calls appear in either new script."
+  ],
+  "requested_corrections": [
+    {
+      "scope": "compatibility provenance",
+      "detail": "Verify all frozen input hashes in audit, bind selected labels report to current collector frozen receipt, and assert exact newcontrol/sourceframe clock."
+    },
+    {
+      "scope": "duplicate conflict semantics",
+      "detail": "Student learns residual_rad, so separately report deterministic residual-label conflicts/count, while preserving target conflict flags and raw spread evidence."
+    }
+  ],
+  "reviewer_execution": {
+    "collector_calls": 0,
+    "inference_calls": 0,
+    "compatibility_runs": 0,
+    "optimizer_calls": 0,
+    "physics_steps": 0,
+    "model_fits": 0
+  }
+}

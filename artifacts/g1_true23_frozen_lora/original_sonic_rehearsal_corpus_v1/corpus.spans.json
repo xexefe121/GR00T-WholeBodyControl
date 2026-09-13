@@ -1,0 +1,73 @@
+{
+  "authorization": {
+    "deployment_ready": false,
+    "hardware_authorized": false,
+    "training_input_only": true
+  },
+  "clip_count": 8,
+  "corpus": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original_sonic_rehearsal_corpus_v1/corpus.npz",
+  "corpus_sha256": "96a35f0a9edee22750f903fa663354fd6715d7f5b91b42742f645039168a358c",
+  "episode_frames": 500,
+  "fps": 50.0,
+  "kind": "g1_true23_motion_corpus_spans_v1",
+  "manifest": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/config/sim_validation/g1_true23_frozen_lora_original_sonic_rehearsal_v1.json",
+  "spans": [
+    {
+      "length": 1024,
+      "name": "pico_upright_anchor",
+      "original_length": 1024,
+      "start": 0,
+      "weight": 0.5
+    },
+    {
+      "length": 1024,
+      "name": "pico_standing_anchor",
+      "original_length": 1024,
+      "start": 1024,
+      "weight": 0.5
+    },
+    {
+      "length": 1024,
+      "name": "pico_crouch_anchor",
+      "original_length": 1024,
+      "start": 2048,
+      "weight": 0.5
+    },
+    {
+      "length": 695,
+      "name": "pico_twist2_walk_001",
+      "original_length": 695,
+      "start": 3072,
+      "weight": 2.0
+    },
+    {
+      "length": 510,
+      "name": "pico_twist2_walk_010",
+      "original_length": 510,
+      "start": 3767,
+      "weight": 2.0
+    },
+    {
+      "length": 606,
+      "name": "original_sonic_hand_crawl",
+      "original_length": 606,
+      "start": 4277,
+      "weight": 1.0
+    },
+    {
+      "length": 606,
+      "name": "original_sonic_elbow_crawl",
+      "original_length": 606,
+      "start": 4883,
+      "weight": 1.0
+    },
+    {
+      "length": 546,
+      "name": "original_sonic_happy_dance",
+      "original_length": 546,
+      "start": 5489,
+      "weight": 1.0
+    }
+  ],
+  "total_frames": 6035
+}

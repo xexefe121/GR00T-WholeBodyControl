@@ -29,7 +29,23 @@ def conditioned_decoder_forward(decoder, conditioner, decoder_input, root_feedba
 
 
 class True23RootFeedbackActorModel(True23Native23GeneralistActorModel):
-    def __init__(self, obs, obs_groups, obs_set, output_dim, *, root_feedback_obs_group="root_feedback", **kwargs):
+    def __init__(
+        self,
+        obs,
+        obs_groups,
+        obs_set,
+        output_dim,
+        *,
+        root_feedback_obs_group="root_feedback",
+        release_compatibility=None,
+        **kwargs,
+    ):
+        from gear_sonic.utils.g1_true23_release_compatibility import validate_release_compatibility
+
+        self.release_compatibility = (
+            None if release_compatibility is None else validate_release_compatibility(release_compatibility)
+        )
+        self.reference_timing = (self.release_compatibility or {}).get("reference_timing", "causal_history")
         tokenizer = kwargs.get("tokenizer_obs_group", "tokenizer")
         proprioception = kwargs.get("proprioception_obs_group", "policy")
         if tuple(obs_groups.get(obs_set, ())) != (tokenizer, proprioception, root_feedback_obs_group):
@@ -70,12 +86,12 @@ class True23RootFeedbackActorModel(True23Native23GeneralistActorModel):
         return mean
 
     def artifact_contract(self):
-        return {
+        result = {
             **super().artifact_contract(),
             "kind": ROOT_FEEDBACK_ACTOR_KIND,
             "schema_version": 2,
             "architecture": ROOT_FEEDBACK_ARCHITECTURE,
-            "root_feedback_contract": root_feedback_contract(),
+            "root_feedback_contract": root_feedback_contract(self.reference_timing),
             "decoder_inputs": {"obs_dict": 994, "root_feedback": 9},
             "root_conditioner_shape": [self.core.decoder_dims[1], 9],
             "root_conditioner_bias": False,
@@ -83,6 +99,18 @@ class True23RootFeedbackActorModel(True23Native23GeneralistActorModel):
             "zero_step_conditioner_preserves_base_mean": True,
             "legacy_single_input_export_permitted": False,
         }
+        if self.release_compatibility is not None:
+            result.update(
+                kind=(
+                    "g1_native23_root_feedback_release_compatible_actor_v2"
+                    if self.release_compatibility["kind"] == "native23_causal_release_compatibility_v2"
+                    else "g1_native23_root_feedback_release_compatible_actor_v1"
+                ),
+                release_compatibility=self.release_compatibility,
+            )
+            if self.reference_timing == "received_source_horizon_200ms_v1":
+                result["kind"] = "g1_native23_root_feedback_buffered_source_actor_v3"
+        return result
 
     def parameter_groups(self):
         self.core.assert_frozen_encoder_unchanged()

@@ -1,0 +1,79 @@
+{
+  "kind": "native23_original_source_tasks_v1",
+  "files": {
+    "native_motion": {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_bfm_residual_20260911_v1/intent_retarget_bank_v2/native_reference.npz",
+      "sha256": "4d828471d845dedbc5e79035bdd72ce2017e7d005bfe9fd710ea1c1d5a922ed4"
+    },
+    "original_reference": {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_bfm_residual_20260911_v1/intent_retarget_bank_v2/original_reference.npz",
+      "sha256": "36201c4da4d6cb437e2db7e36fd4ed4b89fc5f783a6b2c86801559437f23ee60"
+    },
+    "source_model": {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl/gear_sonic/data/robots/g1/g1_29dof.xml",
+      "sha256": "386b1bb9ea5b69ccd6fd0283a73ffea1ee052df95564e23a780125fbcbe2c645"
+    },
+    "native_model": {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl/gear_sonic/data/robots/g1/g1_23dof_rev_1_0.xml",
+      "sha256": "16e304c970bfc68783ea69d01d05192e6bd9d83d62f6ee4aac0ac72ff18db612"
+    }
+  },
+  "objective": {
+    "name": "native23_original_source_tasks_v1",
+    "source_reference_kind": "original29_all_axes_source_intent_for_native23_v1",
+    "observation_target": "received_q0_original29_VR21",
+    "critic_extra_input": "received_q1_original29_VR21_separate21_value_only_group",
+    "reward_target": "received_q1_original29_world_hand_hand_head",
+    "original_task_position": {
+      "weight": -1.0,
+      "normalization_m": 0.1,
+      "reduction": "mean_3_points_sum_xyz_squared"
+    },
+    "original_task_orientation": {
+      "weight": -1.0,
+      "normalization_rad": 0.4,
+      "reduction": "mean_3_shortest_angle_squared"
+    },
+    "native_body_reference_rewards_restricted_to": [
+      "pelvis",
+      "left_hip_roll_link",
+      "left_knee_link",
+      "left_ankle_roll_link",
+      "right_hip_roll_link",
+      "right_knee_link",
+      "right_ankle_roll_link"
+    ],
+    "measured_and_requested_joint_posture_restricted_to_hardware_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "upper_joint_imitation_removed": true,
+    "old_upper_posture_cost_removed": true,
+    "original_hand_height_targets_replace_native_wrist_origin_targets": true,
+    "existing_ee_height_threshold_m": 0.25,
+    "existing_right_hand_barrier": {
+      "onset_m": 0.15,
+      "termination_m": 0.25,
+      "denominator_floor": 0.05
+    },
+    "root_feet_world_rewards_unchanged": true,
+    "physical_penalties_limits_gains_and_acceptance_criteria_unchanged": true,
+    "reward_measured_state_phase": "existing_MJLab_last_preintegration_substep_2ms_stale",
+    "actor_measured_state_phase": "existing_synchronized_post_forward",
+    "dynamic_feasibility_or_tracking_improvement_proven": false,
+    "hardware_authorized": false,
+    "deployment_ready": false
+  },
+  "sha256": "cea579f2a5f868ef21eb247be799adc20406a5a8eaeec6b68e02fbff537a61e6"
+}

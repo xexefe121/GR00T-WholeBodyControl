@@ -1,0 +1,90 @@
+{
+  "original": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_saved_outcome_review_v1\\audit_saved.py",
+  "original_sha256": "e707ee4c3ffd828e9347dbfde1ddb5937cb3507b03bdbec57d26b52d8dda609f",
+  "actual_sha256": "48593b126a369a548f901f9c2d2d334de17fa7023bb98312537df91377385f80",
+  "changes": [
+    {
+      "before": "run=NEW/'direct_target_student_evaluation_v1';src=run/'source_draft_v1'",
+      "after": "run=NEW/'direct_target_fp64_export_evaluation_v2';src=run/'source_draft_v1'"
+    },
+    {
+      "before": "norm=NEW/'direct_target_student_v1/fit/normalization.npz'",
+      "after": "norm=NEW/'direct_target_continuation_v1/fit/normalization.npz'"
+    },
+    {
+      "before": "def paths():",
+      "after": "def paths(physics=None):"
+    },
+    {
+      "before": "physics=NEW/'direct_target_independent_physics_v1/report.json'",
+      "after": "physics=physics if physics is not None else NEW/'direct_target_fp64_independent_physics_v1/report.json'"
+    },
+    {
+      "before": "def freeze():",
+      "after": "def freeze(physics,physics_sha):"
+    },
+    {
+      "before": "p=paths();assert sha(p['trace'])=='449a31d17aa7df6b23c20d6b0394237fc36b97d779f46544e6375975e0cdf427'",
+      "after": "p=paths(physics);assert sha(p['trace'])=='c5829d6e54bc5791bf9e9409d055496f7e94402c9af8e39ec83cf3b654ac4cae'"
+    },
+    {
+      "before": "assert sha(p['physics'])=='8538c0187f881a0662eaa2ee0f970bc69881921a24709575c571fec2b333db8c'",
+      "after": "assert sha(p['physics'])==physics_sha\n    from release_checks import release_paths\n    p.update(release_paths(NEW))"
+    },
+    {
+      "before": "req=read(BASE/'request.json');reqsha=sha(BASE/'request.json');assert sha(__file__)==req['source_sha256']",
+      "after": "req=read(BASE/'request.json');reqsha=sha(BASE/'request.json');assert sha(__file__)==req['source_sha256']\n    from release_checks import check_release"
+    },
+    {
+      "before": "p={k:local(v) for k,v in req['paths'].items()};a=load(p['trace']);r=read(p['report']);cap=load(p['failure'])",
+      "after": "p={k:local(v) for k,v in req['paths'].items()};release=check_release(p)\n    a=load(p['trace']);r=read(p['report']);cap=load(p['failure'])"
+    },
+    {
+      "numeric_token": "3158",
+      "replacement": "2916",
+      "count": 2
+    },
+    {
+      "numeric_token": "317",
+      "replacement": "293",
+      "count": 1
+    },
+    {
+      "numeric_token": "316",
+      "replacement": "292",
+      "count": 10
+    },
+    {
+      "numeric_token": "315",
+      "replacement": "291",
+      "count": 4
+    },
+    {
+      "numeric_token": "66",
+      "replacement": "42",
+      "count": 6
+    },
+    {
+      "before": "np.array([8],np.int64)",
+      "after": "np.array([6],np.int64)"
+    },
+    {
+      "before": "report=dict(passed=True,moving_controls=42,actual_controls=292,exact_checks=len(checks),checks=checks,",
+      "after": "report=dict(passed=True,moving_controls=42,actual_controls=292,original_requested_controls=1569,original_lifecycle_completed=False,release_subjects=release,exact_checks=len(checks),checks=checks,"
+    },
+    {
+      "before": "if sys.argv[1:] == ['--freeze']:freeze()\n    elif sys.argv[1:] == ['--run']:audit()\n    else:raise SystemExit('Use --freeze or --run')",
+      "after": "if sys.argv[1:] == ['--run']:audit()\n    else:\n        import argparse\n        parser=argparse.ArgumentParser();parser.add_argument('--freeze',action='store_true',required=True);parser.add_argument('--physics',type=Path,required=True);parser.add_argument('--physics-sha',required=True)\n        args=parser.parse_args();freeze(args.physics,args.physics_sha)"
+    },
+    {
+      "numeric_token": "327",
+      "replacement": "303",
+      "count": 1,
+      "meaning": "source-frame exclusive endpoint for292 controls"
+    }
+  ],
+  "pure_observation_and_output_history_arithmetic_unchanged": true,
+  "model_calls": 0,
+  "native_steps": 0,
+  "preserved_unexecuted_first_freeze": "unexecuted_v1/request.json"
+}

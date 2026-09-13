@@ -1,0 +1,3479 @@
+{
+  "kind": "native23_release_compatible_actual_physics_comparison_v1",
+  "inputs": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/config/sim_validation/g1_23dof_mujoco_sim2sim.json": "bc4dab246e709604f435dea7c584adc01f1c38a6abb6ac1bc22fc699c42272c3",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/release_compatible_regression_20260907_v1/inputs/curriculum.npz": "4700c85b4fc99e52aafa964867f1c7503a87c4d7867fa8333565cb6fd5c695e9",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/release_compatible_regression_20260907_v1/inputs/curriculum.spans.json": "6a00aeb32e8d2bcd2695993c15307403ec2273ddd760f275157ed683c98bd0a2",
+    "/mnt/z/codex/GR00T-WholeBodyControl/gear_sonic/data/robots/g1/g1_29dof.xml": "386b1bb9ea5b69ccd6fd0283a73ffea1ee052df95564e23a780125fbcbe2c645",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_generalist/release_compatible_regression_20260907_v1/evaluate_updated/nominal.npz": "686bb89c6cc64111bb6ffe5609b95636430f07e87c143aea377230c96f03df21"
+  },
+  "samples": [
+    {
+      "control": 0,
+      "contacts": {
+        "training": 0,
+        "replay": 0,
+        "root_only": 0,
+        "options_only": 0,
+        "root_and_options": 0
+      },
+      "warp_vs_same_model_cpu": {
+        "maximum_absolute_difference": 8.16699086608752e-07,
+        "absolute_tolerance": 0.001,
+        "within_tolerance": true
+      },
+      "cpu_training_vs_replay": {
+        "maximum_absolute_difference": 0.0036486050406000503,
+        "absolute_tolerance": 0.001,
+        "within_tolerance": false
+      },
+      "counterfactuals": {
+        "root_only": {
+          "maximum_absolute_difference": 0.0,
+          "absolute_tolerance": 0.001,
+          "within_tolerance": true
+        },
+        "options_only": {
+          "maximum_absolute_difference": 0.0036486050406000503,
+          "absolute_tolerance": 0.001,
+          "within_tolerance": false
+        },
+        "root_and_options": {
+          "maximum_absolute_difference": 0.0,
+          "absolute_tolerance": 0.001,
+          "within_tolerance": true
+        }
+      }
+    },
+    {
+      "control": 350,
+      "contacts": {
+        "training": 28,
+        "replay": 8,
+        "root_only": 8,
+        "options_only": 8,
+        "root_and_options": 8
+      },
+      "warp_vs_same_model_cpu": {
+        "maximum_absolute_difference": 2.263045278703968e-05,
+        "absolute_tolerance": 0.001,
+        "within_tolerance": true
+      },
+      "cpu_training_vs_replay": {
+        "maximum_absolute_difference": 0.01727410828852896,
+        "absolute_tolerance": 0.001,
+        "within_tolerance": false
+      },
+      "counterfactuals": {
+        "root_only": {
+          "maximum_absolute_difference": 0.016062685259569942,
+          "absolute_tolerance": 0.001,
+          "within_tolerance": false
+        },
+        "options_only": {
+          "maximum_absolute_difference": 0.016329438290618115,
+          "absolute_tolerance": 0.001,
+          "within_tolerance": false
+        },
+        "root_and_options": {
+          "maximum_absolute_difference": 0.016062685259569942,
+          "absolute_tolerance": 0.001,
+          "within_tolerance": false
+        }
+      }
+    },
+    {
+      "control": 700,
+      "contacts": {
+        "training": 14,
+        "replay": 4,
+        "root_only": 4,
+        "options_only": 4,
+        "root_and_options": 4
+      },
+      "warp_vs_same_model_cpu": {
+        "maximum_absolute_difference": 5.988224356379135e-07,
+        "absolute_tolerance": 0.001,
+        "within_tolerance": true
+      },
+      "cpu_training_vs_replay": {
+        "maximum_absolute_difference": 0.031911307734246,
+        "absolute_tolerance": 0.001,
+        "within_tolerance": false
+      },
+      "counterfactuals": {
+        "root_only": {
+          "maximum_absolute_difference": 0.02990702012598212,
+          "absolute_tolerance": 0.001,
+          "within_tolerance": false
+        },
+        "options_only": {
+          "maximum_absolute_difference": 0.030063060212719872,
+          "absolute_tolerance": 0.001,
+          "within_tolerance": false
+        },
+        "root_and_options": {
+          "maximum_absolute_difference": 0.02990702012598212,
+          "absolute_tolerance": 0.001,
+          "within_tolerance": false
+        }
+      }
+    },
+    {
+      "control": 1200,
+      "contacts": {
+        "training": 5,
+        "replay": 2,
+        "root_only": 2,
+        "options_only": 2,
+        "root_and_options": 2
+      },
+      "warp_vs_same_model_cpu": {
+        "maximum_absolute_difference": 1.3569462411489042e-06,
+        "absolute_tolerance": 0.001,
+        "within_tolerance": true
+      },
+      "cpu_training_vs_replay": {
+        "maximum_absolute_difference": 0.10638147242033202,
+        "absolute_tolerance": 0.001,
+        "within_tolerance": false
+      },
+      "counterfactuals": {
+        "root_only": {
+          "maximum_absolute_difference": 0.11151015222112792,
+          "absolute_tolerance": 0.001,
+          "within_tolerance": false
+        },
+        "options_only": {
+          "maximum_absolute_difference": 0.10768506061076688,
+          "absolute_tolerance": 0.001,
+          "within_tolerance": false
+        },
+        "root_and_options": {
+          "maximum_absolute_difference": 0.11151015222112792,
+          "absolute_tolerance": 0.001,
+          "within_tolerance": false
+        }
+      }
+    },
+    {
+      "control": 1800,
+      "contacts": {
+        "training": 21,
+        "replay": 6,
+        "root_only": 6,
+        "options_only": 6,
+        "root_and_options": 6
+      },
+      "warp_vs_same_model_cpu": {
+        "maximum_absolute_difference": 4.0878343023909025e-06,
+        "absolute_tolerance": 0.001,
+        "within_tolerance": true
+      },
+      "cpu_training_vs_replay": {
+        "maximum_absolute_difference": 0.027501866256297705,
+        "absolute_tolerance": 0.001,
+        "within_tolerance": false
+      },
+      "counterfactuals": {
+        "root_only": {
+          "maximum_absolute_difference": 0.02619129353302349,
+          "absolute_tolerance": 0.001,
+          "within_tolerance": false
+        },
+        "options_only": {
+          "maximum_absolute_difference": 0.02616130387064225,
+          "absolute_tolerance": 0.001,
+          "within_tolerance": false
+        },
+        "root_and_options": {
+          "maximum_absolute_difference": 0.02619129353302349,
+          "absolute_tolerance": 0.001,
+          "within_tolerance": false
+        }
+      }
+    }
+  ],
+  "model_parameters": {
+    "dof_armature": {
+      "maximum_absolute_difference": 0.0,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": true,
+      "training": [
+        0.01017752,
+        0.025101925,
+        0.01017752,
+        0.025101925,
+        0.00721945,
+        0.00721945,
+        0.01017752,
+        0.025101925,
+        0.01017752,
+        0.025101925,
+        0.00721945,
+        0.00721945,
+        0.01017752,
+        0.003609725,
+        0.003609725,
+        0.003609725,
+        0.003609725,
+        0.003609725,
+        0.003609725,
+        0.003609725,
+        0.003609725,
+        0.003609725,
+        0.003609725
+      ],
+      "replay": [
+        0.01017752,
+        0.025101925,
+        0.01017752,
+        0.025101925,
+        0.00721945,
+        0.00721945,
+        0.01017752,
+        0.025101925,
+        0.01017752,
+        0.025101925,
+        0.00721945,
+        0.00721945,
+        0.01017752,
+        0.003609725,
+        0.003609725,
+        0.003609725,
+        0.003609725,
+        0.003609725,
+        0.003609725,
+        0.003609725,
+        0.003609725,
+        0.003609725,
+        0.003609725
+      ]
+    },
+    "free_root_dof_armature": {
+      "maximum_absolute_difference": 0.01,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": false,
+      "training": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "replay": [
+        0.01,
+        0.01,
+        0.01,
+        0.01,
+        0.01,
+        0.01
+      ]
+    },
+    "dof_damping": {
+      "maximum_absolute_difference": 0.0,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": true,
+      "training": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "replay": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "free_root_dof_damping": {
+      "maximum_absolute_difference": 0.001,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": false,
+      "training": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "replay": [
+        0.001,
+        0.001,
+        0.001,
+        0.001,
+        0.001,
+        0.001
+      ]
+    },
+    "dof_frictionloss": {
+      "maximum_absolute_difference": 0.0,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": true,
+      "training": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "replay": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "free_root_dof_frictionloss": {
+      "maximum_absolute_difference": 0.1,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": false,
+      "training": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "replay": [
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    "body_mass": {
+      "maximum_absolute_difference": 0.0,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": true
+    },
+    "body_inertia": {
+      "maximum_absolute_difference": 0.0,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": true
+    },
+    "body_ipos": {
+      "maximum_absolute_difference": 0.0,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": true
+    },
+    "body_iquat": {
+      "maximum_absolute_difference": 0.0,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": true
+    },
+    "actuator_gear": {
+      "maximum_absolute_difference": 0.0,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": true
+    },
+    "actuator_gainprm": {
+      "maximum_absolute_difference": 0.0,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": true
+    },
+    "actuator_biasprm": {
+      "maximum_absolute_difference": 0.0,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": true
+    },
+    "actuator_forcerange": {
+      "maximum_absolute_difference": 139.0,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": false
+    },
+    "actuator_forcelimited": {
+      "maximum_absolute_difference": 1.0,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": false
+    },
+    "actuator_ctrlrange": {
+      "maximum_absolute_difference": 139.0,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": false
+    },
+    "actuator_ctrllimited": {
+      "maximum_absolute_difference": 1.0,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": false
+    },
+    "actuator_dyntype": {
+      "maximum_absolute_difference": 0.0,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": true
+    },
+    "actuator_gaintype": {
+      "maximum_absolute_difference": 0.0,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": true
+    },
+    "actuator_biastype": {
+      "maximum_absolute_difference": 0.0,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": true
+    },
+    "jnt_actfrclimited": {
+      "maximum_absolute_difference": 0.0,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": true
+    },
+    "jnt_actfrcrange": {
+      "maximum_absolute_difference": 0.0,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": true
+    },
+    "jnt_range": {
+      "maximum_absolute_difference": 0.0,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": true
+    },
+    "jnt_solref": {
+      "maximum_absolute_difference": 0.0,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": true
+    },
+    "jnt_solimp": {
+      "maximum_absolute_difference": 0.0,
+      "absolute_tolerance": 1e-09,
+      "within_tolerance": true
+    },
+    "timestep": {
+      "training": 0.002,
+      "replay": 0.002
+    },
+    "integrator": {
+      "training": 0,
+      "replay": 0
+    },
+    "cone": {
+      "training": 0,
+      "replay": 0
+    },
+    "solver": {
+      "training": 2,
+      "replay": 2
+    },
+    "iterations": {
+      "training": 10,
+      "replay": 100
+    },
+    "ls_iterations": {
+      "training": 20,
+      "replay": 50
+    },
+    "tolerance": {
+      "training": 1e-08,
+      "replay": 1e-08
+    },
+    "ls_tolerance": {
+      "training": 0.01,
+      "replay": 0.01
+    },
+    "ccd_iterations": {
+      "training": 50,
+      "replay": 35
+    },
+    "ccd_tolerance": {
+      "training": 1e-06,
+      "replay": 1e-06
+    },
+    "impratio": {
+      "training": 1.0,
+      "replay": 1.0
+    },
+    "gravity": {
+      "training": [
+        0.0,
+        0.0,
+        -9.81
+      ],
+      "replay": [
+        0.0,
+        0.0,
+        -9.81
+      ]
+    },
+    "wind": {
+      "training": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "replay": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "density": {
+      "training": 0.0,
+      "replay": 0.0
+    },
+    "viscosity": {
+      "training": 0.0,
+      "replay": 0.0
+    },
+    "disableflags": {
+      "training": 0,
+      "replay": 0
+    },
+    "enableflags": {
+      "training": 0,
+      "replay": 0
+    },
+    "jacobian": {
+      "training": 2,
+      "replay": 2
+    },
+    "collision_geometry_and_parameters": {
+      "training": [
+        {
+          "name": "terrain",
+          "body": "terrain",
+          "type": 0,
+          "size": [
+            0.0,
+            0.0,
+            0.01
+          ],
+          "pos": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quat": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/pelvis_collision",
+          "body": "robot/pelvis",
+          "type": 2,
+          "size": [
+            0.07,
+            0.0,
+            0.0
+          ],
+          "pos": [
+            0.0,
+            0.0,
+            -0.08
+          ],
+          "quat": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 1,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/left_hip_collision",
+          "body": "robot/left_hip_roll_link",
+          "type": 3,
+          "size": [
+            0.06,
+            0.04,
+            0.0
+          ],
+          "pos": [
+            0.02,
+            0.0,
+            -0.04
+          ],
+          "quat": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 1,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/left_thigh_collision",
+          "body": "robot/left_hip_yaw_link",
+          "type": 3,
+          "size": [
+            0.055,
+            0.07615773105863909,
+            0.0
+          ],
+          "pos": [
+            -0.03,
+            0.0,
+            -0.1
+          ],
+          "quat": [
+            0.9795777228015289,
+            0.0,
+            0.20106587226819733,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 1,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/left_shin_collision",
+          "body": "robot/left_knee_link",
+          "type": 3,
+          "size": [
+            0.045,
+            0.075,
+            0.0
+          ],
+          "pos": [
+            0.01,
+            0.0,
+            -0.075
+          ],
+          "quat": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 1,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/left_linkage_brace_collision",
+          "body": "robot/left_knee_link",
+          "type": 3,
+          "size": [
+            0.03,
+            0.04000000000000001,
+            0.0
+          ],
+          "pos": [
+            0.01,
+            0.0,
+            -0.24000000000000002
+          ],
+          "quat": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 1,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/left_foot1_collision",
+          "body": "robot/left_ankle_roll_link",
+          "type": 3,
+          "size": [
+            0.01,
+            0.02500499950009998,
+            0.0
+          ],
+          "pos": [
+            0.07500000000000001,
+            -0.0265,
+            -0.025
+          ],
+          "quat": [
+            0.7071067811865476,
+            -0.014139308044851608,
+            0.7069654022425798,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 1,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            0.6,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/left_foot2_collision",
+          "body": "robot/left_ankle_roll_link",
+          "type": 3,
+          "size": [
+            0.01,
+            0.08349999999999999,
+            0.0
+          ],
+          "pos": [
+            0.0395,
+            -0.018,
+            -0.025
+          ],
+          "quat": [
+            0.7071067811865476,
+            0.0,
+            -0.7071067811865475,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 1,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            0.6,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/left_foot3_collision",
+          "body": "robot/left_ankle_roll_link",
+          "type": 3,
+          "size": [
+            0.01,
+            0.091,
+            0.0
+          ],
+          "pos": [
+            0.03900000000000001,
+            -0.01,
+            -0.025
+          ],
+          "quat": [
+            0.7071067811865476,
+            0.0,
+            -0.7071067811865475,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 1,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            0.6,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/left_foot4_collision",
+          "body": "robot/left_ankle_roll_link",
+          "type": 3,
+          "size": [
+            0.01,
+            0.093,
+            0.0
+          ],
+          "pos": [
+            0.03900000000000001,
+            0.0,
+            -0.025
+          ],
+          "quat": [
+            0.7071067811865476,
+            0.0,
+            -0.7071067811865475,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 1,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            0.6,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/left_foot5_collision",
+          "body": "robot/left_ankle_roll_link",
+          "type": 3,
+          "size": [
+            0.01,
+            0.091,
+            0.0
+          ],
+          "pos": [
+            0.03900000000000001,
+            0.01,
+            -0.025
+          ],
+          "quat": [
+            0.7071067811865476,
+            0.0,
+            -0.7071067811865475,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 1,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            0.6,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/left_foot6_collision",
+          "body": "robot/left_ankle_roll_link",
+          "type": 3,
+          "size": [
+            0.01,
+            0.08349999999999999,
+            0.0
+          ],
+          "pos": [
+            0.0395,
+            0.018,
+            -0.025
+          ],
+          "quat": [
+            0.7071067811865476,
+            0.0,
+            -0.7071067811865475,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 1,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            0.6,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/left_foot7_collision",
+          "body": "robot/left_ankle_roll_link",
+          "type": 3,
+          "size": [
+            0.01,
+            0.025,
+            0.0
+          ],
+          "pos": [
+            0.07500000000000001,
+            0.026,
+            -0.025
+          ],
+          "quat": [
+            0.7071067811865476,
+            0.0,
+            0.7071067811865475,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 1,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            0.6,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/right_hip_collision",
+          "body": "robot/right_hip_roll_link",
+          "type": 3,
+          "size": [
+            0.06,
+            0.04,
+            0.0
+          ],
+          "pos": [
+            0.02,
+            0.0,
+            -0.04
+          ],
+          "quat": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 1,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/right_thigh_collision",
+          "body": "robot/right_hip_yaw_link",
+          "type": 3,
+          "size": [
+            0.055,
+            0.07615773105863909,
+            0.0
+          ],
+          "pos": [
+            -0.03,
+            0.0,
+            -0.1
+          ],
+          "quat": [
+            0.9795777228015289,
+            0.0,
+            0.20106587226819733,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 1,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/right_shin_collision",
+          "body": "robot/right_knee_link",
+          "type": 3,
+          "size": [
+            0.045,
+            0.075,
+            0.0
+          ],
+          "pos": [
+            0.01,
+            0.0,
+            -0.075
+          ],
+          "quat": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 1,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/right_linkage_brace_collision",
+          "body": "robot/right_knee_link",
+          "type": 3,
+          "size": [
+            0.03,
+            0.04000000000000001,
+            0.0
+          ],
+          "pos": [
+            0.01,
+            0.0,
+            -0.24000000000000002
+          ],
+          "quat": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 1,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/right_foot1_collision",
+          "body": "robot/right_ankle_roll_link",
+          "type": 3,
+          "size": [
+            0.01,
+            0.025,
+            0.0
+          ],
+          "pos": [
+            0.07500000000000001,
+            -0.026,
+            -0.025
+          ],
+          "quat": [
+            0.7071067811865476,
+            0.0,
+            0.7071067811865475,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 1,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            0.6,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/right_foot2_collision",
+          "body": "robot/right_ankle_roll_link",
+          "type": 3,
+          "size": [
+            0.01,
+            0.08349999999999999,
+            0.0
+          ],
+          "pos": [
+            0.0395,
+            -0.018,
+            -0.025
+          ],
+          "quat": [
+            0.7071067811865476,
+            0.0,
+            -0.7071067811865475,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 1,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            0.6,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/right_foot3_collision",
+          "body": "robot/right_ankle_roll_link",
+          "type": 3,
+          "size": [
+            0.01,
+            0.091,
+            0.0
+          ],
+          "pos": [
+            0.03900000000000001,
+            -0.01,
+            -0.025
+          ],
+          "quat": [
+            0.7071067811865476,
+            0.0,
+            -0.7071067811865475,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 1,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            0.6,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/right_foot4_collision",
+          "body": "robot/right_ankle_roll_link",
+          "type": 3,
+          "size": [
+            0.01,
+            0.093,
+            0.0
+          ],
+          "pos": [
+            0.03900000000000001,
+            0.0,
+            -0.025
+          ],
+          "quat": [
+            0.7071067811865476,
+            0.0,
+            -0.7071067811865475,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 1,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            0.6,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/right_foot5_collision",
+          "body": "robot/right_ankle_roll_link",
+          "type": 3,
+          "size": [
+            0.01,
+            0.091,
+            0.0
+          ],
+          "pos": [
+            0.03900000000000001,
+            0.01,
+            -0.025
+          ],
+          "quat": [
+            0.7071067811865476,
+            0.0,
+            -0.7071067811865475,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 1,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            0.6,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/right_foot6_collision",
+          "body": "robot/right_ankle_roll_link",
+          "type": 3,
+          "size": [
+            0.01,
+            0.08349999999999999,
+            0.0
+          ],
+          "pos": [
+            0.0395,
+            0.018,
+            -0.025
+          ],
+          "quat": [
+            0.7071067811865476,
+            0.0,
+            -0.7071067811865475,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 1,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            0.6,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/right_foot7_collision",
+          "body": "robot/right_ankle_roll_link",
+          "type": 3,
+          "size": [
+            0.01,
+            0.025,
+            0.0
+          ],
+          "pos": [
+            0.07500000000000001,
+            0.026,
+            -0.025
+          ],
+          "quat": [
+            0.7071067811865476,
+            0.0,
+            0.7071067811865475,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 1,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            0.6,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/torso_collision",
+          "body": "robot/torso_link",
+          "type": 3,
+          "size": [
+            0.09,
+            0.060000000000000005,
+            0.0
+          ],
+          "pos": [
+            0.01,
+            0.0,
+            0.14
+          ],
+          "quat": [
+            6.123233995736766e-17,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 1,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/head_collision",
+          "body": "robot/torso_link",
+          "type": 2,
+          "size": [
+            0.06,
+            0.0,
+            0.0
+          ],
+          "pos": [
+            0.0,
+            0.0,
+            0.43
+          ],
+          "quat": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 1,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/left_shoulder_yaw_collision",
+          "body": "robot/left_shoulder_yaw_link",
+          "type": 3,
+          "size": [
+            0.035,
+            0.065,
+            0.0
+          ],
+          "pos": [
+            0.0,
+            0.0,
+            -0.015
+          ],
+          "quat": [
+            6.123233995736766e-17,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 1,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/left_elbow_yaw_collision",
+          "body": "robot/left_elbow_link",
+          "type": 3,
+          "size": [
+            0.035,
+            0.045,
+            0.0
+          ],
+          "pos": [
+            0.035,
+            0.0,
+            -0.01
+          ],
+          "quat": [
+            0.7071067811865476,
+            0.0,
+            -0.7071067811865475,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 1,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/left_hand_collision",
+          "body": "robot/left_wrist_roll_rubber_hand",
+          "type": 3,
+          "size": [
+            0.035,
+            0.1004987562112089,
+            0.0
+          ],
+          "pos": [
+            0.12,
+            -0.01,
+            0.0
+          ],
+          "quat": [
+            0.7071067811865476,
+            -0.07035975447302918,
+            -0.7035975447302918,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 1,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/right_shoulder_yaw_collision",
+          "body": "robot/right_shoulder_yaw_link",
+          "type": 3,
+          "size": [
+            0.035,
+            0.065,
+            0.0
+          ],
+          "pos": [
+            0.0,
+            0.0,
+            -0.015
+          ],
+          "quat": [
+            6.123233995736766e-17,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 1,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/right_elbow_yaw_collision",
+          "body": "robot/right_elbow_link",
+          "type": 3,
+          "size": [
+            0.035,
+            0.045,
+            0.0
+          ],
+          "pos": [
+            0.035,
+            0.0,
+            -0.01
+          ],
+          "quat": [
+            0.7071067811865476,
+            0.0,
+            -0.7071067811865475,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 1,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "robot/right_hand_collision",
+          "body": "robot/right_wrist_roll_rubber_hand",
+          "type": 3,
+          "size": [
+            0.035,
+            0.1004987562112089,
+            0.0
+          ],
+          "pos": [
+            0.12,
+            0.01,
+            0.0
+          ],
+          "quat": [
+            0.7071067811865476,
+            0.07035975447302918,
+            -0.7035975447302918,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 1,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        }
+      ],
+      "replay": [
+        {
+          "name": "floor",
+          "body": "world",
+          "type": 0,
+          "size": [
+            0.0,
+            0.0,
+            0.05
+          ],
+          "pos": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quat": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "pelvis",
+          "type": 7,
+          "size": [
+            0.06782894043644766,
+            0.0733855953844725,
+            0.06076766890244119
+          ],
+          "pos": [
+            0.0006870395627471365,
+            2.401819341082137e-05,
+            -0.07859361570716923
+          ],
+          "quat": [
+            0.5061214278235933,
+            0.49351821027534243,
+            0.4946116461202716,
+            0.5056087380046234
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "left_hip_pitch_link",
+          "type": 7,
+          "size": [
+            0.03933990673535084,
+            0.05196331678488224,
+            0.07593229340948726
+          ],
+          "pos": [
+            -0.0008665585378783539,
+            0.04711095469219488,
+            -0.02629613521299048
+          ],
+          "quat": [
+            0.9456325828529581,
+            0.31549267647388,
+            -0.04501076125695773,
+            0.06494167159274904
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "left_hip_roll_link",
+          "type": 7,
+          "size": [
+            0.05856962938089527,
+            0.04908167211454836,
+            0.1068987445079944
+          ],
+          "pos": [
+            0.03567396132978256,
+            -0.00036361950676388214,
+            -0.06771372727135536
+          ],
+          "quat": [
+            0.9844228520519434,
+            -0.0038236022162025382,
+            0.17564187102033313,
+            -0.006852851120995301
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "left_hip_yaw_link",
+          "type": 7,
+          "size": [
+            0.04467976829172957,
+            0.05994589625391779,
+            0.14643369141144041
+          ],
+          "pos": [
+            -0.030698236099282915,
+            -0.0031575123714920315,
+            -0.09263915858615535
+          ],
+          "quat": [
+            0.6679268253027955,
+            0.15234409089414863,
+            0.1731665300724447,
+            0.7075863105468014
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "left_knee_link",
+          "type": 7,
+          "size": [
+            0.047702094423964565,
+            0.05718984642446587,
+            0.1927822019327025
+          ],
+          "pos": [
+            0.01229041176367447,
+            0.0027294407845290226,
+            -0.12275210014016037
+          ],
+          "quat": [
+            0.7584882397082386,
+            -0.013823486358772666,
+            0.02938909695989448,
+            0.6508769333976048
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "left_ankle_pitch_link",
+          "type": 7,
+          "size": [
+            0.006501062332446817,
+            0.017950470704919473,
+            0.02378830545899051
+          ],
+          "pos": [
+            -0.004106198395375143,
+            5.887730678462465e-05,
+            -0.008573513698468344
+          ],
+          "quat": [
+            0.6766703165258261,
+            0.2052249564084227,
+            0.2052249564084227,
+            0.6766703165258261
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "left_ankle_roll_link",
+          "type": 2,
+          "size": [
+            0.005,
+            0.0,
+            0.0
+          ],
+          "pos": [
+            -0.05,
+            0.025,
+            -0.03
+          ],
+          "quat": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "left_ankle_roll_link",
+          "type": 2,
+          "size": [
+            0.005,
+            0.0,
+            0.0
+          ],
+          "pos": [
+            -0.05,
+            -0.025,
+            -0.03
+          ],
+          "quat": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "left_ankle_roll_link",
+          "type": 2,
+          "size": [
+            0.005,
+            0.0,
+            0.0
+          ],
+          "pos": [
+            0.12,
+            0.03,
+            -0.03
+          ],
+          "quat": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "left_ankle_roll_link",
+          "type": 2,
+          "size": [
+            0.005,
+            0.0,
+            0.0
+          ],
+          "pos": [
+            0.12,
+            -0.03,
+            -0.03
+          ],
+          "quat": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "right_hip_pitch_link",
+          "type": 7,
+          "size": [
+            0.0393405076650778,
+            0.05196361056402586,
+            0.0759321825264857
+          ],
+          "pos": [
+            -0.0008664703489512744,
+            -0.04711005033357466,
+            -0.026296623163099924
+          ],
+          "quat": [
+            0.9456234574101887,
+            -0.3155128456062136,
+            -0.04502167496475927,
+            -0.06496899134539617
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "right_hip_roll_link",
+          "type": 7,
+          "size": [
+            0.05856959939952354,
+            0.049078879150233214,
+            0.10689797706780121
+          ],
+          "pos": [
+            0.03567378883256972,
+            0.0003616971847909951,
+            -0.06771295458931689
+          ],
+          "quat": [
+            0.9844240031111163,
+            0.0037907926704265228,
+            0.1756437244895799,
+            0.006655376551584765
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "right_hip_yaw_link",
+          "type": 7,
+          "size": [
+            0.04467782449949221,
+            0.059945091793372624,
+            0.1464325744860261
+          ],
+          "pos": [
+            -0.030699656369028997,
+            0.003158722541324976,
+            -0.09263954567921404
+          ],
+          "quat": [
+            0.7076215256703519,
+            0.17315411960881574,
+            0.15235548851334926,
+            0.6678901349700558
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "right_knee_link",
+          "type": 7,
+          "size": [
+            0.04770454380632618,
+            0.05719109346475999,
+            0.19277953930776565
+          ],
+          "pos": [
+            0.012290840839311904,
+            -0.0027284185571872224,
+            -0.12275462830238623
+          ],
+          "quat": [
+            0.650833851827543,
+            0.029380362563773615,
+            -0.013819361063452263,
+            0.75852562044452
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "right_ankle_pitch_link",
+          "type": 7,
+          "size": [
+            0.00650126275920316,
+            0.01795078376510955,
+            0.023787577152969808
+          ],
+          "pos": [
+            -0.0041065949955294695,
+            -5.9077733540970835e-05,
+            -0.00857303102905033
+          ],
+          "quat": [
+            0.6766811215240474,
+            0.20518932665457545,
+            0.20518932665457545,
+            0.6766811215240474
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "right_ankle_roll_link",
+          "type": 2,
+          "size": [
+            0.005,
+            0.0,
+            0.0
+          ],
+          "pos": [
+            -0.05,
+            0.025,
+            -0.03
+          ],
+          "quat": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "right_ankle_roll_link",
+          "type": 2,
+          "size": [
+            0.005,
+            0.0,
+            0.0
+          ],
+          "pos": [
+            -0.05,
+            -0.025,
+            -0.03
+          ],
+          "quat": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "right_ankle_roll_link",
+          "type": 2,
+          "size": [
+            0.005,
+            0.0,
+            0.0
+          ],
+          "pos": [
+            0.12,
+            0.03,
+            -0.03
+          ],
+          "quat": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "right_ankle_roll_link",
+          "type": 2,
+          "size": [
+            0.005,
+            0.0,
+            0.0
+          ],
+          "pos": [
+            0.12,
+            -0.03,
+            -0.03
+          ],
+          "quat": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "torso_link",
+          "type": 7,
+          "size": [
+            0.07837777084555403,
+            0.10993117241051603,
+            0.18246898679242857
+          ],
+          "pos": [
+            0.0052822243909624,
+            0.002014691512791622,
+            0.13854490175456835
+          ],
+          "quat": [
+            0.9999961384884847,
+            -0.0013243488974954303,
+            -0.0005467042292419215,
+            0.0023812229217058047
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "torso_link",
+          "type": 7,
+          "size": [
+            0.014744601562371883,
+            0.0800769583211478,
+            0.07852277770781835
+          ],
+          "pos": [
+            0.0030190916936811904,
+            0.0011127782956188072,
+            0.22746039917874727
+          ],
+          "quat": [
+            0.024694524690064723,
+            0.7080436764686444,
+            -0.02448663144382146,
+            0.705311801647779
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "torso_link",
+          "type": 7,
+          "size": [
+            0.07200180472325785,
+            0.07780115191714371,
+            0.10657961522680029
+          ],
+          "pos": [
+            0.007650942311808313,
+            2.4814250502793286e-05,
+            0.3851317963124549
+          ],
+          "quat": [
+            0.999740185018941,
+            1.3327356330234592e-05,
+            0.022793843601353406,
+            5.453945449828206e-05
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "left_shoulder_pitch_link",
+          "type": 5,
+          "size": [
+            0.03,
+            0.025,
+            0.0
+          ],
+          "pos": [
+            0.0,
+            0.04,
+            -0.01
+          ],
+          "quat": [
+            0.7071067811865475,
+            0.0,
+            0.7071067811865475,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "left_shoulder_roll_link",
+          "type": 5,
+          "size": [
+            0.03,
+            0.015,
+            0.0
+          ],
+          "pos": [
+            -0.004,
+            0.006,
+            -0.053
+          ],
+          "quat": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "left_shoulder_yaw_link",
+          "type": 7,
+          "size": [
+            0.03749777975869982,
+            0.04317351574210839,
+            0.08793232028504863
+          ],
+          "pos": [
+            0.008049665594003904,
+            -0.00420180564637434,
+            -0.048209927243695244
+          ],
+          "quat": [
+            0.6590952894867647,
+            -0.12799248347394035,
+            -0.04382988802780461,
+            0.7397906896318728
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "left_elbow_link",
+          "type": 7,
+          "size": [
+            0.03916565137230176,
+            0.036663195413545964,
+            0.08508509588816798
+          ],
+          "pos": [
+            0.053574244613676256,
+            0.008583805643290808,
+            -0.008537761350154273
+          ],
+          "quat": [
+            0.5296103616188073,
+            0.6190072892096155,
+            0.4166189712691031,
+            0.4034494683972658
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "left_wrist_roll_rubber_hand",
+          "type": 7,
+          "size": [
+            0.0352079930390844,
+            0.06165906141691752,
+            0.13364785243581379
+          ],
+          "pos": [
+            0.12131501386908232,
+            -0.0018545820738530186,
+            0.002074982584569129
+          ],
+          "quat": [
+            0.51546186813008,
+            0.5114914690305756,
+            0.4804370180825121,
+            0.49178838057520063
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "right_shoulder_pitch_link",
+          "type": 5,
+          "size": [
+            0.03,
+            0.025,
+            0.0
+          ],
+          "pos": [
+            0.0,
+            -0.04,
+            -0.01
+          ],
+          "quat": [
+            0.7071067811865475,
+            0.0,
+            0.7071067811865475,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "right_shoulder_roll_link",
+          "type": 5,
+          "size": [
+            0.03,
+            0.015,
+            0.0
+          ],
+          "pos": [
+            -0.004,
+            -0.006,
+            -0.053
+          ],
+          "quat": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "right_shoulder_yaw_link",
+          "type": 7,
+          "size": [
+            0.03749643937274193,
+            0.043175452104045706,
+            0.08793277396408505
+          ],
+          "pos": [
+            0.00804956885105232,
+            0.00420282487216018,
+            -0.04821007683406935
+          ],
+          "quat": [
+            0.7397526427295545,
+            -0.04387406309255658,
+            -0.12799195093100968,
+            0.6591351565948108
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "right_elbow_link",
+          "type": 7,
+          "size": [
+            0.03916483455884125,
+            0.0366641260428503,
+            0.0850859925960606
+          ],
+          "pos": [
+            0.05357441187591211,
+            -0.008582284246788056,
+            -0.008536567848057683
+          ],
+          "quat": [
+            0.40348089688793276,
+            0.41660294868818604,
+            0.6190214736578522,
+            0.5295824431958464
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        },
+        {
+          "name": "",
+          "body": "right_wrist_roll_rubber_hand",
+          "type": 7,
+          "size": [
+            0.03520826963429185,
+            0.06166009139926143,
+            0.13364982763130243
+          ],
+          "pos": [
+            0.12131309892615931,
+            0.001854293043122736,
+            0.0020743246704807558
+          ],
+          "quat": [
+            0.491780340945229,
+            0.48044446109548183,
+            0.511488126929396,
+            0.5154659174695528
+          ],
+          "contype": 1,
+          "conaffinity": 1,
+          "condim": 3,
+          "priority": 0,
+          "solmix": 1.0,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "friction": [
+            1.0,
+            0.005,
+            0.0001
+          ],
+          "margin": 0.0,
+          "gap": 0.0
+        }
+      ]
+    }
+  },
+  "scope": "five_saved_rollout_states_one_2ms_step_not_full_lifecycle_parity",
+  "deployment_ready": false,
+  "hardware_authorized": false
+}

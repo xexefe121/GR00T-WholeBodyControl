@@ -1,0 +1,1497 @@
+Setting seed: 20260818
+Warp 1.12.0 initialized:
+   CUDA Toolkit 12.9, Driver 12.9
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA GeForce RTX 3070 Laptop GPU" (8 GiB, sm_86, mempool enabled)
+   Kernel cache:
+     /root/.cache/warp/1.12.0
+Warp DeprecationWarning: The symbol `warp.context.runtime` will soon be removed from the public API. It can still be accessed from `warp._src.context.runtime` but might be changed or removed without notice.
+Module mujoco_warp._src.smooth 75c1b76 load on device 'cuda:0' took 13.33 ms  (cached)
+Module mujoco_warp._src.collision_driver 4d8b905 load on device 'cuda:0' took 3.42 ms  (cached)
+Module _nxn_broadphase__locals__kernel_e916423b e916423 load on device 'cuda:0' took 4.59 ms  (cached)
+Module _primitive_narrowphase__locals__primitive_narrowphase_886c85b7 886c85b load on device 'cuda:0' took 5.61 ms  (cached)
+Module mujoco_warp._src.constraint e4fb920 load on device 'cuda:0' took 9.05 ms  (cached)
+Module _actuator_velocity__locals__actuator_velocity_54391827 7ce5a05 load on device 'cuda:0' took 4.08 ms  (cached)
+Module mujoco_warp._src.passive 7fb8524 load on device 'cuda:0' took 5.96 ms  (cached)
+Module mujoco_warp._src.sensor 912ac95 load on device 'cuda:0' took 10.03 ms  (cached)
+Module mujoco_warp._src.forward 5922a95 load on device 'cuda:0' took 7.26 ms  (cached)
+Module mujoco_warp._src.support 343d1ae load on device 'cuda:0' took 4.58 ms  (cached)
+Module _tile_cholesky_factorize_solve__locals__cholesky_factorize_solve_7c4626c2 68c124c load on device 'cuda:0' took 136.26 ms  (cached)
+Module mujoco_warp._src.solver 4a4fc90 load on device 'cuda:0' took 6.69 ms  (cached)
+Module solve_init_jaref__locals__kernel_e8e73468 e8e7346 load on device 'cuda:0' took 3.39 ms  (cached)
+Module mul_m_dense__locals___mul_m_dense_5b182806 5b18280 load on device 'cuda:0' took 3.80 ms  (cached)
+Module update_constraint_efc__locals__kernel_84abb40b 84abb40 load on device 'cuda:0' took 5.72 ms  (cached)
+Module update_constraint_gauss_cost__locals__kernel_026115d4 026115d load on device 'cuda:0' took 3.82 ms  (cached)
+Module update_gradient_JTDAJ_dense_tiled__locals__kernel_39517fdb 4e5a3dd load on device 'cuda:0' took 5.62 ms  (cached)
+Module update_gradient_cholesky__locals__kernel_ac06d661 8d9cf28 load on device 'cuda:0' took 154.41 ms  (cached)
+Module linesearch_jv_fused__locals__kernel_0ca87d41 0ca87d4 load on device 'cuda:0' took 4.47 ms  (cached)
+Module linesearch_prepare_gauss__locals__kernel_b235c0c8 b235c0c load on device 'cuda:0' took 4.36 ms  (cached)
+Module update_constraint_efc__locals__kernel_19805a28 19805a2 load on device 'cuda:0' took 4.25 ms  (cached)
+Module _contact_sort__locals__contact_sort_c2bd81ce 47863e6 load on device 'cuda:0' took 4.64 ms  (cached)
+Module mujoco_warp._src.derivative f391b97 load on device 'cuda:0' took 4.91 ms  (cached)
+Module _qderiv_actuator_passive_actuation_dense__locals__kernel_15c2d38f f1ac15c load on device 'cuda:0' took 9.50 ms  (cached)
+Module reset_data__locals__reset_xfrc_applied_f86f0829 f86f082 load on device 'cuda:0' took 4.30 ms  (cached)
+Module reset_data__locals__reset_qM_1511185b 1511185 load on device 'cuda:0' took 4.72 ms  (cached)
+Module reset_data__locals__reset_mocap_841cb68f 841cb68 load on device 'cuda:0' took 4.10 ms  (cached)
+Module reset_data__locals__reset_contact_76c1c25e 76c1c25 load on device 'cuda:0' took 2.50 ms  (cached)
+Module reset_data__locals__reset_nworld_d108b6ac d108b6a load on device 'cuda:0' took 2.82 ms  (cached)
+
++-----------------------------------+
+|          Base Environment         |
++------------------------+----------+
+| Property               | Value    |
++------------------------+----------+
+| Number of environments | 64       |
+| Environment device     | cuda:0   |
+| Environment seed       | 20260818 |
+| Physics step-size      | 0.005    |
+| Environment step-size  | 0.02     |
++------------------------+----------+
+
+[INFO] <EventManager> contains 0 active terms.
+
+[INFO] <CommandManager> contains 1 active terms.
++--------------------------------------+
+|         Active Command Terms         |
++-------+--------+---------------------+
+| Index | Name   |         Type        |
++-------+--------+---------------------+
+|   0   | motion | CorpusMotionCommand |
++-------+--------+---------------------+
+
+[INFO] <ActionManager> contains 1 active terms.
++---------------------------------+
+| Active Action Terms (shape: 23) |
++-------+-----------+-------------+
+| Index | Name      |   Dimension |
++-------+-----------+-------------+
+|   0   | joint_pos |          23 |
++-------+-----------+-------------+
+
+[INFO] <ObservationManager> contains 3 groups.
++----------------------------------------------------------------+
+| Active Observation Terms in Group: 'tokenizer' (shape: (268,)) |
++---------+-----------------------------------------+------------+
+|  Index  | Name                                    |   Shape    |
++---------+-----------------------------------------+------------+
+|    0    | encoder_index                           |    (1,)    |
+|    1    | causal_history_lower_body               |   (240,)   |
+|    2    | vr_3point_local_target                  |    (9,)    |
+|    3    | vr_3point_local_orn_target              |   (12,)    |
+|    4    | motion_anchor_ori_b                     |    (6,)    |
++---------+-----------------------------------------+------------+
++-------------------------------------------------------------+
+| Active Observation Terms in Group: 'policy' (shape: (930,)) |
++--------+------------------------+---------------------------+
+| Index  | Name                   |           Shape           |
++--------+------------------------+---------------------------+
+|   0    | base_ang_vel           |      (30,)  ← 10×(3,)     |
+|   1    | joint_pos_rel          |     (290,)  ← 10×(29,)    |
+|   2    | joint_vel              |     (290,)  ← 10×(29,)    |
+|   3    | previous_action        |     (290,)  ← 10×(29,)    |
+|   4    | projected_gravity      |      (30,)  ← 10×(3,)     |
++--------+------------------------+---------------------------+
++-------------------------------------------------------------+
+| Active Observation Terms in Group: 'critic' (shape: (256,)) |
++-----------+------------------------------------+------------+
+|   Index   | Name                               |   Shape    |
++-----------+------------------------------------+------------+
+|     0     | command                            |   (46,)    |
+|     1     | motion_anchor_pos_b                |    (3,)    |
+|     2     | motion_anchor_ori_b                |    (6,)    |
+|     3     | body_pos                           |   (42,)    |
+|     4     | body_ori                           |   (84,)    |
+|     5     | base_lin_vel                       |    (3,)    |
+|     6     | base_ang_vel                       |    (3,)    |
+|     7     | joint_pos                          |   (23,)    |
+|     8     | joint_vel                          |   (23,)    |
+|     9     | actions                            |   (23,)    |
++-----------+------------------------------------+------------+
+
+[INFO] <TerminationManager> contains 5 active terms.
++-----------------------------------------+
+|         Active Termination Terms        |
++-------+----------------------+----------+
+| Index | Name                 | Time Out |
++-------+----------------------+----------+
+|   0   | time_out             |   True   |
+|   1   | anchor_pos           |  False   |
+|   2   | anchor_ori           |  False   |
+|   3   | ee_body_pos          |  False   |
+|   4   | corpus_clip_time_out |   True   |
++-------+----------------------+----------+
+
+[INFO] <RewardManager> contains 15 active terms.
++----------------------------------------------------+
+|                Active Reward Terms                 |
++-------+----------------------------------+---------+
+| Index | Name                             |  Weight |
++-------+----------------------------------+---------+
+|   0   | motion_global_root_pos           |     0.5 |
+|   1   | motion_global_root_ori           |     0.5 |
+|   2   | motion_body_pos                  |     1.0 |
+|   3   | motion_body_ori                  |     1.0 |
+|   4   | motion_body_lin_vel              |     1.0 |
+|   5   | motion_body_ang_vel              |     1.0 |
+|   6   | action_rate_l2                   |    -0.2 |
+|   7   | joint_limit                      |   -20.0 |
+|   8   | self_collisions                  |   -10.0 |
+|   9   | action_target_reference_l2       |    -2.0 |
+|   10  | action_target_soft_limit_barrier |   -10.0 |
+|   11  | alive                            |     5.0 |
+|   12  | non_timeout_termination          | -5000.0 |
+|   13  | worst_ee_z_normalized_squared    |   -20.0 |
+|   14  | right_wrist_prethreshold_barrier |   -25.0 |
++-------+----------------------------------+---------+
+
+[INFO] <NullCurriculumManager> (inactive)
+[INFO] <NullMetricsManager> (inactive)
+--------------------------------------------------------------------------------
+Resolved observation sets: 
+	 actor :  ('tokenizer', 'policy')
+	 critic :  ('critic',)
+--------------------------------------------------------------------------------
+Actor Model: True23FrozenPlatformLoraActorModel(
+  (core): FrozenPlatformTrue23Core(
+    (encoder): _FrozenMlp(
+      (layers): ModuleList(
+        (0-4): 5 x _FrozenLinear()
+      )
+    )
+    (decoder): _FrozenLoRAMlp(
+      (layers): ModuleList(
+        (0-8): 9 x _FrozenLoRALinear()
+      )
+    )
+    (codec): G1True23AnalyticCodec()
+  )
+  (distribution): GaussianDistribution()
+)
+Critic Model: MLPModel(
+  (obs_normalizer): EmpiricalNormalization()
+  (mlp): MLP(
+    (0): Linear(in_features=256, out_features=512, bias=True)
+    (1): ELU(alpha=1.0)
+    (2): Linear(in_features=512, out_features=256, bias=True)
+    (3): ELU(alpha=1.0)
+    (4): Linear(in_features=256, out_features=128, bias=True)
+    (5): ELU(alpha=1.0)
+    (6): Linear(in_features=128, out_features=1, bias=True)
+  )
+)
+Could not find git repository in /root/.venvs/g1_true23_mjlab/lib/python3.11/site-packages/rsl_rl/__init__.py. Skipping.
+################################################################################
+[1m                            Learning iteration 0/50                             [0m 
+
+                               Run name: polish
+                            Total steps: 1024 
+                       Steps per second: 293 
+                        Collection time: 2.826s 
+                          Learning time: 0.660s 
+                        Mean value loss: 0.3211
+                    Mean surrogate loss: -0.0009
+                      Mean entropy loss: 10.5205
+                            Mean reward: 0.33
+                    Mean episode length: 9.00
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 3.49s
+                           Time elapsed: 00:00:03
+                                    ETA: 00:02:50
+
+################################################################################
+[1m                            Learning iteration 1/50                             [0m 
+
+                               Run name: polish
+                            Total steps: 2048 
+                       Steps per second: 495 
+                        Collection time: 1.497s 
+                          Learning time: 0.568s 
+                        Mean value loss: 67.8334
+                    Mean surrogate loss: -0.0005
+                      Mean entropy loss: 10.5205
+                            Mean reward: -13.78
+                    Mean episode length: 22.29
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 2.07s
+                           Time elapsed: 00:00:05
+                                    ETA: 00:02:13
+
+################################################################################
+[1m                            Learning iteration 2/50                             [0m 
+
+                               Run name: polish
+                            Total steps: 3072 
+                       Steps per second: 672 
+                        Collection time: 0.954s 
+                          Learning time: 0.569s 
+                        Mean value loss: 247.2463
+                    Mean surrogate loss: -0.0009
+                      Mean entropy loss: 10.5205
+                            Mean reward: -38.22
+                    Mean episode length: 32.29
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.52s
+                           Time elapsed: 00:00:07
+                                    ETA: 00:01:50
+
+################################################################################
+[1m                            Learning iteration 3/50                             [0m 
+
+                               Run name: polish
+                            Total steps: 4096 
+                       Steps per second: 630 
+                        Collection time: 0.940s 
+                          Learning time: 0.684s 
+                        Mean value loss: 0.3870
+                    Mean surrogate loss: -0.0006
+                      Mean entropy loss: 10.5205
+                            Mean reward: -29.31
+                    Mean episode length: 37.33
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.62s
+                           Time elapsed: 00:00:08
+                                    ETA: 00:01:40
+
+################################################################################
+[1m                            Learning iteration 4/50                             [0m 
+
+                               Run name: polish
+                            Total steps: 5120 
+                       Steps per second: 668 
+                        Collection time: 0.984s 
+                          Learning time: 0.547s 
+                        Mean value loss: 243.5137
+                    Mean surrogate loss: -0.0006
+                      Mean entropy loss: 10.5205
+                            Mean reward: -34.43
+                    Mean episode length: 45.72
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.53s
+                           Time elapsed: 00:00:10
+                                    ETA: 00:01:32
+
+################################################################################
+[1m                            Learning iteration 5/50                             [0m 
+
+                               Run name: polish
+                            Total steps: 6144 
+                       Steps per second: 714 
+                        Collection time: 0.900s 
+                          Learning time: 0.533s 
+                        Mean value loss: 155.1235
+                    Mean surrogate loss: -0.0009
+                      Mean entropy loss: 10.5205
+                            Mean reward: -36.15
+                    Mean episode length: 52.87
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.43s
+                           Time elapsed: 00:00:11
+                                    ETA: 00:01:25
+
+################################################################################
+[1m                            Learning iteration 6/50                             [0m 
+
+                               Run name: polish
+                            Total steps: 7168 
+                       Steps per second: 697 
+                        Collection time: 0.937s 
+                          Learning time: 0.531s 
+                        Mean value loss: 89.6299
+                    Mean surrogate loss: -0.0013
+                      Mean entropy loss: 10.5205
+                            Mean reward: -35.14
+                    Mean episode length: 56.38
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.47s
+                           Time elapsed: 00:00:13
+                                    ETA: 00:01:20
+
+################################################################################
+[1m                            Learning iteration 7/50                             [0m 
+
+                               Run name: polish
+                            Total steps: 8192 
+                       Steps per second: 708 
+                        Collection time: 0.871s 
+                          Learning time: 0.574s 
+                        Mean value loss: 74.4979
+                    Mean surrogate loss: -0.0011
+                      Mean entropy loss: 10.5205
+                            Mean reward: -35.00
+                    Mean episode length: 59.05
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.44s
+                           Time elapsed: 00:00:14
+                                    ETA: 00:01:16
+
+################################################################################
+[1m                            Learning iteration 8/50                             [0m 
+
+                               Run name: polish
+                            Total steps: 9216 
+                       Steps per second: 694 
+                        Collection time: 0.916s 
+                          Learning time: 0.557s 
+                        Mean value loss: 97.5924
+                    Mean surrogate loss: -0.0009
+                      Mean entropy loss: 10.5205
+                            Mean reward: -37.33
+                    Mean episode length: 60.50
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.47s
+                           Time elapsed: 00:00:16
+                                    ETA: 00:01:13
+
+################################################################################
+[1m                            Learning iteration 9/50                             [0m 
+
+                               Run name: polish
+                            Total steps: 10240 
+                       Steps per second: 686 
+                        Collection time: 0.988s 
+                          Learning time: 0.504s 
+                        Mean value loss: 63.7761
+                    Mean surrogate loss: -0.0004
+                      Mean entropy loss: 10.5205
+                            Mean reward: -33.22
+                    Mean episode length: 72.42
+                        Mean action std: 0.38
+  Episode_Reward/motion_global_root_pos: 0.0719
+  Episode_Reward/motion_global_root_ori: 0.0921
+         Episode_Reward/motion_body_pos: 0.2361
+         Episode_Reward/motion_body_ori: 0.1167
+     Episode_Reward/motion_body_lin_vel: 0.1627
+     Episode_Reward/motion_body_ang_vel: 0.1116
+          Episode_Reward/action_rate_l2: -0.5091
+             Episode_Reward/joint_limit: -0.0025
+         Episode_Reward/self_collisions: -0.0525
+Episode_Reward/action_target_reference_l2: -0.4751
+Episode_Reward/action_target_soft_limit_barrier: -0.0039
+                   Episode_Reward/alive: 1.3188
+ Episode_Reward/non_timeout_termination: -1.2500
+Episode_Reward/worst_ee_z_normalized_squared: -0.6868
+Episode_Reward/right_wrist_prethreshold_barrier: -0.3959
+        Metrics/motion/error_anchor_pos: 0.6903
+        Metrics/motion/error_anchor_rot: 0.2514
+    Metrics/motion/error_anchor_lin_vel: 0.5437
+    Metrics/motion/error_anchor_ang_vel: 1.2991
+          Metrics/motion/error_body_pos: 0.1018
+          Metrics/motion/error_body_rot: 0.4339
+         Metrics/motion/error_joint_pos: 1.4040
+         Metrics/motion/error_joint_vel: 10.1080
+        Metrics/motion/sampling_entropy: 1.0000
+      Metrics/motion/sampling_top1_prob: 0.0083
+       Metrics/motion/sampling_top1_bin: 0.5000
+      Metrics/motion/error_body_lin_vel: 0.6216
+      Metrics/motion/error_body_ang_vel: 3.1730
+           Episode_Termination/time_out: 0.2500
+         Episode_Termination/anchor_pos: 0.0000
+         Episode_Termination/anchor_ori: 0.0000
+        Episode_Termination/ee_body_pos: 0.1250
+Episode_Termination/corpus_clip_time_out: 0.6250
+--------------------------------------------------------------------------------
+                         Iteration time: 1.49s
+                           Time elapsed: 00:00:17
+                                    ETA: 00:01:10
+
+################################################################################
+[1m                            Learning iteration 10/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 11264 
+                       Steps per second: 517 
+                        Collection time: 1.200s 
+                          Learning time: 0.777s 
+                        Mean value loss: 98.1875
+                    Mean surrogate loss: -0.0009
+                      Mean entropy loss: 10.5205
+                            Mean reward: -30.94
+                    Mean episode length: 81.33
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.98s
+                           Time elapsed: 00:00:19
+                                    ETA: 00:01:09
+
+################################################################################
+[1m                            Learning iteration 11/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 12288 
+                       Steps per second: 699 
+                        Collection time: 0.923s 
+                          Learning time: 0.540s 
+                        Mean value loss: 0.3228
+                    Mean surrogate loss: -0.0010
+                      Mean entropy loss: 10.5205
+                            Mean reward: -28.83
+                    Mean episode length: 83.81
+                        Mean action std: 0.38
+  Episode_Reward/motion_global_root_pos: 0.0627
+  Episode_Reward/motion_global_root_ori: 0.0828
+         Episode_Reward/motion_body_pos: 0.2119
+         Episode_Reward/motion_body_ori: 0.1119
+     Episode_Reward/motion_body_lin_vel: 0.1503
+     Episode_Reward/motion_body_ang_vel: 0.0937
+          Episode_Reward/action_rate_l2: -0.4780
+             Episode_Reward/joint_limit: -0.0020
+         Episode_Reward/self_collisions: 0.0000
+Episode_Reward/action_target_reference_l2: -0.3736
+Episode_Reward/action_target_soft_limit_barrier: -0.0016
+                   Episode_Reward/alive: 1.1800
+ Episode_Reward/non_timeout_termination: 0.0000
+Episode_Reward/worst_ee_z_normalized_squared: -0.6207
+Episode_Reward/right_wrist_prethreshold_barrier: -0.4062
+        Metrics/motion/error_anchor_pos: 0.4222
+        Metrics/motion/error_anchor_rot: 0.1821
+    Metrics/motion/error_anchor_lin_vel: 0.5899
+    Metrics/motion/error_anchor_ang_vel: 2.3804
+          Metrics/motion/error_body_pos: 0.0908
+          Metrics/motion/error_body_rot: 0.3670
+         Metrics/motion/error_joint_pos: 1.2859
+         Metrics/motion/error_joint_vel: 12.6238
+        Metrics/motion/sampling_entropy: 1.0000
+      Metrics/motion/sampling_top1_prob: 0.0083
+       Metrics/motion/sampling_top1_bin: 0.5000
+      Metrics/motion/error_body_lin_vel: 0.7372
+      Metrics/motion/error_body_ang_vel: 3.7068
+           Episode_Termination/time_out: 0.5000
+         Episode_Termination/anchor_pos: 0.0000
+         Episode_Termination/anchor_ori: 0.0000
+        Episode_Termination/ee_body_pos: 0.0000
+Episode_Termination/corpus_clip_time_out: 0.5000
+--------------------------------------------------------------------------------
+                         Iteration time: 1.46s
+                           Time elapsed: 00:00:20
+                                    ETA: 00:01:06
+
+################################################################################
+[1m                            Learning iteration 12/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 13312 
+                       Steps per second: 707 
+                        Collection time: 0.938s 
+                          Learning time: 0.509s 
+                        Mean value loss: 65.6953
+                    Mean surrogate loss: -0.0006
+                      Mean entropy loss: 10.5205
+                            Mean reward: -29.34
+                    Mean episode length: 86.81
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.45s
+                           Time elapsed: 00:00:22
+                                    ETA: 00:01:03
+
+################################################################################
+[1m                            Learning iteration 13/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 14336 
+                       Steps per second: 608 
+                        Collection time: 0.959s 
+                          Learning time: 0.724s 
+                        Mean value loss: 83.0032
+                    Mean surrogate loss: -0.0008
+                      Mean entropy loss: 10.5205
+                            Mean reward: -30.27
+                    Mean episode length: 90.52
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.68s
+                           Time elapsed: 00:00:24
+                                    ETA: 00:01:02
+
+################################################################################
+[1m                            Learning iteration 14/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 15360 
+                       Steps per second: 498 
+                        Collection time: 1.128s 
+                          Learning time: 0.928s 
+                        Mean value loss: 0.2341
+                    Mean surrogate loss: -0.0009
+                      Mean entropy loss: 10.5205
+                            Mean reward: -27.59
+                    Mean episode length: 95.73
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 2.06s
+                           Time elapsed: 00:00:26
+                                    ETA: 00:01:01
+
+################################################################################
+[1m                            Learning iteration 15/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 16384 
+                       Steps per second: 525 
+                        Collection time: 1.386s 
+                          Learning time: 0.564s 
+                        Mean value loss: 116.9520
+                    Mean surrogate loss: -0.0009
+                      Mean entropy loss: 10.5205
+                            Mean reward: -28.05
+                    Mean episode length: 102.62
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.95s
+                           Time elapsed: 00:00:28
+                                    ETA: 00:00:59
+
+################################################################################
+[1m                            Learning iteration 16/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 17408 
+                       Steps per second: 585 
+                        Collection time: 1.092s 
+                          Learning time: 0.659s 
+                        Mean value loss: 171.8680
+                    Mean surrogate loss: -0.0012
+                      Mean entropy loss: 10.5205
+                            Mean reward: -28.88
+                    Mean episode length: 103.70
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.75s
+                           Time elapsed: 00:00:29
+                                    ETA: 00:00:57
+
+################################################################################
+[1m                            Learning iteration 17/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 18432 
+                       Steps per second: 703 
+                        Collection time: 0.932s 
+                          Learning time: 0.523s 
+                        Mean value loss: 81.4708
+                    Mean surrogate loss: -0.0005
+                      Mean entropy loss: 10.5205
+                            Mean reward: -28.94
+                    Mean episode length: 104.29
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.45s
+                           Time elapsed: 00:00:31
+                                    ETA: 00:00:55
+
+################################################################################
+[1m                            Learning iteration 18/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 19456 
+                       Steps per second: 558 
+                        Collection time: 1.162s 
+                          Learning time: 0.671s 
+                        Mean value loss: 265.8982
+                    Mean surrogate loss: -0.0009
+                      Mean entropy loss: 10.5205
+                            Mean reward: -31.44
+                    Mean episode length: 106.25
+                        Mean action std: 0.38
+  Episode_Reward/motion_global_root_pos: 0.0392
+  Episode_Reward/motion_global_root_ori: 0.0995
+         Episode_Reward/motion_body_pos: 0.2368
+         Episode_Reward/motion_body_ori: 0.0692
+     Episode_Reward/motion_body_lin_vel: 0.1138
+     Episode_Reward/motion_body_ang_vel: 0.0908
+          Episode_Reward/action_rate_l2: -0.6054
+             Episode_Reward/joint_limit: -0.0064
+         Episode_Reward/self_collisions: -0.0067
+Episode_Reward/action_target_reference_l2: -0.6701
+Episode_Reward/action_target_soft_limit_barrier: -0.0056
+                   Episode_Reward/alive: 1.3758
+ Episode_Reward/non_timeout_termination: -5.0000
+Episode_Reward/worst_ee_z_normalized_squared: -0.9036
+Episode_Reward/right_wrist_prethreshold_barrier: -0.2964
+        Metrics/motion/error_anchor_pos: 1.6604
+        Metrics/motion/error_anchor_rot: 0.3707
+    Metrics/motion/error_anchor_lin_vel: 0.8935
+    Metrics/motion/error_anchor_ang_vel: 2.5360
+          Metrics/motion/error_body_pos: 0.1391
+          Metrics/motion/error_body_rot: 0.5609
+         Metrics/motion/error_joint_pos: 1.7145
+         Metrics/motion/error_joint_vel: 12.1352
+        Metrics/motion/sampling_entropy: 1.0000
+      Metrics/motion/sampling_top1_prob: 0.0083
+       Metrics/motion/sampling_top1_bin: 0.5000
+      Metrics/motion/error_body_lin_vel: 1.1441
+      Metrics/motion/error_body_ang_vel: 3.6863
+           Episode_Termination/time_out: 0.0000
+         Episode_Termination/anchor_pos: 0.0000
+         Episode_Termination/anchor_ori: 0.0000
+        Episode_Termination/ee_body_pos: 0.6667
+Episode_Termination/corpus_clip_time_out: 0.5000
+--------------------------------------------------------------------------------
+                         Iteration time: 1.83s
+                           Time elapsed: 00:00:33
+                                    ETA: 00:00:54
+
+################################################################################
+[1m                            Learning iteration 19/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 20480 
+                       Steps per second: 523 
+                        Collection time: 1.299s 
+                          Learning time: 0.656s 
+                        Mean value loss: 0.9872
+                    Mean surrogate loss: -0.0007
+                      Mean entropy loss: 10.5205
+                            Mean reward: -29.14
+                    Mean episode length: 111.50
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.95s
+                           Time elapsed: 00:00:35
+                                    ETA: 00:00:52
+
+################################################################################
+[1m                            Learning iteration 20/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 21504 
+                       Steps per second: 646 
+                        Collection time: 1.074s 
+                          Learning time: 0.509s 
+                        Mean value loss: 1.1687
+                    Mean surrogate loss: -0.0007
+                      Mean entropy loss: 10.5205
+                            Mean reward: -28.60
+                    Mean episode length: 112.81
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.58s
+                           Time elapsed: 00:00:36
+                                    ETA: 00:00:50
+
+################################################################################
+[1m                            Learning iteration 21/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 22528 
+                       Steps per second: 679 
+                        Collection time: 0.920s 
+                          Learning time: 0.587s 
+                        Mean value loss: 110.5563
+                    Mean surrogate loss: -0.0007
+                      Mean entropy loss: 10.5205
+                            Mean reward: -30.34
+                    Mean episode length: 122.40
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.51s
+                           Time elapsed: 00:00:38
+                                    ETA: 00:00:48
+
+################################################################################
+[1m                            Learning iteration 22/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 23552 
+                       Steps per second: 731 
+                        Collection time: 0.887s 
+                          Learning time: 0.512s 
+                        Mean value loss: 19.9583
+                    Mean surrogate loss: -0.0009
+                      Mean entropy loss: 10.5205
+                            Mean reward: -29.03
+                    Mean episode length: 131.41
+                        Mean action std: 0.38
+  Episode_Reward/motion_global_root_pos: 0.0499
+  Episode_Reward/motion_global_root_ori: 0.1556
+         Episode_Reward/motion_body_pos: 0.3589
+         Episode_Reward/motion_body_ori: 0.1822
+     Episode_Reward/motion_body_lin_vel: 0.2343
+     Episode_Reward/motion_body_ang_vel: 0.1707
+          Episode_Reward/action_rate_l2: -0.8209
+             Episode_Reward/joint_limit: -0.0084
+         Episode_Reward/self_collisions: -0.0175
+Episode_Reward/action_target_reference_l2: -0.7621
+Episode_Reward/action_target_soft_limit_barrier: -0.0073
+                   Episode_Reward/alive: 1.9975
+ Episode_Reward/non_timeout_termination: -2.5000
+Episode_Reward/worst_ee_z_normalized_squared: -0.7466
+Episode_Reward/right_wrist_prethreshold_barrier: 0.0000
+        Metrics/motion/error_anchor_pos: 1.8976
+        Metrics/motion/error_anchor_rot: 0.3079
+    Metrics/motion/error_anchor_lin_vel: 0.9546
+    Metrics/motion/error_anchor_ang_vel: 2.5275
+          Metrics/motion/error_body_pos: 0.1347
+          Metrics/motion/error_body_rot: 0.4524
+         Metrics/motion/error_joint_pos: 1.4140
+         Metrics/motion/error_joint_vel: 11.0332
+        Metrics/motion/sampling_entropy: 1.0000
+      Metrics/motion/sampling_top1_prob: 0.0083
+       Metrics/motion/sampling_top1_bin: 0.5000
+      Metrics/motion/error_body_lin_vel: 1.0592
+      Metrics/motion/error_body_ang_vel: 3.2551
+           Episode_Termination/time_out: 0.2500
+         Episode_Termination/anchor_pos: 0.0000
+         Episode_Termination/anchor_ori: 0.0000
+        Episode_Termination/ee_body_pos: 0.5000
+Episode_Termination/corpus_clip_time_out: 0.5000
+--------------------------------------------------------------------------------
+                         Iteration time: 1.40s
+                           Time elapsed: 00:00:39
+                                    ETA: 00:00:46
+
+################################################################################
+[1m                            Learning iteration 23/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 24576 
+                       Steps per second: 628 
+                        Collection time: 1.069s 
+                          Learning time: 0.560s 
+                        Mean value loss: 108.3262
+                    Mean surrogate loss: -0.0012
+                      Mean entropy loss: 10.5205
+                            Mean reward: -29.26
+                    Mean episode length: 140.80
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.63s
+                           Time elapsed: 00:00:41
+                                    ETA: 00:00:44
+
+################################################################################
+[1m                            Learning iteration 24/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 25600 
+                       Steps per second: 728 
+                        Collection time: 0.887s 
+                          Learning time: 0.519s 
+                        Mean value loss: 23.4372
+                    Mean surrogate loss: -0.0009
+                      Mean entropy loss: 10.5205
+                            Mean reward: -30.42
+                    Mean episode length: 141.13
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.41s
+                           Time elapsed: 00:00:42
+                                    ETA: 00:00:42
+
+################################################################################
+[1m                            Learning iteration 25/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 26624 
+                       Steps per second: 638 
+                        Collection time: 1.084s 
+                          Learning time: 0.520s 
+                        Mean value loss: 230.1911
+                    Mean surrogate loss: -0.0007
+                      Mean entropy loss: 10.5205
+                            Mean reward: -33.47
+                    Mean episode length: 151.94
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.60s
+                           Time elapsed: 00:00:44
+                                    ETA: 00:00:40
+
+################################################################################
+[1m                            Learning iteration 26/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 27648 
+                       Steps per second: 703 
+                        Collection time: 0.902s 
+                          Learning time: 0.553s 
+                        Mean value loss: 57.0388
+                    Mean surrogate loss: -0.0010
+                      Mean entropy loss: 10.5205
+                            Mean reward: -30.76
+                    Mean episode length: 161.06
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.45s
+                           Time elapsed: 00:00:45
+                                    ETA: 00:00:38
+
+################################################################################
+[1m                            Learning iteration 27/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 28672 
+                       Steps per second: 232 
+                        Collection time: 0.918s 
+                          Learning time: 3.489s 
+                        Mean value loss: 66.9028
+                    Mean surrogate loss: -0.0008
+                      Mean entropy loss: 10.5205
+                            Mean reward: -31.86
+                    Mean episode length: 164.05
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 4.41s
+                           Time elapsed: 00:00:50
+                                    ETA: 00:00:39
+
+################################################################################
+[1m                            Learning iteration 28/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 29696 
+                       Steps per second: 703 
+                        Collection time: 0.931s 
+                          Learning time: 0.525s 
+                        Mean value loss: 45.2311
+                    Mean surrogate loss: -0.0013
+                      Mean entropy loss: 10.5205
+                            Mean reward: -31.64
+                    Mean episode length: 168.47
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.46s
+                           Time elapsed: 00:00:51
+                                    ETA: 00:00:37
+
+################################################################################
+[1m                            Learning iteration 29/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 30720 
+                       Steps per second: 697 
+                        Collection time: 0.906s 
+                          Learning time: 0.561s 
+                        Mean value loss: 73.4908
+                    Mean surrogate loss: -0.0009
+                      Mean entropy loss: 10.5205
+                            Mean reward: -30.59
+                    Mean episode length: 172.09
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.47s
+                           Time elapsed: 00:00:53
+                                    ETA: 00:00:35
+
+################################################################################
+[1m                            Learning iteration 30/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 31744 
+                       Steps per second: 694 
+                        Collection time: 0.951s 
+                          Learning time: 0.524s 
+                        Mean value loss: 233.2844
+                    Mean surrogate loss: -0.0009
+                      Mean entropy loss: 10.5205
+                            Mean reward: -31.87
+                    Mean episode length: 176.86
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.48s
+                           Time elapsed: 00:00:54
+                                    ETA: 00:00:33
+
+################################################################################
+[1m                            Learning iteration 31/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 32768 
+                       Steps per second: 697 
+                        Collection time: 0.888s 
+                          Learning time: 0.579s 
+                        Mean value loss: 54.7998
+                    Mean surrogate loss: -0.0008
+                      Mean entropy loss: 10.5205
+                            Mean reward: -32.95
+                    Mean episode length: 181.91
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.47s
+                           Time elapsed: 00:00:55
+                                    ETA: 00:00:31
+
+################################################################################
+[1m                            Learning iteration 32/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 33792 
+                       Steps per second: 684 
+                        Collection time: 0.963s 
+                          Learning time: 0.533s 
+                        Mean value loss: 84.2942
+                    Mean surrogate loss: -0.0007
+                      Mean entropy loss: 10.5205
+                            Mean reward: -36.02
+                    Mean episode length: 192.07
+                        Mean action std: 0.38
+  Episode_Reward/motion_global_root_pos: 0.0400
+  Episode_Reward/motion_global_root_ori: 0.2347
+         Episode_Reward/motion_body_pos: 0.5797
+         Episode_Reward/motion_body_ori: 0.1808
+     Episode_Reward/motion_body_lin_vel: 0.2279
+     Episode_Reward/motion_body_ang_vel: 0.1562
+          Episode_Reward/action_rate_l2: -1.6301
+             Episode_Reward/joint_limit: -0.0118
+         Episode_Reward/self_collisions: -0.0880
+Episode_Reward/action_target_reference_l2: -1.5754
+Episode_Reward/action_target_soft_limit_barrier: -0.0131
+                   Episode_Reward/alive: 3.3730
+ Episode_Reward/non_timeout_termination: -3.0000
+Episode_Reward/worst_ee_z_normalized_squared: -1.9585
+Episode_Reward/right_wrist_prethreshold_barrier: -0.7999
+        Metrics/motion/error_anchor_pos: 4.0989
+        Metrics/motion/error_anchor_rot: 0.2820
+    Metrics/motion/error_anchor_lin_vel: 1.0346
+    Metrics/motion/error_anchor_ang_vel: 2.2093
+          Metrics/motion/error_body_pos: 0.1354
+          Metrics/motion/error_body_rot: 0.5582
+         Metrics/motion/error_joint_pos: 2.0618
+         Metrics/motion/error_joint_vel: 13.6723
+        Metrics/motion/sampling_entropy: 1.0000
+      Metrics/motion/sampling_top1_prob: 0.0083
+       Metrics/motion/sampling_top1_bin: 0.5000
+      Metrics/motion/error_body_lin_vel: 1.1744
+      Metrics/motion/error_body_ang_vel: 3.9713
+           Episode_Termination/time_out: 0.2000
+         Episode_Termination/anchor_pos: 0.0000
+         Episode_Termination/anchor_ori: 0.0000
+        Episode_Termination/ee_body_pos: 0.4000
+Episode_Termination/corpus_clip_time_out: 0.6000
+--------------------------------------------------------------------------------
+                         Iteration time: 1.50s
+                           Time elapsed: 00:00:57
+                                    ETA: 00:00:29
+
+################################################################################
+[1m                            Learning iteration 33/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 34816 
+                       Steps per second: 679 
+                        Collection time: 0.988s 
+                          Learning time: 0.519s 
+                        Mean value loss: 50.7115
+                    Mean surrogate loss: -0.0006
+                      Mean entropy loss: 10.5205
+                            Mean reward: -35.54
+                    Mean episode length: 194.11
+                        Mean action std: 0.38
+  Episode_Reward/motion_global_root_pos: 0.0410
+  Episode_Reward/motion_global_root_ori: 0.1317
+         Episode_Reward/motion_body_pos: 0.3323
+         Episode_Reward/motion_body_ori: 0.1189
+     Episode_Reward/motion_body_lin_vel: 0.2070
+     Episode_Reward/motion_body_ang_vel: 0.1351
+          Episode_Reward/action_rate_l2: -0.8620
+             Episode_Reward/joint_limit: -0.0035
+         Episode_Reward/self_collisions: 0.0000
+Episode_Reward/action_target_reference_l2: -0.8849
+Episode_Reward/action_target_soft_limit_barrier: -0.0042
+                   Episode_Reward/alive: 1.8560
+ Episode_Reward/non_timeout_termination: -2.0000
+Episode_Reward/worst_ee_z_normalized_squared: -0.4366
+Episode_Reward/right_wrist_prethreshold_barrier: -0.5227
+        Metrics/motion/error_anchor_pos: 1.4293
+        Metrics/motion/error_anchor_rot: 0.2417
+    Metrics/motion/error_anchor_lin_vel: 0.5040
+    Metrics/motion/error_anchor_ang_vel: 2.6021
+          Metrics/motion/error_body_pos: 0.0951
+          Metrics/motion/error_body_rot: 0.3942
+         Metrics/motion/error_joint_pos: 1.4781
+         Metrics/motion/error_joint_vel: 11.8573
+        Metrics/motion/sampling_entropy: 1.0000
+      Metrics/motion/sampling_top1_prob: 0.0083
+       Metrics/motion/sampling_top1_bin: 0.5000
+      Metrics/motion/error_body_lin_vel: 0.6875
+      Metrics/motion/error_body_ang_vel: 3.4984
+           Episode_Termination/time_out: 0.0000
+         Episode_Termination/anchor_pos: 0.0000
+         Episode_Termination/anchor_ori: 0.0000
+        Episode_Termination/ee_body_pos: 0.2000
+Episode_Termination/corpus_clip_time_out: 0.8000
+--------------------------------------------------------------------------------
+                         Iteration time: 1.51s
+                           Time elapsed: 00:00:58
+                                    ETA: 00:00:27
+
+################################################################################
+[1m                            Learning iteration 34/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 35840 
+                       Steps per second: 731 
+                        Collection time: 0.884s 
+                          Learning time: 0.516s 
+                        Mean value loss: 1.3340
+                    Mean surrogate loss: -0.0005
+                      Mean entropy loss: 10.5205
+                            Mean reward: -35.60
+                    Mean episode length: 193.67
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.40s
+                           Time elapsed: 00:01:00
+                                    ETA: 00:00:25
+
+################################################################################
+[1m                            Learning iteration 35/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 36864 
+                       Steps per second: 612 
+                        Collection time: 1.162s 
+                          Learning time: 0.508s 
+                        Mean value loss: 0.2198
+                    Mean surrogate loss: -0.0013
+                      Mean entropy loss: 10.5205
+                            Mean reward: -34.57
+                    Mean episode length: 202.12
+                        Mean action std: 0.38
+  Episode_Reward/motion_global_root_pos: 0.0309
+  Episode_Reward/motion_global_root_ori: 0.2700
+         Episode_Reward/motion_body_pos: 0.6313
+         Episode_Reward/motion_body_ori: 0.3236
+     Episode_Reward/motion_body_lin_vel: 0.3381
+     Episode_Reward/motion_body_ang_vel: 0.2214
+          Episode_Reward/action_rate_l2: -1.6487
+             Episode_Reward/joint_limit: -0.0016
+         Episode_Reward/self_collisions: -0.0367
+Episode_Reward/action_target_reference_l2: -1.3759
+Episode_Reward/action_target_soft_limit_barrier: -0.0119
+                   Episode_Reward/alive: 3.5650
+ Episode_Reward/non_timeout_termination: 0.0000
+Episode_Reward/worst_ee_z_normalized_squared: -1.5599
+Episode_Reward/right_wrist_prethreshold_barrier: -1.1768
+        Metrics/motion/error_anchor_pos: 3.4917
+        Metrics/motion/error_anchor_rot: 0.1660
+    Metrics/motion/error_anchor_lin_vel: 0.6362
+    Metrics/motion/error_anchor_ang_vel: 2.1253
+          Metrics/motion/error_body_pos: 0.0803
+          Metrics/motion/error_body_rot: 0.3632
+         Metrics/motion/error_joint_pos: 1.4952
+         Metrics/motion/error_joint_vel: 11.7146
+        Metrics/motion/sampling_entropy: 1.0000
+      Metrics/motion/sampling_top1_prob: 0.0083
+       Metrics/motion/sampling_top1_bin: 0.5000
+      Metrics/motion/error_body_lin_vel: 0.8738
+      Metrics/motion/error_body_ang_vel: 3.9085
+           Episode_Termination/time_out: 0.6667
+         Episode_Termination/anchor_pos: 0.0000
+         Episode_Termination/anchor_ori: 0.0000
+        Episode_Termination/ee_body_pos: 0.0000
+Episode_Termination/corpus_clip_time_out: 0.6667
+--------------------------------------------------------------------------------
+                         Iteration time: 1.67s
+                           Time elapsed: 00:01:02
+                                    ETA: 00:00:24
+
+################################################################################
+[1m                            Learning iteration 36/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 37888 
+                       Steps per second: 687 
+                        Collection time: 0.956s 
+                          Learning time: 0.534s 
+                        Mean value loss: 0.3020
+                    Mean surrogate loss: -0.0008
+                      Mean entropy loss: 10.5205
+                            Mean reward: -31.81
+                    Mean episode length: 211.64
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.49s
+                           Time elapsed: 00:01:03
+                                    ETA: 00:00:22
+
+################################################################################
+[1m                            Learning iteration 37/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 38912 
+                       Steps per second: 734 
+                        Collection time: 0.844s 
+                          Learning time: 0.550s 
+                        Mean value loss: 91.0356
+                    Mean surrogate loss: -0.0008
+                      Mean entropy loss: 10.5205
+                            Mean reward: -33.30
+                    Mean episode length: 210.37
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.39s
+                           Time elapsed: 00:01:04
+                                    ETA: 00:00:20
+
+################################################################################
+[1m                            Learning iteration 38/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 39936 
+                       Steps per second: 712 
+                        Collection time: 0.885s 
+                          Learning time: 0.553s 
+                        Mean value loss: 71.9432
+                    Mean surrogate loss: -0.0007
+                      Mean entropy loss: 10.5205
+                            Mean reward: -33.54
+                    Mean episode length: 212.93
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.44s
+                           Time elapsed: 00:01:06
+                                    ETA: 00:00:18
+
+################################################################################
+[1m                            Learning iteration 39/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 40960 
+                       Steps per second: 703 
+                        Collection time: 0.932s 
+                          Learning time: 0.523s 
+                        Mean value loss: 69.4554
+                    Mean surrogate loss: -0.0006
+                      Mean entropy loss: 10.5205
+                            Mean reward: -32.66
+                    Mean episode length: 216.41
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.46s
+                           Time elapsed: 00:01:07
+                                    ETA: 00:00:16
+
+################################################################################
+[1m                            Learning iteration 40/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 41984 
+                       Steps per second: 700 
+                        Collection time: 0.956s 
+                          Learning time: 0.506s 
+                        Mean value loss: 10.3343
+                    Mean surrogate loss: -0.0005
+                      Mean entropy loss: 10.5205
+                            Mean reward: -34.07
+                    Mean episode length: 218.33
+                        Mean action std: 0.38
+  Episode_Reward/motion_global_root_pos: 0.0452
+  Episode_Reward/motion_global_root_ori: 0.1321
+         Episode_Reward/motion_body_pos: 0.3041
+         Episode_Reward/motion_body_ori: 0.1033
+     Episode_Reward/motion_body_lin_vel: 0.1436
+     Episode_Reward/motion_body_ang_vel: 0.1377
+          Episode_Reward/action_rate_l2: -0.7056
+             Episode_Reward/joint_limit: -0.0223
+         Episode_Reward/self_collisions: -0.0300
+Episode_Reward/action_target_reference_l2: -0.7340
+Episode_Reward/action_target_soft_limit_barrier: -0.0091
+                   Episode_Reward/alive: 1.7375
+ Episode_Reward/non_timeout_termination: -2.5000
+Episode_Reward/worst_ee_z_normalized_squared: -1.0158
+Episode_Reward/right_wrist_prethreshold_barrier: -0.0141
+        Metrics/motion/error_anchor_pos: 2.6266
+        Metrics/motion/error_anchor_rot: 0.3015
+    Metrics/motion/error_anchor_lin_vel: 0.8614
+    Metrics/motion/error_anchor_ang_vel: 2.0333
+          Metrics/motion/error_body_pos: 0.1296
+          Metrics/motion/error_body_rot: 0.4848
+         Metrics/motion/error_joint_pos: 1.4782
+         Metrics/motion/error_joint_vel: 13.0226
+        Metrics/motion/sampling_entropy: 1.0000
+      Metrics/motion/sampling_top1_prob: 0.0083
+       Metrics/motion/sampling_top1_bin: 0.5000
+      Metrics/motion/error_body_lin_vel: 1.1345
+      Metrics/motion/error_body_ang_vel: 3.1926
+           Episode_Termination/time_out: 0.0000
+         Episode_Termination/anchor_pos: 0.0000
+         Episode_Termination/anchor_ori: 0.0000
+        Episode_Termination/ee_body_pos: 0.2500
+Episode_Termination/corpus_clip_time_out: 0.7500
+--------------------------------------------------------------------------------
+                         Iteration time: 1.46s
+                           Time elapsed: 00:01:09
+                                    ETA: 00:00:15
+
+################################################################################
+[1m                            Learning iteration 41/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 43008 
+                       Steps per second: 731 
+                        Collection time: 0.900s 
+                          Learning time: 0.499s 
+                        Mean value loss: 74.1211
+                    Mean surrogate loss: -0.0006
+                      Mean entropy loss: 10.5205
+                            Mean reward: -32.81
+                    Mean episode length: 226.63
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.40s
+                           Time elapsed: 00:01:10
+                                    ETA: 00:00:13
+
+################################################################################
+[1m                            Learning iteration 42/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 44032 
+                       Steps per second: 704 
+                        Collection time: 0.881s 
+                          Learning time: 0.574s 
+                        Mean value loss: 0.3348
+                    Mean surrogate loss: -0.0011
+                      Mean entropy loss: 10.5205
+                            Mean reward: -30.23
+                    Mean episode length: 234.85
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.45s
+                           Time elapsed: 00:01:12
+                                    ETA: 00:00:11
+
+################################################################################
+[1m                            Learning iteration 43/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 45056 
+                       Steps per second: 729 
+                        Collection time: 0.873s 
+                          Learning time: 0.531s 
+                        Mean value loss: 0.7263
+                    Mean surrogate loss: -0.0007
+                      Mean entropy loss: 10.5205
+                            Mean reward: -28.04
+                    Mean episode length: 234.91
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.40s
+                           Time elapsed: 00:01:13
+                                    ETA: 00:00:10
+
+################################################################################
+[1m                            Learning iteration 44/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 46080 
+                       Steps per second: 709 
+                        Collection time: 0.889s 
+                          Learning time: 0.555s 
+                        Mean value loss: 10.2209
+                    Mean surrogate loss: -0.0003
+                      Mean entropy loss: 10.5205
+                            Mean reward: -28.03
+                    Mean episode length: 237.05
+                        Mean action std: 0.38
+  Episode_Reward/motion_global_root_pos: 0.0353
+  Episode_Reward/motion_global_root_ori: 0.2457
+         Episode_Reward/motion_body_pos: 0.5589
+         Episode_Reward/motion_body_ori: 0.2719
+     Episode_Reward/motion_body_lin_vel: 0.2855
+     Episode_Reward/motion_body_ang_vel: 0.2028
+          Episode_Reward/action_rate_l2: -1.5376
+             Episode_Reward/joint_limit: -0.0211
+         Episode_Reward/self_collisions: 0.0000
+Episode_Reward/action_target_reference_l2: -1.1637
+Episode_Reward/action_target_soft_limit_barrier: -0.0132
+                   Episode_Reward/alive: 3.2200
+ Episode_Reward/non_timeout_termination: -2.5000
+Episode_Reward/worst_ee_z_normalized_squared: -1.6570
+Episode_Reward/right_wrist_prethreshold_barrier: -0.0585
+        Metrics/motion/error_anchor_pos: 3.4380
+        Metrics/motion/error_anchor_rot: 0.2491
+    Metrics/motion/error_anchor_lin_vel: 0.9166
+    Metrics/motion/error_anchor_ang_vel: 2.3943
+          Metrics/motion/error_body_pos: 0.1413
+          Metrics/motion/error_body_rot: 0.4578
+         Metrics/motion/error_joint_pos: 1.4724
+         Metrics/motion/error_joint_vel: 13.8120
+        Metrics/motion/sampling_entropy: 1.0000
+      Metrics/motion/sampling_top1_prob: 0.0083
+       Metrics/motion/sampling_top1_bin: 0.5000
+      Metrics/motion/error_body_lin_vel: 1.1694
+      Metrics/motion/error_body_ang_vel: 4.1069
+           Episode_Termination/time_out: 0.0000
+         Episode_Termination/anchor_pos: 0.0000
+         Episode_Termination/anchor_ori: 0.0000
+        Episode_Termination/ee_body_pos: 0.2500
+Episode_Termination/corpus_clip_time_out: 0.7500
+--------------------------------------------------------------------------------
+                         Iteration time: 1.44s
+                           Time elapsed: 00:01:14
+                                    ETA: 00:00:08
+
+################################################################################
+[1m                            Learning iteration 45/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 47104 
+                       Steps per second: 675 
+                        Collection time: 0.975s 
+                          Learning time: 0.541s 
+                        Mean value loss: 18.7627
+                    Mean surrogate loss: -0.0003
+                      Mean entropy loss: 10.5205
+                            Mean reward: -27.46
+                    Mean episode length: 243.50
+                        Mean action std: 0.38
+  Episode_Reward/motion_global_root_pos: 0.0736
+  Episode_Reward/motion_global_root_ori: 0.2430
+         Episode_Reward/motion_body_pos: 0.5687
+         Episode_Reward/motion_body_ori: 0.2733
+     Episode_Reward/motion_body_lin_vel: 0.3684
+     Episode_Reward/motion_body_ang_vel: 0.2903
+          Episode_Reward/action_rate_l2: -1.0836
+             Episode_Reward/joint_limit: -0.0249
+         Episode_Reward/self_collisions: -0.0050
+Episode_Reward/action_target_reference_l2: -1.0678
+Episode_Reward/action_target_soft_limit_barrier: -0.0103
+                   Episode_Reward/alive: 3.1100
+ Episode_Reward/non_timeout_termination: -2.5000
+Episode_Reward/worst_ee_z_normalized_squared: -1.6207
+Episode_Reward/right_wrist_prethreshold_barrier: 0.0000
+        Metrics/motion/error_anchor_pos: 3.0529
+        Metrics/motion/error_anchor_rot: 0.3127
+    Metrics/motion/error_anchor_lin_vel: 1.0111
+    Metrics/motion/error_anchor_ang_vel: 1.7169
+          Metrics/motion/error_body_pos: 0.1033
+          Metrics/motion/error_body_rot: 0.4178
+         Metrics/motion/error_joint_pos: 1.3467
+         Metrics/motion/error_joint_vel: 10.4001
+        Metrics/motion/sampling_entropy: 1.0000
+      Metrics/motion/sampling_top1_prob: 0.0083
+       Metrics/motion/sampling_top1_bin: 0.5000
+      Metrics/motion/error_body_lin_vel: 1.0273
+      Metrics/motion/error_body_ang_vel: 2.7866
+           Episode_Termination/time_out: 0.5000
+         Episode_Termination/anchor_pos: 0.0000
+         Episode_Termination/anchor_ori: 0.0000
+        Episode_Termination/ee_body_pos: 0.2500
+Episode_Termination/corpus_clip_time_out: 0.5000
+--------------------------------------------------------------------------------
+                         Iteration time: 1.52s
+                           Time elapsed: 00:01:16
+                                    ETA: 00:00:06
+
+################################################################################
+[1m                            Learning iteration 46/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 48128 
+                       Steps per second: 229 
+                        Collection time: 0.925s 
+                          Learning time: 3.541s 
+                        Mean value loss: 56.3836
+                    Mean surrogate loss: -0.0007
+                      Mean entropy loss: 10.5205
+                            Mean reward: -27.87
+                    Mean episode length: 243.65
+                        Mean action std: 0.38
+  Episode_Reward/motion_global_root_pos: 0.0504
+  Episode_Reward/motion_global_root_ori: 0.1457
+         Episode_Reward/motion_body_pos: 0.3390
+         Episode_Reward/motion_body_ori: 0.1289
+     Episode_Reward/motion_body_lin_vel: 0.1843
+     Episode_Reward/motion_body_ang_vel: 0.1423
+          Episode_Reward/action_rate_l2: -0.7696
+             Episode_Reward/joint_limit: -0.0089
+         Episode_Reward/self_collisions: -0.0367
+Episode_Reward/action_target_reference_l2: -0.8733
+Episode_Reward/action_target_soft_limit_barrier: -0.0061
+                   Episode_Reward/alive: 1.9200
+ Episode_Reward/non_timeout_termination: -1.6667
+Episode_Reward/worst_ee_z_normalized_squared: -0.9522
+Episode_Reward/right_wrist_prethreshold_barrier: -0.0000
+        Metrics/motion/error_anchor_pos: 2.0400
+        Metrics/motion/error_anchor_rot: 0.1671
+    Metrics/motion/error_anchor_lin_vel: 0.8945
+    Metrics/motion/error_anchor_ang_vel: 1.7470
+          Metrics/motion/error_body_pos: 0.1127
+          Metrics/motion/error_body_rot: 0.4182
+         Metrics/motion/error_joint_pos: 1.5708
+         Metrics/motion/error_joint_vel: 11.7977
+        Metrics/motion/sampling_entropy: 1.0000
+      Metrics/motion/sampling_top1_prob: 0.0083
+       Metrics/motion/sampling_top1_bin: 0.5000
+      Metrics/motion/error_body_lin_vel: 0.9693
+      Metrics/motion/error_body_ang_vel: 3.6853
+           Episode_Termination/time_out: 0.3333
+         Episode_Termination/anchor_pos: 0.0000
+         Episode_Termination/anchor_ori: 0.0000
+        Episode_Termination/ee_body_pos: 0.3333
+Episode_Termination/corpus_clip_time_out: 0.6667
+--------------------------------------------------------------------------------
+                         Iteration time: 4.47s
+                           Time elapsed: 00:01:20
+                                    ETA: 00:00:05
+
+################################################################################
+[1m                            Learning iteration 47/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 49152 
+                       Steps per second: 656 
+                        Collection time: 1.053s 
+                          Learning time: 0.506s 
+                        Mean value loss: 35.2941
+                    Mean surrogate loss: -0.0002
+                      Mean entropy loss: 10.5205
+                            Mean reward: -27.05
+                    Mean episode length: 241.18
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.56s
+                           Time elapsed: 00:01:22
+                                    ETA: 00:00:03
+
+################################################################################
+[1m                            Learning iteration 48/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 50176 
+                       Steps per second: 651 
+                        Collection time: 1.012s 
+                          Learning time: 0.561s 
+                        Mean value loss: 67.1795
+                    Mean surrogate loss: -0.0007
+                      Mean entropy loss: 10.5205
+                            Mean reward: -25.63
+                    Mean episode length: 241.03
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.57s
+                           Time elapsed: 00:01:24
+                                    ETA: 00:00:01
+
+################################################################################
+[1m                            Learning iteration 49/50                            [0m 
+
+                               Run name: polish
+                            Total steps: 51200 
+                       Steps per second: 700 
+                        Collection time: 0.885s 
+                          Learning time: 0.577s 
+                        Mean value loss: 68.0568
+                    Mean surrogate loss: -0.0007
+                      Mean entropy loss: 10.5205
+                            Mean reward: -26.05
+                    Mean episode length: 244.83
+                        Mean action std: 0.38
+--------------------------------------------------------------------------------
+                         Iteration time: 1.46s
+                           Time elapsed: 00:01:25
+                                    ETA: 00:00:00
+
+/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original_sonic_happy_rehearsal_low_lr_seed20260818_v1

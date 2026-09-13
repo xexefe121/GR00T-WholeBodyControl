@@ -1,0 +1,270 @@
+{
+  "kind": "hypothetical_source_missing_axis_linear_dynamics_calibration_v1",
+  "trained_transitions": 6529,
+  "regularization": 0.001,
+  "internal_spectral_radius": 0.9226326467982745,
+  "stable_internal_recurrence": true,
+  "missing_il29_indices": [
+    5,
+    8,
+    25,
+    26,
+    27,
+    28
+  ],
+  "feature_order": [
+    "internal_q6_dq6",
+    "current_raw29",
+    "retained_q23_dq23_gyro3_gravity3"
+  ],
+  "results": {
+    "pico_fit": {
+      "samples": 6530,
+      "optimizer_excluded": false,
+      "initialized_with_true_missing_state": false,
+      "internal_state_resets": 0,
+      "finite": true,
+      "source_controller_report": {
+        "kind": "normal29_upstream_action_pico_v1",
+        "actual_joint_range_excess_max_rad": 0.016843945624530177,
+        "deployment_ready": false
+      },
+      "missing_position_rmse_rad": 0.03620262181654474,
+      "zero_fill_position_rmse_rad": 0.20341699767525626,
+      "missing_velocity_rmse_rad_s": 0.17956046321876745,
+      "zero_fill_velocity_rmse_rad_s": 0.32007269960068424,
+      "decoder_comparison": {
+        "zero_fill": {
+          "source_affine_retained_target_difference_rms_rad": 0.06205281822561494,
+          "source_affine_leg_target_difference_rms_rad": 0.04800581786664619,
+          "maximum_retained_raw_magnitude": 4.438687324523926,
+          "counterfactual_only_not_actual_tracking": true
+        },
+        "actions_only": {
+          "source_affine_retained_target_difference_rms_rad": 0.061499538431168864,
+          "source_affine_leg_target_difference_rms_rad": 0.038562792210126325,
+          "maximum_retained_raw_magnitude": 4.115403652191162,
+          "counterfactual_only_not_actual_tracking": true
+        },
+        "predicted_state_and_commands": {
+          "source_affine_retained_target_difference_rms_rad": 0.03689462244354199,
+          "source_affine_leg_target_difference_rms_rad": 0.0294512714842683,
+          "maximum_retained_raw_magnitude": 3.995164394378662,
+          "counterfactual_only_not_actual_tracking": true
+        }
+      }
+    },
+    "walk002": {
+      "samples": 1417,
+      "optimizer_excluded": true,
+      "initialized_with_true_missing_state": false,
+      "internal_state_resets": 0,
+      "finite": true,
+      "source_controller_report": {
+        "kind": "original29_normal_teleop_full_reference_trial_v1",
+        "actual_joint_range_excess_max_rad": null,
+        "deployment_ready": false
+      },
+      "missing_position_rmse_rad": 0.053764050316298155,
+      "zero_fill_position_rmse_rad": 0.10179554543377826,
+      "missing_velocity_rmse_rad_s": 0.2831968610925197,
+      "zero_fill_velocity_rmse_rad_s": 0.15230755541597849,
+      "decoder_comparison": {
+        "zero_fill": {
+          "source_affine_retained_target_difference_rms_rad": 0.021501707464182424,
+          "source_affine_leg_target_difference_rms_rad": 0.02097351962109134,
+          "maximum_retained_raw_magnitude": 3.5627286434173584,
+          "counterfactual_only_not_actual_tracking": true
+        },
+        "actions_only": {
+          "source_affine_retained_target_difference_rms_rad": 0.034512847203814166,
+          "source_affine_leg_target_difference_rms_rad": 0.01617876089220815,
+          "maximum_retained_raw_magnitude": 3.8388657569885254,
+          "counterfactual_only_not_actual_tracking": true
+        },
+        "predicted_state_and_commands": {
+          "source_affine_retained_target_difference_rms_rad": 0.04245319105661471,
+          "source_affine_leg_target_difference_rms_rad": 0.04674671236735072,
+          "maximum_retained_raw_magnitude": 3.4354403018951416,
+          "counterfactual_only_not_actual_tracking": true
+        }
+      }
+    },
+    "walk003": {
+      "samples": 1569,
+      "optimizer_excluded": true,
+      "initialized_with_true_missing_state": false,
+      "internal_state_resets": 0,
+      "finite": true,
+      "source_controller_report": {
+        "kind": "original29_normal_teleop_full_reference_trial_v1",
+        "actual_joint_range_excess_max_rad": null,
+        "deployment_ready": false
+      },
+      "missing_position_rmse_rad": 0.05221504248450823,
+      "zero_fill_position_rmse_rad": 0.10263654752251979,
+      "missing_velocity_rmse_rad_s": 0.2822611417960583,
+      "zero_fill_velocity_rmse_rad_s": 0.19621091802380172,
+      "decoder_comparison": {
+        "zero_fill": {
+          "source_affine_retained_target_difference_rms_rad": 0.028682370271275334,
+          "source_affine_leg_target_difference_rms_rad": 0.03034139451660711,
+          "maximum_retained_raw_magnitude": 3.7201690673828125,
+          "counterfactual_only_not_actual_tracking": true
+        },
+        "actions_only": {
+          "source_affine_retained_target_difference_rms_rad": 0.036881965676069446,
+          "source_affine_leg_target_difference_rms_rad": 0.023567515977858305,
+          "maximum_retained_raw_magnitude": 4.000722885131836,
+          "counterfactual_only_not_actual_tracking": true
+        },
+        "predicted_state_and_commands": {
+          "source_affine_retained_target_difference_rms_rad": 0.04768890746990994,
+          "source_affine_leg_target_difference_rms_rad": 0.05094366597657379,
+          "maximum_retained_raw_magnitude": 3.939575672149658,
+          "counterfactual_only_not_actual_tracking": true
+        }
+      }
+    },
+    "walk008": {
+      "samples": 1114,
+      "optimizer_excluded": true,
+      "initialized_with_true_missing_state": false,
+      "internal_state_resets": 0,
+      "finite": true,
+      "source_controller_report": {
+        "kind": "original29_normal_teleop_full_reference_trial_v1",
+        "actual_joint_range_excess_max_rad": null,
+        "deployment_ready": false
+      },
+      "missing_position_rmse_rad": 0.055609716716536764,
+      "zero_fill_position_rmse_rad": 0.12242940530727216,
+      "missing_velocity_rmse_rad_s": 0.28415998195523995,
+      "zero_fill_velocity_rmse_rad_s": 0.23187069157843668,
+      "decoder_comparison": {
+        "zero_fill": {
+          "source_affine_retained_target_difference_rms_rad": 0.03587235997331399,
+          "source_affine_leg_target_difference_rms_rad": 0.03440133988888356,
+          "maximum_retained_raw_magnitude": 4.613971710205078,
+          "counterfactual_only_not_actual_tracking": true
+        },
+        "actions_only": {
+          "source_affine_retained_target_difference_rms_rad": 0.04052049076109866,
+          "source_affine_leg_target_difference_rms_rad": 0.018330760389031406,
+          "maximum_retained_raw_magnitude": 4.785223007202148,
+          "counterfactual_only_not_actual_tracking": true
+        },
+        "predicted_state_and_commands": {
+          "source_affine_retained_target_difference_rms_rad": 0.08407173258298467,
+          "source_affine_leg_target_difference_rms_rad": 0.04874056688960872,
+          "maximum_retained_raw_magnitude": 5.708242416381836,
+          "counterfactual_only_not_actual_tracking": true
+        }
+      }
+    }
+  },
+  "development_checks": {
+    "pico_fit": true,
+    "walk002": false,
+    "walk003": false,
+    "walk008": false
+  },
+  "guarded_native23_experiment_justified": false,
+  "frozen_source_identity": {
+    "kind": "pinned_original29_normal_teleop_inference_v1",
+    "controller_semantics": "neural_state_feedback_29dof_normal_teleop_policy",
+    "checkpoint_sha256": "e6bdab3f64a39336b3d41877d4f497d05f58af275f288ec0e6746c283ded8909",
+    "inference_state_sha256": "76ac2ec675d05218deaaf0112cbe9a9e8455a5cec87a03727c8ade13a6e79a6e",
+    "source_revision": null,
+    "reference_profile": "true23_step5_0p1s",
+    "semantic_input_dim": 267,
+    "proprio_input_dim": 930,
+    "token_dim": 64,
+    "encoder_dims": [
+      267,
+      2048,
+      1024,
+      512,
+      512,
+      64
+    ],
+    "decoder_dims": [
+      994,
+      2048,
+      2048,
+      1024,
+      1024,
+      512,
+      512,
+      29
+    ],
+    "quantizer": "fsq_tanh_round_even_levels_32_v1",
+    "activation": "SiLU",
+    "action_joint_names": [
+      "left_hip_pitch_joint",
+      "right_hip_pitch_joint",
+      "waist_yaw_joint",
+      "left_hip_roll_joint",
+      "right_hip_roll_joint",
+      "waist_roll_joint",
+      "left_hip_yaw_joint",
+      "right_hip_yaw_joint",
+      "waist_pitch_joint",
+      "left_knee_joint",
+      "right_knee_joint",
+      "left_shoulder_pitch_joint",
+      "right_shoulder_pitch_joint",
+      "left_ankle_pitch_joint",
+      "right_ankle_pitch_joint",
+      "left_shoulder_roll_joint",
+      "right_shoulder_roll_joint",
+      "left_ankle_roll_joint",
+      "right_ankle_roll_joint",
+      "left_shoulder_yaw_joint",
+      "right_shoulder_yaw_joint",
+      "left_elbow_joint",
+      "right_elbow_joint",
+      "left_wrist_roll_joint",
+      "right_wrist_roll_joint",
+      "left_wrist_pitch_joint",
+      "right_wrist_pitch_joint",
+      "left_wrist_yaw_joint",
+      "right_wrist_yaw_joint"
+    ],
+    "output_space": "canonical_il29_action",
+    "action_distribution": "deterministic_mean",
+    "dtype": "float32",
+    "device": "cpu",
+    "torch_version": "2.9.0+cu128",
+    "retained_action_rows": 29,
+    "missing_joint_zero_mask_applied": false,
+    "training_updates": 0,
+    "root_feedback_head": false,
+    "hardware_authorized": false,
+    "deployment_ready": false
+  },
+  "inputs": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_virtual_state_20260910_v1/calibrate.py": "517c2da851acfb46dc696acdc54dfae63e0a3da7b7d5db3e4f2d98492b4f00f7",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_virtual_state_20260910_v1/EXPERIMENT.md": "e0f303d1218997b0c725f5f613463c6a585ba2b0549ba647c84aafb3830a7ec4",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/normal29_upstream_action_v1/actual_v1/frozen29_2ms/pico/report.json": "a61155b9784d852e1abacfe7c31361c640cd378d17e1bca311d1d3cfbde91ed4",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/normal29_upstream_action_v1/actual_v1/frozen29_2ms/pico/trace.npz": "ecb6ed507a42ea278475c9d7d31b0f69d52acc6313e43230314d08263abc4ae6",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/original29_normal_v1/actual_v1/walk002/report.json": "b1456bbe63f3ee9473f034437e70d0ae7c1542306522682158957724ddf680be",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/original29_normal_v1/actual_v1/walk002/trace.npz": "2268fdfd4fc52d3ffe516556db5f28f7e80e18696ca446ed1427fc3a672ae46a",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/original29_normal_v1/actual_v1/walk003/report.json": "eb0eced7023b9a84be279a8996b57020c2f420e048eab517eecd1eda4d175288",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/original29_normal_v1/actual_v1/walk003/trace.npz": "1ac8d2a6a8ad5db324ce8d7353a041fd1fd7dd02779db94570201561ccf2b4af",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/original29_normal_v1/actual_v1/walk008/report.json": "8f30893e82692175598c3b57bd7f5660d81ed9ee5dde21e3eac80dcf7ac00d33",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/original29_normal_v1/actual_v1/walk008/trace.npz": "02bc48938542176ee2fe3dac2afbe648d3feca6226fa34a185d73ee2ce001d50",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_virtual_state_20260910_v1/calibration_v1/model.npz": "2dfb4bf288ae80158e509b1a0c112ec19afb9a3c59c11e94afb25a88131a7248",
+    "/mnt/z/codex/GR00T-WholeBodyControl/sonic_release/last.pt": "e6bdab3f64a39336b3d41877d4f497d05f58af275f288ec0e6746c283ded8909",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_virtual_state_20260910_v1/calibration_v1/pico_fit.npz": "c5ee65818725907cc4651b8853a6cf21a8f2a0b93d84d00022d73b6c0fb1340e",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_virtual_state_20260910_v1/calibration_v1/walk002.npz": "72fcb9d0e17cb2bc75dad27c2dd2e59fab090ecbd10e93a8d40290e83a3e5e9d",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_virtual_state_20260910_v1/calibration_v1/walk003.npz": "3d6e46618d2c301cc48c14a1e593c1020c565ebca18a51bd2c0b74209418f7a5",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_virtual_state_20260910_v1/calibration_v1/walk008.npz": "56dcd7e0ea02a195a9484abf9bd34062b4609d490b170cd5a26481af42513d05"
+  },
+  "source_dynamics_fit_not_tracking_policy_training": true,
+  "source_actions_drive_predictions_during_this_open_loop_test": true,
+  "new_simulation_steps": 0,
+  "physical_23_dof_trial_performed": false,
+  "hardware_authorized": false,
+  "deployment_ready": false
+}

@@ -1,0 +1,100 @@
+{
+  "contract": {
+    "kind": "g1_true23_floor_corrected_reset_curriculum_v1",
+    "warmup_controls": 8,
+    "ramp_end_controls": 16,
+    "initial_scale": 0.0,
+    "final_scale": 1.0,
+    "schedule": "linear_in_actual_environment_common_step_counter",
+    "changed_reset_terms": [
+      "pose_range",
+      "velocity_range",
+      "joint_position_range"
+    ],
+    "floor_clearance_m": 1e-05,
+    "maximum_reset_lift_m": 0.2,
+    "floor_correction_all_stages": true,
+    "preserve_reference_clips_and_sampling": true,
+    "preserve_action_and_sensor_noise": true,
+    "preserve_motor_limits_and_gains": true,
+    "physics_steps_added_during_reset": 0,
+    "self_collision_freedom_proven": false,
+    "dynamic_equilibrium_proven": false,
+    "physical_reachability_proven": false,
+    "hardware_authorized": false,
+    "deployment_ready": false
+  },
+  "actor_initialization": {
+    "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/ieee_motion_ppo_20260906_v2/breadth_serial/checkpoints/frozen_lora_model_100.pt",
+    "sha256": "f20f82385dd7c652a7a74b6103a4753f0317b6fb10055452862d647e7dc14de5",
+    "prior_lineage_sha256": "919d8cbae058c2dbd866d89c47454878cfcbc6cdeb70282eb54b6cdc6384b3f6",
+    "prior_update_count": 100,
+    "adapter_state_sha256": "1caefbc84496fc278089ff1fa7e3005e350d60611a3f1d52b002b19f9c0e52d1",
+    "merged_policy_sha256": "dd6e7ceaa29a42f86462a46ff68ecaaaafe88f2328193c3a0ef0f91ce2abfe3c",
+    "critic_reused": false,
+    "optimizer_reused": false,
+    "prior_updates_counted_as_new": false,
+    "source_candidate_qualified": false,
+    "hardware_authorized": false,
+    "deployment_ready": false
+  },
+  "new_update_count": 0,
+  "actual_environment_control": 0,
+  "summary": {
+    "events": 1,
+    "reset_rows": 4,
+    "lifted_rows": 1,
+    "maximum_lift_m": 3.409385681152344e-05,
+    "minimum_scale": 0.0,
+    "maximum_scale": 0.0,
+    "final_event_control": 0,
+    "full_disturbance_reset_rows": 0,
+    "remaining_detected_floor_penetrations": 0,
+    "physics_steps_added_during_reset": 0,
+    "hardware_authorized": false,
+    "deployment_ready": false
+  },
+  "events": [
+    {
+      "control": 0,
+      "scale": 0.0,
+      "env_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "source_phases": [
+        3282,
+        5458,
+        4433,
+        5410
+      ],
+      "root_lifts_m": [
+        0.0,
+        3.409385681152344e-05,
+        0.0,
+        0.0
+      ],
+      "minimum_floor_distances_before_m": [
+        null,
+        -2.4107526460497367e-05,
+        null,
+        null
+      ],
+      "minimum_floor_distances_after_m": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "qpos_before_sha256": "b48eb38a49806f2743300bb81050a8ece215d63fc6a592342461c8a001ff6010",
+      "qpos_after_sha256": "d3a18601cd7ed7ef455ad712a8713dbf18e4d1279c63589f197f0039d70cd4a5",
+      "qvel_before_and_after_sha256": "8e08f3c81a465097e76156e76d528d4456208509b957933c0e7fe5be8dc243af",
+      "expected_positions_and_unchanged_velocities_verified": true
+    }
+  ],
+  "action_std_unchanged": true,
+  "hardware_authorized": false,
+  "deployment_ready": false
+}

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Keep LF line endings: WSL Bash must not receive a carriage return in pipefail.
 set -euo pipefail
 
 service_dir=/opt/apps/roboticsservice

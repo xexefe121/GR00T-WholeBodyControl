@@ -1,0 +1,99 @@
+{
+  "cases": [
+    {
+      "clip": "walk003",
+      "actor": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\causal_dynamics_v1\\direct_body_smoke_v1\\actor_00004.onnx",
+      "requested_controls": 3069,
+      "completed_controls": 3069,
+      "physical_complete": true,
+      "source": {
+        "passed": false,
+        "source_controls": 819,
+        "requested_source_controls": 819,
+        "root_p95_m": 1.7999707666917633,
+        "yaw_p95_deg": 57.242780015903044,
+        "hand_head_relative_p95_m": [
+          0.36816306057286446,
+          0.38864698523673646,
+          0.12400399031720044
+        ],
+        "foot_relative_p95_m": [
+          0.40112916640873,
+          0.32125439697703745
+        ],
+        "leg_rmse_rad": 0.3027382571860306
+      },
+      "main_quiet": {
+        "passed": true,
+        "values": {
+          "xy_p95": 0.04621787302256823,
+          "yaw_p95_deg": 3.2397365537598937,
+          "root_speed_p95": 0.002621854181888344,
+          "joint_speed_p95": 0.01797168588664068,
+          "joint_speed_max": 0.01875369371750995,
+          "tilt_max": 0.04599553725940161
+        },
+        "limits": {
+          "xy_p95": 0.05,
+          "yaw_p95_deg": 5,
+          "root_speed_p95": 0.05,
+          "joint_speed_p95": 0.5,
+          "joint_speed_max": 2,
+          "tilt_max": 0.15
+        }
+      },
+      "hold_quiet": {
+        "passed": true,
+        "values": {
+          "xy_p95": 0.03175120707656666,
+          "yaw_p95_deg": 0.32452844397971325,
+          "root_speed_p95": 0.00033667066599529875,
+          "joint_speed_p95": 0.0015779988430408586,
+          "joint_speed_max": 0.0015848388758809295,
+          "tilt_max": 0.05095557887767995
+        },
+        "limits": {
+          "xy_p95": 0.05,
+          "yaw_p95_deg": 5,
+          "root_speed_p95": 0.05,
+          "joint_speed_p95": 0.5,
+          "joint_speed_max": 2,
+          "tilt_max": 0.15
+        }
+      },
+      "failure": null,
+      "passed": false,
+      "elapsed_s": 50.625,
+      "physics_steps": 30690,
+      "maximum_speed_ratio": 0.5632405845111335,
+      "policy_ms_p50_p95_max": [
+        13.899300000048243,
+        16.31707999331411,
+        25.42890000040643
+      ],
+      "packet_report": {
+        "epoch": 0,
+        "received": 1580,
+        "consumed": 1580,
+        "ignored": 0,
+        "rejected": 0,
+        "final_received": true,
+        "full_source_consumed": true,
+        "fault": null,
+        "calibration": null
+      },
+      "future_reference_frames": 0,
+      "prepared_feedback_gains": false,
+      "initial_root_x_velocity_offset": 0.0,
+      "independent_realtime": false,
+      "hardware_authorized": false,
+      "controller_variant": "causal_full_range_actor",
+      "fault_control": null,
+      "fault_quiet": null,
+      "fault_scenario_passed": false
+    }
+  ],
+  "scenario": "nominal",
+  "passed": false,
+  "general_live_teleop_qualified": false
+}

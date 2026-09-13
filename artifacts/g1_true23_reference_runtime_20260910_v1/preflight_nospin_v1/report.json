@@ -1,0 +1,87 @@
+{
+  "kind": "native23_nonspinning_full_equality_preflight_v1",
+  "passed": true,
+  "network_samples_exact": 656,
+  "source_controls": 656,
+  "balance_controls": 250,
+  "full_native_physics_control_states_exact": {
+    "qpos": true,
+    "qvel": true,
+    "simulation_time": true
+  },
+  "actual_physics_substeps": 9060,
+  "identity": {
+    "diagnostic_pair": {
+      "kind": "g1_true23_diagnostic_pair_provenance_v1",
+      "validated": true,
+      "encoder": {
+        "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/paired_encoder_20260905_v2/original_breadth25/model_25.diagnostic.encoder.onnx",
+        "sha256": "3806b2b63ebadf4d6cbf9f79b7072f2bf27ab8eb8bc6a9b3042f97739cc5428a",
+        "report_path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/paired_encoder_20260905_v2/original_breadth25/model_25.diagnostic.encoder.json",
+        "report_sha256": "c38bb793284b2c05623b259a3781902fc66885da1098388a74634b4898440634"
+      },
+      "decoder": {
+        "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/paired_encoder_20260905_v2/original_breadth25/model_25.diagnostic.decoder.onnx",
+        "sha256": "f4416889023eb629656fa189649d8cd071cdc3ae61fc1bfd888d07815d21bdc8",
+        "report_path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/paired_encoder_20260905_v2/original_breadth25/model_25.diagnostic.decoder.json",
+        "report_sha256": "e4b10011d8e9cead9264ae1b23a0f439d41c572d0a06f78c8785183cba2ee80d"
+      },
+      "paired_encoder_state_sha256": "3625edb10aabd266196702aefd464ad07c93847f2d1722a977e18ef2a0143990",
+      "encoder_contract": {
+        "input_shape": [
+          1,
+          267
+        ],
+        "output_shape": [
+          1,
+          64
+        ],
+        "dtype": "float32",
+        "fsq_level": 32,
+        "fsq_formula": "fsq_tanh_round_ste_even_levels_v1"
+      },
+      "source": {
+        "adapter_state_sha256": "72af9514750d1a2cb76a710e29f24f071e36cd062beee1daac6e24015fcc8652",
+        "filename": "model_25.diagnostic.pt",
+        "policy_state_sha256": "e194a3ac0fc110d06897b940c5e910d20caf292977d24a510c2622de9af62604",
+        "sha256": "033d5b3218506081d6390ba7f0b430e0e72b269b80e72cc51b9306d160926fae",
+        "update_count": 25
+      },
+      "hardware_authorized": false,
+      "deployment_ready": false,
+      "scope": "same_checkpoint_export_provenance_and_model_bytes_not_new_numerical_or_physical_qualification"
+    },
+    "original_native23_v14_diagnostic": false,
+    "legacy_unpaired_diagnostic": false,
+    "encoder_sha256": "3806b2b63ebadf4d6cbf9f79b7072f2bf27ab8eb8bc6a9b3042f97739cc5428a",
+    "decoder_sha256": "f4416889023eb629656fa189649d8cd071cdc3ae61fc1bfd888d07815d21bdc8",
+    "decoder_report": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/paired_encoder_20260905_v2/original_breadth25/model_25.diagnostic.decoder.json",
+    "decoder_report_sha256": "e4b10011d8e9cead9264ae1b23a0f439d41c572d0a06f78c8785183cba2ee80d",
+    "checkpoint_update_count": 25,
+    "residual_alpha": null,
+    "cpu_pacing": {
+      "worker_spinning": false,
+      "all_three_sessions_configured": true,
+      "thread_count_and_graph_options": "unchanged_ORT_defaults",
+      "inference_warmup_added": false,
+      "source_or_physics_changed": false,
+      "hard_realtime_proven": false,
+      "deployment_ready": false,
+      "hardware_authorized": false
+    }
+  },
+  "inference_was_warmed_by_parity_check_in_this_virtual_test_only": true,
+  "no_runtime_warmup_claim": true,
+  "deployment_ready": false,
+  "tracking_improved": false,
+  "hardware_authorized": false,
+  "trace_sha256": "3d25985aba27ab3019828c1d5faf4819693e46525e967e4e7c4d8ef8fc505357",
+  "sources": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_reference_runtime_20260910_v1/preflight_nospin.py": "75bd3484dbf8efd6d283048b585d6fb5561c7f37d5fc9bdc2b452604dbc1bb7b",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/walk002/causal_packets.json": "a6fdd99a5ab924204d469751bb6aaebf38c19d7b7428366b09a406d88fc000c1",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_reference_runtime_20260910_v1/actual_v1/end-of-stream-2/trace.npz": "4c692a6e8a9ed629e812e2916c247877d2da6bdf8ce080d08e1ebc7031b335f6",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_vr_paced_20260910_v1/profile_measured_inputs.npz": "f1611e17cfc4710996989d9e9694a95bea33d9036b8f1e55ab6c70213f664b84",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_reference_runtime_20260910_v1/NONSPIN_PLAN.md": "71fd56651c04b2c925d8dc25850fc14a8510883551dd315c43eb5a08e29e9582",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/teleop/cpu_paced_inference.py": "de35f82c3ba75e1b843be0fb42e35ed1f7b3e31099730bcbf4e6e2d1b7c00913"
+  }
+}

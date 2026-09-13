@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "actual_training_states": 16,
+  "cpu_goal_max_abs_error": 4.76837158203125e-07,
+  "neural_calls": 160,
+  "neural_only_ms_p50_p95_max": [
+    0.2140809992852155,
+    0.2696389976335921,
+    0.4913929988106247
+  ],
+  "source_hashes": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_compact_tracker_20260910_v1/audit_replay_boundary.py": "6136d7833c7f827c9dbd362430ac9af2b440944b32f78495c54f0355580654c3"
+  },
+  "checkpoint": {
+    "kind": "compact_native23_cpu_referee_v1",
+    "checkpoint_sha256": "c6cf33c0e115ff09c5e8eec6d0a957db7f3129abd15de75927d8f0a05fe82779",
+    "completed_training_updates": 2,
+    "actor_contract": {
+      "kind": "native23_explicit_goal_residual165_v1",
+      "input_dim": 165,
+      "goal_dim": 90,
+      "proprioception_dim": 75,
+      "output_dim": 23,
+      "current_proprioception": "latest_frame_of_existing_term_major_history930",
+      "goal_order": [
+        "hardware_q23",
+        "hardware_dq23",
+        "root9",
+        "root_rotation6",
+        "original29_vr21",
+        "feet_error_current_pelvis6",
+        "root_heights2"
+      ],
+      "source_target": "received_q1; adjacent_q1_minus_q0_velocity",
+      "source_timing_unchanged": true,
+      "source_motion_is_sonic_compatible": true,
+      "actor_is_frozen_sonic": false,
+      "ground_truth_root_is_sim_only": true,
+      "deployment_ready": false,
+      "hardware_authorized": false
+    },
+    "frozen_sonic_policy_parity_claimed": false,
+    "deployment_ready": false,
+    "hardware_authorized": false
+  },
+  "deployment_ready": false,
+  "hardware_authorized": false
+}

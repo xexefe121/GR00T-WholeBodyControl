@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "source_only": true,
+  "preparation_sha256": "4c0b40ae3decb12af8165b52fdbfb578d3edc946b2d286cc3112fc7fb2d6af19",
+  "source_sha256": {
+    "test_reentrant_probe.py": "fb877d78222a472605671ec36b0dd75027a3f1b523ebcae3032d1f738df8f62e",
+    "test_timing_probe.py": "7b51a30f05d9426decf965c534acccc36a9f12e099523902d7722eb45ec35fe4",
+    "timing_probe.py": "a41ef15e1e47afc5d6fb3c0ab27a203208b1c66c10559a1ae8792e6e0dbe57f4"
+  },
+  "independent_synthetic_tests": 31,
+  "tests_sha256": "6ad116be305ec0217b9a7acca5e59500c58aac42d21ecf654feb0d7292da3bbf",
+  "writer_sha256": "553c0a682d0a2a125e6e9393f9d101efae2e24e3de6a57cbf67218b881a28d9a",
+  "reviewed": [
+    "Preallocated bounded span/GC tables and no overwrite after capacity failure",
+    "Known return flag precedes end clocks; original exception preservation remains integration responsibility",
+    "Local wall brackets and paired same-thread spans permit valid nested GC and foreign-thread overlap",
+    "Prior global per-read monotonic thresholds removed; backward local/paired/root clocks still rejected",
+    "Foreign-thread inside_probe must be interpreted as overlap, not proof of same-thread interruption"
+  ],
+  "actual_probe_clock_calls": 0,
+  "actual_gc_callbacks_installed": 0,
+  "native_steps": 0,
+  "model_calls": 0,
+  "runtime_integration_reviewed": false,
+  "actual_clock_selected": false,
+  "overhead_measured": false,
+  "component_qualified": false
+}

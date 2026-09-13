@@ -1,0 +1,44 @@
+{
+  "kind": "independent_read_only_final_canonical_prepared_packet_gate_review",
+  "verdict": "CLEAR_STANDALONE_CANONICAL_FLOAT64_GATE_ONLY",
+  "resolved_findings": [
+    "Mutable/boolean clock metadata rejected. Accepted source timestamp stored as immutable float. Reviewer independently reproduced rejection of previous ndarray witness.",
+    "All payload fields explicitly require canonicalfloat64; unsupportedfloat32 is rejected instead of silently changing frozen derivative arithmetic. No mixed-dtype window promotion remains in admitted schema.",
+    "Oversized Python-int receive/consume clocks now latch input fault instead of raising uncaught OverflowError. Reviewer independently verified both cases."
+  ],
+  "gate_source_sha256": "06498d7cb96dfdfa9fefc7423496fe7496059d6299eba4b193f2530b0c116016",
+  "tests_sha256": "a3344a3501e86c3317b8bf7528ed69c04f8af95971ba3b17df729bb75dda53f2",
+  "recorded_parity_report_sha256": "07815cc3969a56022ed407b51f4795b0602b8127afa1f2b2df60a35428813192",
+  "recorded_parity_hashes_independently_verified": 12,
+  "recorded_parity": {
+    "packets": 1580,
+    "consumed_windows": 1580,
+    "referenced_window_samples": 59337,
+    "stored_feature_rows": 2537,
+    "feature_components": 1069,
+    "all_features_bitexact": true,
+    "both_native_banks_and_original_tasks_bitexact": true
+  },
+  "producer_checks": {
+    "packet_tests_passed": 28,
+    "ruff_clean": true,
+    "source": "Parent-reported final test results; reviewer inspected test additions and ran focused pure arithmetic counterexamples."
+  },
+  "reviewed_properties": [
+    "Original-native BFM bank, retargeted-native bank and original29 tasks are validated as one packet before admission.",
+    "Canonical payload arrays are bytes-backed and immutable, mappings protected, received window tuples retain immutable packets.",
+    "Strict epoch/FIFO sequence/source50Hz/delivery-age and monotonic receive clocks; invalid admission clears buffered use and latches until explicit rearm.",
+    "True prior original-task sample accompanies local window, preserving backward task finite differences. Only explicitEOF permits short windows and existing GoalFeatures index clipping.",
+    "Recorded parity script uses frozen labels/nativebanks/tasks and saved qpos/qvel/prior/base, with all inspected hashes current; it does not execute actor or physics.",
+    "Repository references are restricted to tests and standalone audit; no controller or transport connection introduced."
+  ],
+  "scope_limits": [
+    "Canonicalfloat64 already-prepared samples only; raw retargeting and raw-pose derivative support unqualified.",
+    "Source clock and delivery admission are checked;50Hz consumption pacing and live deadline behavior remain unqualified. EOF parity drains at one timestamp intentionally.",
+    "Saved BFM base and observed state are reused in feature comparison; base-actor inference and full live feature generation are not tested.",
+    "No standing/rearm physical behavior, feedback controller, full teleoperation, transport or hardware qualification."
+  ],
+  "reviewer_policy_inference_calls": 0,
+  "reviewer_optimizer_calls": 0,
+  "reviewer_physics_steps": 0
+}

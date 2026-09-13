@@ -1,0 +1,345 @@
+{
+  "cases": [
+    {
+      "clip": "walk003",
+      "actor": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\causal_dynamics_v1\\pilot_direct_body_v1\\actor_00196.onnx",
+      "requested_controls": 3069,
+      "completed_controls": 3069,
+      "physical_complete": true,
+      "source": {
+        "passed": false,
+        "source_controls": 819,
+        "requested_source_controls": 819,
+        "root_p95_m": 2.159341114650927,
+        "yaw_p95_deg": 71.33478615650974,
+        "hand_head_relative_p95_m": [
+          0.44192829632415903,
+          0.3761512917067824,
+          0.13034809213786638
+        ],
+        "foot_relative_p95_m": [
+          0.49303259680335765,
+          0.4146377897931357
+        ],
+        "leg_rmse_rad": 0.3674389673388671
+      },
+      "main_quiet": {
+        "passed": false,
+        "values": {
+          "xy_p95": 0.035248123691715184,
+          "yaw_p95_deg": 2.4895339173475133,
+          "root_speed_p95": 0.08951430634933942,
+          "joint_speed_p95": 0.6262521475698347,
+          "joint_speed_max": 1.9024065672389239,
+          "tilt_max": 0.07963473778467363
+        },
+        "limits": {
+          "xy_p95": 0.05,
+          "yaw_p95_deg": 5,
+          "root_speed_p95": 0.05,
+          "joint_speed_p95": 0.5,
+          "joint_speed_max": 2,
+          "tilt_max": 0.15
+        }
+      },
+      "hold_quiet": {
+        "passed": true,
+        "values": {
+          "xy_p95": 0.034909003097232466,
+          "yaw_p95_deg": 0.7955930413239586,
+          "root_speed_p95": 0.001821507990028004,
+          "joint_speed_p95": 0.004059672790241856,
+          "joint_speed_max": 0.0040819820953243565,
+          "tilt_max": 0.07101707588818904
+        },
+        "limits": {
+          "xy_p95": 0.05,
+          "yaw_p95_deg": 5,
+          "root_speed_p95": 0.05,
+          "joint_speed_p95": 0.5,
+          "joint_speed_max": 2,
+          "tilt_max": 0.15
+        }
+      },
+      "failure": null,
+      "passed": false,
+      "elapsed_s": 41.625,
+      "physics_steps": 30690,
+      "maximum_speed_ratio": 0.5313492696945996,
+      "policy_ms_p50_p95_max": [
+        10.65490000473801,
+        13.918160001048818,
+        27.684200002113357
+      ],
+      "packet_report": {
+        "epoch": 0,
+        "received": 1580,
+        "consumed": 1580,
+        "ignored": 0,
+        "rejected": 0,
+        "final_received": true,
+        "full_source_consumed": true,
+        "fault": null,
+        "calibration": null
+      },
+      "future_reference_frames": 0,
+      "prepared_feedback_gains": false,
+      "initial_root_x_velocity_offset": 0.0,
+      "independent_realtime": false,
+      "hardware_authorized": false,
+      "controller_variant": "causal_full_range_actor",
+      "fault_control": null,
+      "fault_quiet": null,
+      "fault_scenario_passed": false
+    },
+    {
+      "clip": "walk002",
+      "actor": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\causal_dynamics_v1\\pilot_direct_body_v1\\actor_00196.onnx",
+      "requested_controls": 2917,
+      "completed_controls": 1788,
+      "physical_complete": false,
+      "source": {
+        "passed": false,
+        "source_controls": 667,
+        "requested_source_controls": 667,
+        "root_p95_m": 1.1635854566899004,
+        "yaw_p95_deg": 41.66792146813658,
+        "hand_head_relative_p95_m": [
+          0.2913726188812486,
+          0.3276812553515249,
+          0.04690898398266075
+        ],
+        "foot_relative_p95_m": [
+          0.3738620232937443,
+          0.3003078155707824
+        ],
+        "leg_rmse_rad": 0.3212896478614025
+      },
+      "main_quiet": {
+        "passed": false,
+        "values": {
+          "xy_p95": 0.03683686643409777,
+          "yaw_p95_deg": 8.48997727333032,
+          "root_speed_p95": 0.002812474086980194,
+          "joint_speed_p95": 0.015195816958412985,
+          "joint_speed_max": 0.01705018583063851,
+          "tilt_max": 0.07336536399556581
+        },
+        "limits": {
+          "xy_p95": 0.05,
+          "yaw_p95_deg": 5,
+          "root_speed_p95": 0.05,
+          "joint_speed_p95": 0.5,
+          "joint_speed_max": 2,
+          "tilt_max": 0.15
+        }
+      },
+      "hold_quiet": null,
+      "failure": {
+        "kind": "physics",
+        "control": 1788,
+        "substep": 5,
+        "time": 35.76999999999775,
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "speed_ratio": 0.08484833264196892,
+        "range_excess": 0.00029587044945966756,
+        "effort_ratio": 1.0,
+        "tilt": 0.1210531250445352
+      },
+      "passed": false,
+      "elapsed_s": 22.01600000000326,
+      "physics_steps": 17885,
+      "maximum_speed_ratio": 0.37859943649355327,
+      "policy_ms_p50_p95_max": [
+        9.805599998799153,
+        11.91930000495631,
+        17.564399997354485
+      ],
+      "packet_report": {
+        "epoch": 0,
+        "received": 1428,
+        "consumed": 1428,
+        "ignored": 0,
+        "rejected": 0,
+        "final_received": true,
+        "full_source_consumed": true,
+        "fault": null,
+        "calibration": null
+      },
+      "future_reference_frames": 0,
+      "prepared_feedback_gains": false,
+      "initial_root_x_velocity_offset": 0.0,
+      "independent_realtime": false,
+      "hardware_authorized": false,
+      "controller_variant": "causal_full_range_actor",
+      "fault_control": null,
+      "fault_quiet": null,
+      "fault_scenario_passed": false
+    },
+    {
+      "clip": "pico",
+      "actor": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\causal_dynamics_v1\\pilot_direct_body_v1\\actor_00196.onnx",
+      "requested_controls": 8030,
+      "completed_controls": 8030,
+      "physical_complete": true,
+      "source": {
+        "passed": false,
+        "source_controls": 5780,
+        "requested_source_controls": 5780,
+        "root_p95_m": 0.3381130332562849,
+        "yaw_p95_deg": 64.7661362175384,
+        "hand_head_relative_p95_m": [
+          0.38897716148347106,
+          0.5896169946384097,
+          0.09842264793460528
+        ],
+        "foot_relative_p95_m": [
+          0.2794441409800551,
+          0.261752504416915
+        ],
+        "leg_rmse_rad": 0.21924495161202961
+      },
+      "main_quiet": {
+        "passed": true,
+        "values": {
+          "xy_p95": 0.007940682202419641,
+          "yaw_p95_deg": 4.385421560030238,
+          "root_speed_p95": 0.001245492177715758,
+          "joint_speed_p95": 0.002686010981989218,
+          "joint_speed_max": 0.0027331751725805987,
+          "tilt_max": 0.029384912801078168
+        },
+        "limits": {
+          "xy_p95": 0.05,
+          "yaw_p95_deg": 5,
+          "root_speed_p95": 0.05,
+          "joint_speed_p95": 0.5,
+          "joint_speed_max": 2,
+          "tilt_max": 0.15
+        }
+      },
+      "hold_quiet": {
+        "passed": true,
+        "values": {
+          "xy_p95": 0.015157346157420374,
+          "yaw_p95_deg": 4.182535479762313,
+          "root_speed_p95": 7.41483003781559e-05,
+          "joint_speed_p95": 0.0002839975259053278,
+          "joint_speed_max": 0.0002867935037155058,
+          "tilt_max": 0.03681973102402119
+        },
+        "limits": {
+          "xy_p95": 0.05,
+          "yaw_p95_deg": 5,
+          "root_speed_p95": 0.05,
+          "joint_speed_p95": 0.5,
+          "joint_speed_max": 2,
+          "tilt_max": 0.15
+        }
+      },
+      "failure": null,
+      "passed": false,
+      "elapsed_s": 104.5789999999979,
+      "physics_steps": 80300,
+      "maximum_speed_ratio": 0.5259912010948872,
+      "policy_ms_p50_p95_max": [
+        10.209699990809895,
+        13.48631999862846,
+        35.516799995093606
+      ],
+      "packet_report": {
+        "epoch": 0,
+        "received": 6541,
+        "consumed": 6541,
+        "ignored": 0,
+        "rejected": 0,
+        "final_received": true,
+        "full_source_consumed": true,
+        "fault": null,
+        "calibration": null
+      },
+      "future_reference_frames": 0,
+      "prepared_feedback_gains": false,
+      "initial_root_x_velocity_offset": 0.0,
+      "independent_realtime": false,
+      "hardware_authorized": false,
+      "controller_variant": "causal_full_range_actor",
+      "fault_control": null,
+      "fault_quiet": null,
+      "fault_scenario_passed": false
+    },
+    {
+      "clip": "walk008",
+      "actor": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\causal_dynamics_v1\\pilot_direct_body_v1\\actor_00196.onnx",
+      "requested_controls": 2614,
+      "completed_controls": 603,
+      "physical_complete": false,
+      "source": {
+        "passed": false,
+        "source_controls": 253,
+        "requested_source_controls": 364,
+        "root_p95_m": 1.626540002183439,
+        "yaw_p95_deg": 13.580747143900053,
+        "hand_head_relative_p95_m": [
+          0.5482309171155416,
+          0.6353200858296585,
+          0.06987441506835092
+        ],
+        "foot_relative_p95_m": [
+          0.37954619474096724,
+          0.2902476173514184
+        ],
+        "leg_rmse_rad": 0.37961207274588366
+      },
+      "main_quiet": null,
+      "hold_quiet": null,
+      "failure": {
+        "kind": "physics",
+        "control": 603,
+        "substep": 5,
+        "time": 12.0700000000007,
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "speed_ratio": 0.17158294387675904,
+        "range_excess": 0.0010085024079798388,
+        "effort_ratio": 0.7523477290760415,
+        "tilt": 0.21837707872313084
+      },
+      "passed": false,
+      "elapsed_s": 7.719000000011874,
+      "physics_steps": 6035,
+      "maximum_speed_ratio": 0.3619648789550554,
+      "policy_ms_p50_p95_max": [
+        10.398250000434928,
+        12.894354989839485,
+        16.936500003794208
+      ],
+      "packet_report": {
+        "epoch": 0,
+        "received": 615,
+        "consumed": 615,
+        "ignored": 0,
+        "rejected": 0,
+        "final_received": false,
+        "full_source_consumed": false,
+        "fault": null,
+        "calibration": null
+      },
+      "future_reference_frames": 0,
+      "prepared_feedback_gains": false,
+      "initial_root_x_velocity_offset": 0.0,
+      "independent_realtime": false,
+      "hardware_authorized": false,
+      "controller_variant": "causal_full_range_actor",
+      "fault_control": null,
+      "fault_quiet": null,
+      "fault_scenario_passed": false
+    }
+  ],
+  "scenario": "nominal",
+  "passed": false,
+  "general_live_teleop_qualified": false
+}

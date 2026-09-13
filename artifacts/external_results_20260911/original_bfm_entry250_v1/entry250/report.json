@@ -1,0 +1,133 @@
+{
+  "kind": "original_BFM_canonical_initial_entry250",
+  "requested_controls": 250,
+  "completed_full_controls": 250,
+  "attempted_controls": 250,
+  "physics_steps": 2500,
+  "failure": null,
+  "full_segment_completed": true,
+  "native2ms_strict_pass": true,
+  "original_zero100_prefix_parity": {
+    "controls": 100,
+    "physics_steps": 1000,
+    "all1001physics_states_bitexact": true,
+    "all1000command_torques_bitexact": true,
+    "all101control_boundary_states_bitexact": true,
+    "state_max_abs_difference": 0.0,
+    "torque_max_abs_difference": 0.0,
+    "passed": true,
+    "comparison_only_no_state_or_target_injection": true,
+    "reference_trace_sha256": "d712ca94652976ee0e6f51be61135568d30827129b0ff76ac9c2301be26fc087"
+  },
+  "quiet_standing_diagnostic": {
+    "quiet_standing_diagnostic_pass": true,
+    "gates": {
+      "all_prior_strict_physical_and_warning_gates": true,
+      "full_three_second_window": true,
+      "original_root_XY": true,
+      "original_heading": true,
+      "root_linear_speed": true,
+      "joint_speed_p95": true,
+      "joint_speed_maximum": true,
+      "maximum_tilt": true
+    },
+    "thresholds": {
+      "window_seconds": 3,
+      "root_XY_error_p95_m": 0.05,
+      "original_heading_abs_p95_deg": 5.0,
+      "root_linear_speed_p95_mps": 0.05,
+      "max_joint_speed_p95_radps": 0.5,
+      "max_joint_speed_max_radps": 2.0,
+      "tilt_max_rad": 0.15
+    },
+    "raw_last_three_second_distributions": {
+      "physics_samples": 1500,
+      "interval_seconds": [
+        2.0000000000000013,
+        4.999999999999671
+      ],
+      "declared_v4_root_error_m": {
+        "p50": 0.04702248110120984,
+        "p95": 0.04720610717937666,
+        "maximum": 0.0472186376689463
+      },
+      "original_BFM_root_error_m": {
+        "p50": 0.01888225003786427,
+        "p95": 0.019034289018062266,
+        "maximum": 0.01904777950278922
+      },
+      "horizontal_root_error_m": {
+        "p50": 0.01016968833905589,
+        "p95": 0.010456040349048248,
+        "maximum": 0.010531240797229224
+      },
+      "original_heading_absolute_error_deg": {
+        "p50": 2.9374085250326285,
+        "p95": 3.2067807992838695,
+        "maximum": 3.2216833628097987
+      },
+      "root_tilt_rad": {
+        "p50": 0.06778493513210249,
+        "p95": 0.06818441536307884,
+        "maximum": 0.06825303376281111
+      },
+      "horizontal_displacement_from_window_start_m": 0.0011207672560591972,
+      "maximum_absolute_joint_speed_radps": {
+        "p50": 0.005376508464936928,
+        "p95": 0.010842608803575892,
+        "maximum": 0.016617700228169472
+      },
+      "joint_speed_rms_radps": 0.0021071297613032727,
+      "root_linear_speed_mps": {
+        "p50": 0.00043688549458584204,
+        "p95": 0.0006213437338491398,
+        "maximum": 0.002104561330407892
+      },
+      "final_maximum_joint_speed_radps": 0.016617700228169472,
+      "final_declared_v4_root_error_m": 0.04716924655870119,
+      "final_original_BFM_root_error_m": 0.019006603951457767
+    },
+    "existing_fifteen_source_gates_changed": false,
+    "hardware_certification": false
+  },
+  "range_excess_max": 0.0,
+  "velocity_ratio_max": 0.16843708061219,
+  "effort_ratio_max": 0.8415986635012588,
+  "independent_accumulated_clock_max_error": 0.0,
+  "engine_warning_counts": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "engine_warning_lastinfo": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "policy_ms_p50_p95_max": [
+    9.082379500114257,
+    11.309595699935926,
+    12.25895000015953
+  ],
+  "policy_20ms_deadline_misses": 0,
+  "simulation_start_time": 0.0,
+  "simulation_end_time": 4.999999999999671,
+  "elapsed_seconds": 3.332133564999822,
+  "source_controls": 0,
+  "source_acquisition_or_switch_tested": false,
+  "learned_head_inference_calls": 0,
+  "full_body_teleoperation_qualified": false,
+  "hardware_authorized": false,
+  "trace_sha256": "8a2013cee1112aedc9a9e290382a7c7801d1c8c49f0e1bd0d978619873de8b41",
+  "request_sha256": "e71a246f21d2fec8d3d83cb8202c3601fae8789f9667244ec592a73c96b557b7"
+}

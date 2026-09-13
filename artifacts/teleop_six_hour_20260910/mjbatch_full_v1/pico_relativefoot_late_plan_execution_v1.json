@@ -1,0 +1,244 @@
+{
+  "kind": "committed_nominal_vs_actual_pre_action_state_audit",
+  "trace_sha256": "4dee31b1aa998e336d16ecdb4903c4ed47eb3511752c0620c46c6675a61d3824",
+  "request_sha256": "9acfe049dce84a4d29f07f680f1fe69007b8aceb639a7ce7d95f4928c637ac0e",
+  "plans_sha256": "d74a9733db8bd914225eed0855f45308c5d41afb283259f299e44527078f3c95",
+  "audit_source_sha256": "f136e3254b175966c7149eceb7ed258b141e450c1deadf2101cbcea9528123d0",
+  "mujoco": "3.2.3",
+  "controls": 873,
+  "physics_steps": 8725,
+  "late_start_control_zero_based": 810,
+  "late_start_source_seconds": 9.200000000000001,
+  "summaries": {
+    "all": {
+      "controls": 873,
+      "root_position_error_p95_max_m": [
+        3.21364615516518e-16,
+        0.0005235461226007273
+      ],
+      "root_rotation_error_p95_max_rad": [
+        1.75154280714461e-15,
+        0.00431732029712455
+      ],
+      "generalized_velocity_error_p95_max": [
+        1.14438458709287e-12,
+        1.3359397965277642
+      ],
+      "raw_feedback_correction_max_rad": 1403.944683085075
+    },
+    "late_window": {
+      "controls": 63,
+      "root_position_error_p95_max_m": [
+        1.247479951705713e-16,
+        5.707555651576108e-07
+      ],
+      "root_rotation_error_p95_max_rad": [
+        7.874088529187138e-16,
+        5.9724643354378964e-06
+      ],
+      "generalized_velocity_error_p95_max": [
+        1.6133760993852758e-13,
+        0.003919079847320317
+      ],
+      "raw_feedback_correction_max_rad": 0.027170884809056828
+    },
+    "planning_initial_states": {
+      "controls": 175,
+      "root_position_error_p95_max_m": [
+        0.0,
+        0.0
+      ],
+      "root_rotation_error_p95_max_rad": [
+        7.123208273229752e-18,
+        5.4698832357381764e-17
+      ],
+      "generalized_velocity_error_p95_max": [
+        0.0,
+        0.0
+      ],
+      "raw_feedback_correction_max_rad": 0.0
+    }
+  },
+  "feedback_clipped_controls": [
+    467,
+    468,
+    469,
+    534,
+    789,
+    803,
+    804,
+    809
+  ],
+  "late_plans": [
+    {
+      "control": 810,
+      "solve_ms": 4261.238026000001,
+      "cost": 979.7748420956774,
+      "source_first_state_frame": 820,
+      "source_last_state_frame": 850,
+      "controls_committed": 5,
+      "seed_selection": {
+        "selected": "shifted_mpc",
+        "recorded_cost": 1608.54253591343,
+        "warm_cost": 1147.5881550430793
+      }
+    },
+    {
+      "control": 815,
+      "solve_ms": 2370.6977969998206,
+      "cost": 1265.6993141692117,
+      "source_first_state_frame": 825,
+      "source_last_state_frame": 855,
+      "controls_committed": 5,
+      "seed_selection": {
+        "selected": "shifted_mpc",
+        "recorded_cost": 1742.7894406371095,
+        "warm_cost": 1266.9068950470207
+      }
+    },
+    {
+      "control": 820,
+      "solve_ms": 1560.85219900001,
+      "cost": 1813.8026631380515,
+      "source_first_state_frame": 830,
+      "source_last_state_frame": 860,
+      "controls_committed": 5,
+      "seed_selection": {
+        "selected": "recorded_bfm",
+        "recorded_cost": 1813.8026631380515,
+        "warm_cost": 1903.5099025387544
+      }
+    },
+    {
+      "control": 825,
+      "solve_ms": 1463.3150240001669,
+      "cost": 2481.1361814381135,
+      "source_first_state_frame": 835,
+      "source_last_state_frame": 865,
+      "controls_committed": 5,
+      "seed_selection": {
+        "selected": "recorded_bfm",
+        "recorded_cost": 2481.1361814381135,
+        "warm_cost": 2498.6668016693866
+      }
+    },
+    {
+      "control": 830,
+      "solve_ms": 1810.7353279999643,
+      "cost": 3740.5266805967062,
+      "source_first_state_frame": 840,
+      "source_last_state_frame": 870,
+      "controls_committed": 5,
+      "seed_selection": {
+        "selected": "recorded_bfm",
+        "recorded_cost": 3740.5266805967062,
+        "warm_cost": 3785.287239219838
+      }
+    },
+    {
+      "control": 835,
+      "solve_ms": 1760.090966000007,
+      "cost": 5930.435429917394,
+      "source_first_state_frame": 845,
+      "source_last_state_frame": 875,
+      "controls_committed": 5,
+      "seed_selection": {
+        "selected": "recorded_bfm",
+        "recorded_cost": 5930.435429917394,
+        "warm_cost": 5944.202104566465
+      }
+    },
+    {
+      "control": 840,
+      "solve_ms": 2720.2578750000157,
+      "cost": 9899.260164241608,
+      "source_first_state_frame": 850,
+      "source_last_state_frame": 880,
+      "controls_committed": 5,
+      "seed_selection": {
+        "selected": "shifted_mpc",
+        "recorded_cost": 9918.893949128596,
+        "warm_cost": 9901.12749959077
+      }
+    },
+    {
+      "control": 845,
+      "solve_ms": 1713.9030700000148,
+      "cost": 17139.842256168922,
+      "source_first_state_frame": 855,
+      "source_last_state_frame": 885,
+      "controls_committed": 5,
+      "seed_selection": {
+        "selected": "shifted_mpc",
+        "recorded_cost": 17378.360312742287,
+        "warm_cost": 17139.842256168922
+      }
+    },
+    {
+      "control": 850,
+      "solve_ms": 2366.233080000029,
+      "cost": 29043.400242811807,
+      "source_first_state_frame": 860,
+      "source_last_state_frame": 890,
+      "controls_committed": 5,
+      "seed_selection": {
+        "selected": "shifted_mpc",
+        "recorded_cost": 29643.352134426645,
+        "warm_cost": 29224.591670431902
+      }
+    },
+    {
+      "control": 855,
+      "solve_ms": 1676.5323150000313,
+      "cost": 41471.41886166502,
+      "source_first_state_frame": 865,
+      "source_last_state_frame": 895,
+      "controls_committed": 5,
+      "seed_selection": {
+        "selected": "shifted_mpc",
+        "recorded_cost": 42797.55223459386,
+        "warm_cost": 41504.26703722088
+      }
+    },
+    {
+      "control": 860,
+      "solve_ms": 778.9373410000735,
+      "cost": 54005.31080563385,
+      "source_first_state_frame": 870,
+      "source_last_state_frame": 900,
+      "controls_committed": 5,
+      "seed_selection": {
+        "selected": "shifted_mpc",
+        "recorded_cost": 54848.48274543713,
+        "warm_cost": 54005.31080563385
+      }
+    },
+    {
+      "control": 865,
+      "solve_ms": 1612.2752699998273,
+      "cost": 64420.71716137215,
+      "source_first_state_frame": 875,
+      "source_last_state_frame": 905,
+      "controls_committed": 5,
+      "seed_selection": {
+        "selected": "shifted_mpc",
+        "recorded_cost": 66000.79115454257,
+        "warm_cost": 64420.71716137215
+      }
+    },
+    {
+      "control": 870,
+      "solve_ms": 1591.9276550000632,
+      "cost": 73665.5336283748,
+      "source_first_state_frame": 880,
+      "source_last_state_frame": 910,
+      "controls_committed": 5,
+      "seed_selection": {
+        "selected": "shifted_mpc",
+        "recorded_cost": 77034.4046302457,
+        "warm_cost": 73665.5336283748
+      }
+    }
+  ],
+  "interpretation": "Only committed nominal prefixes were stored. This measures following error about each local plan; it does not reconstruct an unstored full-H accepted trajectory or establish perturbation robustness. Seed costs are counterfactual rollouts from the current measured planning state."
+}

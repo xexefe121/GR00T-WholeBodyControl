@@ -1,0 +1,82 @@
+{
+  "actuator_count": 23,
+  "authorization": {
+    "dds_opened": false,
+    "hardware_authorized": false,
+    "network_used": false,
+    "robot_commands_published": false,
+    "simulator_only": true
+  },
+  "comparison_categories": [
+    "in_distribution",
+    "tail"
+  ],
+  "completed_transitions": 98,
+  "controller_mode": "sonic",
+  "decoder_output_dof": 23,
+  "decoder_path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/pico_internet_breadth_100_seed20260815_canonical_v2/eval/model_50.diagnostic.decoder.onnx",
+  "decoder_sha256": "45f24ea30492674c51b2ebf0ebd3ec31a9ac12dd0f459708a5a6f995c60becee",
+  "failure": {
+    "evidence": {
+      "base_height_m": 0.10691455652142147,
+      "base_tilt_rad": 0.9669845637404244,
+      "gate_failures": [
+        "absolute_height"
+      ],
+      "joint_tracking_rmse_rad": 0.44986356060915655,
+      "max_abs_raw_action": 6.023159027099609,
+      "max_abs_torque_nm": 38.329674799443595,
+      "maximum_relative_tracked_body_position_error_m": 0.46565484243310473,
+      "maximum_tracked_body_position_error_m": 2.1966502065803146,
+      "pelvis_orientation_error_rad": 0.976296959605062,
+      "pelvis_position_error_m": 1.9495990836179566,
+      "tracked_body_position_errors_m": {
+        "left_ankle": 1.6577986246835452,
+        "left_wrist": 2.1966502065803146,
+        "pelvis": 1.9495990836179566,
+        "right_ankle": 1.5544593646095515,
+        "right_wrist": 1.99726127694565
+      }
+    },
+    "message": "crawl physical gate failed: absolute_height",
+    "q9": 106,
+    "transition": 97,
+    "type": "CrawlPhysicalGateFailure"
+  },
+  "first_q9": 9,
+  "frame_count": 1024,
+  "gain_profile": "released_retained",
+  "gates": {
+    "maximum_absolute_tilt_rad": 2.2,
+    "maximum_joint_tracking_rmse_rad": 0.75,
+    "maximum_pelvis_orientation_error_rad": 1.5,
+    "maximum_relative_tracked_body_position_error_m": 1.0,
+    "minimum_absolute_height_m": 0.12,
+    "world_position_tracking_diagnostic_only": true
+  },
+  "history_initialization": "causal_reference_q0_through_q9_then_measured_q10",
+  "initial_state_motion_path": null,
+  "kind": "g1_true23_genuine_sonic_library_motion_mujoco_replay",
+  "last_q9": 106,
+  "metrics": {
+    "horizontal_displacement_m": 1.933611864629226,
+    "maximum_absolute_raw_action": 6.605003356933594,
+    "maximum_absolute_torque_nm": 139.0,
+    "maximum_base_tilt_rad": 0.9669845637404244,
+    "maximum_joint_tracking_rmse_rad": 0.44988107465085897,
+    "maximum_pelvis_orientation_error_rad": 0.976296959605062,
+    "maximum_pelvis_position_error_m": 1.9495990836179566,
+    "maximum_relative_tracked_body_position_error_m": 0.46565484243310473,
+    "maximum_tracked_body_position_error_m": 2.1966502065803146,
+    "minimum_base_height_m": 0.10691455652142147
+  },
+  "motion_path": "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/pico_fullbody_motion_v1/crouch.true23.npz",
+  "motion_sha256": "3c09046f9916926ec07935e1ec672506990e45735e62af9a2cd2d4b4bab0482d",
+  "passed": false,
+  "physical_dof": 23,
+  "physical_model": "g1_23dof_rev_1_0",
+  "requested_transitions": 1013,
+  "schema_version": 1,
+  "source_29dof_physics_used": false,
+  "trajectory_npz": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/pico_internet_breadth_100_seed20260815_canonical_v2/eval/model_50_suite/pico_crouch.trajectory.npz"
+}

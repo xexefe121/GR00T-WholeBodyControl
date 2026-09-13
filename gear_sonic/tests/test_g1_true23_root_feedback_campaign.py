@@ -84,3 +84,147 @@ def test_invalid_continuation_evidence_rejected(tamper):
         report["hardware_authorized"] = True
     with pytest.raises(ValueError):
         validate(report)
+
+
+def test_new_profile_requires_matching_evaluation_runtime():
+    from gear_sonic.utils.g1_true23_release_compatibility import release_compatibility_contract
+
+    report = receipt()
+    contract = release_compatibility_contract("a" * 64)
+    report["release_compatibility"] = contract
+    with pytest.raises(ValueError, match="compatibility"):
+        validate(report)
+    for row in report["records"]:
+        row["policy_identity"]["release_compatibility"] = contract
+        row["result"]["release_compatibility"] = contract
+        row["result"]["runtime_adapter"] = dict(
+            mode="causal_past_virtual_source",
+            action_convention="released_bounded_linear",
+            future_reference_consumed=False,
+            case=row["case"],
+        )
+    arguments = dict(
+        checkpoint_sha256="a",
+        actor_sha256="b",
+        lineage_sha256="c",
+        updates=100,
+        expected_release_compatibility=contract,
+    )
+    assert len(validate_campaign_evaluation(report, **arguments)) == 3
+    report["records"][1]["result"]["runtime_adapter"]["action_convention"] = "native_tanh"
+    with pytest.raises(ValueError, match="runtime"):
+        validate_campaign_evaluation(report, **arguments)
+
+
+def test_buffered_campaign_requires_exact_timing_and_force_contracts():
+    import json
+
+    from gear_sonic.teleop.buffered_source_simulation import BufferedSourceSimulationAdapter
+    from gear_sonic.tests.test_g1_true23_buffered_reference import material
+    from gear_sonic.utils.g1_true23_buffered_reference import BUFFERED_TIMING
+    from gear_sonic.utils.g1_true23_release_compatibility import release_compatibility_contract
+    from gear_sonic.utils.g1_true23_root_feedback_benchmark import ForcePulse
+
+    report = receipt()
+    contract = release_compatibility_contract("a" * 64, "released29_scale_bounded_linear_v2", BUFFERED_TIMING)
+    report["release_compatibility"] = contract
+    motion, vr = material()
+    for row in report["records"]:
+        pulses = (
+            ()
+            if row["case"] == "nominal"
+            else (ForcePulse(500, 50, (40.0, 0.0, 0.0) if row["case"] == "standing_push_x" else (0.0, 40.0, 0.0)),)
+        )
+        row["policy_identity"]["release_compatibility"] = contract
+        row["result"]["release_compatibility"] = contract
+        row["result"]["runtime_adapter"] = json.loads(
+            json.dumps(BufferedSourceSimulationAdapter(motion, vr, pulses).contract())
+        )
+    arguments = dict(
+        checkpoint_sha256="a",
+        actor_sha256="b",
+        lineage_sha256="c",
+        updates=100,
+        expected_release_compatibility=contract,
+    )
+    assert len(validate_campaign_evaluation(report, **arguments)) == 3
+    for field, value in (
+        ("source_clock_latency_s", 0.0),
+        ("future_reference_consumed", True),
+        ("scored_reference_timing_or_physics_changed", True),
+        ("reference_timing", "causal_history"),
+    ):
+        changed = deepcopy(report)
+        changed["records"][0]["result"]["runtime_adapter"][field] = value
+        with pytest.raises(ValueError, match="runtime"):
+            validate_campaign_evaluation(changed, **arguments)
+
+
+def test_exact_training_model_counterfactual_cannot_replace_primary_cpu_evaluation():
+    report = receipt()
+    for row in report["records"]:
+        row["result"]["training_model_counterfactual"] = {
+            "kind": "exact_compiled_training_model_counterfactual_v1",
+            "original_replay_model_qualification": False,
+        }
+    with pytest.raises(ValueError, match="counterfactual physics"):
+        validate(report)
+
+
+def test_training_scene_change_cannot_silently_continue_old_checkpoint(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+
+    import torch
+
+    from gear_sonic.scripts import export_g1_true23_root_feedback as exporter
+    from gear_sonic.utils.g1_true23_root_feedback_campaign import campaign_parent_contract
+
+    checkpoint, evaluation = tmp_path / "parent.pt", tmp_path / "evaluation.json"
+    torch.save({}, checkpoint)
+    evaluation.write_text("{}")
+    monkeypatch.setattr(
+        exporter, "validate_export_semantics", lambda _: {"root_feedback_training_configuration": {}}
+    )
+    args = SimpleNamespace(training_physics_contract={"name": "pinned_cpu_referee_scene_v1"})
+    with pytest.raises(ValueError, match="physics change requires fresh"):
+        campaign_parent_contract(checkpoint, evaluation, args=args, curriculum={})
+
+
+@pytest.mark.parametrize("tamper", [None, "kind", "profile", "geometry", "counterfactual", "missing_case"])
+def test_contact_step_replay_requires_explicit_separate_reference_profile(tamper):
+    from gear_sonic.utils.g1_true23_contact_step_transition import PROFILE
+
+    report = receipt()
+    report.update(
+        kind="g1_true23_contact_step_lifecycle_policy_diagnostic_v1", contact_step_reference_diagnostic=True
+    )
+    report["timeline"].update(
+        generated_transition_profile=PROFILE,
+        contact_step_independent_geometry_audit=dict(provisional_geometry_screen_passed=True),
+    )
+    with pytest.raises(ValueError):
+        validate(report)
+    if tamper == "kind":
+        report["kind"] = "g1_true23_root_feedback_single_policy_lifecycle_campaign_v1"
+    elif tamper == "profile":
+        report["timeline"]["generated_transition_profile"] = "none"
+    elif tamper == "geometry":
+        report["timeline"]["contact_step_independent_geometry_audit"] = {}
+    elif tamper == "counterfactual":
+        report["root_input_counterfactual"] = {"scale": 4}
+    elif tamper == "missing_case":
+        report["records"].pop()
+    args = dict(
+        checkpoint_sha256="a",
+        actor_sha256="b",
+        lineage_sha256="c",
+        updates=100,
+        expected_generated_transition_profile=PROFILE,
+    )
+    if tamper is None:
+        result = validate_campaign_evaluation(report, **args)
+        assert len(result) == 3
+        assert not result[0]["source_motion_tracking"]["lifecycle_qualified"]
+    else:
+        with pytest.raises(ValueError):
+            validate_campaign_evaluation(report, **args)

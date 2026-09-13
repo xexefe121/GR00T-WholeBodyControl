@@ -1,0 +1,224 @@
+Experimental full-body simulation. Full teleop acceptance remains unmet. No robot connection or motor publisher.
+wsl: Failed to translate 'E:\windsurf\Windsurf\bin'
+{
+  "actor": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/onboard_factory_firmware_v1/native_target_ppo_v2/actor_00185.onnx",
+  "clip": "walk002",
+  "standing_diagnostic": false,
+  "native_factory_conditioned": false,
+  "factory_locomotion": false,
+  "locomotion_conditioned": false,
+  "task_commands": true,
+  "native_target_actuation": true,
+  "native_limit_brake": false,
+  "native_preview_guard": true,
+  "native_standing_capture": true,
+  "native_preview_delay_substeps": 6,
+  "native_preview_library": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/onboard_factory_firmware_v1/native_preview_backend_v2/libtrue23preview.so",
+  "controller_affinity_cpus": [
+    2,
+    4
+  ],
+  "native_snapshot_protocol": 1,
+  "target_margin_rad": 0.0,
+  "leg_target_filter_alpha": 1.0,
+  "factory_prior_filter_alpha": 0.9,
+  "initial_world_velocity_x_delta_mps": 0.0,
+  "fault_standing_capture_enabled": false,
+  "plant_spin_us": 0,
+  "native_lookahead_library": null,
+  "native_lookahead_steps": 0,
+  "linux_fifo_priorities": [
+    70,
+    50,
+    40
+  ],
+  "producer_gc_disabled_during_replay": true,
+  "producer_wait": "CLOCK_MONOTONIC absolute native sleep",
+  "controller_boundary_wakeup": "native shared futex",
+  "native_library": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/onboard_factory_firmware_v1/factory_clock_v4/libtrue23clock.so",
+  "actual_pd_kp": [
+    99.09843,
+    99.09843,
+    40.17924,
+    99.09843,
+    28.50125,
+    28.50125,
+    99.09843,
+    99.09843,
+    40.17924,
+    99.09843,
+    28.50125,
+    28.50125,
+    300.0,
+    14.25062,
+    14.25062,
+    14.25062,
+    14.25062,
+    14.25062,
+    14.25062,
+    14.25062,
+    14.25062,
+    14.25062,
+    14.25062
+  ],
+  "actual_pd_kd": [
+    6.3088,
+    6.3088,
+    2.55789,
+    6.3088,
+    1.81445,
+    1.81445,
+    6.3088,
+    6.3088,
+    2.55789,
+    6.3088,
+    1.81445,
+    1.81445,
+    5.0,
+    0.90722,
+    0.90722,
+    0.90722,
+    0.90722,
+    0.90722,
+    0.90722,
+    0.90722,
+    0.90722,
+    0.90722,
+    0.90722
+  ],
+  "requested_controls": 2917,
+  "completed_controls": 2917,
+  "physical_steps": 29170,
+  "physical_complete": true,
+  "physical_failure": false,
+  "controller_deadline_misses": 0,
+  "plant_wakes_over2ms_late": 0,
+  "plant_finishes_over2ms_late": 1,
+  "maximum_plant_finish_lateness_ms": 2.9162999999999997,
+  "missed_observation_publications": 0,
+  "first_latched_plant_fault_control": -1,
+  "maximum_speed_ratio": 0.8110781592427558,
+  "maximum_range_excess": 0.0,
+  "maximum_effort_ratio": 0.8591736711519488,
+  "controller_ms_p50_p95_max": [
+    2.9823,
+    3.859,
+    9.093999
+  ],
+  "first_target_application_ms_p50_p95_max": [
+    4.0,
+    6.0,
+    10.0
+  ],
+  "controls_with_previous_then_current_command": 2916,
+  "activation_schedule": "new command applies at next 2ms step after publication; previous target stays applied during computation",
+  "source": {
+    "passed": false,
+    "source_controls": 667,
+    "requested_source_controls": 667,
+    "root_p95_m": 1.0582905744427809,
+    "yaw_p95_deg": 24.665333101558446,
+    "hand_head_relative_p95_m": [
+      0.15349975100635607,
+      0.12621384522434942,
+      0.09620058828646434
+    ],
+    "foot_relative_p95_m": [
+      0.32026358330280014,
+      0.3379262987063496
+    ],
+    "leg_rmse_rad": 0.2975942335942705
+  },
+  "main_quiet": {
+    "passed": true,
+    "values": {
+      "xy_p95": 0.01878907086485931,
+      "yaw_p95_deg": 0.9798210768327698,
+      "root_speed_p95": 0.0007458473834102827,
+      "joint_speed_p95": 0.006178209496119568,
+      "joint_speed_max": 0.006296053104012336,
+      "tilt_max": 0.05727457841048178
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "final_quiet": {
+    "passed": true,
+    "values": {
+      "xy_p95": 0.022292813311419985,
+      "yaw_p95_deg": 3.592459222097476,
+      "root_speed_p95": 2.1596297176898806e-05,
+      "joint_speed_p95": 0.0003491719612042427,
+      "joint_speed_max": 0.0003529135129711896,
+      "tilt_max": 0.05471148517750569
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "continuous_quiet30": {
+    "passed": true,
+    "values": {
+      "xy_p95": 0.022268550307012806,
+      "yaw_p95_deg": 3.5715109161400407,
+      "root_speed_p95": 0.0003850932494459831,
+      "joint_speed_p95": 0.003597852036354931,
+      "joint_speed_max": 0.004346489149014263,
+      "tilt_max": 0.056900669103095304
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "packet_report": {
+    "epoch": 0,
+    "received": 1428,
+    "consumed": 1428,
+    "ignored": 0,
+    "rejected": 0,
+    "final_received": true,
+    "full_source_consumed": true,
+    "fault": null,
+    "calibration": null
+  },
+  "passed": false,
+  "one_learned_controller": true,
+  "identical_targets_in_both_legacy_channels": true,
+  "applied_history_owner": "unchanged native plant; imported once per observed control boundary",
+  "independent_physics_500hz": true,
+  "independent_packet_producer_50hz": true,
+  "controller_hz": 50,
+  "warmed_onnx_calls": 10,
+  "physics_steps_during_warmup": 0,
+  "preclock_received_samples": 12,
+  "simulation_time_frozen_for_inference": false,
+  "future_reference_frames": 0,
+  "prepared_motion_specific": false,
+  "injected_input_loss_control": null,
+  "explicit_rearm_api_preserved": true,
+  "automatic_rearm": false,
+  "fault_quiet": null,
+  "fault_continuous_quiet30": null,
+  "fault_scenario_passed": false,
+  "native_clock_long_pico_recurrence_unresolved": false,
+  "native_clock_expected_time": "Independent repeated additions of .002 from zero; tolerance 1e-10",
+  "general_live_teleop_qualified": false,
+  "hardware_authorized": false
+}
+Result: E:\codex-artifacts\sonic23_teleop_resume_20260911\onboard_factory_firmware_v1\received_sim_runs\20260913_111006_874_walk002\report.json

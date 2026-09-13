@@ -1,0 +1,350 @@
+{
+  "preparation_only": true,
+  "optimizer_updates": 0,
+  "model_evaluations": 0,
+  "physics_steps": 0,
+  "original_sources_sha256": {
+    "chord_common.py": "a23c9557b3f560a84283fb0977fdcb2fd58a63fd49f1d0365561d2dfa575d081",
+    "chord_fit_diagnostics.py": "57f221c95d58a69905713a53b6998d9a63eb790bde356c29022806504ddc7302",
+    "chord_head_sensitivity.py": "1a09251e82c77736bf7c1b8c75770a0d77ba2483382a156709aff65687903439",
+    "chord_training_objective.py": "9949f70c67e94197e3ffa97c5ecd48b64b2318cb3e7168d77627c8bc669135e9",
+    "collect_nominal_labels.py": "4756570fd0bf01cbbec397d5ecb0e286a61057d4e2f57db906cfa325bac26a50",
+    "continue_linear_fit.py": "cf6a64c2de3928eb301444db11216e65b40edc76c7365d40c26d8db4bbe39cd6",
+    "evaluate_nominal_pilot.py": "b36599789ef612d3f0c02338cfd8f526fb6552ed16d8636aa66da62a1920ca43",
+    "evaluate_phase_student.py": "84efe15543c6c969869d269d373f84ea6b7fd4701686f9680ffd59e6c9f95cac",
+    "fit_aggregate_once.py": "8651d30dbb78b2cb958b895bf98c7de9d1a410fc7c1968447d3fd93955f02517",
+    "fit_linear_head.py": "ef26f98e8e2b2c8449381ebcb2e95f2db3416a02f423f52894b96791f08e6ff0",
+    "fit_phase_fullbatch_once.py": "7e534797102411f906bf5c1e227b4201c210f7fa564471bbfd8ad4bacdb76b67",
+    "fit_velocity_chords.py": "0ec709025546e4b7e16784afeb81c4eb0f46efcfb355c0c6f50908262ecc0b20",
+    "gear_sonic/__init__.py": "2be6bec4383c9d16a6b0f33d13a63fa533ef02b92b6f30f03d3a14a86c878cf9",
+    "gear_sonic/utils/__init__.py": "c1ff1b925a2942aaee377dd7ba39c414dc2ec281a97f7893a4df354f3f214222",
+    "gear_sonic/utils/g1_true23_bfm_seed_observations.py": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d",
+    "gear_sonic/utils/g1_true23_mjbatch_bfm_seed.py": "2f3d808b6a95fd80a3c1f9a0fabbe80264cf9cc93fbf01e2b2be65f6a5ec75de",
+    "gear_sonic/utils/g1_true23_mjbatch_ilqr_core.py": "5ef946bb0f07ea8f1d688748343bf9f6a3ccc2a10806cfe58963100aca7c06f1",
+    "gear_sonic/utils/g1_true23_mjbatch_model.py": "b0be87b3f2e9d1f6fc6695d668c62e2df355bf944d5b181b333c12038f532e25",
+    "gear_sonic/utils/g1_true23_mjbatch_mpc.py": "624b4abe93a20314141da39c6703055cb5c6ce5169030d863816b244610bafbd",
+    "gear_sonic/utils/g1_true23_mpc_student.py": "6d71e82b4b7e491f4bbfd3c2a99e05df2ee27f9fb5e6febb4cc9c39c8c39d905",
+    "gear_sonic/utils/g1_true23_relative_foot_cost.py": "36f89cac4374364cd155184c7c6f098de913ebca22976c0d59c8d1489089cc35",
+    "generate_velocity_chords.py": "93810015192415aa9cf82335e6bab9d4a1cbbe258391b2cda2851a7da334415f",
+    "initialize_zero_head.py": "7906124b640e977ad0af9de2a8faf2887bb0799ccc16edfd369cf4a336b631aa",
+    "quiet_metrics.py": "1d3b480507c475564c2d172adc6ba0947199db3d2d44da0b12fb813d22fc8c69",
+    "saved_committed_map.py": "886be88ce9582f6a851e28c3788f55d0b3482ac1ab6e14ed289652dd018b7b95",
+    "student_linear_runtime.py": "35b3e3dd4f4c2966ae224a77afc5213d02cead3200bf63218fb0aab26710f543",
+    "terminal_yaw4_goal.py": "93cbf143e614cbc92204c27053c3cc7a1a02ab14049fa0aeee412f285d33918c",
+    "test_chord_objective.py": "591059e9e549c2cb93c055332903823631ddb2aac059604283a6e2c724fe7145",
+    "test_diagnostic_preservation.py": "28e54595a75d701088124d74a406a7818775f6c57402b680d1351b6589157a33",
+    "test_preservation.py": "1dc4bfa10621cfe984b9085a365fa76a6664fbc4b17ac93b127b666f05159553",
+    "test_saved_centers.py": "31aa083886baaf19b486d120804807707ab9e43ec44bc0e331ea0a69f6f4882d",
+    "training_runtime_identity.py": "08b99ada80277e2a5ac5cae4e313b70cc1889b09d7b8763be8af6d0a49594c99"
+  },
+  "original_trainer_sha256": "0ec709025546e4b7e16784afeb81c4eb0f46efcfb355c0c6f50908262ecc0b20",
+  "derived_trainer_sha256": "8a30bf5d5873f20edaef9b5375c36fa906aacf435dc732506c20d6d2eec9510f",
+  "exact_substitutions": [
+    {
+      "old": "One fixed ordinary65000\u219270000 continuation, gated on reviewed generated data.",
+      "new": "Draft ordinary70000\u219275000 continuation; requires real final reviewed branch inputs.",
+      "count": 1
+    },
+    {
+      "old": "from chord_fit_diagnostics import evaluate_fixed,complete_chord_metrics,nominal_metrics",
+      "new": "from chord_fit_diagnostics import complete_chord_metrics,nominal_metrics\nfrom physical_fit_diagnostics import evaluate_all,physical_metrics\nfrom physical_training_inputs import load_physical,validate_bound_review\nfrom physical_training_objective import physical_response_loss,expected_budgets",
+      "count": 1
+    },
+    {
+      "old": "PRIOR=NEW/'fast_controller_phase_fit_v1'",
+      "new": "PRIOR=NEW/'velocity_chord_student_v1'\nLEGACY=NEW/'fast_controller_phase_fit_v1'\nGENERATION=PRIOR/'generation'",
+      "count": 1
+    },
+    {
+      "old": "completed_steps=65000",
+      "new": "completed_steps=70000",
+      "count": 1
+    },
+    {
+      "old": "ACTIVE={}\n",
+      "new": "ACTIVE={}\nSTATE['legacy_diagnostics']=dict(head_onnx_calls_attempted=0,head_onnx_calls_returned=0,\n    diagnostic_torch_rows_attempted=0,diagnostic_torch_rows_returned=0)\nSTATE['physical_diagnostics']=dict(head_onnx_calls_attempted=0,head_onnx_calls_returned=0,\n    diagnostic_torch_rows_attempted=0,diagnostic_torch_rows_returned=0)\n",
+      "count": 1
+    },
+    {
+      "old": "def check_inputs():\n    receipt=read(BASE/'training_frozen_inputs.json')\n    for name,digest in receipt['source_sha256'].items():assert sha(Path(__file__).parent/name)==digest,name\n    for name,digest in receipt['input_sha256'].items():assert sha(local(name))==digest,name\n    clearance=read(BASE/'training_clearance.json')\n    assert clearance['approved'] is True and clearance['additional_updates']==5000\n    assert clearance['ordinary_final_step']==70000\n    assert clearance['frozen_receipt_sha256']==sha(BASE/'training_frozen_inputs.json')\n    assert sha(local(clearance['dataset_review_path']))==clearance['dataset_review_sha256']\n    assert sha(local(clearance['source_review_path']))==clearance['source_review_sha256']\n    report=read(BASE/'generation/report.json')\n    assert report['complete'] is True and report['all_center_byte_parity'] is True\n    assert report['inference_calls']==dict(actor=143679,backward=3057)\n    assert runtime_identity()==read(BASE/'training_runtime_identity.json')\n    return receipt,clearance\n",
+      "new": "def check_inputs():\n    # No model/optimizer/graph is constructed until every actual launch gate passes.\n    receipt=read(BASE/'training_frozen_inputs.json')\n    request=read(BASE/'training_request.json')\n    assert sha(BASE/'training_request.json')==receipt['training_request_sha256']\n    assert request['kind']=='one_physical_response_continuation_from70000'\n    assert request['additional_updates']==5000 and request['ordinary_final_step']==75000\n    assert request['coefficients']==dict(nominal=1.,velocity=1.,physical=1.)\n    assert request['budgets']==expected_budgets(request['valid_rows'])\n    assert 0<request['valid_rows']<=3054\n    assert request['input_sha256']==receipt['input_sha256']\n    for name,digest in receipt['source_sha256'].items():assert sha(Path(__file__).parent/name)==digest,name\n    for name,digest in receipt['input_sha256'].items():assert sha(local(name))==digest,name\n    clearance=read(BASE/'training_clearance.json')\n    assert clearance['approved'] is True and clearance['model_fitting_authorized'] is True\n    assert clearance['additional_updates']==5000 and clearance['ordinary_final_step']==75000\n    assert clearance['frozen_receipt_sha256']==sha(BASE/'training_frozen_inputs.json')\n    assert clearance['training_request_sha256']==sha(BASE/'training_request.json')\n    assert sha(local(clearance['source_review_path']))==clearance['source_review_sha256']\n    assert clearance['source_review_sha256']==request['reviews']['source']['sha256']\n    assert set(request['reviews'])=={'prior_fit','prior_export','branch_data','source'}\n    for spec in request['reviews'].values():validate_bound_review(spec,receipt['input_sha256'])\n    assert request['reviews']['prior_fit']['subjects'][str(PRIOR/'fit/student_head.pt').replace('\\\\','/')]==sha(PRIOR/'fit/student_head.pt')\n    assert request['reviews']['prior_export']['subjects'][str(PRIOR/'fit/student_head.onnx').replace('\\\\','/')]==sha(PRIOR/'fit/student_head.onnx')\n    assert request['reviews']['branch_data']['subjects'][request['physical_paths']['manifest']]==sha(local(request['physical_paths']['manifest']))\n    report=read(PRIOR/'fit/report.json')\n    assert report['ordinary_final_step']==70000 and report['numerical_gate_passed'] is True\n    assert report['checkpoint_sha256']==sha(PRIOR/'fit/student_head.pt')\n    assert report['onnx_sha256']==sha(PRIOR/'fit/student_head.onnx')\n    assert sha(PRIOR/'fit/student_head.pt')=='17b8e240e3ca711e993a5c84c0221326d365f7ed892c8166bb594d804726bc3e'\n    assert sha(PRIOR/'fit/student_head.onnx')=='219b86cc4decd51671cb7aa036a944741cebed684accd91f7a03de37a7694bb5'\n    generated=read(GENERATION/'report.json')\n    assert generated['complete'] is True and generated['all_center_byte_parity'] is True\n    assert generated['inference_calls']==dict(actor=143679,backward=3057)\n    assert runtime_identity()==read(PRIOR/'training_runtime_identity.json')\n    return receipt,clearance,request\n",
+      "count": 1
+    },
+    {
+      "old": "receipt,clearance=check_inputs()",
+      "new": "receipt,clearance,training_request=check_inputs()",
+      "count": 1
+    },
+    {
+      "old": "centers=archive(BASE/'generation/centers.npz')",
+      "new": "centers=archive(GENERATION/'centers.npz')\n    physical=load_physical(training_request,centers)\n    budget=physical['budgets']",
+      "count": 1
+    },
+    {
+      "old": "BASE/'generation/features.npy'",
+      "new": "GENERATION/'features.npy'",
+      "count": 1
+    },
+    {
+      "old": "BASE/'generation/base_target.npy'",
+      "new": "GENERATION/'base_target.npy'",
+      "count": 1
+    },
+    {
+      "old": "BASE/'generation/teacher_target.npy'",
+      "new": "GENERATION/'teacher_target.npy'",
+      "count": 1
+    },
+    {
+      "old": "STATE['stage']='RESTORING_65000'",
+      "new": "STATE['stage']='RESTORING_70000'",
+      "count": 1
+    },
+    {
+      "old": "saved['completed_steps']==65000",
+      "new": "saved['completed_steps']==70000",
+      "count": 1
+    },
+    {
+      "old": "int(s['step'])==65000",
+      "new": "int(s['step'])==70000",
+      "count": 1
+    },
+    {
+      "old": "group['lr']==3e-6",
+      "new": "group['lr']==3e-7",
+      "count": 1
+    },
+    {
+      "old": "previous_fit=archive(PRIOR/'fit/teacher_fit.npz')",
+      "new": "previous_fit=archive(LEGACY/'fit/teacher_fit.npz')\n    previous_prediction=archive(PRIOR/'fit/final_predictions.npz')",
+      "count": 1
+    },
+    {
+      "old": "DEST.mkdir(exist_ok=False)",
+      "new": "physical_features=torch.from_numpy((physical['features']-mean)/std)\n    physical_base=torch.from_numpy(physical['base']);physical_target=torch.from_numpy(physical['target'])\n    physical_successors=torch.from_numpy(physical['successor'])\n    assert torch.isfinite(physical_features).all()\n    DEST.mkdir(exist_ok=False)\n    np.savez_compressed(DEST/'physical_row_selection.npz',requested_valid_mask=physical['valid_mask'],\n        selected_rows=physical['rows'],successor_center=physical['successor'])\n    write(DEST/'physical_coverage.json',physical['coverage'])",
+      "count": 1
+    },
+    {
+      "old": "'restored65000.onnx'",
+      "new": "'restored70000.onnx'",
+      "count": 3
+    },
+    {
+      "old": "actual_trace=archive(PRIOR/'nominal/trace.npz')",
+      "new": "actual_trace=archive(LEGACY/'nominal/trace.npz')",
+      "count": 1
+    },
+    {
+      "old": "before=evaluate_fixed(actor,centers['features'],px,actual,mean,std,span,DEST/'restored70000.onnx',STATE,DEST,'initial')",
+      "new": "before=evaluate_all(actor,centers['features'],px,actual,mean,std,span,DEST/'restored70000.onnx',STATE,DEST,'initial',physical)",
+      "count": 1
+    },
+    {
+      "old": "previous_fit['predicted_delta']",
+      "new": "previous_prediction['predicted_delta'][:3057]",
+      "count": 1
+    },
+    {
+      "old": "read(PRIOR/'fit/report.json')['final_nine_cell_objective']",
+      "new": "read(PRIOR/'fit/report.json')['final_nominal_objective']",
+      "count": 1
+    },
+    {
+      "old": "pairs,65000)",
+      "new": "pairs,70000)",
+      "count": 1
+    },
+    {
+      "old": "write(DEST/'initial_chord_metrics.json',initial_chords)",
+      "new": "write(DEST/'initial_chord_metrics.json',initial_chords)\n    assert initial_chords['full_nine_cell_chord_objective']==read(PRIOR/'fit/report.json')['final_chord_objective']\n    exact(before['predicted_delta'],previous_prediction['predicted_delta'],'all restored nominal and velocity predictions')\n    exact(before['actual_seven_delta'],previous_prediction['actual_seven_delta'],'old seven actual predictions')\n    initial_physical=physical_metrics(before['predicted_delta'][:3057],before['physical']['predicted_delta'],centers,physical,span)\n    write(DEST/'initial_physical_metrics.json',initial_physical)",
+      "count": 1
+    },
+    {
+      "old": "'restoration65000_parity.json'",
+      "new": "'restoration70000_parity.json'",
+      "count": 1
+    },
+    {
+      "old": "request=dict(first_step=65001,last_step=70000,updates=5000,lambda_chord=1.,full_nominal_rows=3057,",
+      "new": "request=dict(first_step=70001,last_step=75000,updates=5000,lambda_chord=1.,lambda_physical=1.,full_nominal_rows=3057,\n        valid_physical_rows=len(physical['rows']),requested_physical_rows=3054,physical_coverage=physical['coverage'],\n        physical_pairing='same dataset nominal successor c+1; live center; unclipped total-target response',\n        physical_requested_denominators=[99,819,100]*3,training_request_sha256=sha(BASE/'training_request.json'),\n        input_request=training_request,budgets=budget,learning_rate_reset_after_exact_restoration=True,",
+      "count": 1
+    },
+    {
+      "old": "runtime=read(BASE/'training_runtime_identity.json'),runtime_identity_sha256=sha(BASE/'training_runtime_identity.json'),",
+      "new": "runtime=read(PRIOR/'training_runtime_identity.json'),runtime_identity_sha256=sha(PRIOR/'training_runtime_identity.json'),",
+      "count": 1
+    },
+    {
+      "old": "training_head_rows=21045000",
+      "new": "training_head_rows=budget['training_head_rows']",
+      "count": 1
+    },
+    {
+      "old": "losses=[];completed=65000",
+      "new": "losses=[];completed=70000",
+      "count": 1
+    },
+    {
+      "old": "range(65001,70001)",
+      "new": "range(70001,75001)",
+      "count": 2
+    },
+    {
+      "old": "loss=nominal+chords",
+      "new": "STATE['training_head_rows_attempted']+=len(physical['rows'])\n            normalized_physical=actor(physical_features);STATE['training_head_rows_returned']+=len(physical['rows'])\n            ACTIVE['physical_normalized_returned']=normalized_physical.detach().numpy().copy()\n            physical_loss,physical_cell_losses=physical_response_loss(normalized_centers,normalized_physical,\n                physical_successors,base_t,physical_base,target_t,physical_target,span_t,physical['cells'])\n            ACTIVE['physical_cell_losses']=physical_cell_losses.detach().numpy().copy()\n            loss=nominal+chords+physical_loss",
+      "count": 1
+    },
+    {
+      "old": "losses.append([float(nominal.detach()),float(chords.detach()),float(loss.detach()),rate])",
+      "new": "losses.append([float(nominal.detach()),float(chords.detach()),float(physical_loss.detach()),float(loss.detach()),rate])",
+      "count": 1
+    },
+    {
+      "old": "combined_objective=losses[-1][2],learning_rate=rate)",
+      "new": "physical_objective=losses[-1][2],combined_objective=losses[-1][3],learning_rate=rate)",
+      "count": 1
+    },
+    {
+      "old": "reshape(-1,4)",
+      "new": "reshape(-1,5)",
+      "count": 1
+    },
+    {
+      "old": "assert completed==70000",
+      "new": "assert completed==75000",
+      "count": 1
+    },
+    {
+      "old": "assert all(int(s['step'])==70000 for s in optimizer.state.values())\n    assert STATE['training_head_rows_attempted']",
+      "new": "assert all(int(s['step'])==75000 for s in optimizer.state.values())\n    assert STATE['training_head_rows_attempted']",
+      "count": 1
+    },
+    {
+      "old": "==21045000",
+      "new": "==budget['training_head_rows']",
+      "count": 1
+    },
+    {
+      "old": "completed_steps=70000,additional_updates=5000,request=request)",
+      "new": "completed_steps=75000,additional_updates=5000,request=request)",
+      "count": 1
+    },
+    {
+      "old": "training_objective=np.asarray(losses)[:,2],learning_rate=np.asarray(losses)[:,3])",
+      "new": "physical_objective=np.asarray(losses)[:,2],training_objective=np.asarray(losses)[:,3],learning_rate=np.asarray(losses)[:,4])",
+      "count": 1
+    },
+    {
+      "old": "ordinary_final_step=70000",
+      "new": "ordinary_final_step=75000",
+      "count": 2
+    },
+    {
+      "old": "final=evaluate_fixed(actor,centers['features'],px,actual,mean,std,span,DEST/'student_head.onnx',STATE,DEST,'final')",
+      "new": "final=evaluate_all(actor,centers['features'],px,actual,mean,std,span,DEST/'student_head.onnx',STATE,DEST,'final',physical)",
+      "count": 1
+    },
+    {
+      "old": "final_nominal=nominal_metrics(final['normalized_centers'],final['predicted_delta'][:3057],centers,strata,span,pairs,70000)",
+      "new": "final_nominal=nominal_metrics(final['normalized_centers'],final['predicted_delta'][:3057],centers,strata,span,pairs,75000)",
+      "count": 1
+    },
+    {
+      "old": "write(DEST/'final_nominal_metrics.json',final_nominal)",
+      "new": "write(DEST/'final_nominal_metrics.json',final_nominal)\n    final_physical=physical_metrics(final['predicted_delta'][:3057],final['physical']['predicted_delta'],centers,physical,span)\n    write(DEST/'final_physical_metrics.json',final_physical)",
+      "count": 1
+    },
+    {
+      "old": "checkpoint_sha256=sha(DEST/'student_head.pt'),onnx_sha256=sha(DEST/'student_head.onnx'),",
+      "new": "initial_physical_objective=initial_physical['nine_cell_response_objective'],\n        final_physical_objective=final_physical['nine_cell_response_objective'],\n        physical_coverage=physical['coverage'],physical_data_manifest_sha256=sha(local(training_request['physical_paths']['manifest'])),\n        checkpoint_sha256=sha(DEST/'student_head.pt'),onnx_sha256=sha(DEST/'student_head.onnx'),",
+      "count": 1
+    },
+    {
+      "old": "report['head_ONNX_calls']==1126",
+      "new": "report['head_ONNX_calls']==budget['head_onnx_calls']",
+      "count": 1
+    },
+    {
+      "old": "==287372",
+      "new": "==budget['diagnostic_torch_rows']",
+      "count": 1
+    },
+    {
+      "old": "STATE['stage']='FINAL_FROZEN_INPUT_REHASH'",
+      "new": "assert STATE['legacy_diagnostics']['head_onnx_calls_attempted']==STATE['legacy_diagnostics']['head_onnx_calls_returned']==1126\n    assert STATE['head_onnx_calls_attempted']==STATE['head_onnx_calls_returned']==budget['head_onnx_calls']\n    STATE['stage']='FINAL_FROZEN_INPUT_REHASH'",
+      "count": 1
+    },
+    {
+      "old": "receipt,clearance,training_request=check_inputs()",
+      "new": "receipt,clearance,training_request=check_inputs()\n    initial_gate_hashes={name:sha(BASE/name) for name in ('training_request.json','training_frozen_inputs.json','training_clearance.json')}",
+      "count": 1
+    },
+    {
+      "old": "    check_inputs()\n    report['attempt_counters']",
+      "new": "    assert all(sha(BASE/name)==digest for name,digest in initial_gate_hashes.items())\n    check_inputs()\n    report['attempt_counters']",
+      "count": 1
+    },
+    {
+      "old": "losses=[];completed=70000",
+      "new": "losses=[];cell_losses=[];completed=70000\n    ACTIVE.update(nominal_raw_features=centers['features'],physical_raw_features=physical['features'],\n        physical_valid_rows=physical['rows'],physical_successor_rows=physical['successor'])",
+      "count": 1
+    },
+    {
+      "old": "STATE['attempted_step']=step",
+      "new": "STATE['attempted_step']=step\n            for key in ('nominal_normalized_returned','velocity_normalized_returned','physical_normalized_returned','physical_cell_losses'):\n                ACTIVE.pop(key,None)\n            STATE['training_forward_stage']='nominal'",
+      "count": 1
+    },
+    {
+      "old": "selected_x=px[ids,axis].reshape(1152,1069)",
+      "new": "selected_x=px[ids,axis].reshape(1152,1069)\n            ACTIVE['velocity_raw_features']=selected_x",
+      "count": 1
+    },
+    {
+      "old": "normalized_centers=actor(features);STATE['training_head_rows_returned']+=3057",
+      "new": "normalized_centers=actor(features);STATE['training_head_rows_returned']+=3057\n            ACTIVE['nominal_normalized_returned']=normalized_centers.detach().numpy().copy()\n            STATE['training_forward_stage']='velocity'",
+      "count": 1
+    },
+    {
+      "old": "normalized_probes=actor(torch.from_numpy((selected_x-mean)/std));STATE['training_head_rows_returned']+=1152",
+      "new": "normalized_probes=actor(torch.from_numpy((selected_x-mean)/std));STATE['training_head_rows_returned']+=1152\n            ACTIVE['velocity_normalized_returned']=normalized_probes.detach().numpy().copy()",
+      "count": 1
+    },
+    {
+      "old": "STATE['training_head_rows_attempted']+=len(physical['rows'])",
+      "new": "STATE['training_forward_stage']='physical'\n            STATE['training_head_rows_attempted']+=len(physical['rows'])",
+      "count": 1
+    },
+    {
+      "old": "loss=nominal+chords+physical_loss",
+      "new": "loss=nominal+chords+physical_loss\n            # Reporting from returned tensors only; original loss graph remains unchanged.\n            with torch.no_grad():\n                nominal_square=(normalized_centers-labels)**2\n                nominal_cells=torch.stack([nominal_square[ix].mean() for group in strata for ix in group])\n                center_proposal=base_t[picked]+normalized_centers[picked]*span_t\n                velocity_proposal=torch.from_numpy(np.asarray(pb[ids,axis]))+(normalized_probes*span_t).reshape(576,2,23)\n                velocity_change=torch.from_numpy(np.asarray(pt[ids,axis]))-target_t[picked,None]\n                velocity_square=(((velocity_proposal-center_proposal[:,None])-velocity_change)/span_t)**2\n                velocity_cells=torch.stack([velocity_square[cell*64:(cell+1)*64].mean() for cell in range(9)])\n                current_cells=np.stack([nominal_cells.numpy(),velocity_cells.numpy(),physical_cell_losses.detach().numpy()])\n            ACTIVE['current_cell_losses']=current_cells.copy()",
+      "count": 1
+    },
+    {
+      "old": "losses.append([float(nominal.detach()),float(chords.detach()),float(physical_loss.detach()),float(loss.detach()),rate])",
+      "new": "losses.append([float(nominal.detach()),float(chords.detach()),float(physical_loss.detach()),float(loss.detach()),rate])\n            cell_losses.append(current_cells.copy())",
+      "count": 1
+    },
+    {
+      "old": "np.save(DEST/'training_progress.npy',np.asarray(losses))",
+      "new": "np.save(DEST/'training_progress.npy',np.asarray(losses))\n                np.save(DEST/'training_cell_losses.npy',np.asarray(cell_losses))",
+      "count": 1
+    },
+    {
+      "old": "np.save(DEST/'training_progress.npy',np.asarray(losses,dtype=np.float64).reshape(-1,5))",
+      "new": "np.save(DEST/'training_progress.npy',np.asarray(losses,dtype=np.float64).reshape(-1,5))\n        np.save(DEST/'training_cell_losses.npy',np.asarray(cell_losses,dtype=np.float64).reshape(-1,3,9))",
+      "count": 1
+    },
+    {
+      "old": "nominal_objective=np.asarray(losses)[:,0],sampled_chord_objective=np.asarray(losses)[:,1],",
+      "new": "nominal_objective=np.asarray(losses)[:,0],sampled_chord_objective=np.asarray(losses)[:,1],\n        cell_losses=np.asarray(cell_losses),",
+      "count": 1
+    },
+    {
+      "old": "write(DEST/'initial_physical_metrics.json',initial_physical)",
+      "new": "initial_physical['restored_Windows_ORT_vs_collector_WSL_batch1_max_delta']=float(np.max(np.abs(\n        before['physical']['onnx_predicted_delta']-physical['collector_head_delta'])))\n    initial_physical['cross_platform_comparison_is_not_byte_parity']=True\n    write(DEST/'initial_physical_metrics.json',initial_physical)",
+      "count": 1
+    }
+  ],
+  "no_training_request_or_clearance_created": true
+}

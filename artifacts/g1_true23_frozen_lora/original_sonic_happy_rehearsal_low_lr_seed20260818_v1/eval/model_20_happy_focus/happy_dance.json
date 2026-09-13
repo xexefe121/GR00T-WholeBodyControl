@@ -1,0 +1,83 @@
+{
+  "actuator_count": 23,
+  "authorization": {
+    "dds_opened": false,
+    "hardware_authorized": false,
+    "network_used": false,
+    "robot_commands_published": false,
+    "simulator_only": true
+  },
+  "comparison_categories": [
+    "in_distribution",
+    "tail",
+    "out_of_distribution"
+  ],
+  "completed_transitions": 377,
+  "controller_mode": "sonic",
+  "decoder_output_dof": 23,
+  "decoder_path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original_sonic_happy_rehearsal_low_lr_seed20260818_v1/eval/model_20.diagnostic.decoder.onnx",
+  "decoder_sha256": "d8c8f9b755873fbb2f2889710c3ae9b72ce775c471d268d659926f5dfaf99194",
+  "failure": {
+    "evidence": {
+      "base_height_m": 0.3816135831900197,
+      "base_tilt_rad": 1.2207397342817017,
+      "gate_failures": [
+        "pelvis_orientation_tracking"
+      ],
+      "joint_tracking_rmse_rad": 0.37362316675456725,
+      "max_abs_raw_action": 5.7949676513671875,
+      "max_abs_torque_nm": 45.38115419916751,
+      "maximum_relative_tracked_body_position_error_m": 0.699327012378399,
+      "maximum_tracked_body_position_error_m": 1.8925175262595642,
+      "pelvis_orientation_error_rad": 1.5266413344031458,
+      "pelvis_position_error_m": 1.5262995755156221,
+      "tracked_body_position_errors_m": {
+        "left_ankle": 1.7324657810823776,
+        "left_wrist": 1.8925175262595642,
+        "pelvis": 1.5262995755156221,
+        "right_ankle": 1.5223692462975822,
+        "right_wrist": 1.7280213989620499
+      }
+    },
+    "message": "crawl physical gate failed: pelvis_orientation_tracking",
+    "q9": 385,
+    "transition": 376,
+    "type": "CrawlPhysicalGateFailure"
+  },
+  "first_q9": 9,
+  "frame_count": 546,
+  "gain_profile": "released_retained",
+  "gates": {
+    "maximum_absolute_tilt_rad": 2.2,
+    "maximum_joint_tracking_rmse_rad": 0.75,
+    "maximum_pelvis_orientation_error_rad": 1.5,
+    "maximum_relative_tracked_body_position_error_m": 1.0,
+    "minimum_absolute_height_m": 0.12,
+    "world_position_tracking_diagnostic_only": true
+  },
+  "history_initialization": "causal_reference_q0_through_q9_then_measured_q10",
+  "initial_state_motion_path": null,
+  "kind": "g1_true23_genuine_sonic_library_motion_mujoco_replay",
+  "last_q9": 385,
+  "metrics": {
+    "horizontal_displacement_m": 4.955242695289653,
+    "maximum_absolute_raw_action": 8.501045227050781,
+    "maximum_absolute_torque_nm": 127.83339925877388,
+    "maximum_base_tilt_rad": 1.2207397342817017,
+    "maximum_joint_tracking_rmse_rad": 0.7341729179727398,
+    "maximum_pelvis_orientation_error_rad": 1.5266413344031458,
+    "maximum_pelvis_position_error_m": 2.0623961346720336,
+    "maximum_relative_tracked_body_position_error_m": 0.699327012378399,
+    "maximum_tracked_body_position_error_m": 2.4613233366753895,
+    "minimum_base_height_m": 0.3816135831900197
+  },
+  "motion_path": "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_happy_physical_reference_v1/happy_dance.true23.npz",
+  "motion_sha256": "e5b73bc131721c630500870c6ce7185c538dd237942ad58e2d02d0aad5a05e04",
+  "passed": false,
+  "physical_dof": 23,
+  "physical_model": "g1_23dof_rev_1_0",
+  "requested_transitions": 535,
+  "schema_version": 1,
+  "source_29dof_physics_used": false,
+  "trajectory_npz": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original_sonic_happy_rehearsal_low_lr_seed20260818_v1/eval/model_20_happy_focus/happy_dance.trajectory.npz"
+}

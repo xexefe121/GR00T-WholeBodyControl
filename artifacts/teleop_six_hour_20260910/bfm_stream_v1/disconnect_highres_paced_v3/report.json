@@ -1,0 +1,171 @@
+{
+  "kind": "bfmzero_received_stream_simulation_v1",
+  "mode": "latched_standing",
+  "controls": 900,
+  "physics_steps": 9000,
+  "physics_steps_per_control": 10,
+  "control_hz": 50,
+  "physics_hz": 500,
+  "received_source_buffer_seconds": 0.14,
+  "stale_seconds": 0.1,
+  "epochs": [
+    {
+      "epoch": 0,
+      "received": 450,
+      "consumed": 447,
+      "ignored": 0,
+      "rejected": 0,
+      "final_received": false,
+      "full_source_consumed": false,
+      "fault": {
+        "reason": "packet_timeout",
+        "time": 9.08042800000112,
+        "epoch": 0,
+        "last_sequence": 449,
+        "consumed": 447
+      },
+      "calibration": null
+    }
+  ],
+  "any_fault_latched": true,
+  "physical_failure": null,
+  "full_uninterrupted_source_consumed": false,
+  "standing_return_verified": true,
+  "range_excess_max_rad": 0.0,
+  "range_excess_controls": 0,
+  "effort_ratio_max": 0.7670578882613495,
+  "velocity_ratio_max": 0.37096617729999165,
+  "events": [
+    {
+      "kind": "source_control_started",
+      "time": 0.14033460000064224,
+      "epoch": 0,
+      "received_window": 8
+    },
+    {
+      "kind": "active_bfm_standing_transition",
+      "reason": "packet_timeout",
+      "time": 9.08042800000112,
+      "control": 454,
+      "target_qpos": [
+        -0.08387023121314005,
+        -0.1084584068587202,
+        0.76,
+        0.0942209223393645,
+        0.0,
+        0.0,
+        -0.9955513134909317,
+        -0.312,
+        0.0,
+        0.0,
+        0.669,
+        -0.363,
+        0.0,
+        -0.312,
+        0.0,
+        0.0,
+        0.669,
+        -0.363,
+        0.0,
+        0.0,
+        0.2,
+        0.2,
+        0.0,
+        0.6,
+        0.0,
+        0.2,
+        -0.2,
+        0.0,
+        0.6,
+        0.0
+      ],
+      "simulator_state_rewritten": false,
+      "root_force_applied": false
+    },
+    {
+      "kind": "measured_standing_verified",
+      "time": 12.071427200000034,
+      "mode": "latched_standing",
+      "consecutive_controls": 50
+    },
+    {
+      "kind": "latched_fault",
+      "reason": "packet_timeout",
+      "time": 9.08042800000112,
+      "epoch": 0,
+      "last_sequence": 449,
+      "consumed": 447
+    }
+  ],
+  "ground_truth_pose_feedback": true,
+  "simulator_pose_writes_after_initialization": 0,
+  "root_assistance_forces": 0,
+  "controller_fallback": false,
+  "deployment_ready": false,
+  "hardware_authorized": false,
+  "scenario": "disconnect",
+  "clip": "walk002",
+  "paced": true,
+  "timing_environment": "shared_cpu_with_gpu_training_other_load_uncontrolled",
+  "pacing_clock": "windows-high-resolution",
+  "requested_controls": 900,
+  "budget_completed": true,
+  "source_packets_requested": 1417,
+  "rearm_events": [],
+  "wall_elapsed_seconds": 17.992178300002706,
+  "simulated_seconds": 18.0,
+  "full_loop_ms_p50_p95_max": [
+    12.054450002324302,
+    23.406969996722182,
+    64.56389999948442
+  ],
+  "control_start_late_ms_p95_max": [
+    20.415640002784478,
+    58.385599999455806
+  ],
+  "deadline_misses": 151,
+  "timing_qualified": false,
+  "source_tracking_qualified": false,
+  "request_sha256": "203aa9ed08636d946493e6da69ad7f5453094e141a80d5b3ea69e5ee843f69c5",
+  "trace_sha256": "850a9dc20ca5e15af92001cce7f39d8ee66b7a7da13ef2432c61c38a957b2178",
+  "phase_ms_p50_p95_max": {
+    "receive_ms": [
+      0.015099998563528061,
+      1.6738099940994284,
+      11.599300007219426
+    ],
+    "reference_window_ms": [
+      0.013850003597326577,
+      1.2850850042013915,
+      10.34389999404084
+    ],
+    "goal_feedback_ms": [
+      0.5753500008722767,
+      1.9236149913922416,
+      6.400300000677817
+    ],
+    "backward_ms": [
+      0.5837999997311272,
+      1.0191249974013763,
+      5.229899994446896
+    ],
+    "actor_ms": [
+      7.816899997123983,
+      13.439060011296533,
+      34.881499988841824
+    ],
+    "physics_ms": [
+      1.6280999989248812,
+      2.756295001017859,
+      17.875100005767308
+    ],
+    "diagnostics_ms": [
+      0.3930999955628067,
+      0.6846250027592758,
+      4.2421999969519675
+    ]
+  },
+  "protocol_scenario_passed": true,
+  "physical_lifecycle_passed": true,
+  "scenario_passed": true
+}

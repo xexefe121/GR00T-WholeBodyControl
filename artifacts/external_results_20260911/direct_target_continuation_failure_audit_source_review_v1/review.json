@@ -1,0 +1,76 @@
+{
+  "source_review_pass": true,
+  "passed": true,
+  "verdict": "CLEAR",
+  "scope": "One independent saved-evidence audit of the completed optimization and failed original export; no release clearance.",
+  "subjects": {
+    "preparation": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_failure_audit_v1/source_preparation_v2.json",
+      "sha256": "09e4d2e33b6faec8e603e9c3d89d413e74ba74206c918fc6bd75255c2048e2aa"
+    },
+    "auditor": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_failure_audit_v1/source_v2/audit_saved_fit.py",
+      "sha256": "77ad5ba95f261b7c94ce91feb86a5fa2a95c31253d980d689b23dd813663039d"
+    },
+    "math": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_failure_audit_v1/source_v2/audit_math.py",
+      "sha256": "6313988b729ac56f51dfd8c75bcde6d201d9aef237690a5bbd25a659f2aaa82f"
+    },
+    "restoration": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_failure_audit_v1/source_v2/audit_restoration.py",
+      "sha256": "24b25ba9914e511461e00c8413e21ba0cc5b3742d93f8ff8f5e322c1e71c3092"
+    },
+    "first_delta": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_failure_audit_v1/source_delta.patch",
+      "sha256": "04793c6020c2757f016aa70d4a29616e63edd9498469a36c277ac4390e2d1d01"
+    },
+    "second_delta": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_failure_audit_v1/source_delta_v2.patch",
+      "sha256": "975754eb5b7a1fcab8b190e7895c59e00807db9412b7566fd7bdeff05820de85"
+    },
+    "prior_source_review": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_root_audit_source_review_v1/review.json",
+      "sha256": "ccc24870b1c5bc422b439c9c32e9a95181f5800ab838d042e66eb938b7826581"
+    },
+    "failed_fit_report": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_v1/fit/report.json",
+      "sha256": "dc8d834e8b7ef193cb6212248e4c35ca2cd7dab3cfb839a826a3e7adf7d220e6"
+    },
+    "independent_nine_comparisons": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_failed_export_review_v1/report.json",
+      "sha256": "4596c7707f5e0b39ab655df03a7829a1304432e75176e46425afbe11744abced"
+    },
+    "review_source": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_failure_audit_source_review_v1/verify.py",
+      "sha256": "bc93619501fda92a95f2de9d62be01d8a70558d6042bccda0780ef54bbd07646"
+    }
+  },
+  "input_sha256": {
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_failure_audit_v1/source_preparation_v2.json": "09e4d2e33b6faec8e603e9c3d89d413e74ba74206c918fc6bd75255c2048e2aa",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_failure_audit_v1/source_v2/audit_saved_fit.py": "77ad5ba95f261b7c94ce91feb86a5fa2a95c31253d980d689b23dd813663039d",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_failure_audit_v1/source_v2/audit_math.py": "6313988b729ac56f51dfd8c75bcde6d201d9aef237690a5bbd25a659f2aaa82f",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_failure_audit_v1/source_v2/audit_restoration.py": "24b25ba9914e511461e00c8413e21ba0cc5b3742d93f8ff8f5e322c1e71c3092",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_failure_audit_v1/source_delta.patch": "04793c6020c2757f016aa70d4a29616e63edd9498469a36c277ac4390e2d1d01",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_failure_audit_v1/source_delta_v2.patch": "975754eb5b7a1fcab8b190e7895c59e00807db9412b7566fd7bdeff05820de85",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_root_audit_source_review_v1/review.json": "ccc24870b1c5bc422b439c9c32e9a95181f5800ab838d042e66eb938b7826581",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_v1/fit/report.json": "dc8d834e8b7ef193cb6212248e4c35ca2cd7dab3cfb839a826a3e7adf7d220e6",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_failed_export_review_v1/report.json": "4596c7707f5e0b39ab655df03a7829a1304432e75176e46425afbe11744abced",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_failure_audit_source_review_v1/verify.py": "bc93619501fda92a95f2de9d62be01d8a70558d6042bccda0780ef54bbd07646"
+  },
+  "checks": {
+    "exact_v2_two_check_delta": true,
+    "math_and_restoration_byte_unchanged": true,
+    "exactly_three_original_release_failures_retained": true,
+    "all_other_checks_still_mandatory": true,
+    "saved_maximum_identity_and_original_tolerance_always_required": true,
+    "finite_over_tolerance_failure_mandatory": true,
+    "optimization_and_diagnostic_completion_mandatory": true,
+    "passed_false_evidence_pass_true_and_export_canonical_false_distinguished": true
+  },
+  "model_calls": 0,
+  "native_steps": 0,
+  "optimizer_updates": 0,
+  "actual_root_saved_fit_audit_run": false,
+  "export_qualified": false,
+  "canonical_cleared": false
+}

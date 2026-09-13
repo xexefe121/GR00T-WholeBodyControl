@@ -1,0 +1,59 @@
+{
+  "cases": [
+    {
+      "name": "long_200_seconds",
+      "steps": 100000,
+      "mujoco_time": 200.00000000022686,
+      "physical_failure": 0,
+      "old_multiplication_first_rejection": 60370,
+      "passed": true
+    },
+    {
+      "name": "reset_time",
+      "steps": 100,
+      "mujoco_time": 0,
+      "physical_failure": 1,
+      "old_multiplication_first_rejection": 100,
+      "passed": true
+    },
+    {
+      "name": "missing_tick",
+      "steps": 100,
+      "mujoco_time": 0.19800000000000015,
+      "physical_failure": 1,
+      "old_multiplication_first_rejection": 100,
+      "passed": true
+    },
+    {
+      "name": "extra_tick",
+      "steps": 100,
+      "mujoco_time": 0.20200000000000015,
+      "physical_failure": 1,
+      "old_multiplication_first_rejection": 100,
+      "passed": true
+    },
+    {
+      "name": "incremental_drift",
+      "steps": 6,
+      "mujoco_time": 0.01200000012,
+      "physical_failure": 1,
+      "old_multiplication_first_rejection": 6,
+      "passed": true
+    },
+    {
+      "name": "nonzero_initial_time",
+      "steps": 1,
+      "mujoco_time": 0.002001,
+      "physical_failure": 1,
+      "old_multiplication_first_rejection": 1,
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "production_source": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/native/true23_clock.cpp",
+  "source_sha256": "dc13a675cccacff0f32d5936e98a4a157abcc72a30d430efbf3690a8b8b29eae",
+  "mujoco": "3.2.3",
+  "tolerance": 1e-10,
+  "scheduling_interval_ns": 2000000,
+  "test_scope": "Production clock_run and real MuJoCo stepping with virtual wall-clock waits; no controller behavior or real-time qualification"
+}

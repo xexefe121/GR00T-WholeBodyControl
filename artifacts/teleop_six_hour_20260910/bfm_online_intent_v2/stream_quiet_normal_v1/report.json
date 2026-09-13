@@ -1,0 +1,157 @@
+{
+  "kind": "bfmzero_received_stream_simulation_v1",
+  "mode": "complete",
+  "controls": 1824,
+  "physics_steps": 18240,
+  "physics_steps_per_control": 10,
+  "control_hz": 50,
+  "physics_hz": 500,
+  "received_source_buffer_seconds": 0.14,
+  "stale_seconds": 0.1,
+  "epochs": [
+    {
+      "epoch": 0,
+      "received": 1417,
+      "consumed": 1417,
+      "ignored": 0,
+      "rejected": 0,
+      "final_received": true,
+      "full_source_consumed": true,
+      "fault": null,
+      "calibration": null
+    }
+  ],
+  "any_fault_latched": false,
+  "physical_failure": null,
+  "full_uninterrupted_source_consumed": true,
+  "standing_return_verified": true,
+  "range_excess_max_rad": 0.0,
+  "range_excess_controls": 0,
+  "effort_ratio_max": 1.0,
+  "velocity_ratio_max": 0.38732059008606556,
+  "events": [
+    {
+      "kind": "source_control_started",
+      "time": 0.1402210000087507,
+      "epoch": 0,
+      "received_window": 8
+    },
+    {
+      "kind": "active_bfm_standing_transition",
+      "reason": "normal_received_end_of_stream",
+      "time": 28.480387700008578,
+      "control": 1424,
+      "target_qpos": [
+        -0.013587109171948929,
+        1.6021728857511837,
+        0.76,
+        0.8219708886983046,
+        0.0,
+        0.0,
+        0.5695295059367156,
+        -0.312,
+        0.0,
+        0.0,
+        0.669,
+        -0.363,
+        0.0,
+        -0.312,
+        0.0,
+        0.0,
+        0.669,
+        -0.363,
+        0.0,
+        0.0,
+        0.2,
+        0.2,
+        0.0,
+        0.6,
+        0.0,
+        0.2,
+        -0.2,
+        0.0,
+        0.6,
+        0.0
+      ],
+      "simulator_state_rewritten": false,
+      "root_force_applied": false
+    },
+    {
+      "kind": "measured_standing_verified",
+      "time": 31.460497600007802,
+      "mode": "complete",
+      "consecutive_controls": 50
+    }
+  ],
+  "ground_truth_pose_feedback": true,
+  "simulator_pose_writes_after_initialization": 0,
+  "root_assistance_forces": 0,
+  "controller_fallback": false,
+  "deployment_ready": false,
+  "hardware_authorized": false,
+  "scenario": "normal",
+  "clip": "walk002",
+  "paced": true,
+  "timing_environment": "quiet_machine_no_training_or_replay",
+  "pacing_clock": "windows-high-resolution",
+  "requested_controls": 1824,
+  "budget_completed": true,
+  "source_packets_requested": 1417,
+  "rearm_events": [],
+  "wall_elapsed_seconds": 36.46795540000312,
+  "simulated_seconds": 36.480000000000004,
+  "full_loop_ms_p50_p95_max": [
+    8.240150003985036,
+    9.616425001149764,
+    16.451200004667044
+  ],
+  "control_start_late_ms_p95_max": [
+    0.6634399995967042,
+    1.0097000020330427
+  ],
+  "deadline_misses": 0,
+  "timing_qualified": true,
+  "source_tracking_qualified": false,
+  "request_sha256": "3cfc310ecb6089591c480121723234263672aa92f3426ed5f92dd3c0f499f239",
+  "trace_sha256": "85081fe38c1c5a65efbe0398350f099f41644b547f39ac0b07a8ad93006d0220",
+  "phase_ms_p50_p95_max": {
+    "receive_ms": [
+      0.6315000064205378,
+      0.7636849986738523,
+      1.3474000006681308
+    ],
+    "reference_window_ms": [
+      0.0043000036384910345,
+      0.7769099953293335,
+      7.067099999403581
+    ],
+    "goal_feedback_ms": [
+      0.40630000876262784,
+      0.5340799943951423,
+      0.941399994189851
+    ],
+    "backward_ms": [
+      0.3411000070627779,
+      0.45437999870046036,
+      1.6506000101799145
+    ],
+    "actor_ms": [
+      5.3075499963597395,
+      6.16962000785861,
+      11.852499999804422
+    ],
+    "physics_ms": [
+      1.1449000012362376,
+      1.4239950040064286,
+      2.7640000043902546
+    ],
+    "diagnostics_ms": [
+      0.23910000163596123,
+      0.30474000450340094,
+      0.8069000032264739
+    ]
+  },
+  "protocol_scenario_passed": true,
+  "physical_lifecycle_passed": true,
+  "scenario_passed": true
+}

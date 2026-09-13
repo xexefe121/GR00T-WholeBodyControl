@@ -1,0 +1,37 @@
+{
+  "review": "aggregate student single-fit prelaunch v2",
+  "utc": "2026-09-11T03:46:16.484914+00:00",
+  "clear_for_one_fit_only": true,
+  "canonical_rollout_cleared": false,
+  "source_receipt_sha256": "1471e7fd28602e829eed1ac14bae9d3e8474f5a1bdaeeeedb6bdffbf0bdd3fb7",
+  "trainer_sha256": "8651d30dbb78b2cb958b895bf98c7de9d1a410fc7c1968447d3fd93955f02517",
+  "launcher_sha256": "9159f8467c9e94189dd9bc82f399bd5240451532efdceea0448d67163742a2ce",
+  "checks": {
+    "all16source_hashes": true,
+    "all46input_hashes": true,
+    "prior15files_byteexact": true,
+    "no_fit_attempt_outputs": true,
+    "no_controller_or_physics_calls": true
+  },
+  "accepted_design": [
+    "Same original normalization/span/feature semantics/architecture/native total target clip/preclip history.",
+    "Explicit strata counts250/100/819/100 old and249/100/819/100 fresh; phase-outer thenold/new32 draws,256 batch, documented before first update.",
+    "Fullfinal20000 model/AdamW/RNG restored afterconstruction; exact old1269 predictions andoldONNX bytes required before update.",
+    "Exactly40000 additionalupdates20001..60000, no earlystop/checkpoint selection/intermediate physics.",
+    "Fixed diagnostics covereachdataset,all4phases,first24global/first24rows,query1 andsaved nearestpairs.",
+    "Finalcheckpoint+optimizer/RNG/fitarrays andoptimization_completedreceipt saved beforeexportvalidation; failedexport preserves completedoptimization.",
+    "Existing status/log/request guardsprevent overwriting/restarting interruptedfit. Actualoptimizer metadata separated fromoriginalCONFIG.",
+    "Durable launcher usesWindowsPy3.10 originaltrainingruntime,OMP/BLAS/MKL1, directfrozenv2 script; no rollout command."
+  ],
+  "remaining": [
+    "Owner maylaunch already-authorized ONE fit viahidden durablewrapper.",
+    "Read finalordinary60000 completion/hash/exportparity evidence before authorizing ONE canonical1569+250 behavioral rollout.",
+    "Any numerical/restore/export failure remainsfailed/incomplete; no alternate checkpoint/seed or secondfit automatically."
+  ],
+  "reviewer_execution": {
+    "inference_calls": 0,
+    "optimizer_calls": 0,
+    "physics_steps": 0,
+    "fit_runs": 0
+  }
+}

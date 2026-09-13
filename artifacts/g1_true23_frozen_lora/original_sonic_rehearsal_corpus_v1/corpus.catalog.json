@@ -1,0 +1,142 @@
+{
+  "corpus": {
+    "frame_count": 6035,
+    "path": "corpus.npz",
+    "sha256": "96a35f0a9edee22750f903fa663354fd6715d7f5b91b42742f645039168a358c"
+  },
+  "episode_frames": 500,
+  "fps": 50.0,
+  "schema": "g1_true23_native124_incremental_corpus_v1",
+  "sources": [
+    {
+      "name": "pico_upright_anchor",
+      "original_length": 1024,
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/pico_fullbody_motion_v1/upright.true23.npz",
+      "sha256": "3cba00b7ff1c51e6c80c7739ddd03082b6f19c9abc50ec5686cdc9dd41e4515e",
+      "stored_length": 1024,
+      "terminal_hold_frames": 0,
+      "weight": 0.5
+    },
+    {
+      "name": "pico_standing_anchor",
+      "original_length": 1024,
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/pico_fullbody_motion_v1/standing_1806.true23.npz",
+      "sha256": "46b9a59f7a4646d45eb1cec831544308f053bfd166bd88b0875a5f5df179196a",
+      "stored_length": 1024,
+      "terminal_hold_frames": 0,
+      "weight": 0.5
+    },
+    {
+      "name": "pico_crouch_anchor",
+      "original_length": 1024,
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/pico_fullbody_motion_v1/crouch.true23.npz",
+      "sha256": "3c09046f9916926ec07935e1ec672506990e45735e62af9a2cd2d4b4bab0482d",
+      "stored_length": 1024,
+      "terminal_hold_frames": 0,
+      "weight": 0.5
+    },
+    {
+      "name": "pico_twist2_walk_001",
+      "original_length": 695,
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/internet_pico_twist2_v1/canonical_safe9_001/0807_yanjie_walk_001_50hz.canonical.safe9.npz",
+      "sha256": "810b2c85ebae8e0100d8a3ff9f479e79610e31fbedac852ed6a0dca4b6f06557",
+      "stored_length": 695,
+      "terminal_hold_frames": 0,
+      "weight": 2.0
+    },
+    {
+      "name": "pico_twist2_walk_010",
+      "original_length": 510,
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/internet_pico_twist2_v1/canonical_safe9_010_hold510/0807_yanjie_walk_010_50hz.canonical.safe9.hold510.npz",
+      "sha256": "939888db3e28ee96d814e29d193e93599e2d48f22c5859e37c6f5bf2bfdbee5e",
+      "stored_length": 510,
+      "terminal_hold_frames": 0,
+      "weight": 2.0
+    },
+    {
+      "name": "original_sonic_hand_crawl",
+      "original_length": 606,
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_hand_original_speed_v1/hand_crawling.true23.npz",
+      "sha256": "1ea643d5d51c130eee2ea666585d19a2040f663613399c808af0c277d5b7d229",
+      "stored_length": 606,
+      "terminal_hold_frames": 0,
+      "weight": 1.0
+    },
+    {
+      "name": "original_sonic_elbow_crawl",
+      "original_length": 606,
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_elbow_physical_reference_v1/elbow_crawling.true23.npz",
+      "sha256": "b1e76b3b3bfaff35b34f6b80f104d702597ed1cd9448ea48515f51d398d309b6",
+      "stored_length": 606,
+      "terminal_hold_frames": 0,
+      "weight": 1.0
+    },
+    {
+      "name": "original_sonic_happy_dance",
+      "original_length": 546,
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_happy_physical_reference_v1/happy_dance.true23.npz",
+      "sha256": "e5b73bc131721c630500870c6ce7185c538dd237942ad58e2d02d0aad5a05e04",
+      "stored_length": 546,
+      "terminal_hold_frames": 0,
+      "weight": 1.0
+    }
+  ],
+  "spans": [
+    {
+      "name": "pico_upright_anchor",
+      "original_length": 1024,
+      "start": 0,
+      "stop": 1024,
+      "weight": 0.5
+    },
+    {
+      "name": "pico_standing_anchor",
+      "original_length": 1024,
+      "start": 1024,
+      "stop": 2048,
+      "weight": 0.5
+    },
+    {
+      "name": "pico_crouch_anchor",
+      "original_length": 1024,
+      "start": 2048,
+      "stop": 3072,
+      "weight": 0.5
+    },
+    {
+      "name": "pico_twist2_walk_001",
+      "original_length": 695,
+      "start": 3072,
+      "stop": 3767,
+      "weight": 2.0
+    },
+    {
+      "name": "pico_twist2_walk_010",
+      "original_length": 510,
+      "start": 3767,
+      "stop": 4277,
+      "weight": 2.0
+    },
+    {
+      "name": "original_sonic_hand_crawl",
+      "original_length": 606,
+      "start": 4277,
+      "stop": 4883,
+      "weight": 1.0
+    },
+    {
+      "name": "original_sonic_elbow_crawl",
+      "original_length": 606,
+      "start": 4883,
+      "stop": 5489,
+      "weight": 1.0
+    },
+    {
+      "name": "original_sonic_happy_dance",
+      "original_length": 546,
+      "start": 5489,
+      "stop": 6035,
+      "weight": 1.0
+    }
+  ]
+}

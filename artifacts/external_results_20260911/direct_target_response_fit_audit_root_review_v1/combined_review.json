@@ -1,0 +1,62 @@
+{
+  "source_review_pass": true,
+  "helper_review_pass": true,
+  "reviewer": "root",
+  "source_preparation_sha256": "42e543d4b73346164c9826abf32cf279babc3c6246ecc019f6cdb43c9dcfa21b",
+  "source_sha256": {
+    "audit_balanced_math.py": "9e794667907eeac45acec32fab836fbd76fa20d0741c08e4960b60523be7f3f7",
+    "audit_context_math.py": "35a3759f2d5c37974768977d9a0c1d2ce36c0ed1e4b94a9f28347fb296819c74",
+    "audit_full_state_math.py": "e467f5f581c8983e11bcce74ad783015f0bd5fc1c84964f1b6f5d6a105eabd81",
+    "audit_graph.py": "25406959e3e9575dc01cbc8823219228c20105479d66f0e4606e7c47d8f4c592",
+    "audit_math.py": "6313988b729ac56f51dfd8c75bcde6d201d9aef237690a5bbd25a659f2aaa82f",
+    "audit_release.py": "6bee1225ab2c30aad64175a7a7dd20467ba9bcc56564b0e8c2f0920f0fe0a970",
+    "audit_restoration.py": "24b25ba9914e511461e00c8413e21ba0cc5b3742d93f8ff8f5e322c1e71c3092",
+    "audit_saved_warm.py": "4282d869d8ee95d9aeed813a96710dd8bd68cc90c9c60058fb33a566a6d28891",
+    "test_balanced_audit.py": "0877c869df1d1d967e3e3dec260e64f3ac7620e61b214f6e1e7e6f751b29f14f",
+    "test_metadata.py": "a66f34c247d3adfc46ae741570877b780daa6ce8a32882a73b0d81c3037e0b5f",
+    "test_prior_math.py": "070b025122d983b0ab2ef27778e644dca3c993a56493d5159bd05b314ee8416a"
+  },
+  "helper_sha256": {
+    "prepare_audit_request.py": "8ef30ce7e07297f24367c6409c75203739c05c8205cb6272e1cbe843963695ef",
+    "freeze_launch.py": "38e76e65ac8cc77531f30e5668743af74ecf482bc730f149a9e36c8a99d99afb",
+    "run_audit_durable.ps1": "ef1816df96ee9df3eebbb6032ab14d4d37402fd2184f8de72e2470a2fa808ecf",
+    "verify_completion.py": "67e868c9ba64528b737e56d2107d7d0e31b2bf743ebc7bf73a59bb8c0c42e75a"
+  },
+  "copied_qualified_math_files": 5,
+  "root_synthetic_tests": 39,
+  "root_tests_sha256": "09d14b13d268bc192c5fdf8848eb38386fa800f6edc1a16b8c761e3fbd6c2788",
+  "reviewed_semantics": [
+    "single corrected warm71000 fit; all16 release subjects explicitly bound",
+    "exact source and initial actor/optimizer/RNG/norm comparison, six warm steps3000 and final6000",
+    "unchanged original chronology, physical prior/history, normalization, data identities and fixed sampler reconstruction",
+    "fixed energy weights independently reconstructed and used only in added balanced54 metrics; original metrics preserved",
+    "training cell/order/totals,3000schedule/9000calls/44058000rows and five full diagnostic partitions checked",
+    "same-weight FP64 graph and nine saved parity/drift comparisons; original1e-5rad gates retained",
+    "actual top-level concrete review schema and safe carried-request construction covered by regressions",
+    "current/prerun/postrun identities, saved owner and process linkage required; evidence versus export qualification separate",
+    "request writer refuses incomplete optimization/diagnostics and selects corrected fitv2 only"
+  ],
+  "limitations": [
+    "Saved outputs and cell algebra checked without new model forwards or recomputed optimizer gradients.",
+    "Source review does not launch the audit or qualify simulation; exact completed request/launcher still required."
+  ],
+  "actual_audit_selected": false,
+  "task_arrays_loaded": 0,
+  "task_checkpoint_loads": 0,
+  "model_calls": 0,
+  "ORT_calls": 0,
+  "gradient_calls": 0,
+  "optimizer_updates": 0,
+  "native_steps": 0,
+  "writer_sha256": "01fff3e93bc53f85d963a5dc63a21a4e19e57dbe00b27c801605a63790118c33",
+  "helper_preparation_sha256": "5df044e5c2ad8fbe53c5484e15c5d351516be6095838aedb2f905ae2c5ddb15f",
+  "prior_source_review_sha256": "2e521adb4a89689bb7e06cf98c7d7389ef52c586f692e4aa45bba744a0bd6ce6",
+  "root_helper_tests": 8,
+  "reviewed_launcher_semantics": [
+    "freezer requires literal four-helper hashes from source review",
+    "exact selected request, source and completed-owner subjects pinned before hidden child",
+    "CreateNew one-shot lock, acquired process handle, raw known exit and complete pre/post hashes preserved",
+    "saved evidence success distinct from export success; owner verifies absence, request/launch/PID and full output hashes",
+    "actual request and launch still require separate concrete root review before selected dispatch"
+  ]
+}

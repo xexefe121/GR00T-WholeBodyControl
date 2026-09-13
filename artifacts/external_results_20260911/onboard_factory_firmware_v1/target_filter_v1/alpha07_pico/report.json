@@ -1,0 +1,89 @@
+{
+  "policy": "native_locomotion_full_body_conditioned",
+  "actor": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\onboard_factory_firmware_v1\\native_mjbatch_lifecycle_ppo_v1\\actor_00100.onnx",
+  "clip": "pico",
+  "simulation_seconds": 50.54400000001581,
+  "requested_seconds": 160.6,
+  "physical_complete": false,
+  "failure": {
+    "time": 50.54400000001581,
+    "reasons": [
+      "fall"
+    ],
+    "speed_ratio": 0.10796236710774464,
+    "range_excess": 0.0,
+    "effort_ratio": 0.1428022142071652,
+    "tilt": 1.2047037609026092
+  },
+  "wall_seconds": 12.085547099995892,
+  "max_speed_ratio": 0.6012886382000774,
+  "max_effort_ratio": 0.7376969491468607,
+  "inference_ms_p50_p95_max": [
+    2.0846,
+    2.6847,
+    3.9332
+  ],
+  "future_reference_frames": 0,
+  "reference_velocity": "backward differences; current measured heading",
+  "absent_vendor_joints": null,
+  "independent_realtime": false,
+  "hardware_commands": false,
+  "clock_expected_time": "independent repeated addition of .002; tolerance unchanged at1e-10",
+  "command_delay_substeps": 2,
+  "command_delay_physics_seconds": 0.004,
+  "received_gait_phase": false,
+  "factory_command_limits": false,
+  "source": {
+    "passed": false,
+    "source_controls": 2178,
+    "requested_source_controls": 5780,
+    "root_p95_m": 0.2356378657798785,
+    "yaw_p95_deg": 12.043987026104546,
+    "hand_head_relative_p95_m": [
+      0.1053403150610114,
+      0.1400662602703634,
+      0.09686299785198269
+    ],
+    "foot_relative_p95_m": [
+      0.23928082330590697,
+      0.3009028497141848
+    ],
+    "leg_rmse_rad": 0.26140597190375936
+  },
+  "packet_report": {
+    "epoch": 0,
+    "received": 2539,
+    "consumed": 2539,
+    "ignored": 0,
+    "rejected": 0,
+    "final_received": false,
+    "full_source_consumed": false,
+    "fault": null,
+    "calibration": null
+  },
+  "controller_status": {
+    "mode": "source",
+    "epoch": 0,
+    "fault": null,
+    "explicit_rearm_required": false,
+    "future_reference_frames": 0,
+    "qualified": false,
+    "controller": "native_locomotion_full_body_conditioned",
+    "velocity_command": [
+      0.7304070856458907,
+      -1.0,
+      1.0501421406026712
+    ],
+    "velocity_command_limits": [
+      1.2,
+      1.0,
+      6.0
+    ],
+    "motion_fraction": 1.0,
+    "leg_target_filter_alpha": 0.7
+  },
+  "input_loss_control": null,
+  "automatic_rearm": false,
+  "fault_scenario_passed": false,
+  "passed": false
+}

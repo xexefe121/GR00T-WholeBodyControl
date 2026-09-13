@@ -1,0 +1,233 @@
+{
+  "update": 800,
+  "checkpoint": "artifacts\\g1_true23_bfm_residual_20260911_v1\\train3h_v1\\residual_00800.pt",
+  "cases": [
+    {
+      "clip": "walk002",
+      "completed": 1417,
+      "requested": 1417,
+      "failure": null,
+      "source_metrics": {
+        "source_controls": 667,
+        "source_requested": 667,
+        "leg_rmse": 0.17602525573464892,
+        "arm_rmse": 0.14295974796641564,
+        "root_p95": 0.39101845338433944,
+        "landmark_p95": [
+          0.4881156425797272,
+          0.38691772904058214,
+          0.4674755800504962,
+          0.3815526342762903,
+          0.4066609884501258
+        ],
+        "relative_landmark_p95": [
+          0.19371652612022097,
+          0.2221280348713815,
+          0.13284185341807164,
+          0.137229550092338,
+          0.043851171677337895
+        ]
+      },
+      "range_excess_max": 0.0,
+      "effort_ratio_max": 1.0,
+      "velocity_ratio_max": 0.34469966004235925,
+      "inference_ms_p95": 12.167959997896105,
+      "residual_updates": 800,
+      "original_intent": {
+        "original_hand_head_world_p95_m": [
+          0.511364610226044,
+          0.5035711288763858,
+          0.3768631294443148
+        ],
+        "original_hand_head_relative_p95_m": [
+          0.20568551053082995,
+          0.22104217239979,
+          0.06675897771909253
+        ],
+        "original_hand_head_orientation_p95_rad": [
+          0.6838655422689034,
+          0.7189051852177757,
+          0.3956769290746573
+        ],
+        "yaw_abs_p95_deg": 19.272541351933832,
+        "own_heading_foot_p95_m": [
+          0.19983207754974064,
+          0.22098738021711098
+        ],
+        "physical_limits_passed": true
+      }
+    },
+    {
+      "clip": "pico",
+      "completed": 6530,
+      "requested": 6530,
+      "failure": null,
+      "source_metrics": {
+        "source_controls": 5780,
+        "source_requested": 5780,
+        "leg_rmse": 0.17562397387130727,
+        "arm_rmse": 0.22884683744060577,
+        "root_p95": 0.2811847393432891,
+        "landmark_p95": [
+          0.33103953736927727,
+          0.30313649395603054,
+          0.3587726825601853,
+          0.36818631101054744,
+          0.27973971327382946
+        ],
+        "relative_landmark_p95": [
+          0.19013868760945682,
+          0.18286177325456282,
+          0.2374759805307595,
+          0.2527855810599288,
+          0.07729503924119262
+        ]
+      },
+      "range_excess_max": 0.0019799630750468866,
+      "effort_ratio_max": 1.0,
+      "velocity_ratio_max": 0.6194054049431527,
+      "inference_ms_p95": 10.094754998863202,
+      "residual_updates": 800,
+      "original_intent": {
+        "original_hand_head_world_p95_m": [
+          0.44040534490475297,
+          0.4473876313950207,
+          0.29065974504996167
+        ],
+        "original_hand_head_relative_p95_m": [
+          0.3243671256650319,
+          0.34663621760192703,
+          0.1361329587178422
+        ],
+        "original_hand_head_orientation_p95_rad": [
+          1.2078372221958118,
+          1.156597828335196,
+          0.6520891017069345
+        ],
+        "yaw_abs_p95_deg": 33.49382016006244,
+        "own_heading_foot_p95_m": [
+          0.19226916204968506,
+          0.1668789142461454
+        ],
+        "physical_limits_passed": false
+      }
+    },
+    {
+      "clip": "walk003",
+      "completed": 1569,
+      "requested": 1569,
+      "failure": null,
+      "source_metrics": {
+        "source_controls": 819,
+        "source_requested": 819,
+        "leg_rmse": 0.19309393220837742,
+        "arm_rmse": 0.17994949541247984,
+        "root_p95": 0.596438642846125,
+        "landmark_p95": [
+          0.6144055586707042,
+          0.7052809347274397,
+          0.6790296307416053,
+          0.584541535717438,
+          0.5693437030674501
+        ],
+        "relative_landmark_p95": [
+          0.22986099703469337,
+          0.23787929597817142,
+          0.1607013008161704,
+          0.14690647583054242,
+          0.06433260458246463
+        ]
+      },
+      "range_excess_max": 0.0,
+      "effort_ratio_max": 1.0,
+      "velocity_ratio_max": 0.4041036448908276,
+      "inference_ms_p95": 8.950560001539998,
+      "residual_updates": 800,
+      "original_intent": {
+        "original_hand_head_world_p95_m": [
+          0.6812895590279576,
+          0.4951569721843224,
+          0.6269486453544343
+        ],
+        "original_hand_head_relative_p95_m": [
+          0.30580653056794926,
+          0.2805725577875756,
+          0.22459014567138344
+        ],
+        "original_hand_head_orientation_p95_rad": [
+          0.7282321218597243,
+          0.8684172966731372,
+          0.669808817690728
+        ],
+        "yaw_abs_p95_deg": 22.574391630471396,
+        "own_heading_foot_p95_m": [
+          0.2000944274592834,
+          0.23983063784435132
+        ],
+        "physical_limits_passed": true
+      }
+    },
+    {
+      "clip": "walk008",
+      "completed": 417,
+      "requested": 1114,
+      "failure": {
+        "kind": "physical_limit",
+        "control": 416,
+        "range_excess": 0.012082738792877523,
+        "velocity_ratio": 0.0854065775271948
+      },
+      "source_metrics": {
+        "source_controls": 67,
+        "source_requested": 364,
+        "leg_rmse": 0.13215871849859992,
+        "arm_rmse": 0.2821874620300977,
+        "root_p95": 0.07602944306014264,
+        "landmark_p95": [
+          0.17182415163389322,
+          0.15265842397284393,
+          0.23828856756080283,
+          0.22000101151241203,
+          0.0847176199835875
+        ],
+        "relative_landmark_p95": [
+          0.14949102207428494,
+          0.09583908002776603,
+          0.24465981610463894,
+          0.24573599765628426,
+          0.034853274911490886
+        ]
+      },
+      "range_excess_max": 0.012082738792877523,
+      "effort_ratio_max": 0.6976362521368334,
+      "velocity_ratio_max": 0.24826356742736522,
+      "inference_ms_p95": 8.893720008200034,
+      "residual_updates": 800,
+      "original_intent": {
+        "original_hand_head_world_p95_m": [
+          0.35527464762519523,
+          0.40161620591525965,
+          0.10512745284007159
+        ],
+        "original_hand_head_relative_p95_m": [
+          0.3409675978066629,
+          0.4173381458563077,
+          0.06630467716911062
+        ],
+        "original_hand_head_orientation_p95_rad": [
+          0.8904918131077517,
+          1.356666181476615,
+          0.3189358094363132
+        ],
+        "yaw_abs_p95_deg": 20.026558387230317,
+        "own_heading_foot_p95_m": [
+          0.11910793772196983,
+          0.1329545893181389
+        ],
+        "physical_limits_passed": false
+      }
+    }
+  ],
+  "full_body_tracking_qualified": false,
+  "hardware_authorized": false
+}

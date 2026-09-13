@@ -1,0 +1,327 @@
+{
+  "kind": "saved_array_only_filtered_outcome",
+  "saved_bookkeeping_checks_pass": true,
+  "actual_controls": 282,
+  "actual_physics_steps": 2820,
+  "source_controls": 0,
+  "hold_run": false,
+  "all_private_candidate_initial_states_checked": 50,
+  "selected_forecast_actual_samples_bitexact": 320,
+  "rejected_final_history_prior_count_integration_qpos_qvel_warnings_bitexact": true,
+  "control_array_lengths_aligned": true,
+  "rejected_command_applied": false,
+  "moving_attempted_cycle_ms_p50_p95_max": [
+    17.32719999999688,
+    36.792960000000335,
+    56.6071000000008
+  ],
+  "moving_attempted_deadline_misses": 9,
+  "moving_attempts": 33,
+  "final_candidate_failures": [
+    {
+      "candidate": "primary",
+      "reasons": [
+        "native_joint_speed"
+      ],
+      "private_steps": 16,
+      "milliseconds": 32,
+      "final_root_height_m": 0.3366765929812609,
+      "max_speed_joint": "left_knee_joint",
+      "signed_joint_velocity_radps": -20.13055688462181,
+      "joint_speed_cap_radps": 20.0,
+      "speed_ratio": 1.0065278442310905,
+      "metadata_worst_joint_index_semantics": "position-excess argmax, not speed argmax"
+    },
+    {
+      "candidate": "original_BFM",
+      "reasons": [
+        "fall"
+      ],
+      "private_steps": 43,
+      "milliseconds": 86,
+      "final_root_height_m": 0.24806178239620155,
+      "max_speed_joint": "left_knee_joint",
+      "signed_joint_velocity_radps": -5.641018360287383,
+      "joint_speed_cap_radps": 20.0,
+      "speed_ratio": 0.28205091801436916,
+      "metadata_worst_joint_index_semantics": "position-excess argmax, not speed argmax"
+    },
+    {
+      "candidate": "previous_applied",
+      "reasons": [
+        "fall"
+      ],
+      "private_steps": 50,
+      "milliseconds": 100,
+      "final_root_height_m": 0.24773637809340282,
+      "max_speed_joint": "right_hip_yaw_joint",
+      "signed_joint_velocity_radps": -8.094456295189836,
+      "joint_speed_cap_radps": 32.0,
+      "speed_ratio": 0.2529517592246824,
+      "metadata_worst_joint_index_semantics": "position-excess argmax, not speed argmax"
+    },
+    {
+      "candidate": "current_q",
+      "reasons": [
+        "fall"
+      ],
+      "private_steps": 47,
+      "milliseconds": 94,
+      "final_root_height_m": 0.2482530708270613,
+      "max_speed_joint": "left_hip_roll_joint",
+      "signed_joint_velocity_radps": 3.7031208361152785,
+      "joint_speed_cap_radps": 20.0,
+      "speed_ratio": 0.18515604180576392,
+      "metadata_worst_joint_index_semantics": "position-excess argmax, not speed argmax"
+    }
+  ],
+  "moving_control_timeline": [
+    {
+      "control": 250,
+      "selected": 0,
+      "root_height_m": 0.7439384803014204,
+      "root_vertical_velocity_mps": 0.0017517725464416159,
+      "cycle_ms": 47.84310000000147
+    },
+    {
+      "control": 251,
+      "selected": 0,
+      "root_height_m": 0.748012746989177,
+      "root_vertical_velocity_mps": 0.3379586251260024,
+      "cycle_ms": 16.518500000000103
+    },
+    {
+      "control": 252,
+      "selected": 0,
+      "root_height_m": 0.7543904307384133,
+      "root_vertical_velocity_mps": 0.3098811685969521,
+      "cycle_ms": 16.22989999999902
+    },
+    {
+      "control": 253,
+      "selected": 0,
+      "root_height_m": 0.7609079853139641,
+      "root_vertical_velocity_mps": 0.3583825468330085,
+      "cycle_ms": 16.220100000001736
+    },
+    {
+      "control": 254,
+      "selected": 0,
+      "root_height_m": 0.7712949847368118,
+      "root_vertical_velocity_mps": 0.5982761978721237,
+      "cycle_ms": 16.298200000001373
+    },
+    {
+      "control": 255,
+      "selected": 0,
+      "root_height_m": 0.7802033380334037,
+      "root_vertical_velocity_mps": 0.36012235278972543,
+      "cycle_ms": 16.543000000002195
+    },
+    {
+      "control": 256,
+      "selected": 0,
+      "root_height_m": 0.7860684376566626,
+      "root_vertical_velocity_mps": 0.2320868410288632,
+      "cycle_ms": 17.35569999999953
+    },
+    {
+      "control": 257,
+      "selected": 0,
+      "root_height_m": 0.7879931242285267,
+      "root_vertical_velocity_mps": 0.004602550739393946,
+      "cycle_ms": 16.64750000000126
+    },
+    {
+      "control": 258,
+      "selected": 0,
+      "root_height_m": 0.78651438317055,
+      "root_vertical_velocity_mps": -0.14085647854904093,
+      "cycle_ms": 17.406799999999834
+    },
+    {
+      "control": 259,
+      "selected": 0,
+      "root_height_m": 0.7805494833432057,
+      "root_vertical_velocity_mps": -0.3849975723213224,
+      "cycle_ms": 17.139499999998975
+    },
+    {
+      "control": 260,
+      "selected": 0,
+      "root_height_m": 0.7732056411180473,
+      "root_vertical_velocity_mps": -0.41180910192261555,
+      "cycle_ms": 16.910100000000483
+    },
+    {
+      "control": 261,
+      "selected": 0,
+      "root_height_m": 0.7619746421840211,
+      "root_vertical_velocity_mps": -0.6129715277646484,
+      "cycle_ms": 17.66280000000009
+    },
+    {
+      "control": 262,
+      "selected": 0,
+      "root_height_m": 0.7522301186277198,
+      "root_vertical_velocity_mps": -0.36091217722301694,
+      "cycle_ms": 18.47850000000051
+    },
+    {
+      "control": 263,
+      "selected": 0,
+      "root_height_m": 0.749164487440038,
+      "root_vertical_velocity_mps": 0.007447044673094393,
+      "cycle_ms": 16.698100000002825
+    },
+    {
+      "control": 264,
+      "selected": 0,
+      "root_height_m": 0.751929363154244,
+      "root_vertical_velocity_mps": 0.15406711727059377,
+      "cycle_ms": 16.85589999999948
+    },
+    {
+      "control": 265,
+      "selected": 0,
+      "root_height_m": 0.7542245077350681,
+      "root_vertical_velocity_mps": 0.09351558312738142,
+      "cycle_ms": 16.777300000001105
+    },
+    {
+      "control": 266,
+      "selected": 0,
+      "root_height_m": 0.7529841336599365,
+      "root_vertical_velocity_mps": -0.15419573417326782,
+      "cycle_ms": 16.999399999999554
+    },
+    {
+      "control": 267,
+      "selected": 0,
+      "root_height_m": 0.7478892067168932,
+      "root_vertical_velocity_mps": -0.33859847424463935,
+      "cycle_ms": 16.94649999999953
+    },
+    {
+      "control": 268,
+      "selected": 2,
+      "root_height_m": 0.7376579532924068,
+      "root_vertical_velocity_mps": -0.6233962459221,
+      "cycle_ms": 25.360700000000236
+    },
+    {
+      "control": 269,
+      "selected": 1,
+      "root_height_m": 0.7224307193555332,
+      "root_vertical_velocity_mps": -0.8981563964816048,
+      "cycle_ms": 22.571499999997968
+    },
+    {
+      "control": 270,
+      "selected": 1,
+      "root_height_m": 0.7020025260357388,
+      "root_vertical_velocity_mps": -1.0685180558690792,
+      "cycle_ms": 18.230299999999033
+    },
+    {
+      "control": 271,
+      "selected": 0,
+      "root_height_m": 0.6817092226963235,
+      "root_vertical_velocity_mps": -0.9258018963536444,
+      "cycle_ms": 17.32719999999688
+    },
+    {
+      "control": 272,
+      "selected": 1,
+      "root_height_m": 0.6671074734926853,
+      "root_vertical_velocity_mps": -0.6194310023248792,
+      "cycle_ms": 21.682999999999453
+    },
+    {
+      "control": 273,
+      "selected": 0,
+      "root_height_m": 0.6554407913188589,
+      "root_vertical_velocity_mps": -0.5151495197307272,
+      "cycle_ms": 17.0925000000004
+    },
+    {
+      "control": 274,
+      "selected": 0,
+      "root_height_m": 0.6429252333796962,
+      "root_vertical_velocity_mps": -0.7256524093530332,
+      "cycle_ms": 16.728499999999258
+    },
+    {
+      "control": 275,
+      "selected": 1,
+      "root_height_m": 0.6210721339526043,
+      "root_vertical_velocity_mps": -1.3733289881637014,
+      "cycle_ms": 19.486600000000465
+    },
+    {
+      "control": 276,
+      "selected": 0,
+      "root_height_m": 0.5937984307776578,
+      "root_vertical_velocity_mps": -1.3305897062457364,
+      "cycle_ms": 16.67720000000017
+    },
+    {
+      "control": 277,
+      "selected": 1,
+      "root_height_m": 0.5637219607475188,
+      "root_vertical_velocity_mps": -1.6715361521606213,
+      "cycle_ms": 23.08269999999979
+    },
+    {
+      "control": 278,
+      "selected": 2,
+      "root_height_m": 0.5311523272401021,
+      "root_vertical_velocity_mps": -1.5930954767678225,
+      "cycle_ms": 29.426199999999625
+    },
+    {
+      "control": 279,
+      "selected": 1,
+      "root_height_m": 0.5000036089877928,
+      "root_vertical_velocity_mps": -1.532915990758126,
+      "cycle_ms": 17.976300000000833
+    },
+    {
+      "control": 280,
+      "selected": 2,
+      "root_height_m": 0.46962830112725695,
+      "root_vertical_velocity_mps": -1.5406105542469495,
+      "cycle_ms": 22.251999999998162
+    },
+    {
+      "control": 281,
+      "selected": 2,
+      "root_height_m": 0.43711782653080206,
+      "root_vertical_velocity_mps": -1.684441324440848,
+      "cycle_ms": 20.82550000000083
+    },
+    {
+      "control": 282,
+      "selected": null,
+      "root_height_m": 0.4040134917519782,
+      "root_vertical_velocity_mps": -1.6328582592833534,
+      "cycle_ms": 56.6071000000008
+    }
+  ],
+  "conclusion": "All applied commands remained within the saved strict native gates, but finite100ms admission did not maintain balance or ensure a feasible next action. All candidates were rejected at282 while the root was descending. No source motion or hardware qualification achieved.",
+  "no_live_hardware_freeze_or_safe_stop_claim": true,
+  "new_physics_steps": 0,
+  "actor_calls": 0,
+  "model_updates": 0,
+  "independent_physics_replay_pending": true,
+  "input_sha256": {
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_filtered_v1\\nominal\\trace.npz": "2d81a694cd70f2fe4dfddcbd2bc46231928392d235c9eaa7847dbb22aa0847f7",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_filtered_v1\\nominal\\private_forecasts.npz": "589c3ab932d71d5c906bfb40457641971ee085e38cded1d2675c473a82565b9a",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_filtered_v1\\nominal\\rejected_proposal.npz": "d51ae8a610e286ceda23f227571451be773a42587112dfde52883b3949a8fcbb",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_filtered_v1\\nominal\\admission_ledger.json": "6a12a6b4b42bce825ecd64fbe8d252966edfc972419a0707c7963d8636a69a28",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_filtered_v1\\nominal\\report.json": "26153102cbb585c171e8629b7a3453d352c421a830fc55277788b0437b7432a2",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_filtered_v1\\canonical_process_status.json": "30ceac0556cb001fb3e57547f2d037c00944709d5d2692e1128c06d1b5ff22e0",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native23_inputs_v1\\contract.json": "d1641ce4f2e9016f5008e5d4be3cc24ded46d7f9daf9cfddaab84095f98eb99b",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\filtered_student_saved_outcome_v1\\summarize_saved.py": "f60a3d7d4dea31028fc99d214185c13832af9d8b17411940aa1bda75691f0c92"
+  }
+}

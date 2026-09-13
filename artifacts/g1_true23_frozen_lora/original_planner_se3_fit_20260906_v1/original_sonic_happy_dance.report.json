@@ -1,0 +1,291 @@
+{
+  "name": "original_sonic_happy_dance",
+  "frames_requested": 546,
+  "controlled_joints": 23,
+  "teacher_accepted": false,
+  "hardware_authorized": false,
+  "deployment_ready": false,
+  "output": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original_planner_se3_fit_20260906_v1/original_sonic_happy_dance.npz",
+  "output_sha256": "1108c916f342c53283cc57020103a7612e02b6831541a650c087ebeb494a3a5f",
+  "fit": {
+    "kind": "g1_true23_original_planner_se3_task_fit_v1",
+    "config": {
+      "maximum_iterations": 24,
+      "maximum_root_offset_m": 0.08,
+      "maximum_root_rotation_l1_rad": 0.45,
+      "maximum_joint_change_rad": 0.6,
+      "root_offset_velocity_m_s": 0.75,
+      "root_offset_acceleration_m_s2": 6.0,
+      "root_rotation_coordinate_velocity_rad_s": 1.5,
+      "root_rotation_coordinate_acceleration_rad_s2": 12.0,
+      "joint_velocity_rad_s": 5.0,
+      "joint_acceleration_rad_s2": 80.0,
+      "serialization_margin_fraction": 0.995,
+      "root_trust_m": 0.015,
+      "rotation_trust_rad": 0.08,
+      "joint_trust_rad": 0.12
+    },
+    "before": {
+      "frames_checked": 546,
+      "weighted_task_squared_error": 28732.93778978858,
+      "per_task": {
+        "left_foot": {
+          "position_max_m": 0.047731221049732826,
+          "position_mean_m": 0.0037028085461339143,
+          "orientation_max_rad": 0.2750325743743208,
+          "orientation_mean_rad": 0.031163530531266512
+        },
+        "right_foot": {
+          "position_max_m": 0.040811973005422386,
+          "position_mean_m": 0.004810916124137613,
+          "orientation_max_rad": 0.2744868328849309,
+          "orientation_mean_rad": 0.05500687951474473
+        },
+        "whole_robot_com": {
+          "position_max_m": 0.0648410902002268,
+          "position_mean_m": 0.036360832961512435,
+          "orientation_max_rad": 0.0,
+          "orientation_mean_rad": 0.0
+        },
+        "torso_orientation": {
+          "position_max_m": 0.012816020557908684,
+          "position_mean_m": 0.010717720012943355,
+          "orientation_max_rad": 0.568032810437887,
+          "orientation_mean_rad": 0.24537886433446074
+        },
+        "head_proxy": {
+          "position_max_m": 0.20452067146582179,
+          "position_mean_m": 0.08953073943028003,
+          "orientation_max_rad": 0.568032810437887,
+          "orientation_mean_rad": 0.24537886433446074
+        },
+        "left_hand": {
+          "position_max_m": 0.3051021724920111,
+          "position_mean_m": 0.15543888988553145,
+          "orientation_max_rad": 1.2364093260765283,
+          "orientation_mean_rad": 0.4965165021579247
+        },
+        "right_hand": {
+          "position_max_m": 0.3645871080426822,
+          "position_mean_m": 0.14792844901033486,
+          "orientation_max_rad": 1.0013406341609101,
+          "orientation_mean_rad": 0.41680478713394103
+        },
+        "left_elbow": {
+          "position_max_m": 0.18204537445854965,
+          "position_mean_m": 0.0721982737015401,
+          "orientation_max_rad": 0.5680328072967955,
+          "orientation_mean_rad": 0.27046522991446825
+        },
+        "right_elbow": {
+          "position_max_m": 0.24036506970059812,
+          "position_mean_m": 0.08125276096180066,
+          "orientation_max_rad": 0.5680328226363048,
+          "orientation_mean_rad": 0.2538610202043051
+        }
+      },
+      "both_feet_within_existing_5mm_screen": false
+    },
+    "after": {
+      "frames_checked": 546,
+      "weighted_task_squared_error": 28732.93778978858,
+      "per_task": {
+        "left_foot": {
+          "position_max_m": 0.047731221049732826,
+          "position_mean_m": 0.0037028085461339143,
+          "orientation_max_rad": 0.2750325743743208,
+          "orientation_mean_rad": 0.031163530531266512
+        },
+        "right_foot": {
+          "position_max_m": 0.040811973005422386,
+          "position_mean_m": 0.004810916124137613,
+          "orientation_max_rad": 0.2744868328849309,
+          "orientation_mean_rad": 0.05500687951474473
+        },
+        "whole_robot_com": {
+          "position_max_m": 0.0648410902002268,
+          "position_mean_m": 0.036360832961512435,
+          "orientation_max_rad": 0.0,
+          "orientation_mean_rad": 0.0
+        },
+        "torso_orientation": {
+          "position_max_m": 0.012816020557908684,
+          "position_mean_m": 0.010717720012943355,
+          "orientation_max_rad": 0.568032810437887,
+          "orientation_mean_rad": 0.24537886433446074
+        },
+        "head_proxy": {
+          "position_max_m": 0.20452067146582179,
+          "position_mean_m": 0.08953073943028003,
+          "orientation_max_rad": 0.568032810437887,
+          "orientation_mean_rad": 0.24537886433446074
+        },
+        "left_hand": {
+          "position_max_m": 0.3051021724920111,
+          "position_mean_m": 0.15543888988553145,
+          "orientation_max_rad": 1.2364093260765283,
+          "orientation_mean_rad": 0.4965165021579247
+        },
+        "right_hand": {
+          "position_max_m": 0.3645871080426822,
+          "position_mean_m": 0.14792844901033486,
+          "orientation_max_rad": 1.0013406341609101,
+          "orientation_mean_rad": 0.41680478713394103
+        },
+        "left_elbow": {
+          "position_max_m": 0.18204537445854965,
+          "position_mean_m": 0.0721982737015401,
+          "orientation_max_rad": 0.5680328072967955,
+          "orientation_mean_rad": 0.27046522991446825
+        },
+        "right_elbow": {
+          "position_max_m": 0.24036506970059812,
+          "position_mean_m": 0.08125276096180066,
+          "orientation_max_rad": 0.5680328226363048,
+          "orientation_mean_rad": 0.2538610202043051
+        }
+      },
+      "both_feet_within_existing_5mm_screen": false
+    },
+    "iterations": [
+      {
+        "iteration": 1,
+        "qp": {
+          "backend": "clarabel",
+          "backend_version": "0.11.1",
+          "status": "independent_linear_constraints_failed",
+          "iterations": 66,
+          "primal_residual": 5.268566077902612e-10,
+          "dual_residual": 2.453647217903914e-16,
+          "solve_time_s": 9.107810797,
+          "original_rows": 73106,
+          "cone_equality_rows": 21294,
+          "cone_inequality_rows": 99256,
+          "maximum_threads": 1,
+          "direct_solve_method": "qdldl",
+          "requested_feasibility_tolerance": 1e-09,
+          "requested_gap_tolerance": 1e-09,
+          "accepted": false,
+          "independent_maximum_scaled_linear_violation": 3.5577597069791356e-08
+        },
+        "accepted": false
+      }
+    ],
+    "failure": "task QP failed strict solver/original-row audit",
+    "iteration_budget_exhausted": false,
+    "path_constraints": {
+      "passed": true,
+      "temporal": {
+        "passed": true,
+        "position_violation_max": 2.829666681525289e-09,
+        "velocity_step_violation_max": 0.0,
+        "acceleration_step_violation_max": 0.0,
+        "max_velocity_abs": 4.975003004074097,
+        "max_acceleration_abs": 79.6005129814148,
+        "tolerance": 2e-07
+      },
+      "maximum_root_rotation_l1_rad": 0.0,
+      "rotation_derivatives_are_rotvec_coordinates_not_physical_angular_acceleration": true
+    },
+    "frames_dropped": 0,
+    "time_scale": 1.0,
+    "native_joint_count": 23,
+    "root_attitude_reference_optimization_enabled": true,
+    "contact_force_or_controller_qualification_performed": false,
+    "teacher_accepted": false,
+    "hardware_authorized": false,
+    "deployment_ready": false
+  },
+  "saved_path_audit": {
+    "passed": true,
+    "temporal": {
+      "passed": true,
+      "position_violation_max": 2.829666681525289e-09,
+      "velocity_step_violation_max": 0.0,
+      "acceleration_step_violation_max": 0.0,
+      "max_velocity_abs": 4.975003004074097,
+      "max_acceleration_abs": 79.6005129814148,
+      "tolerance": 2e-07
+    },
+    "maximum_root_rotation_l1_rad": 2.491914323965362e-08,
+    "rotation_derivatives_are_rotvec_coordinates_not_physical_angular_acceleration": true
+  },
+  "saved_task_metrics": {
+    "frames_checked": 546,
+    "weighted_task_squared_error": 28732.937064643564,
+    "per_task": {
+      "left_foot": {
+        "position_max_m": 0.04773124834971213,
+        "position_mean_m": 0.0037028341884699453,
+        "orientation_max_rad": 0.2750325688777949,
+        "orientation_mean_rad": 0.031163530708936748
+      },
+      "right_foot": {
+        "position_max_m": 0.040811971208128496,
+        "position_mean_m": 0.0048109366614995045,
+        "orientation_max_rad": 0.2744868328849309,
+        "orientation_mean_rad": 0.05500687924908513
+      },
+      "whole_robot_com": {
+        "position_max_m": 0.0648410902002268,
+        "position_mean_m": 0.036360832062825345,
+        "orientation_max_rad": 0.0,
+        "orientation_mean_rad": 0.0
+      },
+      "torso_orientation": {
+        "position_max_m": 0.012816020557908684,
+        "position_mean_m": 0.010717720309353043,
+        "orientation_max_rad": 0.5680328119313485,
+        "orientation_mean_rad": 0.24537886442271947
+      },
+      "head_proxy": {
+        "position_max_m": 0.20452069476224752,
+        "position_mean_m": 0.08953073785600776,
+        "orientation_max_rad": 0.5680328119313485,
+        "orientation_mean_rad": 0.24537886442271947
+      },
+      "left_hand": {
+        "position_max_m": 0.3051021798644952,
+        "position_mean_m": 0.15543889059811317,
+        "orientation_max_rad": 1.2364093186597092,
+        "orientation_mean_rad": 0.49651650209563986
+      },
+      "right_hand": {
+        "position_max_m": 0.36458710140541845,
+        "position_mean_m": 0.14792844801770968,
+        "orientation_max_rad": 1.001340635518418,
+        "orientation_mean_rad": 0.41680478706477614
+      },
+      "left_elbow": {
+        "position_max_m": 0.18204541376792385,
+        "position_mean_m": 0.07219827317085646,
+        "orientation_max_rad": 0.5680328087902566,
+        "orientation_mean_rad": 0.27046523008677453
+      },
+      "right_elbow": {
+        "position_max_m": 0.24036506970059812,
+        "position_mean_m": 0.0812527595609803,
+        "orientation_max_rad": 0.5680328241297661,
+        "orientation_mean_rad": 0.2538610202009908
+      }
+    },
+    "both_feet_within_existing_5mm_screen": false
+  },
+  "fk": {
+    "frames_checked": 546,
+    "maximum_body_position_fk_error_m": 8.574649655136942e-07,
+    "position_fk_consistent": true,
+    "maximum_body_orientation_fk_error_rad": 1.032382731180714e-07,
+    "orientation_fk_consistent": true,
+    "dynamics_feasibility_proven": false
+  },
+  "causal": {
+    "packets_rebuilt_and_validated": 536,
+    "first_q9": 9,
+    "last_q9": 544,
+    "canonical_jsonl_sha256": "ff820ba0deed50fa4ffd56a87b41ee582bff9a2cddac7a0b5876ccf53d725d9c",
+    "stored_or_sent_to_robot": false,
+    "live_pico_input_qualified": false
+  },
+  "failure": null
+}

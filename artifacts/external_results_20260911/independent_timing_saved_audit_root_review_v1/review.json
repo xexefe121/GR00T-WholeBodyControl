@@ -1,0 +1,68 @@
+{
+  "passed": true,
+  "source_review_pass": true,
+  "reviewed_utc": "2026-09-11T22:45:15.291933+00:00",
+  "source_preparation_sha256": "78d7855373d409fcd6c3a44edef433d6be520faaaf956a739483dad2b8dd6ae8",
+  "source_sha256": {
+    "audit_clock.py": "b36a11091fd0c7f52f6a310165def3e365c77700c5e9a9de783119cb6fbd39e7",
+    "clock_accounting.py": "92012a5ba09f7b01a14bd7a793b9c94318a5f3b7fe315406cf509beb9d6de7a4",
+    "clock_control_math.py": "3f2e8ff9663cdfaabc0438ac6cf5f9b8db22f1da055a4fbd8878a23e95110758",
+    "clock_protocol_math.py": "6583a29d05f16091d457ff814c55adaae9dff9d057081bc596e74bcb73d6b62f",
+    "clock_saved_math.py": "7473253faff05addf2b0e1c7181ecb570bab56dccf6cbbfe08565a18d5659c40",
+    "clock_stage_math.py": "9245e512dc9768493e77914aa1a922a77fdf8e1f5915c0b6613f3934056bbdb3",
+    "prepare_request.py": "381e256b605c1ba1e23352daf204b09d2e6171a1e675238685a5e9f8e5026085",
+    "qualified_binary_math.py": "7d35c7cbfbc392f7bde6230452d4950d10942352afb6b64c026955fdaa5bd1f8",
+    "retry_publication_math.py": "5e898b18c15702f2ede77462eeea7b6732cedd9b356ae2f2e0394f5ffa2807c6",
+    "test_adversarial_terminal_bounds.py": "7678e90e46ce358dc0108372a49e5c376d37b49860fca5db6c8d163363eb18d0",
+    "test_clock_accounting.py": "dc08535429c240ceefd78d98e5e620b8412f89756a8b667f8210214d07b7e637",
+    "test_clock_audit_gates.py": "dcae66892798f8ecbcc853afebd5229ee924cb878be90c19640acde655cf0e07",
+    "test_clock_control_math.py": "b0ba6e7353ab2f51adeac18269bc45901fabad6ddbf17e02acbcee9609685aeb",
+    "test_clock_protocol_math.py": "5c0b51419846bbc5ace89a3dae7cb13775c9b9316f57dfe4a5ed671e0fb10757",
+    "test_clock_saved_math.py": "67023a55c0a8a037fc342bea33237ee7582faed11b5b9962e7176f0ea5748c20",
+    "test_clock_stage_math.py": "030bd43148dc03f5ecfacbe108f693380ab621369494943cca7a8b4d531a85af",
+    "test_cross_job_iteration.py": "5b40d09a85bfdb9e7999fed401bacba2099d3b219b9db0d911201d57f96adba8",
+    "test_retry_publication_math.py": "fbbc7f470bb20dfc86caa10cb0100dfe8ee5d95b64d899ced166360f5d6233c0",
+    "test_timing_saved_math.py": "f1f8eae05552d541ff86e1c69d539b164822e598c0e08d4a4adb2c24ec1caa59",
+    "test_timing_sidecar_io.py": "d0a4eeb74a5343e5868811098c90db6838fb70f4ba08bbae2743f92c9b8a8cae",
+    "test_worker_result_math.py": "0b533c2a074a9942fd759df29e56610d49389c6d20d1e29c6cf3aa83c5e98f0f",
+    "timing_saved_math.py": "b53f4784bc62518cd04614823e17efaaec166b4afcef7a3b49b19b691b433547",
+    "timing_sidecar_io.py": "be7d0a1b3aacb92617d135f3e30af98086a94f12b4c83a5435dc8ae258cf4d5c",
+    "timing_source_math.py": "41e8c919149349072e3f503c0e9d367e0695789b6a00c3d4330f2825c73f347e",
+    "worker_result_math.py": "a304273c3b12740f3002b082b084c0f4743b60644af82bd671b07e1d38e8f43b"
+  },
+  "unchanged_original_modules": 17,
+  "unchanged_v1_modules": 21,
+  "root_test_receipt": {
+    "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/independent_timing_saved_audit_root_review_v1/root_tests_v2.xml",
+    "sha256": "49f7aa0de99d3e29bd3fa40aedfd1facead2b6c6c9e67e6824275824bccba876",
+    "junit_cases": 219
+  },
+  "pytest_passed": 163,
+  "pytest_subtests_passed": 56,
+  "independent_regressions": {
+    "sibling_wall_rejected": true,
+    "child_thread_cpu_rejected": true,
+    "child_process_cpu_rejected": true,
+    "verification_attempt_does_not_establish_return": true
+  },
+  "preserved_v1_gap_proof_sha256": "22b5df536e0cd27af12e407f347754287f880c245703678c0dceac3918b6dd74",
+  "reviewed_properties": [
+    "All original physical/control/protocol/epoch/MJB/stage gates retained",
+    "Bounded fatal counter gaps require independent saved evidence; no new native or verification credit",
+    "Wall/thread/process clocks constrained by explicit nesting and sequential scopes",
+    "Foreign GC overlap and missing/incomplete spans remain uncertainty, not causal attribution",
+    "Verification attempts do not imply returned verification",
+    "Producer and all retained sidecars bound by actual hashes and lengths"
+  ],
+  "actual_clock_selected": false,
+  "actual_saved_audit_selected": false,
+  "actual_task_arrays_loaded": 0,
+  "task_model_calls": 0,
+  "native_steps": 0,
+  "actual_gc_callbacks_installed": 0,
+  "limitations": [
+    "Source review only; no simulation or timing qualification.",
+    "Instrumentation overhead remains unmeasured; nested scopes cannot be summed as disjoint time."
+  ],
+  "writer_sha256": "d1c58801bfe5dde307d02ff06527b7e89022564cdd3b651c43e5ff0d621df520"
+}

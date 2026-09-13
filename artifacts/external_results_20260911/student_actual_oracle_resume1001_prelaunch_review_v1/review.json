@@ -1,0 +1,54 @@
+{
+  "review": "read-only same-experiment checkpoint resumption prelaunch",
+  "reviewed_at_utc": "2026-09-11T03:03:36.515207+00:00",
+  "cleared_for": "preflight then continuing the already-authorized interrupted expert branch from committed checkpoint1001",
+  "checks": {
+    "all_15_source_hashes": true,
+    "all_240_input_hashes": true,
+    "all_14_original_v2_sources_byteexact": true,
+    "checkpoint_byteexact": true,
+    "plans_json_byteexact": true,
+    "all200_committed_plan_files_byteexact": true,
+    "only_committed_plans_in_input_folder": true,
+    "comparison_only_plan1001_byteexact": true,
+    "counts1001controls10010steps": true,
+    "all_controls10steps": true,
+    "global_clock_exact": true,
+    "global_controls0to1000": true,
+    "sourceframes11to1011": true,
+    "student0_only": true,
+    "warnings_zero": true,
+    "all200_plans_committed5": true,
+    "no_prior_restorer_state": true
+  },
+  "checkpoint_sha256": "20171b149bf204492a7a7748efd6b54692ce3216cbe8e6c684a92ce3dd6fc0a9",
+  "source_driver_sha256": "569c9dc5f6e355d751309700e827978121d305d3028ac43a79b3e10271a46475",
+  "frozen_receipt_sha256": "43ec52d0d50b535319cce09a6ba69a17dc0a481aedb989d08262af9d40af8c96",
+  "global_expected_time": 20.019999999999783,
+  "preclip_action_stats": {
+    "max_abs": 6.6955742835998535,
+    "components_outside_five": 12
+  },
+  "reviewer_executions": {
+    "physics_steps": 0,
+    "optimizer_calls": 0,
+    "inference_calls": 0
+  },
+  "conclusions": [
+    "All1001 executed prefix controls/10010 native steps retained; only student control0 has mode0, every later committed control is mode1. No control0 relabeling.",
+    "Copied200 committed plan files end996 with five executed controls; remaining warm shift is25 retained targets plus5 appended reference targets.",
+    "First newly computed plan1001 must match archived uncommitted1001 states/targets/gains before command application. Saved file is comparison-only, never optimization input or execution target. Later uncommitted plan files excluded.",
+    "Full291integration, warning ledger and exact independently accumulated clock restored once at new process initialization. Sensor-only reconstruction verifies every prior action/named lag before continuation; no clipping of actual preclip history.",
+    "Original14files unchanged. Run-loop AST differs only checkpoint startup/persistence and first-plan equality assertion. Strict imminent/every2ms physics, original control timing and terminal BFM remain inherited unchanged.",
+    "Original1569 lifecycle and separate250hold remain required. Terminal switch1269 remains identical. Labels inadmissible pending full independent source/return/quiet review; no new fit/query.",
+    "No earlier restoration existed in committed prefix, so no previous private restorer state must be reconstructed."
+  ],
+  "runtime_requirements": [
+    "Preflight must succeed without inference/optimizer/physics.",
+    "First plan comparison must succeed before resumed actual command. A mismatch is retained as a failed/incomplete resumption; no saved candidate replacement.",
+    "Root independent combined-trace replay must bind full prefix+suffix; prior root prefixaudit already matches10010steps."
+  ],
+  "limitations": [
+    "This review did not instantiate sessions, run the preflight, infer, optimize, or simulate. Runtime equality and final independent result remain pending."
+  ]
+}

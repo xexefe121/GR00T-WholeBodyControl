@@ -1,0 +1,63 @@
+{
+  "stage": "preservation_complete",
+  "record_created_ns": 181945094653,
+  "request_sha256": "0c22640dfb617a20c31aff7356434a6253096b0fc4cbed38aae64faeb14e75eb",
+  "pid": 384,
+  "watchdog": {
+    "phase": "preservation",
+    "deadline_ns": 313998290881,
+    "transitions": [
+      {
+        "stage": "setup",
+        "entered_ns": 6472829600,
+        "deadline_ns": 246472829600
+      },
+      {
+        "stage": "plant",
+        "entered_ns": 124411393063,
+        "deadline_ns": 244611372988
+      },
+      {
+        "stage": "preservation",
+        "entered_ns": 133998290881,
+        "deadline_ns": 313998290881
+      }
+    ],
+    "timeouts": [],
+    "budgets": {
+      "setup_ns": 240000000000,
+      "plant_ns": 120000000000,
+      "preservation_ns": 180000000000,
+      "outer_timeout_seconds": 555,
+      "outer_kill_grace_seconds": 5
+    },
+    "native_signal_delivery_may_be_delayed": true
+  },
+  "counters": {
+    "foundation": {
+      "attempted": 4694,
+      "returned": 4694,
+      "captured": 4694,
+      "verified": 4693
+    },
+    "adapter": {
+      "attempted": 4694,
+      "returned": 4694,
+      "capture_attempts": 4694,
+      "captured": 4694,
+      "verification_attempts": 4694,
+      "verified": 4693,
+      "stage": "STEP_VERIFY"
+    },
+    "api": {
+      "step_attempted": 4694,
+      "step_returned": 4694,
+      "serialization_attempted": 4,
+      "serialization_returned": 4
+    },
+    "native_return_may_be_uncertain": false,
+    "extra_capture_or_native_read": false
+  },
+  "report_sha256": "b63896a22b00a032f9d1ac5e9fcb420d796778607374d11e4a1ad7fec3ec52fc",
+  "output_manifest_sha256": "d9e86214c33a0d08e8a92b45e8a075c2657a56d9bf32433b178395e029d406ca"
+}

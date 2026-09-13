@@ -1,0 +1,2395 @@
+{
+  "kind": "saved_phase_final65000_failure_diagnosis",
+  "controls": [
+    250,
+    278
+  ],
+  "learned_full_controls": 28,
+  "partial_control_substeps": 4,
+  "all279_actual_features_history_state_targets_actions_reconstructed_exact": true,
+  "all_final_named_history_exact": true,
+  "query250_named_history_exact": true,
+  "query250_full_input_exact": true,
+  "query250_actual_ONNX_vs_saved_Torch_max_delta": 2.384185791015625e-07,
+  "query250_actual_target_error_rms_rad": 0.03195781956804389,
+  "first_actual_target_differs_from_expert": 250,
+  "first_actual_input_differs_from_matching_expert": 251,
+  "first_named_history_differs_from_matching_expert": {
+    "actions": 252,
+    "base_ang_vel": 252,
+    "dof_pos": 252,
+    "dof_vel": 252,
+    "projected_gravity": 252
+  },
+  "first_any_feature_training_minmax_excursion": 253,
+  "first_previous_action_training_span_excursion": 253,
+  "first_native_target_clipping": 252,
+  "first_preclip_combined_action_differs_from_applied_normalized_action": 252,
+  "failed_joint": "right_hip_yaw_joint",
+  "failed_joint_index": 8,
+  "failed_control": 278,
+  "failed_substep": 4,
+  "failed_velocity_radps": 32.14138352399871,
+  "native_velocity_limit_radps": 32.0,
+  "failed_velocity_ratio": 1.0044182351249598,
+  "observed_previous_action_max_abs": 12.555272102355957,
+  "training_previous_action_max_abs": 6.6955742835998535,
+  "rows": [
+    {
+      "control": 250,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 0.03195781956804389,
+      "matching_expert_input_fit_rmse_rad": 0.03195779650054582,
+      "actual_vs_matching_expert_input_feature_distance": 0.0,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 0.0,
+        "future_goal": 0.0,
+        "BFM_base_offset": 0.0,
+        "previous_action": 0.0
+      },
+      "actual_base_change_rms_rad": 0.0,
+      "actual_head_output_change_rms_rad": 1.1558616442781957e-07,
+      "qpos_joint_max_difference_rad": 0.0,
+      "qvel_joint_max_difference_radps": 0.0,
+      "matching_history_difference_rms": {
+        "actions": 0.0,
+        "base_ang_vel": 0.0,
+        "dof_pos": 0.0,
+        "dof_vel": 0.0,
+        "projected_gravity": 0.0
+      },
+      "nearest": {
+        "old": {
+          "control": 252,
+          "distance": 0.2144518452352637,
+          "actual_target_difference_rms_rad": 0.2857835227542921,
+          "saved_teacher_input_fit_error_rms_rad": 0.016862629575272417
+        },
+        "query1": {
+          "control": 254,
+          "distance": 0.21504058003088453,
+          "actual_target_difference_rms_rad": 0.26014749729074743,
+          "saved_teacher_input_fit_error_rms_rad": 0.022455871575469067
+        },
+        "query250": {
+          "control": 250,
+          "distance": 0.0,
+          "actual_target_difference_rms_rad": 0.03195781956804389,
+          "saved_teacher_input_fit_error_rms_rad": 0.03195779650054582
+        }
+      },
+      "nearest_any": {
+        "dataset": "query250",
+        "control": 250,
+        "distance": 0.0
+      },
+      "clipped_joints": [],
+      "clip_max_abs_rad": 0.0,
+      "features_outside_training_minmax": 0,
+      "max_standardized_feature_excursion": 0.0,
+      "previous_action_outside_training_joint_ranges": [],
+      "previous_action_max_abs": 1.4720137119293213,
+      "combined_action_max_abs": 1.6210241317749023,
+      "combined_minus_normalized_applied_action_max_abs": 0.0,
+      "worst_matching_target_joint": "right_shoulder_pitch_joint",
+      "worst_matching_target_signed_error_rad": 0.08904386482445814,
+      "right_hip_yaw": {
+        "qpos": 0.09054676465768467,
+        "qvel": -0.0014362459418679747,
+        "base": 0.11771795921226869,
+        "delta": -0.009366167709231377,
+        "raw_target": 0.10835179150303731,
+        "applied_target": 0.10835179150303731,
+        "expert_target": 0.1682514269462762,
+        "previous_action": 0.2131078839302063,
+        "combined_action": 0.19788603484630585
+      }
+    },
+    {
+      "control": 251,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 0.1508477169434611,
+      "matching_expert_input_fit_rmse_rad": 0.017650252512862463,
+      "actual_vs_matching_expert_input_feature_distance": 0.05785748048946792,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 0.20322213231139669,
+        "future_goal": 0.01140531879839172,
+        "BFM_base_offset": 0.03525713197581225,
+        "previous_action": 0.08455456346724097
+      },
+      "actual_base_change_rms_rad": 0.006697744896263712,
+      "actual_head_output_change_rms_rad": 0.1496721934322907,
+      "qpos_joint_max_difference_rad": 0.014089374481124094,
+      "qvel_joint_max_difference_radps": 0.7226746987495241,
+      "matching_history_difference_rms": {
+        "actions": 0.0,
+        "base_ang_vel": 0.0,
+        "dof_pos": 0.0,
+        "dof_vel": 0.0,
+        "projected_gravity": 0.0
+      },
+      "nearest": {
+        "old": {
+          "control": 250,
+          "distance": 0.266201984778506,
+          "actual_target_difference_rms_rad": 0.2836985632415673,
+          "saved_teacher_input_fit_error_rms_rad": 0.02081357582915665
+        },
+        "query1": {
+          "control": 255,
+          "distance": 0.2651572833180354,
+          "actual_target_difference_rms_rad": 0.2801735034328742,
+          "saved_teacher_input_fit_error_rms_rad": 0.023972181174491954
+        },
+        "query250": {
+          "control": 251,
+          "distance": 0.05785748048946793,
+          "actual_target_difference_rms_rad": 0.1508477169434611,
+          "saved_teacher_input_fit_error_rms_rad": 0.017650252512862463
+        }
+      },
+      "nearest_any": {
+        "dataset": "query250",
+        "control": 251,
+        "distance": 0.05785748048946793
+      },
+      "clipped_joints": [],
+      "clip_max_abs_rad": 0.0,
+      "features_outside_training_minmax": 0,
+      "max_standardized_feature_excursion": 0.0,
+      "previous_action_outside_training_joint_ranges": [],
+      "previous_action_max_abs": 1.6210241317749023,
+      "combined_action_max_abs": 1.624597430229187,
+      "combined_minus_normalized_applied_action_max_abs": 0.0,
+      "worst_matching_target_joint": "right_ankle_pitch_joint",
+      "worst_matching_target_signed_error_rad": -0.41058075579323994,
+      "right_hip_yaw": {
+        "qpos": 0.07818273828661695,
+        "qvel": -1.0530879835692808,
+        "base": 0.11221362501381493,
+        "delta": -0.39742469787597656,
+        "raw_target": -0.28521107286216163,
+        "applied_target": -0.28521107286216163,
+        "expert_target": -0.19338507561571536,
+        "previous_action": 0.19788603484630585,
+        "combined_action": -0.5208892822265625
+      }
+    },
+    {
+      "control": 252,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 0.3310451953750164,
+      "matching_expert_input_fit_rmse_rad": 0.029980958639674822,
+      "actual_vs_matching_expert_input_feature_distance": 0.15085291049990582,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 0.4699573109812184,
+        "future_goal": 0.025852202158189137,
+        "BFM_base_offset": 0.3490408256616609,
+        "previous_action": 0.3870674593895552
+      },
+      "actual_base_change_rms_rad": 0.09771225022677886,
+      "actual_head_output_change_rms_rad": 0.3508575222386731,
+      "qpos_joint_max_difference_rad": 0.07854240393213224,
+      "qvel_joint_max_difference_radps": 4.7287066654947605,
+      "matching_history_difference_rms": {
+        "actions": 0.04204650753973614,
+        "base_ang_vel": 0.021971452545407156,
+        "dof_pos": 0.0025141193530746953,
+        "dof_vel": 0.15414056921695263,
+        "projected_gravity": 0.0004024101471833686
+      },
+      "nearest": {
+        "old": {
+          "control": 256,
+          "distance": 0.2513896190736741,
+          "actual_target_difference_rms_rad": 0.4051878059462077,
+          "saved_teacher_input_fit_error_rms_rad": 0.02578851747828867
+        },
+        "query1": {
+          "control": 258,
+          "distance": 0.25235450040738655,
+          "actual_target_difference_rms_rad": 0.4084973836340783,
+          "saved_teacher_input_fit_error_rms_rad": 0.014195223456374823
+        },
+        "query250": {
+          "control": 252,
+          "distance": 0.15085291049990582,
+          "actual_target_difference_rms_rad": 0.3310451953750164,
+          "saved_teacher_input_fit_error_rms_rad": 0.029980958639674822
+        }
+      },
+      "nearest_any": {
+        "dataset": "query250",
+        "control": 252,
+        "distance": 0.15085291049990582
+      },
+      "clipped_joints": [
+        "left_knee_joint"
+      ],
+      "clip_max_abs_rad": 0.03353362289286142,
+      "features_outside_training_minmax": 0,
+      "max_standardized_feature_excursion": 0.0,
+      "previous_action_outside_training_joint_ranges": [],
+      "previous_action_max_abs": 1.624597430229187,
+      "combined_action_max_abs": 2.4784934520721436,
+      "combined_minus_normalized_applied_action_max_abs": 0.09562957286834717,
+      "worst_matching_target_joint": "left_ankle_pitch_joint",
+      "worst_matching_target_signed_error_rad": -0.8025848345557266,
+      "right_hip_yaw": {
+        "qpos": 0.05359028778896232,
+        "qvel": -1.5094187459409094,
+        "base": -0.04384023052435143,
+        "delta": -0.03734028339385986,
+        "raw_target": -0.0811805139182113,
+        "applied_target": -0.0811805139182113,
+        "expert_target": 0.10177157006972769,
+        "previous_action": -0.5208892822265625,
+        "combined_action": -0.14826233685016632
+      }
+    },
+    {
+      "control": 253,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 0.5923713091691502,
+      "matching_expert_input_fit_rmse_rad": 0.02211186774889489,
+      "actual_vs_matching_expert_input_feature_distance": 0.272122374457138,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 0.8364723288111062,
+        "future_goal": 0.016126241549551966,
+        "BFM_base_offset": 0.3771416331516013,
+        "previous_action": 0.9410440630069178
+      },
+      "actual_base_change_rms_rad": 0.10211008918795748,
+      "actual_head_output_change_rms_rad": 0.57168277272843,
+      "qpos_joint_max_difference_rad": 0.09714050608802927,
+      "qvel_joint_max_difference_radps": 5.590518746519978,
+      "matching_history_difference_rms": {
+        "actions": 0.18201049907377254,
+        "base_ang_vel": 0.05587094460650353,
+        "dof_pos": 0.009567335181343563,
+        "dof_vel": 0.5647603811178574,
+        "projected_gravity": 0.0010248631326831292
+      },
+      "nearest": {
+        "old": {
+          "control": 250,
+          "distance": 0.3315502971450971,
+          "actual_target_difference_rms_rad": 0.7246135683970882,
+          "saved_teacher_input_fit_error_rms_rad": 0.02081357582915665
+        },
+        "query1": {
+          "control": 252,
+          "distance": 0.2983823094573468,
+          "actual_target_difference_rms_rad": 0.6828351400572527,
+          "saved_teacher_input_fit_error_rms_rad": 0.015802969472151124
+        },
+        "query250": {
+          "control": 253,
+          "distance": 0.272122374457138,
+          "actual_target_difference_rms_rad": 0.5923713091691502,
+          "saved_teacher_input_fit_error_rms_rad": 0.02211186774889489
+        }
+      },
+      "nearest_any": {
+        "dataset": "query250",
+        "control": 253,
+        "distance": 0.272122374457138
+      },
+      "clipped_joints": [
+        "left_ankle_pitch_joint",
+        "right_hip_roll_joint",
+        "right_knee_joint"
+      ],
+      "clip_max_abs_rad": 0.42597884596907,
+      "features_outside_training_minmax": 1,
+      "max_standardized_feature_excursion": 0.09339222957519755,
+      "previous_action_outside_training_joint_ranges": [
+        "left_knee_joint"
+      ],
+      "previous_action_max_abs": 2.4784934520721436,
+      "combined_action_max_abs": 5.773359775543213,
+      "combined_minus_normalized_applied_action_max_abs": 1.0032011270523071,
+      "worst_matching_target_joint": "right_hip_pitch_joint",
+      "worst_matching_target_signed_error_rad": -1.6133601849177424,
+      "right_hip_yaw": {
+        "qpos": 0.0003949742239401097,
+        "qvel": -3.3799730623263082,
+        "base": 0.02413635945352196,
+        "delta": -0.3429393470287323,
+        "raw_target": -0.31880298757521036,
+        "applied_target": -0.31880298757521036,
+        "expert_target": -0.16899757186617714,
+        "previous_action": -0.14826233685016632,
+        "combined_action": -0.5822391510009766
+      }
+    },
+    {
+      "control": 254,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 0.6205310157254619,
+      "matching_expert_input_fit_rmse_rad": 0.025578754604830764,
+      "actual_vs_matching_expert_input_feature_distance": 0.42510946857944215,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 1.2683215394985752,
+        "future_goal": 0.04667243800449475,
+        "BFM_base_offset": 0.4515893754208187,
+        "previous_action": 1.6064854271949487
+      },
+      "actual_base_change_rms_rad": 0.11717320826950829,
+      "actual_head_output_change_rms_rad": 0.6545966102658504,
+      "qpos_joint_max_difference_rad": 0.12461496622668239,
+      "qvel_joint_max_difference_radps": 6.1267263612656535,
+      "matching_history_difference_rms": {
+        "actions": 0.4448206833021764,
+        "base_ang_vel": 0.07376340622666094,
+        "dof_pos": 0.017967307294965772,
+        "dof_vel": 1.0016174407771814,
+        "projected_gravity": 0.0030085529410748693
+      },
+      "nearest": {
+        "old": {
+          "control": 250,
+          "distance": 0.4648575358057628,
+          "actual_target_difference_rms_rad": 0.6199307303600612,
+          "saved_teacher_input_fit_error_rms_rad": 0.02081357582915665
+        },
+        "query1": {
+          "control": 250,
+          "distance": 0.44879392441980537,
+          "actual_target_difference_rms_rad": 0.6106818632298214,
+          "saved_teacher_input_fit_error_rms_rad": 0.023773322101371425
+        },
+        "query250": {
+          "control": 254,
+          "distance": 0.42510946857944215,
+          "actual_target_difference_rms_rad": 0.6205310157254619,
+          "saved_teacher_input_fit_error_rms_rad": 0.025578754604830764
+        }
+      },
+      "nearest_any": {
+        "dataset": "query250",
+        "control": 254,
+        "distance": 0.42510946857944215
+      },
+      "clipped_joints": [
+        "left_ankle_roll_joint",
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "clip_max_abs_rad": 0.19274241371143075,
+      "features_outside_training_minmax": 5,
+      "max_standardized_feature_excursion": 1.0639560097170586,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_pitch_joint",
+        "left_ankle_pitch_joint",
+        "right_hip_roll_joint",
+        "right_knee_joint"
+      ],
+      "previous_action_max_abs": 5.773359775543213,
+      "combined_action_max_abs": 3.3017709255218506,
+      "combined_minus_normalized_applied_action_max_abs": 0.529137372970581,
+      "worst_matching_target_joint": "left_hip_yaw_joint",
+      "worst_matching_target_signed_error_rad": 1.3660396152709522,
+      "right_hip_yaw": {
+        "qpos": -0.006685101585629008,
+        "qvel": 0.9302196274508243,
+        "base": 0.2267529788445922,
+        "delta": -1.1028015613555908,
+        "raw_target": -0.8760485825109986,
+        "applied_target": -0.8760485825109986,
+        "expert_target": 0.02602633242037321,
+        "previous_action": -0.5822391510009766,
+        "combined_action": -1.599953055381775
+      }
+    },
+    {
+      "control": 255,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 0.5588680375451344,
+      "matching_expert_input_fit_rmse_rad": 0.02111097567888435,
+      "actual_vs_matching_expert_input_feature_distance": 0.5343275644199265,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 1.692365049691102,
+        "future_goal": 0.0707706906873281,
+        "BFM_base_offset": 0.5038454871537444,
+        "previous_action": 1.7241910191415786
+      },
+      "actual_base_change_rms_rad": 0.10460266260052005,
+      "actual_head_output_change_rms_rad": 0.9646426706642005,
+      "qpos_joint_max_difference_rad": 0.10636838596095897,
+      "qvel_joint_max_difference_radps": 10.675167226531212,
+      "matching_history_difference_rms": {
+        "actions": 0.961848489290301,
+        "base_ang_vel": 0.12085427488474289,
+        "dof_pos": 0.02737326201372378,
+        "dof_vel": 1.486990139414518,
+        "projected_gravity": 0.00976557872155026
+      },
+      "nearest": {
+        "old": {
+          "control": 255,
+          "distance": 0.531770534795641,
+          "actual_target_difference_rms_rad": 0.4729671879262787,
+          "saved_teacher_input_fit_error_rms_rad": 0.03285622730783614
+        },
+        "query1": {
+          "control": 253,
+          "distance": 0.5301806457925028,
+          "actual_target_difference_rms_rad": 0.5120631986788018,
+          "saved_teacher_input_fit_error_rms_rad": 0.02720768446403784
+        },
+        "query250": {
+          "control": 256,
+          "distance": 0.5192165856819397,
+          "actual_target_difference_rms_rad": 0.5432305064500329,
+          "saved_teacher_input_fit_error_rms_rad": 0.028002105949266283
+        }
+      },
+      "nearest_any": {
+        "dataset": "query250",
+        "control": 256,
+        "distance": 0.5192165856819397
+      },
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_hip_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "clip_max_abs_rad": 1.3849632574131765,
+      "features_outside_training_minmax": 4,
+      "max_standardized_feature_excursion": 1.1162401439549112,
+      "previous_action_outside_training_joint_ranges": [
+        "left_ankle_roll_joint",
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "previous_action_max_abs": 3.3017709255218506,
+      "combined_action_max_abs": 5.442751884460449,
+      "combined_minus_normalized_applied_action_max_abs": 3.9495737552642822,
+      "worst_matching_target_joint": "right_hip_pitch_joint",
+      "worst_matching_target_signed_error_rad": -1.0226689606434207,
+      "right_hip_yaw": {
+        "qpos": -0.07115582967485928,
+        "qvel": -5.334760966705247,
+        "base": 0.32138659785997603,
+        "delta": -1.176390290260315,
+        "raw_target": -0.8550036924003389,
+        "applied_target": -0.8550036924003389,
+        "expert_target": 0.01210214921339894,
+        "previous_action": -1.599953055381775,
+        "combined_action": -1.5615180730819702
+      }
+    },
+    {
+      "control": 256,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 0.35328179759930484,
+      "matching_expert_input_fit_rmse_rad": 0.028002105949266283,
+      "actual_vs_matching_expert_input_feature_distance": 0.5602751988069457,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 1.4319178912407837,
+        "future_goal": 0.08852104930367956,
+        "BFM_base_offset": 0.8712549374763288,
+        "previous_action": 2.542945328708189
+      },
+      "actual_base_change_rms_rad": 0.20446196634739397,
+      "actual_head_output_change_rms_rad": 0.3490750550856219,
+      "qpos_joint_max_difference_rad": 0.19044528752317075,
+      "qvel_joint_max_difference_radps": 8.183688815189457,
+      "matching_history_difference_rms": {
+        "actions": 1.2389106862449588,
+        "base_ang_vel": 0.13093264735461418,
+        "dof_pos": 0.03973531447021202,
+        "dof_vel": 2.2315908697711127,
+        "projected_gravity": 0.016925968388051965
+      },
+      "nearest": {
+        "old": {
+          "control": 256,
+          "distance": 0.5087674165505877,
+          "actual_target_difference_rms_rad": 0.3906585129418735,
+          "saved_teacher_input_fit_error_rms_rad": 0.02578851747828867
+        },
+        "query1": {
+          "control": 258,
+          "distance": 0.5144151347991921,
+          "actual_target_difference_rms_rad": 0.3906116946783953,
+          "saved_teacher_input_fit_error_rms_rad": 0.014195223456374823
+        },
+        "query250": {
+          "control": 254,
+          "distance": 0.5276345440220673,
+          "actual_target_difference_rms_rad": 0.37429774752873607,
+          "saved_teacher_input_fit_error_rms_rad": 0.025578754604830764
+        }
+      },
+      "nearest_any": {
+        "dataset": "old",
+        "control": 256,
+        "distance": 0.5087674165505877
+      },
+      "clipped_joints": [
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "clip_max_abs_rad": 0.2817328166684635,
+      "features_outside_training_minmax": 6,
+      "max_standardized_feature_excursion": 3.7582830388261685,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_hip_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "previous_action_max_abs": 5.442751884460449,
+      "combined_action_max_abs": 2.492218255996704,
+      "combined_minus_normalized_applied_action_max_abs": 0.6423790454864502,
+      "worst_matching_target_joint": "left_hip_yaw_joint",
+      "worst_matching_target_signed_error_rad": -0.7331644151973541,
+      "right_hip_yaw": {
+        "qpos": -0.16795305168176136,
+        "qvel": -4.002854621095556,
+        "base": 0.398735602130645,
+        "delta": -0.18403492867946625,
+        "raw_target": 0.21470067345117877,
+        "applied_target": 0.21470067345117877,
+        "expert_target": 0.01149961540226041,
+        "previous_action": -1.5615180730819702,
+        "combined_action": 0.3921140730381012
+      }
+    },
+    {
+      "control": 257,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 0.747886247042368,
+      "matching_expert_input_fit_rmse_rad": 0.02102015097696216,
+      "actual_vs_matching_expert_input_feature_distance": 0.5559489330226588,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 1.8050735444118642,
+        "future_goal": 0.11921729308331365,
+        "BFM_base_offset": 0.9540542889007235,
+        "previous_action": 1.2962962919180208
+      },
+      "actual_base_change_rms_rad": 0.2820150171287147,
+      "actual_head_output_change_rms_rad": 1.1931909608167655,
+      "qpos_joint_max_difference_rad": 0.18142795694432703,
+      "qvel_joint_max_difference_radps": 10.072825192712784,
+      "matching_history_difference_rms": {
+        "actions": 1.7079323277233762,
+        "base_ang_vel": 0.13759694339872802,
+        "dof_pos": 0.053411181722994666,
+        "dof_vel": 2.5997324312466064,
+        "projected_gravity": 0.02204025786114312
+      },
+      "nearest": {
+        "old": {
+          "control": 265,
+          "distance": 0.5589096383551228,
+          "actual_target_difference_rms_rad": 0.7085939444277177,
+          "saved_teacher_input_fit_error_rms_rad": 0.021683393831206082
+        },
+        "query1": {
+          "control": 257,
+          "distance": 0.5638283950456267,
+          "actual_target_difference_rms_rad": 0.751506572908304,
+          "saved_teacher_input_fit_error_rms_rad": 0.025272195590019336
+        },
+        "query250": {
+          "control": 261,
+          "distance": 0.5541354867577305,
+          "actual_target_difference_rms_rad": 0.7144224844180544,
+          "saved_teacher_input_fit_error_rms_rad": 0.03495581594008544
+        }
+      },
+      "nearest_any": {
+        "dataset": "query250",
+        "control": 261,
+        "distance": 0.5541354867577305
+      },
+      "clipped_joints": [
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "clip_max_abs_rad": 1.935345961732986,
+      "features_outside_training_minmax": 5,
+      "max_standardized_feature_excursion": 0.7036765953156967,
+      "previous_action_outside_training_joint_ranges": [
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "previous_action_max_abs": 2.492218255996704,
+      "combined_action_max_abs": 5.946537017822266,
+      "combined_minus_normalized_applied_action_max_abs": 4.412782192230225,
+      "worst_matching_target_joint": "right_hip_pitch_joint",
+      "worst_matching_target_signed_error_rad": -1.9832640493326095,
+      "right_hip_yaw": {
+        "qpos": -0.14185613909778091,
+        "qvel": 2.5216915780710236,
+        "base": 0.40280652505889025,
+        "delta": 0.10849319398403168,
+        "raw_target": 0.5112997190429219,
+        "applied_target": 0.5112997190429219,
+        "expert_target": 0.033859477804572165,
+        "previous_action": 0.3921140730381012,
+        "combined_action": 0.933801531791687
+      }
+    },
+    {
+      "control": 258,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 0.4569972321054405,
+      "matching_expert_input_fit_rmse_rad": 0.02550673444938428,
+      "actual_vs_matching_expert_input_feature_distance": 0.7377507840489723,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 2.2481121734477774,
+        "future_goal": 0.1467062514696814,
+        "BFM_base_offset": 0.7722179377145212,
+        "previous_action": 2.5412406686894835
+      },
+      "actual_base_change_rms_rad": 0.15777948664767869,
+      "actual_head_output_change_rms_rad": 0.5776637193228582,
+      "qpos_joint_max_difference_rad": 0.23147474201516277,
+      "qvel_joint_max_difference_radps": 10.16472425016524,
+      "matching_history_difference_rms": {
+        "actions": 1.7364349320176018,
+        "base_ang_vel": 0.18308579381171494,
+        "dof_pos": 0.06752756892344115,
+        "dof_vel": 3.0568019868878222,
+        "projected_gravity": 0.02552335394678136
+      },
+      "nearest": {
+        "old": {
+          "control": 270,
+          "distance": 0.7085249866934558,
+          "actual_target_difference_rms_rad": 0.4529743586803697,
+          "saved_teacher_input_fit_error_rms_rad": 0.02497836810616953
+        },
+        "query1": {
+          "control": 262,
+          "distance": 0.6945946218976127,
+          "actual_target_difference_rms_rad": 0.4629915254916351,
+          "saved_teacher_input_fit_error_rms_rad": 0.01824835667650405
+        },
+        "query250": {
+          "control": 264,
+          "distance": 0.7151057167755424,
+          "actual_target_difference_rms_rad": 0.46011080586227554,
+          "saved_teacher_input_fit_error_rms_rad": 0.034345483656756694
+        }
+      },
+      "nearest_any": {
+        "dataset": "query1",
+        "control": 262,
+        "distance": 0.6945946218976127
+      },
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "right_hip_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "clip_max_abs_rad": 0.7986933626001003,
+      "features_outside_training_minmax": 9,
+      "max_standardized_feature_excursion": 4.640331703156463,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_pitch_joint",
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "previous_action_max_abs": 5.946537017822266,
+      "combined_action_max_abs": 3.4835472106933594,
+      "combined_minus_normalized_applied_action_max_abs": 2.277676582336426,
+      "worst_matching_target_joint": "left_hip_yaw_joint",
+      "worst_matching_target_signed_error_rad": 0.9657458475661881,
+      "right_hip_yaw": {
+        "qpos": -0.04019128369345881,
+        "qvel": 5.619755153272168,
+        "base": 0.5513835607767024,
+        "delta": -0.902325451374054,
+        "raw_target": -0.3509418905973516,
+        "applied_target": -0.3509418905973516,
+        "expert_target": 0.053092681751782916,
+        "previous_action": 0.933801531791687,
+        "combined_action": -0.6409353613853455
+      }
+    },
+    {
+      "control": 259,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 0.6516901195213294,
+      "matching_expert_input_fit_rmse_rad": 0.024970514612564113,
+      "actual_vs_matching_expert_input_feature_distance": 0.5403321464764409,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 1.621448306528473,
+        "future_goal": 0.1445262932195067,
+        "BFM_base_offset": 1.1104792017126246,
+        "previous_action": 1.5648949159055785
+      },
+      "actual_base_change_rms_rad": 0.22726269678512748,
+      "actual_head_output_change_rms_rad": 0.7816012126247486,
+      "qpos_joint_max_difference_rad": 0.27507315318057013,
+      "qvel_joint_max_difference_radps": 7.118924145038216,
+      "matching_history_difference_rms": {
+        "actions": 1.960296768481923,
+        "base_ang_vel": 0.17787709071561178,
+        "dof_pos": 0.0816162643058539,
+        "dof_vel": 3.4811138705527336,
+        "projected_gravity": 0.029839125120222312
+      },
+      "nearest": {
+        "old": {
+          "control": 269,
+          "distance": 0.5397407939068731,
+          "actual_target_difference_rms_rad": 0.6844977068255848,
+          "saved_teacher_input_fit_error_rms_rad": 0.02049500339658711
+        },
+        "query1": {
+          "control": 272,
+          "distance": 0.5418223097145027,
+          "actual_target_difference_rms_rad": 0.7255977672171313,
+          "saved_teacher_input_fit_error_rms_rad": 0.025231930910897763
+        },
+        "query250": {
+          "control": 259,
+          "distance": 0.5403321464764409,
+          "actual_target_difference_rms_rad": 0.6516901195213294,
+          "saved_teacher_input_fit_error_rms_rad": 0.024970514612564113
+        }
+      },
+      "nearest_any": {
+        "dataset": "old",
+        "control": 269,
+        "distance": 0.5397407939068731
+      },
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_ankle_roll_joint",
+        "right_hip_roll_joint"
+      ],
+      "clip_max_abs_rad": 0.7652505663695656,
+      "features_outside_training_minmax": 5,
+      "max_standardized_feature_excursion": 2.302983145096712,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_roll_joint",
+        "right_hip_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "previous_action_max_abs": 3.4835472106933594,
+      "combined_action_max_abs": 4.5778279304504395,
+      "combined_minus_normalized_applied_action_max_abs": 2.1823058128356934,
+      "worst_matching_target_joint": "left_knee_joint",
+      "worst_matching_target_signed_error_rad": 1.4365943628193694,
+      "right_hip_yaw": {
+        "qpos": -0.03756542318793772,
+        "qvel": -1.613690742470291,
+        "base": 0.502065655840703,
+        "delta": -1.0730509757995605,
+        "raw_target": -0.5709853199588576,
+        "applied_target": -0.5709853199588576,
+        "expert_target": 0.07981207633021468,
+        "previous_action": -0.6409353613853455,
+        "combined_action": -1.0428071022033691
+      }
+    },
+    {
+      "control": 260,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 0.4692323626279833,
+      "matching_expert_input_fit_rmse_rad": 0.025217587838986776,
+      "actual_vs_matching_expert_input_feature_distance": 0.7430184990311761,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 2.138534257390524,
+        "future_goal": 0.19151503804224754,
+        "BFM_base_offset": 1.8319673416209212,
+        "previous_action": 2.2560291567253663
+      },
+      "actual_base_change_rms_rad": 0.318407403801981,
+      "actual_head_output_change_rms_rad": 0.5422749287310414,
+      "qpos_joint_max_difference_rad": 0.37740502919113744,
+      "qvel_joint_max_difference_radps": 11.763252954845779,
+      "matching_history_difference_rms": {
+        "actions": 1.945473465146359,
+        "base_ang_vel": 0.19406769753406747,
+        "dof_pos": 0.09829711902738786,
+        "dof_vel": 3.407234101249929,
+        "projected_gravity": 0.031455797712869174
+      },
+      "nearest": {
+        "old": {
+          "control": 269,
+          "distance": 0.7485936950901663,
+          "actual_target_difference_rms_rad": 0.4967291627636645,
+          "saved_teacher_input_fit_error_rms_rad": 0.02049500339658711
+        },
+        "query1": {
+          "control": 272,
+          "distance": 0.728716594371645,
+          "actual_target_difference_rms_rad": 0.4686873788213315,
+          "saved_teacher_input_fit_error_rms_rad": 0.025231930910897763
+        },
+        "query250": {
+          "control": 260,
+          "distance": 0.7430184990311761,
+          "actual_target_difference_rms_rad": 0.4692323626279833,
+          "saved_teacher_input_fit_error_rms_rad": 0.025217587838986776
+        }
+      },
+      "nearest_any": {
+        "dataset": "query1",
+        "control": 272,
+        "distance": 0.728716594371645
+      },
+      "clipped_joints": [
+        "left_ankle_roll_joint"
+      ],
+      "clip_max_abs_rad": 0.5982432981186481,
+      "features_outside_training_minmax": 7,
+      "max_standardized_feature_excursion": 4.466146865307809,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_roll_joint",
+        "left_knee_joint",
+        "left_ankle_roll_joint",
+        "right_hip_roll_joint"
+      ],
+      "previous_action_max_abs": 4.5778279304504395,
+      "combined_action_max_abs": 3.2414491176605225,
+      "combined_minus_normalized_applied_action_max_abs": 1.3640544414520264,
+      "worst_matching_target_joint": "left_shoulder_pitch_joint",
+      "worst_matching_target_signed_error_rad": 1.2657435988464674,
+      "right_hip_yaw": {
+        "qpos": -0.10807133034523411,
+        "qvel": -3.6875983235366974,
+        "base": 0.5053953102300401,
+        "delta": -0.45804446935653687,
+        "raw_target": 0.047350840873503275,
+        "applied_target": 0.047350840873503275,
+        "expert_target": 0.09972219782756414,
+        "previous_action": -1.0428071022033691,
+        "combined_action": 0.08647821843624115
+      }
+    },
+    {
+      "control": 261,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 0.6524108068980462,
+      "matching_expert_input_fit_rmse_rad": 0.03495581594008544,
+      "actual_vs_matching_expert_input_feature_distance": 0.7335154841011067,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 2.018710997822726,
+        "future_goal": 0.3634726150057698,
+        "BFM_base_offset": 1.5165922299344574,
+        "previous_action": 1.8131702739703282
+      },
+      "actual_base_change_rms_rad": 0.30714338014346804,
+      "actual_head_output_change_rms_rad": 0.6992457096166282,
+      "qpos_joint_max_difference_rad": 0.5326318755932566,
+      "qvel_joint_max_difference_radps": 6.098599542770148,
+      "matching_history_difference_rms": {
+        "actions": 1.815207046579401,
+        "base_ang_vel": 0.32771670133528275,
+        "dof_pos": 0.12377821965707271,
+        "dof_vel": 3.719808023374903,
+        "projected_gravity": 0.030450084538120196
+      },
+      "nearest": {
+        "old": {
+          "control": 268,
+          "distance": 0.7229250958516076,
+          "actual_target_difference_rms_rad": 0.7208248205318859,
+          "saved_teacher_input_fit_error_rms_rad": 0.02133209506224792
+        },
+        "query1": {
+          "control": 269,
+          "distance": 0.7255628603630262,
+          "actual_target_difference_rms_rad": 0.7214043837560218,
+          "saved_teacher_input_fit_error_rms_rad": 0.022214976132119403
+        },
+        "query250": {
+          "control": 272,
+          "distance": 0.718821417330875,
+          "actual_target_difference_rms_rad": 0.5621370818393505,
+          "saved_teacher_input_fit_error_rms_rad": 0.051157578251094224
+        }
+      },
+      "nearest_any": {
+        "dataset": "query250",
+        "control": 272,
+        "distance": 0.718821417330875
+      },
+      "clipped_joints": [
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_knee_joint"
+      ],
+      "clip_max_abs_rad": 0.738264458875503,
+      "features_outside_training_minmax": 11,
+      "max_standardized_feature_excursion": 4.430308371033322,
+      "previous_action_outside_training_joint_ranges": [
+        "left_ankle_roll_joint",
+        "left_wrist_roll_joint"
+      ],
+      "previous_action_max_abs": 3.2414491176605225,
+      "combined_action_max_abs": 3.4729321002960205,
+      "combined_minus_normalized_applied_action_max_abs": 2.1053481101989746,
+      "worst_matching_target_joint": "right_hip_yaw_joint",
+      "worst_matching_target_signed_error_rad": 1.471217714814362,
+      "right_hip_yaw": {
+        "qpos": -0.19616568266999884,
+        "qvel": -4.502989665827503,
+        "base": 0.7707267915002324,
+        "delta": 0.8303349614143372,
+        "raw_target": 1.6010617529145694,
+        "applied_target": 1.6010617529145694,
+        "expert_target": 0.1298440381002075,
+        "previous_action": 0.08647821843624115,
+        "combined_action": 2.924065589904785
+      }
+    },
+    {
+      "control": 262,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 1.2894811937683905,
+      "matching_expert_input_fit_rmse_rad": 0.03503113395509513,
+      "actual_vs_matching_expert_input_feature_distance": 0.8500359375914722,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 2.458453084482086,
+        "future_goal": 0.3879319067689507,
+        "BFM_base_offset": 1.671128782764186,
+        "previous_action": 1.9632202401384482
+      },
+      "actual_base_change_rms_rad": 0.2936612115036819,
+      "actual_head_output_change_rms_rad": 1.7522224691953285,
+      "qpos_joint_max_difference_rad": 0.5368658630369776,
+      "qvel_joint_max_difference_radps": 13.351312728070258,
+      "matching_history_difference_rms": {
+        "actions": 1.8627216895710554,
+        "base_ang_vel": 0.428931575810609,
+        "dof_pos": 0.15715661154773675,
+        "dof_vel": 3.556538939339394,
+        "projected_gravity": 0.033556517186001916
+      },
+      "nearest": {
+        "old": {
+          "control": 265,
+          "distance": 0.8323880622007657,
+          "actual_target_difference_rms_rad": 1.215171679252028,
+          "saved_teacher_input_fit_error_rms_rad": 0.021683393831206082
+        },
+        "query1": {
+          "control": 271,
+          "distance": 0.8480859376328419,
+          "actual_target_difference_rms_rad": 1.3512952371913032,
+          "saved_teacher_input_fit_error_rms_rad": 0.025378075868615853
+        },
+        "query250": {
+          "control": 273,
+          "distance": 0.8170318499649779,
+          "actual_target_difference_rms_rad": 1.10792375139613,
+          "saved_teacher_input_fit_error_rms_rad": 0.03650705633894649
+        }
+      },
+      "nearest_any": {
+        "dataset": "query250",
+        "control": 273,
+        "distance": 0.8170318499649779
+      },
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_hip_yaw_joint",
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "clip_max_abs_rad": 3.329731730663868,
+      "features_outside_training_minmax": 13,
+      "max_standardized_feature_excursion": 2.1287402163473113,
+      "previous_action_outside_training_joint_ranges": [
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_knee_joint"
+      ],
+      "previous_action_max_abs": 3.4729321002960205,
+      "combined_action_max_abs": 12.555272102355957,
+      "combined_minus_normalized_applied_action_max_abs": 7.592121124267578,
+      "worst_matching_target_joint": "right_hip_roll_joint",
+      "worst_matching_target_signed_error_rad": -2.9768669285421803,
+      "right_hip_yaw": {
+        "qpos": -0.010430104182804715,
+        "qvel": 13.047767482630025,
+        "base": 0.27393039866665575,
+        "delta": 1.9646039009094238,
+        "raw_target": 2.2385342995760795,
+        "applied_target": 2.2385342995760795,
+        "expert_target": 0.10610555709473966,
+        "previous_action": 2.924065589904785,
+        "combined_action": 4.0883002281188965
+      }
+    },
+    {
+      "control": 263,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 1.3054263058890545,
+      "matching_expert_input_fit_rmse_rad": 0.038493524332449805,
+      "actual_vs_matching_expert_input_feature_distance": 1.3098458641584696,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 3.8086137640878364,
+        "future_goal": 0.23983441003582795,
+        "BFM_base_offset": 1.6058610966945115,
+        "previous_action": 4.997956533362869
+      },
+      "actual_base_change_rms_rad": 0.3032582262162661,
+      "actual_head_output_change_rms_rad": 1.1597862457000574,
+      "qpos_joint_max_difference_rad": 0.5184015908842475,
+      "qvel_joint_max_difference_radps": 17.957322794487858,
+      "matching_history_difference_rms": {
+        "actions": 1.6218309284376742,
+        "base_ang_vel": 0.5004760450630389,
+        "dof_pos": 0.18845510351642328,
+        "dof_vel": 3.8235188396641124,
+        "projected_gravity": 0.03820300026343323
+      },
+      "nearest": {
+        "old": {
+          "control": 285,
+          "distance": 1.2087282913106898,
+          "actual_target_difference_rms_rad": 1.405838776434239,
+          "saved_teacher_input_fit_error_rms_rad": 0.017066795269475174
+        },
+        "query1": {
+          "control": 287,
+          "distance": 1.248940934001831,
+          "actual_target_difference_rms_rad": 1.1496750066094323,
+          "saved_teacher_input_fit_error_rms_rad": 0.02134896061768681
+        },
+        "query250": {
+          "control": 274,
+          "distance": 1.2297329486477233,
+          "actual_target_difference_rms_rad": 1.2612609368016705,
+          "saved_teacher_input_fit_error_rms_rad": 0.03687652796144582
+        }
+      },
+      "nearest_any": {
+        "dataset": "old",
+        "control": 285,
+        "distance": 1.2087282913106898
+      },
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "clip_max_abs_rad": 0.552917030241343,
+      "features_outside_training_minmax": 17,
+      "max_standardized_feature_excursion": 7.983616415324924,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_roll_joint",
+        "left_hip_yaw_joint",
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "previous_action_max_abs": 12.555272102355957,
+      "combined_action_max_abs": 9.768952369689941,
+      "combined_minus_normalized_applied_action_max_abs": 1.3075151443481445,
+      "worst_matching_target_joint": "left_hip_roll_joint",
+      "worst_matching_target_signed_error_rad": 2.983660370734186,
+      "right_hip_yaw": {
+        "qpos": 0.23970293454886782,
+        "qvel": 1.8226298547057365,
+        "base": 0.49789075362460666,
+        "delta": 1.0267088413238525,
+        "raw_target": 1.5245995949484592,
+        "applied_target": 1.5245995949484592,
+        "expert_target": 0.1353791215771201,
+        "previous_action": 4.0883002281188965,
+        "combined_action": 2.7844204902648926
+      }
+    },
+    {
+      "control": 264,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 0.5784867017150344,
+      "matching_expert_input_fit_rmse_rad": 0.034345483656756694,
+      "actual_vs_matching_expert_input_feature_distance": 1.3041666621579626,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 3.734701194636369,
+        "future_goal": 0.5776266945610056,
+        "BFM_base_offset": 1.5538179376500052,
+        "previous_action": 3.877582307939682
+      },
+      "actual_base_change_rms_rad": 0.3337483604926077,
+      "actual_head_output_change_rms_rad": 0.637950784874109,
+      "qpos_joint_max_difference_rad": 0.6253919391066073,
+      "qvel_joint_max_difference_radps": 11.567255582629617,
+      "matching_history_difference_rms": {
+        "actions": 2.699923120141067,
+        "base_ang_vel": 1.0163916064601284,
+        "dof_pos": 0.21547303488479608,
+        "dof_vel": 4.768522818415622,
+        "projected_gravity": 0.044677738918602855
+      },
+      "nearest": {
+        "old": {
+          "control": 251,
+          "distance": 1.2861589824794917,
+          "actual_target_difference_rms_rad": 0.5787040977687808,
+          "saved_teacher_input_fit_error_rms_rad": 0.015800953522783916
+        },
+        "query1": {
+          "control": 252,
+          "distance": 1.284670682514522,
+          "actual_target_difference_rms_rad": 0.5986059410465763,
+          "saved_teacher_input_fit_error_rms_rad": 0.015802969472151124
+        },
+        "query250": {
+          "control": 251,
+          "distance": 1.2666135476128093,
+          "actual_target_difference_rms_rad": 0.6056544284148041,
+          "saved_teacher_input_fit_error_rms_rad": 0.017650252512862463
+        }
+      },
+      "nearest_any": {
+        "dataset": "query250",
+        "control": 251,
+        "distance": 1.2666135476128093
+      },
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "clip_max_abs_rad": 0.4765209307499064,
+      "features_outside_training_minmax": 18,
+      "max_standardized_feature_excursion": 6.422772046788658,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_roll_joint",
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint",
+        "left_wrist_roll_joint"
+      ],
+      "previous_action_max_abs": 9.768952369689941,
+      "combined_action_max_abs": 2.736395835876465,
+      "combined_minus_normalized_applied_action_max_abs": 1.15095853805542,
+      "worst_matching_target_joint": "left_hip_yaw_joint",
+      "worst_matching_target_signed_error_rad": 1.34479640772788,
+      "right_hip_yaw": {
+        "qpos": 0.13381556333366734,
+        "qvel": -7.628272140919463,
+        "base": 0.12311335340355142,
+        "delta": -0.7417523860931396,
+        "raw_target": -0.6186390326895882,
+        "applied_target": -0.6186390326895882,
+        "expert_target": 0.012787346647165188,
+        "previous_action": 2.7844204902648926,
+        "combined_action": -1.129838466644287
+      }
+    },
+    {
+      "control": 265,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 0.7796219524304652,
+      "matching_expert_input_fit_rmse_rad": 0.038351678221073736,
+      "actual_vs_matching_expert_input_feature_distance": 1.0972956021019438,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 2.709887365252371,
+        "future_goal": 0.7992945130659842,
+        "BFM_base_offset": 1.1332468799537994,
+        "previous_action": 1.7981793294431565
+      },
+      "actual_base_change_rms_rad": 0.26039377773798994,
+      "actual_head_output_change_rms_rad": 1.293817744024799,
+      "qpos_joint_max_difference_rad": 0.7187748964459206,
+      "qvel_joint_max_difference_radps": 8.528783645203651,
+      "matching_history_difference_rms": {
+        "actions": 3.1154548438382266,
+        "base_ang_vel": 1.2845627566831332,
+        "dof_pos": 0.24837481295755356,
+        "dof_vel": 5.044022734063111,
+        "projected_gravity": 0.05363869100226138
+      },
+      "nearest": {
+        "old": {
+          "control": 250,
+          "distance": 1.0745028377515577,
+          "actual_target_difference_rms_rad": 0.7333195998186437,
+          "saved_teacher_input_fit_error_rms_rad": 0.02081357582915665
+        },
+        "query1": {
+          "control": 254,
+          "distance": 1.069881634294542,
+          "actual_target_difference_rms_rad": 0.7679925108327862,
+          "saved_teacher_input_fit_error_rms_rad": 0.022455871575469067
+        },
+        "query250": {
+          "control": 252,
+          "distance": 1.0803630481912687,
+          "actual_target_difference_rms_rad": 0.798156105594074,
+          "saved_teacher_input_fit_error_rms_rad": 0.029980958639674822
+        }
+      },
+      "nearest_any": {
+        "dataset": "query1",
+        "control": 254,
+        "distance": 1.069881634294542
+      },
+      "clipped_joints": [
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "clip_max_abs_rad": 2.4021588406833665,
+      "features_outside_training_minmax": 27,
+      "max_standardized_feature_excursion": 3.382319161559356,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "previous_action_max_abs": 2.736395835876465,
+      "combined_action_max_abs": 7.0109171867370605,
+      "combined_minus_normalized_applied_action_max_abs": 5.89111852645874,
+      "worst_matching_target_joint": "right_hip_yaw_joint",
+      "worst_matching_target_signed_error_rad": 2.655442502674515,
+      "right_hip_yaw": {
+        "qpos": 0.0635269680943107,
+        "qvel": -1.7500436341317493,
+        "base": -0.22592829189396182,
+        "delta": 2.896374464035034,
+        "raw_target": 2.670446172141072,
+        "applied_target": 2.670446172141072,
+        "expert_target": 0.01500366946655697,
+        "previous_action": -1.129838466644287,
+        "combined_action": 4.877113342285156
+      }
+    },
+    {
+      "control": 266,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 0.6550570640532812,
+      "matching_expert_input_fit_rmse_rad": 0.03187173382642871,
+      "actual_vs_matching_expert_input_feature_distance": 1.5471020085618337,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 3.856385312021851,
+        "future_goal": 1.0707553967852397,
+        "BFM_base_offset": 1.5576930503465933,
+        "previous_action": 3.2683820021012777
+      },
+      "actual_base_change_rms_rad": 0.34970994116605786,
+      "actual_head_output_change_rms_rad": 1.1110442357160424,
+      "qpos_joint_max_difference_rad": 0.5910688114926002,
+      "qvel_joint_max_difference_radps": 12.422278347913396,
+      "matching_history_difference_rms": {
+        "actions": 3.1375371778622463,
+        "base_ang_vel": 1.2695309648818358,
+        "dof_pos": 0.27720452296585213,
+        "dof_vel": 5.291992906371114,
+        "projected_gravity": 0.059771504152734245
+      },
+      "nearest": {
+        "old": {
+          "control": 1265,
+          "distance": 1.5082998777352103,
+          "actual_target_difference_rms_rad": 0.6437229957925362,
+          "saved_teacher_input_fit_error_rms_rad": 0.025972220221253225
+        },
+        "query1": {
+          "control": 1255,
+          "distance": 1.5072609624258093,
+          "actual_target_difference_rms_rad": 0.6905880839221248,
+          "saved_teacher_input_fit_error_rms_rad": 0.020536597584133103
+        },
+        "query250": {
+          "control": 1251,
+          "distance": 1.5101078854475316,
+          "actual_target_difference_rms_rad": 0.6217538112249464,
+          "saved_teacher_input_fit_error_rms_rad": 0.033683601710121865
+        }
+      },
+      "nearest_any": {
+        "dataset": "query1",
+        "control": 1255,
+        "distance": 1.5072609624258093
+      },
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "clip_max_abs_rad": 2.6355514444202583,
+      "features_outside_training_minmax": 45,
+      "max_standardized_feature_excursion": 5.99980804069224,
+      "previous_action_outside_training_joint_ranges": [
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "previous_action_max_abs": 7.0109171867370605,
+      "combined_action_max_abs": 7.5430755615234375,
+      "combined_minus_normalized_applied_action_max_abs": 6.0093207359313965,
+      "worst_matching_target_joint": "right_shoulder_pitch_joint",
+      "worst_matching_target_signed_error_rad": -1.7255374593442663,
+      "right_hip_yaw": {
+        "qpos": 0.05541679968514957,
+        "qvel": -0.013989022851387478,
+        "base": -0.5927429706531815,
+        "delta": 1.1073442697525024,
+        "raw_target": 0.514601299099321,
+        "applied_target": 0.514601299099321,
+        "expert_target": -0.09941826844727115,
+        "previous_action": 4.877113342285156,
+        "combined_action": 0.9398313164710999
+      }
+    },
+    {
+      "control": 267,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 0.7244381190442513,
+      "matching_expert_input_fit_rmse_rad": 0.036006125883148866,
+      "actual_vs_matching_expert_input_feature_distance": 1.4873522928903804,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 2.873018498368621,
+        "future_goal": 1.249305347559108,
+        "BFM_base_offset": 1.411592497640303,
+        "previous_action": 2.9011578932349242
+      },
+      "actual_base_change_rms_rad": 0.3161922445650774,
+      "actual_head_output_change_rms_rad": 1.0103334810407603,
+      "qpos_joint_max_difference_rad": 0.5825402002712167,
+      "qvel_joint_max_difference_radps": 6.55083482393511,
+      "matching_history_difference_rms": {
+        "actions": 3.3588755429032324,
+        "base_ang_vel": 1.3714474352102983,
+        "dof_pos": 0.29459927061063784,
+        "dof_vel": 5.253139071133991,
+        "projected_gravity": 0.06662262032573602
+      },
+      "nearest": {
+        "old": {
+          "control": 1265,
+          "distance": 1.4358875264552675,
+          "actual_target_difference_rms_rad": 0.627929703988783,
+          "saved_teacher_input_fit_error_rms_rad": 0.025972220221253225
+        },
+        "query1": {
+          "control": 255,
+          "distance": 1.4439769808718443,
+          "actual_target_difference_rms_rad": 0.6309423056710781,
+          "saved_teacher_input_fit_error_rms_rad": 0.023972181174491954
+        },
+        "query250": {
+          "control": 1261,
+          "distance": 1.4475484757720583,
+          "actual_target_difference_rms_rad": 0.6439241754352799,
+          "saved_teacher_input_fit_error_rms_rad": 0.025491347336870217
+        }
+      },
+      "nearest_any": {
+        "dataset": "old",
+        "control": 1265,
+        "distance": 1.4358875264552675
+      },
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "clip_max_abs_rad": 2.197785348142945,
+      "features_outside_training_minmax": 42,
+      "max_standardized_feature_excursion": 7.449345477680184,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "previous_action_max_abs": 7.5430755615234375,
+      "combined_action_max_abs": 7.129327774047852,
+      "combined_minus_normalized_applied_action_max_abs": 5.6361494064331055,
+      "worst_matching_target_joint": "left_hip_yaw_joint",
+      "worst_matching_target_signed_error_rad": 1.7505358205118864,
+      "right_hip_yaw": {
+        "qpos": 0.08453731157862264,
+        "qvel": 2.1312015058723808,
+        "base": -0.7611669631897078,
+        "delta": 0.5520251393318176,
+        "raw_target": -0.20914182385789015,
+        "applied_target": -0.20914182385789015,
+        "expert_target": 0.033895111943411486,
+        "previous_action": 0.9398313164710999,
+        "combined_action": -0.38196179270744324
+      }
+    },
+    {
+      "control": 268,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 0.5757448215838709,
+      "matching_expert_input_fit_rmse_rad": 0.0384974798999067,
+      "actual_vs_matching_expert_input_feature_distance": 1.5832361680907039,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 3.7599765412567767,
+        "future_goal": 1.176293295688842,
+        "BFM_base_offset": 1.0581850395817103,
+        "previous_action": 3.1677946834025583
+      },
+      "actual_base_change_rms_rad": 0.24428477563928333,
+      "actual_head_output_change_rms_rad": 1.22878418799121,
+      "qpos_joint_max_difference_rad": 0.5144857595488612,
+      "qvel_joint_max_difference_radps": 13.536384838938174,
+      "matching_history_difference_rms": {
+        "actions": 2.801307814499859,
+        "base_ang_vel": 1.0965258064412602,
+        "dof_pos": 0.3073323170347761,
+        "dof_vel": 4.491886330784858,
+        "projected_gravity": 0.08207327029453962
+      },
+      "nearest": {
+        "old": {
+          "control": 1265,
+          "distance": 1.5102792450764242,
+          "actual_target_difference_rms_rad": 0.5058430719338747,
+          "saved_teacher_input_fit_error_rms_rad": 0.025972220221253225
+        },
+        "query1": {
+          "control": 1255,
+          "distance": 1.5174538925667398,
+          "actual_target_difference_rms_rad": 0.5761099227423714,
+          "saved_teacher_input_fit_error_rms_rad": 0.020536597584133103
+        },
+        "query250": {
+          "control": 1261,
+          "distance": 1.518739015337997,
+          "actual_target_difference_rms_rad": 0.5258520825898867,
+          "saved_teacher_input_fit_error_rms_rad": 0.025491347336870217
+        }
+      },
+      "nearest_any": {
+        "dataset": "old",
+        "control": 1265,
+        "distance": 1.5102792450764242
+      },
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_ankle_roll_joint",
+        "right_hip_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "clip_max_abs_rad": 2.654384153005243,
+      "features_outside_training_minmax": 44,
+      "max_standardized_feature_excursion": 9.511543717856483,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint",
+        "right_wrist_roll_joint"
+      ],
+      "previous_action_max_abs": 7.129327774047852,
+      "combined_action_max_abs": 9.062827110290527,
+      "combined_minus_normalized_applied_action_max_abs": 7.569648742675781,
+      "worst_matching_target_joint": "left_knee_joint",
+      "worst_matching_target_signed_error_rad": 1.3031722500895235,
+      "right_hip_yaw": {
+        "qpos": 0.1682075026473484,
+        "qvel": 4.123396904236158,
+        "base": -0.3032972043145332,
+        "delta": 0.7100870013237,
+        "raw_target": 0.40678979700916673,
+        "applied_target": 0.40678979700916673,
+        "expert_target": -0.0012655048642404153,
+        "previous_action": -0.38196179270744324,
+        "combined_action": 0.7429320216178894
+      }
+    },
+    {
+      "control": 269,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 1.1184226210040198,
+      "matching_expert_input_fit_rmse_rad": 0.06515072239553424,
+      "actual_vs_matching_expert_input_feature_distance": 1.4058328784434984,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 3.7070925846779232,
+        "future_goal": 0.8797608447594114,
+        "BFM_base_offset": 0.8785435379422226,
+        "previous_action": 3.4809196659928765
+      },
+      "actual_base_change_rms_rad": 0.18795740088619373,
+      "actual_head_output_change_rms_rad": 1.1146452472491293,
+      "qpos_joint_max_difference_rad": 0.5194765032868043,
+      "qvel_joint_max_difference_radps": 11.734527997390515,
+      "matching_history_difference_rms": {
+        "actions": 2.56923595279292,
+        "base_ang_vel": 0.8211971157382304,
+        "dof_pos": 0.3045857786269963,
+        "dof_vel": 4.591712682307991,
+        "projected_gravity": 0.10812099155324174
+      },
+      "nearest": {
+        "old": {
+          "control": 252,
+          "distance": 1.3550918316575515,
+          "actual_target_difference_rms_rad": 0.9783599903269036,
+          "saved_teacher_input_fit_error_rms_rad": 0.016862629575272417
+        },
+        "query1": {
+          "control": 255,
+          "distance": 1.355720550681071,
+          "actual_target_difference_rms_rad": 1.0048857061068976,
+          "saved_teacher_input_fit_error_rms_rad": 0.023972181174491954
+        },
+        "query250": {
+          "control": 1262,
+          "distance": 1.3721860507549248,
+          "actual_target_difference_rms_rad": 0.9290083118326211,
+          "saved_teacher_input_fit_error_rms_rad": 0.027544260837265588
+        }
+      },
+      "nearest_any": {
+        "dataset": "old",
+        "control": 252,
+        "distance": 1.3550918316575515
+      },
+      "clipped_joints": [
+        "left_hip_pitch_joint",
+        "left_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "clip_max_abs_rad": 0.9271927577232091,
+      "features_outside_training_minmax": 34,
+      "max_standardized_feature_excursion": 7.578861701643983,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_roll_joint",
+        "left_ankle_roll_joint",
+        "right_hip_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "previous_action_max_abs": 9.062827110290527,
+      "combined_action_max_abs": 8.069165229797363,
+      "combined_minus_normalized_applied_action_max_abs": 2.1140921115875244,
+      "worst_matching_target_joint": "right_hip_pitch_joint",
+      "worst_matching_target_signed_error_rad": 3.2621084858954763,
+      "right_hip_yaw": {
+        "qpos": 0.36217942242655,
+        "qvel": 10.396561465644524,
+        "base": -0.002257432491082268,
+        "delta": 0.578696608543396,
+        "raw_target": 0.5764391760523138,
+        "applied_target": 0.5764391760523138,
+        "expert_target": -0.03378335530475565,
+        "previous_action": 0.7429320216178894,
+        "combined_action": 1.0527676343917847
+      }
+    },
+    {
+      "control": 270,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 0.8536885072923368,
+      "matching_expert_input_fit_rmse_rad": 0.07883122107614066,
+      "actual_vs_matching_expert_input_feature_distance": 1.2073513672637601,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 3.1551980638555657,
+        "future_goal": 0.7473906289045391,
+        "BFM_base_offset": 1.124480882737791,
+        "previous_action": 3.060389670480142
+      },
+      "actual_base_change_rms_rad": 0.27295848226861075,
+      "actual_head_output_change_rms_rad": 1.0910013153605786,
+      "qpos_joint_max_difference_rad": 0.583022077903042,
+      "qvel_joint_max_difference_radps": 19.686169474795992,
+      "matching_history_difference_rms": {
+        "actions": 2.909696672229278,
+        "base_ang_vel": 1.0236389260734289,
+        "dof_pos": 0.29477323766118524,
+        "dof_vel": 4.9454664872060805,
+        "projected_gravity": 0.14389641484849688
+      },
+      "nearest": {
+        "old": {
+          "control": 251,
+          "distance": 1.1460679265341547,
+          "actual_target_difference_rms_rad": 0.9214357812295919,
+          "saved_teacher_input_fit_error_rms_rad": 0.015800953522783916
+        },
+        "query1": {
+          "control": 254,
+          "distance": 1.1483607123373767,
+          "actual_target_difference_rms_rad": 0.9391841470728887,
+          "saved_teacher_input_fit_error_rms_rad": 0.022455871575469067
+        },
+        "query250": {
+          "control": 1262,
+          "distance": 1.1554153699112921,
+          "actual_target_difference_rms_rad": 0.9001080855157287,
+          "saved_teacher_input_fit_error_rms_rad": 0.027544260837265588
+        }
+      },
+      "nearest_any": {
+        "dataset": "old",
+        "control": 251,
+        "distance": 1.1460679265341547
+      },
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_hip_yaw_joint",
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "clip_max_abs_rad": 1.5514915229845965,
+      "features_outside_training_minmax": 30,
+      "max_standardized_feature_excursion": 6.0681274210607175,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_pitch_joint",
+        "left_knee_joint",
+        "right_hip_pitch_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint",
+        "right_wrist_roll_joint"
+      ],
+      "previous_action_max_abs": 8.069165229797363,
+      "combined_action_max_abs": 5.444241046905518,
+      "combined_minus_normalized_applied_action_max_abs": 3.537555694580078,
+      "worst_matching_target_joint": "left_hip_yaw_joint",
+      "worst_matching_target_signed_error_rad": 2.510161494317313,
+      "right_hip_yaw": {
+        "qpos": 0.4497496660867892,
+        "qvel": 2.7556223807985845,
+        "base": 0.23094157199328533,
+        "delta": -2.5798990726470947,
+        "raw_target": -2.3489575006538095,
+        "applied_target": -2.3489575006538095,
+        "expert_target": -0.05465057186440424,
+        "previous_action": 1.0527676343917847,
+        "combined_action": -4.289969444274902
+      }
+    },
+    {
+      "control": 271,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 1.1242417462958463,
+      "matching_expert_input_fit_rmse_rad": 0.03522352343959706,
+      "actual_vs_matching_expert_input_feature_distance": 1.2680728466124778,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 3.468871851322718,
+        "future_goal": 0.6927813786551698,
+        "BFM_base_offset": 1.5708952260645515,
+        "previous_action": 3.3526254074022006
+      },
+      "actual_base_change_rms_rad": 0.515306977791762,
+      "actual_head_output_change_rms_rad": 1.2351353626086903,
+      "qpos_joint_max_difference_rad": 0.6174788974354641,
+      "qvel_joint_max_difference_radps": 17.305725442582755,
+      "matching_history_difference_rms": {
+        "actions": 2.971379040860298,
+        "base_ang_vel": 0.8913308050531735,
+        "dof_pos": 0.29321002766406173,
+        "dof_vel": 5.16437378513937,
+        "projected_gravity": 0.18583404867990974
+      },
+      "nearest": {
+        "old": {
+          "control": 255,
+          "distance": 1.2635229788549696,
+          "actual_target_difference_rms_rad": 1.0431764852715866,
+          "saved_teacher_input_fit_error_rms_rad": 0.03285622730783614
+        },
+        "query1": {
+          "control": 254,
+          "distance": 1.2612467242188714,
+          "actual_target_difference_rms_rad": 1.0134210593719792,
+          "saved_teacher_input_fit_error_rms_rad": 0.022455871575469067
+        },
+        "query250": {
+          "control": 259,
+          "distance": 1.2625135279615831,
+          "actual_target_difference_rms_rad": 1.0366895473310302,
+          "saved_teacher_input_fit_error_rms_rad": 0.024970514612564113
+        }
+      },
+      "nearest_any": {
+        "dataset": "query1",
+        "control": 254,
+        "distance": 1.2612467242188714
+      },
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "right_hip_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "clip_max_abs_rad": 1.101122859196206,
+      "features_outside_training_minmax": 21,
+      "max_standardized_feature_excursion": 7.32075331279634,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_roll_joint",
+        "left_hip_yaw_joint",
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "previous_action_max_abs": 5.444241046905518,
+      "combined_action_max_abs": 7.8740010261535645,
+      "combined_minus_normalized_applied_action_max_abs": 3.1401307582855225,
+      "worst_matching_target_joint": "right_hip_pitch_joint",
+      "worst_matching_target_signed_error_rad": -2.4716100729064148,
+      "right_hip_yaw": {
+        "qpos": 0.30813205849793285,
+        "qvel": -12.196713813706426,
+        "base": 0.48204977347461986,
+        "delta": -1.682463526725769,
+        "raw_target": -1.2004137532511492,
+        "applied_target": -1.2004137532511492,
+        "expert_target": -0.021530266381066806,
+        "previous_action": -4.289969444274902,
+        "combined_action": -2.1923506259918213
+      }
+    },
+    {
+      "control": 272,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 0.9303498727937252,
+      "matching_expert_input_fit_rmse_rad": 0.051157578251094224,
+      "actual_vs_matching_expert_input_feature_distance": 1.1532468581075153,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 2.8966059000730677,
+        "future_goal": 0.7077206600768845,
+        "BFM_base_offset": 1.753833281502874,
+        "previous_action": 3.0598719356642112
+      },
+      "actual_base_change_rms_rad": 0.3619414278056641,
+      "actual_head_output_change_rms_rad": 0.9747005468701448,
+      "qpos_joint_max_difference_rad": 0.7288063667651983,
+      "qvel_joint_max_difference_radps": 15.436701985810789,
+      "matching_history_difference_rms": {
+        "actions": 2.9064324676498114,
+        "base_ang_vel": 0.8460029754405882,
+        "dof_pos": 0.29661492406614753,
+        "dof_vel": 5.889066426121537,
+        "projected_gravity": 0.22292084784629315
+      },
+      "nearest": {
+        "old": {
+          "control": 252,
+          "distance": 1.0862708693847432,
+          "actual_target_difference_rms_rad": 1.0187348390144086,
+          "saved_teacher_input_fit_error_rms_rad": 0.016862629575272417
+        },
+        "query1": {
+          "control": 275,
+          "distance": 1.0719917096513754,
+          "actual_target_difference_rms_rad": 1.1669220923227308,
+          "saved_teacher_input_fit_error_rms_rad": 0.020195210075816893
+        },
+        "query250": {
+          "control": 262,
+          "distance": 1.086059757279867,
+          "actual_target_difference_rms_rad": 1.0498125992133882,
+          "saved_teacher_input_fit_error_rms_rad": 0.03503113395509513
+        }
+      },
+      "nearest_any": {
+        "dataset": "query1",
+        "control": 275,
+        "distance": 1.0719917096513754
+      },
+      "clipped_joints": [
+        "left_ankle_roll_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "clip_max_abs_rad": 0.22552009677896162,
+      "features_outside_training_minmax": 24,
+      "max_standardized_feature_excursion": 2.9880440016675034,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_pitch_joint",
+        "left_hip_roll_joint",
+        "left_knee_joint",
+        "right_hip_pitch_joint",
+        "right_ankle_roll_joint",
+        "left_shoulder_pitch_joint"
+      ],
+      "previous_action_max_abs": 7.8740010261535645,
+      "combined_action_max_abs": 6.830463409423828,
+      "combined_minus_normalized_applied_action_max_abs": 0.5142083764076233,
+      "worst_matching_target_joint": "right_hip_yaw_joint",
+      "worst_matching_target_signed_error_rad": 2.4075657968247506,
+      "right_hip_yaw": {
+        "qpos": 0.06963013030519768,
+        "qvel": -10.883267269214736,
+        "base": 0.2679896598723695,
+        "delta": 2.3770647048950195,
+        "raw_target": 2.645054364767389,
+        "applied_target": 2.645054364767389,
+        "expert_target": 0.23748856794263865,
+        "previous_action": -2.1923506259918213,
+        "combined_action": 4.830739498138428
+      }
+    },
+    {
+      "control": 273,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 0.8134374446346453,
+      "matching_expert_input_fit_rmse_rad": 0.03650705633894649,
+      "actual_vs_matching_expert_input_feature_distance": 1.3178113154664837,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 3.1982007860982344,
+        "future_goal": 0.9221377444642047,
+        "BFM_base_offset": 1.9093664787126678,
+        "previous_action": 2.6525917681392315
+      },
+      "actual_base_change_rms_rad": 0.46293991880097773,
+      "actual_head_output_change_rms_rad": 1.0647567589411557,
+      "qpos_joint_max_difference_rad": 1.0520642127988156,
+      "qvel_joint_max_difference_radps": 15.246740204115783,
+      "matching_history_difference_rms": {
+        "actions": 2.9999799508607023,
+        "base_ang_vel": 0.7470823905959134,
+        "dof_pos": 0.30822367377015714,
+        "dof_vel": 5.763436956372256,
+        "projected_gravity": 0.24797414764695364
+      },
+      "nearest": {
+        "old": {
+          "control": 251,
+          "distance": 1.293115944149529,
+          "actual_target_difference_rms_rad": 0.7095945764521856,
+          "saved_teacher_input_fit_error_rms_rad": 0.015800953522783916
+        },
+        "query1": {
+          "control": 255,
+          "distance": 1.2951807410514165,
+          "actual_target_difference_rms_rad": 0.7371269850286506,
+          "saved_teacher_input_fit_error_rms_rad": 0.023972181174491954
+        },
+        "query250": {
+          "control": 262,
+          "distance": 1.3020784531113603,
+          "actual_target_difference_rms_rad": 0.730943557459549,
+          "saved_teacher_input_fit_error_rms_rad": 0.03503113395509513
+        }
+      },
+      "nearest_any": {
+        "dataset": "old",
+        "control": 251,
+        "distance": 1.293115944149529
+      },
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "clip_max_abs_rad": 1.2439152804737321,
+      "features_outside_training_minmax": 36,
+      "max_standardized_feature_excursion": 4.836476274049122,
+      "previous_action_outside_training_joint_ranges": [
+        "left_knee_joint",
+        "left_ankle_roll_joint",
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "previous_action_max_abs": 6.830463409423828,
+      "combined_action_max_abs": 4.370006084442139,
+      "combined_minus_normalized_applied_action_max_abs": 2.8362512588500977,
+      "worst_matching_target_joint": "left_hip_yaw_joint",
+      "worst_matching_target_signed_error_rad": 1.8866705715724927,
+      "right_hip_yaw": {
+        "qpos": -0.08134519216123567,
+        "qvel": -5.095649361688919,
+        "base": -0.2777901320243787,
+        "delta": 0.23311038315296173,
+        "raw_target": -0.04467974887141696,
+        "applied_target": -0.04467974887141696,
+        "expert_target": 0.26775549950925714,
+        "previous_action": 4.830739498138428,
+        "combined_action": -0.08159992843866348
+      }
+    },
+    {
+      "control": 274,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 1.0615404222626024,
+      "matching_expert_input_fit_rmse_rad": 0.03687652796144582,
+      "actual_vs_matching_expert_input_feature_distance": 1.414121361068155,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 3.1866417779895486,
+        "future_goal": 1.0595949500977822,
+        "BFM_base_offset": 2.1146633876616034,
+        "previous_action": 2.740847894795383
+      },
+      "actual_base_change_rms_rad": 0.39599626041901514,
+      "actual_head_output_change_rms_rad": 1.3822599223246341,
+      "qpos_joint_max_difference_rad": 1.0903113308788694,
+      "qvel_joint_max_difference_radps": 11.796402240262237,
+      "matching_history_difference_rms": {
+        "actions": 2.803851655576063,
+        "base_ang_vel": 0.7638719960586415,
+        "dof_pos": 0.3277139611705752,
+        "dof_vel": 5.649131224330574,
+        "projected_gravity": 0.26128559552280495
+      },
+      "nearest": {
+        "old": {
+          "control": 262,
+          "distance": 1.3524043231833545,
+          "actual_target_difference_rms_rad": 1.0210349553871947,
+          "saved_teacher_input_fit_error_rms_rad": 0.017710380919799408
+        },
+        "query1": {
+          "control": 263,
+          "distance": 1.3514829161932327,
+          "actual_target_difference_rms_rad": 1.039380811936581,
+          "saved_teacher_input_fit_error_rms_rad": 0.022639816858917854
+        },
+        "query250": {
+          "control": 264,
+          "distance": 1.3559251445657359,
+          "actual_target_difference_rms_rad": 1.0175365794871236,
+          "saved_teacher_input_fit_error_rms_rad": 0.034345483656756694
+        }
+      },
+      "nearest_any": {
+        "dataset": "query1",
+        "control": 263,
+        "distance": 1.3514829161932327
+      },
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "right_hip_pitch_joint",
+        "right_hip_roll_joint",
+        "right_hip_yaw_joint",
+        "right_knee_joint"
+      ],
+      "clip_max_abs_rad": 2.792753457159053,
+      "features_outside_training_minmax": 43,
+      "max_standardized_feature_excursion": 5.8640359958404895,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "previous_action_max_abs": 4.370006084442139,
+      "combined_action_max_abs": 9.457422256469727,
+      "combined_minus_normalized_applied_action_max_abs": 7.9642438888549805,
+      "worst_matching_target_joint": "right_hip_yaw_joint",
+      "worst_matching_target_signed_error_rad": -2.945228586835686,
+      "right_hip_yaw": {
+        "qpos": -0.10269073756699201,
+        "qvel": 1.0673488149936685,
+        "base": -0.4898087627630687,
+        "delta": -3.219576120376587,
+        "raw_target": -3.7093848831396556,
+        "applied_target": -2.7576,
+        "expert_target": 0.18762858683568612,
+        "previous_action": -0.08159992843866348,
+        "combined_action": -6.774557590484619
+      }
+    },
+    {
+      "control": 275,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 0.5100971875541396,
+      "matching_expert_input_fit_rmse_rad": 0.030886615451870134,
+      "actual_vs_matching_expert_input_feature_distance": 1.4226337939646452,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 3.4257155314849808,
+        "future_goal": 0.9104942515860633,
+        "BFM_base_offset": 1.6796490044545969,
+        "previous_action": 4.112360007196829
+      },
+      "actual_base_change_rms_rad": 0.26535187036102686,
+      "actual_head_output_change_rms_rad": 0.5403496259232282,
+      "qpos_joint_max_difference_rad": 0.9711713081189826,
+      "qvel_joint_max_difference_radps": 14.099357543657826,
+      "matching_history_difference_rms": {
+        "actions": 2.5815770479774973,
+        "base_ang_vel": 0.7427211960152782,
+        "dof_pos": 0.3416661334338026,
+        "dof_vel": 5.503861075935424,
+        "projected_gravity": 0.266883888156369
+      },
+      "nearest": {
+        "old": {
+          "control": 261,
+          "distance": 1.3734954355817321,
+          "actual_target_difference_rms_rad": 0.6343428511922767,
+          "saved_teacher_input_fit_error_rms_rad": 0.031146781635506594
+        },
+        "query1": {
+          "control": 276,
+          "distance": 1.373907368204392,
+          "actual_target_difference_rms_rad": 0.6679170195984595,
+          "saved_teacher_input_fit_error_rms_rad": 0.022256106800279715
+        },
+        "query250": {
+          "control": 259,
+          "distance": 1.3799754195006873,
+          "actual_target_difference_rms_rad": 0.584703147163031,
+          "saved_teacher_input_fit_error_rms_rad": 0.024970514612564113
+        }
+      },
+      "nearest_any": {
+        "dataset": "old",
+        "control": 261,
+        "distance": 1.3734954355817321
+      },
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_knee_joint",
+        "right_ankle_roll_joint"
+      ],
+      "clip_max_abs_rad": 0.6122129097972668,
+      "features_outside_training_minmax": 32,
+      "max_standardized_feature_excursion": 7.294858248043945,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_roll_joint",
+        "right_hip_pitch_joint",
+        "right_hip_roll_joint",
+        "right_hip_yaw_joint",
+        "right_knee_joint"
+      ],
+      "previous_action_max_abs": 9.457422256469727,
+      "combined_action_max_abs": 2.781653642654419,
+      "combined_minus_normalized_applied_action_max_abs": 1.395906686782837,
+      "worst_matching_target_joint": "left_shoulder_pitch_joint",
+      "worst_matching_target_signed_error_rad": 0.9353594316618357,
+      "right_hip_yaw": {
+        "qpos": -0.1500597242534924,
+        "qvel": -1.5519621930280354,
+        "base": -0.24186866593005985,
+        "delta": -0.22385460138320923,
+        "raw_target": -0.4657232673132691,
+        "applied_target": -0.4657232673132691,
+        "expert_target": -0.10426829386438544,
+        "previous_action": -6.774557590484619,
+        "combined_action": -0.8505639433860779
+      }
+    },
+    {
+      "control": 276,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 0.9506286369565685,
+      "matching_expert_input_fit_rmse_rad": 0.03893023919906387,
+      "actual_vs_matching_expert_input_feature_distance": 1.2062842737877184,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 3.0374138991403394,
+        "future_goal": 0.832148043537674,
+        "BFM_base_offset": 1.7711847066971964,
+        "previous_action": 2.0938331870896
+      },
+      "actual_base_change_rms_rad": 0.2799303510285615,
+      "actual_head_output_change_rms_rad": 1.1363453575433733,
+      "qpos_joint_max_difference_rad": 0.835073116472864,
+      "qvel_joint_max_difference_radps": 7.91987993996965,
+      "matching_history_difference_rms": {
+        "actions": 3.0365563539360463,
+        "base_ang_vel": 0.8510423569333937,
+        "dof_pos": 0.3501301577897412,
+        "dof_vel": 5.1222705237714194,
+        "projected_gravity": 0.26968343305150183
+      },
+      "nearest": {
+        "old": {
+          "control": 267,
+          "distance": 1.1853413107852564,
+          "actual_target_difference_rms_rad": 1.0759015713059286,
+          "saved_teacher_input_fit_error_rms_rad": 0.03590971374973756
+        },
+        "query1": {
+          "control": 255,
+          "distance": 1.1767301828936185,
+          "actual_target_difference_rms_rad": 0.9763675193352465,
+          "saved_teacher_input_fit_error_rms_rad": 0.023972181174491954
+        },
+        "query250": {
+          "control": 262,
+          "distance": 1.1803331882906187,
+          "actual_target_difference_rms_rad": 1.0570372737058804,
+          "saved_teacher_input_fit_error_rms_rad": 0.03503113395509513
+        }
+      },
+      "nearest_any": {
+        "dataset": "query1",
+        "control": 255,
+        "distance": 1.1767301828936185
+      },
+      "clipped_joints": [
+        "left_ankle_pitch_joint",
+        "right_knee_joint",
+        "right_ankle_roll_joint"
+      ],
+      "clip_max_abs_rad": 1.0366775909563397,
+      "features_outside_training_minmax": 24,
+      "max_standardized_feature_excursion": 6.208532086790917,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_knee_joint",
+        "right_ankle_roll_joint"
+      ],
+      "previous_action_max_abs": 2.781653642654419,
+      "combined_action_max_abs": 6.485288143157959,
+      "combined_minus_normalized_applied_action_max_abs": 2.9563488960266113,
+      "worst_matching_target_joint": "left_hip_roll_joint",
+      "worst_matching_target_signed_error_rad": 2.093960312758945,
+      "right_hip_yaw": {
+        "qpos": -0.2866174907572504,
+        "qvel": -7.639086059577782,
+        "base": -0.10308023090601594,
+        "delta": 1.177089810371399,
+        "raw_target": 1.074009579465383,
+        "applied_target": 1.074009579465383,
+        "expert_target": -0.09218257710515548,
+        "previous_action": -0.8505639433860779,
+        "combined_action": 1.9614949226379395
+      }
+    },
+    {
+      "control": 277,
+      "physics_substeps": 10,
+      "actual_vs_matching_expert_target_rmse_rad": 1.1053376616376047,
+      "matching_expert_input_fit_rmse_rad": 0.038113753507919276,
+      "actual_vs_matching_expert_input_feature_distance": 1.562585107200161,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 4.230406607972269,
+        "future_goal": 1.0037341643355984,
+        "BFM_base_offset": 1.8077572746494208,
+        "previous_action": 2.7195730406697187
+      },
+      "actual_base_change_rms_rad": 0.36366426554951053,
+      "actual_head_output_change_rms_rad": 1.5992457292467566,
+      "qpos_joint_max_difference_rad": 0.6800550926516729,
+      "qvel_joint_max_difference_radps": 10.903359962811791,
+      "matching_history_difference_rms": {
+        "actions": 2.6604829136685235,
+        "base_ang_vel": 0.859669861405882,
+        "dof_pos": 0.3537870824897556,
+        "dof_vel": 5.032097015809527,
+        "projected_gravity": 0.2764307653109838
+      },
+      "nearest": {
+        "old": {
+          "control": 1265,
+          "distance": 1.5411413870447985,
+          "actual_target_difference_rms_rad": 1.0301586432174499,
+          "saved_teacher_input_fit_error_rms_rad": 0.025972220221253225
+        },
+        "query1": {
+          "control": 262,
+          "distance": 1.5351718107382977,
+          "actual_target_difference_rms_rad": 1.0967368971538414,
+          "saved_teacher_input_fit_error_rms_rad": 0.01824835667650405
+        },
+        "query250": {
+          "control": 273,
+          "distance": 1.534216811852195,
+          "actual_target_difference_rms_rad": 1.1378495677760334,
+          "saved_teacher_input_fit_error_rms_rad": 0.03650705633894649
+        }
+      },
+      "nearest_any": {
+        "dataset": "query250",
+        "control": 273,
+        "distance": 1.534216811852195
+      },
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_hip_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "clip_max_abs_rad": 3.567472055574581,
+      "features_outside_training_minmax": 47,
+      "max_standardized_feature_excursion": 7.030974382200583,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_pitch_joint",
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "right_hip_roll_joint",
+        "right_knee_joint",
+        "right_ankle_roll_joint",
+        "left_wrist_roll_joint",
+        "right_wrist_roll_joint"
+      ],
+      "previous_action_max_abs": 6.485288143157959,
+      "combined_action_max_abs": 11.666728973388672,
+      "combined_minus_normalized_applied_action_max_abs": 10.173550605773926,
+      "worst_matching_target_joint": "right_hip_yaw_joint",
+      "worst_matching_target_signed_error_rad": -2.1177872393901525,
+      "right_hip_yaw": {
+        "qpos": -0.23268572754483324,
+        "qvel": 8.30791473419379,
+        "base": 0.42226129132452667,
+        "delta": -2.13669753074646,
+        "raw_target": -1.7144362394219332,
+        "applied_target": -1.7144362394219332,
+        "expert_target": 0.40335099996821905,
+        "previous_action": 1.9614949226379395,
+        "combined_action": -3.13112473487854
+      }
+    },
+    {
+      "control": 278,
+      "physics_substeps": 4,
+      "actual_vs_matching_expert_target_rmse_rad": 1.406743083047174,
+      "matching_expert_input_fit_rmse_rad": 0.03773683100800552,
+      "actual_vs_matching_expert_input_feature_distance": 1.6372936371676667,
+      "actual_vs_matching_expert_input_block_distance": {
+        "proprio": 3.933045184960033,
+        "future_goal": 1.1060295027843543,
+        "BFM_base_offset": 1.921017429653324,
+        "previous_action": 4.191029096003279
+      },
+      "actual_base_change_rms_rad": 0.46678485783486084,
+      "actual_head_output_change_rms_rad": 1.4456139957876766,
+      "qpos_joint_max_difference_rad": 0.7852324592152213,
+      "qvel_joint_max_difference_radps": 15.11941273004955,
+      "matching_history_difference_rms": {
+        "actions": 2.7427963934614374,
+        "base_ang_vel": 0.8318867116065525,
+        "dof_pos": 0.3480138129844583,
+        "dof_vel": 5.270108249711584,
+        "projected_gravity": 0.2896853627894706
+      },
+      "nearest": {
+        "old": {
+          "control": 260,
+          "distance": 1.5669579788388384,
+          "actual_target_difference_rms_rad": 1.4120007948695446,
+          "saved_teacher_input_fit_error_rms_rad": 0.03681810170634868
+        },
+        "query1": {
+          "control": 254,
+          "distance": 1.5658494592808563,
+          "actual_target_difference_rms_rad": 1.3529351630406996,
+          "saved_teacher_input_fit_error_rms_rad": 0.022455871575469067
+        },
+        "query250": {
+          "control": 260,
+          "distance": 1.5685155568987141,
+          "actual_target_difference_rms_rad": 1.3862295141270242,
+          "saved_teacher_input_fit_error_rms_rad": 0.025217587838986776
+        }
+      },
+      "nearest_any": {
+        "dataset": "query1",
+        "control": 254,
+        "distance": 1.5658494592808563
+      },
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_hip_pitch_joint",
+        "right_hip_roll_joint",
+        "left_shoulder_pitch_joint",
+        "right_shoulder_pitch_joint"
+      ],
+      "clip_max_abs_rad": 2.0311941462440655,
+      "features_outside_training_minmax": 58,
+      "max_standardized_feature_excursion": 9.204868957081947,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_pitch_joint",
+        "left_hip_roll_joint",
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_hip_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint",
+        "left_wrist_roll_joint"
+      ],
+      "previous_action_max_abs": 11.666728973388672,
+      "combined_action_max_abs": 8.62341022491455,
+      "combined_minus_normalized_applied_action_max_abs": 4.631325721740723,
+      "worst_matching_target_joint": "left_shoulder_pitch_joint",
+      "worst_matching_target_signed_error_rad": -3.185491392936672,
+      "right_hip_yaw": {
+        "qpos": -0.24012201292003613,
+        "qvel": -5.457907001480018,
+        "base": 0.23243802845787748,
+        "delta": 2.1521177291870117,
+        "raw_target": 2.3845557576448893,
+        "applied_target": 2.3845557576448893,
+        "expert_target": 0.4142834659659464,
+        "previous_action": -3.13112473487854,
+        "combined_action": 4.354983329772949
+      }
+    }
+  ],
+  "comparison": "Matching expert-input predictions are saved values from a different expert trajectory after control250. They are not expert counterfactual actions evaluated at actual later student states.",
+  "distribution_shift_definition": "First mismatch to corresponding expert input and first coordinate outside the three moving-dataset min/max envelope are reported separately; nearest distances have no fitted pass threshold.",
+  "input_sha256": {
+    "actual": "bec4809cdb19c9b153d726485b7a77d2640c7bd399362681801bbd6abad086b9",
+    "fit": "3a3e758055e63128b24e27285c9bf948a876fabd2ff4c42028611a01d933783e",
+    "contract": "d1641ce4f2e9016f5008e5d4be3cc24ded46d7f9daf9cfddaab84095f98eb99b",
+    "old": "8003407282b01f2c66fe1720d7eb038f43377c1d6eab80dce47f1f75911e8083",
+    "query1": "e93753597450881c08a46fd520113abd21470653083dba0226c6450469d16ad1",
+    "query250": "bdcba927cd737a2ba74d75d7b31c427a5bfd4df7437983d13c391f9ca166f749",
+    "original29": "4d462a077f10bda04c97deaf5a5ff29ec5f891a29b8bae30a6f0080cfaf06f84",
+    "motion": "2d3b508e1b489499ece5cea8e88a885d9b94aeca82a6a0e8542bc39e690b8033",
+    "root_qualification": "46c4bf4d4b7cbaf146d85dc6daa311687a42f91ff426fc6251b632e9408c6bc8",
+    "final_report": "8812f7eab1f43ac6a247122a9e4ada03280bc6f729dc58a0ff1fd45c102919a8",
+    "prefix_parity": "9ce8a186b61d660be62b76e2679a2dc3817c7f7c263b6313b6b9a8f1a87bf5f3",
+    "query250_parity": "0004ee46de035df9e2f8d0b0e72bf715fb240c6d71251ba483f53ba21f5d5bd4"
+  },
+  "source_sha256": {
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\phase_student_failure_diagnosis_v1\\diagnose_saved.py": "2865540b7a2392115d53846de543d3623ab809c5c6de33d5a84c50c8ade56662",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_phase_fit_v1\\source_snapshot_v1\\gear_sonic\\utils\\g1_true23_bfm_seed_observations.py": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_phase_fit_v1\\source_snapshot_v1\\gear_sonic\\utils\\g1_true23_mpc_student.py": "6d71e82b4b7e491f4bbfd3c2a99e05df2ee27f9fb5e6febb4cc9c39c8c39d905"
+  },
+  "inference_calls": 0,
+  "optimizer_calls": 0,
+  "new_physics_steps": 0,
+  "hardware_authorized": false,
+  "arrays_sha256": "3238807ad61721a85eaf0de0bc511ae146888994e5d59151db00fe958c07cb9c"
+}

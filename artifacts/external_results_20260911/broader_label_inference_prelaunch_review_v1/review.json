@@ -1,0 +1,95 @@
+{
+  "schema": "independent_source_and_launcher_review_v1",
+  "reviewer": "/root/review_continuation",
+  "created_utc": "2026-09-11T08:05:07.0891660Z",
+  "verdict": "CLEAR",
+  "approved": true,
+  "scope": "ONE root-selected independent authenticity audit of the 6847 existing PICO and walk002 labels, using exactly 6847 original BFM backward calls and 6847 actor calls. No new labels, fitting, physics or hardware.",
+  "bindings": [
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/broader_labels_independent_v1/source_inference_v2/audit.py",
+      "sha256": "07f3620886639db787dea32f69c948a2278af35b53b47df3bebfc3f202255e07"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/broader_labels_independent_v1/inference_request_v2.json",
+      "sha256": "a45d08b859eb8c6d42d93948911c78e8de7c82fea037ef6a93ca2d8ebf2eae78"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/broader_labels_independent_v1/inference_process/launch_receipt.json",
+      "sha256": "fd5b68369b5b8c6fa453e367202d101364b0ea6e2cd9afe87d989a9208c060d3"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/broader_labels_independent_v1/inference_process/run_audit.ps1",
+      "sha256": "d19adbf7da0732cef8761638350ab6f05122c809d078949e3cac9464df456974"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/broader_labels_independent_v1/inference_process/run_audit_durable.ps1",
+      "sha256": "24ce53ce1f9efb5b3d35d22ef50b27e44f1fff93ae2fafc6bb6f42a9d2b54702"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/broader_labels_independent_v1/saved_request.json",
+      "sha256": "f423624cfe13ddc83768f83456daa93efa86c75034eb1971d3fe18cf96a383a6"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/broader_labels_independent_v1/saved_array_audit/report.json",
+      "sha256": "afa84495b4069554730a2a5242511fe99e0ba31515e3bc9f372074bb3a34101c"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/broader_labels_independent_v1/saved_array_audit/comparison_log.npz",
+      "sha256": "47bbeafe5ac57662d59d2ef84c6c8c82af323a1ab822903a114e1b84f243b013"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/broader_labels_independent_v1/focused_inference_v2.xml",
+      "sha256": "e2427cebd17c9c7b2122f06621b10315edc2df473498767a4daf28682cfb9ec3"
+    },
+    {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/broader_labels_independent_v1/exit_capture_test.json",
+      "sha256": "360892eacc6b76a60d4575714b0656301d2f113953cb33029f97a054d5c29914"
+    }
+  ],
+  "request_pins_verified": 131,
+  "launch_pins_verified": 139,
+  "checks": {
+    "all_request_and_launch_hashes_exact": true,
+    "prelaunch_output_logs_lock_absent": true,
+    "powershell_ast_errors": 0,
+    "focused_tests_passed": 10,
+    "focused_tests_skipped": 0,
+    "saved_source_v1_preserved_sha256": "3e48814b8d8177e1b6afffb0744b4861200a0457371a5fe940fcc586f92569c3",
+    "saved_pure_report_passed": true,
+    "saved_pure_comparisons": 158521,
+    "unchanged_independent_history_reconstruction": true,
+    "pico_controls": "250..6229 inclusive",
+    "pico_rows": 5980,
+    "walk002_controls": "250..1116 inclusive",
+    "walk002_rows": 867,
+    "actual_mpc_prefix_history_from_control_zero": true,
+    "no_previous_action_clip": true,
+    "complete291_qpos_qvel_ctrl_clock_warning_bindings": true,
+    "original_1069_feature_schema_and_state52": true,
+    "original_norm_span_unchanged": true,
+    "original_h8_position1_yaw2_BFM": true,
+    "full_original_native_goal_to_BFM_and_v4_received_goal_features": true,
+    "direct_actor_raw_base_state_features_byte_checks": true,
+    "fixed_attempt_counters_and_no_physics_guards": true,
+    "staged_goal_raw_base_feature_exception_evidence": true,
+    "initial_and_final_request_identity_and_input_hash_checks": true,
+    "immutable_v2_absolute_script_and_pythonpath": true,
+    "hidden_durable_create_new_lock": true,
+    "explicit_nonzero_incomplete_exit": true,
+    "native_process_handle_captured_before_wait": true,
+    "windows_powershell51_exit7_stub_passed": true,
+    "original_unknown_collection_exit_remains_null": true
+  },
+  "limitations": [
+    "This source review does not assert the new inference audit has passed; its saved report must prove all requested comparisons and calls.",
+    "Actual-state labels inherit the already qualified offline trajectories; no live teleoperation, hardware, model fit, or generalization qualification is granted."
+  ],
+  "reviewer_execution": {
+    "source_reads": true,
+    "hash_and_parser_checks": true,
+    "inference_calls": 0,
+    "physics_steps": 0,
+    "optimizer_updates": 0
+  }
+}

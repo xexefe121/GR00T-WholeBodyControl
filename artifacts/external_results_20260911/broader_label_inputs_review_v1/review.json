@@ -1,0 +1,83 @@
+{
+  "reviewer_policy_inference_calls": 0,
+  "collector_requirements": [
+    "Original yaw2 unclipped BFM base at each same actual state/history; terminal yaw4 excluded.",
+    "No ±5 clamp on actual MPC previous actions; preserve original floating expression and signed zeros.",
+    "Keep full291 snapshots as bound actual-state provenance, not reconstruction from only qpos/qvel.",
+    "Keep1069 schema, native span, original normalization; no clip/frame/time/solver-state feature inputs.",
+    "Retain all selected rows including local tracking failures; annotations separate.",
+    "Original standing prefixes differ from query250 BFM prefix: both new trajectories used MPC, so rebuild histories from recorded commands from control0.",
+    "No walk008, terminal/hold labels, dynamics or fit selected for collector."
+  ],
+  "history": {
+    "walk002_rows": 1118,
+    "pico_max_absolute_prior": 10.274089813232422,
+    "walk002_max_absolute_prior": 6.524362087249756,
+    "pico_prior_components_outside_five": 810,
+    "pico_rows": 6530,
+    "all_previous_flat_named_rolling_hashes_reconstructed_byteexact": true,
+    "walk002_prior_components_outside_five": 28
+  },
+  "kind": "independent_read_only_broader_nominal_label_input_review",
+  "bindings": {
+    "control_snapshot_preflight_failure_v1/report.json": "3e71c3e53307f5c9224eca0c08229de2bf767f7293eb76ac1a57b80dbcc1947c",
+    "pico_all_control_snapshots_independent_v1/request.json": "bcb434988334d88836f761cb334a2edec054738d48340f4f04ddc01ce7b7f06a",
+    "pico_all_control_snapshots_independent_v1/source.py": "d40e1c7faa2c65f4c3df78bfcf9b1cfd3e29ba040abd3bb093519bd8ddcc1093",
+    "pico_walk002_label_coverage_assessment_v1/assessment.json": "bc701011d012a573a5df63e977124db928b8ee64c7920b5c01bdc65f4554b89a",
+    "walk002_hybrid_all_control_snapshots_independent_v1/control_snapshots.npz": "c653576b73449f607fc8bffede1594b9851c456820795c58b6d2c6b8c663e724",
+    "walk002_hybrid_all_control_snapshots_independent_v1/request.json": "9306f82acab4faa2d5383cae7e71441dae462c276dc680f2ef418048a15651be",
+    "walk002_hybrid_all_control_snapshots_independent_v1/report.json": "8b56891ea62c4451cd58bb554ad61f27bdc5e01ae36dc4af5478c2928f04f013",
+    "pico_all_control_snapshots_independent_v1/report.json": "fd94b100fe760ab2b95f33f9a79210c5e1e0fe294c4558a6fc7ba2f407b95d33",
+    "pico_all_control_snapshots_independent_v1/control_snapshots.npz": "81775928dc211394a13150da42047da2ad72cd14fa100daa57576bbf25ca210e",
+    "pico_walk002_label_coverage_assessment_v1/assess.py": "51f9d4cf7441e13c979d8fd8f9a1e774ca77792e9136c4fa79cd8034faefae28"
+  },
+  "reviewer_label_rows_created": 0,
+  "snapshot_review": {
+    "snapshot_hashes_and_all20_direct_request_pins_exact": true,
+    "source": "Canonical fixture once; native PD on all saved target commands; each 2 ms q/dq/command/force/time/warning counts/lastinfo compared byteexact; full291 final compared with independently reconstructed endpoint.",
+    "pico_snapshots": 6530,
+    "all_final291_endpoints_exact": true,
+    "reported_physics_comparisons": 79470,
+    "all_snapshot_application_forces_zero": true,
+    "all_snapshot_decoded_qpos_qvel_time_and_previous_ctrl_exact": true,
+    "walk002_snapshots": 1417
+  },
+  "assessment_pins_verified": 38,
+  "selected_rows": 6847,
+  "selected": {
+    "pico": {
+      "controls_inclusive": [
+        250,
+        6229
+      ],
+      "phases": [
+        100,
+        5780,
+        100
+      ],
+      "rows": 5980,
+      "source_frames_inclusive": [
+        261,
+        6240
+      ]
+    },
+    "walk002": {
+      "controls_inclusive": [
+        250,
+        1116
+      ],
+      "phases": [
+        100,
+        667,
+        100
+      ],
+      "rows": 867,
+      "source_frames_inclusive": [
+        261,
+        1127
+      ]
+    }
+  },
+  "verdict": "CLEAR for selected inputs; collector source and launch review still required",
+  "reviewer_new_physics_steps": 0
+}

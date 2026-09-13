@@ -1,0 +1,179 @@
+{
+  "fake_steps": 3,
+  "native_steps": 0,
+  "model_calls": 0,
+  "probes": {
+    "mutable_verifier_issue": {
+      "summary": {
+        "requested": 1,
+        "attempted": 1,
+        "returned": 1,
+        "captured": 1,
+        "verified": 0,
+        "committed": 0,
+        "unexecuted": 0,
+        "current_debt": 0,
+        "last_valid_clock_ns": 100100000,
+        "clock_fault": null,
+        "max_debt": 0,
+        "cumulative_wake_debt": 0,
+        "deadline_misses": 0,
+        "first_deadline_failure": null,
+        "epoch_ns": 100000000,
+        "failure": {
+          "reason": "STEPPER_OR_CAPTURE_EXCEPTION",
+          "physics": 1,
+          "exception": "ValueError",
+          "detail": "verifier must return None or a nonempty bounded string",
+          "stage": "STEP_VERIFY",
+          "mutation_uncertain": false
+        },
+        "input_fault": null,
+        "history_entries": 1,
+        "timing_passed": false,
+        "physical_qualification": false,
+        "real_process_timing_qualified": false
+      },
+      "return_evidence": {
+        "base64": "eyJpdGVtcyI6W1t7InR5cGUiOiJidWlsdGlucy5zdHIiLCJ2YWx1ZSI6Im1lc3NhZ2UifSx7Iml0ZW1zIjpbW3sidHlwZSI6ImJ1aWx0aW5zLmludCIsInZhbHVlIjowfSx7InR5cGUiOiJidWlsdGlucy5zdHIiLCJ2YWx1ZSI6Im9yaWdpbmFsIn1dXSwic2l6ZSI6MSwidHJ1bmNhdGVkIjpmYWxzZSwidHlwZSI6ImJ1aWx0aW5zLmxpc3QifV1dLCJzaXplIjoxLCJ0cnVuY2F0ZWQiOmZhbHNlLCJ0eXBlIjoiYnVpbHRpbnMuZGljdCJ9"
+      },
+      "last_valid_capture": {
+        "simulation_time": 0.002,
+        "state": {
+          "base64": "AQAAAAAAAAA="
+        },
+        "torque": {
+          "base64": "AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPw=="
+        },
+        "warnings": {
+          "counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "lastinfo": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "mutable_warning_capture": {
+      "summary": {
+        "requested": 1,
+        "attempted": 1,
+        "returned": 1,
+        "captured": 0,
+        "verified": 0,
+        "committed": 0,
+        "unexecuted": 0,
+        "current_debt": 0,
+        "last_valid_clock_ns": 100100000,
+        "clock_fault": null,
+        "max_debt": 0,
+        "cumulative_wake_debt": 0,
+        "deadline_misses": 0,
+        "first_deadline_failure": null,
+        "epoch_ns": 100000000,
+        "failure": {
+          "reason": "STEPPER_OR_CAPTURE_EXCEPTION",
+          "physics": 1,
+          "exception": "ValueError",
+          "detail": "typed WarningLedger required",
+          "stage": "STEP_CAPTURE",
+          "mutation_uncertain": false
+        },
+        "input_fault": null,
+        "history_entries": 1,
+        "timing_passed": false,
+        "physical_qualification": false,
+        "real_process_timing_qualified": false
+      },
+      "return_evidence": {
+        "base64": "eyJmaWVsZHMiOnsic2ltdWxhdGlvbl90aW1lIjp7ImhleCI6IjB4MS4wNjI0ZGQyZjFhOWZjcC05IiwidHlwZSI6ImJ1aWx0aW5zLmZsb2F0In0sInN0YXRlIjp7InByZWZpeCI6IkFRQUFBQUFBQUFBPSIsInNoYTI1NiI6IjdjOWZhMTM2ZDQ0MTNmYTYxNzM2MzdlODgzYjY5OThkMzJlMWQ2NzVmODhjZGRmZjlkY2JjZjMzMTgyMGY0YjgiLCJzaXplIjo4LCJ0cnVuY2F0ZWQiOmZhbHNlLCJ0eXBlIjoiYnVpbHRpbnMuYnl0ZXMifSwidG9ycXVlIjp7InByZWZpeCI6IkFBQUFBQUFBOEQ4QUFBQUFBQUR3UHdBQUFBQUFBUEEvQUFBQUFBQUE4RDhBQUFBQUFBRHdQd0FBQUFBQUFQQS9BQUFBQUFBQThEOEFBQUFBQUFEd1B3QUFBQUFBQVBBL0FBQUFBQUFBOEQ4QUFBQUFBQUR3UHdBQUFBQUFBUEEvQUFBQUFBQUE4RDhBQUFBQUFBRHdQd0FBQUFBQUFQQS9BQUFBQUFBQThEOEFBQUFBQUFEd1B3QUFBQUFBQVBBL0FBQUFBQUFBOEQ4QUFBQUFBQUR3UHdBQUFBQUFBUEEvQUFBQUFBQUE4RDhBQUFBQUFBRHdQdz09Iiwic2hhMjU2IjoiZmJhZTJhNzMxZTYzOTVlNzA5M2M1Zjc4ZGZkMDg1ZTllODM5ZGQ4MDIyZmIyYWIwOGI4MWM4ZmVmOTYyZGZiZSIsInNpemUiOjE4NCwidHJ1bmNhdGVkIjpmYWxzZSwidHlwZSI6ImJ1aWx0aW5zLmJ5dGVzIn0sIndhcm5pbmdzIjp7Iml0ZW1zIjpbW3sidHlwZSI6ImJ1aWx0aW5zLmludCIsInZhbHVlIjowfSx7Iml0ZW1zIjpbW3sidHlwZSI6ImJ1aWx0aW5zLnN0ciIsInZhbHVlIjoiY291bnQifSx7InR5cGUiOiJidWlsdGlucy5pbnQiLCJ2YWx1ZSI6MH1dXSwic2l6ZSI6MSwidHJ1bmNhdGVkIjpmYWxzZSwidHlwZSI6ImJ1aWx0aW5zLmRpY3QifV1dLCJzaXplIjoxLCJ0cnVuY2F0ZWQiOmZhbHNlLCJ0eXBlIjoiYnVpbHRpbnMudHVwbGUifX0sInR5cGUiOiJjbG9ja19jb3JlLkNhcHR1cmVkU3RlcCJ9"
+      },
+      "last_valid_capture": null
+    },
+    "backward_finish_clock": {
+      "summary": {
+        "requested": 1,
+        "attempted": 1,
+        "returned": 1,
+        "captured": 1,
+        "verified": 1,
+        "committed": 0,
+        "unexecuted": 0,
+        "current_debt": null,
+        "last_valid_clock_ns": 100000000,
+        "clock_fault": {
+          "phase": "STEP_FINISH",
+          "previous_ns": 100000000,
+          "observed": {
+            "base64": "eyJ0eXBlIjoiYnVpbHRpbnMuaW50IiwidmFsdWUiOjk5OTk5OTk5fQ=="
+          }
+        },
+        "max_debt": 0,
+        "cumulative_wake_debt": 0,
+        "deadline_misses": 0,
+        "first_deadline_failure": null,
+        "epoch_ns": 100000000,
+        "failure": {
+          "reason": "CLOCK_NONMONOTONIC_OR_INVALID",
+          "physics": 1,
+          "phase": "STEP_FINISH",
+          "previous_ns": 100000000,
+          "observed": {
+            "base64": "eyJ0eXBlIjoiYnVpbHRpbnMuaW50IiwidmFsdWUiOjk5OTk5OTk5fQ=="
+          }
+        },
+        "input_fault": null,
+        "history_entries": 1,
+        "timing_passed": false,
+        "physical_qualification": false,
+        "real_process_timing_qualified": false
+      },
+      "last_valid_capture": {
+        "simulation_time": 0.002,
+        "state": {
+          "base64": "AQAAAAAAAAA="
+        },
+        "torque": {
+          "base64": "AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPw=="
+        },
+        "warnings": {
+          "counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "lastinfo": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    }
+  }
+}

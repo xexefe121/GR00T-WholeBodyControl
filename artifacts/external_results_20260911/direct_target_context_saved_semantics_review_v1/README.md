@@ -1,0 +1,15 @@
+# Causal 68000 saved-semantics auditor
+
+Preparation only for the causal condition in `direct_target_causal_context_evaluation_v2`. No actual audit request, graph call, native step, optimizer update or task-array evaluation is performed during preparation. Actual execution requires a completed evaluation owner, root independent native report for each recorded segment, and a source review matching this package.
+
+The auditor reconstructs the original 1000 current-state/received-goal values using the byte-bound pure feature class. It independently appends the incoming float32 prior23 and sorted named pre-update history300. The order is actions, base angular velocity, joint positions, joint velocities, projected gravity, each with four lag rows. Causal inputs never substitute the training context mean. No control ID or time feature is added.
+
+History is advanced once using the measured precontrol terms and incoming prior, after checking the current public input. Learned outgoing prior is the inverse normalization of the actually clipped native target. Startup and terminal BFM retain their original raw outgoing action. The terminal head input is the original zero1323 sentinel; its real history continues for BFM. Signed zeros, dtypes, shapes, clipping order, float32-span promotion, full291 boundaries, repeated native clock, warning continuity, partial failure capsules, inference counts and the original 1569+conditional250 scope remain checked.
+
+Original BFM prefix evidence is compared directly, with its old features extended by its saved prior/history. Control250 additionally matches the qualified query labels, center2038, named history and the separately recorded one-call activation witness. Rejected proposals must preserve the active prior/history and any returned head input. A final issued command with zero returned native steps receives zero sample credit.
+
+The 65000 auditor's `fixed_maps.py` remains byte-identical. Only existing unique dataset2/same-control maps may be evaluated, with their original full58 product and both clips. Missing controls are disclosed; duplicate maps fail. These are saved stale committed maps, not replanned expert commands or recovery certificates.
+
+`prepare_request.py` is unexecuted and accepts only the causal68000 release. It must bind the actual completed owner, canonical request/trace/report, witness, eighteen release subjects, runtime sources and independent native reports. `audit_saved.py` remains failure-aware: semantic evidence may pass while the original physical lifecycle fails. No semantic audit result alone establishes stability, source tracking, hidden-state sufficiency, timing, or hardware readiness.
+
+`source_changes.diff` preserves the exact derivation against the original package. `source_preparation.json` binds all ten source files, unchanged function ASTs, all actual evaluator sources, and both synthetic test modules with their combined log/XML. The original package and all producer/clock files remain unchanged.

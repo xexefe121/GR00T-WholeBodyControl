@@ -1,0 +1,71 @@
+{
+  "kind": "native23_bfm_linear_span_student_nominal_v2",
+  "experiment": "one_qualified_actual_state_aggregate_continuation",
+  "first_global_step": 20001,
+  "last_global_step": 60000,
+  "additional_updates": 40000,
+  "samples": {
+    "old": 1269,
+    "new": 1268,
+    "aggregate": 2537
+  },
+  "batch_size": 256,
+  "phase_rows": [
+    [
+      250,
+      100,
+      819,
+      100
+    ],
+    [
+      249,
+      100,
+      819,
+      100
+    ]
+  ],
+  "sampling": "for each phase,32 old then32 new rows with replacement, continuing saved NumPy RNG",
+  "original_configuration": {
+    "seed": 773,
+    "steps": 1000,
+    "batch_size": 256,
+    "learning_rate": 0.0003,
+    "weight_decay": 1e-05,
+    "hidden": [
+      256,
+      256
+    ],
+    "activation": "ELU",
+    "output": "linear23 times nativejointspan, no tanh or radius",
+    "feature_std_floor": 0.05,
+    "gradient_clip_norm": 10.0,
+    "device": "cpu",
+    "threads": 1,
+    "phase_sampling": "64each initial250/acquisition100/source819/return100",
+    "validation": "all1269 labels train; full closed-loop nominal rollout is behavioral test, no heldout-generalization claim"
+  },
+  "optimizer": {
+    "name": "AdamW",
+    "learning_rate": 0.0003,
+    "weight_decay": 1e-05,
+    "gradient_clip_norm": 10.0,
+    "loss": "mean squared residual divided by native joint span",
+    "threads": 1,
+    "device": "cpu",
+    "batch_size": 256,
+    "samples_per_dataset_per_phase": 32
+  },
+  "original_normalization_refitted": false,
+  "full_final20000_model_optimizer_rng_restored": true,
+  "prior_checkpoint_sha256": "59475de36cd5a3f03ba805a77221dff0a3d219aaab23df5e404e3f6acf6f02e1",
+  "old_labels_sha256": "8003407282b01f2c66fe1720d7eb038f43377c1d6eab80dce47f1f75911e8083",
+  "new_labels_sha256": "e93753597450881c08a46fd520113abd21470653083dba0226c6450469d16ad1",
+  "fresh_labels_report_sha256": "28c9f7a64466c53c47282bb461dee18b88bf3190212d75c92bab406dc1d08506",
+  "frozen_sources_sha256": "1471e7fd28602e829eed1ac14bae9d3e8474f5a1bdaeeeedb6bdffbf0bdd3fb7",
+  "ordinary_final_only": true,
+  "early_stopping": false,
+  "intermediate_physics_evaluations": false,
+  "new_expert_queries": false,
+  "canonical_rollout_requires_separate_final_export_review": true,
+  "hardware_authorized": false
+}

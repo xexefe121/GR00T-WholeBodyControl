@@ -1,0 +1,146 @@
+{
+  "schema": "g1_true23_low_latency_recovery_motion_v1",
+  "kind": "g1_true23_unqualified_full_request_breadth_curriculum_v1",
+  "output": {
+    "filename": "corpus.npz",
+    "sha256": "e285ca71295bc047ed076abfeda9348be9567475f4fca21c30e112ac62976c06",
+    "fps": 50.0,
+    "frames": 5940,
+    "duration_s": 118.8
+  },
+  "corpus": {
+    "clip_count": 8,
+    "span_sidecar_filename": "corpus.spans.json",
+    "span_sidecar_sha256": "78fb47539191a7cf02db09b7e0867ac8762969f89062ba1c6d57f1f59f7dcdeb",
+    "full_body_controlled_joint_count": 23
+  },
+  "segments_inclusive": {
+    "hand_crawling": [
+      0,
+      605
+    ],
+    "happy_dance": [
+      606,
+      1151
+    ],
+    "pico_upright_anchor": [
+      1152,
+      2175
+    ],
+    "pico_standing_anchor": [
+      2176,
+      3199
+    ],
+    "pico_crouch_anchor": [
+      3200,
+      4223
+    ],
+    "pico_twist2_walk_001": [
+      4224,
+      4918
+    ],
+    "pico_twist2_walk_010": [
+      4919,
+      5428
+    ],
+    "synthetic_standing_prerequisite": [
+      5429,
+      5939
+    ]
+  },
+  "source_request_ledger": [
+    {
+      "name": "hand_crawling",
+      "available": true,
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original29_neutral_hand_frame_fit_20260906_v1/hand_crawling.native23.npz",
+      "sha256": "b3e2bf953cd7a5a2841bd15805533db6988d6ac6eaba42ab38bc44a6084dd086",
+      "full_source_frames": 606,
+      "source_arrays_cast_to_float32_only": true,
+      "requested_task_not_action_teacher": true,
+      "physical_reference_qualified": false
+    },
+    {
+      "name": "elbow_crawling",
+      "available": false,
+      "reason": "ValueError: requires a complete, explicitly unaccepted C++-parameter simulation source",
+      "replacement": null
+    },
+    {
+      "name": "happy_dance",
+      "available": true,
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original29_neutral_hand_frame_fit_20260906_v1/happy_dance.native23.npz",
+      "sha256": "3fe0a95b3e33e291fffde0fc3ede0cfc2fbae3b5ca19e8a43fbbe72fe3d16251",
+      "full_source_frames": 546,
+      "source_arrays_cast_to_float32_only": true,
+      "requested_task_not_action_teacher": true,
+      "physical_reference_qualified": false
+    },
+    {
+      "name": "pico_upright_anchor",
+      "available": true,
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/contact_trajectory_20260906_v2/pico_upright_anchor.npz",
+      "sha256": "4af5449335b362658738b823519a084bdc42adc4a5427811ce8c02c920bbbb26",
+      "full_source_frames": 1024,
+      "source_arrays_cast_to_float32_only": true,
+      "requested_task_not_action_teacher": true,
+      "physical_reference_qualified": false
+    },
+    {
+      "name": "pico_standing_anchor",
+      "available": true,
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/contact_trajectory_20260906_v2/pico_standing_anchor.npz",
+      "sha256": "f2e22833322d5011cd392851d882875e184f3b529b1e8b1de7d483955b468816",
+      "full_source_frames": 1024,
+      "source_arrays_cast_to_float32_only": true,
+      "requested_task_not_action_teacher": true,
+      "physical_reference_qualified": false
+    },
+    {
+      "name": "pico_crouch_anchor",
+      "available": true,
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/contact_trajectory_20260906_v2/pico_crouch_anchor.npz",
+      "sha256": "b1ddb5f65cb3a72645c243309b7f8f44a9a168ae86fc3a24b59a2516cd260d7b",
+      "full_source_frames": 1024,
+      "source_arrays_cast_to_float32_only": true,
+      "requested_task_not_action_teacher": true,
+      "physical_reference_qualified": false
+    },
+    {
+      "name": "pico_twist2_walk_001",
+      "available": true,
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/contact_trajectory_20260906_v2/pico_twist2_walk_001.npz",
+      "sha256": "309ec15ec33950035e50b71caa91823ee0909c21c81102ae5146709d7c381c79",
+      "full_source_frames": 695,
+      "source_arrays_cast_to_float32_only": true,
+      "requested_task_not_action_teacher": true,
+      "physical_reference_qualified": false
+    },
+    {
+      "name": "pico_twist2_walk_010",
+      "available": true,
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/contact_trajectory_20260906_v2/pico_twist2_walk_010.npz",
+      "sha256": "aae96d06b40418ea5000facffef63895d9219ceeeeb268208aab269ba997e9c2",
+      "full_source_frames": 510,
+      "source_arrays_cast_to_float32_only": true,
+      "requested_task_not_action_teacher": true,
+      "physical_reference_qualified": false
+    }
+  ],
+  "synthetic_standing_is_an_additional_clip_not_a_missing_motion_replacement": true,
+  "all_available_requested_frames_preserved": true,
+  "frame_cast": "float32_for_existing_MJLab_loader",
+  "reference_temporally_resampled": false,
+  "reference_retargeted_again": false,
+  "action_teacher_or_behavior_bank": false,
+  "full_requested_set_qualified": false,
+  "physical_reference_qualified": false,
+  "supervised_failed_controller_actions_used": false,
+  "simulator_only": true,
+  "hardware_authorized": false,
+  "deployment_ready": false,
+  "authorization": {
+    "training_input_only": true,
+    "robot_network_commands": false,
+    "hardware_authorized": false
+  }
+}

@@ -1,0 +1,768 @@
+{
+  "kind": "read_only_direct_BFM_actor_distillation_feasibility",
+  "source_and_saved_array_assessment": true,
+  "input_sha256": {
+    "weights": {
+      "path": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\g1_true23_six_hour_replan_20260910_v1\\bfmzero_inference_v1\\inference.safetensors",
+      "sha256": "28a2d82a2975c37b8a1533f2e3b0224d27f8a0813283640ee7eeee348fe42c2e"
+    },
+    "actor_graph": {
+      "path": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\bfm_onnx_v2\\actor.onnx",
+      "sha256": "7d9dc682dc38c6972c5023bb6bd069c8d9d28a99fa33a871906befaf9a1cc64e"
+    },
+    "backward_graph": {
+      "path": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\bfm_onnx_v2\\backward.onnx",
+      "sha256": "2fe7cf1a0f76c101703fd53a855f2281763d47fef45c0f1455789bb04c21c3b7"
+    },
+    "graph_manifest": {
+      "path": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\bfm_onnx_v2\\manifest.json",
+      "sha256": "a5650963f41838a6bf77bcfd12fcfa24ae939e6ee5f50d4b877527527d1e3878"
+    },
+    "contract": {
+      "path": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native23_inputs_v1\\contract.json",
+      "sha256": "d1641ce4f2e9016f5008e5d4be3cc24ded46d7f9daf9cfddaab84095f98eb99b"
+    },
+    "centers": {
+      "path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\velocity_chord_student_v1\\generation\\centers.npz",
+      "sha256": "5b07595d07e262f2ad236565ec62483d600843fe27a9f4a781974dac4b0608c7"
+    },
+    "inference_source": {
+      "path": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\gear_sonic\\utils\\g1_true23_bfmzero_inference.py",
+      "sha256": "b2d6166371abf39d76d9b12177f7e3f43a1e6b48f2348ea290ba49f6a9f490eb"
+    },
+    "export_source": {
+      "path": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\gear_sonic\\utils\\g1_true23_bfmzero_onnx.py",
+      "sha256": "cdf886fdde806df4cfdbc38eca5dfe944b24b305e20781448d46466dc4daaa4c"
+    },
+    "runtime_source": {
+      "path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\velocity_chord_student_v1\\source_snapshot_v3\\student_linear_runtime.py",
+      "sha256": "35b3e3dd4f4c2966ae224a77afc5213d02cead3200bf63218fb0aab26710f543"
+    },
+    "observation_source": {
+      "path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\velocity_chord_student_v1\\source_snapshot_v3\\gear_sonic\\utils\\g1_true23_bfm_seed_observations.py",
+      "sha256": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d"
+    },
+    "seed_source": {
+      "path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\velocity_chord_student_v1\\source_snapshot_v3\\gear_sonic\\utils\\g1_true23_mjbatch_bfm_seed.py",
+      "sha256": "2f3d808b6a95fd80a3c1f9a0fabbe80264cf9cc93fbf01e2b2be65f6a5ec75de"
+    },
+    "original_actor_source": {
+      "path": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\g1_true23_six_hour_replan_20260910_v1\\bfmzero_sources_v1\\humanoidverse\\agents\\nn_models.py",
+      "sha256": "bace2c9967320ab0cf1e570054acf1f7e0378f15690e11af11fcce462b3a9254"
+    },
+    "original_model_source": {
+      "path": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\g1_true23_six_hour_replan_20260910_v1\\bfmzero_sources_v1\\humanoidverse\\agents\\fb\\model.py",
+      "sha256": "d8292b0550f724c6ad914cddb691f2f59a4a5b1b62c01109d24275ad960e68be"
+    },
+    "original_normalizers": {
+      "path": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\g1_true23_six_hour_replan_20260910_v1\\bfmzero_sources_v1\\humanoidverse\\agents\\normalizers.py",
+      "sha256": "5a7382f1ab43caa44fe9acf6883f6ae1e4638abb9f6063780dfd1333cee2db83"
+    },
+    "source_manifest": {
+      "path": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\g1_true23_six_hour_replan_20260910_v1\\bfmzero_sources_v1\\sources.json",
+      "sha256": "59deb83ab3fae69b8c9705257de6f9780c29da1ede1f548e547d0a034caf71c9"
+    },
+    "config": {
+      "path": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\g1_true23_six_hour_replan_20260910_v1\\bfmzero_inspect_v1\\config.json",
+      "sha256": "9072e053debb6edb829b6b7b48ddc3d0782e93794f9307b643c5d38c1eb7f787"
+    },
+    "robot_config": {
+      "path": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\g1_true23_six_hour_replan_20260910_v1\\bfmzero_inspect_v1\\config.yaml",
+      "sha256": "f3ba93872527acba52aa567187f225aa1d2825fef82f4a8497807a654153978d"
+    },
+    "init_kwargs": {
+      "path": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\g1_true23_six_hour_replan_20260910_v1\\bfmzero_inspect_v1\\init_kwargs.json",
+      "sha256": "b4ef1080f7b4afa5054cb793beb222c0cf205ec46045654c05b3ea3d08f2938d"
+    },
+    "download_receipt": {
+      "path": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\g1_true23_six_hour_replan_20260910_v1\\bfmzero_inference_v1\\download.json",
+      "sha256": "30fbf56f8e7fe1d8fb1b64ac736c4f15bd9fccfc31716604b549d295618578cb"
+    },
+    "original_checkpoint_header": {
+      "path": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\g1_true23_six_hour_replan_20260910_v1\\bfmzero_inspect_v1\\safetensors_header.json",
+      "sha256": "4bfdfd9fa9157b2db3269d0fdf937827f62932d5d81092a3d9eba96ea87d551c"
+    },
+    "training_status": {
+      "path": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\g1_true23_six_hour_replan_20260910_v1\\bfmzero_inspect_v1\\train_status.json",
+      "sha256": "360a470e8ef34af43763b64ec99da9df747d271d67f5985ea811802f781a9828"
+    }
+  },
+  "actor_parameters": 23123955,
+  "actor_parameter_tensors": 36,
+  "total_local_inference_tensors": 54,
+  "actor_tensor_schema": {
+    "_actor.embed_s.0.mlp.0.bias": {
+      "shape": [
+        375
+      ],
+      "dtype": "F32"
+    },
+    "_actor.embed_s.0.mlp.0.weight": {
+      "shape": [
+        375
+      ],
+      "dtype": "F32"
+    },
+    "_actor.embed_s.0.mlp.1.bias": {
+      "shape": [
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.embed_s.0.mlp.1.weight": {
+      "shape": [
+        2048,
+        375
+      ],
+      "dtype": "F32"
+    },
+    "_actor.embed_s.1.mlp.0.bias": {
+      "shape": [
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.embed_s.1.mlp.0.weight": {
+      "shape": [
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.embed_s.1.mlp.1.bias": {
+      "shape": [
+        1024
+      ],
+      "dtype": "F32"
+    },
+    "_actor.embed_s.1.mlp.1.weight": {
+      "shape": [
+        1024,
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.embed_z.0.mlp.0.bias": {
+      "shape": [
+        631
+      ],
+      "dtype": "F32"
+    },
+    "_actor.embed_z.0.mlp.0.weight": {
+      "shape": [
+        631
+      ],
+      "dtype": "F32"
+    },
+    "_actor.embed_z.0.mlp.1.bias": {
+      "shape": [
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.embed_z.0.mlp.1.weight": {
+      "shape": [
+        2048,
+        631
+      ],
+      "dtype": "F32"
+    },
+    "_actor.embed_z.1.mlp.0.bias": {
+      "shape": [
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.embed_z.1.mlp.0.weight": {
+      "shape": [
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.embed_z.1.mlp.1.bias": {
+      "shape": [
+        1024
+      ],
+      "dtype": "F32"
+    },
+    "_actor.embed_z.1.mlp.1.weight": {
+      "shape": [
+        1024,
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.policy.0.mlp.0.bias": {
+      "shape": [
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.policy.0.mlp.0.weight": {
+      "shape": [
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.policy.0.mlp.1.bias": {
+      "shape": [
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.policy.0.mlp.1.weight": {
+      "shape": [
+        2048,
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.policy.1.mlp.0.bias": {
+      "shape": [
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.policy.1.mlp.0.weight": {
+      "shape": [
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.policy.1.mlp.1.bias": {
+      "shape": [
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.policy.1.mlp.1.weight": {
+      "shape": [
+        2048,
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.policy.2.mlp.0.bias": {
+      "shape": [
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.policy.2.mlp.0.weight": {
+      "shape": [
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.policy.2.mlp.1.bias": {
+      "shape": [
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.policy.2.mlp.1.weight": {
+      "shape": [
+        2048,
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.policy.3.mlp.0.bias": {
+      "shape": [
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.policy.3.mlp.0.weight": {
+      "shape": [
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.policy.3.mlp.1.bias": {
+      "shape": [
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.policy.3.mlp.1.weight": {
+      "shape": [
+        2048,
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.policy.4.mlp.0.bias": {
+      "shape": [
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.policy.4.mlp.0.weight": {
+      "shape": [
+        2048
+      ],
+      "dtype": "F32"
+    },
+    "_actor.policy.4.mlp.1.bias": {
+      "shape": [
+        23
+      ],
+      "dtype": "F32"
+    },
+    "_actor.policy.4.mlp.1.weight": {
+      "shape": [
+        23,
+        2048
+      ],
+      "dtype": "F32"
+    }
+  },
+  "graph": {
+    "inputs": {
+      "state": [
+        "batch",
+        52
+      ],
+      "last_action": [
+        "batch",
+        23
+      ],
+      "history": [
+        "batch",
+        300
+      ],
+      "z": [
+        "batch",
+        256
+      ]
+    },
+    "outputs": {
+      "action": [
+        "batch",
+        23
+      ]
+    },
+    "output_producer": [
+      {
+        "op": "Tanh",
+        "name": "/Tanh_8"
+      }
+    ],
+    "node_types": {
+      "Constant": 48,
+      "BatchNormalization": 3,
+      "Concat": 3,
+      "LayerNormalization": 9,
+      "Gemm": 9,
+      "Softplus": 8,
+      "Tanh": 9,
+      "Mul": 8,
+      "Add": 4
+    },
+    "initializers": 0
+  },
+  "normalizers": {
+    "state": {
+      "dimensions": 52,
+      "running_mean_minmax": [
+        -0.874360203742981,
+        0.6529922485351562
+      ],
+      "running_var_minmax": [
+        0.006360890343785286,
+        5.400876998901367
+      ],
+      "eps": 1e-05,
+      "affine": false
+    },
+    "last_action": {
+      "dimensions": 23,
+      "running_mean_minmax": [
+        -1.288262128829956,
+        1.591166615486145
+      ],
+      "running_var_minmax": [
+        0.2090691328048706,
+        2.5030245780944824
+      ],
+      "eps": 1e-05,
+      "affine": false
+    },
+    "history_actor": {
+      "dimensions": 300,
+      "running_mean_minmax": [
+        -1.2851957082748413,
+        1.58992338180542
+      ],
+      "running_var_minmax": [
+        0.006431327201426029,
+        5.497660160064697
+      ],
+      "eps": 1e-05,
+      "affine": false
+    },
+    "privileged_state": {
+      "dimensions": 373,
+      "running_mean_minmax": [
+        -0.5870756506919861,
+        0.9129643440246582
+      ],
+      "running_var_minmax": [
+        2.112542183286409e-14,
+        5.993574142456055
+      ],
+      "eps": 1e-05,
+      "affine": false
+    }
+  },
+  "available_actor_inputs": {
+    "state": {
+      "shape": [
+        3057,
+        52
+      ],
+      "dtype": "float32"
+    },
+    "last_action": {
+      "shape": [
+        3057,
+        23
+      ],
+      "dtype": "float32"
+    },
+    "history": {
+      "shape": [
+        3057,
+        300
+      ],
+      "dtype": "float32"
+    },
+    "z": {
+      "shape": [
+        3057,
+        256
+      ],
+      "dtype": "float32"
+    }
+  },
+  "goal_latent_norm_minmax": [
+    15.999998092651367,
+    16.000001907348633
+  ],
+  "raw_actor_bound": [
+    -1,
+    1
+  ],
+  "post_rescale_action_bound": [
+    -5,
+    5
+  ],
+  "target_transform": "nativeclip(default_q + actor_raw * 5 * .25 * training_effort / kp)",
+  "expert_raw_target_formula": "(expert_target-default_q)*kp/(1.25*training_effort)",
+  "target_scale_rad": [
+    1.7533072925575108,
+    1.7533072925575108,
+    2.737732221913605,
+    1.7533072925575108,
+    2.192886276917679,
+    2.192886276917679,
+    1.7533072925575108,
+    1.7533072925575108,
+    2.737732221913605,
+    1.7533072925575108,
+    2.192886276917679,
+    2.192886276917679,
+    0.36666666666666664,
+    2.192887046317985,
+    2.192887046317985,
+    2.192887046317985,
+    2.192887046317985,
+    2.192887046317985,
+    2.192887046317985,
+    2.192887046317985,
+    2.192887046317985,
+    2.192887046317985,
+    2.192887046317985
+  ],
+  "actor_reachable_target_closure_low": [
+    -1.853307292557511,
+    -0.5236,
+    -2.737732221913605,
+    -0.087267,
+    -0.87267,
+    -0.2618,
+    -1.853307292557511,
+    -1.7533072925575108,
+    -2.737732221913605,
+    -0.087267,
+    -0.87267,
+    -0.2618,
+    -0.36666666666666664,
+    -2.192887046317985,
+    -1.5882,
+    -2.192887046317985,
+    -1.0472,
+    -1.97222,
+    -2.192887046317985,
+    -2.192887046317985,
+    -2.192887046317985,
+    -1.0472,
+    -1.97222
+  ],
+  "actor_reachable_target_closure_high": [
+    1.6533072925575107,
+    1.7533072925575108,
+    2.737732221913605,
+    2.053307292557511,
+    0.5236,
+    0.2618,
+    1.6533072925575107,
+    0.5236,
+    2.737732221913605,
+    2.053307292557511,
+    0.5236,
+    0.2618,
+    0.36666666666666664,
+    2.192887046317985,
+    2.192887046317985,
+    2.192887046317985,
+    2.0944,
+    1.97222,
+    2.192887046317985,
+    1.5882,
+    2.192887046317985,
+    2.0944,
+    1.97222
+  ],
+  "coverage": [
+    {
+      "dataset": "old",
+      "rows": 1019,
+      "target_components": 23437,
+      "raw_target_outside_one_components": 31,
+      "rows_with_unreachable_target": 30,
+      "raw_target_abs_p50_p95_max": [
+        0.15505195880457032,
+        0.670214543274068,
+        1.3305031246057473
+      ],
+      "optimistic_reachable_target_projection_RMSE_rad": 0.007528514219126019,
+      "optimistic_projection_abs_p95_max_rad": [
+        0.0,
+        0.5794735385843002
+      ],
+      "per_joint_outside_components": [
+        11,
+        0,
+        0,
+        0,
+        0,
+        0,
+        14,
+        0,
+        1,
+        1,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "per_joint_projection_RMSE_rad": [
+        0.022145900260538046,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.02759403028949393,
+        0.0,
+        9.694515875964813e-05,
+        0.0012326917639644555,
+        0.0,
+        0.0,
+        0.0017694168315411387,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.006861117748202479,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "current_previous_action_components_outside_five": 31,
+      "history_action_components_outside_five": 124
+    },
+    {
+      "dataset": "query1",
+      "rows": 1019,
+      "target_components": 23437,
+      "raw_target_outside_one_components": 31,
+      "rows_with_unreachable_target": 30,
+      "raw_target_abs_p50_p95_max": [
+        0.1505119392905469,
+        0.655883567900394,
+        1.3391148514260791
+      ],
+      "optimistic_reachable_target_projection_RMSE_rad": 0.00802642466696302,
+      "optimistic_projection_abs_p95_max_rad": [
+        0.0,
+        0.5945725420199015
+      ],
+      "per_joint_outside_components": [
+        13,
+        0,
+        0,
+        0,
+        0,
+        0,
+        17,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "per_joint_projection_RMSE_rad": [
+        0.02279455341820539,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.030947357342839522,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0020999393922500414,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "current_previous_action_components_outside_five": 31,
+      "history_action_components_outside_five": 124
+    },
+    {
+      "dataset": "query250",
+      "rows": 1019,
+      "target_components": 23437,
+      "raw_target_outside_one_components": 28,
+      "rows_with_unreachable_target": 28,
+      "raw_target_abs_p50_p95_max": [
+        0.15021942576870032,
+        0.6548974945316592,
+        1.2034223596674252
+      ],
+      "optimistic_reachable_target_projection_RMSE_rad": 0.007497199264395164,
+      "optimistic_projection_abs_p95_max_rad": [
+        0.0,
+        0.4460822574461347
+      ],
+      "per_joint_outside_components": [
+        8,
+        0,
+        0,
+        0,
+        0,
+        0,
+        17,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "per_joint_projection_RMSE_rad": [
+        0.018345336644963725,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.027346666342545376,
+        0.0027821531028162524,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0023179594794584943,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.013974229063802229,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "current_previous_action_components_outside_five": 28,
+      "history_action_components_outside_five": 112
+    }
+  ],
+  "overall": {
+    "rows": 3057,
+    "components": 70311,
+    "raw_target_components_outside_one": 90,
+    "unreachable_rows": 88,
+    "raw_target_max_abs": 1.3391148514260791,
+    "optimistic_target_projection_RMSE_rad": 0.0076878695811878955,
+    "max_projection_error_rad": 0.5945725420199015
+  },
+  "missing_original_training_imports_or_agent_files": [
+    "humanoidverse/agents/base_model.py",
+    "humanoidverse/agents/pytree_utils.py",
+    "humanoidverse/agents/fb/agent.py",
+    "humanoidverse/agents/fb_cpr/agent.py"
+  ],
+  "local_training_state": "Only actor/backward/normalizer inference tensors and configuration/train-time metadata are present in this package; no original optimizer/replay or full FBcprAux training source closure.",
+  "model_evaluations": 0,
+  "graph_calls": 0,
+  "optimizer_updates": 0,
+  "physics_steps": 0,
+  "new_labels": 0,
+  "downloads": 0
+}

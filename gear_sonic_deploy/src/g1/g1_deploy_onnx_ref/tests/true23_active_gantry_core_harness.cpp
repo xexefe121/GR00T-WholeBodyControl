@@ -86,6 +86,9 @@ active::StateSample State(
   sample.crc_valid = true;
   sample.received_monotonic_ns = time_ns;
   for (std::size_t compact = 0; compact < 23; ++compact) {
+    const auto slot = static_cast<std::size_t>(true23::kHardwareJointIds[compact]);
+    sample.motor_mode[slot] = 1;
+    sample.tau_est[slot] = 0.1;
     sample.q[static_cast<std::size_t>(
         true23::kHardwareJointIds[compact])] =
         gear_sonic::true23::live::kHardwareDefaultQ[compact];
@@ -516,12 +519,45 @@ void TestStateFaults(Runner& runner) {
                  "per-joint hard velocity limit latches");
   }
   {
+    // Brief over-limit tau_est is a dynamic peak, not a fault: it must survive
+    // the debounce AND the overload budget without latching.
     active::GantrySafetyCore core(ValidArtifact());
-    auto sample = State(1, 6'000'000'000LL);
-    sample.tau_est[1] = 140.0;
-    core.ObserveState(sample, sample.received_monotonic_ns);
+    for (int i = 0; i < 6; ++i) {
+      auto sample = State(static_cast<std::uint32_t>(1 + i),
+                          6'000'000'000LL + i * 2'000'000LL);
+      sample.tau_est[1] = 140.0;  // 1 Nm over the 139 Nm continuous rating
+      core.ObserveState(sample, sample.received_monotonic_ns);
+    }
+    runner.Check(core.fault() == active::Fault::None,
+                 "brief over-continuous effort peak does not latch");
+  }
+  {
+    // Anything above the absolute ceiling latches immediately, however brief.
+    active::GantrySafetyCore core(ValidArtifact());
+    for (int i = 0; i < active::kEffortLimitDebounceSamples; ++i) {
+      auto sample = State(static_cast<std::uint32_t>(1 + i),
+                          7'000'000'000LL + i * 2'000'000LL);
+      sample.tau_est[1] =
+          active::kEffortAbsoluteCeilingMultiplier * 139.0 + 10.0;
+      core.ObserveState(sample, sample.received_monotonic_ns);
+    }
     runner.Check(core.fault() == active::Fault::JointEffortLimit,
-                 "per-joint hard effort limit latches");
+                 "effort above absolute ceiling latches immediately");
+  }
+  {
+    // Sustained overload between continuous and ceiling exhausts the budget.
+    active::GantrySafetyCore core(ValidArtifact());
+    const double over = 14.0;  // 153 Nm vs 139 continuous, under the 1.2x ceiling
+    const std::int64_t step_ns = 20'000'000;  // 20 ms per sample
+    bool latched = false;
+    for (int i = 0; i < 40 && !latched; ++i) {
+      auto sample = State(static_cast<std::uint32_t>(1 + i),
+                          8'000'000'000LL + i * step_ns);
+      sample.tau_est[1] = 139.0 + over;
+      core.ObserveState(sample, sample.received_monotonic_ns);
+      latched = core.fault() == active::Fault::JointEffortLimit;
+    }
+    runner.Check(latched, "sustained effort overload exhausts budget and latches");
   }
 }
 
@@ -779,11 +815,16 @@ void TestRobotFreeNoDumpLifecycleMatrix(Runner& runner) {
   runner.Check(active::ExactMotionModeRestored(
                    "ai", 801, 0, "ai", 801, 0),
                "mode handoff accepts exact captured service/FSM");
-  runner.Check(active::WalkrunMotionModeRestored(
-                   "ai", 801, "ai", 801, 0) &&
-                   active::WalkrunMotionModeRestored(
-                       "ai", 801, "ai", 500, 0),
-               "WALKRUN handoff accepts captured AI or Unitree stand FSM");
+  for (const int captured : {4, 500, 801}) {
+    runner.Check(active::WalkrunMotionModeRestored(
+                     "ai", captured, "ai", 801, 0),
+                 "handoff accepts completed 801 from each supported start");
+    for (const int unfinished : {0, 1, 4, 500}) {
+      runner.Check(!active::WalkrunMotionModeRestored(
+                       "ai", captured, "ai", unfinished, 0),
+                   "handoff rejects limp, intermediate stand and walk-ready");
+    }
+  }
   runner.Check(!active::WalkrunMotionModeRestored(
                     "ai", 801, "ai", 0, 0) &&
                    !active::WalkrunMotionModeRestored(
@@ -791,6 +832,14 @@ void TestRobotFreeNoDumpLifecycleMatrix(Runner& runner) {
                    !active::WalkrunMotionModeRestored(
                        "ai", 801, "normal", 500, 0),
                "WALKRUN handoff rejects zero-torque, damp, and wrong service");
+  runner.Check(!active::WalkrunMotionModeRestored(
+                   "ai", 801, "ai", active::kUnitreeLockedStandFsmId, 0),
+               "handoff does not treat crouched FSM 4 as finished restoration");
+  runner.Check(!active::WalkrunMotionModeRestored("ai", 801, "ai", 801, 1),
+               "handoff waits for completed upright transition");
+  runner.Check(!active::WalkrunMotionModeRestored(
+                   "ai", 801, "", active::kUnitreeLockedStandFsmId, 0),
+               "WALKRUN handoff rejects locked stand without the service");
   active::MotionRestoreStabilityGate restore_gate(100);
   for (int sample = 0; sample < 99; ++sample) {
     runner.Check(!restore_gate.Observe(true),
@@ -808,6 +857,163 @@ void TestRobotFreeNoDumpLifecycleMatrix(Runner& runner) {
                    !active::ExactMotionModeRestored(
                        "ai", 801, 0, "ai", 801, 1),
                "mode handoff rejects empty, damped, or wrong FSM state");
+}
+
+void TestPhysicalMotorEvidence(Runner& runner) {
+  constexpr std::int64_t now = 32'000'000'000LL;
+  auto state = State(10, now);
+  const auto health = active::EvaluatePhysicalMotorHealth(state, now);
+  runner.Check(health.verified && health.enabled_motor_count == 23 &&
+                   health.observed_latched_disabled_motor_count == 0,
+               "23 live slots pass even though absent hardware slots are off");
+  auto disabled = state;
+  disabled.motor_mode.fill(0);
+  runner.Check(!active::EvaluatePhysicalMotorHealth(disabled, now).verified,
+               "FSM-compatible telemetry with disabled motors is rejected");
+  auto latched = state;
+  latched.motor_status[0] = active::kObservedLatchedDisabledStatusMask;
+  runner.Check(!active::EvaluatePhysicalMotorHealth(latched, now).verified,
+               "observed disabled-latch status rejected even with mode 1");
+  auto torque_off = state;
+  torque_off.tau_est.fill(0.0);
+  runner.Check(!active::EvaluatePhysicalMotorHealth(torque_off, now).verified,
+               "all-zero torque cannot establish powered telemetry");
+  runner.Check(!active::EvaluatePhysicalMotorHealth(
+                    state, now + active::kStateFreshnessNs + 1).verified,
+               "stale healthy-looking telemetry is rejected");
+  auto wrong_mode = state;
+  wrong_mode.mode_machine = 5;
+  runner.Check(!active::EvaluatePhysicalMotorHealth(wrong_mode, now).verified,
+               "physical evidence requires actual supported mode_machine 4");
+  auto bad_crc = state;
+  bad_crc.crc_valid = false;
+  runner.Check(!active::EvaluatePhysicalMotorHealth(bad_crc, now).verified,
+               "physical evidence requires CRC verification");
+  auto bad_imu = state;
+  bad_imu.imu_rpy[1] = std::numeric_limits<double>::quiet_NaN();
+  runner.Check(!active::EvaluatePhysicalMotorHealth(bad_imu, now).verified,
+               "nonfinite IMU invalidates physical evidence");
+  active::GantrySafetyCore core(ValidArtifact());
+  for (std::uint32_t tick = 1; tick <= 5; ++tick) {
+    disabled.tick = tick;
+    disabled.received_monotonic_ns = now + tick * 2'000'000LL;
+    core.ObserveState(disabled, disabled.received_monotonic_ns);
+  }
+  core.SubmitPolicy(ZeroPolicy(now + 10'000'000LL), now + 10'000'000LL);
+  runner.Check(!core.PreparePreArmHold(now + 10'000'000LL),
+               "motors-off robot cannot prepare hold or release internal control");
+  state.tick = 6;
+  state.received_monotonic_ns = now + 12'000'000LL;
+  core.ObserveState(state, state.received_monotonic_ns);
+  runner.Check(core.PreparePreArmHold(state.received_monotonic_ns),
+               "fresh restored motor telemetry allows pre-arm preparation");
+  core.EnableOperatorArming();
+  core.ObserveOperator({.arm_edge = true, .deadman_held = true},
+                       state.received_monotonic_ns);
+  runner.Check(core.armed(), "healthy startup remains armable");
+  disabled.tick = 7;
+  disabled.received_monotonic_ns = now + 14'000'000LL;
+  core.ObserveState(disabled, disabled.received_monotonic_ns);
+  runner.Check(!core.armed() && core.fault() == active::Fault::MotorDisabled,
+               "motor dropout during policy execution cannot pass silently");
+  active::GantrySafetyCore handoff_core(ValidArtifact());
+  OpenGate(handoff_core, now);
+  handoff_core.SubmitPolicy(ZeroPolicy(now + 10'000'000LL), now + 10'000'000LL);
+  runner.Check(handoff_core.PreparePreArmHold(now + 10'000'000LL),
+               "handoff fixture prepares live motors");
+  handoff_core.BeginMotionHandoff();
+  handoff_core.ObserveState(disabled, disabled.received_monotonic_ns);
+  runner.Check(handoff_core.fault() == active::Fault::None,
+               "motor transition after writer quiescence uses separate restore gate");
+  active::MotionRestoreStabilityGate restore(2);
+  runner.Check(!restore.ObservePhysical(true, std::nullopt, now),
+               "FSM alone cannot advance restoration stability");
+  runner.Check(!restore.ObservePhysical(true, torque_off, now),
+               "all-zero torque cannot advance restoration stability");
+  state.tick = 20;
+  state.received_monotonic_ns = now;
+  runner.Check(!restore.ObservePhysical(true, state, now),
+               "first fresh enabled sample starts restoration window");
+  runner.Check(!restore.ObservePhysical(true, state, now) &&
+                   restore.consecutive_samples() == 0,
+               "repeated LowState tick cannot fake physical stability");
+  state.tick = 21;
+  runner.Check(!restore.ObservePhysical(false, state, now),
+               "healthy motors in unfinished FSM cannot count as restored");
+  state.tick = 22;
+  runner.Check(!restore.ObservePhysical(true, state, now),
+               "finished state must rebuild full physical observation window");
+  state.tick = 23;
+  runner.Check(restore.ObservePhysical(true, state, now),
+               "consecutive fresh enabled advancing samples complete restoration");
+  disabled.tick = 24;
+  disabled.received_monotonic_ns = now;
+  runner.Check(!restore.ObservePhysical(true, disabled, now),
+               "later motor dropout invalidates apparent FSM restoration");
+  runner.Check(!active::DirectDanceMotionObserved(0.0) &&
+                   !active::DirectDanceMotionObserved(
+                       std::numeric_limits<double>::quiet_NaN()) &&
+                   active::DirectDanceMotionObserved(0.03),
+               "native dance completion rejects absent and nonfinite motion");
+  std::array<double, 23> first{};
+  std::array<double, 23> last{};
+  runner.Check(active::DirectDanceTerminalPostureAcceptable(true, first, last) &&
+                   !active::DirectDanceTerminalPostureAcceptable(false, first, last),
+               "standing-dance posture screen requires measured armed endpoints");
+  last[3] = last[9] = 0.5;
+  runner.Check(active::DirectDanceTerminalPostureAcceptable(true, first, last),
+               "standing-dance endpoint accepts inclusive screen boundary");
+  last[3] = last[9] = 1.24;
+  runner.Check(!active::DirectDanceTerminalPostureAcceptable(true, first, last),
+               "observed bilateral collapse cannot pass merely because joints moved");
+  last[0] = std::numeric_limits<double>::quiet_NaN();
+  last[3] = last[9] = 0.0;
+  runner.Check(!active::DirectDanceTerminalPostureAcceptable(true, first, last),
+               "nonfinite armed endpoint cannot pass posture screen");
+}
+
+void TestMotionReleaseRecoveryOwnership(Runner& runner) {
+  std::vector<std::string> calls;
+  active::PerformMotionReleaseTransaction(
+      [&] { calls.push_back("release"); },
+      [&] { calls.push_back("verify"); },
+      [&] { calls.push_back("recover"); });
+  runner.Check(calls == std::vector<std::string>{"release", "verify"},
+               "successful release does not invoke recovery");
+  for (const bool fail_release : {false, true}) {
+    calls.clear();
+    bool rejected = false;
+    try {
+      active::PerformMotionReleaseTransaction(
+          [&] {
+            calls.push_back("release");
+            if (fail_release) throw std::runtime_error("uncertain release RPC");
+          },
+          [&] {
+            calls.push_back("verify");
+            throw std::runtime_error("post-release CheckMode failure");
+          },
+          [&] { calls.push_back("recover"); });
+    } catch (const std::runtime_error&) {
+      rejected = true;
+    }
+    const auto expected = fail_release
+        ? std::vector<std::string>{"release", "recover"}
+        : std::vector<std::string>{"release", "verify", "recover"};
+    runner.Check(rejected && calls == expected,
+                 "release or post-check failure recovers before startup exits");
+  }
+  bool recovery_failure_reported = false;
+  try {
+    active::PerformMotionReleaseTransaction(
+        [] { throw std::runtime_error("release"); }, [] {},
+        [] { throw std::runtime_error("recovery"); });
+  } catch (const std::runtime_error& error) {
+    recovery_failure_reported = std::string(error.what()).find(
+        "motion release failed and recovery failed") != std::string::npos;
+  }
+  runner.Check(recovery_failure_reported,
+               "failed recovery is reported rather than hidden by startup error");
 }
 
 void TestPolicyAndMapping(Runner& runner) {
@@ -860,9 +1066,18 @@ void TestPolicyAndMapping(Runner& runner) {
           active::kStageOneTargetRateRadPerSecond *
               active::kControlPeriodSeconds + 1e-9,
       "target change is stage-one slew clamped");
+  // The target is anchored to the sampled pre-arm hold, so it stays ~the full
+  // injected drift away from the drifted state, less at most one slew step.
+  // Derive the bound from the slew constants rather than hardcoding it, or the
+  // check silently depends on a particular stage-one rate.
+  constexpr double kInjectedDriftRad = 0.05;
   runner.Check(
       std::abs(command[expected_slot].q -
-               drifted_state.q[expected_slot]) > 0.049,
+               drifted_state.q[expected_slot]) >
+          kInjectedDriftRad -
+              active::kStageOneTargetRateRadPerSecond *
+                  active::kControlPeriodSeconds -
+              1e-9,
       "first policy target slews from sampled hold, not later drifted state");
 
   active::GantrySafetyCore magnitude(ValidArtifact());
@@ -999,6 +1214,8 @@ int main() {
   TestStateFaults(runner);
   TestOperatorAndCommandSafety(runner);
   TestRobotFreeNoDumpLifecycleMatrix(runner);
+  TestPhysicalMotorEvidence(runner);
+  TestMotionReleaseRecoveryOwnership(runner);
   TestPolicyAndMapping(runner);
   TestHoldSmokeIsPolicyFreeAndGated(runner);
   TestNative124BindingAcquisitionAndStageOneCore(runner);

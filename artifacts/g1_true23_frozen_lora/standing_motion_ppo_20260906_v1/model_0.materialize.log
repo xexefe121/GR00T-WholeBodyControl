@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/materialize_g1_true23_frozen_lora_diagnostic.py", line 38, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/materialize_g1_true23_frozen_lora_diagnostic.py", line 25, in main
+    output = materialize_frozen_lora_diagnostic_policy(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_frozen_lora_artifact.py", line 232, in materialize_frozen_lora_diagnostic_policy
+    validate_frozen_lora_diagnostic_policy(artifact)
+  File "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_frozen_lora_artifact.py", line 109, in validate_frozen_lora_diagnostic_policy
+    raise ValueError("frozen LoRA diagnostic requires a trained update_count")
+ValueError: frozen LoRA diagnostic requires a trained update_count

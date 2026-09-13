@@ -1,0 +1,56 @@
+{
+  "name": "walk003",
+  "identity": {
+    "kind": "compact_native23_cpu_referee_v1",
+    "checkpoint_sha256": "18aa932f4130394c765a07db6330bb758f0d92070b88a1c8de5c8d2d6feecf70",
+    "completed_training_updates": 1000,
+    "actor_contract": {
+      "kind": "native23_explicit_goal_residual165_v1",
+      "input_dim": 165,
+      "goal_dim": 90,
+      "proprioception_dim": 75,
+      "output_dim": 23,
+      "current_proprioception": "latest_frame_of_existing_term_major_history930",
+      "goal_order": [
+        "hardware_q23",
+        "hardware_dq23",
+        "root9",
+        "root_rotation6",
+        "original29_vr21",
+        "feet_error_current_pelvis6",
+        "root_heights2"
+      ],
+      "source_target": "received_q1; adjacent_q1_minus_q0_velocity",
+      "source_timing_unchanged": true,
+      "source_motion_is_sonic_compatible": true,
+      "actor_is_frozen_sonic": false,
+      "ground_truth_root_is_sim_only": true,
+      "deployment_ready": false,
+      "hardware_authorized": false
+    },
+    "frozen_sonic_policy_parity_claimed": false,
+    "deployment_ready": false,
+    "hardware_authorized": false
+  },
+  "inputs": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_compact_tracker_20260910_v1/evaluate.py": "d4a460a6962248c18b8ada385c617461ebbbd8da0a9197b8cc0602dbba3366f6",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_compact_tracker_20260910_v1/EXPERIMENT.md": "330db237418b22c17bbca06207532a06bd228d43f1e5bc268aa24b9fbfb5f112",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_compact_tracker_20260910_v1/train2000_v2/compact_1000.pt": "18aa932f4130394c765a07db6330bb758f0d92070b88a1c8de5c8d2d6feecf70",
+    "/mnt/z/codex/GR00T-WholeBodyControl/gear_sonic/data/robots/g1/g1_29dof.xml": "386b1bb9ea5b69ccd6fd0283a73ffea1ee052df95564e23a780125fbcbe2c645",
+    "/mnt/z/codex/GR00T-WholeBodyControl/gear_sonic/data/robots/g1/g1_23dof_rev_1_0.xml": "16e304c970bfc68783ea69d01d05192e6bd9d83d62f6ee4aac0ac72ff18db612",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/config/sim_validation/g1_23dof_mujoco_sim2sim.json": "bc4dab246e709604f435dea7c584adc01f1c38a6abb6ac1bc22fc699c42272c3",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/normal_core_pico_v1/report.json": "112f4f5163ffe165c03910682c7e71226f805322a6535fea12d507d748e3b1d1",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/pico_freedancing_v1/optical_reference_v2/lifecycle23.npz": "72ae0f04333ebc18e03fbe2a6e5640c895ceda9e37ce83418f4bca6e9540d953",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/pico_freedancing_v1/optical_reference_v2/original29.npz": "58c65ea2805cfe740989661fe26d09e9b8d9b5f1e2c5ac0697167074fef82c5e",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/released_core_comparison_v1/normal/walk002/report.json": "2d2af07fe51eea9cd25f075029903c25ac4de48f0af8601618d60dbaba34cdab",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/walk002/buffered_initial_lifecycle_v1/lifecycle_reference.npz": "94cbd249255716cfd4cfe6eac290b8e0767a3efb262c1bde22402b971a729990",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/walk002/original_source_bundle_v1/original_reference.npz": "0e6ac0dcea5c3f2335bf281aa75de91cfecb41dff0b8d31fce69a87d258380e5",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/released_core_comparison_v1/normal/walk003/report.json": "ac0164e8c36bf966ca2531700e6d16345c7710b78d3cb72d93cc7f1bf117cb23",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/walk003/buffered_initial_lifecycle_v1/lifecycle_reference.npz": "08deea5cb5cd716ff0e645fd2d53564a8710efb8a28c9740977662099d7aee85",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/walk003/original_source_bundle_v1/original_reference.npz": "4d462a077f10bda04c97deaf5a5ff29ec5f891a29b8bae30a6f0080cfaf06f84"
+  },
+  "full_lifecycle_requested": true,
+  "deployment_ready": false,
+  "hardware_authorized": false,
+  "simulator_qualified": false
+}

@@ -1,0 +1,13 @@
+The first matched-context attempt stopped before training: changing the first contraction from1000 to1323 inputs changed GPU32 accumulation enough to exceed the fixed initial1e-5rad gate. Preserve that attempt, including its1437 blinded initial forwards/367570 rows and zero optimizer updates.
+
+This source correction retains exactly one1323×256 first-layer weight tensor and the same six trainable tensors. Normalize all1323 inputs as before, then compute F.linear(contiguous first1000 normalized inputs, contiguous first1000 weight columns, original bias) plus F.linear(contiguous appended323 inputs, contiguous appended323 weight columns, no bias). Sum before the unchanged ELU and remaining layers. Copies remain differentiable; no detach, extra parameter, bias, gain or label change.
+
+At zero appended weights, the original contraction has its original dimensions, contiguous layout and bias. Synthetic tests check exact original outputs at representative diagnostic/training batch shapes and gradient flow. These tests do not replace the actual full-corpus initial1e-5rad gate. An initial mismatch still stops before updates.
+
+All declared matched-study semantics remain: blinded then causal; source65000 weights/RNG and original1000 normalization; zero appended columns; same nominal-derived323 normalization; fresh AdamW per condition; first3000 saved schedule rows;3000 updates each; inclusive1e-5→1e-6; fixed coefficient1.8188207859141674;15/54/9-cell objective; all9904 anchors/1728 full-state endpoints/3054 physical rows per update. No recalibration, new labels, changed threshold, intermediate checkpoint choice or simulation selection.
+
+Final same-weight FP64 export remains a monolithic1323-input first contraction. This is mathematically equivalent, but its accumulation differs from split PyTorch execution. Save all existing GPU32-versus-promoted drifts, and keep the full CPU64/GPU64/ORT64 preclamp1e-5rad gate. Public input/output stayfloat32 and target reconstruction/native clamp stay unchanged.
+
+Model-forward accounting remains one counted model call per batch; two internal first-layer contractions are explicitly disclosed. A full newly selected pair would consume the previously declared88,116,000 training rows and complete diagnostic budget. The failed initial367570-row pass remains additional historical consumption and cannot be erased or reused as the new implementation's initial evidence. This package is preparation only; no new task model or optimizer calls are authorized by these files.
+
+No deployability or stability claim follows from this repair. The original full1569+conditional250 native acceptance and measured policy timing remain future qualification stages.

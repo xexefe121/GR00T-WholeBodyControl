@@ -1,0 +1,251 @@
+Experimental full-body simulation. Full teleop acceptance remains unmet. No robot connection or motor publisher.
+{
+  "actor": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/onboard_factory_firmware_v1/received_pico_demo_v1/controller.onnx",
+  "clip": "pico",
+  "standing_diagnostic": false,
+  "native_factory_conditioned": false,
+  "factory_locomotion": false,
+  "locomotion_conditioned": true,
+  "native_limit_brake": true,
+  "leg_target_filter_alpha": 0.9,
+  "initial_world_velocity_x_delta_mps": 0.0,
+  "fault_standing_capture_enabled": true,
+  "native_lookahead_library": null,
+  "native_lookahead_steps": 0,
+  "linux_fifo_priorities": [
+    70,
+    50,
+    40
+  ],
+  "producer_gc_disabled_during_replay": true,
+  "producer_wait": "CLOCK_MONOTONIC absolute native sleep",
+  "controller_boundary_wakeup": "native shared futex",
+  "native_library": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/onboard_factory_firmware_v1/factory_clock_v3/libtrue23clock.so",
+  "actual_pd_kp": [
+    100,
+    100,
+    100,
+    200,
+    20,
+    20,
+    100,
+    100,
+    100,
+    200,
+    20,
+    20,
+    200,
+    90,
+    60,
+    20,
+    60,
+    4,
+    90,
+    60,
+    20,
+    60,
+    4
+  ],
+  "actual_pd_kd": [
+    2.5,
+    2.5,
+    2.5,
+    5.0,
+    0.2,
+    0.1,
+    2.5,
+    2.5,
+    2.5,
+    5.0,
+    0.2,
+    0.1,
+    5.0,
+    2.0,
+    1.0,
+    0.4,
+    1.0,
+    0.2,
+    2.0,
+    1.0,
+    0.4,
+    1.0,
+    0.2
+  ],
+  "requested_controls": 8030,
+  "completed_controls": 8030,
+  "physical_steps": 80300,
+  "physical_complete": true,
+  "physical_failure": false,
+  "controller_deadline_misses": 0,
+  "plant_wakes_over2ms_late": 0,
+  "plant_finishes_over2ms_late": 1,
+  "maximum_plant_finish_lateness_ms": 2.0577,
+  "missed_observation_publications": 0,
+  "first_latched_plant_fault_control": -1,
+  "maximum_speed_ratio": 0.5129029020490943,
+  "maximum_range_excess": 0.0,
+  "maximum_effort_ratio": 0.7239031935553153,
+  "controller_ms_p50_p95_max": [
+    1.4929,
+    2.1402337999999994,
+    14.454201
+  ],
+  "first_target_application_ms_p50_p95_max": [
+    2.0,
+    4.0,
+    16.0
+  ],
+  "controls_with_previous_then_current_command": 2217,
+  "activation_schedule": "new command applies at next 2ms step after publication; previous target stays applied during computation",
+  "source": {
+    "passed": false,
+    "source_controls": 5780,
+    "requested_source_controls": 5780,
+    "root_p95_m": 0.2939300459042251,
+    "yaw_p95_deg": 34.99509305265586,
+    "hand_head_relative_p95_m": [
+      0.511596533519285,
+      0.5785082923268646,
+      0.13071770783809605
+    ],
+    "foot_relative_p95_m": [
+      0.31853433947490967,
+      0.35053278520145453
+    ],
+    "leg_rmse_rad": 0.3329942507066913
+  },
+  "main_quiet": {
+    "passed": false,
+    "values": {
+      "xy_p95": 0.143653669525444,
+      "yaw_p95_deg": 2.851510303056795,
+      "root_speed_p95": 4.921085930899543e-06,
+      "joint_speed_p95": 8.794842918984705e-05,
+      "joint_speed_max": 8.918900166946592e-05,
+      "tilt_max": 0.062130730290492174
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "final_quiet": {
+    "passed": false,
+    "values": {
+      "xy_p95": 0.1436303347624379,
+      "yaw_p95_deg": 2.907028212337268,
+      "root_speed_p95": 2.2603986104909045e-06,
+      "joint_speed_p95": 3.111633540215112e-05,
+      "joint_speed_max": 3.161301774346261e-05,
+      "tilt_max": 0.06216300913663822
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "continuous_quiet30": {
+    "passed": false,
+    "values": {
+      "xy_p95": 0.1436481879176019,
+      "yaw_p95_deg": 2.905645850653348,
+      "root_speed_p95": 4.507946979704898e-06,
+      "joint_speed_p95": 7.584848712178704e-05,
+      "joint_speed_max": 8.064059664181477e-05,
+      "tilt_max": 0.06216300913663822
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "packet_report": {
+    "epoch": 0,
+    "received": 2011,
+    "consumed": 2011,
+    "ignored": 0,
+    "rejected": 0,
+    "final_received": false,
+    "full_source_consumed": false,
+    "fault": {
+      "reason": "packet_timeout",
+      "time": 40.100353572,
+      "epoch": 0,
+      "last_sequence": 2010,
+      "consumed": 2011
+    },
+    "calibration": null
+  },
+  "passed": false,
+  "one_learned_controller": true,
+  "identical_targets_in_both_legacy_channels": true,
+  "applied_history_owner": "unchanged native plant; imported once per observed control boundary",
+  "independent_physics_500hz": true,
+  "independent_packet_producer_50hz": true,
+  "controller_hz": 50,
+  "warmed_onnx_calls": 10,
+  "physics_steps_during_warmup": 0,
+  "preclock_received_samples": 12,
+  "simulation_time_frozen_for_inference": false,
+  "future_reference_frames": 0,
+  "prepared_motion_specific": false,
+  "injected_input_loss_control": 2000,
+  "explicit_rearm_api_preserved": true,
+  "automatic_rearm": false,
+  "fault_quiet": {
+    "passed": true,
+    "values": {
+      "xy_p95": 0.026792861663998798,
+      "yaw_p95_deg": 4.082479049987411,
+      "root_speed_p95": 2.2603986104909045e-06,
+      "joint_speed_p95": 3.111633540215112e-05,
+      "joint_speed_max": 3.161301774346261e-05,
+      "tilt_max": 0.06216300913663822
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "fault_continuous_quiet30": {
+    "passed": true,
+    "values": {
+      "xy_p95": 0.026790742998504667,
+      "yaw_p95_deg": 4.081096688303491,
+      "root_speed_p95": 4.507946979704898e-06,
+      "joint_speed_p95": 7.584848712178704e-05,
+      "joint_speed_max": 8.064059664181477e-05,
+      "tilt_max": 0.06216300913663822
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "fault_scenario_passed": false,
+  "native_clock_long_pico_recurrence_unresolved": false,
+  "native_clock_expected_time": "Independent repeated additions of .002 from zero; tolerance 1e-10",
+  "general_live_teleop_qualified": false,
+  "hardware_authorized": false
+}
+Result: E:\codex-artifacts\sonic23_teleop_resume_20260911\onboard_factory_firmware_v1\received_sim_runs\20260913_045639_671_pico\report.json

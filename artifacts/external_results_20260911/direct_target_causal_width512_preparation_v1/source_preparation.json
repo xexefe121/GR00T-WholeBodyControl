@@ -1,0 +1,51 @@
+{
+  "source_preparation_passed": true,
+  "preparation_only": true,
+  "source_directory": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_preparation_v1/source_prepared_v1",
+  "source_sha256": {
+    "width512.py": "48ff62b384628a57c50dabd2bc55d8164ea2da41bc3e1b3538b08c7b06820ae7",
+    "test_width512.py": "0e4823c16096ec415d3890c655e73f0405b5b6200cabaeedb2c0ab19ea31db2e",
+    "DESIGN.md": "4cc693867bf42f8ae9448d87fda85a9ec1910eb625cf183a07c350413ad9eb99"
+  },
+  "proposal_sha256": "c4882558c35c6281f19e945277490e1e416770b2f21e997729d20b6a54062aab",
+  "synthetic_CPU_tests": 27,
+  "tests_failed": 0,
+  "tests_skipped": 0,
+  "preserved_first_test_attempt": {
+    "tests": 27,
+    "passed": 26,
+    "failed": 1,
+    "reason": "Synthetic AdamW fixture omitted PyTorch2.10 decoupled_weight_decay=True; fixture and explicit validation corrected, original attempt retained."
+  },
+  "tested_properties": [
+    "Eight CPU batch sizes1,52,176,238,256,1728,3054,9904 preserve whole original network bytes.",
+    "Old learned blocks and all six moments/steps/groups exact; added moment entries zero; global RNG unchanged.",
+    "Two synthetic gradient updates open zero outgoing paths and then change new incoming weights.",
+    "Nonzero split/dense512 output and all-six-gradient comparisons pass declared float32 arithmetic tolerance.",
+    "Signed-zero forward identity and first/second derivatives of zero-preserving addition pass.",
+    "Warm synthetic AdamW load and zero-gradient step retain exact old blocks and advance six counters6000\u21926001.",
+    "Corrupted metadata, normalization, moments and steps reject; fixed schedule endpoints/counts pass."
+  ],
+  "limitations": [
+    "CPU synthetic proof only; actual CUDA checkpoint/parity/timing remains unqualified.",
+    "Shared step6000 on new zero moments differs from a fresh optimizer trajectory.",
+    "Width and ramp proposal is an engineering change, not unique proof of capacity causation.",
+    "No manual exporter, actual fit runner, actual request, witness or canonical package created."
+  ],
+  "input_sha256": {
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_preparation_v1/synthetic_tests_v2.xml": "b76da8380c72b75e9df14236a1222999445a0bdae8d3eefa3df3ccff15039972",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_preparation_v1/synthetic_tests_v2.log": "fe561904b2631931a0069a06b97c8198ff53b6243a6d50ae8dc0476b1ab8d8cf",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_preparation_v1/preserved_synthetic_attempt_v1/synthetic_tests_v1.xml": "5ea990861c7f23426caf310a62e163cd62dfb4dbee3f05e98ea82f1dad3d2926",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_preparation_v1/preserved_synthetic_attempt_v1/synthetic_tests_v1.log": "06535ff673da6084dc68d37dce378441c0421efeca5f44b17eaedfa92f31f32b",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_balanced_convergence_review_v1/report.json": "0f7d8480441c022efb1fe9095d495e27ab689e9259d56f510c13188b55fd7bb5",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_balanced_convergence_review_v1/evidence_summary.md": "b5e9971f2bc6815e6f841e3c5ac3d6e6f975e2661c7f111e957d276763066b1b",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_response_balanced_student_v2/source_prepared_v1/context_model.py": "bbfcd802ebf8acbf004cc0a0e07b696336f395267db11245aaea180bdb799684"
+  },
+  "writer_sha256": "bdec2fcf10fcd3fb2b0e2862cd6cd037357d9c59f3bb7838b876fc094fcfd2e1",
+  "actual_checkpoint_loads": 0,
+  "actual_task_model_calls": 0,
+  "actual_gradient_calls": 0,
+  "actual_optimizer_updates": 0,
+  "native_steps": 0,
+  "actual_training_selected": false
+}

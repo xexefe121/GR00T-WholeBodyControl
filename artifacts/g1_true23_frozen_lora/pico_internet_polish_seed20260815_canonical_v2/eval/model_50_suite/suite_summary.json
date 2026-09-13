@@ -1,0 +1,133 @@
+{
+  "cases": [
+    {
+      "categories": [
+        "in_distribution",
+        "tail"
+      ],
+      "completed_transitions": 684,
+      "failure_type": null,
+      "label": "walk001",
+      "maximum_relative_tracking_error_m": 0.4383128711667287,
+      "passed": true,
+      "requested_transitions": 684
+    },
+    {
+      "categories": [
+        "in_distribution",
+        "tail"
+      ],
+      "completed_transitions": 499,
+      "failure_type": null,
+      "label": "walk010",
+      "maximum_relative_tracking_error_m": 0.5234571192085095,
+      "passed": true,
+      "requested_transitions": 499
+    },
+    {
+      "categories": [
+        "in_distribution"
+      ],
+      "completed_transitions": 1013,
+      "failure_type": null,
+      "label": "pico_upright",
+      "maximum_relative_tracking_error_m": 0.15050831124462044,
+      "passed": true,
+      "requested_transitions": 1013
+    },
+    {
+      "categories": [
+        "in_distribution"
+      ],
+      "completed_transitions": 1013,
+      "failure_type": null,
+      "label": "pico_standing",
+      "maximum_relative_tracking_error_m": 0.16300153856090113,
+      "passed": true,
+      "requested_transitions": 1013
+    },
+    {
+      "categories": [
+        "in_distribution",
+        "tail"
+      ],
+      "completed_transitions": 100,
+      "failure_type": "CrawlPhysicalGateFailure",
+      "label": "pico_crouch",
+      "maximum_relative_tracking_error_m": 0.48427736241957325,
+      "passed": false,
+      "requested_transitions": 1013
+    },
+    {
+      "categories": [
+        "out_of_distribution"
+      ],
+      "completed_transitions": 595,
+      "failure_type": null,
+      "label": "elbow_crawl",
+      "maximum_relative_tracking_error_m": 0.5167124578071013,
+      "passed": true,
+      "requested_transitions": 595
+    },
+    {
+      "categories": [
+        "out_of_distribution"
+      ],
+      "completed_transitions": 325,
+      "failure_type": "CrawlPhysicalGateFailure",
+      "label": "hand_crawl",
+      "maximum_relative_tracking_error_m": 0.5351656445639844,
+      "passed": false,
+      "requested_transitions": 595
+    },
+    {
+      "categories": [
+        "out_of_distribution"
+      ],
+      "completed_transitions": 361,
+      "failure_type": "RuntimeError",
+      "label": "happy_dance",
+      "maximum_relative_tracking_error_m": 0.8933142751702888,
+      "passed": false,
+      "requested_transitions": 535
+    }
+  ],
+  "checkpoint_update_count": 50,
+  "decoder_report": {
+    "filename": "model_50.diagnostic.decoder.json",
+    "sha256": "233c9737374a5618f78678f661dcf929b7c68c7c5a6427328deee1a7372376f3"
+  },
+  "deployment_ready": false,
+  "diagnostic_only": true,
+  "hardware_authorized": false,
+  "in_distribution": {
+    "case_count": 5,
+    "mean_tracking_error": 0.3519114405200666,
+    "passed_count": 4,
+    "success_rate": 0.8
+  },
+  "kind": "g1_true23_frozen_lora_comparison_result_v1",
+  "out_of_distribution": {
+    "case_count": 3,
+    "mean_tracking_error": 0.6483974591804582,
+    "passed_count": 1,
+    "success_rate": 0.3333333333333333
+  },
+  "robot_network_commands": false,
+  "second_referee": {
+    "backend": "cpu_mujoco_reference_vs_training_mujoco_warp",
+    "completed_transitions": 4590,
+    "requested_transitions": 5947,
+    "survival_rate": 0.7718177232217925
+  },
+  "suite": {
+    "filename": "g1_true23_frozen_lora_pico_comparison_v1.json",
+    "sha256": "c3e623e1ad8424df628554728656665d73eff8a52515a9266a3650f5dfbeee66"
+  },
+  "tail": {
+    "case_count": 3,
+    "mean_tracking_error": 0.48201578426493713,
+    "passed_count": 2,
+    "success_rate": 0.6666666666666666
+  }
+}

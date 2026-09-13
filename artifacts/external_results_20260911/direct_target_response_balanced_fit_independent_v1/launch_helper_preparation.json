@@ -1,0 +1,30 @@
+{
+  "source_preparation_passed": true,
+  "preparation_only": true,
+  "source_preparation_sha256": "42e543d4b73346164c9826abf32cf279babc3c6246ecc019f6cdb43c9dcfa21b",
+  "helper_sha256": {
+    "prepare_audit_request.py": "8ef30ce7e07297f24367c6409c75203739c05c8205cb6272e1cbe843963695ef",
+    "freeze_launch.py": "38e76e65ac8cc77531f30e5668743af74ecf482bc730f149a9e36c8a99d99afb",
+    "run_audit_durable.ps1": "ef1816df96ee9df3eebbb6032ab14d4d37402fd2184f8de72e2470a2fa808ecf",
+    "verify_completion.py": "67e868c9ba64528b737e56d2107d7d0e31b2bf743ebc7bf73a59bb8c0c42e75a"
+  },
+  "evidence_sha256": {
+    "launch_helper_delta.patch": "e75546f384fc5b3446258f924b772accabac5fc1a886f1c0827976de9fe157dc",
+    "launch_helper_derivation.json": "85eb5a94f5873321d8b72f3203b06efffb5295058dac542a1ded77e886cc98a5",
+    "derive_launch_helpers.py": "81bc50fad7f5bef7ca956e5ad2c8ae24944537cebcd418ede21778ed387253dd",
+    "test_launch_helpers.py": "6a3070886d74c4ff79ddf9903da64224d352e5486a56f40894af21c2d9802675",
+    "launch_helper_tests.xml": "1117d1cc8523a99fdeca02f13c689a565ed349cbabb31cddc365e69c61d8bb99",
+    "record_launch_preparation.py": "a54b536951c68a820bd22818362f7a7043ffe6a0d0b2b57db63b46531481cd70"
+  },
+  "synthetic_tests_passed": 8,
+  "powershell_AST_passed": true,
+  "actual_request_created": false,
+  "actual_launch_created": false,
+  "task_model_calls": 0,
+  "ORT_calls": 0,
+  "gradient_calls": 0,
+  "optimizer_updates": 0,
+  "native_steps": 0,
+  "processes_launched": 0,
+  "review_requirement": "Root source review must directly contain all four helper hashes before freeze_launch.py permits a future receipt."
+}

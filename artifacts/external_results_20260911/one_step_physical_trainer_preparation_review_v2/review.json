@@ -1,0 +1,50 @@
+{
+  "kind": "independent_source_preparation_review",
+  "passed": true,
+  "source_review_pass": true,
+  "training_authorized": false,
+  "canonical_evaluation_authorized": false,
+  "scope": "Read-only preparation review; no dataset qualification or final launch clearance.",
+  "created_utc": "2026-09-11T10:01:35.804106+00:00",
+  "bindings": {
+    "preparation_report": {
+      "path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_physical_student_v1\\preparation_report_v2.json",
+      "sha256": "9ee3e080215f703d6e5cd8e9873a224ca63b6771464c8c15a89e4f5959eebc72"
+    },
+    "verification": {
+      "path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_physical_trainer_preparation_review_v2\\verification.json",
+      "sha256": "957e7449029142164cd8b25d6d8f339a5762181fc6440d03bd92098d9ef81127"
+    },
+    "selected_design_review": {
+      "path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_continuation_design_review_v1\\review.json",
+      "sha256": "ad4acf2d7d2d3546d491c0ceee11a9c516bcd77bee028ab36be378c36ae2f9ba"
+    }
+  },
+  "findings_resolved": [
+    {
+      "issue": "First-24 diagnostics previously selected first valid rows, changing the time window when requested rows failed.",
+      "resolution": "Uses fixed successor clocks 251..274, 350..373, and 1169..1192 within each dataset; reports requested, valid and strict-failed counts."
+    },
+    {
+      "issue": "A later diagnostic graph failure could retain an earlier batch return alongside new inputs.",
+      "resolution": "Clears outputs before every Torch/ORT call and ORT construction; preserves current stage, batch, returned flag, masks and available raw returns."
+    }
+  ],
+  "reviewed_contract": [
+    "Original 32 helpers unchanged; only physical_fit_diagnostics.py differs between preserved preparation v1 and v2.",
+    "Nominal and velocity terms remain unchanged. Physical centered total-target response uses differentiable nominal successor outputs and fixed requested cell denominators 99/819/100, without displacement division or surviving-row reweighting.",
+    "All valid physical rows are used once per update with no added sampling RNG; nominal and velocity sampling preserve the original nine draws.",
+    "Exact ordinary-70000 model, optimizer and RNG restore precedes the declared fixed 5000-update cosine learning-rate restart. Ordinary final 75000 is saved before export validation; no checkpoint selection.",
+    "Dynamic V-dependent training/diagnostic accounting is explicit, with maxima 36,315,000 training rows, 293,480 diagnostic Torch rows and 1,150 head graph calls.",
+    "Actual completed producer manifest, failed-row coverage, independent physics/label audits, final frozen source/input request, and launch clearance remain required before any fit.",
+    "The preparation tests are pure/stub/source checks; no model, optimizer or physics execution was performed by this reviewer."
+  ],
+  "remaining_blocking_source_findings": [],
+  "limitations": [
+    "Source preparation is clear; completed dataset validity and the final runtime request are not assessed by this receipt.",
+    "A lower training loss is not evidence of closed-loop stability; any selected final controller still needs independent canonical source and quiet-hold qualification."
+  ],
+  "reviewer_model_calls": 0,
+  "reviewer_optimizer_updates": 0,
+  "reviewer_physics_steps": 0
+}

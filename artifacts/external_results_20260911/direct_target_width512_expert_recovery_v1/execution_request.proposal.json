@@ -1,0 +1,394 @@
+{
+  "kind": "fixed_width81000_pre251_actual_expert_recovery",
+  "root_selected": false,
+  "source_only": true,
+  "protocol": {
+    "initial_global_control": 251,
+    "prefix_controls": 251,
+    "original_BFM_prefix_controls": 250,
+    "learned_prefix_controls": 1,
+    "requested_branch_controls": 1318,
+    "MPC_controls": 1018,
+    "terminal_BFM_controls": 300,
+    "conditional_hold_controls": 250,
+    "original_source_controls": 819,
+    "requested_combined_main_controls": 1569,
+    "actual_native_step_max": 15680,
+    "prefix_native_steps": 2510,
+    "combined_native_steps": 18190,
+    "horizon": 30,
+    "iterations": 10,
+    "commit": 5,
+    "batch_threads": 2,
+    "BLAS_threads": 1,
+    "first_planner_window_frame": 261,
+    "first_output_frame": 262,
+    "selected_query_controls": [
+      251
+    ],
+    "plan_controls": [
+      251,
+      256,
+      261,
+      266,
+      271,
+      276,
+      281,
+      286,
+      291,
+      296,
+      301,
+      306,
+      311,
+      316,
+      321,
+      326,
+      331,
+      336,
+      341,
+      346,
+      351,
+      356,
+      361,
+      366,
+      371,
+      376,
+      381,
+      386,
+      391,
+      396,
+      401,
+      406,
+      411,
+      416,
+      421,
+      426,
+      431,
+      436,
+      441,
+      446,
+      451,
+      456,
+      461,
+      466,
+      471,
+      476,
+      481,
+      486,
+      491,
+      496,
+      501,
+      506,
+      511,
+      516,
+      521,
+      526,
+      531,
+      536,
+      541,
+      546,
+      551,
+      556,
+      561,
+      566,
+      571,
+      576,
+      581,
+      586,
+      591,
+      596,
+      601,
+      606,
+      611,
+      616,
+      621,
+      626,
+      631,
+      636,
+      641,
+      646,
+      651,
+      656,
+      661,
+      666,
+      671,
+      676,
+      681,
+      686,
+      691,
+      696,
+      701,
+      706,
+      711,
+      716,
+      721,
+      726,
+      731,
+      736,
+      741,
+      746,
+      751,
+      756,
+      761,
+      766,
+      771,
+      776,
+      781,
+      786,
+      791,
+      796,
+      801,
+      806,
+      811,
+      816,
+      821,
+      826,
+      831,
+      836,
+      841,
+      846,
+      851,
+      856,
+      861,
+      866,
+      871,
+      876,
+      881,
+      886,
+      891,
+      896,
+      901,
+      906,
+      911,
+      916,
+      921,
+      926,
+      931,
+      936,
+      941,
+      946,
+      951,
+      956,
+      961,
+      966,
+      971,
+      976,
+      981,
+      986,
+      991,
+      996,
+      1001,
+      1006,
+      1011,
+      1016,
+      1021,
+      1026,
+      1031,
+      1036,
+      1041,
+      1046,
+      1051,
+      1056,
+      1061,
+      1066,
+      1071,
+      1076,
+      1081,
+      1086,
+      1091,
+      1096,
+      1101,
+      1106,
+      1111,
+      1116,
+      1121,
+      1126,
+      1131,
+      1136,
+      1141,
+      1146,
+      1151,
+      1156,
+      1161,
+      1166,
+      1171,
+      1176,
+      1181,
+      1186,
+      1191,
+      1196,
+      1201,
+      1206,
+      1211,
+      1216,
+      1221,
+      1226,
+      1231,
+      1236,
+      1241,
+      1246,
+      1251,
+      1256,
+      1261,
+      1266
+    ],
+    "final_MPC_commit": 3,
+    "branch_clock": "saved repeated+.002 through2510, then continued unchanged",
+    "private_native_initialization": "qualified BFM/Batch planning semantics; never substitutes actual full291",
+    "native_tolerances": {
+      "joint_bound_excess_rad": 1e-06,
+      "effort_ratio": 1.000000001,
+      "speed_ratio": 1.0,
+      "clock_seconds": 1e-10
+    },
+    "budgets": {
+      "ordinary_ilqr": {
+        "attempted_calls_max": 204,
+        "attempted_units_max": 204
+      },
+      "restoration_ilqr": {
+        "attempted_calls_max": 408,
+        "attempted_units_max": 408
+      },
+      "ordinary_rollout": {
+        "attempted_calls_max": 3265,
+        "attempted_units_max": 3265
+      },
+      "restoration_rollout": {
+        "attempted_calls_max": 4488,
+        "attempted_units_max": 4488
+      },
+      "linearize": {
+        "attempted_calls_max": 6120,
+        "attempted_units_max": 6120
+      },
+      "BFM_propose": {
+        "attempted_calls_max": 204,
+        "attempted_units_max": 204
+      },
+      "BFM_actor": {
+        "attempted_calls_max": 6670,
+        "attempted_units_max": 6670
+      },
+      "BFM_backward": {
+        "attempted_calls_max": 6670,
+        "attempted_units_max": 53360
+      },
+      "native_live_step": {
+        "attempted_calls_max": 15680,
+        "attempted_units_max": 15680
+      },
+      "native_private_step": {
+        "attempted_calls_max": 200180,
+        "attempted_units_max": 200180
+      },
+      "native_BFM_step": {
+        "attempted_calls_max": 61200,
+        "attempted_units_max": 61200
+      },
+      "native_initial_certificate_step": {
+        "attempted_calls_max": 900,
+        "attempted_units_max": 900
+      },
+      "native_restoration_certificate_step": {
+        "attempted_calls_max": 122400,
+        "attempted_units_max": 122400
+      },
+      "native_preview_step": {
+        "attempted_calls_max": 15680,
+        "attempted_units_max": 15680
+      },
+      "initial_native_certificate": {
+        "attempted_calls_max": 3,
+        "attempted_units_max": 3
+      },
+      "restoration_native_certificate": {
+        "attempted_calls_max": 408,
+        "attempted_units_max": 408
+      },
+      "imminent_native_preview": {
+        "attempted_calls_max": 1568,
+        "attempted_units_max": 1568
+      },
+      "batch_construct": {
+        "attempted_calls_max": 6,
+        "attempted_units_max": 7407
+      },
+      "batch_fd_step": {
+        "attempted_calls_max": 12240,
+        "attempted_units_max": 150552000
+      },
+      "batch_line_step": {
+        "attempted_calls_max": 1114140,
+        "attempted_units_max": 20933100
+      },
+      "batch_explicit_forward": {
+        "attempted_calls_max": 111823,
+        "attempted_units_max": 1312407
+      }
+    },
+    "batch_unit": "sum of selected lanes times nstep; not actual plant steps",
+    "native_private_aggregate": "sum of disjoint BFM, initial-certificate, restoration-certificate and imminent-preview categories",
+    "forward_unit": "explicit Batch.forward selected lanes; implicit Batch construction/step forwarding is not a separate wrapped Python call",
+    "BFM_backward_unit": "input state rows; maximum8 per call",
+    "labels_admissible": false,
+    "additional_query_selection": false,
+    "model_training_authorized": false,
+    "hardware_authorized": false,
+    "realtime_policy_qualification": false
+  },
+  "subjects": {
+    "trace": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_evaluation_v1/nominal/trace.npz",
+      "sha256": "b9061a1c9dc6aee65d713f16909a3135f072d94a5bc20af750b5958cc493629d"
+    },
+    "semantics": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_saved_semantics_review_v1/results_v1/report.json",
+      "sha256": "4a02cdd5d2f771a7fca5cb0cd002b9b4d5e3e121b4bbf3030f40181ebf2ed640"
+    },
+    "semantics_owner": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_saved_semantics_review_v1/owner_completion.json",
+      "sha256": "7d9fee34c3bae9f41d0a133e3cbc8593fd8b3a3ac7415dc627adfca183290ebd"
+    },
+    "canonical_owner": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_evaluation_v1/evaluation_completion_verification.json",
+      "sha256": "0caad5d8a7574bfd0a082be64b1f17c8cfd0be38360ef28bad767adfe6b3552a"
+    },
+    "native_replay": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_independent_physics_v1/report.json",
+      "sha256": "d20ba43f42227258a26b293edef6134cc7772391cbeac4cdfa87f5127d31da20"
+    },
+    "intent": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_independent_intent_v1/report.json",
+      "sha256": "9d89c2456658a1df603a5b413786846a34a5f92fa140b82ebeda1d93db1e83af"
+    },
+    "old_oracle_frozen": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/bfm_entry250_actual_oracle_v1/frozen_inputs.json",
+      "sha256": "ded3167e02f4374c927afb1244b5bb823e1221b309a9c158477a47e38258ecfd"
+    },
+    "fallback_review": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_fallback_review_v1/report.json",
+      "sha256": "832a8c0f2b49d7e2b20e7bdca3632272107e6687d54ed1f045e0b43f1d2f4953"
+    },
+    "contract": {
+      "path": "Z:/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/contract.json",
+      "sha256": "d1641ce4f2e9016f5008e5d4be3cc24ded46d7f9daf9cfddaab84095f98eb99b"
+    }
+  },
+  "required_future_subjects": {
+    "selected_snapshot": "inputs/precontrol251.npz",
+    "selected_prefix": "inputs/actual_prefix251.npz",
+    "input_selection": "inputs/selection_receipt.json"
+  },
+  "actual_input_preparation_run": false,
+  "actual_recovery_run": false,
+  "execution": "source_snapshot_v1/run_width251_actual_oracle.py; no rollout/checkpoint arguments",
+  "environment": {
+    "python": "/mnt/e/codex_sonic_runtime/mjbatch323_20260910/venv/bin/python",
+    "PYTHONPATH": "fixed source_snapshot_v1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  },
+  "reviewer_and_root_concrete_clearance_required": true
+}

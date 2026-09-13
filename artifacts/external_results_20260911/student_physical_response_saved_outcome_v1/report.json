@@ -1,0 +1,2637 @@
+{
+  "passed": true,
+  "request_sha256": "84b0e38a8237ca8dc21c80109cc530b661008457980ea18145d73de628870b78",
+  "source_sha256": "ad7ac32df923267e2f7c0974a7cbc483090656a4499532f6bb83cb97b1b754ad",
+  "checks": 4474,
+  "segments": [
+    {
+      "segment": "nominal",
+      "commands_with_native_steps": 320,
+      "attempted_precontrols": 320,
+      "rejected": null
+    }
+  ],
+  "applied_controls": 320,
+  "moving_controls": 70,
+  "original_BFM_prefix_controls_verified": 250,
+  "query250_exact": true,
+  "history_convention": "Original raw combined action; normalized applied target is diagnostic only.",
+  "full_named_final_history_exact": true,
+  "all_available_attempted_state_features_history_actions_exact": true,
+  "base_action_provenance": "Earlier raw actor actions recovered from recorded float64 base target with exact round trip; final failure capsule additionally checks direct recorded actor output.",
+  "events": {
+    "first_target_differs_from_query250_teacher": 250,
+    "first_input_differs_from_query250_teacher": 251,
+    "first_native_target_clipping": 264,
+    "first_raw_applied_action_byte_difference": 264,
+    "first_raw_applied_action_difference_above_1e_minus5": 264,
+    "first_prior_vs_previous_applied_difference_above_1e_minus5": 265,
+    "first_raw_vs_applied_action_history_difference_above_1e_minus5": 266,
+    "first_nominal_envelope_excursion": 265,
+    "first_augmented_training_envelope_excursion": 265,
+    "first_augmented_direct_velocity_excursion": 273,
+    "first_augmented_raw_prior_excursion": 265,
+    "first_named_history_vs_query250_teacher": {
+      "actions": 252,
+      "base_ang_vel": 252,
+      "dof_pos": 252,
+      "dof_vel": 252,
+      "projected_gravity": 252
+    }
+  },
+  "failure_states": [
+    {
+      "segment": "nominal",
+      "producer_failure": {
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "global_control": 319,
+        "local_control": 319,
+        "substep": 3,
+        "time": 6.385999999999519,
+        "range_excess": 0.004744046768838384,
+        "velocity_ratio": 0.43516041202221906,
+        "effort_ratio": 0.8075876927980701,
+        "tilt": 0.3159326914879857,
+        "clock_error": 0.0
+      },
+      "max_speed_joint": "right_hip_yaw_joint",
+      "joint_index": 8,
+      "joint_velocity_radps": -13.92513318471101,
+      "speed_cap_radps": 32.0,
+      "speed_ratio": 0.43516041202221906,
+      "qpos": -0.7454923488114874,
+      "maximum_range_joint": "left_ankle_roll_joint",
+      "maximum_range_excess_rad": 0.004744046768838384
+    }
+  ],
+  "rows": [
+    {
+      "control": 250,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 0,
+      "augmented_envelope_outside_coordinates": 0,
+      "augmented_max_standardized_excursion": 0.0,
+      "actual_vs_query250_same_clock_feature_rms": 0.0,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.04888398243535139,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.0488839513736399,
+      "actual_vs_saved_query250_base_rms_rad": 0.0,
+      "actual_vs_saved_query250_head_rms_rad": 2.5351261930703237e-07,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 2.5351261930703237e-07,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 0.0,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.23907570097501732,
+          "actual_input_standardized_rms": 0.21562603266779182
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.3029709849396986,
+          "actual_input_standardized_rms": 0.22104818600446205
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.04888398243535139,
+          "actual_input_standardized_rms": 0.0
+        }
+      ]
+    },
+    {
+      "control": 251,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 0,
+      "augmented_envelope_outside_coordinates": 0,
+      "augmented_max_standardized_excursion": 0.0,
+      "actual_vs_query250_same_clock_feature_rms": 0.06250120865946986,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.06673453686715672,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.038711476534806034,
+      "actual_vs_saved_query250_base_rms_rad": 0.01023067680590597,
+      "actual_vs_saved_query250_head_rms_rad": 0.054260539101289834,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.0507114358647957,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 0.32421326712470555,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.21013526833890547,
+          "actual_input_standardized_rms": 0.2585089068433029
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.2235249545196792,
+          "actual_input_standardized_rms": 0.280858247911742
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.06673453686715672,
+          "actual_input_standardized_rms": 0.06250120831825477
+        }
+      ]
+    },
+    {
+      "control": 252,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 0,
+      "augmented_envelope_outside_coordinates": 0,
+      "augmented_max_standardized_excursion": 0.0,
+      "actual_vs_query250_same_clock_feature_rms": 0.054632204979564156,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.0701519359483095,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.053661622034985805,
+      "actual_vs_saved_query250_base_rms_rad": 0.016840115856605567,
+      "actual_vs_saved_query250_head_rms_rad": 0.05119939969147847,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.05252181915702292,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 0.29288654033366085,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.09431978505645719,
+          "actual_input_standardized_rms": 0.2311175647080856
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.1065052185196124,
+          "actual_input_standardized_rms": 0.23168496637869057
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.0701519359483095,
+          "actual_input_standardized_rms": 0.05463220497346491
+        }
+      ]
+    },
+    {
+      "control": 253,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 0,
+      "augmented_envelope_outside_coordinates": 0,
+      "augmented_max_standardized_excursion": 0.0,
+      "actual_vs_query250_same_clock_feature_rms": 0.09601475663979543,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.09390906464950183,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.03870826752745949,
+      "actual_vs_saved_query250_base_rms_rad": 0.02549597629857631,
+      "actual_vs_saved_query250_head_rms_rad": 0.07409633733239546,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.06511091744561248,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 0.5415360201050399,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.14530466426970742,
+          "actual_input_standardized_rms": 0.16520113142595227
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.12185658273081366,
+          "actual_input_standardized_rms": 0.1631740934499777
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.09390906464950183,
+          "actual_input_standardized_rms": 0.09601475610638102
+        }
+      ]
+    },
+    {
+      "control": 254,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 0,
+      "augmented_envelope_outside_coordinates": 0,
+      "augmented_max_standardized_excursion": 0.0,
+      "actual_vs_query250_same_clock_feature_rms": 0.09361874006127265,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.07288948295584054,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.038754253171930646,
+      "actual_vs_saved_query250_base_rms_rad": 0.01674249981247353,
+      "actual_vs_saved_query250_head_rms_rad": 0.0738931065829633,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.07330232459965601,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 0.3540476771780687,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.15315060382847098,
+          "actual_input_standardized_rms": 0.16362006173074323
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.1477518733855054,
+          "actual_input_standardized_rms": 0.15474106576474217
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.07288948295584054,
+          "actual_input_standardized_rms": 0.09361873958351188
+        }
+      ]
+    },
+    {
+      "control": 255,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 0,
+      "augmented_envelope_outside_coordinates": 0,
+      "augmented_max_standardized_excursion": 0.0,
+      "actual_vs_query250_same_clock_feature_rms": 0.0811447586290192,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.06891720977985756,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.03658933262799013,
+      "actual_vs_saved_query250_base_rms_rad": 0.021219984085695986,
+      "actual_vs_saved_query250_head_rms_rad": 0.04631425536735694,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.04575369812965616,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 0.36711965290144616,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.18367122447676265,
+          "actual_input_standardized_rms": 0.12964722755337912
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.10237959405054899,
+          "actual_input_standardized_rms": 0.12936613604022526
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.06891720977985756,
+          "actual_input_standardized_rms": 0.08114475864807763
+        }
+      ]
+    },
+    {
+      "control": 256,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 0,
+      "augmented_envelope_outside_coordinates": 0,
+      "augmented_max_standardized_excursion": 0.0,
+      "actual_vs_query250_same_clock_feature_rms": 0.0674405833646319,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.07437733947094492,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.030599274289474596,
+      "actual_vs_saved_query250_base_rms_rad": 0.021334847997307976,
+      "actual_vs_saved_query250_head_rms_rad": 0.06929793346807846,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.08593608029373423,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 0.22669705284156544,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.14048699618991786,
+          "actual_input_standardized_rms": 0.13648990744906409
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.10672548544239627,
+          "actual_input_standardized_rms": 0.10366855903602716
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.07437733947094492,
+          "actual_input_standardized_rms": 0.06744058346072244
+        }
+      ]
+    },
+    {
+      "control": 257,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 0,
+      "augmented_envelope_outside_coordinates": 0,
+      "augmented_max_standardized_excursion": 0.0,
+      "actual_vs_query250_same_clock_feature_rms": 0.05725740418636744,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.11617581862407322,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.02321890752491845,
+      "actual_vs_saved_query250_base_rms_rad": 0.024985402453177253,
+      "actual_vs_saved_query250_head_rms_rad": 0.08923499965297602,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.10199340176343986,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 0.18810720466179798,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.09597990893232602,
+          "actual_input_standardized_rms": 0.10836704497954763
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.09721691906924765,
+          "actual_input_standardized_rms": 0.09182792819580522
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.11617581862407322,
+          "actual_input_standardized_rms": 0.057257404306292545
+        }
+      ]
+    },
+    {
+      "control": 258,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 0,
+      "augmented_envelope_outside_coordinates": 0,
+      "augmented_max_standardized_excursion": 0.0,
+      "actual_vs_query250_same_clock_feature_rms": 0.08000844305404284,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.13004830058617714,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.028561080393450733,
+      "actual_vs_saved_query250_base_rms_rad": 0.042503293510219364,
+      "actual_vs_saved_query250_head_rms_rad": 0.10430400829328208,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.14096477052372786,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 0.3508500068756888,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.07844778711260629,
+          "actual_input_standardized_rms": 0.09470992034636133
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.06294957997935467,
+          "actual_input_standardized_rms": 0.09265510906543552
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.13004830058617714,
+          "actual_input_standardized_rms": 0.08000844256635319
+        }
+      ]
+    },
+    {
+      "control": 259,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 0,
+      "augmented_envelope_outside_coordinates": 0,
+      "augmented_max_standardized_excursion": 0.0,
+      "actual_vs_query250_same_clock_feature_rms": 0.08831099350849872,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.12916957568262036,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.028826319338060756,
+      "actual_vs_saved_query250_base_rms_rad": 0.051964290688913416,
+      "actual_vs_saved_query250_head_rms_rad": 0.09124448333401498,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.13326826680116097,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 0.25096654766952303,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.11486272707303052,
+          "actual_input_standardized_rms": 0.09567409841147756
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.1018644592594074,
+          "actual_input_standardized_rms": 0.08926261174331024
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.12916957568262036,
+          "actual_input_standardized_rms": 0.0883109940031915
+        }
+      ]
+    },
+    {
+      "control": 260,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 0,
+      "augmented_envelope_outside_coordinates": 0,
+      "augmented_max_standardized_excursion": 0.0,
+      "actual_vs_query250_same_clock_feature_rms": 0.09557136908654516,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.23532247144135698,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.034871349920802694,
+      "actual_vs_saved_query250_base_rms_rad": 0.040544688757502535,
+      "actual_vs_saved_query250_head_rms_rad": 0.2061710782159278,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.21320481169926672,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 0.3407040121210854,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.24337007602129224,
+          "actual_input_standardized_rms": 0.11188464621150958
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.2751679235185173,
+          "actual_input_standardized_rms": 0.1024859253048409
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.23532247144135698,
+          "actual_input_standardized_rms": 0.09557136877648775
+        }
+      ]
+    },
+    {
+      "control": 261,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 0,
+      "augmented_envelope_outside_coordinates": 0,
+      "augmented_max_standardized_excursion": 0.0,
+      "actual_vs_query250_same_clock_feature_rms": 0.14748156634937226,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.17411095435804966,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.056501820259672354,
+      "actual_vs_saved_query250_base_rms_rad": 0.03247903767920121,
+      "actual_vs_saved_query250_head_rms_rad": 0.12988331428936065,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.14903006316572323,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 0.6099885672618149,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.07517453849656515,
+          "actual_input_standardized_rms": 0.16209894145755796
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.1321527742115717,
+          "actual_input_standardized_rms": 0.17325600351479242
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.17411095435804966,
+          "actual_input_standardized_rms": 0.14748156385492003
+        }
+      ]
+    },
+    {
+      "control": 262,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 0,
+      "augmented_envelope_outside_coordinates": 0,
+      "augmented_max_standardized_excursion": 0.0,
+      "actual_vs_query250_same_clock_feature_rms": 0.12745006215548244,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.21506171600140978,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.04170587744639294,
+      "actual_vs_saved_query250_base_rms_rad": 0.04181307557740917,
+      "actual_vs_saved_query250_head_rms_rad": 0.2261922610546208,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.2226524791209674,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 0.7977564642019279,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.2623296008016988,
+          "actual_input_standardized_rms": 0.1183613750034932
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.14211093871343095,
+          "actual_input_standardized_rms": 0.1311589070757921
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.21506171600140978,
+          "actual_input_standardized_rms": 0.12745006399711528
+        }
+      ]
+    },
+    {
+      "control": 263,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 0,
+      "augmented_envelope_outside_coordinates": 0,
+      "augmented_max_standardized_excursion": 0.0,
+      "actual_vs_query250_same_clock_feature_rms": 0.15520534512768225,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.19455098797482706,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.04031364875158416,
+      "actual_vs_saved_query250_base_rms_rad": 0.058543460499390104,
+      "actual_vs_saved_query250_head_rms_rad": 0.18216277145850918,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.1782986123177801,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 0.7273742157704056,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.20296137560537614,
+          "actual_input_standardized_rms": 0.18220397603450075
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.20421644526611127,
+          "actual_input_standardized_rms": 0.14176275335988042
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.19455098797482706,
+          "actual_input_standardized_rms": 0.15520534403243985
+        }
+      ]
+    },
+    {
+      "control": 264,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 0,
+      "augmented_envelope_outside_coordinates": 0,
+      "augmented_max_standardized_excursion": 0.0,
+      "actual_vs_query250_same_clock_feature_rms": 0.1729354888124616,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.1386453677851551,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.029063271809574232,
+      "actual_vs_saved_query250_base_rms_rad": 0.06650029140752231,
+      "actual_vs_saved_query250_head_rms_rad": 0.14533652594970034,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.16305094506078405,
+      "clipped_joints": [
+        "left_ankle_pitch_joint"
+      ],
+      "max_target_clipping_rad": 0.14196411853876112,
+      "raw_minus_applied_action_max": 0.3236924409866333,
+      "actual_vs_same_clock_joint_velocity_rms": 1.0711660764560391,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.37728213820743783,
+          "actual_input_standardized_rms": 0.1754153759508755
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.30725162655555754,
+          "actual_input_standardized_rms": 0.17948838347045418
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.1386453677851551,
+          "actual_input_standardized_rms": 0.17293549015888982
+        }
+      ]
+    },
+    {
+      "control": 265,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 1,
+      "augmented_envelope_outside_coordinates": 1,
+      "augmented_max_standardized_excursion": 0.22613067623346586,
+      "actual_vs_query250_same_clock_feature_rms": 0.13933572209278738,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.17608981263529638,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.034039445950180276,
+      "actual_vs_saved_query250_base_rms_rad": 0.06585669656008822,
+      "actual_vs_saved_query250_head_rms_rad": 0.23381283814829476,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.19680969264023082,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 0.6119741287072699,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.23483620654899653,
+          "actual_input_standardized_rms": 0.23835800667852836
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.23605685952077096,
+          "actual_input_standardized_rms": 0.21394290751841913
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.17608981263529638,
+          "actual_input_standardized_rms": 0.1393357219334965
+        }
+      ]
+    },
+    {
+      "control": 266,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 0,
+      "augmented_envelope_outside_coordinates": 0,
+      "augmented_max_standardized_excursion": 0.0,
+      "actual_vs_query250_same_clock_feature_rms": 0.14846368995209186,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.20751234735013477,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.0412157010296194,
+      "actual_vs_saved_query250_base_rms_rad": 0.054150574284416074,
+      "actual_vs_saved_query250_head_rms_rad": 0.1800093505238618,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.20119512816354057,
+      "clipped_joints": [
+        "right_ankle_pitch_joint"
+      ],
+      "max_target_clipping_rad": 0.08540714440844466,
+      "raw_minus_applied_action_max": 0.19473683834075928,
+      "actual_vs_same_clock_joint_velocity_rms": 0.734479415070551,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.19718231243672507,
+          "actual_input_standardized_rms": 0.18151624527328133
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.325652799014869,
+          "actual_input_standardized_rms": 0.18013656648973406
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.20751234735013477,
+          "actual_input_standardized_rms": 0.14846369060278208
+        }
+      ]
+    },
+    {
+      "control": 267,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 1,
+      "augmented_envelope_outside_coordinates": 1,
+      "augmented_max_standardized_excursion": 0.05017128076544645,
+      "actual_vs_query250_same_clock_feature_rms": 0.23762504705483972,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.32052699293497355,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.06013858716271281,
+      "actual_vs_saved_query250_base_rms_rad": 0.10381411376567548,
+      "actual_vs_saved_query250_head_rms_rad": 0.31321885711184083,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.32102856049252204,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 1.6112968966618648,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.3865320159748996,
+          "actual_input_standardized_rms": 0.2500594018936765
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.29715961394233137,
+          "actual_input_standardized_rms": 0.27220665400242405
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.32052699293497355,
+          "actual_input_standardized_rms": 0.23762504592784542
+        }
+      ]
+    },
+    {
+      "control": 268,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 0,
+      "augmented_envelope_outside_coordinates": 0,
+      "augmented_max_standardized_excursion": 0.0,
+      "actual_vs_query250_same_clock_feature_rms": 0.25592481113288085,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.16132499732992486,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.04533172390265107,
+      "actual_vs_saved_query250_base_rms_rad": 0.11767309536614944,
+      "actual_vs_saved_query250_head_rms_rad": 0.18278835358339965,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.16337413357995653,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 0.9599515365997734,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.24630123449708102,
+          "actual_input_standardized_rms": 0.29382665816625364
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.15123892773810835,
+          "actual_input_standardized_rms": 0.23900059593916445
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.16132499732992486,
+          "actual_input_standardized_rms": 0.25592481168908465
+        }
+      ]
+    },
+    {
+      "control": 269,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 0,
+      "augmented_envelope_outside_coordinates": 0,
+      "augmented_max_standardized_excursion": 0.0,
+      "actual_vs_query250_same_clock_feature_rms": 0.1714303787297819,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.43777150601994486,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.08933844843686171,
+      "actual_vs_saved_query250_base_rms_rad": 0.060973127413436835,
+      "actual_vs_saved_query250_head_rms_rad": 0.37505160684343747,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.38024024516424065,
+      "clipped_joints": [
+        "left_knee_joint",
+        "left_ankle_pitch_joint"
+      ],
+      "max_target_clipping_rad": 0.4165346226982013,
+      "raw_minus_applied_action_max": 0.9497406482696533,
+      "actual_vs_same_clock_joint_velocity_rms": 0.8625626620362584,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.43626773249154516,
+          "actual_input_standardized_rms": 0.23070613079304025
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.4151000437376091,
+          "actual_input_standardized_rms": 0.1858847702310184
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.43777150601994486,
+          "actual_input_standardized_rms": 0.1714303800209389
+        }
+      ]
+    },
+    {
+      "control": 270,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 2,
+      "augmented_envelope_outside_coordinates": 1,
+      "augmented_max_standardized_excursion": 0.7918014571409059,
+      "actual_vs_query250_same_clock_feature_rms": 0.2781231175634945,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.4318820735067658,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.06167845378592889,
+      "actual_vs_saved_query250_base_rms_rad": 0.0843538451046837,
+      "actual_vs_saved_query250_head_rms_rad": 0.43891685567356303,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.4094272709238925,
+      "clipped_joints": [
+        "left_ankle_roll_joint"
+      ],
+      "max_target_clipping_rad": 0.013570380544206617,
+      "raw_minus_applied_action_max": 0.030941784381866455,
+      "actual_vs_same_clock_joint_velocity_rms": 1.1746901869639146,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.3707334114304176,
+          "actual_input_standardized_rms": 0.3125485376131288
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.2912308323433347,
+          "actual_input_standardized_rms": 0.31154408569034914
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.4318820735067658,
+          "actual_input_standardized_rms": 0.2781231184465297
+        }
+      ]
+    },
+    {
+      "control": 271,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 1,
+      "augmented_envelope_outside_coordinates": 0,
+      "augmented_max_standardized_excursion": 0.0,
+      "actual_vs_query250_same_clock_feature_rms": 0.3701698496700818,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.24607227297960785,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.0706665389708993,
+      "actual_vs_saved_query250_base_rms_rad": 0.11472299661789483,
+      "actual_vs_saved_query250_head_rms_rad": 0.2880085011071376,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.2953584403101072,
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "right_hip_roll_joint"
+      ],
+      "max_target_clipping_rad": 0.2463718737954098,
+      "raw_minus_applied_action_max": 0.7025916576385498,
+      "actual_vs_same_clock_joint_velocity_rms": 1.6964580137312877,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.3236211459319865,
+          "actual_input_standardized_rms": 0.39261957157907823
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.2943703873269966,
+          "actual_input_standardized_rms": 0.34165223153063884
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.24607227297960785,
+          "actual_input_standardized_rms": 0.3701698517301008
+        }
+      ]
+    },
+    {
+      "control": 272,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 3,
+      "augmented_envelope_outside_coordinates": 3,
+      "augmented_max_standardized_excursion": 0.34993749588788736,
+      "actual_vs_query250_same_clock_feature_rms": 0.3064895744026759,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.3678930112214768,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.07354816344151191,
+      "actual_vs_saved_query250_base_rms_rad": 0.10832216434485183,
+      "actual_vs_saved_query250_head_rms_rad": 0.4828582848599239,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.47959303713435936,
+      "clipped_joints": [
+        "left_ankle_pitch_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "max_target_clipping_rad": 0.966590802393846,
+      "raw_minus_applied_action_max": 2.2039237022399902,
+      "actual_vs_same_clock_joint_velocity_rms": 1.5834393692612942,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.44266048751081033,
+          "actual_input_standardized_rms": 0.3697131291418652
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.4926522660698737,
+          "actual_input_standardized_rms": 0.3312618138452395
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.3678930112214768,
+          "actual_input_standardized_rms": 0.30648957483175304
+        }
+      ]
+    },
+    {
+      "control": 273,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 4,
+      "augmented_envelope_outside_coordinates": 3,
+      "augmented_max_standardized_excursion": 2.1077571439692333,
+      "actual_vs_query250_same_clock_feature_rms": 0.4480605957074147,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.26795274043138834,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.05734491444866513,
+      "actual_vs_saved_query250_base_rms_rad": 0.21611788372749058,
+      "actual_vs_saved_query250_head_rms_rad": 0.3213570515994007,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.2868323395911262,
+      "clipped_joints": [
+        "left_knee_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "max_target_clipping_rad": 0.26317884564755145,
+      "raw_minus_applied_action_max": 0.7505210638046265,
+      "actual_vs_same_clock_joint_velocity_rms": 3.1046687511867392,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.3650749250553125,
+          "actual_input_standardized_rms": 0.5002311183572266
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.3403177601034582,
+          "actual_input_standardized_rms": 0.49392380297082294
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.26795274043138834,
+          "actual_input_standardized_rms": 0.4480605951821791
+        }
+      ]
+    },
+    {
+      "control": 274,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 3,
+      "augmented_envelope_outside_coordinates": 3,
+      "augmented_max_standardized_excursion": 0.3564578152873561,
+      "actual_vs_query250_same_clock_feature_rms": 0.33124170119274243,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.23839067618811607,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.033598590401452834,
+      "actual_vs_saved_query250_base_rms_rad": 0.18666875432887273,
+      "actual_vs_saved_query250_head_rms_rad": 0.3219837813168046,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.3202078021842902,
+      "clipped_joints": [
+        "left_ankle_pitch_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "max_target_clipping_rad": 0.4933810472196206,
+      "raw_minus_applied_action_max": 1.1249580383300781,
+      "actual_vs_same_clock_joint_velocity_rms": 1.2513684196437516,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.3081874202865763,
+          "actual_input_standardized_rms": 0.39010745060884144
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.35875157835780974,
+          "actual_input_standardized_rms": 0.3556052153889074
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.23839067618811607,
+          "actual_input_standardized_rms": 0.33124170039765627
+        }
+      ]
+    },
+    {
+      "control": 275,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 4,
+      "augmented_envelope_outside_coordinates": 4,
+      "augmented_max_standardized_excursion": 0.9837385655259626,
+      "actual_vs_query250_same_clock_feature_rms": 0.2867222721558785,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.4264218030588677,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.036128804843731696,
+      "actual_vs_saved_query250_base_rms_rad": 0.13963616461283435,
+      "actual_vs_saved_query250_head_rms_rad": 0.5126570581386402,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.4959094422248492,
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_knee_joint",
+        "right_hip_roll_joint",
+        "right_ankle_roll_joint"
+      ],
+      "max_target_clipping_rad": 0.5344699426435583,
+      "raw_minus_applied_action_max": 1.5241763591766357,
+      "actual_vs_same_clock_joint_velocity_rms": 1.472864084298839,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.5643475579047617,
+          "actual_input_standardized_rms": 0.31666109945997084
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.33292543900700655,
+          "actual_input_standardized_rms": 0.34087494096792104
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.4264218030588677,
+          "actual_input_standardized_rms": 0.28672227181261023
+        }
+      ]
+    },
+    {
+      "control": 276,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 4,
+      "augmented_envelope_outside_coordinates": 2,
+      "augmented_max_standardized_excursion": 1.0932944251077779,
+      "actual_vs_query250_same_clock_feature_rms": 0.4095348516313163,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.4299267843309399,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.05536571806571645,
+      "actual_vs_saved_query250_base_rms_rad": 0.14038091866252309,
+      "actual_vs_saved_query250_head_rms_rad": 0.4400965581294275,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.40682455717138766,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 1.873448668945161,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.5044614223548884,
+          "actual_input_standardized_rms": 0.46032687356843693
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.5330163450640475,
+          "actual_input_standardized_rms": 0.35906901544400044
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.4299267843309399,
+          "actual_input_standardized_rms": 0.40953484875603396
+        }
+      ]
+    },
+    {
+      "control": 277,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 0,
+      "augmented_envelope_outside_coordinates": 0,
+      "augmented_max_standardized_excursion": 0.0,
+      "actual_vs_query250_same_clock_feature_rms": 0.3828113350838408,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.4530940605111116,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.04969115157929388,
+      "actual_vs_saved_query250_base_rms_rad": 0.15180250042617477,
+      "actual_vs_saved_query250_head_rms_rad": 0.5402106356725414,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.6057095337628933,
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "right_hip_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "max_target_clipping_rad": 0.9554556094539889,
+      "raw_minus_applied_action_max": 2.7247235774993896,
+      "actual_vs_same_clock_joint_velocity_rms": 1.9111336756158948,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.5269678860847403,
+          "actual_input_standardized_rms": 0.41495430863478383
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.48271151018692576,
+          "actual_input_standardized_rms": 0.42646355955704646
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.4530940605111116,
+          "actual_input_standardized_rms": 0.38281133668682027
+        }
+      ]
+    },
+    {
+      "control": 278,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 5,
+      "augmented_envelope_outside_coordinates": 5,
+      "augmented_max_standardized_excursion": 2.2440512388584977,
+      "actual_vs_query250_same_clock_feature_rms": 0.4296387486773772,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.34256698606208974,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.05889923051200499,
+      "actual_vs_saved_query250_base_rms_rad": 0.10094384103201927,
+      "actual_vs_saved_query250_head_rms_rad": 0.3561381488442082,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.3852985010158027,
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_knee_joint",
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "max_target_clipping_rad": 0.47902969746263546,
+      "raw_minus_applied_action_max": 1.0922355651855469,
+      "actual_vs_same_clock_joint_velocity_rms": 2.2917639018282143,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.45175159896609285,
+          "actual_input_standardized_rms": 0.46941883200208495
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.48102899666786264,
+          "actual_input_standardized_rms": 0.4432312217348665
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.34256698606208974,
+          "actual_input_standardized_rms": 0.42963874787902917
+        }
+      ]
+    },
+    {
+      "control": 279,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 5,
+      "augmented_envelope_outside_coordinates": 4,
+      "augmented_max_standardized_excursion": 0.9939504237862332,
+      "actual_vs_query250_same_clock_feature_rms": 0.3388728012508019,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.43373935525348617,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.06293897275959161,
+      "actual_vs_saved_query250_base_rms_rad": 0.13417350884542784,
+      "actual_vs_saved_query250_head_rms_rad": 0.4294551752374714,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.3992479475609535,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 1.577334447481811,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.44672832172369376,
+          "actual_input_standardized_rms": 0.4009825414512325
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.47725927778228133,
+          "actual_input_standardized_rms": 0.39792407122620965
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.43373935525348617,
+          "actual_input_standardized_rms": 0.3388728031541662
+        }
+      ]
+    },
+    {
+      "control": 280,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 0,
+      "augmented_envelope_outside_coordinates": 0,
+      "augmented_max_standardized_excursion": 0.0,
+      "actual_vs_query250_same_clock_feature_rms": 0.36110128056842733,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.4618008877963576,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.035386407659079105,
+      "actual_vs_saved_query250_base_rms_rad": 0.12619147463832242,
+      "actual_vs_saved_query250_head_rms_rad": 0.4095709182115325,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.4545334083407243,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 1.8750545233761162,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.5529129733431276,
+          "actual_input_standardized_rms": 0.3845302964488311
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.4764435214775318,
+          "actual_input_standardized_rms": 0.41096086445322394
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.4618008877963576,
+          "actual_input_standardized_rms": 0.36110127984242757
+        }
+      ]
+    },
+    {
+      "control": 281,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 1,
+      "augmented_envelope_outside_coordinates": 1,
+      "augmented_max_standardized_excursion": 0.3521838820165879,
+      "actual_vs_query250_same_clock_feature_rms": 0.5124370492788334,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.4567806952455835,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.04239971265416563,
+      "actual_vs_saved_query250_base_rms_rad": 0.20339260198486198,
+      "actual_vs_saved_query250_head_rms_rad": 0.38545348034831795,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.4836301610421516,
+      "clipped_joints": [
+        "right_hip_roll_joint"
+      ],
+      "max_target_clipping_rad": 0.2045192566789169,
+      "raw_minus_applied_action_max": 0.5832383632659912,
+      "actual_vs_same_clock_joint_velocity_rms": 2.71314291150001,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.47567747785825876,
+          "actual_input_standardized_rms": 0.5379234581600091
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.5157169863494853,
+          "actual_input_standardized_rms": 0.516090127002324
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.4567806952455835,
+          "actual_input_standardized_rms": 0.5124370481624989
+        }
+      ]
+    },
+    {
+      "control": 282,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 8,
+      "augmented_envelope_outside_coordinates": 7,
+      "augmented_max_standardized_excursion": 0.2419485104175318,
+      "actual_vs_query250_same_clock_feature_rms": 0.4677400365591656,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.426637380520003,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.08714809828551494,
+      "actual_vs_saved_query250_base_rms_rad": 0.23966725455902413,
+      "actual_vs_saved_query250_head_rms_rad": 0.3327567234988646,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.4115531528097139,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 2.612496046632127,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.4297915708101342,
+          "actual_input_standardized_rms": 0.42796749536555934
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.5213836888784419,
+          "actual_input_standardized_rms": 0.46509630247389794
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.426637380520003,
+          "actual_input_standardized_rms": 0.4677400341189352
+        }
+      ]
+    },
+    {
+      "control": 283,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 9,
+      "augmented_envelope_outside_coordinates": 9,
+      "augmented_max_standardized_excursion": 0.8835146672828508,
+      "actual_vs_query250_same_clock_feature_rms": 0.5145202201437284,
+      "actual_vs_query250_same_clock_target_rmse_rad": 1.072538162601854,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.07141455228565483,
+      "actual_vs_saved_query250_base_rms_rad": 0.26465749907741576,
+      "actual_vs_saved_query250_head_rms_rad": 1.0891370577421091,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 1.1467504494533658,
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "max_target_clipping_rad": 1.1358778579168427,
+      "raw_minus_applied_action_max": 2.5899152755737305,
+      "actual_vs_same_clock_joint_velocity_rms": 2.7118458424898932,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.7738424774317654,
+          "actual_input_standardized_rms": 0.4995943099569414
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.6762251129860963,
+          "actual_input_standardized_rms": 0.5241674503741592
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 1.072538162601854,
+          "actual_input_standardized_rms": 0.5145202175081951
+        }
+      ]
+    },
+    {
+      "control": 284,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 12,
+      "augmented_envelope_outside_coordinates": 11,
+      "augmented_max_standardized_excursion": 2.588485862849906,
+      "actual_vs_query250_same_clock_feature_rms": 0.7767602141462332,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.45659534347414066,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.03601560384209707,
+      "actual_vs_saved_query250_base_rms_rad": 0.48829623805671957,
+      "actual_vs_saved_query250_head_rms_rad": 0.5624720859546342,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.6106484712925185,
+      "clipped_joints": [
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "max_target_clipping_rad": 1.2934660410895744,
+      "raw_minus_applied_action_max": 2.9492321014404297,
+      "actual_vs_same_clock_joint_velocity_rms": 2.9512160215260774,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.541127832561804,
+          "actual_input_standardized_rms": 0.6725483050718721
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.4167872602790222,
+          "actual_input_standardized_rms": 0.6307536122896651
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.45659534347414066,
+          "actual_input_standardized_rms": 0.7767602200386735
+        }
+      ]
+    },
+    {
+      "control": 285,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 11,
+      "augmented_envelope_outside_coordinates": 11,
+      "augmented_max_standardized_excursion": 2.9820896742476664,
+      "actual_vs_query250_same_clock_feature_rms": 0.5261460688747881,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.4076905242712414,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.03293083827799106,
+      "actual_vs_saved_query250_base_rms_rad": 0.3115016172496191,
+      "actual_vs_saved_query250_head_rms_rad": 0.42466651075328266,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.5383901648725652,
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "right_hip_roll_joint"
+      ],
+      "max_target_clipping_rad": 0.6048641087432128,
+      "raw_minus_applied_action_max": 1.7249231338500977,
+      "actual_vs_same_clock_joint_velocity_rms": 2.480926804244283,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.38104530609833914,
+          "actual_input_standardized_rms": 0.5745339447746548
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.5169356831966677,
+          "actual_input_standardized_rms": 0.5418481178660374
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.4076905242712414,
+          "actual_input_standardized_rms": 0.5261460653511327
+        }
+      ]
+    },
+    {
+      "control": 286,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 9,
+      "augmented_envelope_outside_coordinates": 9,
+      "augmented_max_standardized_excursion": 1.292674385958942,
+      "actual_vs_query250_same_clock_feature_rms": 0.4432084992575616,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.2963998572732905,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.04256111645120273,
+      "actual_vs_saved_query250_base_rms_rad": 0.2867024719653816,
+      "actual_vs_saved_query250_head_rms_rad": 0.3263267541794899,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.3300497058780151,
+      "clipped_joints": [
+        "left_ankle_pitch_joint",
+        "right_knee_joint"
+      ],
+      "max_target_clipping_rad": 0.34111672282369976,
+      "raw_minus_applied_action_max": 0.9727808237075806,
+      "actual_vs_same_clock_joint_velocity_rms": 1.7198733657651646,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.3294885206843924,
+          "actual_input_standardized_rms": 0.43134929778171666
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.4809078270709959,
+          "actual_input_standardized_rms": 0.44982058510959216
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.2963998572732905,
+          "actual_input_standardized_rms": 0.44320849950310215
+        }
+      ]
+    },
+    {
+      "control": 287,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 7,
+      "augmented_envelope_outside_coordinates": 7,
+      "augmented_max_standardized_excursion": 0.5395003404175664,
+      "actual_vs_query250_same_clock_feature_rms": 0.3352366559667707,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.2673954428203621,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.030871428182002583,
+      "actual_vs_saved_query250_base_rms_rad": 0.21595976901299252,
+      "actual_vs_saved_query250_head_rms_rad": 0.22710860571564795,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.2802804587384998,
+      "clipped_joints": [
+        "right_ankle_pitch_joint"
+      ],
+      "max_target_clipping_rad": 0.11797929026496545,
+      "raw_minus_applied_action_max": 0.26900458335876465,
+      "actual_vs_same_clock_joint_velocity_rms": 1.6692990573664714,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.2593922261564622,
+          "actual_input_standardized_rms": 0.3835947682581894
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.3884251103777227,
+          "actual_input_standardized_rms": 0.38330627524401223
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.2673954428203621,
+          "actual_input_standardized_rms": 0.3352366579180606
+        }
+      ]
+    },
+    {
+      "control": 288,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 6,
+      "augmented_envelope_outside_coordinates": 1,
+      "augmented_max_standardized_excursion": 0.07306186728689688,
+      "actual_vs_query250_same_clock_feature_rms": 0.3691382129013932,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.4626031273506395,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.08352530794383661,
+      "actual_vs_saved_query250_base_rms_rad": 0.2680564416640472,
+      "actual_vs_saved_query250_head_rms_rad": 0.35717314173304665,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.49983899569274115,
+      "clipped_joints": [
+        "right_knee_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "max_target_clipping_rad": 0.823836614589918,
+      "raw_minus_applied_action_max": 1.878429889678955,
+      "actual_vs_same_clock_joint_velocity_rms": 2.2762559488277163,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.33638195331980447,
+          "actual_input_standardized_rms": 0.3384081899786822
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.50383825603687,
+          "actual_input_standardized_rms": 0.41533687723429885
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.4626031273506395,
+          "actual_input_standardized_rms": 0.3691382133522112
+        }
+      ]
+    },
+    {
+      "control": 289,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 3,
+      "augmented_envelope_outside_coordinates": 2,
+      "augmented_max_standardized_excursion": 1.7654787932637965,
+      "actual_vs_query250_same_clock_feature_rms": 0.49002359799430695,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.41804163311565984,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.06976124513738444,
+      "actual_vs_saved_query250_base_rms_rad": 0.1853870729526869,
+      "actual_vs_saved_query250_head_rms_rad": 0.3300109645343352,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.3798672564946538,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 2.964286742997121,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.5629788779648655,
+          "actual_input_standardized_rms": 0.5029737839617366
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.5219882956964113,
+          "actual_input_standardized_rms": 0.5245929125543564
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.41804163311565984,
+          "actual_input_standardized_rms": 0.4900236010037376
+        }
+      ]
+    },
+    {
+      "control": 290,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 2,
+      "augmented_envelope_outside_coordinates": 1,
+      "augmented_max_standardized_excursion": 0.3036858216271584,
+      "actual_vs_query250_same_clock_feature_rms": 0.4720938757919169,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.40509753179374797,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.05859407120343222,
+      "actual_vs_saved_query250_base_rms_rad": 0.2168939564207979,
+      "actual_vs_saved_query250_head_rms_rad": 0.48170109399658806,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.47252260139810726,
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "right_hip_roll_joint"
+      ],
+      "max_target_clipping_rad": 0.32647367637214264,
+      "raw_minus_applied_action_max": 0.9310224056243896,
+      "actual_vs_same_clock_joint_velocity_rms": 2.9680776877910935,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.29606030625721597,
+          "actual_input_standardized_rms": 0.5323534578311393
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.23463538642076956,
+          "actual_input_standardized_rms": 0.48943929950302645
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.40509753179374797,
+          "actual_input_standardized_rms": 0.4720938785193216
+        }
+      ]
+    },
+    {
+      "control": 291,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 2,
+      "augmented_envelope_outside_coordinates": 2,
+      "augmented_max_standardized_excursion": 0.5566180475635261,
+      "actual_vs_query250_same_clock_feature_rms": 0.45537678113177843,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.356076244802055,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.07230773314924457,
+      "actual_vs_saved_query250_base_rms_rad": 0.2789982938052856,
+      "actual_vs_saved_query250_head_rms_rad": 0.5356438853165219,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.3957616438358507,
+      "clipped_joints": [
+        "right_ankle_pitch_joint"
+      ],
+      "max_target_clipping_rad": 0.8526120249720918,
+      "raw_minus_applied_action_max": 1.9440405368804932,
+      "actual_vs_same_clock_joint_velocity_rms": 1.6469709907235492,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.5076745529117355,
+          "actual_input_standardized_rms": 0.4102346589039644
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.4976746360040943,
+          "actual_input_standardized_rms": 0.3801828533421986
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.356076244802055,
+          "actual_input_standardized_rms": 0.4553767818451181
+        }
+      ]
+    },
+    {
+      "control": 292,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 6,
+      "augmented_envelope_outside_coordinates": 5,
+      "augmented_max_standardized_excursion": 1.8344727188670085,
+      "actual_vs_query250_same_clock_feature_rms": 0.48883985628372756,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.6939374552950717,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.03455543953594169,
+      "actual_vs_saved_query250_base_rms_rad": 0.27074594033014854,
+      "actual_vs_saved_query250_head_rms_rad": 0.8687368527889683,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.9319783806945091,
+      "clipped_joints": [
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "max_target_clipping_rad": 1.8746133035227595,
+      "raw_minus_applied_action_max": 4.274305820465088,
+      "actual_vs_same_clock_joint_velocity_rms": 2.467113558280347,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.5444659334997738,
+          "actual_input_standardized_rms": 0.5078751282900399
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.8213353175259724,
+          "actual_input_standardized_rms": 0.5093709898479579
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.6939374552950717,
+          "actual_input_standardized_rms": 0.48883985586778156
+        }
+      ]
+    },
+    {
+      "control": 293,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 7,
+      "augmented_envelope_outside_coordinates": 7,
+      "augmented_max_standardized_excursion": 4.553722423968117,
+      "actual_vs_query250_same_clock_feature_rms": 0.6162754804923933,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.37642407599348915,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.03623292800736416,
+      "actual_vs_saved_query250_base_rms_rad": 0.3690963345020274,
+      "actual_vs_saved_query250_head_rms_rad": 0.5084999696574372,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.4640516673819136,
+      "clipped_joints": [
+        "left_knee_joint",
+        "left_ankle_roll_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "max_target_clipping_rad": 1.0291112463556735,
+      "raw_minus_applied_action_max": 2.3464765548706055,
+      "actual_vs_same_clock_joint_velocity_rms": 2.2434604675168317,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.47993768908527545,
+          "actual_input_standardized_rms": 0.5688212520827237
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.482631782523178,
+          "actual_input_standardized_rms": 0.6810792749039967
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.37642407599348915,
+          "actual_input_standardized_rms": 0.6162754758768857
+        }
+      ]
+    },
+    {
+      "control": 294,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 5,
+      "augmented_envelope_outside_coordinates": 4,
+      "augmented_max_standardized_excursion": 2.257660876494703,
+      "actual_vs_query250_same_clock_feature_rms": 0.4882630198053816,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.5742729337653208,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.055679438224909505,
+      "actual_vs_saved_query250_base_rms_rad": 0.261853651616039,
+      "actual_vs_saved_query250_head_rms_rad": 0.9251951782111415,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.8450915874679417,
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "max_target_clipping_rad": 2.397341869721413,
+      "raw_minus_applied_action_max": 5.466179370880127,
+      "actual_vs_same_clock_joint_velocity_rms": 1.5345128839445035,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.58461486509617,
+          "actual_input_standardized_rms": 0.513459399256797
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.6531200631540617,
+          "actual_input_standardized_rms": 0.5094390434677899
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.5742729337653208,
+          "actual_input_standardized_rms": 0.4882630205362687
+        }
+      ]
+    },
+    {
+      "control": 295,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 7,
+      "augmented_envelope_outside_coordinates": 5,
+      "augmented_max_standardized_excursion": 5.538234276887044,
+      "actual_vs_query250_same_clock_feature_rms": 0.7659197178401512,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.6756546444258343,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.0344412720679053,
+      "actual_vs_saved_query250_base_rms_rad": 0.12283163461666623,
+      "actual_vs_saved_query250_head_rms_rad": 0.7095864695006534,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.6961359761927649,
+      "clipped_joints": [
+        "left_knee_joint",
+        "left_ankle_pitch_joint"
+      ],
+      "max_target_clipping_rad": 0.2917905130209463,
+      "raw_minus_applied_action_max": 0.6653115749359131,
+      "actual_vs_same_clock_joint_velocity_rms": 4.044990239418931,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.7223251089040481,
+          "actual_input_standardized_rms": 0.7204638255105169
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.7592908374834592,
+          "actual_input_standardized_rms": 0.7600456056617779
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.6756546444258343,
+          "actual_input_standardized_rms": 0.7659197224937708
+        }
+      ]
+    },
+    {
+      "control": 296,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 8,
+      "augmented_envelope_outside_coordinates": 7,
+      "augmented_max_standardized_excursion": 7.882571599097429,
+      "actual_vs_query250_same_clock_feature_rms": 0.905482020595534,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.4607345063062908,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.0929862507670662,
+      "actual_vs_saved_query250_base_rms_rad": 0.36743763323587275,
+      "actual_vs_saved_query250_head_rms_rad": 0.24217323945601296,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.43496459151765515,
+      "clipped_joints": [
+        "right_hip_roll_joint",
+        "right_ankle_roll_joint"
+      ],
+      "max_target_clipping_rad": 0.44910117665734356,
+      "raw_minus_applied_action_max": 1.0239956378936768,
+      "actual_vs_same_clock_joint_velocity_rms": 6.192453002332064,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.3191652989678077,
+          "actual_input_standardized_rms": 0.9019018908927078
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.3901874382707028,
+          "actual_input_standardized_rms": 0.9213087009811434
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.4607345063062908,
+          "actual_input_standardized_rms": 0.905482017914451
+        }
+      ]
+    },
+    {
+      "control": 297,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 5,
+      "augmented_envelope_outside_coordinates": 5,
+      "augmented_max_standardized_excursion": 2.716447661290847,
+      "actual_vs_query250_same_clock_feature_rms": 0.6213264113666837,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.6805353579753486,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.037147657066346346,
+      "actual_vs_saved_query250_base_rms_rad": 0.3343775685623612,
+      "actual_vs_saved_query250_head_rms_rad": 0.5064414139615797,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.6713871257585831,
+      "clipped_joints": [
+        "left_ankle_roll_joint"
+      ],
+      "max_target_clipping_rad": 0.06726210051767717,
+      "raw_minus_applied_action_max": 0.15336430072784424,
+      "actual_vs_same_clock_joint_velocity_rms": 3.2087716844537275,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.5637039942240428,
+          "actual_input_standardized_rms": 0.604488027172105
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.6915387848795677,
+          "actual_input_standardized_rms": 0.6209524485005454
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.6805353579753486,
+          "actual_input_standardized_rms": 0.6213264116629117
+        }
+      ]
+    },
+    {
+      "control": 298,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 5,
+      "augmented_envelope_outside_coordinates": 5,
+      "augmented_max_standardized_excursion": 0.3703543886930111,
+      "actual_vs_query250_same_clock_feature_rms": 0.6708037868743403,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.509987018663844,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.04440022478243143,
+      "actual_vs_saved_query250_base_rms_rad": 0.30980484690829885,
+      "actual_vs_saved_query250_head_rms_rad": 0.47401153072002145,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.5002154663311251,
+      "clipped_joints": [],
+      "max_target_clipping_rad": 0.0,
+      "raw_minus_applied_action_max": 0.0,
+      "actual_vs_same_clock_joint_velocity_rms": 2.217308587281955,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.3969946903361598,
+          "actual_input_standardized_rms": 0.6364160919172845
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.49064380678876846,
+          "actual_input_standardized_rms": 0.6581347737599038
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.509987018663844,
+          "actual_input_standardized_rms": 0.6708037874932484
+        }
+      ]
+    },
+    {
+      "control": 299,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 7,
+      "augmented_envelope_outside_coordinates": 7,
+      "augmented_max_standardized_excursion": 0.4739623100243212,
+      "actual_vs_query250_same_clock_feature_rms": 0.5963843165988768,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.48691805887724027,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.0423660143469651,
+      "actual_vs_saved_query250_base_rms_rad": 0.28040084242435,
+      "actual_vs_saved_query250_head_rms_rad": 0.46902135333545203,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.4924783528458095,
+      "clipped_joints": [
+        "left_knee_joint",
+        "right_hip_roll_joint"
+      ],
+      "max_target_clipping_rad": 0.5485411158342224,
+      "raw_minus_applied_action_max": 1.564303994178772,
+      "actual_vs_same_clock_joint_velocity_rms": 2.168965634399273,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.5848241698376411,
+          "actual_input_standardized_rms": 0.5783086212973715
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.46091390333793614,
+          "actual_input_standardized_rms": 0.5770249105460806
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.48691805887724027,
+          "actual_input_standardized_rms": 0.5963843162644961
+        }
+      ]
+    },
+    {
+      "control": 300,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 11,
+      "augmented_envelope_outside_coordinates": 11,
+      "augmented_max_standardized_excursion": 1.151201532929068,
+      "actual_vs_query250_same_clock_feature_rms": 0.6571398112949279,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.5869259518395343,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.04491772857453967,
+      "actual_vs_saved_query250_base_rms_rad": 0.39250449737146836,
+      "actual_vs_saved_query250_head_rms_rad": 0.500080783502467,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.5931888543351592,
+      "clipped_joints": [
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "max_target_clipping_rad": 0.3143830603583912,
+      "raw_minus_applied_action_max": 0.8965429067611694,
+      "actual_vs_same_clock_joint_velocity_rms": 2.311586714693434,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.5404386211174464,
+          "actual_input_standardized_rms": 0.6732134134669927
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.8931688171799044,
+          "actual_input_standardized_rms": 0.6291291199843987
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.5869259518395343,
+          "actual_input_standardized_rms": 0.657139809759315
+        }
+      ]
+    },
+    {
+      "control": 301,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 17,
+      "augmented_envelope_outside_coordinates": 17,
+      "augmented_max_standardized_excursion": 0.5232756679365217,
+      "actual_vs_query250_same_clock_feature_rms": 0.7178186176996085,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.30665128318783696,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.02507530758209605,
+      "actual_vs_saved_query250_base_rms_rad": 0.3071089689390461,
+      "actual_vs_saved_query250_head_rms_rad": 0.2604121387554202,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.3086750729629794,
+      "clipped_joints": [
+        "right_knee_joint"
+      ],
+      "max_target_clipping_rad": 0.39993530123050836,
+      "raw_minus_applied_action_max": 1.1405168771743774,
+      "actual_vs_same_clock_joint_velocity_rms": 2.477458328458998,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.3206875433907858,
+          "actual_input_standardized_rms": 0.710298074811427
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.3575767513040023,
+          "actual_input_standardized_rms": 0.81250185345737
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.30665128318783696,
+          "actual_input_standardized_rms": 0.7178186171873064
+        }
+      ]
+    },
+    {
+      "control": 302,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 14,
+      "augmented_envelope_outside_coordinates": 13,
+      "augmented_max_standardized_excursion": 0.7091000663719335,
+      "actual_vs_query250_same_clock_feature_rms": 0.6547814232155765,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.6014522087545716,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.0572113162466566,
+      "actual_vs_saved_query250_base_rms_rad": 0.25121626852377094,
+      "actual_vs_saved_query250_head_rms_rad": 0.5765563762628204,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.6799692483876584,
+      "clipped_joints": [
+        "left_ankle_pitch_joint",
+        "right_knee_joint"
+      ],
+      "max_target_clipping_rad": 0.8856198172661753,
+      "raw_minus_applied_action_max": 2.525569438934326,
+      "actual_vs_same_clock_joint_velocity_rms": 2.2184034269814963,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.7162920118663009,
+          "actual_input_standardized_rms": 0.6666941914641112
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.4729452458625438,
+          "actual_input_standardized_rms": 0.6816798972134055
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.6014522087545716,
+          "actual_input_standardized_rms": 0.6547814243684448
+        }
+      ]
+    },
+    {
+      "control": 303,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 16,
+      "augmented_envelope_outside_coordinates": 16,
+      "augmented_max_standardized_excursion": 2.1095414731772832,
+      "actual_vs_query250_same_clock_feature_rms": 0.7502201841345597,
+      "actual_vs_query250_same_clock_target_rmse_rad": 1.0658813950275148,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.04633325764999545,
+      "actual_vs_saved_query250_base_rms_rad": 0.3598918862780705,
+      "actual_vs_saved_query250_head_rms_rad": 0.8923438112743571,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 1.1717257173143276,
+      "clipped_joints": [
+        "left_ankle_pitch_joint",
+        "right_hip_pitch_joint",
+        "right_knee_joint",
+        "right_ankle_roll_joint"
+      ],
+      "max_target_clipping_rad": 1.585302042944106,
+      "raw_minus_applied_action_max": 4.520890235900879,
+      "actual_vs_same_clock_joint_velocity_rms": 2.9021883833638236,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.8991816333806671,
+          "actual_input_standardized_rms": 0.7779140047570932
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.9618798870039779,
+          "actual_input_standardized_rms": 0.6968643219902623
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 1.0658813950275148,
+          "actual_input_standardized_rms": 0.7502201839278435
+        }
+      ]
+    },
+    {
+      "control": 304,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 26,
+      "augmented_envelope_outside_coordinates": 25,
+      "augmented_max_standardized_excursion": 4.12703177035757,
+      "actual_vs_query250_same_clock_feature_rms": 0.9790631797719517,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.6579750314129527,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.04956699960698909,
+      "actual_vs_saved_query250_base_rms_rad": 0.3630206512531081,
+      "actual_vs_saved_query250_head_rms_rad": 0.5019115165895344,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.6832307230437062,
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_ankle_roll_joint",
+        "right_knee_joint"
+      ],
+      "max_target_clipping_rad": 0.39092788861985833,
+      "raw_minus_applied_action_max": 1.1148298978805542,
+      "actual_vs_same_clock_joint_velocity_rms": 5.087967449697958,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.6674769732458405,
+          "actual_input_standardized_rms": 0.9169938745617155
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.7829521014442923,
+          "actual_input_standardized_rms": 0.9105024710672077
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.6579750314129527,
+          "actual_input_standardized_rms": 0.979063182678693
+        }
+      ]
+    },
+    {
+      "control": 305,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 23,
+      "augmented_envelope_outside_coordinates": 22,
+      "augmented_max_standardized_excursion": 1.6823187552485823,
+      "actual_vs_query250_same_clock_feature_rms": 0.9113356953245211,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.6128949090446641,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.06467839546526942,
+      "actual_vs_saved_query250_base_rms_rad": 0.29556990068733174,
+      "actual_vs_saved_query250_head_rms_rad": 0.5953198190765822,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.7317602859563436,
+      "clipped_joints": [
+        "left_ankle_pitch_joint",
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "max_target_clipping_rad": 0.8404068843342519,
+      "raw_minus_applied_action_max": 1.9162118434906006,
+      "actual_vs_same_clock_joint_velocity_rms": 4.627147397269583,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.6231366555313552,
+          "actual_input_standardized_rms": 0.8948126231637903
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.48940616814812393,
+          "actual_input_standardized_rms": 0.932104878921361
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.6128949090446641,
+          "actual_input_standardized_rms": 0.9113356955238948
+        }
+      ]
+    },
+    {
+      "control": 306,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 23,
+      "augmented_envelope_outside_coordinates": 22,
+      "augmented_max_standardized_excursion": 3.0549904605542504,
+      "actual_vs_query250_same_clock_feature_rms": 0.9189119973261195,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.6695166358949205,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.02793260278447692,
+      "actual_vs_saved_query250_base_rms_rad": 0.34915497155153896,
+      "actual_vs_saved_query250_head_rms_rad": 0.6584283314350248,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.7555038319877999,
+      "clipped_joints": [
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "max_target_clipping_rad": 0.6857418902429689,
+      "raw_minus_applied_action_max": 1.5635600090026855,
+      "actual_vs_same_clock_joint_velocity_rms": 3.8531498449902295,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.7227609060100542,
+          "actual_input_standardized_rms": 0.9132169508794928
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.5129465221573675,
+          "actual_input_standardized_rms": 0.8829071168870501
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.6695166358949205,
+          "actual_input_standardized_rms": 0.918912001038916
+        }
+      ]
+    },
+    {
+      "control": 307,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 36,
+      "augmented_envelope_outside_coordinates": 36,
+      "augmented_max_standardized_excursion": 2.4232539173475813,
+      "actual_vs_query250_same_clock_feature_rms": 1.0108276638069504,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.5974543664182909,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.06264619459029946,
+      "actual_vs_saved_query250_base_rms_rad": 0.4144454045347003,
+      "actual_vs_saved_query250_head_rms_rad": 0.5323465625412785,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.6469156254253013,
+      "clipped_joints": [
+        "left_ankle_roll_joint",
+        "right_ankle_roll_joint"
+      ],
+      "max_target_clipping_rad": 0.3928714700741139,
+      "raw_minus_applied_action_max": 0.8957862257957458,
+      "actual_vs_same_clock_joint_velocity_rms": 3.9024925464632685,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.6997459359516859,
+          "actual_input_standardized_rms": 0.999329823158781
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.6241315684392197,
+          "actual_input_standardized_rms": 0.9461835706437183
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.5974543664182909,
+          "actual_input_standardized_rms": 1.0108276607194717
+        }
+      ]
+    },
+    {
+      "control": 308,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 43,
+      "augmented_envelope_outside_coordinates": 40,
+      "augmented_max_standardized_excursion": 3.278234254148092,
+      "actual_vs_query250_same_clock_feature_rms": 1.0649772926259846,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.6139607053522547,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.10476987824291308,
+      "actual_vs_saved_query250_base_rms_rad": 0.4143325164988049,
+      "actual_vs_saved_query250_head_rms_rad": 0.49882028575751586,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.6015573113395403,
+      "clipped_joints": [
+        "right_ankle_pitch_joint"
+      ],
+      "max_target_clipping_rad": 0.2750730009012853,
+      "raw_minus_applied_action_max": 0.6271939277648926,
+      "actual_vs_same_clock_joint_velocity_rms": 4.0915171615017965,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.5285026306612359,
+          "actual_input_standardized_rms": 1.0894069345073376
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.511856148403322,
+          "actual_input_standardized_rms": 1.0488094213520633
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.6139607053522547,
+          "actual_input_standardized_rms": 1.064977292850171
+        }
+      ]
+    },
+    {
+      "control": 309,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 39,
+      "augmented_envelope_outside_coordinates": 39,
+      "augmented_max_standardized_excursion": 3.74286377813125,
+      "actual_vs_query250_same_clock_feature_rms": 0.980319407515303,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.6496163967701267,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.0599335282770327,
+      "actual_vs_saved_query250_base_rms_rad": 0.3086566934389641,
+      "actual_vs_saved_query250_head_rms_rad": 0.6036484459536712,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.6604115742568055,
+      "clipped_joints": [
+        "left_knee_joint"
+      ],
+      "max_target_clipping_rad": 0.6160280674824785,
+      "raw_minus_applied_action_max": 1.7567600011825562,
+      "actual_vs_same_clock_joint_velocity_rms": 2.998948076028204,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.6012229165121049,
+          "actual_input_standardized_rms": 0.955961308538623
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.5514041327637318,
+          "actual_input_standardized_rms": 0.9381593896042686
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.6496163967701267,
+          "actual_input_standardized_rms": 0.9803194117686294
+        }
+      ]
+    },
+    {
+      "control": 310,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 44,
+      "augmented_envelope_outside_coordinates": 44,
+      "augmented_max_standardized_excursion": 4.23890435339653,
+      "actual_vs_query250_same_clock_feature_rms": 1.063582439418157,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.5475961540422547,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.043225656368836414,
+      "actual_vs_saved_query250_base_rms_rad": 0.2299675179752519,
+      "actual_vs_saved_query250_head_rms_rad": 0.867592909279928,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.8822271617253864,
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "max_target_clipping_rad": 1.8360754930739933,
+      "raw_minus_applied_action_max": 4.186435699462891,
+      "actual_vs_same_clock_joint_velocity_rms": 3.5185169001778562,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.6792175440642364,
+          "actual_input_standardized_rms": 1.0736057090694004
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.4739315204345723,
+          "actual_input_standardized_rms": 1.036720061030535
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.5475961540422547,
+          "actual_input_standardized_rms": 1.0635824433942906
+        }
+      ]
+    },
+    {
+      "control": 311,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 45,
+      "augmented_envelope_outside_coordinates": 44,
+      "augmented_max_standardized_excursion": 4.337350593304433,
+      "actual_vs_query250_same_clock_feature_rms": 1.11512862368396,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.5160839692009832,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.025493214782290496,
+      "actual_vs_saved_query250_base_rms_rad": 0.29343327630082133,
+      "actual_vs_saved_query250_head_rms_rad": 0.5128799663035141,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.6475033014743143,
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "max_target_clipping_rad": 0.8220783403333148,
+      "raw_minus_applied_action_max": 1.8744208812713623,
+      "actual_vs_same_clock_joint_velocity_rms": 3.3075655099098054,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.6763215436190843,
+          "actual_input_standardized_rms": 1.122874543313355
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.5613380578590432,
+          "actual_input_standardized_rms": 1.0919482032838792
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.5160839692009832,
+          "actual_input_standardized_rms": 1.1151286198494121
+        }
+      ]
+    },
+    {
+      "control": 312,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 46,
+      "augmented_envelope_outside_coordinates": 43,
+      "augmented_max_standardized_excursion": 4.250613685688172,
+      "actual_vs_query250_same_clock_feature_rms": 1.091510919806235,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.5219490196977644,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.0416652071054669,
+      "actual_vs_saved_query250_base_rms_rad": 0.22477488006455718,
+      "actual_vs_saved_query250_head_rms_rad": 0.42276478967543407,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.5449537692319796,
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_knee_joint",
+        "right_hip_roll_joint"
+      ],
+      "max_target_clipping_rad": 0.279661408999491,
+      "raw_minus_applied_action_max": 0.7975254058837891,
+      "actual_vs_same_clock_joint_velocity_rms": 4.786055729229406,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.6339141134061543,
+          "actual_input_standardized_rms": 1.1131709054295769
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.5274472508848715,
+          "actual_input_standardized_rms": 1.0838681556720515
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.5219490196977644,
+          "actual_input_standardized_rms": 1.0915109223202069
+        }
+      ]
+    },
+    {
+      "control": 313,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 42,
+      "augmented_envelope_outside_coordinates": 39,
+      "augmented_max_standardized_excursion": 4.192953941331,
+      "actual_vs_query250_same_clock_feature_rms": 1.0148564685323094,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.5187973300571841,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.03921246140738062,
+      "actual_vs_saved_query250_base_rms_rad": 0.2520716146597884,
+      "actual_vs_saved_query250_head_rms_rad": 0.41585587559797244,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.5449293994248682,
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "right_knee_joint"
+      ],
+      "max_target_clipping_rad": 0.30456789301446296,
+      "raw_minus_applied_action_max": 0.8685524463653564,
+      "actual_vs_same_clock_joint_velocity_rms": 3.4168280863731675,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.4860317090614679,
+          "actual_input_standardized_rms": 1.0175241278846066
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.45299653063774975,
+          "actual_input_standardized_rms": 0.9973787617413443
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.5187973300571841,
+          "actual_input_standardized_rms": 1.0148564706494154
+        }
+      ]
+    },
+    {
+      "control": 314,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 38,
+      "augmented_envelope_outside_coordinates": 37,
+      "augmented_max_standardized_excursion": 4.237673517500259,
+      "actual_vs_query250_same_clock_feature_rms": 0.9974914862403816,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.9583968524231622,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.08217980259147804,
+      "actual_vs_saved_query250_base_rms_rad": 0.1970040999927065,
+      "actual_vs_saved_query250_head_rms_rad": 0.9905849557475966,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 1.0373525340911667,
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "right_hip_roll_joint"
+      ],
+      "max_target_clipping_rad": 1.0841389304334732,
+      "raw_minus_applied_action_max": 3.0916969776153564,
+      "actual_vs_same_clock_joint_velocity_rms": 3.4491137087052275,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.5164215330881707,
+          "actual_input_standardized_rms": 0.9621506331507764
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.8649773376282348,
+          "actual_input_standardized_rms": 0.9659884340038766
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.9583968524231622,
+          "actual_input_standardized_rms": 0.997491486178542
+        }
+      ]
+    },
+    {
+      "control": 315,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 40,
+      "augmented_envelope_outside_coordinates": 40,
+      "augmented_max_standardized_excursion": 4.539581171578449,
+      "actual_vs_query250_same_clock_feature_rms": 1.0953228936760318,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.7712605928576087,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.043429005294547865,
+      "actual_vs_saved_query250_base_rms_rad": 0.21695913794551092,
+      "actual_vs_saved_query250_head_rms_rad": 0.8459802001855284,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.9012766706551972,
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_knee_joint",
+        "left_ankle_roll_joint",
+        "right_hip_roll_joint"
+      ],
+      "max_target_clipping_rad": 0.9821237573929146,
+      "raw_minus_applied_action_max": 2.8007748126983643,
+      "actual_vs_same_clock_joint_velocity_rms": 2.721289356048858,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.6044596250988615,
+          "actual_input_standardized_rms": 0.9739494423956873
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.8859311112251874,
+          "actual_input_standardized_rms": 1.0522963368791856
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.7712605928576087,
+          "actual_input_standardized_rms": 1.0953228915622095
+        }
+      ]
+    },
+    {
+      "control": 316,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 43,
+      "augmented_envelope_outside_coordinates": 42,
+      "augmented_max_standardized_excursion": 4.4009187161785555,
+      "actual_vs_query250_same_clock_feature_rms": 1.109386601834558,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.5480773339714197,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.029369567223004586,
+      "actual_vs_saved_query250_base_rms_rad": 0.3478868675210318,
+      "actual_vs_saved_query250_head_rms_rad": 0.4864735509276946,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.5987778593713812,
+      "clipped_joints": [
+        "left_knee_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "max_target_clipping_rad": 0.5166177469736831,
+      "raw_minus_applied_action_max": 1.1779401302337646,
+      "actual_vs_same_clock_joint_velocity_rms": 3.7302266562611397,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.7414779066743932,
+          "actual_input_standardized_rms": 1.0712848245932416
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.5888299880260238,
+          "actual_input_standardized_rms": 1.128092824112042
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.5480773339714197,
+          "actual_input_standardized_rms": 1.1093866062181152
+        }
+      ]
+    },
+    {
+      "control": 317,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 48,
+      "augmented_envelope_outside_coordinates": 45,
+      "augmented_max_standardized_excursion": 4.460835092353298,
+      "actual_vs_query250_same_clock_feature_rms": 1.0709302602109387,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.7114287560971676,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.029992775003726612,
+      "actual_vs_saved_query250_base_rms_rad": 0.3393857141315126,
+      "actual_vs_saved_query250_head_rms_rad": 0.8836287127394926,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.8806828329173297,
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_hip_roll_joint"
+      ],
+      "max_target_clipping_rad": 1.425667200341182,
+      "raw_minus_applied_action_max": 4.065650939941406,
+      "actual_vs_same_clock_joint_velocity_rms": 3.039436021096691,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 1.1058564193530773,
+          "actual_input_standardized_rms": 1.097169572873856
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.6739195340837658,
+          "actual_input_standardized_rms": 1.0781381564574704
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.7114287560971676,
+          "actual_input_standardized_rms": 1.0709302584443536
+        }
+      ]
+    },
+    {
+      "control": 318,
+      "physics_substeps": 10,
+      "nominal_envelope_outside_coordinates": 51,
+      "augmented_envelope_outside_coordinates": 49,
+      "augmented_max_standardized_excursion": 4.264184308301421,
+      "actual_vs_query250_same_clock_feature_rms": 1.2272567122966767,
+      "actual_vs_query250_same_clock_target_rmse_rad": 1.0764815774510001,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.046523879890094336,
+      "actual_vs_saved_query250_base_rms_rad": 0.31215831492047963,
+      "actual_vs_saved_query250_head_rms_rad": 1.2291604759693688,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 1.1907853914622277,
+      "clipped_joints": [
+        "left_hip_roll_joint",
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_hip_roll_joint"
+      ],
+      "max_target_clipping_rad": 0.9832303126267345,
+      "raw_minus_applied_action_max": 2.8039302825927734,
+      "actual_vs_same_clock_joint_velocity_rms": 5.304085866367864,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 1.0006526144165122,
+          "actual_input_standardized_rms": 1.343162054862542
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.9643639446361707,
+          "actual_input_standardized_rms": 1.2124443262982956
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 1.0764815774510001,
+          "actual_input_standardized_rms": 1.2272567208624803
+        }
+      ]
+    },
+    {
+      "control": 319,
+      "physics_substeps": 3,
+      "nominal_envelope_outside_coordinates": 66,
+      "augmented_envelope_outside_coordinates": 66,
+      "augmented_max_standardized_excursion": 4.975978955984429,
+      "actual_vs_query250_same_clock_feature_rms": 1.430394498341823,
+      "actual_vs_query250_same_clock_target_rmse_rad": 0.7972033847370384,
+      "saved_fit_at_query250_expert_input_rmse_rad": 0.061515271634486224,
+      "actual_vs_saved_query250_base_rms_rad": 0.49073079838813194,
+      "actual_vs_saved_query250_head_rms_rad": 0.7113065898096003,
+      "actual_vs_saved_query250_unclipped_proposal_rms_rad": 0.8569955682586303,
+      "clipped_joints": [
+        "left_knee_joint",
+        "left_ankle_roll_joint",
+        "right_ankle_roll_joint"
+      ],
+      "max_target_clipping_rad": 1.1873602327620192,
+      "raw_minus_applied_action_max": 3.3860583305358887,
+      "actual_vs_same_clock_joint_velocity_rms": 5.293558696176634,
+      "same_clock_teacher_targets": [
+        {
+          "dataset": 0,
+          "actual_target_error_rms_rad": 0.5898438278533696,
+          "actual_input_standardized_rms": 1.4056311857539414
+        },
+        {
+          "dataset": 1,
+          "actual_target_error_rms_rad": 0.7173247662458795,
+          "actual_input_standardized_rms": 1.4044354798117529
+        },
+        {
+          "dataset": 2,
+          "actual_target_error_rms_rad": 0.7972033847370384,
+          "actual_input_standardized_rms": 1.4303944966872493
+        }
+      ]
+    }
+  ],
+  "training_envelope": "All3057 nominal centers,140622 velocity probes and3054 valid physical endpoint features; coordinate ranges are descriptive, not a feasibility or stability gate.",
+  "comparison_limitation": "Same-clock targets and saved Windows Torch head predictions belong to distinct expert trajectories after control250; comparisons are descriptive. The WSL first activation has its own exact witness. No expert counterfactual evaluated by this audit.",
+  "physics_qualification": "Root independent replay and intent audits own physical qualification; this audit performs no dynamics.",
+  "runtime": {
+    "python": "3.11.15 (main, Mar 24 2026, 22:50:29) [Clang 22.1.1 ]",
+    "numpy": "1.26.4",
+    "scipy": "1.15.3"
+  },
+  "arrays_sha256": "5d16d984dca9054c69290976632c230836ed6419b8eaa0f8171dd2bc488de85c",
+  "all_frozen_inputs_unchanged": true,
+  "inference_calls": 0,
+  "BFM_calls": 0,
+  "physics_steps": 0,
+  "optimizer_updates": 0,
+  "new_queries": 0
+}

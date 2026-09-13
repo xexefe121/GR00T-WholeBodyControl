@@ -1,0 +1,169 @@
+{
+  "kind": "bounded_actual3770_two_tail_completion_witnesses",
+  "cases": [
+    {
+      "mode": "hold_last_accepted_target",
+      "initial_control": 3770,
+      "horizon": 30,
+      "full_horizon_physical_pass": false,
+      "physics_steps": 270,
+      "full_controls": 27,
+      "partial_substeps": 0,
+      "failure": {
+        "kind": "physical_feasibility",
+        "control": 26,
+        "substep": 10,
+        "range_excess": 0.005870539461468538,
+        "speed_ratio": 0.1126557134061102,
+        "effort_ratio": 0.6669362040112391,
+        "height": 0.2891277569364254,
+        "tilt": 0.3072590296169567,
+        "joints": [
+          {
+            "name": "right_ankle_pitch_joint",
+            "q": -0.8785405394614685,
+            "lower": -0.87267,
+            "upper": 0.5236,
+            "target": -0.26884102955240397
+          }
+        ]
+      },
+      "same_v4_allmargin_relativefoot_objective_cost": null,
+      "range_excess_max": 0.005870539461468538,
+      "speed_ratio_max": 0.5100271693147238,
+      "effort_ratio_max": 1.0,
+      "warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "warning_lastinfo": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "clock_max_error": 1.2647660696529783e-12,
+      "trace_sha256": "2c88d844b0d8ffaf3cb86ceff4ded01b319631dadcde90dee2149f572bcab74d",
+      "unchanged_prefix25_completed": true
+    },
+    {
+      "mode": "bfm_original_goal_tail",
+      "initial_control": 3770,
+      "horizon": 30,
+      "full_horizon_physical_pass": false,
+      "physics_steps": 258,
+      "full_controls": 25,
+      "partial_substeps": 8,
+      "failure": {
+        "kind": "physical_feasibility",
+        "control": 25,
+        "substep": 8,
+        "range_excess": 0.02231054929215437,
+        "speed_ratio": 0.3962461378182062,
+        "effort_ratio": 0.843774268340959,
+        "height": 0.31651101903028955,
+        "tilt": 0.29187981850383476,
+        "joints": [
+          {
+            "name": "right_ankle_pitch_joint",
+            "q": -0.8949805492921543,
+            "lower": -0.87267,
+            "upper": 0.5236,
+            "target": -0.682316676119295
+          }
+        ]
+      },
+      "same_v4_allmargin_relativefoot_objective_cost": null,
+      "range_excess_max": 0.02231054929215437,
+      "speed_ratio_max": 0.5100271693147238,
+      "effort_ratio_max": 1.0,
+      "warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "warning_lastinfo": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "clock_max_error": 1.2079226507921703e-12,
+      "trace_sha256": "bc40133a15deb52e42089c5b2596bba8e932edb789e0916176613db1c899810c",
+      "unchanged_prefix25_completed": true
+    }
+  ],
+  "initial_control": 3770,
+  "preserved_shifted_prefix_controls": 25,
+  "replaced_direct_reference_tail_controls": 5,
+  "prefix_action_history": "preceding applied target normalization, no clipping to \u00b15; exact final actual3770 history restored",
+  "bfm_tail_action_history": "starts from normalized prefix action/history then rawactor*5 for its own5predictedcontrols",
+  "original_goal_clock": "global control+11, horizon8 position1/yaw2, original source untouched",
+  "physics_initialization": "fullactualfinal_integration, setState-forward-setState beforefirststep; no subsequentphysicalstatewrites",
+  "cumulative_actual_action_max_abs": 9.617831230163574,
+  "cumulative_actual_action_components_outside_five": 666,
+  "no_optimizer": true,
+  "no_full_source_or_recovery_qualification": true,
+  "elapsed_seconds": 7.091413993000003,
+  "seed_identity": {
+    "kind": "offline_native23_measured_history_BFM_rollout_seed",
+    "weights_sha256": "28a2d82a2975c37b8a1533f2e3b0224d27f8a0813283640ee7eeee348fe42c2e",
+    "graph_sha256": {
+      "actor": "7d9dc682dc38c6972c5023bb6bd069c8d9d28a99fa33a871906befaf9a1cc64e",
+      "backward": "2fe7cf1a0f76c101703fd53a855f2281763d47fef45c0f1455789bb04c21c3b7"
+    },
+    "graph_manifest_sha256": "a5650963f41838a6bf77bcfd12fcfa24ae939e6ee5f50d4b877527527d1e3878",
+    "original_goal_arrays_sha256": "b0cf94d3fe789fbf3a2d4f0ef9a5e7f4e66055bb2dd67bd5323889cddcbbce5d",
+    "contract_arrays_sha256": "03e879161cc82756b0346f1a9d18d36d16855ec2667a78abe2126b3edb2da4cd",
+    "native_model_parameters_sha256": "829064c5207223a22b18aede96cd1ef8f0549311cd2d62c9e071118cc52e8ade",
+    "runtime_version": "1.23.2",
+    "runtime_binary_sha256": {
+      "/mnt/e/codex_sonic_runtime/bfm_seed_20260910/onnx_deps/onnxruntime/capi/onnxruntime_pybind11_state.cpython-311-x86_64-linux-gnu.so": "f22a6994fbadefe3888cd3a5300a63021884372dafecaea9875987dce697c8c1"
+    },
+    "mujoco": "3.2.3",
+    "numpy": "1.26.4",
+    "threads": 1,
+    "module_sha256": "2f3d808b6a95fd80a3c1f9a0fabbe80264cf9cc93fbf01e2b2be65f6a5ec75de",
+    "observation_module_sha256": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d",
+    "original_goal_horizon": 8,
+    "position_gain": 1.0,
+    "yaw_gain": 2.0,
+    "conservative_original_derivative_future_pose_frames": 1,
+    "historical_action": "normalized actually applied MPC target, no clipping of action history",
+    "local_future_action": "BFM raw actor*5 before native target clipping",
+    "terminal_goal": "hold last known original goal beyond archive, available-window latent average",
+    "real_history_updated_only_by_record_control": true,
+    "private_physics_hz": 500,
+    "private_rollout_warning_or_clock_reset": "typed rejection; caller retains other seed candidates",
+    "root_assistance": false,
+    "robot_or_DDS_interface": false,
+    "deployment_qualified": false
+  },
+  "hashes": {
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/tail_completion_3770_v1/probe_tail_completion.py": "82dff9c92096f954479d3795210d3ee40255b6868b235d9fb6c29f16a30cd0b6",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/hard_feasibility_continuation_3740_v1/trace.npz": "dede4a53b51393d7fde3889070af13c615463aab7f32c62ef28437f07c6b87df",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/hard_feasibility_continuation_3740_v1/report.json": "cf25b72bfef5a6563e299387fbe1b3467cacba6870253b12a58435af008d3878",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/hard_feasibility_continuation_3740_v1/request.json": "50fbf555fc64ae1fa0b2d9be7178b544f50e7e2e826e0138fe538cbdd51502b9",
+    "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_floor_inputs_v1/pico/reference.npz": "a1b3bd672551acc800e8b28d4d3d2b68c044f7a80ab3b8fb798d46c9dda70c24",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/contract.json": "d1641ce4f2e9016f5008e5d4be3cc24ded46d7f9daf9cfddaab84095f98eb99b"
+  }
+}

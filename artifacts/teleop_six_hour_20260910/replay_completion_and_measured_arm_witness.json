@@ -1,0 +1,187 @@
+{
+  "completion": {
+    "runner": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\gear_sonic\\scripts\\evaluate_g1_true23_mjbatch_plan_replay.py",
+    "runner_sha256": "4eda20bd17bc5aaf2abc651b7abd95fc4e942ce083cd51b26ad68c6ed294542b",
+    "expressions": {
+      "completed_full_controls": "int(full_slots.sum())",
+      "plan_replayed": "count == len(plan['target']) and failure is None",
+      "full_source_completed": "count >= phase['control_stop'] and bool(np.all(full_slots[:phase['control_stop']])) and (failure is None)",
+      "full_lifecycle_completed": "count == len(motion['joint_pos']) - 11 and bool(np.all(full_slots)) and (failure is None)"
+    },
+    "cases": [
+      {
+        "name": "terminal_source_slot_partial_without_new_failure",
+        "physics_substeps": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          7
+        ],
+        "failure": null,
+        "result": {
+          "completed_full_controls": 9,
+          "plan_replayed": true,
+          "full_source_completed": false,
+          "full_lifecycle_completed": false
+        },
+        "source_control_stop": 10,
+        "lifecycle_count": 10
+      },
+      {
+        "name": "same_source_and_lifecycle_all_slots_full",
+        "physics_substeps": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "failure": null,
+        "result": {
+          "completed_full_controls": 10,
+          "plan_replayed": true,
+          "full_source_completed": true,
+          "full_lifecycle_completed": true
+        },
+        "source_control_stop": 10,
+        "lifecycle_count": 10
+      },
+      {
+        "name": "full_source_then_partial_final_recovery",
+        "physics_substeps": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          7
+        ],
+        "failure": null,
+        "result": {
+          "completed_full_controls": 9,
+          "plan_replayed": true,
+          "full_source_completed": true,
+          "full_lifecycle_completed": false
+        },
+        "source_control_stop": 8,
+        "lifecycle_count": 10
+      },
+      {
+        "name": "full_slots_but_new_physical_failure",
+        "physics_substeps": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "failure": {
+          "kind": "physical_limit"
+        },
+        "result": {
+          "completed_full_controls": 10,
+          "plan_replayed": false,
+          "full_source_completed": false,
+          "full_lifecycle_completed": false
+        },
+        "source_control_stop": 10,
+        "lifecycle_count": 10
+      },
+      {
+        "name": "prefix_short_of_source",
+        "physics_substeps": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "failure": null,
+        "result": {
+          "completed_full_controls": 7,
+          "plan_replayed": true,
+          "full_source_completed": false,
+          "full_lifecycle_completed": false
+        },
+        "source_control_stop": 10,
+        "lifecycle_count": 10
+      }
+    ],
+    "all_passed": true,
+    "interpretation": "Replaying all available plan slots can be true for a partial plan; full-source and full-lifecycle flags must remain false at their partial terminal slot."
+  },
+  "measured_arm": {
+    "solver_path": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\gear_sonic\\utils\\g1_true23_intent_arm_ik.py",
+    "solver_sha256": "bc115c36b52d545ba890f90dc3f0d5d325ef235fd4f244bc5e1fcf087a7d48b5",
+    "model_path": "Z:\\codex\\GR00T-WholeBodyControl\\gear_sonic\\data\\robots\\g1\\g1_23dof_rev_1_0.xml",
+    "model_sha256": "16e304c970bfc68783ea69d01d05192e6bd9d83d62f6ee4aac0ac72ff18db612",
+    "original_path": "C:\\Users\\camer\\sonic23_sim_artifacts\\internet_pico_20260909_v1\\walk002\\original_source_bundle_v1\\original_reference.npz",
+    "original_sha256": "0e6ac0dcea5c3f2335bf281aa75de91cfecb41dff0b8d31fce69a87d258380e5",
+    "source_run": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\bfm_measured_arm_ik_ff_v1\\walk002",
+    "trace_sha256": "9037f591af51ecf4c1345cefa21ae6abeeb86603115ef046b9f89da20fe1e888",
+    "report_sha256": "28c72f884730bdf0d405f9ecb90adc2cfd490d2d62ee84289662381c1aa90891",
+    "translation_tests": [
+      {
+        "translation_m": [
+          0.11415410750951357,
+          0.11134955181756144,
+          -0.7753946560533154
+        ],
+        "arm_joint_max_abs_difference_rad": 2.042810365310288e-14,
+        "ik_error_max_abs_difference_m": 2.706168622523819e-16
+      },
+      {
+        "translation_m": [
+          4.0,
+          -3.0,
+          2.0
+        ],
+        "arm_joint_max_abs_difference_rad": 2.5091040356528538e-14,
+        "ik_error_max_abs_difference_m": 4.371503159461554e-16
+      },
+      {
+        "translation_m": [
+          -10.0,
+          5.0,
+          -0.8
+        ],
+        "arm_joint_max_abs_difference_rad": 1.1790568521519162e-13,
+        "ik_error_max_abs_difference_m": 1.0473392986209973e-15
+      }
+    ],
+    "tested_source_frame": 431,
+    "pose_only": true,
+    "physical_tracking_qualified": false,
+    "translation_interpretation": "Absolute translation cancels between measured-body FK and original-root-relative hand goals. Set estimator root position to zero for this IK component; root orientation and joint angles are still required. Outer BFM position feedback is a separate GT/odometry dependency.",
+    "feedforward": 1.0,
+    "adjacent_ik_pose_step_max_rad": 0.11999999990272658,
+    "adjacent_final_pd_target_step_max_rad": 0.410697617648907,
+    "final_pd_target_steps_over_point12_count": 119,
+    "final_pd_target_native_bound_distance_min_rad": 0.0,
+    "bound_interpretation": "The .12 rad bound and optional margin apply to solved IK position. Velocity feedforward is added afterward; final PD targets are clipped only to native joint range. No physical velocity bound is inferred from target steps."
+  },
+  "hardware_authorized": false,
+  "source_files_modified": false
+}

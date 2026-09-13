@@ -1,0 +1,1 @@
+Prepared source draft only. No collector inference, physics or fit has run. Runtime refuses to proceed until collector_frozen_inputs.json and an exact root qualification receipt exist. Final source/input freeze follows completed branch qualification; trainer freeze waits collected labels and compatibility.

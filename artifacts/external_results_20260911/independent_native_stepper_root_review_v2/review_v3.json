@@ -1,0 +1,44 @@
+{
+  "source_review_passed": true,
+  "native_equivalence_cleared": false,
+  "source_directory": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_v1\\source_draft_v3",
+  "source_and_evidence_pins": {
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_v1\\source_draft_v3\\bfm_observations.py": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_v1\\source_draft_v3\\capture_schema.py": "dff89834dff1f897f73041e5cd285e1f9179bcc2482170975987818c25a6f4ae",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_v1\\source_draft_v3\\clock_core.py": "9bc6f725c469ded387b15d1e829ba0c16ed6692baab8b7d00dbe66fb3e3a2432",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_v1\\source_draft_v3\\history.py": "cc89415bed7e235a9cd1acdec8311ba51f0811605ed22d43709fd9f5879fde8f",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_v1\\source_draft_v3\\mailbox.py": "01f68ee330e68dd229199d214316a35dee33d474f66afb6fbfe5d4378def7d28",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_v1\\source_draft_v3\\model_identity.py": "e85e5c5eaeb4a8c76c8ef5cfa01c48bc33b6df15884ed21dc6d41d2ede6a87f4",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_v1\\source_draft_v3\\native_stepper.py": "126b5585deecabe70a6453ba4040707d40bea138100383131a7482cf0c7a580f",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_v1\\source_draft_v3\\oracle_source.py": "0027210cda5a44255debecd7151ecd454e2281a5ff4e3137641d102701fb1330",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_v1\\source_draft_v3\\test_closed_restore.py": "4c44b88611c7a4ee8472f1e3252e4848f775b5bb8dc6e1b1ddfda4eb881322e5",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_v1\\source_draft_v3\\test_native_stub.py": "7080357c08ffac922aa8f9749da8a7130fd5369c217885534439e361eae11838",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_v1\\source_draft_v3\\tests_root_v3.xml": "82fd0b6f811092d5e65edfdfa1d165d7314ad4cb954fd2fdc3711beab0bbe60f",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_v1\\source_preparation_v2.json": "028299559d13e806f96b209563906dc4c3db933e80fc2c2562bad1c047273a8c",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_v1\\V2_DESIGN.md": "8b3dbc1c07e5ee10308004a711fe55cecded586db0d36cac6fe1c55c8ad9efc9",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_root_review_v2\\v3_source_derivation.json": "2c3104180ff4b2fe8356b231dc7c7274ff0bfddbb88c5608165cf900ef39b9cb",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_root_review_v2\\closed_restore_v2.json": "d37230f6583aecffe6b44c7a1e85b0a183900a219af54083913624513d35b87c"
+  },
+  "v2_findings_resolved": [
+    "full expected MJB replaces partial physics whitelist",
+    "failure capture retains full291/actual forces fieldwise without another step"
+  ],
+  "additional_root_finding": {
+    "description": "closed uninitialized adapter permitted set/forward/set after exit verification",
+    "evidence_sha256": "d37230f6583aecffe6b44c7a1e85b0a183900a219af54083913624513d35b87c",
+    "corrected_in": "source_draft_v3/native_stepper.py",
+    "change": "reject closed or faulted adapter before restore_attempted or any native state write"
+  },
+  "tests_passed": 24,
+  "real_model_constructions": 0,
+  "real_native_serializations": 0,
+  "real_native_steps": 0,
+  "model_inference_calls": 0,
+  "limitations": [
+    "source and fake API verification only; actual full MJB serialization and oracle step equality still need selected native experiment",
+    "MJB excludes transient reverted mutations, direct native callback/collision table writes and loaded implementation identity",
+    "MJB is platform/version/padding specific and stricter for visual/stat changes",
+    "foundation exact repeated clock comparison is stricter than original oracle 1e-10 tolerance",
+    "no independent real process timing or balancing/rearm qualification"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "kind": "independent_saved_one_step_label_audit_draft_review",
+  "source_review_pass": false,
+  "decision": "CORRECTIONS_REQUIRED_BEFORE_FINAL_AUDIT_FREEZE",
+  "utc": "2026-09-11T09:28:49.442060+00:00",
+  "hashes": {
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_resume_20260911\\audit_one_step_labels.py": "7378699b75a53175e77d4a8e983d9decc8c23dd88d8b2cd47261589d4a51bf20",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_resume_20260911\\audit_one_step_physics.py": "c6445eab6bb31562dde20e78c57b5fe9dc6246bee4b1b6d7712949ee6f84c01e",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_resume_20260911\\branch_label_audit.py": "f99e2ca2b90fa6f71163cc7754441198e2c52f2dc0bb9cea9dd09311463e0ace",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_policy_branch_collection_v1\\draft\\collection_arrays.py": "2bcb3126c2cad313bed963f562358a54cfc3a6fa1efaed6b9195eb15526acb4b"
+  },
+  "arithmetic_findings": [],
+  "schema_arithmetic_checked": [
+    "Incoming center and source-frame indices",
+    "Outgoing raw/native target and both raw/applied-normalized actions",
+    "Alphabetical flat and named history advance exactly once",
+    "Saved successor plan mapping and full signed58 tangent feedback with both clips",
+    "Endpoint state52 and1069 features using actual q/dq and unclipped base"
+  ],
+  "findings": [
+    {
+      "id": "physics_collection_binding",
+      "finding": "Require physics report request SHA and request collection-report/array pins to bind this exact collection; a passed report with matching counts alone is insufficient."
+    },
+    {
+      "id": "all_row_successor_flags",
+      "finding": "Check successor_replan_boundary and successor_zero_gain for all3054 rows, including strict-failed policy branches."
+    },
+    {
+      "id": "status_and_failed_output_contract",
+      "finding": "Require nominal complete status, valid policy complete status and returned/attempted/valid count agreement; require all failed-row endpoint proposal and teacher feedback/preclip float arrays to retain NaN, not only the current selected list."
+    }
+  ],
+  "not_tested": [
+    "No helper execution, BFM/head calls, optimization or native dynamics",
+    "No final producer manifest exists yet; final schema/receipt review remains pending"
+  ],
+  "reviewer_graph_calls": 0,
+  "reviewer_native_steps": 0,
+  "reviewer_optimizer_updates": 0
+}

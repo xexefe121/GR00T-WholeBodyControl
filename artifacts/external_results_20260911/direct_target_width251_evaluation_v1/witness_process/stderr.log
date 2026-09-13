@@ -1,0 +1,19 @@
+wsl: Failed to translate 'E:\windsurf\Windsurf\bin'
+Traceback (most recent call last):
+  File "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width251_evaluation_v1/source_draft_v1/head_activation_witness.py", line 73, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width251_evaluation_v1/source_draft_v1/head_activation_witness.py", line 20, in main
+    ready=require_model_ready(BASE,'witness');b=ready['binding'];binding_sha=ready['binding_sha256']
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width251_evaluation_v1/source_draft_v1/evaluation_gate.py", line 71, in require_model_ready
+    fit=validate_release(binding,paths,source,purpose,read=read,sha=sha,bound_file=bound_file,field=field,has_hash=has_hash)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width251_evaluation_v1/source_draft_v1/context_release.py", line 59, in validate_release
+    training_request_identity(request)
+  File "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width251_evaluation_v1/source_draft_v1/context_release.py", line 45, in training_request_identity
+    recovery_request_identity(request)
+  File "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width251_evaluation_v1/source_draft_v1/recovery_release.py", line 41, in recovery_request_identity
+    assert actual == selected_rates(), 'Different selected rate schedule'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Different selected rate schedule

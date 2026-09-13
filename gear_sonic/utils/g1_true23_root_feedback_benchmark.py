@@ -144,21 +144,31 @@ class RootFeedbackRuntimeAdapter:
         }
 
 
-def load_root_feedback_pair(manifest_path, *, session_options=None):
+def load_root_feedback_pair(manifest_path, *, session_options=None, expected_release_compatibility=None):
     """Require the new two-input decoder ABI; never relabel an old 994-only pair."""
     import onnxruntime as ort
 
-    from gear_sonic.envs.mjlab.sonic_true23_causal_history import causal_history_profile_contract
+    from gear_sonic.utils.g1_true23_buffered_reference import reference_profile_contract
     from gear_sonic.utils.g1_true23_root_feedback import root_feedback_contract
 
     manifest_path = Path(manifest_path).resolve(strict=True)
     manifest = json.loads(manifest_path.read_text())
+    compatibility = manifest.get("release_compatibility")
+    timing = (compatibility or {}).get("reference_timing", "causal_history")
+    if compatibility != expected_release_compatibility:
+        raise ValueError("root pair release compatibility differs from executing runtime")
+    if compatibility is not None:
+        from gear_sonic.utils.g1_true23_release_compatibility import validate_release_compatibility
+
+        validate_release_compatibility(compatibility)
+        if manifest.get("actor_contract", {}).get("release_compatibility") != compatibility:
+            raise ValueError("root actor and runtime release compatibility differ")
     if (
         manifest.get("schema_version") != 2
         or manifest.get("kind") != "g1_native23_root_feedback_diagnostic_pair"
         or manifest.get("diagnostic_only") is not True
-        or manifest.get("semantic_profile") != causal_history_profile_contract()
-        or manifest.get("root_feedback_contract") != root_feedback_contract()
+        or manifest.get("semantic_profile") != reference_profile_contract(timing)
+        or manifest.get("root_feedback_contract") != root_feedback_contract(timing)
         or any(
             manifest.get(flag) is not False
             for flag in (
@@ -206,6 +216,11 @@ def load_root_feedback_pair(manifest_path, *, session_options=None):
             str(paths[key]), sess_options=session_options, providers=["CPUExecutionProvider"]
         )
         expected = {
+            **(
+                {"release_compatibility_sha256": compatibility["contract_sha256"]}
+                if compatibility is not None
+                else {}
+            ),
             "source_checkpoint_sha256": source["checkpoint_sha256"],
             "actor_state_sha256": source["actor_state_sha256"],
             "root_feedback_contract_sha256": manifest["root_feedback_contract"]["contract_sha256"],
@@ -252,6 +267,7 @@ def load_root_feedback_pair(manifest_path, *, session_options=None):
         decoder_sha256=manifest["decoder"]["sha256"],
         component_paths={key: str(path) for key, path in paths.items()},
         root_feedback_contract=manifest["root_feedback_contract"],
+        release_compatibility=compatibility,
         diagnostic_only=True,
     )
 

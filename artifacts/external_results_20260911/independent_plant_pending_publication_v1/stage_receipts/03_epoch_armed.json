@@ -1,0 +1,60 @@
+{
+  "stage": "epoch_armed",
+  "record_created_ns": 124356904433,
+  "request_sha256": "2b538b03eb25de6d4c2ea3165561371af2415089957f4b9dd0bf9020a893118c",
+  "pid": 389,
+  "epoch_chosen_ns": 124356436199,
+  "epoch_ns": 124556436199,
+  "allocation_finished_ns": 124356889583,
+  "watchdog": {
+    "phase": "plant",
+    "deadline_ns": 244556436199,
+    "transitions": [
+      {
+        "stage": "setup",
+        "entered_ns": 6550171800,
+        "deadline_ns": 246550171800
+      },
+      {
+        "stage": "plant",
+        "entered_ns": 124356438949,
+        "deadline_ns": 244556436199
+      }
+    ],
+    "timeouts": [],
+    "budgets": {
+      "setup_ns": 240000000000,
+      "plant_ns": 120000000000,
+      "preservation_ns": 180000000000,
+      "outer_timeout_seconds": 555,
+      "outer_kill_grace_seconds": 5
+    },
+    "native_signal_delivery_may_be_delayed": true
+  },
+  "counters": {
+    "foundation": {
+      "attempted": 0,
+      "returned": 0,
+      "captured": 0,
+      "verified": 0
+    },
+    "adapter": {
+      "attempted": 0,
+      "returned": 0,
+      "capture_attempts": 0,
+      "captured": 0,
+      "verification_attempts": 0,
+      "verified": 0,
+      "stage": "READY"
+    },
+    "api": {
+      "step_attempted": 0,
+      "step_returned": 0,
+      "serialization_attempted": 2,
+      "serialization_returned": 2
+    },
+    "native_return_may_be_uncertain": false,
+    "extra_capture_or_native_read": false
+  },
+  "worker_pid": 465
+}

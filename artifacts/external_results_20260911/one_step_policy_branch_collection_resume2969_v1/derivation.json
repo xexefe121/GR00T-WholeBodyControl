@@ -1,0 +1,92 @@
+{
+  "original_source_directory": "E:/codex-artifacts/sonic23_teleop_resume_20260911/one_step_policy_branch_collection_v1/source_snapshot_v1",
+  "substitutions": [
+    {
+      "file": "collection_arrays.py",
+      "old": "import hashlib,json,os",
+      "new": "import hashlib,json,os,time,shutil"
+    },
+    {
+      "file": "collection_arrays.py",
+      "old": "def atomic(path,value):",
+      "new": "def replace_with_sharing_retry(temp,path):\n    # Filesystem metadata retry only: same fully written file, no graph/native call.\n    for attempt in range(41):\n        try:temp.replace(path);return\n        except PermissionError:\n            if attempt==40:raise\n            time.sleep(.05)\n\ndef atomic(path,value):"
+    },
+    {
+      "file": "collection_arrays.py",
+      "old": "    tmp.replace(path)",
+      "new": "    replace_with_sharing_retry(tmp,path)"
+    },
+    {
+      "file": "collection_arrays.py",
+      "old": "    def __init__(self,folder):",
+      "new": "    def __init__(self,folder,resume_directory=None):"
+    },
+    {
+      "file": "collection_arrays.py",
+      "old": "        for key,spec in self.definition.items():\n            a=np.lib.format.open_memmap(self.folder/spec['path'],mode='w+',dtype=spec['dtype'],shape=tuple(spec['shape']))\n            a.fill(np.nan if a.dtype.kind=='f' else 0);self.arrays[key]=a",
+      "new": "        if resume_directory is not None:\n            prior=Path(resume_directory);manifest=json.loads((prior/'manifest.json').read_text())\n            assert manifest['complete'] is False\n            for key,spec in self.definition.items():\n                previous=manifest['arrays'][key]\n                assert all(previous[k]==spec[k] for k in ('path','shape','dtype'))\n                assert sha(prior/spec['path'])==previous['sha256']\n                shutil.copyfile(prior/spec['path'],self.folder/spec['path'])\n                assert sha(self.folder/spec['path'])==previous['sha256']\n                self.arrays[key]=np.lib.format.open_memmap(self.folder/spec['path'],mode='r+')\n            shutil.copyfile(prior/'schema.json',self.folder/'schema.json')\n            return\n        for key,spec in self.definition.items():\n            a=np.lib.format.open_memmap(self.folder/spec['path'],mode='w+',dtype=spec['dtype'],shape=tuple(spec['shape']))\n            a.fill(np.nan if a.dtype.kind=='f' else 0);self.arrays[key]=a"
+    },
+    {
+      "file": "collect_branches.py",
+      "old": "from collection_arrays import Store,ROWS,HISTORY_WIDTHS,sha,atomic",
+      "new": "from collection_arrays import Store,ROWS,HISTORY_WIDTHS,sha,atomic,replace_with_sharing_retry\nfrom resume_prefix import restore_prefix,PREFIX_ROWS,PREFIX_STEPS"
+    },
+    {
+      "file": "collect_branches.py",
+      "old": "    temp.replace(DEST/'active.npz')",
+      "new": "    replace_with_sharing_retry(temp,DEST/'active.npz')"
+    },
+    {
+      "file": "collect_branches.py",
+      "old": "        STORE=Store(DEST/'data')\n        for row,(dataset,control,index) in enumerate(inputs.rows):\n            successor=index+1\n            values=dict(dataset=dataset,start_control=control,successor_control=control+1,source_frame=control+11,successor_frame=control+12,\n                center_index=index,successor_center_index=successor,successor_plan_control=centers['plan_control'][successor],\n                successor_plan_local=centers['plan_local'][successor],successor_plan_accepted_update=centers['plan_accepted_update'][successor],\n                successor_replan_boundary=centers['plan_control'][successor]!=centers['plan_control'][index],successor_zero_gain=not np.any(centers['gain'][successor]),\n                incoming_raw_prior=centers['previous_action'][index],nominal_base_action=centers['base_action'][index],nominal_base_target=centers['base_target'][index],\n                nominal_target=centers['expert_target'][index],nominal_features=centers['features'][index],nominal_state=centers['state'][index],incoming_history=centers['history'][index])\n            for key in HISTORY_WIDTHS:values['incoming_history_'+key]=centers['history_'+key][index]\n            named,advanced=advance_history(centers,index);values['advanced_history']=advanced\n            for key in HISTORY_WIDTHS:values['advanced_history_'+key]=named[key]\n            STORE.row(row,**values)\n        STORE.flush()\n",
+      "new": "        STORE=Store(DEST/'data',resume_directory=paths['prefix_data'])\n        restoration=restore_prefix(STORE,inputs,paths,DEST)\n        PROGRESS['nominal_verified']=PREFIX_ROWS\n        PROGRESS['native_attempted']=PROGRESS['native_returned']=PREFIX_STEPS\n        progress()\n"
+    },
+    {
+      "file": "collect_branches.py",
+      "old": "        ENGINE=CapturedForecast(model,contract)",
+      "new": "        ENGINE=CapturedForecast(model,contract)\n        ENGINE.total_attempted=ENGINE.total_returned=PREFIX_STEPS"
+    },
+    {
+      "file": "collect_branches.py",
+      "old": "        for row,(dataset,control,index) in enumerate(inputs.rows):\n            PROGRESS['active_row']=row;ACTIVE.clear();",
+      "new": "        for row,(dataset,control,index) in enumerate(inputs.rows):\n            if row<PREFIX_ROWS:continue\n            PROGRESS['active_row']=row;ACTIVE.clear();"
+    },
+    {
+      "file": "collect_branches.py",
+      "old": "    assert request['graph_call_ceiling']==BUDGET and request['native_step_ceiling']==61080 and request['rows']==ROWS",
+      "new": "    assert request['graph_call_ceiling']==BUDGET and request['native_step_ceiling']==61080 and request['rows']==ROWS\n    assert request['prefix_nominal_rows']==PREFIX_ROWS and request['prefix_native_steps']==PREFIX_STEPS"
+    },
+    {
+      "file": "collect_branches.py",
+      "old": "            graph_calls=COUNTS,native_attempted=ENGINE.total_attempted,native_returned=ENGINE.total_returned,",
+      "new": "            graph_calls=COUNTS,native_attempted=ENGINE.total_attempted,native_returned=ENGINE.total_returned,\n            continuation_attempt=2,prefix_native_steps=PREFIX_STEPS,current_attempt_native_steps=ENGINE.total_returned-PREFIX_STEPS,restoration=restoration,"
+    },
+    {
+      "file": "collect_branches.py",
+      "old": "            query250_actual251_calibration_passed=True,all_frozen_inputs_unchanged=True,request_sha256=request_sha,clearance_sha256=args.clearance_sha256,",
+      "new": "            query250_actual251_calibration_passed=True,all_frozen_inputs_unchanged=True,request_sha256=request_sha,clearance_sha256=args.clearance_sha256,\n            continuation_attempt=2,prefix_nominal_rows=PREFIX_ROWS,prefix_native_steps=PREFIX_STEPS,current_attempt_native_steps=ENGINE.total_returned-PREFIX_STEPS,restoration=restoration,"
+    }
+  ],
+  "source_sha256": {
+    "branch_inputs.py": "c1c75e99e2877d3db229396109c76769bbb2fcd767ea1a4e45d7f5cf0c3f3731",
+    "collection_arrays.py": "587bc4c5af9ee2edc142936200530dd0db2868a57b5af2ca107c69f7b04b973c",
+    "collect_branches.py": "827049e3d52a282696b095c13a7b5b50f237827df32c31319941e8295812a05e",
+    "native_capture.py": "0cfc1b9d8625c0385c92838c4d9b9eb195175efd4eda1c47d66722dc468ab260",
+    "native_forecast.py": "81af01274f55c703850cb3ec3801bb41912e3f3786440af5099b769b7bd28824",
+    "stateless_adapter.py": "5f932ab291ebed5abbe900f793869420208f51f688fe64c91e21fe712d964848",
+    "test_collection.py": "4d12cc0e65ca1613b789fce7e91b56e518eb412d43c4a5e6b81d6ac4d921f394",
+    "frozen/g1_true23_bfm_seed_observations.py": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d",
+    "frozen/g1_true23_mjbatch_bfm_seed.py": "2f3d808b6a95fd80a3c1f9a0fabbe80264cf9cc93fbf01e2b2be65f6a5ec75de",
+    "frozen/g1_true23_mjbatch_ilqr_core.py": "1efc9cb21e446d8e41e3d3acebe05d12b951e8a0002b264ddf0a6b723e32f45a",
+    "frozen/g1_true23_mjbatch_mpc.py": "7695d03787de93dc3d4b1fb2001d6b6b0dcdb9016af9c96734e8f7d94a5e5dde",
+    "frozen/g1_true23_mpc_student.py": "6d71e82b4b7e491f4bbfd3c2a99e05df2ee27f9fb5e6febb4cc9c39c8c39d905",
+    "frozen/student_linear_runtime.py": "35b3e3dd4f4c2966ae224a77afc5213d02cead3200bf63218fb0aab26710f543"
+  },
+  "prefix_rows": 2969,
+  "prefix_native_steps": 29690,
+  "remaining_native_ceiling": 31390,
+  "remaining_graph_ceiling": 12216,
+  "no_changed_math": true,
+  "no_repeated_committed_physics": true,
+  "filesystem_retry_only": true
+}

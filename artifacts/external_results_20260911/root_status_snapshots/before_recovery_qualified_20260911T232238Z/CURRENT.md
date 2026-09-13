@@ -1,0 +1,53 @@
+# Current native23 simulation work
+
+Updated 2026-09-11T22:53:37.511384+00:00. User requests continued work. Full 23-DOF real-time teleoperation remains unqualified. Real Pico/DDS/robot waits for simulation confidence.
+
+## Latest continuation checkpoint
+
+Recovery_v2 remains ACTIVE, latest control1151/no failure. ONE actual branch22:16:49 wrapper13580/WSL28320/Linux371; source through1168, return to1268, terminal300 and hold250 still awaiting completion. Never duplicate or treat partial output as qualified labels. Expert agent owns final owner/exit/process absence; root owns saved first-target comparison and original main/hold physics/intent afterward.
+
+Timing auditor v2 root CLEAR: source prep78d7855373d409fcd6c3a44edef433d6be520faaaf956a739483dad2b8dd6ae8; root independent219 JUnit plus4 own regressions passed. Root independent_timing_saved_audit_root_review_v1/review.json3615d4c6df567cb917bfd7d2835d1e5d4c4db76582bbac66f2497536c0399cf3. Preserved v1 four gaps now fixed: sibling wall order, nested thread/process CPU, attempt-versus-return uncertainty.
+
+Clock/saved helper source root82 JUnit PASS; launch_helpers_review.jsone1fb37c1d1833ae263b9c9c37f56a166863747440792eeb8e5a3922525c8140d. Concrete instrumented clock metadata prepared once under independent_plant_timing_integration_v1: request005fcf08f9a36bc34315eddfbe506432181d6ce5c2c5548b60153d35dcfaff80; launch214221511d1a722061c4426317cb3555b3437b08377a137ca1e8b36bbad4db08. Root concrete0785fedce352a9935499d97c2b851eff89e3841e49141d1cf70f9de30254bff8 passed all3801 pins/3689 original external, unchanged18190 native/fourMJB/watchdogs/deadlines. NO clearance or execution selected; waits for active expert and root native audits to finish.
+
+Consistency source8 files/2 unchanged and root52 synthetic tests PASS. direct_target_width251_consistency_v1/source_preparation.json96f4dd494985f27d7e87b93ef98fcdbe4d4135c82e2a1d790ee850953ec72f86; root_review.json1100d985008254ed4fb92363c0c0b0cb930ebf64ed34937d866fbca98d4404fa. Future pure saved diagnosis:9904 old nominal+3054 physical+1018 new rows; six alias views and72 fixed proximity queries, no model or native calls. prepare_actual_request.py source-only, never run yet. Requires completed actual collector. Reviewer prepares strict81000/Adam16000 warm512 adapter and optional new D3 term source-only; actual fit count/LR/coefficient remain unselected.
+
+Postrecovery helper review found/fixed partial-hold omission in prepare_audit_commands.py (source b91873ebdc5c0c91fb42ebf57a8355a1a6ab71b09e2315d7639e8899c54ec3f2). Any owner-bound recorded hold gets original250 audits; collection still full-pass only. New run_prepared_audit.py runner under source review: initial duplicate dependency pin overwrite found; Pico correcting normalized add-pin before any actual invocation. No first-target comparison/audits/collector/consistency run yet.
+
+## Active checkpoint and completed preparations
+
+Recovery_v2 remains ACTIVE; latest reported control601, no failure, solver7.40s per five-control window. Wrapper13580/WSL28320/Linux371 are the selected run. Do not launch a duplicate. Full source/return/hold and owner completion remain pending. No first-target comparison or independent replay has run for this recovery.
+
+Conditional collector source9 files/4 unchanged,28 producer+28 root fake tests PASS. Source preparation6704baa14dd451db12269ab58449e1575ee78c31bc31f4b1ed3da416b1d4cd7e; root direct_target_width251_collection_root_review_v1/review.json8b1aeea19361feb5bde70625b003b0f7050b1b858655786b7b5c776a13c9b285. Actual1018-row collection remains gated on completed owner, four independent full/hold physics/intent reports and explicit root collection selection.
+
+Root helpers in direct_target_width251_followup_design_v1: run_saved_comparison.py binds completed owner and old semantics outputs before comparing actual first target; prepare_audit_commands.py binds owner/actual traces and prepares existing original main/hold physics+intent commands, including existing zero-step hold-fixture converter. Both source-only; no actual invocation yet. Use fresh recovery_v2 canonical owner_completion.json, never v1 failed owner. Intent needs PYTHONPATH=/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof for original hand-frame module; physics inserts frozen recovery source itself.
+
+Conditional DAgger source/text design direct_target_width251_dagger_design_v1/report_v2.json868f6420fdf32e8da350c271288195485c996ffc2dcbff16e86fc002e766f7b5. Keep512 architecture, frozen1323 normalization, all81000 weights/moments(step16000)/RNG; do not run old256-expansion initializer again. Add a separate1018-row loss and diagnostics without changing old N15/P9/F54 arrays/index maps/coefficient. Update count/LR/new coefficient remain unselected. Reviewer preparing pure saved consistency checker:13976 new+old nominal/physical raw1323 rows, fixed72 proximity queries; no actual arrays/model work now.
+
+Timing saved auditor v1 source preparation77710e582160f9ab345268792fd3d1a776a8afc48045d410a451b4cbaa379fc9 is NOT root-cleared. Root independent synthetic proof direct_timing gap report under independent_timing_saved_audit_root_review_v1/v1_gap_proof.json demonstrated4 accepted errors: verifier-attempt reported as return, sequential sibling wall overlap, child thread CPU beyond parent end, child process CPU beyond parent end. Pico preserves v1 and prepares v2 with regressions. Integrated producer32 remains root-clearedfdccbf0e; no actual instrumented clock selected. Pico also prepares durable helpers source-only. Actual clock waits for active recovery and independent native audits to finish.
+
+## Active work
+
+Fresh expert recovery from actual width81000 pre-control251 is selected. Exact actual full291 state at t5.02, incoming300 history, prior applied-target inverse23, and all251 executed prefix controls remain fixed. Intended continuation:1018 MPC controls/204 solves,300 terminal controls, then250 continuous hold;15,680 new native steps. Fresh recovery_v2 is now RUNNING. Initial full291/history restoration and H30 seed feasibility passed; first optimized target saved. Final completion and independent audits remain pending.
+
+Expert owns active actual run in **direct_target_width512_expert_recovery_v2**. Metadata repair completed; all44 inherited frozen input paths and20 source hashes passed actual WSL read-only verification. Root concrete review1282bf0fc84abe18290b7bab0469506fae5e4fe4ac8987732cc631353a11866f selected ONE dispatch22:16:49.270UTC, wrapper13580/WSL28320/Linux371, canonical clearancedb2763e9ac89b2a1041500e7878721ab74eaea308c4a8fcebdb62f1f525d458d. The following preparation requirements are now fulfilled: Preserve v1; copy same20 source files and already-extracted input bytes. Normalize all frozen input path keys and matching request subjects to forward slashes. Validate every mapped frozen file with actual read-only WSL hashes before one separately recorded launch. Reviewer checks this narrow derivative; root then selects corrected concrete invocation. No repeat training, canonical trial, or input extraction.
+
+First v1 transport launch21:50:47 failed before Python: quoted WSL options caused raw127. Corrected transport launched22:08:08, wrapper24156/WSL17704/Linux373, reached Python and failed22:08:21 in inherited frozen-input gate: drive converted but Windows backslashes retained. Final ledger all21 work categories zero; no Batch/native/model/replan. All106 pins exact and all processes absent. Completed owner_v2 a0eaedf23819e9187c79ea0640905f16cc89a250071c3bfc3c25192799d6902d has accounting PASS, recovery FALSE. Both attempts preserved; no numerical result inferred.
+
+Root transport review v2 110e578aa2affa04a02a1e5b6d3a678bbd5a1843b62990db68d65db3b52602c5; launch29484b217185eab4e5508dd2b524176fb56b21f3f601dcbf415bb62bb13e8fcc; new clearancea4816dad373dc98db0bd6e76bb0600833cfec21f09e14875dc34486ad1d87f41. Original canonical clearance29d674c341ae0264a44a2189a15740a88b3a5e218423173e4fa59743167d6260 unchanged.
+
+Pico prepares timing sidecar auditor source only. Integrated probe source32 files/20 of24 old unchanged passed root review fdccbf0e31e716190a805cd2d5e6f52d3aae629e18136386f4da9d1e95b78310; independent150 pytest cases+20 subtests passed. It measures wall/thread/process CPU and GC overlap by stage, preserves original deadlines/control/physics, and keeps partial native ownership on hook faults. No actual instrumented clock selected or run. Finish sidecar auditor before selecting that trial.
+
+Root owns fresh first-target saved comparison and full/hold original physics+intent audits when actual recovery outputs permit. Prepared pure comparison helper has3 passing synthetic cases; no actual comparison. Conditional collector preparation only; exactly controls251..1268 after owner and four audit passes. Connected expert states are not independent queries of later student states. No next fit selected.
+
+## Latest completed evidence — do not repeat
+
+Width81000 larger512 head: fit completed10,000 updates, output parity passed. Canonical trial failed control309/sub6 at right-hip-pitch speed32.112498 versus32rad/s;3096 native steps,60 learned controls,zero source controls. Root physics reproduced all3096 steps/seven fields exactly; intent failed. Saved semantics7193 checks exact; first departure251, first clipping264. Better training error did not establish balance. All relevant reports/owners remain under direct_target_causal_width512_student_v1, direct_target_causal_width512_evaluation_v1, and direct_target_width512_* review directories.
+
+Pending-result clock trial failed after12663 native steps/12662 verified. Tick12099 took23.076358ms, next job1211 created1.414741ms after immutable deadline;40 misses,56 held controls, then joint bound. Worker BUSY retry was not exercised. Matching saved audit14659b36321c3f5b9ef825a9029e95a2388ea65c45ec4f3f24802659e8e8157a passed22,963 comparisons; owner66a2af16af7a3e861122b793001371b908bdf98584c937e41d341db43091a0f9. Physics/timing/command qualifications remain failed. Stall cause currently unknown.
+
+Slow offline expert traces previously passed full PICO, walk002, walk003 plus continuous holds; walk008 source passed slow expert. Same fast controller has not passed complete suite. Original SIM_ACCEPTANCE.md and all native limits, reference timing and source windows remain unchanged.
+
+## Preserved detailed history
+
+Earlier complete status, hashes, completed experiments and no-repeat ledger: [CURRENT.md](E:/codex-artifacts/sonic23_teleop_resume_20260911/root_status_snapshots/before_recovery_path_fix_20260911T221115Z/CURRENT.md). SESSION.md retains append-only progress. Large artifacts stay on E:.

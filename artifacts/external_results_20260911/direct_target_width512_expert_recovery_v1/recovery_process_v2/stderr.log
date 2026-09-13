@@ -1,0 +1,26 @@
+wsl: Failed to translate 'E:\windsurf\Windsurf\bin'
+Traceback (most recent call last):
+  File "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_expert_recovery_v1/source_snapshot_v1/run_width251_actual_oracle.py", line 340, in <module>
+    if __name__=='__main__':raise SystemExit(main())
+                                             ^^^^^^
+  File "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_expert_recovery_v1/source_snapshot_v1/run_width251_actual_oracle.py", line 323, in main
+    run_selected()
+  File "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_expert_recovery_v1/source_snapshot_v1/run_width251_actual_oracle.py", line 266, in run_selected
+    s=setup()
+      ^^^^^^^
+  File "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_expert_recovery_v1/source_snapshot_v1/run_width251_actual_oracle.py", line 24, in setup
+    frozen();assert mujoco.__version__=='3.2.3' and np.__version__=='1.26.4'
+    ^^^^^^^^
+  File "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_expert_recovery_v1/source_snapshot_v1/run_actual_student_oracle.py", line 59, in frozen
+    assert sha256(Path(name))==expected,name
+           ^^^^^^^^^^^^^^^^^^
+  File "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_expert_recovery_v1/source_snapshot_v1/gear_sonic/utils/g1_true23_mjbatch_mpc.py", line 31, in sha256
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1050, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/mnt/z\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\RUN_PASSING_WALK_WSL.sh'

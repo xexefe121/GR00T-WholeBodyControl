@@ -1,0 +1,26 @@
+{
+  "original_launcher_sha256": "444b56956e5963298af53eb0294c6373c3f5283c26dab0ce486d65d6aa7b0a19",
+  "launcher_sha256": "6f114a44e4958598271379ce57be5f553e28ff2c078bfef3da8d3c7759627c5d",
+  "substitutions": [
+    [
+      "$processRoot=Join-Path $runRoot 'fit_process'",
+      "$processRoot=Join-Path $runRoot 'fit_process_v2'"
+    ],
+    [
+      "$request.coefficient -ne 1.8188207859141674)",
+      "$request.coefficient -ne 1.8188207859141674d)"
+    ]
+  ],
+  "original_owner_sha256": "2ef4eaf1a793d592695a2fac14756cd56aa144f951d80c6a1ee8cbd6a89c3539",
+  "owner_sha256": "18a44027f6442cc6c9350693efd1239c24201cbd97d6dbc57eb2dbdbafb0b123",
+  "owner_only_changes": [
+    "fit_process -> fit_process_v2",
+    "owner_completion_verification_v2.json -> owner_completion_verification_v3.json"
+  ],
+  "original_exit_sha256": "0bcfdbd6a149d8588177ae9888d4fc53a59a465a2908857445507c71a4ed9c9c",
+  "first_attempt_task_model_calls": 0,
+  "first_attempt_optimizer_updates": 0,
+  "request_and_trainer_unchanged": true,
+  "automatic_retry": false,
+  "actual_relaunch_selected": false
+}

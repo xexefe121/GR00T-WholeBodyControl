@@ -1,0 +1,132 @@
+{
+  "kind": "read-only aggregate student methodology",
+  "reviewed_at_utc": "2026-09-11T03:39:01.460782+00:00",
+  "methodology_accepted_by_root": true,
+  "fit_launch_pending_source_review": true,
+  "input_hashes": {
+    "fast_controller_continued_fit_v1/fit/report.json": "9dc9d5445be60aa22b0aab225a3040ff8c086738c2862d76a6aac19783aa4988",
+    "fast_controller_continued_fit_v1/fit/student_head.pt": "59475de36cd5a3f03ba805a77221dff0a3d219aaab23df5e404e3f6acf6f02e1",
+    "fast_controller_continued_fit_v1/fit/teacher_fit.npz": "da562a1f8dc8ed582217fd16c36739ec4f4393c2b0ecdb6d9fa487a2f9051f1d",
+    "fast_controller_continued_fit_v1/nominal/report.json": "877998c76a2a7cfb67acf9ca1665ad4beb046d23a4998499f0cc98a62e52bc4f",
+    "fresh_expert_labels_resume_v1/labels/report.json": "28c9f7a64466c53c47282bb461dee18b88bf3190212d75c92bab406dc1d08506",
+    "fresh_expert_labels_resume_v1/labels/labels.npz": "e93753597450881c08a46fd520113abd21470653083dba0226c6450469d16ad1",
+    "fresh_expert_labels_resume_v1/compatibility/report.json": "5da94511aa4ce87304b7260d962fb9a354d28a41f9f16e6fd9b32d55f55fe8b0",
+    "fresh_expert_labels_resume_v1/compatibility/cross_distances_and_pairs.npz": "cc5d56d2b7e74a72462b37a17b271f4589ef1e14374510f336c1e7d318e58e2e"
+  },
+  "evidence": {
+    "previous_teacher_RMSE_rad": 0.02683579122799566,
+    "previous_canonical_failure_seconds": 0.312,
+    "previous_failure": "right hip roll speed control15 substep6",
+    "exact_duplicate_groups": 0,
+    "exact_residual_conflicts": 0,
+    "query1_input_base_parity": "bit-exact",
+    "closest_distance_under_point01_pairs": 16,
+    "closest_pairs_target_RMS_p95_rad": 0.03658318540063386,
+    "closest_pairs_target_RMS_max_rad": 0.05963379900022148
+  },
+  "fixed_design": {
+    "old_controls": [
+      0,
+      1268
+    ],
+    "fresh_controls": [
+      1,
+      1268
+    ],
+    "rows": 2537,
+    "dataset_weights": [
+      0.5,
+      0.5
+    ],
+    "phase_weights": [
+      0.25,
+      0.25,
+      0.25,
+      0.25
+    ],
+    "batch_size": 256,
+    "draws_per_dataset_phase": 32,
+    "sampling": "with replacement; explicit control-value phase masks",
+    "strata_order": [
+      "old_entry",
+      "old_acquisition",
+      "old_source",
+      "old_return",
+      "fresh_entry",
+      "fresh_acquisition",
+      "fresh_source",
+      "fresh_return"
+    ],
+    "phase_intervals_half_open": [
+      [
+        0,
+        250
+      ],
+      [
+        250,
+        350
+      ],
+      [
+        350,
+        1169
+      ],
+      [
+        1169,
+        1269
+      ]
+    ],
+    "phase_counts": {
+      "old": [
+        250,
+        100,
+        819,
+        100
+      ],
+      "fresh": [
+        249,
+        100,
+        819,
+        100
+      ]
+    },
+    "initial_checkpoint": "ordinary final20000 fullmodel+AdamW+RNG; RNG restored after construction",
+    "additional_updates": 40000,
+    "first_update": 20001,
+    "ordinary_final_update": 60000,
+    "checkpoint_selection": false,
+    "intermediate_physics": false,
+    "normalization": "exact old float32 mean/std and nativejointspan; never recompute",
+    "architecture": "same1069\u2192256\u2192256\u219223 ELU hidden / linear native-span residual",
+    "loss": "same float32 normalized residual MSE",
+    "learning_rate": 0.0003,
+    "weight_decay": 1e-05,
+    "gradient_clip_norm": 10,
+    "cpu_threads": 1,
+    "target_averaging_smoothing_removal": false
+  },
+  "rationale": [
+    "No exact feature/residual conflicts; retain independently qualified actual-state labels alongside original trajectory.",
+    "Near pairs still demand sharp ankle differences; retain raw labels and fixed paired prediction diagnostics, not averaging/deleting by distance.",
+    "Equal old/new perphase preserves prior phase objective.32 rather than64 draws per datasetphase makes40k updates equal20k prior per-dataset exposure.",
+    "Old normalization/fulloptimizer warmstart isolates dataset addition without hidden feature reparameterization or restart."
+  ],
+  "diagnostics": [
+    "Every1000updates save eachdataset/perphase residual and appliedtarget RMSE/perjointp95/max, including first24 and fixed nearestpairs.",
+    "Record canonical oldcontrol0 and freshquery1 signed errors separately. Training fit metrics never imply physical acceptance.",
+    "Ordinary final60000 exported, no best-checkpoint selection; numerical failure remains an aborted experiment.",
+    "Verify initial model/normalization/span/AdamWstep20000/RNG; exportedONNX/Torch all2537 residual parity under1e-5 before behavioral launch."
+  ],
+  "behavioral_test": [
+    "ONE fresh canonical walk0031569 lifecycle; newhead recomputes control0 from nativeframe10/historyzeros. No earlier student0/expert prefix injection.",
+    "Preserve raw preclip combined action=rawBFM5+residual*kp/(.25trainingeffort), even when finaltarget clips nativebounds.",
+    "Existing terminalBFMyaw4 atglobal1269; sameplant/history through1569, then separate250-control5s hold only if lifecycle completes.",
+    "Every2ms native range/speed/effort/root/tilt/warning/clock gates and rawpartial failure evidence unchanged.",
+    "Root independent fullphysics/originalintent/quiet audit required; no allclips, realtime, received-only or hardware claim from one walk003 result."
+  ],
+  "reviewer_execution": {
+    "inference_calls": 0,
+    "physics_steps": 0,
+    "optimizer_calls": 0,
+    "model_fits": 0
+  }
+}

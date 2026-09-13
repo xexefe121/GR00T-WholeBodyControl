@@ -1,0 +1,52 @@
+{
+  "clip": "walk002",
+  "completed": 1417,
+  "requested": 1417,
+  "available": 1417,
+  "failure": null,
+  "full_lifecycle_completed": true,
+  "source_metrics": {
+    "source_controls": 667,
+    "source_requested": 667,
+    "leg_rmse": 0.36589828992957524,
+    "arm_rmse": 0.043114904476672364,
+    "root_p95": 1.7921035552371751,
+    "landmark_p95": [
+      1.6700511071567143,
+      1.8421406053541518,
+      1.7152763369352835,
+      1.8509670218324883,
+      1.8326299721312316
+    ],
+    "relative_landmark_p95": [
+      0.35577984739307095,
+      0.272263994697162,
+      0.2245431592445028,
+      0.1906541522672489,
+      0.0924058163892313
+    ]
+  },
+  "range_excess_max": 0.006714530923146,
+  "effort_ratio_max": 1.0,
+  "velocity_ratio_max": 0.44259859957354,
+  "inference_ms_p95": 17.20853999722749,
+  "elapsed_seconds": 21.337908100002096,
+  "goal_horizon": 8,
+  "goal_buffer_ms": 140,
+  "reference_path": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\intent_retarget_v2\\walk002\\reference.npz",
+  "motion_override": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\intent_retarget_v2\\walk002\\reference.npz",
+  "reference_geometry_retargeted": true,
+  "ground_truth_pose_feedback": true,
+  "root_xy_feedback_used": true,
+  "heading_feedback_sensor_equivalent": "pelvis_IMU_orientation_with_initial_calibration",
+  "position_gain": 1.0,
+  "yaw_gain": 2.0,
+  "arm_reference": true,
+  "leg_error_gain": 0.0,
+  "residual_checkpoint": null,
+  "residual_updates": null,
+  "model_path": "Z:\\codex\\GR00T-WholeBodyControl\\gear_sonic\\data\\robots\\g1\\g1_23dof_rev_1_0.xml",
+  "action_contract": "target=default_q+5*tanh_actor*.25*training_effort/training_kp; native effort clipped",
+  "hardware_authorized": false,
+  "deployment_ready": false
+}

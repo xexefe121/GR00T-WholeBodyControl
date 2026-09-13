@@ -1,0 +1,186 @@
+{
+  "clip": "pico",
+  "initial_frame": 10,
+  "control": 0,
+  "actor_goal_first_frame": 11,
+  "planner_window_frame": 10,
+  "initial_state_source": "v4 optimization reference frame10, bitexact historical producer initialization",
+  "original_goal_source": "unchanged original native reference for fresh BFM, horizon8, position1/yaw2",
+  "fresh_history": "all zero initial history and previous action; proposal leaves actual history unchanged",
+  "objective": "v4 plus alljoint.05rad/2000 and relativefoot400, identical for all clips and candidates",
+  "feasible_starting_incumbent_exists": true,
+  "feasible_minimum_cost_candidate": "reference_initial",
+  "cases": [
+    {
+      "candidate": "reference_initial",
+      "full_horizon_physical_pass": true,
+      "physics_steps": 300,
+      "failure": null,
+      "same_objective_cost": 123.17140741378574,
+      "range_excess_max": 0.0,
+      "speed_ratio_max": 0.16119204205614518,
+      "effort_ratio_max": 0.17790267913707566,
+      "warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "warning_lastinfo": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "clock_max_error": 4.440892098500626e-16,
+      "trace_sha256": "f8b4b7a97766346d449c0fbcc86bee68bcc403049bb030235e4c197af59a12be"
+    },
+    {
+      "candidate": "recorded_bfm",
+      "full_horizon_physical_pass": true,
+      "physics_steps": 300,
+      "failure": null,
+      "same_objective_cost": 137.72324808379494,
+      "range_excess_max": 0.0,
+      "speed_ratio_max": 0.16295591156420308,
+      "effort_ratio_max": 0.4823350166859413,
+      "warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "warning_lastinfo": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "clock_max_error": 4.440892098500626e-16,
+      "trace_sha256": "c199db272cdefa7448db0ddbf1976e91f4c128a2e16d9630acbc255eb39e21dd"
+    },
+    {
+      "candidate": "fresh_bfm",
+      "full_horizon_physical_pass": true,
+      "physics_steps": 300,
+      "failure": null,
+      "same_objective_cost": 132.2150651326762,
+      "range_excess_max": 0.0,
+      "speed_ratio_max": 0.16843708061219,
+      "effort_ratio_max": 0.8415986635012588,
+      "warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "warning_lastinfo": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "clock_max_error": 4.440892098500626e-16,
+      "trace_sha256": "d4ff643ff1055b32260ba6e890a948dd201ec250e5bdb6cfc6a7ff139623ebd9"
+    }
+  ],
+  "fresh_diagnostics": {
+    "control": 0,
+    "horizon": 30,
+    "elapsed_ms": 221.8676000000013,
+    "inference_ms_p50_p95_max": [
+      5.770000000000053,
+      6.561629999999139,
+      12.255100000000851
+    ],
+    "recorded_actual_controls": 0,
+    "actual_history_action_max_abs": 0.0,
+    "actual_history_action_components_outside_five": 0,
+    "current_history_action_max_abs": 0.0,
+    "private_range_excess_max_rad": 0.0,
+    "private_velocity_ratio_max": 0.16843708061219,
+    "private_effort_ratio_max": 0.8415986635012588,
+    "private_root_height_min_m": 0.7452179704755952,
+    "private_root_tilt_max_rad": 0.07382046519552862,
+    "private_engine_warning_counts": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "terminal_goal_hold_controls": 0,
+    "conservative_raw_pose_support_seconds": 0.76,
+    "actual_history_mutated_by_proposal": false,
+    "real_physics_state_mutated": false,
+    "real_controller_or_teacher_qualified": false
+  },
+  "fresh_identity": {
+    "kind": "offline_native23_measured_history_BFM_rollout_seed",
+    "weights_sha256": "28a2d82a2975c37b8a1533f2e3b0224d27f8a0813283640ee7eeee348fe42c2e",
+    "graph_sha256": {
+      "actor": "7d9dc682dc38c6972c5023bb6bd069c8d9d28a99fa33a871906befaf9a1cc64e",
+      "backward": "2fe7cf1a0f76c101703fd53a855f2281763d47fef45c0f1455789bb04c21c3b7"
+    },
+    "graph_manifest_sha256": "a5650963f41838a6bf77bcfd12fcfa24ae939e6ee5f50d4b877527527d1e3878",
+    "original_goal_arrays_sha256": "b0cf94d3fe789fbf3a2d4f0ef9a5e7f4e66055bb2dd67bd5323889cddcbbce5d",
+    "contract_arrays_sha256": "03e879161cc82756b0346f1a9d18d36d16855ec2667a78abe2126b3edb2da4cd",
+    "native_model_parameters_sha256": "829064c5207223a22b18aede96cd1ef8f0549311cd2d62c9e071118cc52e8ade",
+    "runtime_version": "1.23.2",
+    "runtime_binary_sha256": {
+      "/mnt/e/codex_sonic_runtime/bfm_seed_20260910/onnx_deps/onnxruntime/capi/onnxruntime_pybind11_state.cpython-311-x86_64-linux-gnu.so": "f22a6994fbadefe3888cd3a5300a63021884372dafecaea9875987dce697c8c1"
+    },
+    "mujoco": "3.2.3",
+    "numpy": "1.26.4",
+    "threads": 1,
+    "module_sha256": "2f3d808b6a95fd80a3c1f9a0fabbe80264cf9cc93fbf01e2b2be65f6a5ec75de",
+    "observation_module_sha256": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d",
+    "original_goal_horizon": 8,
+    "position_gain": 1.0,
+    "yaw_gain": 2.0,
+    "conservative_original_derivative_future_pose_frames": 1,
+    "historical_action": "normalized actually applied MPC target, no clipping of action history",
+    "local_future_action": "BFM raw actor*5 before native target clipping",
+    "terminal_goal": "hold last known original goal beyond archive, available-window latent average",
+    "real_history_updated_only_by_record_control": true,
+    "private_physics_hz": 500,
+    "private_rollout_warning_or_clock_reset": "typed rejection; caller retains other seed candidates",
+    "root_assistance": false,
+    "robot_or_DDS_interface": false,
+    "deployment_qualified": false
+  },
+  "hashes": {
+    "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_floor_inputs_v1/pico/reference.npz": "a1b3bd672551acc800e8b28d4d3d2b68c044f7a80ab3b8fb798d46c9dda70c24",
+    "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_full_v1/pico_v4_native323_freshseed_allmargin_5iter_full_v1/request.json": "4ea6126e447f8d13c47afddce34ab3bf133e15006387b90c1554bdf3080c6911",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/bfm_pico_feedback_v2/trace.npz": "f7ce1cb7764de7b86e2ed7011f003054dfeb045c171165a07d133f2d8314a1f9",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/pico/native_original.npz": "72ae0f04333ebc18e03fbe2a6e5640c895ceda9e37ce83418f4bca6e9540d953",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/contract.json": "d1641ce4f2e9016f5008e5d4be3cc24ded46d7f9daf9cfddaab84095f98eb99b"
+  }
+}

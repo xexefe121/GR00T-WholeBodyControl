@@ -89,9 +89,12 @@ def active_body_for_operator_mode(
         "live_shadow_evidence_sha256": summary["evidence_sha256"],
         "authorization_id": args.authorization_id,
         "stage_one_envelope": {
-            "action_fraction": 0.10,
-            "maximum_target_rate_rad_per_second": 0.25,
-            "maximum_post_arm_duration_seconds": 5 if direct_dance else 10,
+            "action_fraction": 0.60,
+            "maximum_target_rate_rad_per_second": 5.0,
+            # The saved SONIC routine is 535 packets at a 20 ms control period
+            # (~10.7 s); 11 s covers one complete routine. Mirrors
+            # kMaximumDirectDancePostArmSeconds in true23_active_gantry_core.hpp.
+            "maximum_post_arm_duration_seconds": 11 if direct_dance else 10,
             "wireless_deadman_required": not direct_dance,
             "wireless_stop_required": not direct_dance,
             "direct_dance_command_required": (

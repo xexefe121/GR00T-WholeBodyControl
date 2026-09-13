@@ -1,0 +1,1208 @@
+{
+  "identity": {
+    "kind": "native23_pico_foot_precision_cpu_diagnostic_identity_v1",
+    "training_objective": {
+      "kind": "native23_pico_foot_precision_training_v1",
+      "prior_recipe": {
+        "kind": "native23_original_core_lora_root9_world_quality_training_v1",
+        "reference": {
+          "kind": "native23_normal_received_training_reference_v1",
+          "reference_timing": "received_normal_source_horizon_920ms_v1",
+          "received_buffer": {
+            "kind": "sonic_received_normal_step5_horizon_920ms_v1",
+            "source_profile": {
+              "profile": "true23_step5_0p1s",
+              "source_sample_rate_hz": 50,
+              "source_sample_period_s": 0.02,
+              "future_frame_count": 10,
+              "future_frame_step": 5,
+              "future_frame_offsets_s": [
+                0.0,
+                0.1,
+                0.2,
+                0.3,
+                0.4,
+                0.5,
+                0.6,
+                0.7,
+                0.8,
+                0.9
+              ],
+              "horizon_s": 0.9,
+              "command_layout": "positions_120_then_velocities_120"
+            },
+            "received_samples_required": 47,
+            "reference_anchor_age_s": 0.92,
+            "position_sample_indices": [
+              0,
+              5,
+              10,
+              15,
+              20,
+              25,
+              30,
+              35,
+              40,
+              45
+            ],
+            "velocity_definition": "float32(q[i+1]-q[i])/float32(0.02), i=0,5,...,45",
+            "vr_reference": "received_q0_original29_geometry",
+            "measured_robot_state": "current_control_boundary_not_delayed",
+            "prediction_or_unreceived_samples": false,
+            "automatic_terminal_padding": false,
+            "deployment_ready": false,
+            "hardware_authorized": false
+          },
+          "root_setpoint_age_s": 0.9,
+          "scored_reference_phase": "unchanged_post_control_q2",
+          "generated_standing_tail_samples": 46,
+          "source_frames_retimed_or_reanchored": false,
+          "missing_proprioception": "physical_absence_zero_never_reference_motion",
+          "old_200ms_checkpoint_relabelling": false,
+          "deployment_ready": false,
+          "hardware_authorized": false,
+          "contract_sha256": "f2aa9bddf9b5a6ca09cf44a86d04b50777e50e1bfe053731f0e077a85ac2e26d"
+        },
+        "adapters": {
+          "kind": "original_sonic_native23_seven_affine_lora16_v1",
+          "dimensions": [
+            994,
+            2048,
+            2048,
+            1024,
+            1024,
+            512,
+            512,
+            23
+          ],
+          "rank": 16,
+          "scaling": 1.0,
+          "bias": false,
+          "a_seed_by_layer": [
+            20260910,
+            20260911,
+            20260912,
+            20260913,
+            20260914,
+            20260915,
+            20260916
+          ],
+          "a_initialization": "kaiming_uniform_sqrt5_private_generator",
+          "b_initialization": "exact_zero",
+          "global_rng_consumed": false,
+          "parameters": 245648,
+          "retained_base_encoder_and_decoder_frozen": true,
+          "decoder_outputs": 23,
+          "phantom_action_outputs": false
+        },
+        "bounded_reward": {
+          "kind": "native23_bounded_costs_discounted_world_progress_v1",
+          "negative_weights": {
+            "action_rate_l2": -0.2,
+            "joint_limit": -20.0,
+            "self_collisions": -10.0,
+            "action_target_reference_l2": -2.0,
+            "action_target_soft_limit_barrier": -10.0,
+            "worst_ee_z_normalized_squared": -20.0,
+            "right_wrist_prethreshold_barrier": -25.0,
+            "requested_effort_excess": -0.1,
+            "root_world_tracking_error": -10.0,
+            "measured_joint_posture_l2": -10.0,
+            "measured_feet_world_position_l2": -1.0,
+            "original_task_position_l2": -1.0,
+            "original_task_orientation_l2": -1.0
+          },
+          "positive_weights": {
+            "motion_global_root_pos": 0.5,
+            "motion_global_root_ori": 0.5,
+            "motion_body_pos": 1.0,
+            "motion_body_ori": 1.0,
+            "motion_body_lin_vel": 1.0,
+            "motion_body_ang_vel": 1.0
+          },
+          "raw_nonnegative_cost_transform": "x/(1+x)",
+          "near_zero_cost_derivative": 1.0,
+          "alive_weight": 115.3,
+          "non_timeout_termination_weight": -5000.0,
+          "nonterminal_base_reward_bounds_per_control": [
+            0.1,
+            2.406
+          ],
+          "true_terminal_base_reward_bounds_per_control": [
+            -102.206,
+            -99.9
+          ],
+          "step_dt": 0.02,
+          "gamma": 0.99,
+          "potential": "-log1p(10*root_position_error_squared+feet_world_cost+original_task_world_cost)",
+          "potential_sampling": "synchronized_actor_state_and_current_received_q1_before_and_after_env_step",
+          "normal_shaping": "gamma*phi_next-phi_previous",
+          "true_terminal_shaping_without_timeout": "-phi_previous",
+          "timeout_shaping_including_simultaneous_termination": "(gamma-1)*phi_previous",
+          "timeout_reason": "installed_RSL_process_env_step_bootstraps_V(previous)_not_V(terminal_next)",
+          "post_reset_potential_used_for_done_transition": false,
+          "additional_reward_scaled_by_dt_again": false,
+          "old_original_intent_spec_role": "raw_reference_and_cost_definitions_before_this_explicit_transform",
+          "same_objective_as_unbounded_predecessor": false,
+          "potential_changes_optimal_policy_relative_to_new_base_claimed": false,
+          "termination_flags_or_physics_changed": false,
+          "actor_inputs_or_action_transform_changed": false,
+          "training_resume_supported": false,
+          "deployment_ready": false,
+          "hardware_authorized": false
+        },
+        "quality": {
+          "kind": "native23_joint_world_task_quality_bonus_v1",
+          "rate": 100.0,
+          "step_dt": 0.02,
+          "error": "10*root_position_error_squared+normalized_feet_world_cost+original29_hand_head_world_cost",
+          "bonus": "100*0.02/(1+error_after) on non-done transitions; zero on termination or timeout",
+          "source": "existing synchronized post-step world potential before any usable reset substitution",
+          "non_done_bonus_bounds": [
+            0.0,
+            2.0
+          ],
+          "done_bonus": 0.0,
+          "post_reset_potential_rewarded": false,
+          "all_existing_base_rewards_and_potential_shaping_unchanged": true,
+          "actor_inputs_weights_initialization_physics_and_failures_unchanged": true,
+          "changes_optimization_objective": true,
+          "reward_backpropagation_through_physics_claimed": false,
+          "training_resume_supported": false,
+          "hardware_authorized": false,
+          "deployment_ready": false
+        },
+        "termination": {
+          "kind": "native23_additive_world_root_failure_v1",
+          "term_name": "world_root_tracking_failure",
+          "threshold_m": 0.3,
+          "metric": "Euclidean_world_root_position_error_xyz",
+          "comparison": "strict_greater_than",
+          "nonfinite_fails": true,
+          "timeout": false,
+          "reference": "held_received_q1_plus_environment_origin",
+          "measured_phase": "unchanged_pre_final_forward_reward_phase_2ms_stale",
+          "existing_termination_terms_preserved": true,
+          "reward_equations_weights_and_terminal_penalty_unchanged": true,
+          "reset_routine_and_reference_sampling_unchanged": true,
+          "acceptance_threshold_or_physical_limit_changed": false,
+          "threshold_is_not_motion_success": true,
+          "hardware_authorized": false,
+          "deployment_ready": false
+        },
+        "optimizer_multipliers": {
+          "root_conditioner": 200.0,
+          "decoder_adapters": 200.0,
+          "exploration": 1.0,
+          "critic": 600.0
+        },
+        "actor_clip": 0.2,
+        "critic_value_clipped": false,
+        "same_low_latency_checkpoint_or_optimizer": false,
+        "fresh_only": true,
+        "hardware_authorized": false,
+        "deployment_ready": false
+      },
+      "overlay": {
+        "kind": "native23_independent_foot_precision_bonus_v1",
+        "measured_quantity": "mean_two_ankle_world_position_squared_error",
+        "source": "existing_synchronized_post_step_world_cost_parts_before_usable_reset_substitution",
+        "formula": "2/(1+existing_normalized_foot_cost/9) on non_done; zero on done",
+        "rate": 100.0,
+        "step_dt": 0.02,
+        "foot_error_scale_m": 0.15,
+        "existing_foot_normalization_m": 0.05,
+        "reward_bounds_per_control": [
+          0.0,
+          2.0
+        ],
+        "reward_scale_is_not_acceptance_threshold": true,
+        "independent_of_root_and_upper_cost_denominator": true,
+        "original_rewards_termination_physics_and_reference_unchanged": true,
+        "changes_optimization_objective": true,
+        "hardware_authorized": false,
+        "deployment_ready": false
+      },
+      "parent_checkpoint_sha256": "047b7387f8268d2ff8032c8b74764de6a3f0321f4245814c0f5a909e805dc065",
+      "parent_completed_updates": 500,
+      "actor_critic_and_adam_preserved": true,
+      "environment_and_rng_reinitialized": true,
+      "uninterrupted_simulator_resume_claimed": false,
+      "fresh_actor_or_critic": false,
+      "optimizer_multipliers": {
+        "root_conditioner": 200.0,
+        "decoder_adapters": 200.0,
+        "exploration": 1.0,
+        "critic": 600.0
+      },
+      "policy_architecture_unchanged": true,
+      "source_encoder_and_decoder_frozen": true,
+      "deployment_ready": false,
+      "hardware_authorized": false
+    },
+    "checkpoint_sha256": "ac2f844894e3e53c364ae466966a64db556ee255c6ab72e736fe15b87adb19fe",
+    "actor_state_sha256": "78a8cd986512ee70d7fd514dfac9555638cfc1cf4c7d4188e8ca8d37988c1de1",
+    "completed_training_updates": 1000,
+    "actor_contract": {
+      "schema_version": 1,
+      "kind": "g1_native23_normal_core_lora16_root9_training_actor_v1",
+      "source_checkpoint_sha256": "e6bdab3f64a39336b3d41877d4f497d05f58af275f288ec0e6746c283ded8909",
+      "source_revision": null,
+      "reference_profile": "true23_step5_0p1s",
+      "initial_true23_policy_sha256": "c247e5cf8bf06bc954db314013cba5ed8b56b6fe4c9a952c19f053583714f0bc",
+      "frozen_encoder_sha256": "d4330a24c4b826710c12a59a81faeac44449b91b8c564a16d982c869f6895753",
+      "encoder_input_dim": 267,
+      "token_dim": 64,
+      "decoder_dims": [
+        994,
+        2048,
+        2048,
+        1024,
+        1024,
+        512,
+        512,
+        23
+      ],
+      "trainable_decoder_parameters": 0,
+      "encoder_frozen": true,
+      "fsq_frozen": true,
+      "decoder_training": "frozen_original_sonic_native23_rows",
+      "physical_output_to_canonical29": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        11,
+        12,
+        6,
+        7,
+        15,
+        16,
+        9,
+        10,
+        19,
+        20,
+        13,
+        14,
+        21,
+        22,
+        17,
+        18,
+        23,
+        24
+      ],
+      "proprioception_codec": {
+        "kind": "g1_29_to_true23_analytic_codec_v1",
+        "encode": "canonical_il29_h10_with_absent_slots_fixed_zero",
+        "decode": "native_il23_semantic_row_selection",
+        "source_dof": 29,
+        "target_dof": 23,
+        "missing_source_indices": [
+          5,
+          8,
+          25,
+          26,
+          27,
+          28
+        ],
+        "target_to_source_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          6,
+          7,
+          15,
+          16,
+          9,
+          10,
+          19,
+          20,
+          13,
+          14,
+          21,
+          22,
+          17,
+          18,
+          23,
+          24
+        ],
+        "learned_parameters": 0
+      },
+      "zero_step_mean_exact_row_mapping": true,
+      "deployment_ready": false,
+      "hardware_authorized": false,
+      "decoder_frozen": true,
+      "frozen_decoder_sha256": "40f7d83bdefefa43348c20ab4d94d491626386494b621be576a8f5e0e939820b",
+      "exploration": {
+        "parameterization": "per_action_bounded_sigmoid",
+        "std_min": 0.02,
+        "std_max": 0.5,
+        "init_std": 0.1,
+        "trainable": true,
+        "source_exploration_reused": false
+      },
+      "reference": {
+        "kind": "native23_normal_received_training_reference_v1",
+        "reference_timing": "received_normal_source_horizon_920ms_v1",
+        "received_buffer": {
+          "kind": "sonic_received_normal_step5_horizon_920ms_v1",
+          "source_profile": {
+            "profile": "true23_step5_0p1s",
+            "source_sample_rate_hz": 50,
+            "source_sample_period_s": 0.02,
+            "future_frame_count": 10,
+            "future_frame_step": 5,
+            "future_frame_offsets_s": [
+              0.0,
+              0.1,
+              0.2,
+              0.3,
+              0.4,
+              0.5,
+              0.6,
+              0.7,
+              0.8,
+              0.9
+            ],
+            "horizon_s": 0.9,
+            "command_layout": "positions_120_then_velocities_120"
+          },
+          "received_samples_required": 47,
+          "reference_anchor_age_s": 0.92,
+          "position_sample_indices": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45
+          ],
+          "velocity_definition": "float32(q[i+1]-q[i])/float32(0.02), i=0,5,...,45",
+          "vr_reference": "received_q0_original29_geometry",
+          "measured_robot_state": "current_control_boundary_not_delayed",
+          "prediction_or_unreceived_samples": false,
+          "automatic_terminal_padding": false,
+          "deployment_ready": false,
+          "hardware_authorized": false
+        },
+        "root_setpoint_age_s": 0.9,
+        "scored_reference_phase": "unchanged_post_control_q2",
+        "generated_standing_tail_samples": 46,
+        "source_frames_retimed_or_reanchored": false,
+        "missing_proprioception": "physical_absence_zero_never_reference_motion",
+        "old_200ms_checkpoint_relabelling": false,
+        "deployment_ready": false,
+        "hardware_authorized": false,
+        "contract_sha256": "f2aa9bddf9b5a6ca09cf44a86d04b50777e50e1bfe053731f0e077a85ac2e26d"
+      },
+      "root_feedback": {
+        "kind": "native23_normal_received_root_feedback9_v1",
+        "reference_timing": "received_normal_source_horizon_920ms_v1",
+        "dimension": 9,
+        "components": [
+          "desired_minus_measured_position_xyz",
+          "desired_velocity_xyz",
+          "measured_velocity_xyz"
+        ],
+        "component_units": [
+          "m",
+          "m_per_s",
+          "m_per_s"
+        ],
+        "coordinate_frame": "current_measured_pelvis_yaw_frame",
+        "desired_position": "received_q1_age_900ms",
+        "desired_velocity": "float32(received_root_q1-received_root_q0)/float32(0.02)",
+        "measured_state": "current_control_boundary_not_delayed",
+        "semantic_anchor": "received_q0_age_920ms",
+        "separate_from_existing_994_decoder_input": true,
+        "input_clipping": false,
+        "physical_world_state_estimator_required": true,
+        "simulator_state_is_physical_estimator_qualification": false,
+        "deployment_ready": false,
+        "hardware_authorized": false,
+        "contract_sha256": "73aa6e078d6edd48dd9d90e701e35b02df3e7b6e78eedf7f3aa655deac4ac286"
+      },
+      "normal_decoder_adapter": {
+        "kind": "original_sonic_native23_seven_affine_lora16_v1",
+        "dimensions": [
+          994,
+          2048,
+          2048,
+          1024,
+          1024,
+          512,
+          512,
+          23
+        ],
+        "rank": 16,
+        "scaling": 1.0,
+        "bias": false,
+        "a_seed_by_layer": [
+          20260910,
+          20260911,
+          20260912,
+          20260913,
+          20260914,
+          20260915,
+          20260916
+        ],
+        "a_initialization": "kaiming_uniform_sqrt5_private_generator",
+        "b_initialization": "exact_zero",
+        "global_rng_consumed": false,
+        "parameters": 245648,
+        "retained_base_encoder_and_decoder_frozen": true,
+        "decoder_outputs": 23,
+        "phantom_action_outputs": false
+      },
+      "root_conditioner_shape": [
+        2048,
+        9
+      ],
+      "actor_trainable": "seven_decoder_lora_root9_bounded_exploration_only",
+      "low_latency_checkpoint_relabelling_allowed": false,
+      "legacy_single_input_export_permitted": false
+    },
+    "reference": {
+      "kind": "native23_normal_received_training_reference_v1",
+      "reference_timing": "received_normal_source_horizon_920ms_v1",
+      "received_buffer": {
+        "kind": "sonic_received_normal_step5_horizon_920ms_v1",
+        "source_profile": {
+          "profile": "true23_step5_0p1s",
+          "source_sample_rate_hz": 50,
+          "source_sample_period_s": 0.02,
+          "future_frame_count": 10,
+          "future_frame_step": 5,
+          "future_frame_offsets_s": [
+            0.0,
+            0.1,
+            0.2,
+            0.3,
+            0.4,
+            0.5,
+            0.6,
+            0.7,
+            0.8,
+            0.9
+          ],
+          "horizon_s": 0.9,
+          "command_layout": "positions_120_then_velocities_120"
+        },
+        "received_samples_required": 47,
+        "reference_anchor_age_s": 0.92,
+        "position_sample_indices": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40,
+          45
+        ],
+        "velocity_definition": "float32(q[i+1]-q[i])/float32(0.02), i=0,5,...,45",
+        "vr_reference": "received_q0_original29_geometry",
+        "measured_robot_state": "current_control_boundary_not_delayed",
+        "prediction_or_unreceived_samples": false,
+        "automatic_terminal_padding": false,
+        "deployment_ready": false,
+        "hardware_authorized": false
+      },
+      "root_setpoint_age_s": 0.9,
+      "scored_reference_phase": "unchanged_post_control_q2",
+      "generated_standing_tail_samples": 46,
+      "source_frames_retimed_or_reanchored": false,
+      "missing_proprioception": "physical_absence_zero_never_reference_motion",
+      "old_200ms_checkpoint_relabelling": false,
+      "deployment_ready": false,
+      "hardware_authorized": false,
+      "contract_sha256": "f2aa9bddf9b5a6ca09cf44a86d04b50777e50e1bfe053731f0e077a85ac2e26d"
+    },
+    "root_feedback": {
+      "kind": "native23_normal_received_root_feedback9_v1",
+      "reference_timing": "received_normal_source_horizon_920ms_v1",
+      "dimension": 9,
+      "components": [
+        "desired_minus_measured_position_xyz",
+        "desired_velocity_xyz",
+        "measured_velocity_xyz"
+      ],
+      "component_units": [
+        "m",
+        "m_per_s",
+        "m_per_s"
+      ],
+      "coordinate_frame": "current_measured_pelvis_yaw_frame",
+      "desired_position": "received_q1_age_900ms",
+      "desired_velocity": "float32(received_root_q1-received_root_q0)/float32(0.02)",
+      "measured_state": "current_control_boundary_not_delayed",
+      "semantic_anchor": "received_q0_age_920ms",
+      "separate_from_existing_994_decoder_input": true,
+      "input_clipping": false,
+      "physical_world_state_estimator_required": true,
+      "simulator_state_is_physical_estimator_qualification": false,
+      "deployment_ready": false,
+      "hardware_authorized": false,
+      "contract_sha256": "73aa6e078d6edd48dd9d90e701e35b02df3e7b6e78eedf7f3aa655deac4ac286"
+    },
+    "hardware_authorized": false,
+    "deployment_ready": false
+  },
+  "cases": [
+    {
+      "name": "pico",
+      "completed": 1945,
+      "requested": 6530,
+      "failure": {
+        "type": "ValueError",
+        "message": "no verified next-control and100ms ankle target found by bounded inward search",
+        "completed_controls": 1945,
+        "physics_steps": 19450
+      },
+      "source_tracking_passed": false,
+      "hard_range_excess": 0.0,
+      "velocity_ratio": 0.4056025010218304,
+      "source_metrics": {
+        "source_controls": 1595,
+        "leg_rmse_rad": 0.16344016082628401,
+        "arm_rmse_rad": 0.27368776361551134,
+        "root_p95_m": 0.24747099724523455,
+        "relative_foot_p95_m": [
+          0.14285638656616553,
+          0.15763047701680022
+        ],
+        "world_foot_p95_m": [
+          0.2919062733108935,
+          0.25055673410074863
+        ]
+      },
+      "matched_prefix": {
+        "candidate": {
+          "source_controls": 1595,
+          "leg_rmse_rad": 0.16344016082628401,
+          "arm_rmse_rad": 0.27368776361551134,
+          "root_p95_m": 0.24747099724523455,
+          "relative_foot_p95_m": [
+            0.14285638656616553,
+            0.15763047701680022
+          ],
+          "world_foot_p95_m": [
+            0.2919062733108935,
+            0.25055673410074863
+          ]
+        },
+        "baseline": {
+          "source_controls": 1595,
+          "leg_rmse_rad": 0.13784642100977,
+          "arm_rmse_rad": 0.2862942240346268,
+          "root_p95_m": 0.9520263850162903,
+          "relative_foot_p95_m": [
+            0.12987659154013906,
+            0.14886955134589652
+          ],
+          "world_foot_p95_m": [
+            0.9267065791700676,
+            0.9954107064893936
+          ]
+        },
+        "same1000_20ms": {
+          "candidate": {
+            "source_controls": 1530,
+            "leg_rmse_rad": 0.16009120221497616,
+            "arm_rmse_rad": 0.27143219503476534,
+            "root_p95_m": 0.24386778011113866,
+            "relative_foot_p95_m": [
+              0.12437779988924308,
+              0.14271561694532814
+            ],
+            "world_foot_p95_m": [
+              0.2969981679369939,
+              0.2385266002244858
+            ]
+          },
+          "baseline": {
+            "source_controls": 1530,
+            "leg_rmse_rad": 0.16005994816725322,
+            "arm_rmse_rad": 0.2698284556062377,
+            "root_p95_m": 0.1903857647150807,
+            "relative_foot_p95_m": [
+              0.1270013650592998,
+              0.1450648010421033
+            ],
+            "world_foot_p95_m": [
+              0.26073249797323866,
+              0.21928314402172241
+            ]
+          }
+        },
+        "parent500_20ms": {
+          "candidate": {
+            "source_controls": 1595,
+            "leg_rmse_rad": 0.16344016082628401,
+            "arm_rmse_rad": 0.27368776361551134,
+            "root_p95_m": 0.24747099724523455,
+            "relative_foot_p95_m": [
+              0.14285638656616553,
+              0.15763047701680022
+            ],
+            "world_foot_p95_m": [
+              0.2919062733108935,
+              0.25055673410074863
+            ]
+          },
+          "baseline": {
+            "source_controls": 1595,
+            "leg_rmse_rad": 0.16864516360897627,
+            "arm_rmse_rad": 0.2758533427824013,
+            "root_p95_m": 0.3544528175860794,
+            "relative_foot_p95_m": [
+              0.1360292700229263,
+              0.1666742352318631
+            ],
+            "world_foot_p95_m": [
+              0.3641171591988157,
+              0.32514533880159985
+            ]
+          }
+        }
+      },
+      "preview": {
+        "kind": "native23_offline_20ms_all_joint_and100ms_ankle_preview_v1",
+        "compiled_model_sha256": "80c82f5374bed69423580b4d2085e2103bfd83b8691dfe1f7699d2434e1561a8",
+        "reserve_rad": 0.0019,
+        "predicted_physics_substeps": 50,
+        "source_lookahead_added": false,
+        "measured_state": "copied_qpos_qvel_with_independent_zero_warmstart",
+        "prediction_is_actual_hardware_state": false,
+        "limits_or_gains_changed": false,
+        "actual_previous_action_tracks_corrected_target": true,
+        "target_interval_changed": false,
+        "checked_controls": 1945,
+        "interventions": 156,
+        "maximum_filter_elapsed_s": 0.06364920899795834,
+        "real_time_or_recursive_safety_proven": false,
+        "failure_fallback": "none_reject_trial",
+        "hardware_authorized": false,
+        "deployment_ready": false,
+        "all_joint_checked_substeps": 10,
+        "extended_checked_hardware_joints": [
+          4,
+          5,
+          10,
+          11
+        ],
+        "constant_candidate_target_horizon_s": 0.1,
+        "future_policy_actions_predicted": false,
+        "duplicate_predictions_skipped": true,
+        "numerical_inset_never_weakens_nominal_braking": true,
+        "maximum_predictions": 16,
+        "rejected_attempt": {
+          "message": "no verified next-control and100ms ankle target found by bounded inward search",
+          "details": {
+            "nominal_next_control_violation_rad": 0.0,
+            "nominal_checked_violation_rad": 0.07121718553210177,
+            "reason": "bounded inward candidates exhausted",
+            "preview_calls": 8,
+            "candidate_maximum_violations_rad": [
+              0.07121718553210177,
+              0.07220821876965666,
+              0.06617756761449667,
+              0.07027451247709837,
+              0.07698568826141583,
+              0.08082456642814162,
+              0.0751928928161798,
+              0.043110446560185145
+            ]
+          },
+          "elapsed_s": 0.03441102500073612
+        },
+        "actual_clock_qualified": false
+      },
+      "report_sha256": "33caf34aca49de9e349036127471e0b195c0a136ba593a3faa82fbe646d2d7b5",
+      "deployment_ready": false,
+      "hardware_authorized": false,
+      "simulator_qualified": false
+    },
+    {
+      "name": "walk002",
+      "completed": 1417,
+      "requested": 1417,
+      "failure": null,
+      "source_tracking_passed": false,
+      "hard_range_excess": 0.0,
+      "velocity_ratio": 0.5956928542997857,
+      "source_metrics": {
+        "source_controls": 667,
+        "leg_rmse_rad": 0.2142129546009517,
+        "arm_rmse_rad": 0.3333681856549802,
+        "root_p95_m": 0.9442457951499685,
+        "relative_foot_p95_m": [
+          0.2194739755896943,
+          0.17969734741953405
+        ],
+        "world_foot_p95_m": [
+          1.0671475423422834,
+          1.0325841149037667
+        ]
+      },
+      "matched_prefix": {
+        "candidate": {
+          "source_controls": 667,
+          "leg_rmse_rad": 0.2142129546009517,
+          "arm_rmse_rad": 0.3333681856549802,
+          "root_p95_m": 0.9442457951499685,
+          "relative_foot_p95_m": [
+            0.2194739755896943,
+            0.17969734741953405
+          ],
+          "world_foot_p95_m": [
+            1.0671475423422834,
+            1.0325841149037667
+          ]
+        },
+        "baseline": {
+          "source_controls": 667,
+          "leg_rmse_rad": 0.18143944373741944,
+          "arm_rmse_rad": 0.10877535071355539,
+          "root_p95_m": 0.5839846736485956,
+          "relative_foot_p95_m": [
+            0.1628566604452265,
+            0.13419339761825722
+          ],
+          "world_foot_p95_m": [
+            0.5604948170411445,
+            0.6204620764994394
+          ]
+        },
+        "same1000_20ms": {
+          "candidate": {
+            "source_controls": 667,
+            "leg_rmse_rad": 0.2142129546009517,
+            "arm_rmse_rad": 0.3333681856549802,
+            "root_p95_m": 0.9442457951499685,
+            "relative_foot_p95_m": [
+              0.2194739755896943,
+              0.17969734741953405
+            ],
+            "world_foot_p95_m": [
+              1.0671475423422834,
+              1.0325841149037667
+            ]
+          },
+          "baseline": {
+            "source_controls": 667,
+            "leg_rmse_rad": 0.2181252360716176,
+            "arm_rmse_rad": 0.33883407466303805,
+            "root_p95_m": 0.7743318672177147,
+            "relative_foot_p95_m": [
+              0.22388591802619304,
+              0.18474833992837641
+            ],
+            "world_foot_p95_m": [
+              0.8801063439062103,
+              0.8386440439304328
+            ]
+          }
+        },
+        "parent500_20ms": {
+          "candidate": {
+            "source_controls": 667,
+            "leg_rmse_rad": 0.2142129546009517,
+            "arm_rmse_rad": 0.3333681856549802,
+            "root_p95_m": 0.9442457951499685,
+            "relative_foot_p95_m": [
+              0.2194739755896943,
+              0.17969734741953405
+            ],
+            "world_foot_p95_m": [
+              1.0671475423422834,
+              1.0325841149037667
+            ]
+          },
+          "baseline": {
+            "source_controls": 667,
+            "leg_rmse_rad": 0.2028867391305116,
+            "arm_rmse_rad": 0.19884219822482946,
+            "root_p95_m": 1.276944850137006,
+            "relative_foot_p95_m": [
+              0.1857567281054143,
+              0.18090408850199227
+            ],
+            "world_foot_p95_m": [
+              1.2722538405895165,
+              1.3648394735141054
+            ]
+          }
+        }
+      },
+      "preview": {
+        "kind": "native23_offline_20ms_all_joint_and100ms_ankle_preview_v1",
+        "compiled_model_sha256": "80c82f5374bed69423580b4d2085e2103bfd83b8691dfe1f7699d2434e1561a8",
+        "reserve_rad": 0.0019,
+        "predicted_physics_substeps": 50,
+        "source_lookahead_added": false,
+        "measured_state": "copied_qpos_qvel_with_independent_zero_warmstart",
+        "prediction_is_actual_hardware_state": false,
+        "limits_or_gains_changed": false,
+        "actual_previous_action_tracks_corrected_target": true,
+        "target_interval_changed": false,
+        "checked_controls": 1417,
+        "interventions": 23,
+        "maximum_filter_elapsed_s": 0.06447402500270982,
+        "real_time_or_recursive_safety_proven": false,
+        "failure_fallback": "none_reject_trial",
+        "hardware_authorized": false,
+        "deployment_ready": false,
+        "all_joint_checked_substeps": 10,
+        "extended_checked_hardware_joints": [
+          4,
+          5,
+          10,
+          11
+        ],
+        "constant_candidate_target_horizon_s": 0.1,
+        "future_policy_actions_predicted": false,
+        "duplicate_predictions_skipped": true,
+        "numerical_inset_never_weakens_nominal_braking": true,
+        "maximum_predictions": 16,
+        "rejected_attempt": null,
+        "actual_clock_qualified": false
+      },
+      "report_sha256": "06a1d70a7eb178d62bd44beff909047fc0f48dca4e93eb5f9339e9391bb00075",
+      "deployment_ready": false,
+      "hardware_authorized": false,
+      "simulator_qualified": false
+    },
+    {
+      "name": "walk003",
+      "completed": 1569,
+      "requested": 1569,
+      "failure": null,
+      "source_tracking_passed": false,
+      "hard_range_excess": 0.0,
+      "velocity_ratio": 0.7984223628542118,
+      "source_metrics": {
+        "source_controls": 819,
+        "leg_rmse_rad": 0.22531228928723016,
+        "arm_rmse_rad": 0.2957922529562438,
+        "root_p95_m": 1.7855818806149422,
+        "relative_foot_p95_m": [
+          0.21001268241087528,
+          0.18835471592252356
+        ],
+        "world_foot_p95_m": [
+          1.8435876171171965,
+          1.8210526681394419
+        ]
+      },
+      "matched_prefix": {
+        "candidate": {
+          "source_controls": 819,
+          "leg_rmse_rad": 0.22531228928723016,
+          "arm_rmse_rad": 0.2957922529562438,
+          "root_p95_m": 1.7855818806149422,
+          "relative_foot_p95_m": [
+            0.21001268241087528,
+            0.18835471592252356
+          ],
+          "world_foot_p95_m": [
+            1.8435876171171965,
+            1.8210526681394419
+          ]
+        },
+        "baseline": {
+          "source_controls": 819,
+          "leg_rmse_rad": 0.2068684561328406,
+          "arm_rmse_rad": 0.14298935965231782,
+          "root_p95_m": 2.483156995099943,
+          "relative_foot_p95_m": [
+            0.1836638522558086,
+            0.16761380230504722
+          ],
+          "world_foot_p95_m": [
+            2.5388291057792336,
+            2.5347716625235166
+          ]
+        },
+        "same1000_20ms": {
+          "candidate": {
+            "source_controls": 754,
+            "leg_rmse_rad": 0.22628769191465753,
+            "arm_rmse_rad": 0.2974869083699678,
+            "root_p95_m": 1.572738166899046,
+            "relative_foot_p95_m": [
+              0.21008905309266962,
+              0.18761283689206873
+            ],
+            "world_foot_p95_m": [
+              1.7115212497045513,
+              1.6956365184797069
+            ]
+          },
+          "baseline": {
+            "source_controls": 754,
+            "leg_rmse_rad": 0.22197037973439854,
+            "arm_rmse_rad": 0.2953403557849418,
+            "root_p95_m": 1.6292244599160934,
+            "relative_foot_p95_m": [
+              0.21022145700600595,
+              0.18708398515323094
+            ],
+            "world_foot_p95_m": [
+              1.8069436965713452,
+              1.734677749900856
+            ]
+          }
+        },
+        "parent500_20ms": {
+          "candidate": {
+            "source_controls": 819,
+            "leg_rmse_rad": 0.22531228928723016,
+            "arm_rmse_rad": 0.2957922529562438,
+            "root_p95_m": 1.7855818806149422,
+            "relative_foot_p95_m": [
+              0.21001268241087528,
+              0.18835471592252356
+            ],
+            "world_foot_p95_m": [
+              1.8435876171171965,
+              1.8210526681394419
+            ]
+          },
+          "baseline": {
+            "source_controls": 819,
+            "leg_rmse_rad": 0.20736219187771346,
+            "arm_rmse_rad": 0.20670992965370832,
+            "root_p95_m": 2.4610171115815067,
+            "relative_foot_p95_m": [
+              0.20954576573440048,
+              0.16485239025930254
+            ],
+            "world_foot_p95_m": [
+              2.5457502047604326,
+              2.487035360595796
+            ]
+          }
+        }
+      },
+      "preview": {
+        "kind": "native23_offline_20ms_all_joint_and100ms_ankle_preview_v1",
+        "compiled_model_sha256": "80c82f5374bed69423580b4d2085e2103bfd83b8691dfe1f7699d2434e1561a8",
+        "reserve_rad": 0.0019,
+        "predicted_physics_substeps": 50,
+        "source_lookahead_added": false,
+        "measured_state": "copied_qpos_qvel_with_independent_zero_warmstart",
+        "prediction_is_actual_hardware_state": false,
+        "limits_or_gains_changed": false,
+        "actual_previous_action_tracks_corrected_target": true,
+        "target_interval_changed": false,
+        "checked_controls": 1569,
+        "interventions": 13,
+        "maximum_filter_elapsed_s": 0.071850626001833,
+        "real_time_or_recursive_safety_proven": false,
+        "failure_fallback": "none_reject_trial",
+        "hardware_authorized": false,
+        "deployment_ready": false,
+        "all_joint_checked_substeps": 10,
+        "extended_checked_hardware_joints": [
+          4,
+          5,
+          10,
+          11
+        ],
+        "constant_candidate_target_horizon_s": 0.1,
+        "future_policy_actions_predicted": false,
+        "duplicate_predictions_skipped": true,
+        "numerical_inset_never_weakens_nominal_braking": true,
+        "maximum_predictions": 16,
+        "rejected_attempt": null,
+        "actual_clock_qualified": false
+      },
+      "report_sha256": "685cfc8613350d4872ecf16785960d9d5db4aad4f81a7aa3d75d66e5981cdecb",
+      "deployment_ready": false,
+      "hardware_authorized": false,
+      "simulator_qualified": false
+    },
+    {
+      "name": "walk008",
+      "completed": 667,
+      "requested": 1114,
+      "failure": {
+        "type": "ValueError",
+        "message": "no verified next-control and100ms ankle target found by bounded inward search",
+        "completed_controls": 667,
+        "physics_steps": 6670
+      },
+      "source_tracking_passed": false,
+      "hard_range_excess": 0.0,
+      "velocity_ratio": 0.7522715142498363,
+      "source_metrics": {
+        "source_controls": 317,
+        "leg_rmse_rad": 0.21684607451927368,
+        "arm_rmse_rad": 0.41793949091698757,
+        "root_p95_m": 2.2741288587341453,
+        "relative_foot_p95_m": [
+          0.2141081317985806,
+          0.2591219932875312
+        ],
+        "world_foot_p95_m": [
+          2.2936404697239365,
+          2.307901480889392
+        ]
+      },
+      "matched_prefix": {
+        "candidate": {
+          "source_controls": 317,
+          "leg_rmse_rad": 0.21684607451927368,
+          "arm_rmse_rad": 0.41793949091698757,
+          "root_p95_m": 2.2741288587341453,
+          "relative_foot_p95_m": [
+            0.2141081317985806,
+            0.2591219932875312
+          ],
+          "world_foot_p95_m": [
+            2.2936404697239365,
+            2.307901480889392
+          ]
+        },
+        "baseline": {
+          "source_controls": 317,
+          "leg_rmse_rad": 0.17556424388762984,
+          "arm_rmse_rad": 0.4046071776467073,
+          "root_p95_m": 2.3369865218619847,
+          "relative_foot_p95_m": [
+            0.1774276729766233,
+            0.17416766319576962
+          ],
+          "world_foot_p95_m": [
+            2.2370332805866147,
+            2.347881321608193
+          ]
+        },
+        "same1000_20ms": {
+          "candidate": {
+            "source_controls": 240,
+            "leg_rmse_rad": 0.16631523986675323,
+            "arm_rmse_rad": 0.3883570188588301,
+            "root_p95_m": 1.5538944061092594,
+            "relative_foot_p95_m": [
+              0.21385234042683035,
+              0.15381399176775723
+            ],
+            "world_foot_p95_m": [
+              1.6310431165721262,
+              1.6438577950779216
+            ]
+          },
+          "baseline": {
+            "source_controls": 240,
+            "leg_rmse_rad": 0.16508513688436033,
+            "arm_rmse_rad": 0.3847917860392567,
+            "root_p95_m": 1.5362273976114584,
+            "relative_foot_p95_m": [
+              0.22504171729802303,
+              0.15852793452506847
+            ],
+            "world_foot_p95_m": [
+              1.6254803947338536,
+              1.6250496247542041
+            ]
+          }
+        },
+        "parent500_20ms": {
+          "candidate": {
+            "source_controls": 317,
+            "leg_rmse_rad": 0.21684607451927368,
+            "arm_rmse_rad": 0.41793949091698757,
+            "root_p95_m": 2.2741288587341453,
+            "relative_foot_p95_m": [
+              0.2141081317985806,
+              0.2591219932875312
+            ],
+            "world_foot_p95_m": [
+              2.2936404697239365,
+              2.307901480889392
+            ]
+          },
+          "baseline": {
+            "source_controls": 317,
+            "leg_rmse_rad": 0.21956341801906754,
+            "arm_rmse_rad": 0.3814119635903096,
+            "root_p95_m": 2.3384137527993336,
+            "relative_foot_p95_m": [
+              0.191264530106528,
+              0.2290717833261547
+            ],
+            "world_foot_p95_m": [
+              2.204209277964518,
+              2.2872496243957365
+            ]
+          }
+        }
+      },
+      "preview": {
+        "kind": "native23_offline_20ms_all_joint_and100ms_ankle_preview_v1",
+        "compiled_model_sha256": "80c82f5374bed69423580b4d2085e2103bfd83b8691dfe1f7699d2434e1561a8",
+        "reserve_rad": 0.0019,
+        "predicted_physics_substeps": 50,
+        "source_lookahead_added": false,
+        "measured_state": "copied_qpos_qvel_with_independent_zero_warmstart",
+        "prediction_is_actual_hardware_state": false,
+        "limits_or_gains_changed": false,
+        "actual_previous_action_tracks_corrected_target": true,
+        "target_interval_changed": false,
+        "checked_controls": 667,
+        "interventions": 60,
+        "maximum_filter_elapsed_s": 0.07681785900058458,
+        "real_time_or_recursive_safety_proven": false,
+        "failure_fallback": "none_reject_trial",
+        "hardware_authorized": false,
+        "deployment_ready": false,
+        "all_joint_checked_substeps": 10,
+        "extended_checked_hardware_joints": [
+          4,
+          5,
+          10,
+          11
+        ],
+        "constant_candidate_target_horizon_s": 0.1,
+        "future_policy_actions_predicted": false,
+        "duplicate_predictions_skipped": true,
+        "numerical_inset_never_weakens_nominal_braking": true,
+        "maximum_predictions": 16,
+        "rejected_attempt": {
+          "message": "no verified next-control and100ms ankle target found by bounded inward search",
+          "details": {
+            "nominal_next_control_violation_rad": 0.0,
+            "nominal_checked_violation_rad": 0.10158088425095602,
+            "reason": "no additional inward target authority",
+            "preview_calls": 1,
+            "candidate_maximum_violations_rad": [
+              0.10158088425095602
+            ]
+          },
+          "elapsed_s": 0.004058725000504637
+        },
+        "actual_clock_qualified": false
+      },
+      "report_sha256": "860366a6927b5988b37a3af8e5ad401a60948abcfbf91770741fba2079ce9495",
+      "deployment_ready": false,
+      "hardware_authorized": false,
+      "simulator_qualified": false
+    }
+  ],
+  "deployment_ready": false,
+  "hardware_authorized": false,
+  "simulator_qualified": false
+}

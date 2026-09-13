@@ -1,0 +1,56 @@
+{
+  "kind": "independent_read_only_native_bulk_forecast_review",
+  "scalar_predicates": "Unchanged frozen NumPy _assess on saved arrays preserves original finite/quaternion/norm/tilt/reason-order/tie semantics. The C loop contains only independently rounded double PD, unchanged 2 ms mj_step, trace capture and critical nonfinite/warning stop.",
+  "restoration": "Private full291 plus warning counts/lastinfo restore, forward, warning check, restore again and full291 roundtrip before stepping; actual source integration/warnings checked unchanged.",
+  "root_followup": "Root accepted v2 immediate lock and owned-target fixes, same364 parity rerun plus non-dynamics reentrant/held-lock/target-alias fixtures; v1 artifacts preserved.",
+  "findings": [
+    {
+      "id": "concurrency_guard",
+      "severity": "required_before_connected_use",
+      "detail": "Boolean busy check is followed by NumPy/state captures before busy is set, and busy is cleared before source integrity checks. Concurrent entry can overlap mutable workspaces. Use a nonblocking lock acquired at method entry and released only after final integrity checks.",
+      "location": "bulk_forecast.py predict entry and finally"
+    },
+    {
+      "id": "target_alias",
+      "severity": "required_before_connected_use",
+      "detail": "Caller target pointer is passed directly into C. A target view into private qpos or a prior returned trace may be overwritten by restore/save/step and change the supposedly constant target. Copy into an owned preallocated 23-double buffer before private mutation and validate that snapshot.",
+      "location": "bulk_forecast.py target boundary and native_rollout.cpp save/PD"
+    },
+    {
+      "id": "prior_report_provenance",
+      "severity": "receipt_limitation",
+      "detail": "The original232 preallocated results report is read but is absent from the 60 request pins. Independently verified current SHA 67e516f3cfd059438677580b8a7b575b183af270327f3143a13748b62201e478; include it in any v2 frozen request.",
+      "location": "run_parity.py frozen reports"
+    }
+  ],
+  "computed_steps_after_first_failure": 926,
+  "cases": 364,
+  "bindings": {
+    "bulk_forecast.py": "f8a7dc5e5d91a951430b06c9c379de386067809af2342c4bb793991fc96c3c13",
+    "request.json": "26d5fe3d9f9d2a6260f634ac282554270645efbe9c5424a398f0474072a9e46b",
+    "results/report.json": "da917bd1f569ccf0e5ec1e70bcf2ff62a4b66790fd72ed107865f84c69e78203",
+    "run_parity.py": "39231bc6d840b4ae17464536b84de3b4a31c70dc46d7992dcf71702f7b39950f",
+    "check_input_boundaries.py": "a4bd165bea168d2f8582ca8c6f3f71472e2376203d5358247c27d84f16931976",
+    "build.json": "b76ed7923225f1412fc7cb4ad2f1061a69a55873ed489cb6384c8a37670c0c13",
+    "results/bulk_traces.npz": "82d331ae691f2cf73fa35adb81dc9b948601114617c7dfc36370f3d96916b7a3",
+    "input_boundary_report.json": "eb052c4cc86b10046b73b0319fa24364b61617e0e259e5aae68451f890cf2b2e",
+    "native_rollout.cpp": "b1d066f0b6316e79b81808c6e0805fbca9485d8038cee502543c9d0311bcd9a1",
+    "results/oracle_traces.npz": "82d331ae691f2cf73fa35adb81dc9b948601114617c7dfc36370f3d96916b7a3",
+    "native_rollout.so": "d85492f08944f1db147654ae4558ca16dc84664864f65d193d79c54d88a84ce8"
+  },
+  "native_identity": "Exact native 3.2.3 library and headers bound; compiler and fixed no-fast-math/no-contraction options bound; resolved mj_step address equals native library symbol.",
+  "verified_build_inputs": 18,
+  "checked_prefix_steps": 12634,
+  "timing": "Saved wrapper timings include restore/forward/restore, C loop, scalar checks, report and caller storage copy. Summary recomputed exactly; single 100 ms median 5.78895 ms, p95 7.005785, maximum 10.9361; no four-candidate or end-to-end real-time qualification.",
+  "computed_steps": 13560,
+  "archive_fields_byteexact": 9,
+  "verdict": "CLEAR for serial fixed-corpus evidence; API changes required before connected use",
+  "evidence_limits": [
+    "Existing tests use serial independent target buffers, so findings do not invalidate their recorded parity.",
+    "Seven full trace fields, nine archived fields and scalar outcome fields were checked; private final291 internal state equality against oracle is not separately saved or claimed.",
+    "Caller must own the same prepared model/data and keep model, source state and callback environment immutable for each call.",
+    "No connection to current selected cost-ranked controller, no policy or optimizer calls, no physical plant steps by reviewer."
+  ],
+  "accounting": "All 13,560 computed samples retained, including 926 after the first strict failure; assessed_steps and checked_prefix distinct; no strict early-stop claim.",
+  "verified_request_inputs": 60
+}

@@ -1,0 +1,34 @@
+{
+  "kind": "read_only_endpoint_source_and_saved_array_review",
+  "verdict": "CLEAR_FOR_ROOT_HOLD_AUDIT_AFTER_QUALIFIED_HOLD_TRACE",
+  "hashes": {
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_resume_20260911\\inspect_recorded_intent.py": "a704bc09cb718055045b9ca0974122197a8b5ce781a5611a5fdebbf3435ba5fc",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_resume_20260911\\reconstruct_recorded_endpoint.py": "7ba0f1d492f274bd1805992d065d1e6fc89d50de0e32492bb6c657ac21b77feb",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_full_endpoint_independent_v1\\endpoint.npz": "7741b36128e30c342ad0cf79a2b73cbd2b7697b5b714dde84eed8ed219d131a7",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_full_endpoint_independent_v1\\report.json": "89ce9c96dad587c50e6831c57cac6cd71726a7ceab35321bedf97be95fb3b2cb",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_full_control_lm_v1\\trace.npz": "438e6420685666b104d9f944620bc9df6745763727848d8709fb223eb47f36cb",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_full_control_lm_independent_physics_v1\\report.json": "48068609e63a9c6cb1c8bb02758822fcf46997b0e6548f9f02033025a7dc1767"
+  },
+  "checks": {
+    "qpos_exact_to_preceding": true,
+    "qvel_exact_to_preceding": true,
+    "warning_counts_exact_to_preceding": true,
+    "warning_lastinfo_exact_to_preceding": true
+  },
+  "scope": [
+    "Reconstruction uses existing saved targets only; native replay comparison covers qpos/qvel/command torque/actuator force/time/warning counts/lastinfo through every native sample.",
+    "State vector full291 at spec8191 preserved without modifying original trace.",
+    "New optional inspector endpoint path binds report and endpoint SHA to original full trace; exact6530 completed controls/65300 substeps required.",
+    "Initial hold integration/pose/velocity/clock and warnings must equal endpoint and preceding final samples; native291 length and integration spec explicitly checked.",
+    "Original final_integration path and all source/quiet formulas unchanged.",
+    "Endpoint may be used only for separate hold at declared full-lifecycle boundary."
+  ],
+  "findings_resolved": [
+    "Explicit full native291 integration length",
+    "Warning counters and lastinfo continuity outside mjSTATE_INTEGRATION"
+  ],
+  "limitations": [
+    "No hold trace available or qualified in this review.",
+    "Reviewer ran no physics, inference, optimization, model loading or controller commands."
+  ]
+}

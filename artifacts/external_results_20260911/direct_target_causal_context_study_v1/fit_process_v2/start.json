@@ -1,0 +1,39 @@
+{
+    "kind":  "matched_causal_context_utility_study",
+    "wrapper_pid":  12832,
+    "started_utc":  "2026-09-11T17:16:48.5209482Z",
+    "clearance_sha256":  "ef103d3574f2f200c5fb8d011116b2f01a4ebf099c8e66731bdd2bd1c4f79027",
+    "request_sha256":  "284e1e6a69617b6f3f39ab877b92de4e1d426f96bf6abd983fe8d6a163a70c6c",
+    "frozen_receipt_sha256":  "4e292ff3005a330318f99c08aa47241d7b18a752a807befa72e41daae2a30bad",
+    "command":  {
+                    "python":  "E:\\codex_sonic_runtime\\direct_target_gpu_20260911\\venv\\Scripts\\python.exe",
+                    "arguments":  [
+                                      "-u",
+                                      "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_causal_context_study_v1\\source_snapshot_v1\\train_context_pair.py"
+                                  ],
+                    "working_directory":  "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_causal_context_study_v1\\source_snapshot_v1",
+                    "CUBLAS_WORKSPACE_CONFIG":  ":4096:8",
+                    "threads":  1
+                },
+    "updates_per_condition":  3000,
+    "ordinary_final_step":  68000,
+    "conditions":  [
+                       "blinded",
+                       "causal"
+                   ],
+    "budgets":  {
+                    "training_forward_rows":  88116000,
+                    "training_forward_calls":  18000,
+                    "training_updates":  6000,
+                    "diagnostic_Torch_rows":  2940560,
+                    "diagnostic_Torch_calls":  11496,
+                    "diagnostic_ORT_rows":  735140,
+                    "diagnostic_ORT_calls":  2874,
+                    "calibration_forward_calls":  0,
+                    "calibration_gradient_calls":  0,
+                    "native_calls":  0,
+                    "BFM_calls":  0,
+                    "manual_export_trace_calls":  0
+                },
+    "automatic_retry":  false
+}

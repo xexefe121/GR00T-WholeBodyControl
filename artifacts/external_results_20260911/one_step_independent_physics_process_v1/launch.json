@@ -1,0 +1,43 @@
+﻿{
+    "utc":  "2026-09-11T10:23:23.4976512Z",
+    "wrapper_pid":  12496,
+    "audit":  "physics",
+    "arguments":  [
+                      "-d",
+                      "Ubuntu-22.04",
+                      "--cd",
+                      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof",
+                      "--",
+                      "bash",
+                      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/RUN_PASSING_WALK_WSL.sh",
+                      "env",
+                      "OMP_NUM_THREADS=1",
+                      "OPENBLAS_NUM_THREADS=1",
+                      "MKL_NUM_THREADS=1",
+                      "/mnt/e/codex_sonic_runtime/mjbatch323_20260910/venv/bin/python",
+                      "artifacts/teleop_resume_20260911/audit_one_step_physics.py",
+                      "--collection",
+                      "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/one_step_policy_branch_collection_resume2969_v1/collection",
+                      "--collection-report-sha256",
+                      "caf8342428008bf1b4551a0c3ee84cadc6d3b401de479a9ec7a2c7a273802fce",
+                      "--output",
+                      "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/one_step_independent_physics_v1",
+                      "--old-snapshots",
+                      "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/old_expert_prefix_snapshots_v2/capture/control_snapshots.npz",
+                      "--old-report-sha256",
+                      "fb0226872958f414b9fdf263c54ca340733a697b7fea82c86215f872cbd28e30"
+                  ],
+    "input_sha256":  {
+                         "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_independent_audits_source_review_v1\\review.json":  "4670259e3186a136db5c8618bb9eade4b3d5cd59d4d75d9f87ece789f5de7bf3",
+                         "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\RUN_PASSING_WALK_WSL.sh":  "392de6eccb281c41219566c4b7c9c1813b086913f66d861529d4904959168ebc",
+                         "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_resume_20260911\\audit_one_step_physics.py":  "de0bce309f548846423d28d4401912d7e7856cd23b98b6504fe7e3141cf6ed4d",
+                         "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_resume_20260911\\audit_one_step_labels.py":  "10dd811ce75393bf9427bccdc3c36ec236ce9e3d79daa9a358cd9c932546b0ef",
+                         "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_resume_20260911\\branch_audit_oracle.py":  "57e2756a3774c1918ad53f33a4436539040742d30adbd727d52373d840cfaac3",
+                         "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_resume_20260911\\branch_label_audit.py":  "6ff44c724e340fe5347214e30ceaf3737e0a0e991555496c6ff049649240a72a",
+                         "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_policy_branch_collection_resume2969_v1\\collection\\report.json":  "caf8342428008bf1b4551a0c3ee84cadc6d3b401de479a9ec7a2c7a273802fce",
+                         "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_resume_20260911\\run_one_step_independent_audit.ps1":  "789bb62ca026561c87cb8d340cdd0554355eb5bce3f6033699dadf5ed48549b9"
+                     },
+    "maximum_native_steps":  61080,
+    "graph_calls":  0,
+    "optimizer_updates":  0
+}

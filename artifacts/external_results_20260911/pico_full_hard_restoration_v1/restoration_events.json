@@ -1,0 +1,2975 @@
+[
+  {
+    "trigger": "all standard seeds infeasible",
+    "attempts": [
+      {
+        "mode": "guided",
+        "contract": {
+          "joint_inner_margin_rad": 0.02,
+          "joint_margin_normalizer_rad": 0.02,
+          "speed_fraction": 0.9,
+          "speed_normalizer_fraction": 0.1,
+          "minimum_root_height_m": 0.3,
+          "height_normalizer_m": 0.05,
+          "maximum_root_tilt_rad": 1.1,
+          "tilt_normalizer_rad": 0.1,
+          "target_regularization_weight": 0.0001,
+          "target_regularization_reference": "original shifted warm targets",
+          "zero_rollout_feedback": false,
+          "feedback_suppression_scope": "private restoration line search only",
+          "execution_policy": false,
+          "main_tracking_objective_changed": false
+        },
+        "initial_merit": 19.91871905182976,
+        "final_merit": 0.00047896387774539243,
+        "nominal_feasibility": {
+          "feasible": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "first_violation": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "speed_ratio": [
+              0.3823765277682799,
+              0.3823765277682799,
+              0.3823765277682799,
+              0.3823765277682799,
+              0.3823765277682799,
+              0.3823765277682799,
+              0.3823765277682799,
+              0.3823765277682799,
+              0.3823765277682799
+            ],
+            "effort_ratio": [
+              0.7037337173386935,
+              0.7037337173386935,
+              0.7037337173386935,
+              0.7037337173386935,
+              0.7037337173386935,
+              0.7037337173386935,
+              0.7037337173386935,
+              0.7037337173386935,
+              0.7037337173386935
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "proposal_file": "restoration_01085_guided.npz",
+        "proposal_sha256": "a85f3bdc669530cb9bc99192c807c5044f88a854ec56e3d70b22a3627ef17b8d",
+        "independent_actual_state_oracle": {
+          "kind": "independent_native23_manual_PD_private_segment",
+          "feasible": true,
+          "first_failure": null,
+          "requested_controls": 30,
+          "physics_steps": 300,
+          "complete_controls": 30,
+          "partial_substeps": 0,
+          "original_data_unchanged": true,
+          "root_forces": false,
+          "source_state_copy_after_initialization": false,
+          "initial_time": 21.69999999999885,
+          "final_time": 22.29999999999852,
+          "maximum": {
+            "joint_excess_rad": 0.0,
+            "speed_ratio": 0.3823765277682801,
+            "effort_ratio": 0.7037337173386935,
+            "tilt_rad": 0.2113416335978899,
+            "clock_error_seconds": 0.0,
+            "ideal_clock_difference_seconds": 3.339550858072471e-13
+          },
+          "minimum_root_height_m": 0.6931971518886939,
+          "final_warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "diagnostic_continued_after_failure": false,
+          "live_or_hardware_qualified": false,
+          "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+        },
+        "accepted": true,
+        "elapsed_ms": 4204.730408000046
+      }
+    ],
+    "accepted": true,
+    "elapsed_ms": 4325.592344000029,
+    "control": 1085
+  },
+  {
+    "trigger": "all standard seeds infeasible",
+    "attempts": [
+      {
+        "mode": "guided",
+        "contract": {
+          "joint_inner_margin_rad": 0.02,
+          "joint_margin_normalizer_rad": 0.02,
+          "speed_fraction": 0.9,
+          "speed_normalizer_fraction": 0.1,
+          "minimum_root_height_m": 0.3,
+          "height_normalizer_m": 0.05,
+          "maximum_root_tilt_rad": 1.1,
+          "tilt_normalizer_rad": 0.1,
+          "target_regularization_weight": 0.0001,
+          "target_regularization_reference": "original shifted warm targets",
+          "zero_rollout_feedback": false,
+          "feedback_suppression_scope": "private restoration line search only",
+          "execution_policy": false,
+          "main_tracking_objective_changed": false
+        },
+        "initial_merit": 15.187742700269695,
+        "final_merit": 15.187742700269695,
+        "nominal_feasibility": {
+          "feasible": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "first_violation": [
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.00030655228282661096,
+              "speed_ratio": 0.23007966975266747,
+              "effort_ratio": 0.23148285490436757,
+              "root_height_m": 0.689989989947558,
+              "root_tilt_rad": 0.3562222602682107
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.00030655228282661096,
+              "speed_ratio": 0.23007966975266747,
+              "effort_ratio": 0.23148285490436757,
+              "root_height_m": 0.689989989947558,
+              "root_tilt_rad": 0.3562222602682107
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.00030655228282661096,
+              "speed_ratio": 0.23007966975266747,
+              "effort_ratio": 0.23148285490436757,
+              "root_height_m": 0.689989989947558,
+              "root_tilt_rad": 0.3562222602682107
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.00030655228282661096,
+              "speed_ratio": 0.23007966975266747,
+              "effort_ratio": 0.23148285490436757,
+              "root_height_m": 0.689989989947558,
+              "root_tilt_rad": 0.3562222602682107
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.00030655228282661096,
+              "speed_ratio": 0.23007966975266747,
+              "effort_ratio": 0.23148285490436757,
+              "root_height_m": 0.689989989947558,
+              "root_tilt_rad": 0.3562222602682107
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.00030655228282661096,
+              "speed_ratio": 0.23007966975266747,
+              "effort_ratio": 0.23148285490436757,
+              "root_height_m": 0.689989989947558,
+              "root_tilt_rad": 0.3562222602682107
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.00030655228282661096,
+              "speed_ratio": 0.23007966975266747,
+              "effort_ratio": 0.23148285490436757,
+              "root_height_m": 0.689989989947558,
+              "root_tilt_rad": 0.3562222602682107
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.00030655228282661096,
+              "speed_ratio": 0.23007966975266747,
+              "effort_ratio": 0.23148285490436757,
+              "root_height_m": 0.689989989947558,
+              "root_tilt_rad": 0.3562222602682107
+            },
+            {
+              "control": 25,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.00030655228282661096,
+              "speed_ratio": 0.23007966975266747,
+              "effort_ratio": 0.23148285490436757,
+              "root_height_m": 0.689989989947558,
+              "root_tilt_rad": 0.3562222602682107
+            }
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.00030655228282661096,
+              0.00030655228282661096,
+              0.00030655228282661096,
+              0.00030655228282661096,
+              0.00030655228282661096,
+              0.00030655228282661096,
+              0.00030655228282661096,
+              0.00030655228282661096,
+              0.00030655228282661096
+            ],
+            "speed_ratio": [
+              0.23141950103556494,
+              0.23141950103556494,
+              0.23141950103556494,
+              0.23141950103556494,
+              0.23141950103556494,
+              0.23141950103556494,
+              0.23141950103556494,
+              0.23141950103556494,
+              0.23141950103556494
+            ],
+            "effort_ratio": [
+              0.3821716576321418,
+              0.3821716576321418,
+              0.3821716576321418,
+              0.3821716576321418,
+              0.3821716576321418,
+              0.3821716576321418,
+              0.3821716576321418,
+              0.3821716576321418,
+              0.3821716576321418
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "proposal_file": "restoration_01115_guided.npz",
+        "proposal_sha256": "ab75cb4fe079fb570576d681ce5dd38e3237d27d0a53a0cbed7359717401816d",
+        "accepted": false,
+        "elapsed_ms": 1365.995962999932
+      },
+      {
+        "mode": "zero_feedback",
+        "contract": {
+          "joint_inner_margin_rad": 0.02,
+          "joint_margin_normalizer_rad": 0.02,
+          "speed_fraction": 0.9,
+          "speed_normalizer_fraction": 0.1,
+          "minimum_root_height_m": 0.3,
+          "height_normalizer_m": 0.05,
+          "maximum_root_tilt_rad": 1.1,
+          "tilt_normalizer_rad": 0.1,
+          "target_regularization_weight": 0.0001,
+          "target_regularization_reference": "original shifted warm targets",
+          "zero_rollout_feedback": true,
+          "feedback_suppression_scope": "private restoration line search only",
+          "execution_policy": false,
+          "main_tracking_objective_changed": false
+        },
+        "initial_merit": 15.187742700269695,
+        "final_merit": 0.0019698368585810656,
+        "nominal_feasibility": {
+          "feasible": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "first_violation": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "speed_ratio": [
+              0.23126808797653295,
+              0.23126808797653295,
+              0.23126808797653295,
+              0.23126808797653295,
+              0.23126808797653295,
+              0.23126808797653295,
+              0.23126808797653295,
+              0.23126808797653295,
+              0.23126808797653295
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "proposal_file": "restoration_01115_zero_feedback.npz",
+        "proposal_sha256": "19de5defc3ba7ed7c73a79b8ff38b9a46d81d131788ab9a67889a055ed75ecb4",
+        "independent_actual_state_oracle": {
+          "kind": "independent_native23_manual_PD_private_segment",
+          "feasible": true,
+          "first_failure": null,
+          "requested_controls": 30,
+          "physics_steps": 300,
+          "complete_controls": 30,
+          "partial_substeps": 0,
+          "original_data_unchanged": true,
+          "root_forces": false,
+          "source_state_copy_after_initialization": false,
+          "initial_time": 22.29999999999852,
+          "final_time": 22.899999999998187,
+          "maximum": {
+            "joint_excess_rad": 0.0,
+            "speed_ratio": 0.23126808797653214,
+            "effort_ratio": 1.0,
+            "tilt_rad": 0.4249600370645348,
+            "clock_error_seconds": 0.0,
+            "ideal_clock_difference_seconds": 3.339550858072471e-13
+          },
+          "minimum_root_height_m": 0.6832561481860969,
+          "final_warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "diagnostic_continued_after_failure": false,
+          "live_or_hardware_qualified": false,
+          "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+        },
+        "accepted": true,
+        "elapsed_ms": 3522.72490200005
+      }
+    ],
+    "accepted": true,
+    "elapsed_ms": 4888.784115000021,
+    "control": 1115
+  },
+  {
+    "trigger": "all standard seeds infeasible",
+    "attempts": [
+      {
+        "mode": "guided",
+        "contract": {
+          "joint_inner_margin_rad": 0.02,
+          "joint_margin_normalizer_rad": 0.02,
+          "speed_fraction": 0.9,
+          "speed_normalizer_fraction": 0.1,
+          "minimum_root_height_m": 0.3,
+          "height_normalizer_m": 0.05,
+          "maximum_root_tilt_rad": 1.1,
+          "tilt_normalizer_rad": 0.1,
+          "target_regularization_weight": 0.0001,
+          "target_regularization_reference": "original shifted warm targets",
+          "zero_rollout_feedback": false,
+          "feedback_suppression_scope": "private restoration line search only",
+          "execution_policy": false,
+          "main_tracking_objective_changed": false
+        },
+        "initial_merit": 18.140218184783684,
+        "final_merit": 0.0014039412351923362,
+        "nominal_feasibility": {
+          "feasible": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "first_violation": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "speed_ratio": [
+              0.6051549152240516,
+              0.6051549152240516,
+              0.6051549152240516,
+              0.6051549152240516,
+              0.6051549152240516,
+              0.6051549152240516,
+              0.6051549152240516,
+              0.6051549152240516,
+              0.6051549152240516
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "proposal_file": "restoration_01120_guided.npz",
+        "proposal_sha256": "79888e2ece773e25544612b1de3c72e28382b9695a3d98c7d721ddef30f8fca4",
+        "independent_actual_state_oracle": {
+          "kind": "independent_native23_manual_PD_private_segment",
+          "feasible": true,
+          "first_failure": null,
+          "requested_controls": 30,
+          "physics_steps": 300,
+          "complete_controls": 30,
+          "partial_substeps": 0,
+          "original_data_unchanged": true,
+          "root_forces": false,
+          "source_state_copy_after_initialization": false,
+          "initial_time": 22.399999999998464,
+          "final_time": 22.99999999999813,
+          "maximum": {
+            "joint_excess_rad": 0.0,
+            "speed_ratio": 0.6051549152240515,
+            "effort_ratio": 1.0,
+            "tilt_rad": 0.3234232933865308,
+            "clock_error_seconds": 0.0,
+            "ideal_clock_difference_seconds": 3.339550858072471e-13
+          },
+          "minimum_root_height_m": 0.6924133495986469,
+          "final_warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "diagnostic_continued_after_failure": false,
+          "live_or_hardware_qualified": false,
+          "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+        },
+        "accepted": true,
+        "elapsed_ms": 3440.389638000056
+      }
+    ],
+    "accepted": true,
+    "elapsed_ms": 3440.39990400006,
+    "control": 1120
+  },
+  {
+    "trigger": "all standard seeds infeasible",
+    "attempts": [
+      {
+        "mode": "guided",
+        "contract": {
+          "joint_inner_margin_rad": 0.02,
+          "joint_margin_normalizer_rad": 0.02,
+          "speed_fraction": 0.9,
+          "speed_normalizer_fraction": 0.1,
+          "minimum_root_height_m": 0.3,
+          "height_normalizer_m": 0.05,
+          "maximum_root_tilt_rad": 1.1,
+          "tilt_normalizer_rad": 0.1,
+          "target_regularization_weight": 0.0001,
+          "target_regularization_reference": "original shifted warm targets",
+          "zero_rollout_feedback": false,
+          "feedback_suppression_scope": "private restoration line search only",
+          "execution_policy": false,
+          "main_tracking_objective_changed": false
+        },
+        "initial_merit": 16.82037426748143,
+        "final_merit": 0.0009262635877336982,
+        "nominal_feasibility": {
+          "feasible": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "first_violation": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "speed_ratio": [
+              0.5818025712808169,
+              0.5818025712808169,
+              0.5818025712808169,
+              0.5818025712808169,
+              0.5818025712808169,
+              0.5818025712808169,
+              0.5818025712808169,
+              0.5818025712808169,
+              0.5818025712808169
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "proposal_file": "restoration_01125_guided.npz",
+        "proposal_sha256": "56e714060e44d5b3811c01fca68cfedf28f6b3e65058865347e56b1b762cdf98",
+        "independent_actual_state_oracle": {
+          "kind": "independent_native23_manual_PD_private_segment",
+          "feasible": true,
+          "first_failure": null,
+          "requested_controls": 30,
+          "physics_steps": 300,
+          "complete_controls": 30,
+          "partial_substeps": 0,
+          "original_data_unchanged": true,
+          "root_forces": false,
+          "source_state_copy_after_initialization": false,
+          "initial_time": 22.49999999999841,
+          "final_time": 23.099999999998076,
+          "maximum": {
+            "joint_excess_rad": 0.0,
+            "speed_ratio": 0.5818025712808171,
+            "effort_ratio": 1.0,
+            "tilt_rad": 0.13927652541662358,
+            "clock_error_seconds": 0.0,
+            "ideal_clock_difference_seconds": 3.339550858072471e-13
+          },
+          "minimum_root_height_m": 0.6576194541228806,
+          "final_warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "diagnostic_continued_after_failure": false,
+          "live_or_hardware_qualified": false,
+          "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+        },
+        "accepted": true,
+        "elapsed_ms": 3976.2246870000126
+      }
+    ],
+    "accepted": true,
+    "elapsed_ms": 3976.233579000109,
+    "control": 1125
+  },
+  {
+    "trigger": "all standard seeds infeasible",
+    "attempts": [
+      {
+        "mode": "guided",
+        "contract": {
+          "joint_inner_margin_rad": 0.02,
+          "joint_margin_normalizer_rad": 0.02,
+          "speed_fraction": 0.9,
+          "speed_normalizer_fraction": 0.1,
+          "minimum_root_height_m": 0.3,
+          "height_normalizer_m": 0.05,
+          "maximum_root_tilt_rad": 1.1,
+          "tilt_normalizer_rad": 0.1,
+          "target_regularization_weight": 0.0001,
+          "target_regularization_reference": "original shifted warm targets",
+          "zero_rollout_feedback": false,
+          "feedback_suppression_scope": "private restoration line search only",
+          "execution_policy": false,
+          "main_tracking_objective_changed": false
+        },
+        "initial_merit": 35.177073901183,
+        "final_merit": 0.0015742556655574278,
+        "nominal_feasibility": {
+          "feasible": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "first_violation": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "speed_ratio": [
+              0.5719732341213892,
+              0.5719732341213892,
+              0.5719732341213892,
+              0.5719732341213892,
+              0.5719732341213892,
+              0.5719732341213892,
+              0.5719732341213892,
+              0.5719732341213892,
+              0.5719732341213892
+            ],
+            "effort_ratio": [
+              0.9853835112765222,
+              0.9853835112765222,
+              0.9853835112765222,
+              0.9853835112765222,
+              0.9853835112765222,
+              0.9853835112765222,
+              0.9853835112765222,
+              0.9853835112765222,
+              0.9853835112765222
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "proposal_file": "restoration_01130_guided.npz",
+        "proposal_sha256": "9ea8d03b9b11716bd6110cbffebc11714a1bb59874ae7e1783bec5198e980ef7",
+        "independent_actual_state_oracle": {
+          "kind": "independent_native23_manual_PD_private_segment",
+          "feasible": true,
+          "first_failure": null,
+          "requested_controls": 30,
+          "physics_steps": 300,
+          "complete_controls": 30,
+          "partial_substeps": 0,
+          "original_data_unchanged": true,
+          "root_forces": false,
+          "source_state_copy_after_initialization": false,
+          "initial_time": 22.599999999998353,
+          "final_time": 23.19999999999802,
+          "maximum": {
+            "joint_excess_rad": 0.0,
+            "speed_ratio": 0.5719732341213899,
+            "effort_ratio": 0.9853835112765221,
+            "tilt_rad": 0.165314812400191,
+            "clock_error_seconds": 0.0,
+            "ideal_clock_difference_seconds": 3.339550858072471e-13
+          },
+          "minimum_root_height_m": 0.6728435012262698,
+          "final_warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "diagnostic_continued_after_failure": false,
+          "live_or_hardware_qualified": false,
+          "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+        },
+        "accepted": true,
+        "elapsed_ms": 3429.3441720000146
+      }
+    ],
+    "accepted": true,
+    "elapsed_ms": 3429.3526050000764,
+    "control": 1130
+  },
+  {
+    "trigger": "all standard seeds infeasible",
+    "attempts": [
+      {
+        "mode": "guided",
+        "contract": {
+          "joint_inner_margin_rad": 0.02,
+          "joint_margin_normalizer_rad": 0.02,
+          "speed_fraction": 0.9,
+          "speed_normalizer_fraction": 0.1,
+          "minimum_root_height_m": 0.3,
+          "height_normalizer_m": 0.05,
+          "maximum_root_tilt_rad": 1.1,
+          "tilt_normalizer_rad": 0.1,
+          "target_regularization_weight": 0.0001,
+          "target_regularization_reference": "original shifted warm targets",
+          "zero_rollout_feedback": false,
+          "feedback_suppression_scope": "private restoration line search only",
+          "execution_policy": false,
+          "main_tracking_objective_changed": false
+        },
+        "initial_merit": 1.2111277479362812,
+        "final_merit": 0.00013332943338289886,
+        "nominal_feasibility": {
+          "feasible": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "first_violation": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "speed_ratio": [
+              0.4900846194946419,
+              0.4900846194946419,
+              0.4900846194946419,
+              0.4900846194946419,
+              0.4900846194946419,
+              0.4900846194946419,
+              0.4900846194946419,
+              0.4900846194946419,
+              0.4900846194946419
+            ],
+            "effort_ratio": [
+              0.9405870137790708,
+              0.9405870137790708,
+              0.9405870137790708,
+              0.9405870137790708,
+              0.9405870137790708,
+              0.9405870137790708,
+              0.9405870137790708,
+              0.9405870137790708,
+              0.9405870137790708
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "proposal_file": "restoration_01140_guided.npz",
+        "proposal_sha256": "1b51fc64b98c77f8c0f4b580549f1021e11fe288541ee214f697c84beddfceaf",
+        "independent_actual_state_oracle": {
+          "kind": "independent_native23_manual_PD_private_segment",
+          "feasible": true,
+          "first_failure": null,
+          "requested_controls": 30,
+          "physics_steps": 300,
+          "complete_controls": 30,
+          "partial_substeps": 0,
+          "original_data_unchanged": true,
+          "root_forces": false,
+          "source_state_copy_after_initialization": false,
+          "initial_time": 22.799999999998242,
+          "final_time": 23.39999999999791,
+          "maximum": {
+            "joint_excess_rad": 0.0,
+            "speed_ratio": 0.49008461949464227,
+            "effort_ratio": 0.9405870137790708,
+            "tilt_rad": 0.16684391942900328,
+            "clock_error_seconds": 0.0,
+            "ideal_clock_difference_seconds": 3.339550858072471e-13
+          },
+          "minimum_root_height_m": 0.7125940785510111,
+          "final_warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "diagnostic_continued_after_failure": false,
+          "live_or_hardware_qualified": false,
+          "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+        },
+        "accepted": true,
+        "elapsed_ms": 3910.151729000063
+      }
+    ],
+    "accepted": true,
+    "elapsed_ms": 3910.161261999974,
+    "control": 1140
+  },
+  {
+    "trigger": "all standard seeds infeasible",
+    "attempts": [
+      {
+        "mode": "guided",
+        "contract": {
+          "joint_inner_margin_rad": 0.02,
+          "joint_margin_normalizer_rad": 0.02,
+          "speed_fraction": 0.9,
+          "speed_normalizer_fraction": 0.1,
+          "minimum_root_height_m": 0.3,
+          "height_normalizer_m": 0.05,
+          "maximum_root_tilt_rad": 1.1,
+          "tilt_normalizer_rad": 0.1,
+          "target_regularization_weight": 0.0001,
+          "target_regularization_reference": "original shifted warm targets",
+          "zero_rollout_feedback": false,
+          "feedback_suppression_scope": "private restoration line search only",
+          "execution_policy": false,
+          "main_tracking_objective_changed": false
+        },
+        "initial_merit": 4.828660604395913,
+        "final_merit": 0.00016365454963481222,
+        "nominal_feasibility": {
+          "feasible": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "first_violation": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "speed_ratio": [
+              0.41802263524336114,
+              0.41802263524336114,
+              0.41802263524336114,
+              0.41802263524336114,
+              0.41802263524336114,
+              0.41802263524336114,
+              0.41802263524336114,
+              0.41802263524336114,
+              0.41802263524336114
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "proposal_file": "restoration_02055_guided.npz",
+        "proposal_sha256": "317c6e4a8ca4dabd1571a1753493c576c4ba732bce7c416ce2ba85725a8d50c0",
+        "independent_actual_state_oracle": {
+          "kind": "independent_native23_manual_PD_private_segment",
+          "feasible": true,
+          "first_failure": null,
+          "requested_controls": 30,
+          "physics_steps": 300,
+          "complete_controls": 30,
+          "partial_substeps": 0,
+          "original_data_unchanged": true,
+          "root_forces": false,
+          "source_state_copy_after_initialization": false,
+          "initial_time": 41.100000000004265,
+          "final_time": 41.700000000005,
+          "maximum": {
+            "joint_excess_rad": 0.0,
+            "speed_ratio": 0.418022635243361,
+            "effort_ratio": 1.0,
+            "tilt_rad": 0.14519325926109367,
+            "clock_error_seconds": 0.0,
+            "ideal_clock_difference_seconds": 7.318590178329032e-13
+          },
+          "minimum_root_height_m": 0.6961910959615119,
+          "final_warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "diagnostic_continued_after_failure": false,
+          "live_or_hardware_qualified": false,
+          "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+        },
+        "accepted": true,
+        "elapsed_ms": 4005.9800100000302
+      }
+    ],
+    "accepted": true,
+    "elapsed_ms": 4006.010970000034,
+    "control": 2055
+  },
+  {
+    "trigger": "all standard seeds infeasible",
+    "attempts": [
+      {
+        "mode": "guided",
+        "contract": {
+          "joint_inner_margin_rad": 0.02,
+          "joint_margin_normalizer_rad": 0.02,
+          "speed_fraction": 0.9,
+          "speed_normalizer_fraction": 0.1,
+          "minimum_root_height_m": 0.3,
+          "height_normalizer_m": 0.05,
+          "maximum_root_tilt_rad": 1.1,
+          "tilt_normalizer_rad": 0.1,
+          "target_regularization_weight": 0.0001,
+          "target_regularization_reference": "original shifted warm targets",
+          "zero_rollout_feedback": false,
+          "feedback_suppression_scope": "private restoration line search only",
+          "execution_policy": false,
+          "main_tracking_objective_changed": false
+        },
+        "initial_merit": 15.706388130412824,
+        "final_merit": 15.706388130412824,
+        "nominal_feasibility": {
+          "feasible": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "first_violation": [
+            {
+              "control": 26,
+              "substep": 4,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.0011821282706536707,
+              "speed_ratio": 0.1464498359057663,
+              "effort_ratio": 0.35851229737323637,
+              "root_height_m": 0.29822481998375344,
+              "root_tilt_rad": 0.33515121052422275
+            },
+            {
+              "control": 26,
+              "substep": 4,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.0011821282706536707,
+              "speed_ratio": 0.1464498359057663,
+              "effort_ratio": 0.35851229737323637,
+              "root_height_m": 0.29822481998375344,
+              "root_tilt_rad": 0.33515121052422275
+            },
+            {
+              "control": 26,
+              "substep": 4,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.0011821282706536707,
+              "speed_ratio": 0.1464498359057663,
+              "effort_ratio": 0.35851229737323637,
+              "root_height_m": 0.29822481998375344,
+              "root_tilt_rad": 0.33515121052422275
+            },
+            {
+              "control": 26,
+              "substep": 4,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.0011821282706536707,
+              "speed_ratio": 0.1464498359057663,
+              "effort_ratio": 0.35851229737323637,
+              "root_height_m": 0.29822481998375344,
+              "root_tilt_rad": 0.33515121052422275
+            },
+            {
+              "control": 26,
+              "substep": 4,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.0011821282706536707,
+              "speed_ratio": 0.1464498359057663,
+              "effort_ratio": 0.35851229737323637,
+              "root_height_m": 0.29822481998375344,
+              "root_tilt_rad": 0.33515121052422275
+            },
+            {
+              "control": 26,
+              "substep": 4,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.0011821282706536707,
+              "speed_ratio": 0.1464498359057663,
+              "effort_ratio": 0.35851229737323637,
+              "root_height_m": 0.29822481998375344,
+              "root_tilt_rad": 0.33515121052422275
+            },
+            {
+              "control": 26,
+              "substep": 4,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.0011821282706536707,
+              "speed_ratio": 0.1464498359057663,
+              "effort_ratio": 0.35851229737323637,
+              "root_height_m": 0.29822481998375344,
+              "root_tilt_rad": 0.33515121052422275
+            },
+            {
+              "control": 26,
+              "substep": 4,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.0011821282706536707,
+              "speed_ratio": 0.1464498359057663,
+              "effort_ratio": 0.35851229737323637,
+              "root_height_m": 0.29822481998375344,
+              "root_tilt_rad": 0.33515121052422275
+            },
+            {
+              "control": 26,
+              "substep": 4,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.0011821282706536707,
+              "speed_ratio": 0.1464498359057663,
+              "effort_ratio": 0.35851229737323637,
+              "root_height_m": 0.29822481998375344,
+              "root_tilt_rad": 0.33515121052422275
+            }
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.0011821282706536707,
+              0.0011821282706536707,
+              0.0011821282706536707,
+              0.0011821282706536707,
+              0.0011821282706536707,
+              0.0011821282706536707,
+              0.0011821282706536707,
+              0.0011821282706536707,
+              0.0011821282706536707
+            ],
+            "speed_ratio": [
+              0.37105586730253076,
+              0.37105586730253076,
+              0.37105586730253076,
+              0.37105586730253076,
+              0.37105586730253076,
+              0.37105586730253076,
+              0.37105586730253076,
+              0.37105586730253076,
+              0.37105586730253076
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "proposal_file": "restoration_03750_guided.npz",
+        "proposal_sha256": "fa10681480721fa4d8917a9e11c791be961dd1f123a3df25fe443ffeee4518f9",
+        "accepted": false,
+        "elapsed_ms": 1404.7552960000758
+      },
+      {
+        "mode": "zero_feedback",
+        "contract": {
+          "joint_inner_margin_rad": 0.02,
+          "joint_margin_normalizer_rad": 0.02,
+          "speed_fraction": 0.9,
+          "speed_normalizer_fraction": 0.1,
+          "minimum_root_height_m": 0.3,
+          "height_normalizer_m": 0.05,
+          "maximum_root_tilt_rad": 1.1,
+          "tilt_normalizer_rad": 0.1,
+          "target_regularization_weight": 0.0001,
+          "target_regularization_reference": "original shifted warm targets",
+          "zero_rollout_feedback": true,
+          "feedback_suppression_scope": "private restoration line search only",
+          "execution_policy": false,
+          "main_tracking_objective_changed": false
+        },
+        "initial_merit": 15.706388130412824,
+        "final_merit": 0.0014384859083528116,
+        "nominal_feasibility": {
+          "feasible": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "first_violation": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "speed_ratio": [
+              0.3695590547476834,
+              0.3695590547476834,
+              0.3695590547476834,
+              0.3695590547476834,
+              0.3695590547476834,
+              0.3695590547476834,
+              0.3695590547476834,
+              0.3695590547476834,
+              0.3695590547476834
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "proposal_file": "restoration_03750_zero_feedback.npz",
+        "proposal_sha256": "be88e69c53ba7eb9360ec97e3195bfca93d80dcd3b24c16e0eefacc3dcb8c026",
+        "independent_actual_state_oracle": {
+          "kind": "independent_native23_manual_PD_private_segment",
+          "feasible": true,
+          "first_failure": null,
+          "requested_controls": 30,
+          "physics_steps": 300,
+          "complete_controls": 30,
+          "partial_substeps": 0,
+          "original_data_unchanged": true,
+          "root_forces": false,
+          "source_state_copy_after_initialization": false,
+          "initial_time": 75.00000000000661,
+          "final_time": 75.60000000000521,
+          "maximum": {
+            "joint_excess_rad": 0.0,
+            "speed_ratio": 0.36963939392428674,
+            "effort_ratio": 1.0,
+            "tilt_rad": 0.39021746866399626,
+            "clock_error_seconds": 0.0,
+            "ideal_clock_difference_seconds": 1.3926637620897964e-12
+          },
+          "minimum_root_height_m": 0.2995710909193603,
+          "final_warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "diagnostic_continued_after_failure": false,
+          "live_or_hardware_qualified": false,
+          "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+        },
+        "accepted": true,
+        "elapsed_ms": 6192.357197999627
+      }
+    ],
+    "accepted": true,
+    "elapsed_ms": 7597.126151999873,
+    "control": 3750
+  },
+  {
+    "trigger": "all standard seeds infeasible",
+    "attempts": [
+      {
+        "mode": "guided",
+        "contract": {
+          "joint_inner_margin_rad": 0.02,
+          "joint_margin_normalizer_rad": 0.02,
+          "speed_fraction": 0.9,
+          "speed_normalizer_fraction": 0.1,
+          "minimum_root_height_m": 0.3,
+          "height_normalizer_m": 0.05,
+          "maximum_root_tilt_rad": 1.1,
+          "tilt_normalizer_rad": 0.1,
+          "target_regularization_weight": 0.0001,
+          "target_regularization_reference": "original shifted warm targets",
+          "zero_rollout_feedback": false,
+          "feedback_suppression_scope": "private restoration line search only",
+          "execution_policy": false,
+          "main_tracking_objective_changed": false
+        },
+        "initial_merit": 14.484168792601618,
+        "final_merit": 14.484168792601618,
+        "nominal_feasibility": {
+          "feasible": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "first_violation": [
+            {
+              "control": 28,
+              "substep": 7,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006509921884756298,
+              "speed_ratio": 0.12092975300098859,
+              "effort_ratio": 0.4175665607641687,
+              "root_height_m": 0.28468779678715406,
+              "root_tilt_rad": 0.6169878890764928
+            },
+            {
+              "control": 28,
+              "substep": 7,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006509921884756298,
+              "speed_ratio": 0.12092975300098859,
+              "effort_ratio": 0.4175665607641687,
+              "root_height_m": 0.28468779678715406,
+              "root_tilt_rad": 0.6169878890764928
+            },
+            {
+              "control": 28,
+              "substep": 7,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006509921884756298,
+              "speed_ratio": 0.12092975300098859,
+              "effort_ratio": 0.4175665607641687,
+              "root_height_m": 0.28468779678715406,
+              "root_tilt_rad": 0.6169878890764928
+            },
+            {
+              "control": 28,
+              "substep": 7,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006509921884756298,
+              "speed_ratio": 0.12092975300098859,
+              "effort_ratio": 0.4175665607641687,
+              "root_height_m": 0.28468779678715406,
+              "root_tilt_rad": 0.6169878890764928
+            },
+            {
+              "control": 28,
+              "substep": 7,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006509921884756298,
+              "speed_ratio": 0.12092975300098859,
+              "effort_ratio": 0.4175665607641687,
+              "root_height_m": 0.28468779678715406,
+              "root_tilt_rad": 0.6169878890764928
+            },
+            {
+              "control": 28,
+              "substep": 7,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006509921884756298,
+              "speed_ratio": 0.12092975300098859,
+              "effort_ratio": 0.4175665607641687,
+              "root_height_m": 0.28468779678715406,
+              "root_tilt_rad": 0.6169878890764928
+            },
+            {
+              "control": 28,
+              "substep": 7,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006509921884756298,
+              "speed_ratio": 0.12092975300098859,
+              "effort_ratio": 0.4175665607641687,
+              "root_height_m": 0.28468779678715406,
+              "root_tilt_rad": 0.6169878890764928
+            },
+            {
+              "control": 28,
+              "substep": 7,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006509921884756298,
+              "speed_ratio": 0.12092975300098859,
+              "effort_ratio": 0.4175665607641687,
+              "root_height_m": 0.28468779678715406,
+              "root_tilt_rad": 0.6169878890764928
+            },
+            {
+              "control": 28,
+              "substep": 7,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006509921884756298,
+              "speed_ratio": 0.12092975300098859,
+              "effort_ratio": 0.4175665607641687,
+              "root_height_m": 0.28468779678715406,
+              "root_tilt_rad": 0.6169878890764928
+            }
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.006509921884756298,
+              0.006509921884756298,
+              0.006509921884756298,
+              0.006509921884756298,
+              0.006509921884756298,
+              0.006509921884756298,
+              0.006509921884756298,
+              0.006509921884756298,
+              0.006509921884756298
+            ],
+            "speed_ratio": [
+              0.3696115300310016,
+              0.3696115300310016,
+              0.3696115300310016,
+              0.3696115300310016,
+              0.3696115300310016,
+              0.3696115300310016,
+              0.3696115300310016,
+              0.3696115300310016,
+              0.3696115300310016
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "proposal_file": "restoration_03760_guided.npz",
+        "proposal_sha256": "bac48e3f0647a15be5f7a9921828c2e3014b067cb1beda23958c3e6074d50c8c",
+        "accepted": false,
+        "elapsed_ms": 1568.6324630000854
+      },
+      {
+        "mode": "zero_feedback",
+        "contract": {
+          "joint_inner_margin_rad": 0.02,
+          "joint_margin_normalizer_rad": 0.02,
+          "speed_fraction": 0.9,
+          "speed_normalizer_fraction": 0.1,
+          "minimum_root_height_m": 0.3,
+          "height_normalizer_m": 0.05,
+          "maximum_root_tilt_rad": 1.1,
+          "tilt_normalizer_rad": 0.1,
+          "target_regularization_weight": 0.0001,
+          "target_regularization_reference": "original shifted warm targets",
+          "zero_rollout_feedback": true,
+          "feedback_suppression_scope": "private restoration line search only",
+          "execution_policy": false,
+          "main_tracking_objective_changed": false
+        },
+        "initial_merit": 14.484168792601618,
+        "final_merit": 0.04078399984525245,
+        "nominal_feasibility": {
+          "feasible": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "first_violation": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "speed_ratio": [
+              0.36899445384592583,
+              0.36899445384592583,
+              0.36899445384592583,
+              0.36899445384592583,
+              0.36899445384592583,
+              0.36899445384592583,
+              0.36899445384592583,
+              0.36899445384592583,
+              0.36899445384592583
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "proposal_file": "restoration_03760_zero_feedback.npz",
+        "proposal_sha256": "edfa22184cb1c7bb228348e9112d3c3d2055e66171d2c2e71c77627bf17077b7",
+        "independent_actual_state_oracle": {
+          "kind": "independent_native23_manual_PD_private_segment",
+          "feasible": true,
+          "first_failure": null,
+          "requested_controls": 30,
+          "physics_steps": 300,
+          "complete_controls": 30,
+          "partial_substeps": 0,
+          "original_data_unchanged": true,
+          "root_forces": false,
+          "source_state_copy_after_initialization": false,
+          "initial_time": 75.20000000000614,
+          "final_time": 75.80000000000474,
+          "maximum": {
+            "joint_excess_rad": 0.0,
+            "speed_ratio": 0.36918021700035714,
+            "effort_ratio": 1.0,
+            "tilt_rad": 0.6339057626017869,
+            "clock_error_seconds": 0.0,
+            "ideal_clock_difference_seconds": 1.3926637620897964e-12
+          },
+          "minimum_root_height_m": 0.2926784164926803,
+          "final_warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "diagnostic_continued_after_failure": false,
+          "live_or_hardware_qualified": false,
+          "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+        },
+        "accepted": true,
+        "elapsed_ms": 6117.504310000186
+      }
+    ],
+    "accepted": true,
+    "elapsed_ms": 7686.147406000146,
+    "control": 3760
+  },
+  {
+    "trigger": "all standard seeds infeasible",
+    "attempts": [
+      {
+        "mode": "guided",
+        "contract": {
+          "joint_inner_margin_rad": 0.02,
+          "joint_margin_normalizer_rad": 0.02,
+          "speed_fraction": 0.9,
+          "speed_normalizer_fraction": 0.1,
+          "minimum_root_height_m": 0.3,
+          "height_normalizer_m": 0.05,
+          "maximum_root_tilt_rad": 1.1,
+          "tilt_normalizer_rad": 0.1,
+          "target_regularization_weight": 0.0001,
+          "target_regularization_reference": "original shifted warm targets",
+          "zero_rollout_feedback": false,
+          "feedback_suppression_scope": "private restoration line search only",
+          "execution_policy": false,
+          "main_tracking_objective_changed": false
+        },
+        "initial_merit": 18.945911784495912,
+        "final_merit": 1.770287768767119,
+        "nominal_feasibility": {
+          "feasible": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "first_violation": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "speed_ratio": [
+              0.5052332996636151,
+              0.5052332996636151,
+              0.5052332996636151,
+              0.5052332996636151,
+              0.5052332996636151,
+              0.5052332996636151,
+              0.5052332996636151,
+              0.5052332996636151,
+              0.5052332996636151
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "proposal_file": "restoration_03765_guided.npz",
+        "proposal_sha256": "524377cf8338e4b5c8f7a853152f9c3092ef679d684107010a59e308a1b1bff5",
+        "independent_actual_state_oracle": {
+          "kind": "independent_native23_manual_PD_private_segment",
+          "feasible": true,
+          "first_failure": null,
+          "requested_controls": 30,
+          "physics_steps": 300,
+          "complete_controls": 30,
+          "partial_substeps": 0,
+          "original_data_unchanged": true,
+          "root_forces": false,
+          "source_state_copy_after_initialization": false,
+          "initial_time": 75.30000000000591,
+          "final_time": 75.90000000000451,
+          "maximum": {
+            "joint_excess_rad": 0.0,
+            "speed_ratio": 0.5046699676671327,
+            "effort_ratio": 1.0,
+            "tilt_rad": 0.8462121948532046,
+            "clock_error_seconds": 0.0,
+            "ideal_clock_difference_seconds": 1.3926637620897964e-12
+          },
+          "minimum_root_height_m": 0.26553277404531744,
+          "final_warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "diagnostic_continued_after_failure": false,
+          "live_or_hardware_qualified": false,
+          "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+        },
+        "accepted": true,
+        "elapsed_ms": 2244.6660289997453
+      }
+    ],
+    "accepted": true,
+    "elapsed_ms": 2244.673179000074,
+    "control": 3765
+  },
+  {
+    "trigger": "all standard seeds infeasible",
+    "attempts": [
+      {
+        "mode": "guided",
+        "contract": {
+          "joint_inner_margin_rad": 0.02,
+          "joint_margin_normalizer_rad": 0.02,
+          "speed_fraction": 0.9,
+          "speed_normalizer_fraction": 0.1,
+          "minimum_root_height_m": 0.3,
+          "height_normalizer_m": 0.05,
+          "maximum_root_tilt_rad": 1.1,
+          "tilt_normalizer_rad": 0.1,
+          "target_regularization_weight": 0.0001,
+          "target_regularization_reference": "original shifted warm targets",
+          "zero_rollout_feedback": false,
+          "feedback_suppression_scope": "private restoration line search only",
+          "execution_policy": false,
+          "main_tracking_objective_changed": false
+        },
+        "initial_merit": 37.372444025363365,
+        "final_merit": 18.050352459517025,
+        "nominal_feasibility": {
+          "feasible": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "first_violation": [
+            {
+              "control": 27,
+              "substep": 7,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006349801422193879,
+              "speed_ratio": 0.20830438000201815,
+              "effort_ratio": 0.6932552521632064,
+              "root_height_m": 0.2767018969585343,
+              "root_tilt_rad": 1.0685378217843384
+            },
+            {
+              "control": 27,
+              "substep": 7,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006349801422193879,
+              "speed_ratio": 0.20830438000201815,
+              "effort_ratio": 0.6932552521632064,
+              "root_height_m": 0.2767018969585343,
+              "root_tilt_rad": 1.0685378217843384
+            },
+            {
+              "control": 27,
+              "substep": 7,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006349801422193879,
+              "speed_ratio": 0.20830438000201815,
+              "effort_ratio": 0.6932552521632064,
+              "root_height_m": 0.2767018969585343,
+              "root_tilt_rad": 1.0685378217843384
+            },
+            {
+              "control": 27,
+              "substep": 7,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006349801422193879,
+              "speed_ratio": 0.20830438000201815,
+              "effort_ratio": 0.6932552521632064,
+              "root_height_m": 0.2767018969585343,
+              "root_tilt_rad": 1.0685378217843384
+            },
+            {
+              "control": 27,
+              "substep": 7,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006349801422193879,
+              "speed_ratio": 0.20830438000201815,
+              "effort_ratio": 0.6932552521632064,
+              "root_height_m": 0.2767018969585343,
+              "root_tilt_rad": 1.0685378217843384
+            },
+            {
+              "control": 27,
+              "substep": 7,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006349801422193879,
+              "speed_ratio": 0.20830438000201815,
+              "effort_ratio": 0.6932552521632064,
+              "root_height_m": 0.2767018969585343,
+              "root_tilt_rad": 1.0685378217843384
+            },
+            {
+              "control": 27,
+              "substep": 7,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006349801422193879,
+              "speed_ratio": 0.20830438000201815,
+              "effort_ratio": 0.6932552521632064,
+              "root_height_m": 0.2767018969585343,
+              "root_tilt_rad": 1.0685378217843384
+            },
+            {
+              "control": 27,
+              "substep": 7,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006349801422193879,
+              "speed_ratio": 0.20830438000201815,
+              "effort_ratio": 0.6932552521632064,
+              "root_height_m": 0.2767018969585343,
+              "root_tilt_rad": 1.0685378217843384
+            },
+            {
+              "control": 27,
+              "substep": 7,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006349801422193879,
+              "speed_ratio": 0.20830438000201815,
+              "effort_ratio": 0.6932552521632064,
+              "root_height_m": 0.2767018969585343,
+              "root_tilt_rad": 1.0685378217843384
+            }
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.006349801422193879,
+              0.006349801422193879,
+              0.006349801422193879,
+              0.006349801422193879,
+              0.006349801422193879,
+              0.006349801422193879,
+              0.006349801422193879,
+              0.006349801422193879,
+              0.006349801422193879
+            ],
+            "speed_ratio": [
+              0.8465137999391966,
+              0.8465137999391966,
+              0.8465137999391966,
+              0.8465137999391966,
+              0.8465137999391966,
+              0.8465137999391966,
+              0.8465137999391966,
+              0.8465137999391966,
+              0.8465137999391966
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "proposal_file": "restoration_03770_guided.npz",
+        "proposal_sha256": "e3d66e3d732763b92646bc92dda9614a08d586f689b6d048074662e12797453e",
+        "accepted": false,
+        "elapsed_ms": 2031.2988559999212
+      },
+      {
+        "mode": "zero_feedback",
+        "contract": {
+          "joint_inner_margin_rad": 0.02,
+          "joint_margin_normalizer_rad": 0.02,
+          "speed_fraction": 0.9,
+          "speed_normalizer_fraction": 0.1,
+          "minimum_root_height_m": 0.3,
+          "height_normalizer_m": 0.05,
+          "maximum_root_tilt_rad": 1.1,
+          "tilt_normalizer_rad": 0.1,
+          "target_regularization_weight": 0.0001,
+          "target_regularization_reference": "original shifted warm targets",
+          "zero_rollout_feedback": true,
+          "feedback_suppression_scope": "private restoration line search only",
+          "execution_policy": false,
+          "main_tracking_objective_changed": false
+        },
+        "initial_merit": 37.372444025363365,
+        "final_merit": 0.001265545760406632,
+        "nominal_feasibility": {
+          "feasible": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "first_violation": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "speed_ratio": [
+              0.4340663211402152,
+              0.4340663211402152,
+              0.4340663211402152,
+              0.4340663211402152,
+              0.4340663211402152,
+              0.4340663211402152,
+              0.4340663211402152,
+              0.4340663211402152,
+              0.4340663211402152
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "proposal_file": "restoration_03770_zero_feedback.npz",
+        "proposal_sha256": "9321e5765a8efb9090b07896a1f87d4375b697f8c676b2e920e2d0632aca696d",
+        "independent_actual_state_oracle": {
+          "kind": "independent_native23_manual_PD_private_segment",
+          "feasible": true,
+          "first_failure": null,
+          "requested_controls": 30,
+          "physics_steps": 300,
+          "complete_controls": 30,
+          "partial_substeps": 0,
+          "original_data_unchanged": true,
+          "root_forces": false,
+          "source_state_copy_after_initialization": false,
+          "initial_time": 75.40000000000568,
+          "final_time": 76.00000000000428,
+          "maximum": {
+            "joint_excess_rad": 0.0,
+            "speed_ratio": 0.41855638909981574,
+            "effort_ratio": 1.0,
+            "tilt_rad": 0.9918409973685497,
+            "clock_error_seconds": 0.0,
+            "ideal_clock_difference_seconds": 1.3926637620897964e-12
+          },
+          "minimum_root_height_m": 0.299952593423702,
+          "final_warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "diagnostic_continued_after_failure": false,
+          "live_or_hardware_qualified": false,
+          "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+        },
+        "accepted": true,
+        "elapsed_ms": 5125.762510000186
+      }
+    ],
+    "accepted": true,
+    "elapsed_ms": 7157.071357999939,
+    "control": 3770
+  },
+  {
+    "trigger": "all standard seeds infeasible",
+    "attempts": [
+      {
+        "mode": "guided",
+        "contract": {
+          "joint_inner_margin_rad": 0.02,
+          "joint_margin_normalizer_rad": 0.02,
+          "speed_fraction": 0.9,
+          "speed_normalizer_fraction": 0.1,
+          "minimum_root_height_m": 0.3,
+          "height_normalizer_m": 0.05,
+          "maximum_root_tilt_rad": 1.1,
+          "tilt_normalizer_rad": 0.1,
+          "target_regularization_weight": 0.0001,
+          "target_regularization_reference": "original shifted warm targets",
+          "zero_rollout_feedback": false,
+          "feedback_suppression_scope": "private restoration line search only",
+          "execution_policy": false,
+          "main_tracking_objective_changed": false
+        },
+        "initial_merit": 41.03468486498035,
+        "final_merit": 0.046257199656230194,
+        "nominal_feasibility": {
+          "feasible": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "first_violation": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "speed_ratio": [
+              0.8105295184834386,
+              0.8105295184834386,
+              0.8105295184834386,
+              0.8105295184834386,
+              0.8105295184834386,
+              0.8105295184834386,
+              0.8105295184834386,
+              0.8105295184834386,
+              0.8105295184834386
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "proposal_file": "restoration_03790_guided.npz",
+        "proposal_sha256": "2af57b09f5e348e7f39b5fc8e98e3c474e50cfac2f0c7f312f9faca98d7af180",
+        "independent_actual_state_oracle": {
+          "kind": "independent_native23_manual_PD_private_segment",
+          "feasible": true,
+          "first_failure": null,
+          "requested_controls": 30,
+          "physics_steps": 300,
+          "complete_controls": 30,
+          "partial_substeps": 0,
+          "original_data_unchanged": true,
+          "root_forces": false,
+          "source_state_copy_after_initialization": false,
+          "initial_time": 75.80000000000474,
+          "final_time": 76.40000000000335,
+          "maximum": {
+            "joint_excess_rad": 0.0,
+            "speed_ratio": 0.8115309949172622,
+            "effort_ratio": 1.0,
+            "tilt_rad": 0.40884354216830876,
+            "clock_error_seconds": 0.0,
+            "ideal_clock_difference_seconds": 1.3926637620897964e-12
+          },
+          "minimum_root_height_m": 0.301101462249562,
+          "final_warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "diagnostic_continued_after_failure": false,
+          "live_or_hardware_qualified": false,
+          "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+        },
+        "accepted": true,
+        "elapsed_ms": 3744.938079000349
+      }
+    ],
+    "accepted": true,
+    "elapsed_ms": 3744.945044999895,
+    "control": 3790
+  },
+  {
+    "trigger": "all standard seeds infeasible",
+    "attempts": [
+      {
+        "mode": "guided",
+        "contract": {
+          "joint_inner_margin_rad": 0.02,
+          "joint_margin_normalizer_rad": 0.02,
+          "speed_fraction": 0.9,
+          "speed_normalizer_fraction": 0.1,
+          "minimum_root_height_m": 0.3,
+          "height_normalizer_m": 0.05,
+          "maximum_root_tilt_rad": 1.1,
+          "tilt_normalizer_rad": 0.1,
+          "target_regularization_weight": 0.0001,
+          "target_regularization_reference": "original shifted warm targets",
+          "zero_rollout_feedback": false,
+          "feedback_suppression_scope": "private restoration line search only",
+          "execution_policy": false,
+          "main_tracking_objective_changed": false
+        },
+        "initial_merit": 17.896359309719173,
+        "final_merit": 0.9484668656009467,
+        "nominal_feasibility": {
+          "feasible": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "first_violation": [
+            {
+              "control": 27,
+              "substep": 5,
+              "reasons": [
+                "joint_speed"
+              ],
+              "range_excess_rad": 0.0,
+              "speed_ratio": 1.07124805520208,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.2893311049553264,
+              "root_tilt_rad": 0.31073120836595974
+            },
+            {
+              "control": 27,
+              "substep": 5,
+              "reasons": [
+                "joint_speed"
+              ],
+              "range_excess_rad": 0.0,
+              "speed_ratio": 1.07124805520208,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.2893311049553264,
+              "root_tilt_rad": 0.31073120836595974
+            },
+            {
+              "control": 27,
+              "substep": 5,
+              "reasons": [
+                "joint_speed"
+              ],
+              "range_excess_rad": 0.0,
+              "speed_ratio": 1.07124805520208,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.2893311049553264,
+              "root_tilt_rad": 0.31073120836595974
+            },
+            {
+              "control": 27,
+              "substep": 5,
+              "reasons": [
+                "joint_speed"
+              ],
+              "range_excess_rad": 0.0,
+              "speed_ratio": 1.07124805520208,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.2893311049553264,
+              "root_tilt_rad": 0.31073120836595974
+            },
+            {
+              "control": 27,
+              "substep": 5,
+              "reasons": [
+                "joint_speed"
+              ],
+              "range_excess_rad": 0.0,
+              "speed_ratio": 1.07124805520208,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.2893311049553264,
+              "root_tilt_rad": 0.31073120836595974
+            },
+            {
+              "control": 27,
+              "substep": 5,
+              "reasons": [
+                "joint_speed"
+              ],
+              "range_excess_rad": 0.0,
+              "speed_ratio": 1.07124805520208,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.2893311049553264,
+              "root_tilt_rad": 0.31073120836595974
+            },
+            {
+              "control": 27,
+              "substep": 5,
+              "reasons": [
+                "joint_speed"
+              ],
+              "range_excess_rad": 0.0,
+              "speed_ratio": 1.07124805520208,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.2893311049553264,
+              "root_tilt_rad": 0.31073120836595974
+            },
+            {
+              "control": 27,
+              "substep": 5,
+              "reasons": [
+                "joint_speed"
+              ],
+              "range_excess_rad": 0.0,
+              "speed_ratio": 1.07124805520208,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.2893311049553264,
+              "root_tilt_rad": 0.31073120836595974
+            },
+            {
+              "control": 27,
+              "substep": 5,
+              "reasons": [
+                "joint_speed"
+              ],
+              "range_excess_rad": 0.0,
+              "speed_ratio": 1.07124805520208,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.2893311049553264,
+              "root_tilt_rad": 0.31073120836595974
+            }
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "speed_ratio": [
+              1.07124805520208,
+              1.07124805520208,
+              1.07124805520208,
+              1.07124805520208,
+              1.07124805520208,
+              1.07124805520208,
+              1.07124805520208,
+              1.07124805520208,
+              1.07124805520208
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "proposal_file": "restoration_03795_guided.npz",
+        "proposal_sha256": "89606c0166bcfcab06c8ddd4d28c7b416383cab3f948c906010a573794f63449",
+        "accepted": false,
+        "elapsed_ms": 3046.454154999992
+      },
+      {
+        "mode": "zero_feedback",
+        "contract": {
+          "joint_inner_margin_rad": 0.02,
+          "joint_margin_normalizer_rad": 0.02,
+          "speed_fraction": 0.9,
+          "speed_normalizer_fraction": 0.1,
+          "minimum_root_height_m": 0.3,
+          "height_normalizer_m": 0.05,
+          "maximum_root_tilt_rad": 1.1,
+          "tilt_normalizer_rad": 0.1,
+          "target_regularization_weight": 0.0001,
+          "target_regularization_reference": "original shifted warm targets",
+          "zero_rollout_feedback": true,
+          "feedback_suppression_scope": "private restoration line search only",
+          "execution_policy": false,
+          "main_tracking_objective_changed": false
+        },
+        "initial_merit": 17.896359309719173,
+        "final_merit": 1.59736276880211e-05,
+        "nominal_feasibility": {
+          "feasible": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "first_violation": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "speed_ratio": [
+              0.8104716785023948,
+              0.8104716785023948,
+              0.8104716785023948,
+              0.8104716785023948,
+              0.8104716785023948,
+              0.8104716785023948,
+              0.8104716785023948,
+              0.8104716785023948,
+              0.8104716785023948
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "proposal_file": "restoration_03795_zero_feedback.npz",
+        "proposal_sha256": "b94df417af935352098c17fbc133988b84dd78688ab421757fb421599bf9e9ef",
+        "independent_actual_state_oracle": {
+          "kind": "independent_native23_manual_PD_private_segment",
+          "feasible": true,
+          "first_failure": null,
+          "requested_controls": 30,
+          "physics_steps": 300,
+          "complete_controls": 30,
+          "partial_substeps": 0,
+          "original_data_unchanged": true,
+          "root_forces": false,
+          "source_state_copy_after_initialization": false,
+          "initial_time": 75.90000000000451,
+          "final_time": 76.50000000000311,
+          "maximum": {
+            "joint_excess_rad": 0.0,
+            "speed_ratio": 0.8104716785023979,
+            "effort_ratio": 1.0,
+            "tilt_rad": 0.735672138400914,
+            "clock_error_seconds": 0.0,
+            "ideal_clock_difference_seconds": 1.3926637620897964e-12
+          },
+          "minimum_root_height_m": 0.30063448009453875,
+          "final_warning_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "diagnostic_continued_after_failure": false,
+          "live_or_hardware_qualified": false,
+          "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+        },
+        "accepted": true,
+        "elapsed_ms": 6500.986289999673
+      }
+    ],
+    "accepted": true,
+    "elapsed_ms": 9547.478762000082,
+    "control": 3795
+  },
+  {
+    "trigger": "all standard seeds infeasible",
+    "attempts": [
+      {
+        "mode": "guided",
+        "contract": {
+          "joint_inner_margin_rad": 0.02,
+          "joint_margin_normalizer_rad": 0.02,
+          "speed_fraction": 0.9,
+          "speed_normalizer_fraction": 0.1,
+          "minimum_root_height_m": 0.3,
+          "height_normalizer_m": 0.05,
+          "maximum_root_tilt_rad": 1.1,
+          "tilt_normalizer_rad": 0.1,
+          "target_regularization_weight": 0.0001,
+          "target_regularization_reference": "original shifted warm targets",
+          "zero_rollout_feedback": false,
+          "feedback_suppression_scope": "private restoration line search only",
+          "execution_policy": false,
+          "main_tracking_objective_changed": false
+        },
+        "initial_merit": 144.5328693180296,
+        "final_merit": 7.278705671108272,
+        "nominal_feasibility": {
+          "feasible": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "first_violation": [
+            {
+              "control": 14,
+              "substep": 1,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.0009765036312873732,
+              "speed_ratio": 0.9056556055219489,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.3819080561376071,
+              "root_tilt_rad": 0.2144618862030593
+            },
+            {
+              "control": 14,
+              "substep": 1,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.0009765036312873732,
+              "speed_ratio": 0.9056556055219489,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.3819080561376071,
+              "root_tilt_rad": 0.2144618862030593
+            },
+            {
+              "control": 14,
+              "substep": 1,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.0009765036312873732,
+              "speed_ratio": 0.9056556055219489,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.3819080561376071,
+              "root_tilt_rad": 0.2144618862030593
+            },
+            {
+              "control": 14,
+              "substep": 1,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.0009765036312873732,
+              "speed_ratio": 0.9056556055219489,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.3819080561376071,
+              "root_tilt_rad": 0.2144618862030593
+            },
+            {
+              "control": 14,
+              "substep": 1,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.0009765036312873732,
+              "speed_ratio": 0.9056556055219489,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.3819080561376071,
+              "root_tilt_rad": 0.2144618862030593
+            },
+            {
+              "control": 14,
+              "substep": 1,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.0009765036312873732,
+              "speed_ratio": 0.9056556055219489,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.3819080561376071,
+              "root_tilt_rad": 0.2144618862030593
+            },
+            {
+              "control": 14,
+              "substep": 1,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.0009765036312873732,
+              "speed_ratio": 0.9056556055219489,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.3819080561376071,
+              "root_tilt_rad": 0.2144618862030593
+            },
+            {
+              "control": 14,
+              "substep": 1,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.0009765036312873732,
+              "speed_ratio": 0.9056556055219489,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.3819080561376071,
+              "root_tilt_rad": 0.2144618862030593
+            },
+            {
+              "control": 14,
+              "substep": 1,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.0009765036312873732,
+              "speed_ratio": 0.9056556055219489,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.3819080561376071,
+              "root_tilt_rad": 0.2144618862030593
+            }
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.0009765036312873732,
+              0.0009765036312873732,
+              0.0009765036312873732,
+              0.0009765036312873732,
+              0.0009765036312873732,
+              0.0009765036312873732,
+              0.0009765036312873732,
+              0.0009765036312873732,
+              0.0009765036312873732
+            ],
+            "speed_ratio": [
+              0.9167186940903136,
+              0.9167186940903136,
+              0.9167186940903136,
+              0.9167186940903136,
+              0.9167186940903136,
+              0.9167186940903136,
+              0.9167186940903136,
+              0.9167186940903136,
+              0.9167186940903136
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "proposal_file": "restoration_03800_guided.npz",
+        "proposal_sha256": "5e42c57498d30d0994b0fd75cda2fdd338c2b2d34769eda8846ff4acc17c4fe8",
+        "accepted": false,
+        "elapsed_ms": 2164.505183000074
+      },
+      {
+        "mode": "zero_feedback",
+        "contract": {
+          "joint_inner_margin_rad": 0.02,
+          "joint_margin_normalizer_rad": 0.02,
+          "speed_fraction": 0.9,
+          "speed_normalizer_fraction": 0.1,
+          "minimum_root_height_m": 0.3,
+          "height_normalizer_m": 0.05,
+          "maximum_root_tilt_rad": 1.1,
+          "tilt_normalizer_rad": 0.1,
+          "target_regularization_weight": 0.0001,
+          "target_regularization_reference": "original shifted warm targets",
+          "zero_rollout_feedback": true,
+          "feedback_suppression_scope": "private restoration line search only",
+          "execution_policy": false,
+          "main_tracking_objective_changed": false
+        },
+        "initial_merit": 144.5328693180296,
+        "final_merit": 18.306479180075822,
+        "nominal_feasibility": {
+          "feasible": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "first_violation": [
+            {
+              "control": 25,
+              "substep": 6,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.005612909455992465,
+              "speed_ratio": 0.22830601896398883,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.31826536565453306,
+              "root_tilt_rad": 0.8536890956643375
+            },
+            {
+              "control": 25,
+              "substep": 6,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.005612909455992465,
+              "speed_ratio": 0.22830601896398883,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.31826536565453306,
+              "root_tilt_rad": 0.8536890956643375
+            },
+            {
+              "control": 25,
+              "substep": 6,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.005612909455992465,
+              "speed_ratio": 0.22830601896398883,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.31826536565453306,
+              "root_tilt_rad": 0.8536890956643375
+            },
+            {
+              "control": 25,
+              "substep": 6,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.005612909455992465,
+              "speed_ratio": 0.22830601896398883,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.31826536565453306,
+              "root_tilt_rad": 0.8536890956643375
+            },
+            {
+              "control": 25,
+              "substep": 6,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.005612909455992465,
+              "speed_ratio": 0.22830601896398883,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.31826536565453306,
+              "root_tilt_rad": 0.8536890956643375
+            },
+            {
+              "control": 25,
+              "substep": 6,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.005612909455992465,
+              "speed_ratio": 0.22830601896398883,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.31826536565453306,
+              "root_tilt_rad": 0.8536890956643375
+            },
+            {
+              "control": 25,
+              "substep": 6,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.005612909455992465,
+              "speed_ratio": 0.22830601896398883,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.31826536565453306,
+              "root_tilt_rad": 0.8536890956643375
+            },
+            {
+              "control": 25,
+              "substep": 6,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.005612909455992465,
+              "speed_ratio": 0.22830601896398883,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.31826536565453306,
+              "root_tilt_rad": 0.8536890956643375
+            },
+            {
+              "control": 25,
+              "substep": 6,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.005612909455992465,
+              "speed_ratio": 0.22830601896398883,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.31826536565453306,
+              "root_tilt_rad": 0.8536890956643375
+            }
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.005612909455992465,
+              0.005612909455992465,
+              0.005612909455992465,
+              0.005612909455992465,
+              0.005612909455992465,
+              0.005612909455992465,
+              0.005612909455992465,
+              0.005612909455992465,
+              0.005612909455992465
+            ],
+            "speed_ratio": [
+              0.7688750604610729,
+              0.7688750604610729,
+              0.7688750604610729,
+              0.7688750604610729,
+              0.7688750604610729,
+              0.7688750604610729,
+              0.7688750604610729,
+              0.7688750604610729,
+              0.7688750604610729
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "proposal_file": "restoration_03800_zero_feedback.npz",
+        "proposal_sha256": "902bf3f95ae1a7d68b846b3b2e518dfaca9301a31a64a49ed54da6b4f3aea182",
+        "accepted": false,
+        "elapsed_ms": 1648.566983999899
+      }
+    ],
+    "accepted": false,
+    "elapsed_ms": 3813.086009000017,
+    "control": 3800
+  }
+]

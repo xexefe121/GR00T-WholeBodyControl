@@ -1,0 +1,61 @@
+{
+  "kind": "bfmzero_explicit_ankle_repulsion_simulation",
+  "clip": "pico",
+  "completed": 6530,
+  "requested": 6530,
+  "available": 6530,
+  "failure": null,
+  "full_lifecycle_completed": true,
+  "source_metrics": {
+    "source_controls": 5780,
+    "source_requested": 5780,
+    "leg_rmse": 0.17290237483094337,
+    "arm_rmse": 0.2275791746383581,
+    "root_p95": 0.2968306649314004,
+    "landmark_p95": [
+      0.3565777728416308,
+      0.31825846261574803,
+      0.3580007315193822,
+      0.3784106744913117,
+      0.30185983626964996
+    ],
+    "relative_landmark_p95": [
+      0.2047682709421191,
+      0.1989170134578517,
+      0.2165988066928125,
+      0.27289151735836703,
+      0.07317891409232724
+    ]
+  },
+  "range_excess_max": 0.0,
+  "effort_ratio_max": 1.0,
+  "velocity_ratio_max": 0.5999927965371328,
+  "elapsed_seconds": 89.56859759999497,
+  "barrier": {
+    "kind": "measured_ankle_roll_inward_spring_outward_damping",
+    "joint_indices": [
+      5,
+      11
+    ],
+    "margin_rad": 0.05,
+    "stiffness_Nm_per_rad": 150.0,
+    "damping_Nm_per_rad_per_second": 2.0,
+    "effort_clip_order": "clip(BFM_PD_torque + declared_ankle_torque, native_effort)",
+    "zero_other_joint_torque": true,
+    "formal_safety_guarantee": false
+  },
+  "barrier_torque_max_Nm": 5.046170919383568,
+  "barrier_active_physics_steps": 1242,
+  "arm_reference": false,
+  "goal_horizon": 8,
+  "position_gain": 1.0,
+  "yaw_gain": 2.0,
+  "ground_truth_pose_feedback": true,
+  "source_tracking_qualified": false,
+  "hardware_authorized": false,
+  "deployment_ready": false,
+  "simulator_pose_writes_after_initialization": 0,
+  "root_assistance_forces": 0,
+  "request_sha256": "60544601e277894cd937af5dba3b2f0223dde67453a4945b8bfcf96e34fadf84",
+  "trace_sha256": "03fa22d0c12eb4d5adf138bf2d3c934b53e2a1fea079334f012df3a2c8cbbffc"
+}

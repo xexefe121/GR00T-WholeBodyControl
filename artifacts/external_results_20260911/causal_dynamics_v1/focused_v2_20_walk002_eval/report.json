@@ -1,0 +1,93 @@
+{
+  "cases": [
+    {
+      "clip": "walk002",
+      "actor": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\causal_dynamics_v1\\focused_walk002_pilot_v2\\actor_00020.onnx",
+      "requested_controls": 2917,
+      "completed_controls": 1659,
+      "physical_complete": false,
+      "source": {
+        "passed": false,
+        "source_controls": 667,
+        "requested_source_controls": 667,
+        "root_p95_m": 0.9666775473994881,
+        "yaw_p95_deg": 38.71514564224424,
+        "hand_head_relative_p95_m": [
+          0.29901498648818536,
+          0.3698884350172847,
+          0.05515895748029815
+        ],
+        "foot_relative_p95_m": [
+          0.2829821648751781,
+          0.23947009044199252
+        ],
+        "leg_rmse_rad": 0.23873732558490277
+      },
+      "main_quiet": {
+        "passed": false,
+        "values": {
+          "xy_p95": 0.45648755755635756,
+          "yaw_p95_deg": 14.37543936902359,
+          "root_speed_p95": 0.3605247350870934,
+          "joint_speed_p95": 4.2938612837942225,
+          "joint_speed_max": 6.697567343048624,
+          "tilt_max": 0.07845561920970746
+        },
+        "limits": {
+          "xy_p95": 0.05,
+          "yaw_p95_deg": 5,
+          "root_speed_p95": 0.05,
+          "joint_speed_p95": 0.5,
+          "joint_speed_max": 2,
+          "tilt_max": 0.15
+        }
+      },
+      "hold_quiet": null,
+      "failure": {
+        "kind": "physics",
+        "control": 1659,
+        "substep": 7,
+        "time": 33.1939999999946,
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "speed_ratio": 0.09902871388417193,
+        "range_excess": 0.0012525126071559756,
+        "effort_ratio": 1.0,
+        "tilt": 0.07521572187746484
+      },
+      "passed": false,
+      "elapsed_s": 29.0,
+      "physics_steps": 16597,
+      "maximum_speed_ratio": 0.40179281898909164,
+      "policy_ms_p50_p95_max": [
+        11.513349993037991,
+        27.815340008964988,
+        38.296500002616085
+      ],
+      "packet_report": {
+        "epoch": 0,
+        "received": 1428,
+        "consumed": 1428,
+        "ignored": 0,
+        "rejected": 0,
+        "final_received": true,
+        "full_source_consumed": true,
+        "fault": null,
+        "calibration": null
+      },
+      "future_reference_frames": 0,
+      "prepared_feedback_gains": false,
+      "initial_root_x_velocity_offset": 0.0,
+      "independent_realtime": false,
+      "hardware_authorized": false,
+      "controller_variant": "causal_full_range_actor",
+      "fault_control": null,
+      "fault_quiet": null,
+      "fault_scenario_passed": false
+    }
+  ],
+  "scenario": "nominal",
+  "passed": false,
+  "general_live_teleop_qualified": false
+}

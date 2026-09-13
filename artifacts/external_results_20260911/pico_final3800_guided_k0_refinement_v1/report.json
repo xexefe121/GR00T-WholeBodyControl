@@ -1,0 +1,420 @@
+{
+  "kind": "one_private_guided_to_K0_refinement",
+  "actual_control": 3800,
+  "actual_controls_executed": 0,
+  "horizon": 30,
+  "maximum_iterations": 10,
+  "batch_threads": 8,
+  "fd_epsilon": 1e-06,
+  "alphas": [
+    1.0,
+    0.5,
+    0.25,
+    0.125,
+    0.0625,
+    0.03125,
+    0.015625,
+    0.0078125,
+    0.00390625
+  ],
+  "merit_contract": {
+    "joint_inner_margin_rad": 0.02,
+    "joint_margin_normalizer_rad": 0.02,
+    "speed_fraction": 0.9,
+    "speed_normalizer_fraction": 0.1,
+    "minimum_root_height_m": 0.3,
+    "height_normalizer_m": 0.05,
+    "maximum_root_tilt_rad": 1.1,
+    "tilt_normalizer_rad": 0.1,
+    "target_regularization_weight": 0.0001,
+    "target_regularization_reference": "original shifted warm targets",
+    "zero_rollout_feedback": true,
+    "feedback_suppression_scope": "private restoration line search only",
+    "execution_policy": false,
+    "main_tracking_objective_changed": false
+  },
+  "initial_merit": 7.278705671108272,
+  "final_merit": 7.074547366116891,
+  "solve_ms": 1134.7273100000166,
+  "ordinary_final_certificate": {
+    "hard_nominal_pass": false,
+    "nominal_first_failure": {
+      "control": 14,
+      "substep": 1,
+      "reasons": [
+        "joint_range"
+      ],
+      "range_excess_rad": 0.0011354074325394814,
+      "speed_ratio": 0.9085483211986027,
+      "effort_ratio": 1.0,
+      "root_height_m": 0.3818193426303475,
+      "root_tilt_rad": 0.21510245267640704
+    },
+    "tracking_cost": null,
+    "full_native_oracle": {
+      "kind": "independent_native23_manual_PD_private_segment",
+      "feasible": false,
+      "first_failure": {
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "physics_step": 141,
+        "control_index": 14,
+        "substep": 1,
+        "worst_joint_index": 5,
+        "joint_excess_rad": 0.001166798017438908,
+        "speed_ratio": 0.9031558007979581,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.21470110859665809,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 6.536993168992922e-13
+      },
+      "requested_controls": 30,
+      "physics_steps": 300,
+      "complete_controls": 30,
+      "partial_substeps": 0,
+      "original_data_unchanged": true,
+      "root_forces": false,
+      "source_state_copy_after_initialization": false,
+      "initial_time": 76.00000000000428,
+      "final_time": 76.60000000000288,
+      "maximum": {
+        "joint_excess_rad": 0.005457019239186955,
+        "speed_ratio": 1.0875754485032476,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.8000163597628894,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 1.3926637620897964e-12
+      },
+      "minimum_root_height_m": 0.31288978595484607,
+      "final_warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "diagnostic_continued_after_failure": true,
+      "live_or_hardware_qualified": false,
+      "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+    },
+    "dual_certificate_pass": false
+  },
+  "ordinary_final_sha256": "e09eae39f59c1129fa62b90b1dc5f85d4096fa50157e70c14dcb7988f5f29989",
+  "optimization_initial_targets": "frozen guided final proposal",
+  "regularization_anchor": "original shifted warm targets, unchanged",
+  "admission": "ordinary final proposal only; generated candidates are diagnostic",
+  "backward_calls": [
+    {
+      "iteration": 0,
+      "mu": 1.0,
+      "returned_sweep": false,
+      "all_derivatives_finite": true
+    },
+    {
+      "iteration": 1,
+      "mu": 10.0,
+      "returned_sweep": false,
+      "all_derivatives_finite": true
+    },
+    {
+      "iteration": 2,
+      "mu": 100.0,
+      "returned_sweep": false,
+      "all_derivatives_finite": true
+    },
+    {
+      "iteration": 3,
+      "mu": 1000.0,
+      "returned_sweep": false,
+      "all_derivatives_finite": true
+    },
+    {
+      "iteration": 4,
+      "mu": 10000.0,
+      "returned_sweep": false,
+      "all_derivatives_finite": true
+    },
+    {
+      "iteration": 5,
+      "mu": 100000.0,
+      "returned_sweep": false,
+      "all_derivatives_finite": true
+    },
+    {
+      "iteration": 6,
+      "mu": 1000000.0,
+      "returned_sweep": true,
+      "all_derivatives_finite": true,
+      "max_abs_k": 5.4105,
+      "max_abs_K": 78283.66477749014
+    },
+    {
+      "iteration": 7,
+      "mu": 100000.0,
+      "returned_sweep": false,
+      "all_derivatives_finite": true
+    },
+    {
+      "iteration": 8,
+      "mu": 1000000.0,
+      "returned_sweep": false,
+      "all_derivatives_finite": true
+    }
+  ],
+  "searches": [
+    {
+      "kind": "initial",
+      "costs": [
+        7.278705671108272,
+        7.278705671108272,
+        7.278705671108272,
+        7.278705671108272,
+        7.278705671108272,
+        7.278705671108272,
+        7.278705671108272,
+        7.278705671108272,
+        7.278705671108272
+      ]
+    },
+    {
+      "kind": "alpha_search",
+      "costs": [
+        18.595363458334326,
+        15.747048933566118,
+        7.074547366116891,
+        8.482195935826235,
+        8.18016248848416,
+        7.307600332550025,
+        7.553218636790222,
+        7.29630437702533,
+        7.5445730648532034
+      ],
+      "iteration": 6,
+      "incumbent_merit_before": 7.278705671108272,
+      "best_lane": 2,
+      "alpha": 0.25,
+      "accepted": true,
+      "drop": 0.2041583049913802,
+      "tolerance_stop": false,
+      "incumbent_merit_after": 7.074547366116891
+    }
+  ],
+  "source_hashes": {
+    "gear_sonic/utils/g1_true23_mjbatch_ilqr_core.py": "1efc9cb21e446d8e41e3d3acebe05d12b951e8a0002b264ddf0a6b723e32f45a",
+    "gear_sonic/utils/g1_true23_mjbatch_mpc.py": "7695d03787de93dc3d4b1fb2001d6b6b0dcdb9016af9c96734e8f7d94a5e5dde",
+    "gear_sonic/utils/g1_true23_mjbatch_model.py": "61d1c168ba5db189fc1e882bfb1e2c9f7773584353b8e2251713ae0d0dd7dc9e",
+    "gear_sonic/utils/g1_true23_mjbatch_restoration.py": "3fb4aa5a786d8acb3de44a3c96a4ac9ea26cfbaf17887c0aecbb7d3915bd71c5",
+    "gear_sonic/utils/g1_true23_feasibility_referee.py": "0027210cda5a44255debecd7151ecd454e2281a5ff4e3137641d102701fb1330",
+    "gear_sonic/utils/g1_true23_relative_foot_cost.py": "36f89cac4374364cd155184c7c6f098de913ebca22976c0d59c8d1489089cc35"
+  },
+  "original_actual_state_and_history_fixture_sha256": "5e42c57498d30d0994b0fd75cda2fdd338c2b2d34769eda8846ff4acc17c4fe8",
+  "all_generated_certificates": [
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 14,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0009765036312873732,
+        "speed_ratio": 0.9056556055219489,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3819080561376071,
+        "root_tilt_rad": 0.2144618862030593
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 0,
+      "lane": 0,
+      "merit": 7.278705671108272
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 17,
+        "substep": 4,
+        "reasons": [
+          "joint_speed"
+        ],
+        "range_excess_rad": 0.0,
+        "speed_ratio": 1.0936288230055677,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.32307534309607083,
+        "root_tilt_rad": 0.2707430476445086
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 1,
+      "lane": 0,
+      "merit": 18.595363458334326
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 13,
+        "substep": 10,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0036641627383318665,
+        "speed_ratio": 0.9112410427542972,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.38062546006814646,
+        "root_tilt_rad": 0.22659881218988098
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 1,
+      "lane": 1,
+      "merit": 15.747048933566118
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 14,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0011354074325394814,
+        "speed_ratio": 0.9085483211986027,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3818193426303475,
+        "root_tilt_rad": 0.21510245267640704
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 1,
+      "lane": 2,
+      "merit": 7.074547366116891
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 14,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.000952104232443518,
+        "speed_ratio": 0.8926234283543516,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.38190472822401966,
+        "root_tilt_rad": 0.21449252495565366
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 1,
+      "lane": 3,
+      "merit": 8.482195935826235
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 14,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0009437796941064169,
+        "speed_ratio": 0.8923801422660195,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.38194559247051324,
+        "root_tilt_rad": 0.21381293548176644
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 1,
+      "lane": 4,
+      "merit": 8.18016248848416
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 14,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0007887168931586253,
+        "speed_ratio": 0.9092422957847054,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3819187374019573,
+        "root_tilt_rad": 0.21411861165292032
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 1,
+      "lane": 5,
+      "merit": 7.307600332550025
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 14,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0011005776325023753,
+        "speed_ratio": 0.8970393597635575,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.38190676299325793,
+        "root_tilt_rad": 0.21426913271923628
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 1,
+      "lane": 6,
+      "merit": 7.553218636790222
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 14,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0007145202533647144,
+        "speed_ratio": 0.9071400395296987,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3818687910383543,
+        "root_tilt_rad": 0.21473208657999654
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 1,
+      "lane": 7,
+      "merit": 7.29630437702533
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 14,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.000695546162789662,
+        "speed_ratio": 0.8976424895578616,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3818508176129896,
+        "root_tilt_rad": 0.21468088994482942
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 1,
+      "lane": 8,
+      "merit": 7.5445730648532034
+    }
+  ],
+  "feasible_generated_candidates": 0,
+  "original_full_actual_state_unchanged": true,
+  "original_history_fixture_unchanged": true
+}

@@ -1,0 +1,262 @@
+{
+  "all_assertions_passed": true,
+  "mujoco": "3.2.3",
+  "engine_clock": {
+    "physics_steps": 65300,
+    "independent_recurrence_bitexact": true,
+    "old_ideal_time_first_false_failure": 60370,
+    "final_ideal_time_difference_seconds": -1.0450662557559554e-10,
+    "model_scope": "simple zero-gravity engine clock witness, not native23 controller qualification"
+  },
+  "native23_clock_cases": {
+    "normal": {
+      "kind": "independent_native23_manual_PD_private_segment",
+      "feasible": true,
+      "first_failure": null,
+      "requested_controls": 30,
+      "physics_steps": 300,
+      "complete_controls": 30,
+      "partial_substeps": 0,
+      "original_data_unchanged": true,
+      "root_forces": false,
+      "source_state_copy_after_initialization": false,
+      "initial_time": 74.80000000000707,
+      "final_time": 75.40000000000568,
+      "maximum": {
+        "joint_excess_rad": 0.0,
+        "speed_ratio": 0.19905280856040442,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.39373390949415177,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 1.3926637620897964e-12
+      },
+      "minimum_root_height_m": 0.38297393563394244,
+      "final_warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "diagnostic_continued_after_failure": false,
+      "live_or_hardware_qualified": false,
+      "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time",
+      "deliberately_altered_clock_fixture": false
+    },
+    "reset": {
+      "kind": "independent_native23_manual_PD_private_segment",
+      "feasible": false,
+      "first_failure": {
+        "reasons": [
+          "physics_clock"
+        ],
+        "physics_step": 3,
+        "control_index": 0,
+        "substep": 3,
+        "worst_joint_index": 0,
+        "joint_excess_rad": 0.0,
+        "speed_ratio": 0.18090975644419313,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.3927899840791814,
+        "clock_error_seconds": 74.80600000000706,
+        "ideal_clock_difference_seconds": 74.80600000000707
+      },
+      "requested_controls": 30,
+      "physics_steps": 3,
+      "complete_controls": 0,
+      "partial_substeps": 3,
+      "original_data_unchanged": true,
+      "root_forces": false,
+      "source_state_copy_after_initialization": false,
+      "initial_time": 74.80000000000707,
+      "final_time": 0.0,
+      "maximum": {
+        "joint_excess_rad": 0.0,
+        "speed_ratio": 0.18090975644419313,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.39373390949415177,
+        "clock_error_seconds": 74.80600000000706,
+        "ideal_clock_difference_seconds": 74.80600000000707
+      },
+      "minimum_root_height_m": 0.38297393563394244,
+      "final_warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "diagnostic_continued_after_failure": false,
+      "live_or_hardware_qualified": false,
+      "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time",
+      "deliberately_altered_clock_fixture": true
+    },
+    "missing_step": {
+      "kind": "independent_native23_manual_PD_private_segment",
+      "feasible": false,
+      "first_failure": {
+        "reasons": [
+          "physics_clock"
+        ],
+        "physics_step": 3,
+        "control_index": 0,
+        "substep": 3,
+        "worst_joint_index": 0,
+        "joint_excess_rad": 0.0,
+        "speed_ratio": 0.18090975644419313,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.3927899840791814,
+        "clock_error_seconds": 0.001999999999995339,
+        "ideal_clock_difference_seconds": 0.0020000000000095497
+      },
+      "requested_controls": 30,
+      "physics_steps": 3,
+      "complete_controls": 0,
+      "partial_substeps": 3,
+      "original_data_unchanged": true,
+      "root_forces": false,
+      "source_state_copy_after_initialization": false,
+      "initial_time": 74.80000000000707,
+      "final_time": 74.80400000000706,
+      "maximum": {
+        "joint_excess_rad": 0.0,
+        "speed_ratio": 0.18090975644419313,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.39373390949415177,
+        "clock_error_seconds": 0.001999999999995339,
+        "ideal_clock_difference_seconds": 0.0020000000000095497
+      },
+      "minimum_root_height_m": 0.38297393563394244,
+      "final_warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "diagnostic_continued_after_failure": false,
+      "live_or_hardware_qualified": false,
+      "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time",
+      "deliberately_altered_clock_fixture": true
+    },
+    "extra_step": {
+      "kind": "independent_native23_manual_PD_private_segment",
+      "feasible": false,
+      "first_failure": {
+        "reasons": [
+          "physics_clock"
+        ],
+        "physics_step": 3,
+        "control_index": 0,
+        "substep": 3,
+        "worst_joint_index": 0,
+        "joint_excess_rad": 0.0,
+        "speed_ratio": 0.18090975644419313,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.3927899840791814,
+        "clock_error_seconds": 0.001999999999995339,
+        "ideal_clock_difference_seconds": 0.001999999999981128
+      },
+      "requested_controls": 30,
+      "physics_steps": 3,
+      "complete_controls": 0,
+      "partial_substeps": 3,
+      "original_data_unchanged": true,
+      "root_forces": false,
+      "source_state_copy_after_initialization": false,
+      "initial_time": 74.80000000000707,
+      "final_time": 74.80800000000706,
+      "maximum": {
+        "joint_excess_rad": 0.0,
+        "speed_ratio": 0.18090975644419313,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.39373390949415177,
+        "clock_error_seconds": 0.001999999999995339,
+        "ideal_clock_difference_seconds": 0.001999999999981128
+      },
+      "minimum_root_height_m": 0.38297393563394244,
+      "final_warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "diagnostic_continued_after_failure": false,
+      "live_or_hardware_qualified": false,
+      "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time",
+      "deliberately_altered_clock_fixture": true
+    },
+    "subtolerance_cumulative_drift": {
+      "kind": "independent_native23_manual_PD_private_segment",
+      "feasible": false,
+      "first_failure": {
+        "reasons": [
+          "physics_clock"
+        ],
+        "physics_step": 101,
+        "control_index": 10,
+        "substep": 1,
+        "worst_joint_index": 0,
+        "joint_excess_rad": 0.0,
+        "speed_ratio": 0.11352230586235837,
+        "effort_ratio": 0.26919732789538275,
+        "tilt_rad": 0.3073248273357799,
+        "clock_error_seconds": 1.0047074283647817e-10,
+        "ideal_clock_difference_seconds": 1.000017846308765e-10
+      },
+      "requested_controls": 30,
+      "physics_steps": 101,
+      "complete_controls": 10,
+      "partial_substeps": 1,
+      "original_data_unchanged": true,
+      "root_forces": false,
+      "source_state_copy_after_initialization": false,
+      "initial_time": 74.80000000000707,
+      "final_time": 75.00200000010707,
+      "maximum": {
+        "joint_excess_rad": 0.0,
+        "speed_ratio": 0.19905280856040442,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.39373390949415177,
+        "clock_error_seconds": 1.0047074283647817e-10,
+        "ideal_clock_difference_seconds": 1.000017846308765e-10
+      },
+      "minimum_root_height_m": 0.38297393563394244,
+      "final_warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "diagnostic_continued_after_failure": false,
+      "live_or_hardware_qualified": false,
+      "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time",
+      "deliberately_altered_clock_fixture": true
+    }
+  },
+  "tolerance_seconds": 1e-10,
+  "full_source_or_hardware_qualified": false,
+  "input_hashes": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_resume_20260911/verify_feasibility_clock.py": "7348616e6bc761522e263e7176a68319f7b468bc29909ba455b79f4cf4509396",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_feasibility_referee.py": "0027210cda5a44255debecd7151ecd454e2281a5ff4e3137641d102701fb1330",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/recovery_probe_v1/actual_3740_integration_state.npz": "52060ba5f7892aa97808a0cda623af5a5ab0875a268340acaad6197f9d7878d6",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/recovery_probe_v1/3740_source_goals_yaw2.npz": "e92630bea799610466e8397e3b576a8b9683f3d1303677e70bc616d04f1ef44c"
+  }
+}

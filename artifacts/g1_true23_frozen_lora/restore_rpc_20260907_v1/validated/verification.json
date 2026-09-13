@@ -1,0 +1,134 @@
+{
+  "experiment_completed": true,
+  "stages": [
+    {
+      "name": "critical_lint",
+      "command": [
+        "/root/.venvs/g1_true23_mjlab/bin/python",
+        "-m",
+        "ruff",
+        "check",
+        "--select",
+        "E,F",
+        "gear_sonic/scripts/audit_g1_true23_restore_rpc_no_robot.py",
+        "gear_sonic/scripts/qualify_g1_true23_active_lifecycle_no_robot.py",
+        "gear_sonic/tests/test_g1_true23_restore_rpc_no_robot.py"
+      ],
+      "returncode": 0,
+      "expected_returncode": 0,
+      "elapsed_s": 0.21863829699999826,
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "name": "format_check",
+      "command": [
+        "/root/.venvs/g1_true23_mjlab/bin/python",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "gear_sonic/scripts/audit_g1_true23_restore_rpc_no_robot.py",
+        "gear_sonic/scripts/qualify_g1_true23_active_lifecycle_no_robot.py",
+        "gear_sonic/tests/test_g1_true23_restore_rpc_no_robot.py"
+      ],
+      "returncode": 0,
+      "expected_returncode": 0,
+      "elapsed_s": 0.1688964980000094,
+      "log_sha256": "eee76f865de5a9f2456950f710ae5d5f9b5bd0ea02aa54f614c5eed6642a0bfd"
+    },
+    {
+      "name": "current_contract_tests",
+      "command": [
+        "/root/.venvs/g1_true23_mjlab/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-x",
+        "--tb=short",
+        "--basetemp=/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/restore_rpc_20260907_v1/validated/current_tests_contract_v2",
+        "gear_sonic/tests/test_g1_true23_restore_rpc_no_robot.py"
+      ],
+      "returncode": 0,
+      "expected_returncode": 0,
+      "elapsed_s": 14.407963105999997,
+      "log_sha256": "4f0932529ddae2bd5b09ab0dd3706fcfdca1302242f62b78947c561cc61ed2ac"
+    },
+    {
+      "name": "committed_contract_tests",
+      "command": [
+        "/root/.venvs/g1_true23_mjlab/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-x",
+        "--tb=short",
+        "--basetemp=/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/restore_rpc_20260907_v1/validated/committed_tests_contract_v2",
+        "gear_sonic/tests/test_g1_true23_restore_rpc_no_robot.py"
+      ],
+      "returncode": 0,
+      "expected_returncode": 0,
+      "elapsed_s": 11.545794728000004,
+      "log_sha256": "7f2ae92e962bfaa37f4814fa5d4543fdefc030ee701dfe49a12dc7222370c142"
+    },
+    {
+      "name": "qualifier_before",
+      "command": [
+        "/root/.venvs/g1_true23_mjlab/bin/python",
+        "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/restore_rpc_20260907_v1/qualifier_before.py",
+        "--repository-root",
+        "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof",
+        "--output",
+        "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/restore_rpc_20260907_v1/validated/qualification_before.json"
+      ],
+      "returncode": 0,
+      "expected_returncode": 0,
+      "elapsed_s": 0.7702065149999981,
+      "log_sha256": "fb4d36c2d95b90555d386353ec85a9fb3fd8740b8f67f92b280718441f8f8b78"
+    },
+    {
+      "name": "qualifier_after",
+      "command": [
+        "/root/.venvs/g1_true23_mjlab/bin/python",
+        "-m",
+        "gear_sonic.scripts.qualify_g1_true23_active_lifecycle_no_robot",
+        "--repository-root",
+        "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof",
+        "--output",
+        "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/restore_rpc_20260907_v1/validated/qualification_after.json"
+      ],
+      "returncode": 2,
+      "expected_returncode": 2,
+      "elapsed_s": 9.585906607999988,
+      "log_sha256": "ca50582a68052c46c7ab3964d9023dfaeb80fb05ebcc5256a7124da1b071bd98"
+    }
+  ],
+  "inputs": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/audit_g1_true23_restore_rpc_no_robot.py": "43cb64ab2302e2e2c3b2880da0f58fb1ca109d53b3e7a1b3c32cdbac48a6e770",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/qualify_g1_true23_active_lifecycle_no_robot.py": "fa16438cdbec937479274b646babbce71945024ff3ab592aa51f93f4e16dae49",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/tests/test_g1_true23_restore_rpc_no_robot.py": "af8da0efe9e1d27baa2b750bd9afe296fbd3a475a2fc8414e2eba4cd2c058769",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/tests/true23_restore_rpc_driver.cpp": "06a39fa89c55a2738eab61c4bfce116e2d87e48ca6bbb27aa74c996e928d2090",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/tests/true23_restore_rpc_fixture.hpp": "b9877493ec117559133ab50d6d167342b1f7e9fd789a83e0288ffc97098f7907",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/src/g1_true23_active_gantry.cpp": "7c94f882ad4e7faccd8ba1de6571167fbf82f2c9fc12eaa6f9b7f0c00a017ddf",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/true23_active_gantry_core.hpp": "5c7965251b49d4f3005e9802aebddb03f60534603992c11837078e5ac41badaf",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/true23_live_shadow_core.hpp": "30154a4ba41f352917cf541bc2a092a93d7ae287fe57fbbc8531c71b445acaed",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/true23_shadow_gate.hpp": "89b959e9539409c721e78e4867de7da4f52ab1516093c62f98fbf605026057b7",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/restore_rpc_20260907_v1/run_verification_v2.py": "eae18b78c965438e080a7e7573772a2e7144c82aeb4d072943dc2f311ad2eacf",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/restore_rpc_20260907_v1/qualifier_before.py": "20abfcbd16a76c014d0249ab868fa9e06e3d9e31026f045390f3de5c51dc83a1"
+  },
+  "old_qualification_reported_pass": true,
+  "updated_qualification_reported_pass": false,
+  "old_scope": "Core/binary surface only; did not execute restore RPC routine",
+  "new_rpc_contract_checks": {
+    "actual_restore_fault_injection_completed": true,
+    "crouched_state_not_labelled_normal_standing": false,
+    "no_stand_commands_after_mock_motor_disable": false,
+    "normal_restore_never_requests_damp_fsm": false,
+    "powered_standing_observed": true,
+    "runtime_checks_physical_motor_evidence": true,
+    "unhealthy_final_states_rejected": true
+  },
+  "hardware_authorized": false,
+  "deployment_ready": false,
+  "robot_commands_published": false,
+  "dds_opened": false
+}

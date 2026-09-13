@@ -1,0 +1,74 @@
+{
+  "samples": 667,
+  "clip": "walk002",
+  "all1323_task_state_history_features_unchanged": true,
+  "only_current_body425_encoding_changed": true,
+  "backward_derivatives_only": true,
+  "native_arm_vs_floor_max_joint_difference_rad": 2.294274269982109,
+  "native_arm_vs_floor_joint_rms_difference_rad": 0.7502023484624373,
+  "geometric_hand_head_relative_p95_m": {
+    "floor": [
+      0.010320678096841535,
+      0.010424684052355351,
+      0.013723391254903305
+    ],
+    "original_native": [
+      0.10910642182161749,
+      0.12547366289775502,
+      0.07361432936073581
+    ],
+    "original_native_arms": [
+      0.07184345970778265,
+      0.07936551722843244,
+      0.013723391254903305
+    ]
+  },
+  "cases": [
+    {
+      "model": "initial",
+      "variant": "current_floor_body",
+      "joint_target_rmse_rad": 0.38541164994239807,
+      "leg_target_rmse_rad": 0.36351269483566284,
+      "arm_target_rmse_rad": 0.4274339973926544
+    },
+    {
+      "model": "initial",
+      "variant": "original_native_body_only",
+      "joint_target_rmse_rad": 0.4323771595954895,
+      "leg_target_rmse_rad": 0.3548620641231537,
+      "arm_target_rmse_rad": 0.527760922908783
+    },
+    {
+      "model": "initial",
+      "variant": "original_native_arms_body_only",
+      "joint_target_rmse_rad": 0.43571820855140686,
+      "leg_target_rmse_rad": 0.35283365845680237,
+      "arm_target_rmse_rad": 0.5356510281562805
+    },
+    {
+      "model": "focused_v2_40",
+      "variant": "current_floor_body",
+      "joint_target_rmse_rad": 0.3661287724971771,
+      "leg_target_rmse_rad": 0.3579186201095581,
+      "arm_target_rmse_rad": 0.39271679520606995
+    },
+    {
+      "model": "focused_v2_40",
+      "variant": "original_native_body_only",
+      "joint_target_rmse_rad": 0.4127035140991211,
+      "leg_target_rmse_rad": 0.3519272804260254,
+      "arm_target_rmse_rad": 0.49273714423179626
+    },
+    {
+      "model": "focused_v2_40",
+      "variant": "original_native_arms_body_only",
+      "joint_target_rmse_rad": 0.41591718792915344,
+      "leg_target_rmse_rad": 0.34950366616249084,
+      "arm_target_rmse_rad": 0.5009520649909973
+    }
+  ],
+  "diagnostic_original_motion_lookup_not_live_controller": true,
+  "physical_rollouts_performed": false,
+  "simulation_qualified": false,
+  "hardware_authorized": false
+}

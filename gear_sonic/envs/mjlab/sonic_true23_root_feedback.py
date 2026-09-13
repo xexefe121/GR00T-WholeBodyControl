@@ -97,6 +97,19 @@ def q10_body_position_reward(env, command_name, std, body_names=None):
     return torch.exp(-error.mean(-1) / std**2)
 
 
+def q10_measured_feet_world_position_l2(env, command_name="motion"):
+    """Dense actual-ankle world error; no root reanchoring or action teacher."""
+    command = env.command_manager.get_term(command_name)
+    indices = _body_indices(command, ("left_ankle_roll_link", "right_ankle_roll_link"))
+    desired = _q10_body_position(command)[:, indices]
+    measured = command.robot_body_pos_w[:, indices]
+    if desired.shape != measured.shape or measured.ndim != 3 or measured.shape[1:] != (2, 3):
+        raise ValueError("feet world objective requires matching [env,2,3] ankle positions")
+    if not torch.isfinite(desired).all() or not torch.isfinite(measured).all():
+        raise ValueError("feet world objective requires finite actual and reference positions")
+    return ((measured - desired) / 0.05).square().sum(-1).mean(-1)
+
+
 def q10_body_orientation_reward(env, command_name, std, body_names=None):
     from mjlab.utils.lab_api.math import quat_error_magnitude
 
@@ -106,6 +119,20 @@ def q10_body_orientation_reward(env, command_name, std, body_names=None):
         quat_error_magnitude(_q10_body_quaternion(command)[:, indices], command.robot_body_quat_w[:, indices]) ** 2
     )
     return torch.exp(-error.mean(-1) / std**2)
+
+
+def q10_measured_sole_world_position_l2(env, command_name="motion"):
+    """Track actual native sole placement and clearance together in fixed world."""
+    from gear_sonic.utils.g1_true23_sole_tracking import sole_world_position_l2
+
+    command = env.command_manager.get_term(command_name)
+    indices = _body_indices(command, ("left_ankle_roll_link", "right_ankle_roll_link"))
+    return sole_world_position_l2(
+        _q10_body_position(command)[:, indices],
+        _q10_body_quaternion(command)[:, indices],
+        command.robot_body_pos_w[:, indices],
+        command.robot_body_quat_w[:, indices],
+    )
 
 
 def q10_body_linear_velocity_reward(env, command_name, std, body_names=None):
@@ -177,6 +204,21 @@ def q10_action_target_reference_l2(env, command_name="motion", action_name="join
     return ((target - reference) / scale).square().mean(-1)
 
 
+def q10_measured_upper_body_posture_l2(env, command_name="motion"):
+    """All ten physical arm joints; no leg/waist action teacher or phase switch."""
+    from gear_sonic.utils.g1_23dof_contract import HARDWARE_23_ACTION_SCALE
+
+    command = env.command_manager.get_term(command_name)
+    desired = command.motion.joint_pos[_causal_indices(command)[1]]
+    measured = command.robot_joint_pos
+    if desired.shape != measured.shape or measured.ndim != 2 or measured.shape[1] != 23:
+        raise ValueError("upper posture objective requires matching native23 joint states")
+    if not torch.isfinite(desired).all() or not torch.isfinite(measured).all():
+        raise ValueError("upper posture objective requires finite states")
+    scale = torch.as_tensor(HARDWARE_23_ACTION_SCALE[13:], dtype=measured.dtype, device=measured.device)
+    return ((measured[:, 13:] - desired[:, 13:]) / scale).square().mean(-1)
+
+
 def q10_bad_root_position(env, command_name, threshold):
     command = env.command_manager.get_term(command_name)
     return (
@@ -218,6 +260,7 @@ def q10_bad_body_height(env, command_name, threshold, body_names=None):
 def configure_q10_objectives(cfg):
     """Replace known target functions only; leave weights, params and q9 properties intact."""
     from src.tasks.tracking.mdp import rewards, terminations
+
     from gear_sonic.envs.mjlab.sonic_true23_low_latency_recovery import action_target_reference_l2
 
     reward_functions = {
@@ -283,10 +326,27 @@ class RootFeedbackCurriculumCommand(GeneralistCurriculumMotionCommand):
         }
 
 
-def install_root_feedback_command(spans):
+def install_root_feedback_command(spans, *, start_schedule="synchronous"):
     from gear_sonic.envs.mjlab import sonic_true23_causal_history as task
+    from gear_sonic.utils.g1_true23_start_schedule import start_schedule_contract
+
+    start_schedule_contract(start_schedule)
 
     def build(cfg, env):
+        if start_schedule == "phase_balanced_reference_reset_v1":
+            from gear_sonic.envs.mjlab.sonic_true23_phase_reference_starts import PhaseReferenceRootFeedbackCommand
+
+            return PhaseReferenceRootFeedbackCommand(cfg, env, spans=spans)
+        if start_schedule == "mixed_reference_reset_v1":
+            from gear_sonic.envs.mjlab.sonic_true23_mixed_reference_starts import MixedReferenceRootFeedbackCommand
+
+            return MixedReferenceRootFeedbackCommand(cfg, env, spans=spans)
+        if start_schedule == "staggered_standing_start_v1":
+            from gear_sonic.envs.mjlab.sonic_true23_staggered_starts import (
+                StaggeredRootFeedbackCurriculumCommand,
+            )
+
+            return StaggeredRootFeedbackCurriculumCommand(cfg, env, spans=spans)
         return RootFeedbackCurriculumCommand(cfg, env, spans=spans)
 
     task.CausalHistoryMotionCommandCfg.build = build
@@ -302,6 +362,7 @@ def configure_root_feedback_environment(
 ):
     from mjlab.managers.observation_manager import ObservationGroupCfg, ObservationTermCfg
     from mjlab.managers.reward_manager import RewardTermCfg
+
     from gear_sonic.utils.g1_true23_root_feedback_objectives import objective_profile_contract
 
     objectives = objective_profile_contract(objective_profile)
@@ -315,12 +376,33 @@ def configure_root_feedback_environment(
         enable_corruption=False,
         nan_policy="error",
     )
-    cfg.rewards["root_world_tracking_error"] = RewardTermCfg(func=root_tracking_squared_error, weight=-10.0)
+    cfg.rewards["root_world_tracking_error"] = RewardTermCfg(
+        func=root_tracking_squared_error, weight=objectives.get("root_world_tracking_error_weight", -10.0)
+    )
     if objectives["measured_joint_position_l2_weight"]:
         cfg.rewards["measured_joint_posture_l2"] = RewardTermCfg(
             func=q10_measured_joint_position_l2,
             weight=objectives["measured_joint_position_l2_weight"],
         )
+    if "upper_body_posture" in objectives:
+        cfg.rewards["measured_upper_body_posture_l2"] = RewardTermCfg(
+            func=q10_measured_upper_body_posture_l2,
+            weight=objectives["upper_body_posture"]["weight"],
+        )
+    if "feet_world_position" in objectives:
+        cfg.rewards["measured_feet_world_position_l2"] = RewardTermCfg(
+            func=q10_measured_feet_world_position_l2,
+            weight=objectives["feet_world_position"]["weight"],
+        )
+    if "sole_world_position" in objectives:
+        cfg.rewards["measured_sole_world_position_l2"] = RewardTermCfg(
+            func=q10_measured_sole_world_position_l2,
+            weight=objectives["sole_world_position"]["weight"],
+        )
+    if "swing_foot_load" in objectives:
+        from gear_sonic.utils.g1_true23_swing_load import configure_swing_load
+
+        configure_swing_load(cfg)
     # Applied only by the inherited environment-reset routine, never mid-cycle.
     cfg.commands["motion"].pose_range = {
         key: (-reset_position_range_m, reset_position_range_m) for key in ("x", "y")

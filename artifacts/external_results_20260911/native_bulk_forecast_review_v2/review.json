@@ -1,0 +1,60 @@
+{
+  "additional_ownership": {
+    "actual_source_state_preserved": true,
+    "extra_private_steps": 20,
+    "other_thread_and_reentrant_calls_rejected_before_inputs": true,
+    "injected_exception_releases_lock": true,
+    "trace_and_private_qpos_aliases_match_existing_oracle": true,
+    "alias_cases": 2
+  },
+  "v1_findings_resolved": [
+    "Immediate nonblocking threading.Lock wraps all input handling, owned copies, private state/trace writes and final source-integrity checks. The lock releases on success or exception.",
+    "Target copied into preallocated owned23 double buffer before validation and any private-state/trace mutation; native function consumes only the validated owned snapshot.",
+    "Original232 saved-prefix report bound in the preexecution updated request; original request retained and updater pinned."
+  ],
+  "verdict": "CLEAR for private fixed native simulator forecast component",
+  "reviewer_new_physics_steps": 0,
+  "kind": "independent_native_bulk_v2_boundary_and_evidence_review",
+  "bindings": {
+    "request_original.json": "73cbdf0d00dfabccccfc26eb4ab65450e98cd8b9e60998a758c661c5d304617a",
+    "ownership_checks/request.json": "2ee3ac990d0d0c88688dd86f64f0521b69e5946d1e0d983efbaa1e5c793cf06f",
+    "freeze_pin_update.py": "326e17b003e6c5a0c94a7cff98cb48f9e854d9fc95946a9c6184b362dcd3901f",
+    "build.json": "0f5684b7c195cb568acdee5d97a7f7dc3dfe9f0973434633fb0fbd9f0f568589",
+    "run_parity.py": "39231bc6d840b4ae17464536b84de3b4a31c70dc46d7992dcf71702f7b39950f",
+    "results/bulk_traces.npz": "82d331ae691f2cf73fa35adb81dc9b948601114617c7dfc36370f3d96916b7a3",
+    "results/report.json": "4105cf58fb8a80b76ce664036a7e7f2726cb063c70aca8731b78332147485c06",
+    "request.json": "c7c3f87dea928292ede0ee7473c8841eaba935fd8ada9416eb61e4e0124602dd",
+    "ownership_checks/report.json": "4af9691a7b6982a8427df8f8f902caa17d16a6e856a378c633bbac24562e9198",
+    "input_boundary_report.json": "3519a9a71284ddd7cf861e9922b6b29b39520f1cd768352e1061445054148a6f",
+    "native_rollout.cpp": "b1d066f0b6316e79b81808c6e0805fbca9485d8038cee502543c9d0311bcd9a1",
+    "results/oracle_traces.npz": "82d331ae691f2cf73fa35adb81dc9b948601114617c7dfc36370f3d96916b7a3",
+    "check_ownership.py": "e63f50a4935701053e52f89b67885140673316b0cca235557d349b6db403403f",
+    "native_rollout.so": "d85492f08944f1db147654ae4558ca16dc84664864f65d193d79c54d88a84ce8",
+    "check_input_boundaries.py": "a4bd165bea168d2f8582ca8c6f3f71472e2376203d5358247c27d84f16931976",
+    "bulk_forecast.py": "397c1c540d06171363b76b83ff59bd7af4fdce3bcea8af7b7d47f5604f097bca"
+  },
+  "parity": {
+    "timing_summary_recomputed": true,
+    "computed_after_first_failure": 926,
+    "all_first_failures_preserved": true,
+    "all_nine_archive_fields_byteexact": true,
+    "computed_steps": 13560,
+    "cases": 364,
+    "checked_prefix_steps": 12634
+  },
+  "verified_ownership_request_pins": 6,
+  "original_v1_binary_byteexact": true,
+  "timing": "Single100ms whole-wrapper median 5.6281505 ms, p95 6.84913 ms, maximum 9.5034 ms under uncontrolled contention; includes final evidence storage copy. Not a four-candidate or whole-controller deadline proof.",
+  "boundary_checks": 23,
+  "limits": [
+    "No controller integration selected or reviewed.",
+    "No strict early-stop claim; full computed suffix retained and checked prefix distinct.",
+    "Source/model/callback environment must remain caller-immutable during the call and belong to the same prepared native model.",
+    "Returned views expire on the next call; copy any required evidence before reuse.",
+    "Private final291 equality to oracle is not independently saved; observed traces and strict outcomes are qualified on the fixed corpus.",
+    "No policy, optimizer or physics executed by this reviewer."
+  ],
+  "total_v2_private_steps_including_alias_checks": 13580,
+  "source_scope": "Only Python entry ownership changed; native binary, scalar predicates, 2 ms PD/step math and private restoration unchanged.",
+  "verified_request_pins": 63
+}

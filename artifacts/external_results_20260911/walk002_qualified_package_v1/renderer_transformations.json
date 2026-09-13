@@ -1,0 +1,147 @@
+{
+  "original": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_resume_20260911\\render_pico_qualified_full.py",
+  "original_sha256": "71c26e8386afe2fd7d415bb1a303041998d4dd676398b1ff2fd4ab7a9b3921a2",
+  "generated_sha256": "a0b15c3af672141f99b5ac43987fe4b066051676c01690cad34b4e2fb53af28a",
+  "changes": [
+    {
+      "old": "\"\"\"Render all qualified PICO time, plus its hold, from saved physical states.\"\"\"",
+      "new": "\"\"\"Render qualified walk002 offline hybrid and hold from saved physical states.\"\"\"",
+      "count": 1
+    },
+    {
+      "old": "import hashlib",
+      "new": "import argparse\nimport hashlib",
+      "count": 1
+    },
+    {
+      "old": "from PIL import Image, ImageDraw, ImageFont",
+      "new": "from PIL import Image, ImageDraw, ImageFont\nfrom qualified_inputs import load_qualified, visual_grid, CONTACT_STEPS",
+      "count": 1
+    },
+    {
+      "old": "ROOT = Path(__file__).resolve().parents[2]",
+      "new": "ROOT = Path('Z:/codex/GR00T-WholeBodyControl-sonic-transfer-23dof')",
+      "count": 1
+    },
+    {
+      "old": "OUT = BASE / 'pico_qualified_full_video_v1'",
+      "new": "OUT = BASE / 'walk002_qualified_hybrid_video_v1'",
+      "count": 1
+    },
+    {
+      "old": "def main():\n    qualification_path = BASE / 'pico_full_root_qualification_v1/qualification.json'\n    qualification = json.loads(qualification_path.read_text())\n    assert qualification['complete_offline_pico_pass'] and qualification['both_quiet_windows_pass']\n    inputs = {str(qualification_path): sha(qualification_path), str(Path(__file__)): sha(Path(__file__))}\n    for entry in [*qualification['traces'].values(), *qualification['independent_reports'].values()]:\n        path = Path(entry['path'])\n        assert sha(path) == entry['sha256']\n        inputs[str(path)] = sha(path)\n",
+      "new": "def main(qualification_path, qualification_sha256):\n    qualification, inputs, full_arrays, hold_arrays = load_qualified(qualification_path, qualification_sha256)\n    inputs[str(Path(__file__))] = sha(Path(__file__))\n    inputs[str(Path(__file__).with_name('qualified_inputs.py'))] = sha(Path(__file__).with_name('qualified_inputs.py'))\n",
+      "count": 1
+    },
+    {
+      "old": "67801",
+      "new": "16671",
+      "count": 4
+    },
+    {
+      "old": "67800",
+      "new": "16670",
+      "count": 2
+    },
+    {
+      "old": "mjbatch_intent_floor_inputs_v1/pico/reference.npz",
+      "new": "mjbatch_intent_floor_inputs_v1/walk002/reference.npz",
+      "count": 1
+    },
+    {
+      "old": "    steps = np.arange(0, 16671, 50)\n    frames = np.minimum(np.where(steps == 0, 10, (steps - 1) // 10 + 11), len(desired_all) - 1)",
+      "new": "    steps, frames, durations = visual_grid()\n    assert len(desired_all) == 1428",
+      "count": 1
+    },
+    {
+      "old": "bundle / 'pico/timeline.json'",
+      "new": "bundle / 'walk002/timeline.json'",
+      "count": 2
+    },
+    {
+      "old": "    timeline = json.loads((bundle / 'walk002/timeline.json').read_text())",
+      "new": "    timeline = json.loads((bundle / 'walk002/timeline.json').read_text())\n    full_intent = json.loads(Path(qualification['independent_reports']['full_intent']['path']).read_text())\n    for qualified_asset in (reference_path, receipt_path, bundle / 'native_prepared.xml', bundle / 'prepared_model_arrays.npz', bundle / 'walk002/timeline.json'):\n        assert sha(qualified_asset) in full_intent['hashes'].values(), str(qualified_asset)",
+      "count": 1
+    },
+    {
+      "old": "contact_steps = (0, 3500, 21000, 38000, 39000, 50000, 65300, 16670)",
+      "new": "contact_steps = CONTACT_STEPS",
+      "count": 1
+    },
+    {
+      "old": "'Full motion and separate quiet hold pass'",
+      "new": "'Qualified source and both quiet windows'",
+      "count": 1
+    },
+    {
+      "old": "if step >= 65300:",
+      "new": "if step >= 14170:",
+      "count": 1
+    },
+    {
+      "old": "            if step >= 14170:\n                phase = f'separate hold +{seconds - 130.6:.1f}/5.0 s'",
+      "new": "            if step == 14170:\n                phase = 'original lifecycle end / separate hold boundary'\n            elif step > 14170:\n                phase = f'separate hold +{seconds - 130.6:.2f}/5.0 s'",
+      "count": 1
+    },
+    {
+      "old": "seconds - 130.6",
+      "new": "seconds - 28.34",
+      "count": 1
+    },
+    {
+      "old": "source_seconds = np.clip(seconds - 7., 0, 115.6)",
+      "new": "source_seconds = np.clip(seconds - 7., 0, 13.34)",
+      "count": 1
+    },
+    {
+      "old": "f'PICO | simulation {seconds:.1f}/135.6 s | source {source_seconds:.1f}/115.6 s | {phase}'",
+      "new": "f'WALK002 | simulation {seconds:.2f}/33.34 s | source {source_seconds:.2f}/13.34 s | {phase}'",
+      "count": 1
+    },
+    {
+      "old": "f'67,800 audited physics steps | joint speed now {speed:.3f} rad/s | root error now {root_error:.3f} m'",
+      "new": "f'16,670 audited physics steps | joint speed now {speed:.3f} rad/s | root error now {root_error:.3f} m'",
+      "count": 1
+    },
+    {
+      "old": "draw.text((14, TOP + HEIGHT + 64), 'OFFLINE PLANNER | 0.74 s prepared preview | live-speed control and real Pico remain unqualified', font=small, fill='#ffd0a3')",
+      "new": "mode = 'Recorded MPC commands' if step < 11170 else 'Switch to actual terminal BFM' if step == 11170 else 'Actual terminal BFM yaw4'\n            draw.text((14, TOP + HEIGHT + 64), mode + ' | OFFLINE HYBRID | live-speed control and real Pico remain unqualified', font=small, fill='#ffd0a3')",
+      "count": 1
+    },
+    {
+      "old": "duration = .1 if slot + 1 < len(steps) else .002",
+      "new": "duration = float(durations[slot])",
+      "count": 1
+    },
+    {
+      "old": "'full_pico_and_continuous_hold.fixed_world.mp4'",
+      "new": "'full_walk002_hybrid_and_continuous_hold.fixed_world.mp4'",
+      "count": 1
+    },
+    {
+      "old": "kind='full_qualified_PICO_and_continuous_hold_saved_state_visual'",
+      "new": "kind='full_qualified_walk002_recorded_MPC_prefix_actual_terminal_BFM_saved_state_visual'",
+      "count": 1
+    },
+    {
+      "old": "source_controls=5780, lifecycle_controls=6530",
+      "new": "source_controls=667, lifecycle_controls=1417",
+      "count": 1
+    },
+    {
+      "old": "physical_steps=16670, display_seconds=135.6",
+      "new": "physical_steps=16670, display_seconds=33.34",
+      "count": 1
+    },
+    {
+      "old": "no_root_alignment=True, no_time_warp=True, prepared_preview_seconds=.74,\n                  raw_pose_support_upper_bound_seconds=.76, live_teleoperation_qualified=False)",
+      "new": "no_root_alignment=True, no_time_warp=True, original_prefix_controls=1117,\n                  controller_switch_step=11170, original_terminal_BFM_controls=300,\n                  variable_visual_frame_durations_seconds=durations.tolist(), live_teleoperation_qualified=False)",
+      "count": 1
+    },
+    {
+      "old": "if __name__ == '__main__':\n    main()",
+      "new": "if __name__ == '__main__':\n    parser = argparse.ArgumentParser()\n    parser.add_argument('--qualification', type=Path, required=True)\n    parser.add_argument('--qualification-sha256', required=True)\n    args = parser.parse_args()\n    main(args.qualification, args.qualification_sha256)",
+      "count": 1
+    }
+  ]
+}

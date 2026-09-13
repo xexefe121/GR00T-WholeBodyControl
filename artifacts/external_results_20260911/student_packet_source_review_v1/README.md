@@ -1,0 +1,3 @@
+Two fixes required before claiming general prepared-packet admission/parity: accepted source_time can retain a mutable NumPy array; silent float32-to-float64 payload conversion changes frozen task derivative rounding. Both reproduced without policy or physics. Details in review.json.
+
+Recorded canonical parity is valid narrower evidence: all2,537 stored1069-feature rows match using received original/retargeted/task windows plus true preceding sample. Saved BFM base and actual observations are reused, so it does not test actor inference, controller pacing, upstream raw-pose causality or teleoperation. No source changes made by reviewer.

@@ -1,0 +1,16 @@
+{
+  "stage": "invalidated_before_decision",
+  "reason": "Resetting a subset changed qacc_warmstart in unselected worlds; scoring forward also advanced solver memory",
+  "invalidated_results": [
+    "seed_0_legacy",
+    "seed_0_replayed",
+    "seed_1_legacy",
+    "fixed_baseline.json",
+    "fixed_baseline_v2b"
+  ],
+  "repair": "Preserve all native qacc_warmstart values across reset and scoring forward calls",
+  "restart_from": "native_target_ppo_v2/actor_00185.pt",
+  "same_reward_architecture_and_optimizer_settings": true,
+  "deadline_utc": "2026-09-13T09:25:45Z",
+  "simulation_ready": false
+}

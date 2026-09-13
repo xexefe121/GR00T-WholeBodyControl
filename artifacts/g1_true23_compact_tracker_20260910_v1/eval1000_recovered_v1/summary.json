@@ -1,0 +1,159 @@
+{
+  "cases": [
+    {
+      "name": "pico",
+      "completed": 604,
+      "requested": 6530,
+      "failure": {
+        "type": "RuntimeError",
+        "message": "absolute height/tilt diagnostic stop",
+        "completed_controls": 604,
+        "physics_steps": 6040
+      },
+      "source_metrics": {
+        "source_controls": 254,
+        "source_seconds": 5.08,
+        "leg_rmse_rad": 0.155045656194701,
+        "arm_rmse_rad": 0.1615421378032198,
+        "root_p95_m": 0.2781116545451207,
+        "relative_foot_p95_m": [
+          0.5539570719755426,
+          0.5275430780458684
+        ],
+        "world_foot_p95_m": [
+          0.42954354478367646,
+          0.31540104989825124
+        ]
+      },
+      "report_sha256": "2dc26f13ecca0557af33bd53e9fed050574acc469c4c15dc049ae97bb403ef90",
+      "deployment_ready": false,
+      "hardware_authorized": false,
+      "simulator_qualified": false
+    },
+    {
+      "name": "walk002",
+      "completed": 525,
+      "requested": 1417,
+      "failure": {
+        "type": "RuntimeError",
+        "message": "absolute height/tilt diagnostic stop",
+        "completed_controls": 525,
+        "physics_steps": 5250
+      },
+      "source_metrics": {
+        "source_controls": 175,
+        "source_seconds": 3.5,
+        "leg_rmse_rad": 0.223032615947702,
+        "arm_rmse_rad": 0.2090872647470597,
+        "root_p95_m": 0.6993294659993494,
+        "relative_foot_p95_m": [
+          1.3695522601366634,
+          0.9850659366829756
+        ],
+        "world_foot_p95_m": [
+          0.7772274926478756,
+          0.486354430314155
+        ]
+      },
+      "report_sha256": "786dde443e5aeab00a85aec4f30fcc8d9a7f5b11b2ecbf3bfff1d6b7c14e9786",
+      "deployment_ready": false,
+      "hardware_authorized": false,
+      "simulator_qualified": false
+    },
+    {
+      "name": "walk003",
+      "completed": 481,
+      "requested": 1569,
+      "failure": {
+        "type": "RuntimeError",
+        "message": "absolute height/tilt diagnostic stop",
+        "completed_controls": 481,
+        "physics_steps": 4810
+      },
+      "source_metrics": {
+        "source_controls": 131,
+        "source_seconds": 2.62,
+        "leg_rmse_rad": 0.19195867222774196,
+        "arm_rmse_rad": 0.18933921299732598,
+        "root_p95_m": 0.9557770537832655,
+        "relative_foot_p95_m": [
+          0.9834533907992189,
+          0.7616256674242378
+        ],
+        "world_foot_p95_m": [
+          0.3355221451618525,
+          0.47143928669600677
+        ]
+      },
+      "report_sha256": "47d431d4814a256051a583b535bc6a4b9dd133fafc1ccb7189d83126036fb50d",
+      "deployment_ready": false,
+      "hardware_authorized": false,
+      "simulator_qualified": false
+    },
+    {
+      "name": "walk008",
+      "completed": 406,
+      "requested": 1114,
+      "failure": {
+        "type": "ValueError",
+        "message": "no verified next-control joint-range target found by bounded inward search",
+        "completed_controls": 406,
+        "physics_steps": 4060
+      },
+      "source_metrics": {
+        "source_controls": 56,
+        "source_seconds": 1.12,
+        "leg_rmse_rad": 0.1984882367710183,
+        "arm_rmse_rad": 0.2154944468536808,
+        "root_p95_m": 1.0732417609813096,
+        "relative_foot_p95_m": [
+          0.6496503665409359,
+          1.0013477653915082
+        ],
+        "world_foot_p95_m": [
+          0.7125357064927073,
+          0.24732993859133437
+        ]
+      },
+      "report_sha256": "620c6cf6c0dfc3b7f14058bac86f5274b53d704829105940ebcff0fb0925d2ce",
+      "deployment_ready": false,
+      "hardware_authorized": false,
+      "simulator_qualified": false
+    }
+  ],
+  "identity": {
+    "kind": "compact_native23_cpu_referee_v1",
+    "checkpoint_sha256": "18aa932f4130394c765a07db6330bb758f0d92070b88a1c8de5c8d2d6feecf70",
+    "completed_training_updates": 1000,
+    "actor_contract": {
+      "kind": "native23_explicit_goal_residual165_v1",
+      "input_dim": 165,
+      "goal_dim": 90,
+      "proprioception_dim": 75,
+      "output_dim": 23,
+      "current_proprioception": "latest_frame_of_existing_term_major_history930",
+      "goal_order": [
+        "hardware_q23",
+        "hardware_dq23",
+        "root9",
+        "root_rotation6",
+        "original29_vr21",
+        "feet_error_current_pelvis6",
+        "root_heights2"
+      ],
+      "source_target": "received_q1; adjacent_q1_minus_q0_velocity",
+      "source_timing_unchanged": true,
+      "source_motion_is_sonic_compatible": true,
+      "actor_is_frozen_sonic": false,
+      "ground_truth_root_is_sim_only": true,
+      "deployment_ready": false,
+      "hardware_authorized": false
+    },
+    "frozen_sonic_policy_parity_claimed": false,
+    "deployment_ready": false,
+    "hardware_authorized": false
+  },
+  "deployment_ready": false,
+  "hardware_authorized": false,
+  "simulator_qualified": false
+}

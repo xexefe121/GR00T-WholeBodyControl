@@ -1,0 +1,39 @@
+{
+  "kind": "factory_received_full_range_native23_ppo",
+  "source": "/mnt/factory_e/codex-artifacts/sonic23_teleop_resume_20260911/onboard_factory_firmware_v1/ai_sport_files/ai_sport_8.4.2.222/module/ai_sport/file/unitree/module/ai_sport/policies/cpy_dance/Feb13_20-31-05_/actor.onnx",
+  "bank": "/mnt/factory_e/codex-artifacts/sonic23_teleop_resume_20260911/causal_dynamics_v1/focused_walk002_task_closure_bank_v1",
+  "all_factory_weights_trainable": true,
+  "added_input": "measured root/feet/hand/head errors and velocity; zero initial weights",
+  "features": 655,
+  "future_reference_frames": 0,
+  "physics_hz": 500,
+  "control_hz": 50,
+  "native_limit_brake": true,
+  "target_margin_rad": 0.06,
+  "state_projection": false,
+  "paid_compute": false,
+  "hardware_commands": false,
+  "reset_roles": "75% motion across three training clips;12.5% acquisition/braking/input loss;12.5% actual quiet states",
+  "standing_example_clips": [
+    "walk003",
+    "walk002"
+  ],
+  "held_out": "walk008",
+  "num_envs": 128,
+  "rollout_steps": 64,
+  "updates": 38,
+  "checkpoint_updates": [
+    38
+  ],
+  "wall_minutes": 40.0,
+  "prior_pilot_updates": 62,
+  "total_pilot_update_limit": 100,
+  "initial_standing_examples": 236,
+  "standing_reset_mix": "half initial actual quiet states,half terminal actual quiet states",
+  "policy_update_guard": "analytic KL <=0.02 after each accepted minibatch; rollback model and Adam on rejection",
+  "bootstrap_updates": 300,
+  "teacher_targets": "PD torque-equivalent under factory gains plus limit brake",
+  "evaluation": "native MuJoCo3.2.3; all four complete original-speed motions plus30s; no rollout resets",
+  "selection": "experimental only; no live promotion without all goal gates",
+  "automatic_extension": false
+}

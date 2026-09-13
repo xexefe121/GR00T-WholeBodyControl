@@ -1,0 +1,11 @@
+# Selected direct-target continuation
+
+Continue the exact ordinary step 5000 direct checkpoint for 50,000 additional updates, producing ordinary final step 55,000. Preserve the failed 5000 candidate and all earlier evidence. This is one fixed experiment, with no automatic retry, checkpoint selection, intermediate rollout or adaptive extension.
+
+The six existing data, contract, model, objective, diagnostics and original test modules remain byte-identical. Restore all model parameters, six AdamW states, CPU/CUDA/NumPy/Python RNG states, and normalization. Copy the original normalization archive byte-for-byte. The existing full initial GPU diagnostic pass must exactly reproduce the prior final GPU predictions and metrics before updates; it adds no extra model pass.
+
+Each update evaluates all 9,904 nominal anchors, 1,152 signed velocity probes and 3,054 physical endpoints, using unchanged losses with coefficient one each. Read the original 5,000-by-576 center/axis schedule with additional-update index modulo 5,000, ten repetitions without new sample draws. Use inclusive cosine learning rate 3e-5 to 3e-6 over 50,000 updates, unchanged AdamW weight decay 1e-5, gradient norm cap 10, float32 parameters and deterministic CUDA settings. Cast each endpoint/center output separately to float64 before response subtraction as before.
+
+Save an immutable restored-start initialization.pt (actor_state, optimizer_state, rng_after_restoration, source_checkpoint_sha256, ordinary_start_step=5000, fresh_initialization=false), restoration evidence, and the ordinary final checkpoint before export. Final report exposes ordinary_final_step=55000, additional_updates=50000, features=1000 and head_output=normalized_target. Failure receipts retain current call/optimizer counters and partial arrays.
+
+Budgets: 705,500,000 training rows; 460,740 diagnostic Torch rows; 601 ORT calls. Diagnostics use separate nominal/velocity/physical batches of 256: 39+550+12 batches per pass. Initial GPU, final GPU, final CPU and final ORT passes remain unchanged; the final pre-clamp comparison tolerance is 1e-5 rad. No BFM or native calls occur in fitting. A future canonical evaluation requires its separately reviewed final export and witness gate.

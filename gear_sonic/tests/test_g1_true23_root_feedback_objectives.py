@@ -38,3 +38,63 @@ def test_unchanged_objective_continuation_stays_compatible():
     contract = objective_transition_contract({}, SimpleNamespace())
     assert not contract["reward_objective_changed"]
     assert contract["same_objective_resume_claimed"]
+
+
+def test_upper_posture_keeps_existing_root_and_whole_body_objectives():
+    old = objective_profile_contract("root_and_posture_v1")
+    new = objective_profile_contract("root_and_upper_posture_v2")
+    for key, value in old.items():
+        if key != "name":
+            assert new[key] == value
+    upper = new["upper_body_posture"]
+    assert upper["weight"] == -20
+    assert upper["hardware_joint_indices"] == list(range(13, 23))
+    assert len(upper["joint_names"]) == 10
+    assert "elbow" in upper["joint_names"][3]
+    assert all("hip" not in name and "waist" not in name for name in upper["joint_names"])
+    assert "upper_body_posture" not in old
+    args = SimpleNamespace(objective_profile=new["name"], allow_objective_transition=False)
+    with pytest.raises(ValueError, match="explicit"):
+        objective_transition_contract({"objective_profile": old["name"]}, args)
+    args.allow_objective_transition = True
+    assert objective_transition_contract({"objective_profile": old["name"]}, args)["reward_objective_changed"]
+
+
+def test_world_priority_changes_only_declared_root_weight_and_requires_explicit_transition():
+    old = objective_profile_contract("root_and_upper_posture_v2")
+    new = objective_profile_contract("root_and_upper_world_priority_v3")
+    assert new["root_world_tracking_error_weight"] == -30
+    assert "root_world_tracking_error_weight" not in old
+    for key, value in old.items():
+        if key not in ("name", "upper_body_posture"):
+            assert new[key] == value
+    for key, value in old["upper_body_posture"].items():
+        if key != "existing_root_leg_rewards_or_policy_architecture_changed":
+            assert new["upper_body_posture"][key] == value
+    assert not new["actuator_gains_or_acceptance_limits_changed"]
+    args = SimpleNamespace(objective_profile=new["name"], allow_objective_transition=False)
+    with pytest.raises(ValueError, match="explicit"):
+        objective_transition_contract({"objective_profile": old["name"]}, args)
+    args.allow_objective_transition = True
+    transition = objective_transition_contract({"objective_profile": old["name"]}, args)
+    assert transition["reward_objective_changed"]
+    assert transition["critic_and_optimizer_preserved_not_reinitialized"]
+    assert not transition["new_objective_tracking_quality_qualified"]
+
+
+def test_feet_world_profile_only_adds_declared_measured_world_objective():
+    old = objective_profile_contract("root_and_upper_posture_v2")
+    new = objective_profile_contract("root_and_upper_feet_world_v4")
+    assert {k: v for k, v in new.items() if k not in ("name", "feet_world_position")} == {
+        k: v for k, v in old.items() if k != "name"
+    }
+    feet = new["feet_world_position"]
+    assert feet["weight"] == -1 and feet["normalization_m"] == 0.05
+    assert not feet["world_target_reanchored_to_measured_state"]
+    assert not feet["clipping_or_exponential_saturation"]
+    assert not feet["foot_contact_or_slip_qualification"]
+    args = SimpleNamespace(objective_profile=new["name"], allow_objective_transition=False)
+    with pytest.raises(ValueError, match="explicit"):
+        objective_transition_contract({"objective_profile": old["name"]}, args)
+    args.allow_objective_transition = True
+    assert objective_transition_contract({"objective_profile": old["name"]}, args)["reward_objective_changed"]

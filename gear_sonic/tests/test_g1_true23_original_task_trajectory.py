@@ -97,6 +97,131 @@ def test_rotation_l1_bound_is_not_a_per_component_box(material):
     assert not problem.audit(x)["passed"]
 
 
+def test_relative_rotation_bound_does_not_allow_excess_absolute_tilt(material):
+    source, target, raw, seed = material
+    raw[:, 3:7] = Rotation.from_euler("y", 0.4).as_quat()[[3, 0, 1, 2]]
+    problem = task_fit.OriginalTaskPath(source, target, raw, seed)
+    x = problem.initial.copy()
+    x[:, 4] = 0.2
+    report = problem.audit(x)
+    assert report["temporal"]["passed"]
+    assert report["maximum_root_rotation_l1_rad"] == pytest.approx(0.2)
+    assert report["maximum_absolute_base_tilt_rad"] == pytest.approx(0.6)
+    assert report["absolute_base_tilt_limit_rad"] == 0.5
+    assert not report["absolute_base_tilt_passed"]
+    assert not report["passed"]
+
+
+def test_absolute_tilt_jacobian_and_frame_isolation(material):
+    source, target, raw, seed = material
+    raw[:, 3:7] = Rotation.from_euler("xyz", [0.12, 0.25, 0.4]).as_quat()[[3, 0, 1, 2]]
+    problem = task_fit.OriginalTaskPath(source, target, raw, seed)
+    x = problem.initial.copy()
+    x[:, 3:6] = [0.08, -0.03, 0.1]
+    cosine, jacobian = problem.base_tilt_linearization(x)
+    numerical = []
+    for column in range(29):
+        step = np.zeros_like(x)
+        step[0, column] = 1e-6
+        plus = problem.base_tilt_linearization(x + step, derivatives=False)[0]
+        minus = problem.base_tilt_linearization(x - step, derivatives=False)[0]
+        numerical.append((plus - minus) / 2e-6)
+    np.testing.assert_allclose(jacobian[:, :29].toarray(), np.array(numerical).T, atol=2e-9, rtol=1e-7)
+    assert jacobian.shape == (len(seed), 29 * len(seed))
+    np.testing.assert_allclose(
+        cosine,
+        problem.qpos(x)[:, 3] ** 2
+        + problem.qpos(x)[:, 6] ** 2
+        - problem.qpos(x)[:, 4] ** 2
+        - problem.qpos(x)[:, 5] ** 2,
+        atol=1e-14,
+    )
+
+
+def test_near_limit_fit_and_serialized_path_enforce_absolute_tilt(material):
+    source, target, raw, seed = material
+    raw[:, 3:7] = Rotation.from_euler("y", 0.45).as_quat()[[3, 0, 1, 2]]
+    problem = task_fit.OriginalTaskPath(
+        source, target, raw, seed, config=task_fit.OriginalTaskConfig(maximum_iterations=6)
+    )
+    output, report = task_fit.fit_original_task_path(problem)
+    assert report["after"]["weighted_task_squared_error"] < report["before"]["weighted_task_squared_error"]
+    assert report["path_constraints"]["passed"]
+    assert report["path_constraints"]["maximum_absolute_base_tilt_rad"] <= 0.5 + 2e-7
+    assert report["absolute_base_tilt_enforced_separately_from_rotation_change"]
+    assert any(row["accepted"] for row in report["iterations"])
+    for row in report["iterations"]:
+        assert row["qp"]["absolute_base_tilt_linearization_enabled"]
+        assert row["qp"]["linearized_base_tilt_limit_with_serialization_margin_rad"] == pytest.approx(0.4975)
+        if row["accepted"]:
+            assert row["qp"]["independent_original_absolute_row_violation"] <= 1e-8
+    assert problem.audit(problem.serialized_variables(problem.serialize(output)))["passed"]
+    assert report["deployment_ready"] is False
+
+
+def test_explicit_feasible_root_seed_does_not_relax_limits_or_change_source(material):
+    source, target, raw, seed = material
+    raw[:, 3:7] = Rotation.from_euler("y", 0.6).as_quat()[[3, 0, 1, 2]]
+    root_seed = np.tile(Rotation.from_euler("y", 0.3).as_quat()[[3, 0, 1, 2]], (len(seed), 1))
+    originals = raw.copy(), seed.copy(), root_seed.copy()
+    with pytest.raises(ValueError, match="absolute base tilt"):
+        task_fit.OriginalTaskPath(source, target, raw, seed)
+    problem = task_fit.OriginalTaskPath(source, target, raw, seed, seed_root_quaternion_wxyz=root_seed)
+    audit = problem.audit(problem.initial)
+    assert audit["passed"]
+    assert audit["maximum_absolute_base_tilt_rad"] == pytest.approx(0.3)
+    assert audit["maximum_root_rotation_l1_rad"] == pytest.approx(0.3)
+    np.testing.assert_allclose(problem.qpos(problem.initial)[:, 3:7], root_seed, atol=1e-14)
+    for actual, expected in zip((raw, seed, root_seed), originals, strict=True):
+        np.testing.assert_array_equal(actual, expected)
+
+
+@pytest.mark.parametrize("change", ["short", "nan", "zero", "unnormalized", "excess_tilt", "excess_change"])
+def test_invalid_or_out_of_bounds_root_seed_is_rejected(material, change):
+    source, target, raw, seed = material
+    root_seed = raw[:, 3:7].copy()
+    if change == "short":
+        root_seed = root_seed[:-1]
+    elif change == "nan":
+        root_seed[2, 0] = np.nan
+    elif change == "zero":
+        root_seed[2] = 0
+    elif change == "unnormalized":
+        root_seed *= 2
+    elif change == "excess_tilt":
+        raw[:, 3:7] = Rotation.from_euler("y", 0.4).as_quat()[[3, 0, 1, 2]]
+        root_seed[:] = Rotation.from_euler("y", 0.6).as_quat()[[3, 0, 1, 2]]
+    else:
+        root_seed[:] = Rotation.from_euler("z", 0.46).as_quat()[[3, 0, 1, 2]]
+    with pytest.raises(ValueError):
+        task_fit.OriginalTaskPath(source, target, raw, seed, seed_root_quaternion_wxyz=root_seed)
+
+
+def test_forged_tilt_violating_qp_rejected_by_original_row_audit(material, monkeypatch):
+    source, target, raw, seed = material
+    raw[:, 3:7] = Rotation.from_euler("y", 0.49).as_quat()[[3, 0, 1, 2]]
+    problem = task_fit.OriginalTaskPath(source, target, raw, seed)
+    current = problem.initial.copy()
+    residual, jacobian, _ = problem.evaluate(current)
+    increment = np.zeros_like(current)
+    increment[:, 4] = 0.02
+
+    def forged(*args, **kwargs):
+        # Satisfy task equality, trust, temporal, joint and relative-rotation rows.
+        # Only the new absolute-tilt row rules out this otherwise plausible step.
+        return np.r_[increment.ravel(), residual + jacobian @ increment.ravel()], {
+            "status": "Solved",
+            "accepted": True,
+        }
+
+    monkeypatch.setattr(task_fit, "solve_box_qp", forged)
+    output, report = task_fit.solve_task_step(problem, current, residual, jacobian)
+    assert output is None
+    assert report["status"] == "original_absolute_row_audit_failed"
+    assert not report["accepted"]
+    assert report["independent_original_absolute_row_violation"] > 1e-3
+
+
 def test_rejected_qp_preserves_full_seed_and_failure(material, monkeypatch):
     problem = task_fit.OriginalTaskPath(*material)
     monkeypatch.setattr(
@@ -127,6 +252,9 @@ def test_forged_increment_solution_fails_original_absolute_row_audit(material, m
         {"maximum_iterations": True},
         {"maximum_iterations": 1.5},
         {"maximum_root_rotation_l1_rad": 0.5},
+        {"maximum_base_tilt_rad": 0.50001},
+        {"maximum_base_tilt_rad": 0},
+        {"maximum_base_tilt_rad": np.nan},
         {"joint_velocity_rad_s": 5.1},
         {"joint_acceleration_rad_s2": 81},
         {"root_trust_m": np.nan},

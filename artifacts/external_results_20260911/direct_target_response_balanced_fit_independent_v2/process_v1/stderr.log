@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "E:\codex-artifacts\sonic23_teleop_resume_20260911\direct_target_response_balanced_fit_independent_v2\source_prepared_v1\audit_saved_warm.py", line 340, in <module>
+    a=p.parse_args();run(a.request,a.request_sha256,a.output)
+  File "E:\codex-artifacts\sonic23_teleop_resume_20260911\direct_target_response_balanced_fit_independent_v2\source_prepared_v1\audit_saved_warm.py", line 252, in run
+    close('nominal_f32_mean',progress[:,0],wanted['nominal'],nominal=True)
+  File "E:\codex-artifacts\sonic23_teleop_resume_20260911\direct_target_response_balanced_fit_independent_v2\source_prepared_v1\audit_saved_warm.py", line 42, in close
+    check(name,a.shape==b.shape and np.allclose(a,b,rtol=3e-7 if nominal else 5e-12,atol=1e-14,equal_nan=False))
+  File "E:\codex-artifacts\sonic23_teleop_resume_20260911\direct_target_response_balanced_fit_independent_v2\source_prepared_v1\audit_saved_warm.py", line 31, in check
+    if not value:raise AssertionError(name)
+AssertionError: nominal_f32_mean

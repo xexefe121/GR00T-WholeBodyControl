@@ -1,0 +1,94 @@
+{
+  "policy": "native23_received_task_commands",
+  "actor": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\onboard_factory_firmware_v1\\command_space_ppo_v1\\actor_bootstrap.onnx",
+  "clip": "walk003",
+  "simulation_seconds": 15.038000000001691,
+  "requested_seconds": 61.38,
+  "physical_complete": false,
+  "failure": {
+    "time": 15.038000000001691,
+    "reasons": [
+      "fall"
+    ],
+    "speed_ratio": 0.14333309945988812,
+    "range_excess": 0.0,
+    "effort_ratio": 0.33792818259107604,
+    "tilt": 1.2067956530618271
+  },
+  "wall_seconds": 3.752814999985276,
+  "max_speed_ratio": 0.8340295307727792,
+  "max_effort_ratio": 1.0,
+  "inference_ms_p50_p95_max": [
+    2.35485,
+    2.95778,
+    4.1245
+  ],
+  "future_reference_frames": 0,
+  "reference_velocity": "backward differences; measured body errors; learned factory phase/velocity commands",
+  "absent_vendor_joints": null,
+  "independent_realtime": false,
+  "hardware_commands": false,
+  "clock_expected_time": "independent repeated addition of .002; tolerance unchanged at1e-10",
+  "command_delay_substeps": 0,
+  "initial_world_velocity_x_delta_mps": 0,
+  "command_delay_physics_seconds": 0.0,
+  "received_gait_phase": false,
+  "factory_command_limits": false,
+  "source": {
+    "passed": false,
+    "source_controls": 402,
+    "requested_source_controls": 819,
+    "root_p95_m": 0.5952371220162419,
+    "yaw_p95_deg": 42.97656068295148,
+    "hand_head_relative_p95_m": [
+      0.3123220852605998,
+      0.21619965584280457,
+      0.24000543458027854
+    ],
+    "foot_relative_p95_m": [
+      0.5103717232656572,
+      0.47127544334407956
+    ],
+    "leg_rmse_rad": 0.34698465050425964
+  },
+  "packet_report": {
+    "epoch": 0,
+    "received": 763,
+    "consumed": 763,
+    "ignored": 0,
+    "rejected": 0,
+    "final_received": false,
+    "full_source_consumed": false,
+    "fault": null,
+    "calibration": null
+  },
+  "controller_status": {
+    "mode": "source",
+    "epoch": 0,
+    "fault": null,
+    "explicit_rearm_required": false,
+    "future_reference_frames": 0,
+    "qualified": false,
+    "controller": "native23_received_task_commands",
+    "velocity_command": [
+      -0.041404929784920386,
+      -1.0,
+      -2.4397364994942516
+    ],
+    "velocity_command_limits": [
+      1.2,
+      1.0,
+      6.0
+    ],
+    "fault_standing_capture_enabled": false,
+    "fault_standing_captured": false,
+    "motion_fraction": 1.0,
+    "leg_target_filter_alpha": 0.9
+  },
+  "input_loss_control": null,
+  "automatic_rearm": false,
+  "fault_scenario_passed": false,
+  "passed": false,
+  "leg_target_filter_alpha": 0.9
+}
+The device supports: i8sdot:0, fp16:0, i8mm: 0, sve2: 0, sme2: 0

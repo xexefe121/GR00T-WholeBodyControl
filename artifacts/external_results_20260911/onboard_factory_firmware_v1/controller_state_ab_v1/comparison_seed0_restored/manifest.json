@@ -1,0 +1,139 @@
+{
+  "actor_source": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/onboard_factory_firmware_v1/controller_state_ab_v1/corrected_pilot/seed_0_replayed/actor_00060.onnx",
+  "actor_sha256": "fd11cd2d3f69b959793450a203ae96f3b60255ca0d15aade2fd12b46d1faa3c4",
+  "actor_unchanged": true,
+  "wrapper": {
+    "wrapper_version": 2,
+    "snapshot_version": 1,
+    "boundary": "packet_admitted_before_control_observation",
+    "native_contract_sha256": "c6a883571ff2575b00bf9efdf8ac799456a22d685658e17bbadeadb9c8937d2f",
+    "full_native_contract_sha256": "3c29b2f5bfdcf26dcac0c400d4ba931169f2ab923b0914ce3af8b5c63175d78f",
+    "compiled_model_sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+    "factory_configuration_sha256": "493c5d5b3332d4264f49c4e88a912386dd03318f31d2697ebaa3dc661e19eb82",
+    "factory_profile": "blind",
+    "root_velocity_feedback": 0.0,
+    "velocity_command_limits": [
+      1.2,
+      1.0,
+      6.0
+    ],
+    "received_gait_servo": false,
+    "physics_dt": 0.002,
+    "target_margin_rad": 0.0,
+    "preview": {
+      "steps": 10,
+      "delay": 6,
+      "iterations": 3,
+      "reserve": 0.0001
+    },
+    "standing_capture": true,
+    "fault_standing_capture": false,
+    "factory_prior_filter_alpha": 0.9,
+    "future_reference_frames": 0
+  },
+  "reference_configuration": {
+    "standing_qpos": [
+      0.0,
+      0.0,
+      0.76,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      -0.312,
+      0.0,
+      0.0,
+      0.669,
+      -0.363,
+      0.0,
+      -0.312,
+      0.0,
+      0.0,
+      0.669,
+      -0.363,
+      0.0,
+      0.0,
+      0.2,
+      0.2,
+      0.0,
+      0.6,
+      0.0,
+      0.2,
+      -0.2,
+      0.0,
+      0.6,
+      0.0
+    ],
+    "tasks": [
+      {
+        "name": "left_hand",
+        "kind": "body",
+        "source_body": "left_wrist_yaw_link",
+        "target_body": "left_wrist_roll_rubber_hand",
+        "source_point": [
+          0.18,
+          -0.025,
+          0.0
+        ],
+        "target_point": [
+          0.2640000000000001,
+          -0.025000000000000033,
+          1.521609986447625e-17
+        ],
+        "priority": 3,
+        "orientation_priority": 5,
+        "position_weight": 6.0,
+        "orientation_weight": 0.2,
+        "contact_side": null
+      },
+      {
+        "name": "right_hand",
+        "kind": "body",
+        "source_body": "right_wrist_yaw_link",
+        "target_body": "right_wrist_roll_rubber_hand",
+        "source_point": [
+          0.18,
+          0.025,
+          0.0
+        ],
+        "target_point": [
+          0.2640000000000001,
+          0.025000000000000033,
+          1.521609986447625e-17
+        ],
+        "priority": 3,
+        "orientation_priority": 5,
+        "position_weight": 6.0,
+        "orientation_weight": 0.2,
+        "contact_side": null
+      },
+      {
+        "name": "head_proxy",
+        "kind": "body",
+        "source_body": "torso_link",
+        "target_body": "torso_link",
+        "source_point": [
+          0.0,
+          0.0,
+          0.35
+        ],
+        "target_point": [
+          0.0,
+          0.0,
+          0.35
+        ],
+        "priority": 2,
+        "orientation_priority": null,
+        "position_weight": 8.0,
+        "orientation_weight": 0.0,
+        "contact_side": null
+      }
+    ],
+    "packet_period_s": 0.02,
+    "stale_seconds": 0.1,
+    "stop_transition_controls": 100
+  },
+  "incompatible_wrapper_rejected": true,
+  "simulation_ready": false,
+  "selected_for_teleop": false
+}

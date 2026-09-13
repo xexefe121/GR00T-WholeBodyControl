@@ -1,18 +1,18 @@
 """Offline benchmark accounting and actual native-model integration tests."""
 
-from pathlib import Path
 import copy
 import json
+from pathlib import Path
 from types import SimpleNamespace
 
 import numpy as np
 import pytest
 
 from gear_sonic.utils.g1_true23_generalist_benchmark import (
-    run_reference_diagnostic,
-    observation_phase_contract,
     compare_original29_source,
     load_generalist_pair,
+    observation_phase_contract,
+    run_reference_diagnostic,
     summarize_tracking,
     task_points,
     validate_lifecycle_checkpoint,
@@ -93,6 +93,7 @@ def local_case():
 def test_actual_nominal_native_physics_and_prefix_accounting(local_case):
     report, arrays = run_reference_diagnostic(**local_case, policy=ZeroPolicy(), maximum_controls=3)
     assert report["failure"] is None
+    assert "training_model_counterfactual" not in report
     assert report["completed_physics_steps"] == 30
     assert report["completed_controls"] == 3
     assert report["available_controls"] == 500
@@ -114,6 +115,60 @@ def test_actual_nominal_native_physics_and_prefix_accounting(local_case):
         arrays["torque_saturated23"],
         np.abs(arrays["requested_torque23"]) > np.asarray(report["effort_limit_hardware_nm"]),
     )
+
+
+@pytest.fixture
+def compiled_training_model(local_case):
+    path = local_case["root"] / "artifacts/g1_true23_generalist/release_physics_parity_20260907_v1/training.mjb"
+    if not path.is_file():
+        pytest.skip("actual compiled native23 training model unavailable")
+    return path
+
+
+def test_training_model_counterfactual_maps_static_terrain_and_robot(local_case, compiled_training_model):
+    report, arrays = run_reference_diagnostic(
+        **local_case,
+        policy=ZeroPolicy(),
+        maximum_controls=3,
+        training_model_counterfactual=compiled_training_model,
+    )
+    assert report["failure"] is None
+    assert report["completed_controls"] == 3
+    assert report["completed_physics_steps"] == 30
+    assert report["state_pose_writes_after_reset"] == 0
+    assert not report["training_model_counterfactual"]["original_replay_model_qualification"]
+    assert not report["deployment_ready"]
+    np.testing.assert_array_equal(arrays["physics_pre_qpos"][1:], arrays["physics_post_qpos"][:-1])
+    np.testing.assert_array_equal(arrays["physics_pre_qvel"][1:], arrays["physics_post_qvel"][:-1])
+    np.testing.assert_array_equal(arrays["applied_torque23"], arrays["engine_actuator_force23"])
+
+
+@pytest.mark.parametrize("field,index", [("body_mass", 2), ("dof_armature", 7), ("jnt_range", 2)])
+def test_counterfactual_rejects_changed_physical_robot(
+    local_case, compiled_training_model, tmp_path, field, index
+):
+    import mujoco
+
+    from gear_sonic.utils.g1_true23_clean_mujoco_teleop import CleanTrue23MujocoController
+    from gear_sonic.utils.g1_true23_generalist_benchmark import (
+        MODEL,
+        PHYSICS,
+        install_training_model_counterfactual,
+    )
+
+    model = mujoco.MjModel.from_binary_path(str(compiled_training_model))
+    getattr(model, field)[index] += 0.001
+    altered = tmp_path / "altered.mjb"
+    mujoco.mj_saveModel(model, str(altered), None)
+    controller = CleanTrue23MujocoController(
+        model_path=local_case["asset_root"] / MODEL,
+        physics_path=local_case["root"] / PHYSICS,
+        policy=ZeroPolicy(),
+    )
+    old = controller.model
+    with pytest.raises(ValueError, match="field"):
+        install_training_model_counterfactual(controller, altered)
+    assert controller.model is old
 
 
 def test_nominal_and_historical_are_explicit_different_gain_profiles(local_case):

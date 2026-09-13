@@ -1,0 +1,148 @@
+{
+  "kind": "fresh_seed_disabled_physical_regression",
+  "controls": 4,
+  "physics_substeps": 40,
+  "every_trace_array_bit_exact": true,
+  "trace_checks": {
+    "qpos": {
+      "shape": [
+        5,
+        30
+      ],
+      "bit_exact": true
+    },
+    "qvel": {
+      "shape": [
+        5,
+        29
+      ],
+      "bit_exact": true
+    },
+    "target": {
+      "shape": [
+        4,
+        23
+      ],
+      "bit_exact": true
+    },
+    "planned_target": {
+      "shape": [
+        4,
+        23
+      ],
+      "bit_exact": true
+    },
+    "planned_state": {
+      "shape": [
+        4,
+        59
+      ],
+      "bit_exact": true
+    },
+    "feedback_gain": {
+      "shape": [
+        4,
+        23,
+        58
+      ],
+      "bit_exact": true
+    },
+    "feedback_correction_raw": {
+      "shape": [
+        4,
+        23
+      ],
+      "bit_exact": true
+    },
+    "feedback_correction_applied": {
+      "shape": [
+        4,
+        23
+      ],
+      "bit_exact": true
+    },
+    "source_frame": {
+      "shape": [
+        4
+      ],
+      "bit_exact": true
+    },
+    "joint_error": {
+      "shape": [
+        4,
+        23
+      ],
+      "bit_exact": true
+    },
+    "root_error": {
+      "shape": [
+        4,
+        3
+      ],
+      "bit_exact": true
+    },
+    "body_position_error": {
+      "shape": [
+        4,
+        6
+      ],
+      "bit_exact": true
+    },
+    "physics_qpos": {
+      "shape": [
+        41,
+        30
+      ],
+      "bit_exact": true
+    },
+    "physics_qvel": {
+      "shape": [
+        41,
+        29
+      ],
+      "bit_exact": true
+    },
+    "physics_requested_torque": {
+      "shape": [
+        40,
+        23
+      ],
+      "bit_exact": true
+    },
+    "physics_torque": {
+      "shape": [
+        40,
+        23
+      ],
+      "bit_exact": true
+    },
+    "range_excess": {
+      "shape": [
+        4
+      ],
+      "bit_exact": true
+    },
+    "velocity_ratio": {
+      "shape": [
+        4
+      ],
+      "bit_exact": true
+    },
+    "effort_ratio": {
+      "shape": [
+        4
+      ],
+      "bit_exact": true
+    },
+    "physics_substeps": {
+      "shape": [
+        4
+      ],
+      "bit_exact": true
+    }
+  },
+  "old_runner_sha256": "8198463d5699e9551d93551e400ac72de6a3406027138eccf68c52897f9034ef",
+  "new_runner_sha256": "1739e7facad218e4160a6c006947822854b664b43e934877899a53e098d0238f",
+  "warning_and_clock_guards_quiet": true,
+  "scope": "default-off physical and feedback trace; wall-time/provenance fields intentionally differ"
+}

@@ -1,0 +1,268 @@
+{
+  "passed_saved_accounting": true,
+  "report_sha256": "ae8f0e5eee316598a45c3ccbc2bc67848deb7023be727fe902895ddf46fc8c85",
+  "runs": {
+    "fp64": {
+      "requested_controls": 1569,
+      "attempted_controls": 292,
+      "complete_controls": 291,
+      "partial_substeps": 6,
+      "native_steps": 2916,
+      "end_time": 5.83199999999958,
+      "source_controls_executed": 0,
+      "failure": {
+        "reasons": [
+          "native_joint_speed"
+        ],
+        "global_control": 291,
+        "local_control": 291,
+        "substep": 6,
+        "time": 5.83199999999958,
+        "range_excess": 0.0,
+        "velocity_ratio": 1.1199488179140533,
+        "effort_ratio": 1.0,
+        "tilt": 0.2545027666350939,
+        "clock_error": 0.0
+      },
+      "first_clip": {
+        "control": 256,
+        "time": 5.119999999999658,
+        "joints": [
+          {
+            "index": 5,
+            "name": "left_ankle_roll_joint",
+            "raw": 0.2706008641599311,
+            "applied": 0.2618,
+            "excess": 0.008800864159931143
+          },
+          {
+            "index": 10,
+            "name": "right_ankle_pitch_joint",
+            "raw": 2.059750527314452,
+            "applied": 0.5236,
+            "excess": 1.5361505273144518
+          }
+        ]
+      },
+      "clipped_learned_controls": 34,
+      "startup_250_timing_ms": {
+        "count": 250,
+        "mean": 6.74988773199965,
+        "p50": 6.550800000006518,
+        "p95": 8.035819999999916,
+        "max": 13.939701000012406,
+        "over_20ms": 0
+      },
+      "learned_timing_ms": {
+        "count": 42,
+        "mean": 0.6726761904758405,
+        "p50": 0.5592000000049779,
+        "p95": 0.9109050000006391,
+        "max": 3.5889999999909605,
+        "over_20ms": 0
+      },
+      "inference_counts": {
+        "0_backward_attempted": 250,
+        "0_backward_returned": 250,
+        "0_actor_attempted": 250,
+        "0_actor_returned": 250,
+        "0_head_attempted": 0,
+        "0_head_returned": 0,
+        "1_backward_attempted": 0,
+        "1_backward_returned": 0,
+        "1_actor_attempted": 0,
+        "1_actor_returned": 0,
+        "1_head_attempted": 42,
+        "1_head_returned": 42,
+        "2_backward_attempted": 0,
+        "2_backward_returned": 0,
+        "2_actor_attempted": 0,
+        "2_actor_returned": 0,
+        "2_head_attempted": 0,
+        "2_head_returned": 0
+      },
+      "segment_elapsed_seconds": 2.569887749000003,
+      "final_speed_witness": {
+        "joint_index": 7,
+        "joint": "right_hip_roll_joint",
+        "velocity": -22.398976358281068,
+        "limit": 20.0,
+        "ratio": 1.1199488179140533
+      },
+      "initial_target_mismatch": {
+        "control": 250,
+        "source_frame": 261,
+        "rmse_rad": 0.04553995490137792,
+        "worst_joint": "left_hip_pitch_joint",
+        "maximum_absolute_difference_rad": 0.13332505653723437,
+        "learner_target": -0.5492566371312421,
+        "expert_target": -0.6825816936684764,
+        "all_joint_difference_rad": [
+          0.13332505653723437,
+          0.00011609741631171677,
+          -0.02568039684587553,
+          -0.08212283856654762,
+          0.00638228418879605,
+          -0.001779822032244735,
+          -0.06887531238530326,
+          -0.003842133345374088,
+          -0.03893712794566978,
+          0.052195102448239064,
+          -0.0011523003389526942,
+          -1.4187856681502353e-05,
+          -0.006246664423145448,
+          0.02319641525794036,
+          0.0659294166190722,
+          0.0035871387574651498,
+          0.01587541048884278,
+          -0.02944614961748362,
+          0.009901491139655216,
+          0.04087256957163288,
+          -0.026385710093772496,
+          0.056881621164348445,
+          0.04147132408193484
+        ]
+      },
+      "first_target_difference_control": 250,
+      "first_physics_qpos_difference_step": 2501,
+      "first_physics_qvel_difference_step": 2501,
+      "first_full_integration_precontrol_difference": 251,
+      "first_physics_qpos_difference_time": 5.001999999999671,
+      "final_joint_pose_rmse_vs_same_clock_expert": 0.5429230038616225,
+      "final_joint_speed_rmse_vs_same_clock_expert": 8.380974192942295,
+      "final_root_position_distance_vs_same_clock_expert": 0.10396127978416946
+    },
+    "direct5000": {
+      "requested_controls": 1569,
+      "attempted_controls": 316,
+      "complete_controls": 315,
+      "partial_substeps": 8,
+      "native_steps": 3158,
+      "end_time": 6.315999999999526,
+      "source_controls_executed": 0,
+      "failure": {
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "global_control": 315,
+        "local_control": 315,
+        "substep": 8,
+        "time": 6.315999999999526,
+        "range_excess": 0.0016883389426362028,
+        "velocity_ratio": 0.16792030530567356,
+        "effort_ratio": 0.8681986683509788,
+        "tilt": 0.18567011089697766,
+        "clock_error": 0.0
+      },
+      "first_clip": {
+        "control": 270,
+        "time": 5.399999999999627,
+        "joints": [
+          {
+            "index": 10,
+            "name": "right_ankle_pitch_joint",
+            "raw": -1.1841621256716592,
+            "applied": -0.87267,
+            "excess": 0.3114921256716593
+          }
+        ]
+      },
+      "clipped_learned_controls": 46,
+      "startup_250_timing_ms": {
+        "count": 250,
+        "mean": 6.929549900000552,
+        "p50": 6.479999500001554,
+        "p95": 8.807849450002436,
+        "max": 18.898297999996316,
+        "over_20ms": 0
+      },
+      "learned_timing_ms": {
+        "count": 66,
+        "mean": 0.4669620606063752,
+        "p50": 0.4248000000046659,
+        "p95": 0.6507000000084417,
+        "max": 0.960700000007364,
+        "over_20ms": 0
+      },
+      "inference_counts": {
+        "0_backward_attempted": 250,
+        "0_backward_returned": 250,
+        "0_actor_attempted": 250,
+        "0_actor_returned": 250,
+        "0_head_attempted": 0,
+        "0_head_returned": 0,
+        "1_backward_attempted": 0,
+        "1_backward_returned": 0,
+        "1_actor_attempted": 0,
+        "1_actor_returned": 0,
+        "1_head_attempted": 66,
+        "1_head_returned": 66,
+        "2_backward_attempted": 0,
+        "2_backward_returned": 0,
+        "2_actor_attempted": 0,
+        "2_actor_returned": 0,
+        "2_head_attempted": 0,
+        "2_head_returned": 0
+      },
+      "segment_elapsed_seconds": 2.7070172990000003,
+      "final_speed_witness": {
+        "joint_index": 10,
+        "joint": "right_ankle_pitch_joint",
+        "velocity": 5.037609159170207,
+        "limit": 30.0,
+        "ratio": 0.16792030530567356
+      },
+      "initial_target_mismatch": {
+        "control": 250,
+        "source_frame": 261,
+        "rmse_rad": 0.09865137754356729,
+        "worst_joint": "right_knee_joint",
+        "maximum_absolute_difference_rad": 0.24342065706794141,
+        "learner_target": 0.19614738207443344,
+        "expert_target": -0.04727327499350799,
+        "all_joint_difference_rad": [
+          0.06655173661004432,
+          0.16850796120991743,
+          -0.17932954156954295,
+          -0.1648553659543473,
+          0.06029369054627998,
+          -0.012607088991856849,
+          -0.01410599185353828,
+          0.06905816492429684,
+          -0.20198419390059724,
+          0.24342065706794141,
+          0.02966407370030172,
+          0.005570567446330443,
+          0.00587497648233129,
+          0.02306956630635948,
+          0.03278213476824193,
+          0.028075191720281348,
+          0.00038904104602410783,
+          -0.027331158825117965,
+          0.06516111702502492,
+          0.0449830806096615,
+          -0.06572931047441782,
+          0.0849964669242341,
+          0.031020809651099504
+        ]
+      },
+      "first_target_difference_control": 250,
+      "first_physics_qpos_difference_step": 2501,
+      "first_physics_qvel_difference_step": 2501,
+      "first_full_integration_precontrol_difference": 251,
+      "first_physics_qpos_difference_time": 5.001999999999671,
+      "final_joint_pose_rmse_vs_same_clock_expert": 0.2824016910579818,
+      "final_joint_speed_rmse_vs_same_clock_expert": 1.5983050334544502,
+      "final_root_position_distance_vs_same_clock_expert": 0.09790272923628361
+    }
+  },
+  "comparisons": {
+    "new_vs_old": {
+      "first_target_difference_control": 250,
+      "first_feature_difference_control": 251,
+      "control250_feature_byte_exact": true,
+      "control250_target_rmse": 0.0797673744039873,
+      "control250_max_target_difference": 0.19122555461970236
+    }
+  }
+}

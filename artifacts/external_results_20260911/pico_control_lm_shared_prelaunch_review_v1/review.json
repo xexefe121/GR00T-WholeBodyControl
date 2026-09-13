@@ -1,0 +1,87 @@
+{
+  "review": "read-only opt-in shared control-LM integration and ONE full canonical PICO launch",
+  "reviewed_at_utc": "2026-09-11T03:15:36.116442+00:00",
+  "clear_for_launch": true,
+  "checks": {
+    "all13frozen_source_hashes": true,
+    "all10shared_source_hashes": true,
+    "all71launch_input_hashes": true,
+    "exact_launcher_text": true,
+    "core_byteexact_cleared_bounded": true,
+    "helper_AST_exact_except_module_docstring": true,
+    "original_backward_AST_unchanged": true,
+    "original_boxqp_AST_unchanged": true,
+    "original__ilqr_feasible_AST_unchanged": true,
+    "default_guided_K0_helper_byteexact": true,
+    "focused_tests.xml_hash": true,
+    "focused_tests.xml_passes": true,
+    "focused_lm_final.xml_hash": true,
+    "focused_lm_final.xml_passes": true,
+    "53_and10_tests": true,
+    "test_source_hash": true,
+    "requested6530_source5780_original_timeline": true,
+    "full_reference6530controls": true,
+    "no_output_yet": true
+  },
+  "source_receipt_sha256": "43f07efe5eaf20b7ad7af38c5760e3ca7d75e20095757bf84960d040f9f89f95",
+  "launch_receipt_sha256": "c05111dd572f916b544d0ca6ccb88532914eef2092fd6f0cd1d2ea59f8a0a629",
+  "launcher_sha256": "48eb4c008a702d8437e2e01f8b507ee6c9c8960bc805f21731bb425cd73df3fe",
+  "durable_wrapper_sha256": "a1ca8025b9c75bb6bb6761d0855fdc3dd64dddbe463966cf423d84e0199d3a85",
+  "source_hashes": {
+    "gear_sonic\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gear_sonic\\scripts\\evaluate_g1_true23_mjbatch_mpc.py": "c8fe8af1a8cb2d2543118903ec1973dfb17ec7cbaedc56db4212eb095545e9fc",
+    "gear_sonic\\scripts\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gear_sonic\\utils\\g1_true23_bfm_seed_observations.py": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d",
+    "gear_sonic\\utils\\g1_true23_feasibility_referee.py": "0027210cda5a44255debecd7151ecd454e2281a5ff4e3137641d102701fb1330",
+    "gear_sonic\\utils\\g1_true23_mjbatch_bfm_seed.py": "2f3d808b6a95fd80a3c1f9a0fabbe80264cf9cc93fbf01e2b2be65f6a5ec75de",
+    "gear_sonic\\utils\\g1_true23_mjbatch_ilqr_core.py": "2949e296d2b8a73fb4a8ba67595060a9af7d74b43be728fed610db0ddc0e0315",
+    "gear_sonic\\utils\\g1_true23_mjbatch_model.py": "61d1c168ba5db189fc1e882bfb1e2c9f7773584353b8e2251713ae0d0dd7dc9e",
+    "gear_sonic\\utils\\g1_true23_mjbatch_mpc.py": "7695d03787de93dc3d4b1fb2001d6b6b0dcdb9016af9c96734e8f7d94a5e5dde",
+    "gear_sonic\\utils\\g1_true23_mjbatch_restoration.py": "3fb4aa5a786d8acb3de44a3c96a4ac9ea26cfbaf17887c0aecbb7d3915bd71c5",
+    "gear_sonic\\utils\\g1_true23_mjbatch_restoration_lm.py": "51ec13036cd2a39a5a3545aadd5460ed9f6ba5fd46ce8e671e46b27dfca53e3d",
+    "gear_sonic\\utils\\g1_true23_relative_foot_cost.py": "36f89cac4374364cd155184c7c6f098de913ebca22976c0d59c8d1489089cc35",
+    "gear_sonic\\utils\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "test_receipts": {
+    "focused_tests.xml": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "53",
+      "time": "50.222",
+      "timestamp": "2026-09-11T13:10:00.453332+10:00",
+      "hostname": "MSI"
+    },
+    "focused_lm_final.xml": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "10",
+      "time": "4.456",
+      "timestamp": "2026-09-11T13:12:02.951959+10:00",
+      "hostname": "MSI"
+    }
+  },
+  "reviewer_executions": {
+    "physics_steps": 0,
+    "optimizer_calls": 0,
+    "inference_calls": 0
+  },
+  "conclusions": [
+    "Explicit --restoration-control-lm-retry requires existing --restoration, which requires hard feasibility and H30. Absent new flag, evaluator imports/calls the unchanged original guided/K0 helper.",
+    "Every standard shifted/recorded/fresh candidate must fail before restoration. Third private attempt starts only after unchanged guided and original-warm K0 both fail; first guided final is initial iterate, original shifted warm remains regularization anchor.",
+    "Control-LM backward and private K0 exactly match the cleared physically successful2s bounded helper. Main hard iLQR/backward/boxQP AST unchanged; strict native2ms gates, private imminent certificates, original tracking costs and targets unchanged.",
+    "Evaluator hashes/snapshots the new helper and keeps perattempt nominal/fullnative certificates plus generated-search archive. Counter additions cannot admit an uncertified proposal.",
+    "Launcher executes absolute frozen evaluator script with frozen repo PYTHONPATH. Script directory precedes PYTHONPATH, shared cwd is not inserted as a -m module search entry. Inputs intentionally use shared cwd relative paths whose hashes are verified before launch.",
+    "New native MjData initializes canonical declared v4frame10; no restored integration/history or saved candidate arguments. Full original timeline independently verified6530 lifecycle/5780 source, full reference supports exactly6530 controls after canonical offset. No old/new trajectory composition.",
+    "Durable wrapper validates71 file hashes, refuses existing output/logs, records PID/start/exit/report hash and regards incomplete report as completed=false. Agent must invoke this wrapper with hidden Start-Process as authorized.",
+    "The bounded2s physical pass was accompanied by local tracking failures; no recovery, fullsource, realtime or hardware claim follows."
+  ],
+  "remaining": [
+    "Run the ONE authorized canonical trajectory until requested6530 completion or strict failure.",
+    "Independently replay exact executed trace and compute original-source tracking/quiet metrics.",
+    "If process/runtime fails, preserve partial raw evidence and intended6530 count; missing final report or exitcode0 alone never establishes success."
+  ]
+}

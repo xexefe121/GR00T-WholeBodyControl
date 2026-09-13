@@ -1,0 +1,494 @@
+{
+  "kind": "pure_saved_array_direct_absolute_target_feature_feasibility",
+  "completed": true,
+  "request_sha256": "df89b8062cf3644166de57746c2427330de3679dcdacc8fcf9fad0600606ccfa",
+  "mandatory": {
+    "byte_exact": {
+      "rows": 146733,
+      "unique_inputs": 146733,
+      "duplicate_rows": 0,
+      "duplicate_groups": 0,
+      "largest_group": 1,
+      "absolute_target_byte_conflict_pairs": 0,
+      "absolute_target_numeric_conflict_pairs": 0,
+      "hash_collision_comparisons": 0
+    },
+    "numerical_zero_equivalence": {
+      "rows": 146733,
+      "unique_inputs": 146733,
+      "duplicate_rows": 0,
+      "duplicate_groups": 0,
+      "largest_group": 1,
+      "absolute_target_byte_conflict_pairs": 0,
+      "absolute_target_numeric_conflict_pairs": 0,
+      "hash_collision_comparisons": 0
+    }
+  },
+  "expanded": {
+    "byte_exact": {
+      "rows": 153580,
+      "unique_inputs": 153580,
+      "duplicate_rows": 0,
+      "duplicate_groups": 0,
+      "largest_group": 1,
+      "absolute_target_byte_conflict_pairs": 0,
+      "absolute_target_numeric_conflict_pairs": 0,
+      "hash_collision_comparisons": 0
+    },
+    "numerical_zero_equivalence": {
+      "rows": 153580,
+      "unique_inputs": 153580,
+      "duplicate_rows": 0,
+      "duplicate_groups": 0,
+      "largest_group": 1,
+      "absolute_target_byte_conflict_pairs": 0,
+      "absolute_target_numeric_conflict_pairs": 0,
+      "hash_collision_comparisons": 0
+    }
+  },
+  "row_identity_conventions": {
+    "nominal": "dataset=floor(i/1019), control=250+i%1019, source=control+11",
+    "velocity": "center=floor(i/46), axis=floor(i%46/2), sign=[-1,+1][i%2]; same center clock",
+    "physical": "dataset=floor(i/1018), start=250+i%1018, successor=start+1, source=successor+11",
+    "pico": "control=250+i, source=control+11",
+    "walk002": "control=250+i, source=control+11"
+  },
+  "per_source": [
+    {
+      "name": "nominal",
+      "rows": 3057,
+      "absolute_target_min": [
+        -2.2644621268654777,
+        -0.5236,
+        -2.635686618423506,
+        -0.087267,
+        -0.87267,
+        -0.2618,
+        -2.4478798345774124,
+        -1.8421185701599234,
+        -2.740826883885334,
+        -0.087267,
+        -0.87267,
+        -0.2618,
+        -0.4406600578258189,
+        -1.8324673636793627,
+        -0.648448266585214,
+        -0.9333450682768618,
+        -0.26934375926958926,
+        -1.1931526427402612,
+        -2.4119061335068377,
+        -1.932274026745566,
+        -0.472981523464461,
+        -1.0471999999999955,
+        -0.09347050238619987
+      ],
+      "absolute_target_max": [
+        1.2099439432460373,
+        1.7169206110182216,
+        2.304127646811813,
+        1.6813785658458729,
+        0.5236,
+        0.2618,
+        1.9205052924076447,
+        0.5236,
+        2.6824439665307116,
+        2.092657007113779,
+        0.5236,
+        0.2618,
+        0.3810758163167469,
+        2.1746651225110067,
+        1.7731716173900902,
+        0.6710377205524818,
+        1.9950915028328995,
+        0.38122165582297174,
+        2.6389693037641195,
+        1.5881999999999994,
+        2.161076739760111,
+        2.0944,
+        1.9648397428652358
+      ],
+      "outside_native_bound_components": 0,
+      "outside_native_bound_rows": 0,
+      "at_native_lower_components": 838,
+      "at_native_upper_components": 1573,
+      "retained_zero_components": 11676,
+      "retained_negative_zero_components": 0,
+      "absolute_target_negative_zero_components": 0,
+      "float32_output_roundtrip_max_abs_rad": 1.1762259921610507e-07,
+      "float32_roundtrip_nonexact_components": 70311,
+      "float32_roundtrip_outside_native_bound_components": 0
+    },
+    {
+      "name": "velocity",
+      "rows": 140622,
+      "absolute_target_min": [
+        -2.3644621268654777,
+        -0.5236,
+        -2.635686618423506,
+        -0.087267,
+        -0.87267,
+        -0.2618,
+        -2.51229481915931,
+        -1.942118570159858,
+        -2.740826883885334,
+        -0.087267,
+        -0.87267,
+        -0.2618,
+        -0.4564019499064901,
+        -1.9120865768130566,
+        -0.748448266585214,
+        -0.9673964417286322,
+        -0.2976865508083149,
+        -1.195793607321831,
+        -2.5119061335068302,
+        -2.031640738738988,
+        -0.5729815234630503,
+        -1.0472,
+        -0.09528399866745799
+      ],
+      "absolute_target_max": [
+        1.3099439432460374,
+        1.807232865423098,
+        2.349518251150878,
+        1.7064964834890355,
+        0.5236,
+        0.2618,
+        1.9205052924076447,
+        0.5236,
+        2.6824439665307116,
+        2.192657007113781,
+        0.5236,
+        0.2618,
+        0.3939860652802169,
+        2.2746651225110086,
+        1.871922060529352,
+        0.6790863206362943,
+        2.014404226233475,
+        0.39476119215020355,
+        2.6704,
+        1.5882,
+        2.1988678261611407,
+        2.0944,
+        1.97222
+      ],
+      "outside_native_bound_components": 0,
+      "outside_native_bound_rows": 0,
+      "at_native_lower_components": 40820,
+      "at_native_upper_components": 74215,
+      "retained_zero_components": 537096,
+      "retained_negative_zero_components": 0,
+      "absolute_target_negative_zero_components": 0,
+      "float32_output_roundtrip_max_abs_rad": 1.1920500542217383e-07,
+      "float32_roundtrip_nonexact_components": 3234306,
+      "float32_roundtrip_outside_native_bound_components": 0
+    },
+    {
+      "name": "physical",
+      "rows": 3054,
+      "absolute_target_min": [
+        -2.283542447456035,
+        -0.5236,
+        -2.635686618423506,
+        -0.087267,
+        -0.87267,
+        -0.2618,
+        -2.432780831141811,
+        -1.7421185701598578,
+        -2.740826883885334,
+        -0.087267,
+        -0.87267,
+        -0.2618,
+        -0.42395427056051466,
+        -1.7819937652575668,
+        -0.6418749145532142,
+        -0.9470889905615417,
+        -0.32215654127795434,
+        -1.1864921043147663,
+        -2.31190613350683,
+        -2.031640738738988,
+        -0.5729815234630503,
+        -1.0472,
+        -0.06621889804224995
+      ],
+      "absolute_target_max": [
+        1.301308449052713,
+        1.8137887533869606,
+        2.3298530329139275,
+        1.6496028403656329,
+        0.5236,
+        0.2618,
+        1.9205052924076447,
+        0.5236,
+        2.6824439665307116,
+        1.992657007113781,
+        0.5236,
+        0.2618,
+        0.3754339460761957,
+        2.0746651225110084,
+        1.8241269762780914,
+        0.6560550200650664,
+        2.0256178074227993,
+        0.41478163280476166,
+        2.5389693037640266,
+        1.5518610202152432,
+        2.184026592014187,
+        2.0944,
+        1.97222
+      ],
+      "outside_native_bound_components": 0,
+      "outside_native_bound_rows": 0,
+      "at_native_lower_components": 997,
+      "at_native_upper_components": 1668,
+      "retained_zero_components": 11676,
+      "retained_negative_zero_components": 0,
+      "absolute_target_negative_zero_components": 0,
+      "float32_output_roundtrip_max_abs_rad": 1.1874335203998498e-07,
+      "float32_roundtrip_nonexact_components": 70242,
+      "float32_roundtrip_outside_native_bound_components": 0
+    },
+    {
+      "name": "pico",
+      "rows": 5980,
+      "absolute_target_min": [
+        -2.468368083852076,
+        -0.5236,
+        -2.2667639489399236,
+        -0.087267,
+        -0.87267,
+        -0.2618,
+        -2.530360339116011,
+        -1.8986743029135948,
+        -2.708557554487091,
+        -0.087267,
+        -0.87267,
+        -0.2618,
+        -0.6495776857603958,
+        -2.9895924575981336,
+        -1.5882,
+        -2.3840384985341707,
+        -0.9908635713258854,
+        -1.3896690928433626,
+        -3.0892,
+        -2.2515,
+        -2.618,
+        -1.0472,
+        -1.97222
+      ],
+      "absolute_target_max": [
+        1.2689958031735276,
+        2.5232392465550677,
+        2.2683521412042014,
+        2.8798,
+        0.5236,
+        0.2618,
+        1.4928124541185381,
+        0.5236,
+        2.7576,
+        2.7829301058033855,
+        0.5236,
+        0.2618,
+        0.7534332424515037,
+        2.1291666872501236,
+        2.2515,
+        1.7324823344958442,
+        1.7711855370711762,
+        1.0044780566644085,
+        2.6704,
+        1.5882,
+        2.562375828785502,
+        2.0944,
+        1.97222
+      ],
+      "outside_native_bound_components": 0,
+      "outside_native_bound_rows": 0,
+      "at_native_lower_components": 1233,
+      "at_native_upper_components": 3471,
+      "retained_zero_components": 11188,
+      "retained_negative_zero_components": 0,
+      "absolute_target_negative_zero_components": 0,
+      "float32_output_roundtrip_max_abs_rad": 1.1867124882769531e-07,
+      "float32_roundtrip_nonexact_components": 137538,
+      "float32_roundtrip_outside_native_bound_components": 12
+    },
+    {
+      "name": "walk002",
+      "rows": 867,
+      "absolute_target_min": [
+        -1.5039204762688525,
+        -0.5236,
+        -1.7330786680866594,
+        -0.087267,
+        -0.87267,
+        -0.2618,
+        -1.6739432198851092,
+        -1.751537608074591,
+        -1.8163627165592804,
+        -0.087267,
+        -0.87267,
+        -0.2618,
+        -0.31051563966946866,
+        -1.8431791393258967,
+        -1.0329643745855515,
+        -0.9566525881332885,
+        0.5884311950802468,
+        -1.2078095592090765,
+        -1.7354704334350757,
+        -1.3452380599778537,
+        -0.06368474081456911,
+        0.5556942175954037,
+        -0.025175652617008968
+      ],
+      "absolute_target_max": [
+        1.7843956342142087,
+        1.6948012539442185,
+        1.8580670456326829,
+        1.4839321128381533,
+        0.5236,
+        0.2618,
+        1.2245401617896077,
+        0.5236,
+        2.474297911506487,
+        2.5878422955166207,
+        0.5236,
+        0.2618,
+        0.26705277547668516,
+        1.4191314041294047,
+        1.5857622131663436,
+        2.528391727486545,
+        2.0944,
+        1.97222,
+        1.7060148989294535,
+        0.3406407353418303,
+        1.6725874394624378,
+        1.9154327730182357,
+        1.971265214717797
+      ],
+      "outside_native_bound_components": 0,
+      "outside_native_bound_rows": 0,
+      "at_native_lower_components": 181,
+      "at_native_upper_components": 585,
+      "retained_zero_components": 5233,
+      "retained_negative_zero_components": 0,
+      "absolute_target_negative_zero_components": 0,
+      "float32_output_roundtrip_max_abs_rad": 1.1907786801046427e-07,
+      "float32_roundtrip_nonexact_components": 19941,
+      "float32_roundtrip_outside_native_bound_components": 0
+    }
+  ],
+  "native_joint_limits": [
+    [
+      -2.5307,
+      2.8798
+    ],
+    [
+      -0.5236,
+      2.9671
+    ],
+    [
+      -2.7576,
+      2.7576
+    ],
+    [
+      -0.087267,
+      2.8798
+    ],
+    [
+      -0.87267,
+      0.5236
+    ],
+    [
+      -0.2618,
+      0.2618
+    ],
+    [
+      -2.5307,
+      2.8798
+    ],
+    [
+      -2.9671,
+      0.5236
+    ],
+    [
+      -2.7576,
+      2.7576
+    ],
+    [
+      -0.087267,
+      2.8798
+    ],
+    [
+      -0.87267,
+      0.5236
+    ],
+    [
+      -0.2618,
+      0.2618
+    ],
+    [
+      -2.618,
+      2.618
+    ],
+    [
+      -3.0892,
+      2.6704
+    ],
+    [
+      -1.5882,
+      2.2515
+    ],
+    [
+      -2.618,
+      2.618
+    ],
+    [
+      -1.0472,
+      2.0944
+    ],
+    [
+      -1.97222,
+      1.97222
+    ],
+    [
+      -3.0892,
+      2.6704
+    ],
+    [
+      -2.2515,
+      1.5882
+    ],
+    [
+      -2.618,
+      2.618
+    ],
+    [
+      -1.0472,
+      2.0944
+    ],
+    [
+      -1.97222,
+      1.97222
+    ]
+  ],
+  "all_initial_final_pins_exact": true,
+  "pin_count": 31,
+  "output_sha256": {
+    "conflicts.json": "91e1065112eb98fd026e95d1adb7df5f69a854620f598538606e9509575cbbcc",
+    "row_identity_hashes.npz": "1db068d83188509eb3a06e4cb71777d93f3e4219c1f53662510ddee1f8f7e6c6"
+  },
+  "no_arrays_changed": true,
+  "no_rows_dropped": true,
+  "no_targets_averaged": true,
+  "model_calls": 0,
+  "physics_steps": 0,
+  "optimizer_updates": 0,
+  "labels_generated": 0,
+  "runtime_python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+  "runtime_numpy": "1.23.5",
+  "limitations": [
+    "Exact duplicate screening is not a test of nearby consistency, Markov sufficiency, balance, timing, or recovery.",
+    "Velocity probes are fixed committed-map labels, not new physical trajectories.",
+    "Numerical-zero equivalence uses separate scratch keys only; original signs/dtypes/bytes are retained.",
+    "Historical broader producer wrapper unknown exit remains unknown; completed data was independently qualified.",
+    "No architecture, fitting, new normalization, inference, or controller change selected."
+  ]
+}

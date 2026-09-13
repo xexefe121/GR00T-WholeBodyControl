@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "source_review_pass": true,
+  "reviewed_utc": "2026-09-11T22:55:56.738336+00:00",
+  "source_preparation_sha256": "2dfd48854ee875fcc259bac8dff954e0b2e6b6272e1a4816ded6faadd6e66b1c",
+  "source_sha256": {
+    "balance_contract.py": "3bed156c9a15f2fe22eccd022330c745f7073481bcd36585e6c7b00abce76567",
+    "restoration_support.py": "e65bf27b2c78ee378899779c1f490aa8a6938508a9965398e3c2ac4f0b0e1a76",
+    "test_warm512.py": "ea5545f85ef6fc18f081448d55154482361063461cc9a03663313f6e38c2fa85",
+    "warm512_restore.py": "62e04ed55f2b06bd8a0a1f4059ecdcbec4135e47c5a58b91dec8b33826075b5e",
+    "width512.py": "48ff62b384628a57c50dabd2bc55d8164ea2da41bc3e1b3538b08c7b06820ae7"
+  },
+  "root_test_receipt": {
+    "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width251_warm_restore_v1/root_tests_v1.xml",
+    "sha256": "86c9f05132c23b269858424eedd6bcdd4dcd3a91030dc98bdbcb6f94c28c1fb8",
+    "junit_cases": 43
+  },
+  "scope": {
+    "source_ordinary_step": 81000,
+    "source_optimizer_step": 16000,
+    "architecture": [
+      1323,
+      512,
+      512,
+      23
+    ],
+    "actor_tensors": 6,
+    "optimizer_states": 6,
+    "expansion": false,
+    "normalization_refit": false,
+    "zero_reset": false
+  },
+  "reviewed_properties": [
+    "Strict source ordinary81000/full512 architecture and original forward identity",
+    "All six learned actor tensors, both moments, scalar16000 steps and entire AdamW group preserved",
+    "Deep-copy loading prevents source-state aliasing; source RNG and normalization verified",
+    "Owned progress separates attempted/returned/verified restoration and preserves partial failures",
+    "No expansion, new zero moments, normalization refit or selected LR/update/forward"
+  ],
+  "actual_checkpoint_reads": 0,
+  "actual_task_data_reads": 0,
+  "model_forward_calls": 0,
+  "native_steps": 0,
+  "actual_fit_selected": false,
+  "writer_sha256": "57a27d2b5c92ead05ba4b630726cd67e3d4be75f49d5a90fcde2ae15fcf323ab"
+}

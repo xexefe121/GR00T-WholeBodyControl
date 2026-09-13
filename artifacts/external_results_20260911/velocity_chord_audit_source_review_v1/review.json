@@ -1,0 +1,67 @@
+{
+  "schema": "independent_audit_source_review_v1",
+  "reviewer": "/root/review_continuation",
+  "created_utc": "2026-09-11T07:56:02.2075583Z",
+  "verdict": "CLEAR",
+  "approved": true,
+  "scope": "Root may run ONE fixed audit after the reviewed v2 producer is complete. This review approves audit source, not a completed dataset, fit or controller.",
+  "audit_source_path": "Z:/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_resume_20260911/audit_velocity_chords.py",
+  "audit_source_sha256": "ac2d28117a6a44881bf6271107711a523b8c989cfecad1a583262329c09f11a3",
+  "generation_receipt_path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/velocity_chord_student_v1/generation_frozen_inputs_v2.json",
+  "generation_receipt_sha256": "a79321d317438c2a3817b0db74e8acb1b6ec92479e44736da1d587ad1d912f08",
+  "generation_source_sha256": "93810015192415aa9cf82335e6bab9d4a1cbbe258391b2cda2851a7da334415f",
+  "source_checks": {
+    "explicit_v2_receipt_and_snapshot": true,
+    "canonical_probe_shapes_and_dtypes": true,
+    "all_3057_centers_match_original_labels_and_saved_committed_plans": true,
+    "committed_local_indices_counts_accepted_update_provenance": true,
+    "full_saved_difference_and_gain_matvec_preserves_operation_order": true,
+    "correction_clip_point1_and_native_clip_preserved": true,
+    "all_140622_probe_states_features_targets_and_clip_branch_flags_reconstructed": true,
+    "feature_direct_velocity_index": "23 + native joint index",
+    "feature_base_block": "1023:1046",
+    "finite_raw_teacher_feedback_and_static_native_caps": true,
+    "center_history_named_to_flat_and_qualified_label_identity": true,
+    "fixed_repeat_centers": [
+      0,
+      100,
+      919,
+      1019,
+      1119,
+      1938,
+      2038,
+      2138,
+      2957
+    ],
+    "actor_repeat_budget": 423,
+    "backward_repeat_budget": 9,
+    "total_repeat_budget": 432,
+    "attempted_calls_counted_before_calls": true,
+    "same_h8_position1_yaw2_BFM": true,
+    "history_prior_recorded_count_unmutated": true,
+    "mujoco323_numpy1264_and_step_guards": true,
+    "source_request_and_failed_active_arrays_preserved": true,
+    "failed_report_includes_actual_attempt_counts": true,
+    "atomic_progress": true,
+    "repeat_failure_context_records_actual_perturbed_qvel": true,
+    "final_source_all_inputs_generated_arrays_and_producer_report_rehash": true
+  },
+  "resolved_findings": [
+    "Stale v1 receipt and draft source directory replaced with pinned final v2.",
+    "Attempt counters, active returned outputs and failed report preservation added.",
+    "Canonical dtypes, finite teacher raw feedback, accepted-plan metadata and no-step guards added.",
+    "Final source/input/report hash checks and accurate perturbed velocity failure context added."
+  ],
+  "limitations": [
+    "All saved states/features/teacher maps are reconstructed; BFM inference is independently repeated only at nine fixed centers and their 46 probes each.",
+    "Complete physical/history qualification of nominal centers is inherited from their bound prior labels and expert reports; perturbed samples are not simulated trajectories.",
+    "Fit input clearance still requires successful completed generation and this actual independent audit result."
+  ],
+  "reviewer_execution": {
+    "read_only_source_review": true,
+    "model_inference": 0,
+    "physics_steps": 0,
+    "optimizer_updates": 0,
+    "runtime_audit_execution": 0
+  }
+}

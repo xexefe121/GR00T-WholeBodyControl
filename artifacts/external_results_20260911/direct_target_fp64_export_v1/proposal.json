@@ -1,0 +1,63 @@
+{
+  "kind": "proposed_same_weights_fp64_export_validation",
+  "actual_execution_selected": false,
+  "source_preparation_only": true,
+  "ordinary_final_step": 55000,
+  "source_checkpoint_sha256": "9ceef5099ebd154e08a1c2c3784c4e06021d464e607474548763665b24f8f9e7",
+  "source_fit_report_sha256": "dc8d834e8b7ef193cb6212248e4c35ca2cd7dab3cfb839a826a3e7adf7d220e6",
+  "source_onnx_sha256": "f9b352ce4cedbbdd70c59f09b8a28080f7a696bfff464621719cc93e6c899797",
+  "normalization_sha256": "1baf7a2918fe2322ad0ef9583a29902eb7c3d8f8d37000c6bb9fd502d6746079",
+  "features": 1000,
+  "head_output": "normalized_target",
+  "execution_dtype": "float64",
+  "public_input_dtype": "float32",
+  "public_output_dtype": "float32",
+  "ELU_implementation": "Where(x>0,x,Exp(Min(x,0))-1)",
+  "reference_ELU": "native Torch float64 ELU alpha1",
+  "parity_tolerance_rad": 1e-05,
+  "corpus_rows": [
+    9904,
+    140622,
+    3054
+  ],
+  "batch_size": 256,
+  "per_backend_batches": [
+    39,
+    550,
+    12
+  ],
+  "backend_order": [
+    "Torch_CPU64",
+    "Torch_GPU64",
+    "ORT_CPU64"
+  ],
+  "budgets": {
+    "Torch_calls": 1202,
+    "Torch_rows": 307160,
+    "ORT_calls": 601,
+    "ORT_rows": 153580,
+    "trace_forward_calls": 0,
+    "optimizer_updates": 0,
+    "BFM_calls": 0,
+    "native_steps": 0
+  },
+  "preserved_drift_pairs": {
+    "new_backends": 3,
+    "old_saved_FP32_backends": 3,
+    "corpora": 3,
+    "total_full_preclamp_difference_arrays": 27
+  },
+  "automatic_retry": false,
+  "checkpoint_selection": false,
+  "source_sha256": {
+    "promoted_model.py": "37e0fed989ceb5b55cb7fa9b6681badbaddf8bf4fec058c205c706a08a33d139",
+    "test_promoted.py": "47eb6791a03d91925595ea029726a3d3f99ed2e35c1404257d2dd8e8d213b165"
+  },
+  "support_sha256": {
+    "activations.cc": "1bf59c6788cd280916c1a658089958282fd6cb45d6d3d97ea5db06152558f5b7",
+    "OperatorKernels.md": "bd9cad20eb68de87c847945b340ace8b35fd4ff09979b3e8331a67cdfd5ce26e",
+    "sources.json": "ce9744d84c06bae37cec0a2cc62a225c332efc19fb807cea1ca311cd5d1edc8d"
+  },
+  "synthetic_tests_sha256": "0c52179447d797a2d088a36872ef2d84a004bc29f7504d1db978a6e75d686320",
+  "proposal_document_sha256": "c4a97e2994e3f5672b397720c7dcae4a5b215a3ef790d92263c2d5efb7f40f4b"
+}

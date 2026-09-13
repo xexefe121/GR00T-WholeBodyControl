@@ -1,0 +1,33 @@
+First comparison attempt: states, targets, and costs matched bit-exactly.
+The additional qfrc_actuator field comparison failed because baseline qfrc_actuator
+was first bound AFTER rollout, while optimized code binds it before rollout.
+In mjbatch, newly bound derived buffers are not retrospective snapshots. This was
+a verification setup error. Both sides now bind identical fields before rollout.
+No production source changed and no timing result from that attempt is accepted.
+
+Second attempt passed seed states/targets/costs/full integration and bound fields,
+but the immediately following guided-zero-gains rollout differed by up to
+7.942620224099528e-05 in state. Cause: mjbatch's input-field mirrors on dormant
+lanes did not receive CopyOut. Later setting warmstart=0 could equal the old
+mirror, so Batch ignored it and retained copied nonzero integration warmstart.
+Preserved attempt1_sources and root soft_positive_seed.npz document that attempt.
+The revised private adapter explicitly applies the original advance's qpos,
+qvel, ctrl and zero-warmstart overrides to the authoritative integration vector
+before the usual bound-buffer assignments. No force/model/objective change.
+First synchronization constructor attempt rejected an unnamed combined mjtState
+enum value before any comparison; mj_stateSize accepts its integer bitmask.
+
+Second implemented version passed all soft comparisons, including subsequent
+guided-nine-lane behavior and return to unguided; hard seed itself also matched.
+Hard guided probe then failed because the same dormant-input-mirror issue affected
+rollout's time[:] = 0 reset. The authoritative integration TIME field now receives
+that exact hard reset too. Prior sources preserved in attempt2_sources and completed
+comparison arrays in validated. Those partial comparisons are not a full pass.
+
+Third version passed soft/hard positive seeds, following guided calls, return to
+unguided, and the physically infeasible seed including all public fields. A
+synthetic NaN first target returned identical states/targets/cost/feasibility, but
+authoritative state differed because no Batch step had consumed the public input
+overrides. Final private revision defers synchronization until a step is actually
+performed, preserving rejected-before-step state exactly. attempt3_sources and
+validated_v3 retain the intermediate evidence; no production use is authorized.

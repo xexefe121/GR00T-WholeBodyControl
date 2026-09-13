@@ -1,0 +1,21 @@
+{
+  "command": [
+    "/usr/bin/g++",
+    "-std=c++20",
+    "-O0",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-error=range-loop-construct",
+    "-I",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/restore_rpc_20260907_v1/committed_tests_final/restore_rpc0/audit/source_snapshot/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include",
+    "-I",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/restore_rpc_20260907_v1/committed_tests_final/restore_rpc0/audit",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/restore_rpc_20260907_v1/committed_tests_final/restore_rpc0/audit/source_snapshot/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/tests/true23_restore_rpc_driver.cpp",
+    "-o",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/restore_rpc_20260907_v1/committed_tests_final/restore_rpc0/audit/restore_rpc_offline"
+  ],
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "In file included from /mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/restore_rpc_20260907_v1/committed_tests_final/restore_rpc0/audit/source_snapshot/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/tests/true23_restore_rpc_fixture.hpp:8,\n                 from /mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/restore_rpc_20260907_v1/committed_tests_final/restore_rpc0/audit/source_snapshot/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/tests/true23_restore_rpc_driver.cpp:3:\n/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/restore_rpc_20260907_v1/committed_tests_final/restore_rpc0/audit/source_snapshot/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/true23_active_gantry_core.hpp: In function \u2018gear_sonic::true23::active::LiveShadowEvidenceSummary gear_sonic::true23::active::ValidateLiveShadowEvidenceJsonl(std::string_view, const gear_sonic::true23::active::LiveShadowEvidenceBinding&)\u2019:\n/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/restore_rpc_20260907_v1/committed_tests_final/restore_rpc0/audit/source_snapshot/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/true23_active_gantry_core.hpp:115:19: warning: loop variable \u2018value\u2019 creates a copy from type \u2018const std::__cxx11::basic_string<char>\u2019 [-Wrange-loop-construct]\n  115 |   for (const auto value : {\n      |                   ^~~~~\n/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/restore_rpc_20260907_v1/committed_tests_final/restore_rpc0/audit/source_snapshot/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/true23_active_gantry_core.hpp:115:19: note: use reference type to prevent copying\n  115 |   for (const auto value : {\n      |                   ^~~~~\n      |                   &\n"
+}

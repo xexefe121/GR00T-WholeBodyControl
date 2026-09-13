@@ -1,0 +1,154 @@
+{
+  "stage_breakdown": {
+    "seed_scoring.recorded": {
+      "milliseconds": 75.88442,
+      "percent": 3.104440865027884,
+      "calls": 1
+    },
+    "seed_scoring.shifted": {
+      "milliseconds": 74.84982,
+      "percent": 3.0621152530121645,
+      "calls": 1
+    },
+    "seed_scoring.fresh": {
+      "milliseconds": 72.33312,
+      "percent": 2.9591567494746043,
+      "calls": 1
+    },
+    "fresh_seed_generation": {
+      "milliseconds": 243.572964,
+      "percent": 9.964599624765738,
+      "calls": 1
+    },
+    "linearize": {
+      "milliseconds": 1469.05199,
+      "percent": 60.09909584347529,
+      "calls": 5
+    },
+    "expand": {
+      "milliseconds": 68.261916,
+      "percent": 2.7926032979562962,
+      "calls": 5
+    },
+    "backward": {
+      "milliseconds": 51.006714,
+      "percent": 2.0866908824286967,
+      "calls": 5
+    },
+    "line_search_rollout": {
+      "milliseconds": 388.13220299999995,
+      "percent": 15.878535699772073,
+      "calls": 5
+    }
+  },
+  "total_ms": 2444.382847,
+  "counted_instrumented_calls": 1190,
+  "exclusive_accounting_matches_total": true,
+  "seed_duplicate_arrays": {
+    "seed_scoring_recorded_1_0": {
+      "shape": [
+        31,
+        9,
+        59
+      ],
+      "all_nine_lanes_bit_exact": true
+    },
+    "seed_scoring_recorded_1_1": {
+      "shape": [
+        30,
+        9,
+        23
+      ],
+      "all_nine_lanes_bit_exact": true
+    },
+    "seed_scoring_recorded_1_2": {
+      "shape": [
+        9
+      ],
+      "all_nine_lanes_bit_exact": true
+    },
+    "seed_scoring_shifted_95_0": {
+      "shape": [
+        31,
+        9,
+        59
+      ],
+      "all_nine_lanes_bit_exact": true
+    },
+    "seed_scoring_shifted_95_1": {
+      "shape": [
+        30,
+        9,
+        23
+      ],
+      "all_nine_lanes_bit_exact": true
+    },
+    "seed_scoring_shifted_95_2": {
+      "shape": [
+        9
+      ],
+      "all_nine_lanes_bit_exact": true
+    },
+    "seed_scoring_fresh_580_0": {
+      "shape": [
+        31,
+        9,
+        59
+      ],
+      "all_nine_lanes_bit_exact": true
+    },
+    "seed_scoring_fresh_580_1": {
+      "shape": [
+        30,
+        9,
+        23
+      ],
+      "all_nine_lanes_bit_exact": true
+    },
+    "seed_scoring_fresh_580_2": {
+      "shape": [
+        9
+      ],
+      "all_nine_lanes_bit_exact": true
+    }
+  },
+  "full_solve_output_shapes": {
+    "planned_states": [
+      31,
+      59
+    ],
+    "planned_targets": [
+      30,
+      23
+    ],
+    "gains": [
+      30,
+      23,
+      58
+    ]
+  },
+  "dynamics_derivative_work": {
+    "state_tangent_dimensions": 58,
+    "target_dimensions": 23,
+    "knots": 30,
+    "lanes": 2460,
+    "derivative_evaluations": 5,
+    "native_steps_per_lane": 10,
+    "total_native_steps": 123000,
+    "measured_first_step_total_ms": 141.174338,
+    "measured_remaining_nine_steps_total_ms": 1299.8394440000002
+  },
+  "approximate_WSL_aggregate_busy_fraction_during_plan": 0.3671274961597542,
+  "approximate_busy_logical_CPUs_during_plan": 5.874039938556067,
+  "seed_scoring_upper_bound_eliminating_entire_stage_ms": 223.06736,
+  "lower_bound_even_with_free_seed_scoring_ms": 2221.315487,
+  "mathematical_equivalence_candidate": "Unguided seed rollout uses no alpha or feedback term: one trajectory, cost and warning delta can replace nine identical lanes; retain lane0 arithmetic, clipping, forward and warmstart semantics.",
+  "candidate_implemented": false,
+  "candidate_speedup_measured": false,
+  "exactness_scope": "This profile matches saved first-five planned states/targets/gains and final scalar cost. Original full uncommitted horizon is not archived for an independent full-horizon comparison.",
+  "timing_scope": "Single isolated planning call, exact saved control3200; not a timing distribution or live deadline qualification.",
+  "report_sha256": "e92c3ca7c97437077697171813e0e8173bea3609d45e5a0c3e5f5d454b1a5377",
+  "events_sha256": "af1881d47e14fb59f2fdd46b2351e59bc7f233dccfa1def73c531b6b25f625b0",
+  "solve_arrays_sha256": "f9cebb5d8a9251df0bcc692a43db80ce8befc94b57da9ce37a9746ab52e2665d",
+  "analysis_script_sha256": "f5535f741492b8b02d82398054eaee33f9f65d6a3de45016221ef245231b50e9"
+}

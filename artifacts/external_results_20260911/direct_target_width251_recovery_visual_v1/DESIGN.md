@@ -1,0 +1,15 @@
+# Offline expert recovery contact sheet
+
+Preparation only. The renderer has not been selected or executed. Its later invocation requires `--root-selected`; that flag must be supplied only after the parent selects the reviewed source. Before importing MuJoCo or loading any array, it verifies the exact completed recovery owner and all four independent full-main/continuous-hold physics and intent reports.
+
+The source derives from `artifacts/teleop_resume_20260911/render_qualified_expert.py`. The original file is preserved byte for byte. The full-geometry bounding and camera block is unchanged: one world camera encloses all selected actual and reference geometry, with the original 8% projection margin. There is no XY/root alignment, time warp, image crop, or per-panel camera fit.
+
+The nine saved physics boundaries remain 0, 3500, 5500, 7500, 9500, 11690, 12690, 15690, and 18190. The reference frame formula is unchanged. The reference is the same declared native floor-input reference used by the original template; the renderer does not modify it or substitute a new reference. Original 29-DOF source intent is established by the bound independent reports, rather than by these nine rendered native-reference poses.
+
+The main trace contains all 1569 controls: 250 BFM startup controls, the actual student's control 250, expert recovery starting at precontrol 251, and the original terminal phase. The 250-control standing hold is continuous with the full main endpoint. The renderer checks full integration, qpos, qvel and time at this join, ten recorded substeps per control, and the final combined `(18191, 30)` finite qpos shape. It uses these saved poses directly. No dynamics steps, policy calls, replanning, fitting, or task inference are executed. Native model construction, constant restoration, kinematics and offscreen rendering are the only eventual native operations.
+
+The title explicitly identifies offline expert recovery and the still-unqualified fast student. A nine-frame contact sheet is a visual aid, not proof of unseen trajectory behavior, online control speed, hardware safety, or student recovery ability. The four exact independent reports provide the full-scope qualification.
+
+Later outputs are created only in fresh `rendered_v1/`: nine `frame_*.png` pairs, `contact_sheet.png`, `report.json`, and a renderer source copy. The report records camera parameters, exact selected boundaries/reference frames, qualification limitations and all 46 input hashes. Every input is rehashed before the report is written. A failed render leaves any partial images in place; it must not be presented as completed or silently retried.
+
+Preparation validation is metadata/hash-only plus synthetic dictionaries and source/AST checks. `metadata_gate_v1.json` records the successful check of the actual saved JSON lineage without loading arrays. `synthetic_tests_v1.xml` records 14 tests plus 43 subtests, including incorrect scope, incomplete hold, each physical comparison, failed reports, missing direct subjects and conflicting path aliases. The exact camera block and nine-boundary/reference-clock statements match the preserved template.

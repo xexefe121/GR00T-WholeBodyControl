@@ -1,0 +1,2200 @@
+{
+  "kind": "g1_true23_projection_cost_ablation_v1",
+  "date": "2026-09-06",
+  "comparison_scope": "Single-seed matched 100-update frozen-LoRA runs; NOT original-v14 parity or hardware qualification",
+  "diagnostic_only": true,
+  "hardware_authorized": false,
+  "deployment_ready": false,
+  "selected_policy": null,
+  "controller_limits_changed": false,
+  "training_weight_default": 0,
+  "checkpoint_equality": {
+    "initial_actor_sha256": "39049d5018608f198dee1d2ea5e0f465d212dc4572c036d21378a36f80c1fc2f",
+    "initial_adapter_sha256": "a3900fa837c3c5da6110038c0ecff9a8c53016648f25fe3c11a6b145b1e5fb74",
+    "initial_critic_sha256": "4a9601770eeab427153f1587420b70d6e826daa8191c348cac54696588092db7",
+    "initial_equality": {
+      "adapter_contract": true,
+      "adapter_contract_sha256": true,
+      "adapter_state_dict": {
+        "all_tensors_bit_identical": true,
+        "same_keys": true,
+        "tensor_count": 18
+      },
+      "adapter_state_sha256": true,
+      "critic_state_dict": {
+        "all_tensors_bit_identical": true,
+        "same_keys": true,
+        "tensor_count": 12
+      },
+      "critic_state_sha256": true,
+      "merged_true23_policy_sha256": true,
+      "optimizer_state_dict": true,
+      "trainer_state": true
+    },
+    "lineage_differences": [
+      {
+        "baseline": "fb9c5938e729ad035bb491a594068bdb572d3091f73c98fd510ff92903bae5cd",
+        "path": ".lineage_sha256",
+        "penalty": "ccec64f3943cd0e3bd021b4c2e4f44c300bbcae3e7df6837ac42344936f1eb54"
+      },
+      {
+        "baseline": false,
+        "path": ".materials.resolved_config.payload.requested_projection_penalty.enabled",
+        "penalty": true
+      },
+      {
+        "baseline": 0,
+        "path": ".materials.resolved_config.payload.requested_projection_penalty.reward_weight",
+        "penalty": -2
+      },
+      {
+        "baseline": "d9d24b8001cbb664ba8837626b5481d84e679f86946422665d2181ae930858ee",
+        "path": ".materials.resolved_config.payload_sha256",
+        "penalty": "035c8d70637773fcdf6096a8224a81b2a56c73df179f469e375ae4a81247668b"
+      }
+    ],
+    "resolved_config_differences": [
+      {
+        "baseline": false,
+        "path": ".requested_projection_penalty.enabled",
+        "penalty": true
+      },
+      {
+        "baseline": 0,
+        "path": ".requested_projection_penalty.reward_weight",
+        "penalty": -2
+      }
+    ],
+    "runs": {
+      "baseline100": {
+        "adapter_contract_unchanged": true,
+        "adapter_sha256": "17958372709a6aa6b205da60c7a83143a2d38abf80c021d9d2b742f213e0aed1",
+        "adapter_tensor_count": 18,
+        "checkpoint_sha256": "8b15a754ec6a158df846aee42570068a48e402f0c138a2d0f8ec251618024b06",
+        "critic_sha256": "32b04ec6d74391371c94e236ebcf649020c5745d87ea024a5240c35f749ba4c7",
+        "lineage_sha256": "fb9c5938e729ad035bb491a594068bdb572d3091f73c98fd510ff92903bae5cd",
+        "merged_actor_sha256": "be5d327fad4035ac2bc8203af4a69076c31cb46fa36e5cadda47cffebb0dc033",
+        "trainer_state": {
+          "algorithm_learning_rate": 0.000005,
+          "completed_update_count": 100,
+          "current_learning_iteration": 100,
+          "env_common_step_counter": 1600
+        },
+        "updated_adapter_tensors": 18,
+        "updates": 100
+      },
+      "penalty2_100": {
+        "adapter_contract_unchanged": true,
+        "adapter_sha256": "fa61c79c5bf0bb8cb60d13c9c8fa7fcc67a9fadb7fc3293cf5848be2df62d9b1",
+        "adapter_tensor_count": 18,
+        "checkpoint_sha256": "9658268f6fad4698380b1846087efba942727e16ccfe0f0914e3505be6cb7c51",
+        "critic_sha256": "248b5c55cabbd9ab55fd4a3467c9c519341a5c983da16630860eae1e02dbc9b8",
+        "lineage_sha256": "ccec64f3943cd0e3bd021b4c2e4f44c300bbcae3e7df6837ac42344936f1eb54",
+        "merged_actor_sha256": "4776286da1f9b3dde3ea0c28eda9334cf8417caa763e0966881975526f33f2fd",
+        "trainer_state": {
+          "algorithm_learning_rate": 0.000005,
+          "completed_update_count": 100,
+          "current_learning_iteration": 100,
+          "env_common_step_counter": 1600
+        },
+        "updated_adapter_tensors": 18,
+        "updates": 100
+      }
+    }
+  },
+  "training_events": {
+    "baseline100": {
+      "selected_tags": {
+        "Episode_Termination/stage_one_actuation_guard": {
+          "count": 100,
+          "first_step": 0,
+          "last_step": 99,
+          "last_value": 7.5,
+          "last10_logged_mean": 6.8
+        },
+        "Train/mean_reward": {
+          "count": 100,
+          "first_step": 0,
+          "last_step": 99,
+          "last_value": -99.76726531982422,
+          "last10_logged_mean": -99.32723922729492
+        },
+        "Train/mean_episode_length": {
+          "count": 100,
+          "first_step": 0,
+          "last_step": 99,
+          "last_value": 4.110000133514404,
+          "last10_logged_mean": 4.752000045776367
+        },
+        "Train/mean_reward/time": {
+          "count": 100,
+          "first_step": 4,
+          "last_step": 257,
+          "last_value": -99.76726531982422,
+          "last10_logged_mean": -99.32723922729492
+        },
+        "Train/mean_episode_length/time": {
+          "count": 100,
+          "first_step": 4,
+          "last_step": 257,
+          "last_value": 4.110000133514404,
+          "last10_logged_mean": 4.752000045776367
+        }
+      },
+      "scalar_tag_count": 46
+    },
+    "penalty2_100": {
+      "selected_tags": {
+        "Episode_Reward/requested_projection_l2": {
+          "count": 100,
+          "first_step": 0,
+          "last_step": 99,
+          "last_value": -0.006289393175393343,
+          "last10_logged_mean": -0.006143929157406092
+        },
+        "Episode_Termination/stage_one_actuation_guard": {
+          "count": 100,
+          "first_step": 0,
+          "last_step": 99,
+          "last_value": 6.9375,
+          "last10_logged_mean": 7.075
+        },
+        "Train/mean_reward": {
+          "count": 100,
+          "first_step": 0,
+          "last_step": 99,
+          "last_value": -99.84043884277344,
+          "last10_logged_mean": -99.30182189941407
+        },
+        "Train/mean_episode_length": {
+          "count": 100,
+          "first_step": 0,
+          "last_step": 99,
+          "last_value": 4.150000095367432,
+          "last10_logged_mean": 4.374000024795532
+        },
+        "Train/mean_reward/time": {
+          "count": 100,
+          "first_step": 4,
+          "last_step": 265,
+          "last_value": -99.84043884277344,
+          "last10_logged_mean": -99.30182189941407
+        },
+        "Train/mean_episode_length/time": {
+          "count": 100,
+          "first_step": 4,
+          "last_step": 265,
+          "last_value": 4.150000095367432,
+          "last10_logged_mean": 4.374000024795532
+        }
+      },
+      "scalar_tag_count": 47
+    }
+  },
+  "evaluation_audit": {
+    "independently_rechecked_files": {
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original_sonic_rehearsal_corpus_v1/corpus.npz": "96a35f0a9edee22750f903fa663354fd6715d7f5b91b42742f645039168a358c",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original_sonic_rehearsal_corpus_v1/corpus.recovery.json": "669f338d1994e45fa10ad569b2bed8ac04e02c2b541dea96875bb0d4130caa45",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_original/original_sonic_elbow_crawl_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "612557525beeaa7fdb3e30f3746f00085999a64501affebea49b5213c57e115a",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_original/original_sonic_elbow_crawl_reference/summary.json": "0f034fd316c0e59f27acd91d32898ceae49a217c19ecef5778ed6eba851c810c",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_original/original_sonic_hand_crawl_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "bcfc326b39afda5fbfcc63021d56ef024b642b3c6f9618f49152b569008b68dd",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_original/original_sonic_hand_crawl_reference/summary.json": "c32addcb9184b46dbd7085c37235b2c3a705c9fc72842374adfc923b896306e9",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_original/original_sonic_happy_dance_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "e2b138e47f365b9fc96a0a95b95528c3fbee8ff50aab9681192dde9b04373544",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_original/original_sonic_happy_dance_reference/summary.json": "6f3cd4f20a653663d62becd5c39d83d7fe312970cbf351505490a2a9636d8ede",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_original/pico_crouch_anchor_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "e6b3a44fd92714e65be2a291cd2c11b98b5db542d96e851b51918710c75a4b53",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_original/pico_crouch_anchor_reference/summary.json": "c15ff4e7eb1d9268812434ce12e3c9cbc71bbf6ae6f3e07b899d37b16d72fbdc",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_original/pico_standing_anchor_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "c8b67bc2d02c5f72ff8ee5bd00d0fa76407e1e0fcd34460fe5f09d36faa2824a",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_original/pico_standing_anchor_reference/summary.json": "02924a762d6c5b89dfe7b8f17433a95002cab439f037342d0dffb235389cee36",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_original/pico_twist2_walk_001_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "c2b52d7814a32733db1af5712832c5bd5bf0cb15448965e63fc0ee96e63030a1",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_original/pico_twist2_walk_001_reference/summary.json": "d9e1e2e7232eeb7807c7eea0e8a90195f2f71040f12544d169a3f7072ee1532e",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_original/pico_twist2_walk_010_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "c58b052d88eb0fc1f450ae76c8396bb6e25032d62b07caf45c2b6a81499c9b2b",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_original/pico_twist2_walk_010_reference/summary.json": "c4b26be2af75f6650d0a38fd8d34d1d092fa47366d1f5bddf28bc858a232b8e7",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_original/pico_upright_anchor_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "c46810d08782d1591d0218e377a12134797ff466df35cb37ab2716e0be55fbf3",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_original/pico_upright_anchor_reference/summary.json": "dda3ae194ed549c80d85efe73766ffee6e8bcb9b4d94f8cd74754f73fac512ac",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_stance_v2/original_sonic_elbow_crawl_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "b91aeb3c28c780a5f01032402c3073e2875bcddda380709b2d904bb2cbf895f9",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_stance_v2/original_sonic_elbow_crawl_reference/summary.json": "862b5a32cdd7cb53afd7d1df179ead1d6d00836a1e3885e5e8ffe12c8b64433d",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_stance_v2/original_sonic_hand_crawl_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "cbc279217bb56facba1f6b3a82630aca7556efce1aa0edd4e956b059e81eeeae",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_stance_v2/original_sonic_hand_crawl_reference/summary.json": "1d7e0f7b8751e8f82c5686e03a71a4b332d0349fa2a73f24570f9fb71c11be16",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_stance_v2/original_sonic_happy_dance_measured/configured_sim_fraction1_ankle35_slew5_measured.npz": "83e58ed891464eb0b0db6bfda948b44ba228b0e8e8433e35f4078157ad1b0200",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_stance_v2/original_sonic_happy_dance_measured/summary.json": "8191fa5c6d4e21dff7cb5ded13c4f4dd6a9edd680494ba3cae25924041cf474b",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_stance_v2/original_sonic_happy_dance_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "ba2ada8929286d1020b544b906d34beef29e59dc07336c43aa02588c4d90b05c",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_stance_v2/original_sonic_happy_dance_reference/summary.json": "2404189ffd023583f4591ebf62e772da58a43a986388e539e2f84098b6d499bb",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_stance_v2/pico_crouch_anchor_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "a95e690d8b070902e5cb5aeab08cbff501dba83c2b6a195f5fc0589801805cf1",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_stance_v2/pico_crouch_anchor_reference/summary.json": "367cc42ea97a0f5e480d4af9ae3a6c693f5d48af0d85364049efd415f9e715d4",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_stance_v2/pico_standing_anchor_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "2d547b82ca4233081ecaf5b484128fb7e06cf508cf361f7248ed785c8ad6e7ec",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_stance_v2/pico_standing_anchor_reference/summary.json": "0c0ba7381426fa0d0b650846ebae8bca350b727048733cd54956b1cdf3b92398",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_stance_v2/pico_twist2_walk_001_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "dc2031cbbffe8827f861f1daeccf89447c2120aebb8f5f97e809483da08e562d",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_stance_v2/pico_twist2_walk_001_reference/summary.json": "d63d9b0032af6c9d8b16a958ec0fe9cd3c9ea794f37ef61e87d783f87b6dbbac",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_stance_v2/pico_twist2_walk_010_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "eba54d924fc4391e46c921176b9725694be9ee354a4e8f5f8ae3b896d7b664fa",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_stance_v2/pico_twist2_walk_010_reference/summary.json": "0d98627838e4b06610c0384eed00e54ca15836ff88e49d0aa5c4a9d95ac75622",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_stance_v2/pico_upright_anchor_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "21bcffff798202b818bd6352174d7c2b300bcedd62eb6c720756b6140081c2dc",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_stance_v2/pico_upright_anchor_reference/summary.json": "191b3e57ccccae12fab72b6007976a4583b0ea1c7ae51981b27332004dbf7eda",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/eval/model_100.diagnostic.decoder.json": "d0f7fada75045e9220b5da6b8cf0cda8c31baffd2cbcaeb77fb42bd011afb8a3",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/eval/model_100.diagnostic.decoder.onnx": "90e27f37df747c28d8d8fc74a21f892314c67119074e99882a68d73d34295381",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/eval/model_100.diagnostic.encoder.json": "5bcccbb26bc33cd2d3dbd31be50af5a98ba0e6608a96e7fac86dfe7932cbb24c",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/eval/model_100.diagnostic.encoder.onnx": "3806b2b63ebadf4d6cbf9f79b7072f2bf27ab8eb8bc6a9b3042f97739cc5428a",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_original/original_sonic_elbow_crawl_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "57b5ddfb6f896a40a200e0d2effc0577d80f0ac7ea4827760be7962a409e3b52",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_original/original_sonic_elbow_crawl_reference/summary.json": "dd2f8c221fdac60b23378eaa591ef929b9581b60871f8eff01cb8a756901b6f9",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_original/original_sonic_hand_crawl_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "37f4e3dfc0b97e3e53dadbf2e57dc1a70dc30df13a8da4d8a66704ca08b658f7",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_original/original_sonic_hand_crawl_reference/summary.json": "cdad4c2325c92e30b7059883972744e753fa2951b23ebebdb83eecd8d328e7b7",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_original/original_sonic_happy_dance_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "a4a75bff61898a58f6c3812b1b80a6137c147163ef747c459ebd6a04d31daecc",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_original/original_sonic_happy_dance_reference/summary.json": "ddf1cf4a2f869f371dd2c0a354393fee4305f6326de273642c8a45d4a27bbd28",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_original/pico_crouch_anchor_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "809ff4c80c7bd93493d841ae47653fe9bb8193ac48582974da81ef5f484e4b2b",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_original/pico_crouch_anchor_reference/summary.json": "e554fb6e87da08b89e916a5a1d371bc776650da795c3eb615ec95585ad416fb0",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_original/pico_standing_anchor_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "26d504f622064dda9b6d419408d258ef472515e426c197cff269e1be880b5d11",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_original/pico_standing_anchor_reference/summary.json": "2981d57e248e9d18d2bbe35df46b1366e4d526b2e29cf1c5059b6c2c31fbd4a4",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_original/pico_twist2_walk_001_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "dbba08aaff27f3bbc781125498afcf4992ac62555bbfd58452943df21758f064",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_original/pico_twist2_walk_001_reference/summary.json": "7fac0ae2d6c5bd885aa5d25f6d92b39214e1ae455c47bbdf2f2c7a84df9e88f7",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_original/pico_twist2_walk_010_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "890ffc24dedb8418cc81ce6dfe0177d1fcc09c18c160f26acb0674d3258a8052",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_original/pico_twist2_walk_010_reference/summary.json": "adcd2ffb6f98cdff655ea136a063cd09f307bd0eb772e7b8fbb331b9e29a02ce",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_original/pico_upright_anchor_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "872d7da5872343501c7c27c46a132f8f955446f048c18b7d4a73634d68fbe157",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_original/pico_upright_anchor_reference/summary.json": "2c1ea09d370b07f1c1556aed224ac5e5ebb9e2815ba66750dd66f8ba3c975f62",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_stance_v2/original_sonic_elbow_crawl_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "c9deddbc467ce2f883ee3f89c7bfcfc44a77bd3ff50d4b5f344dd84548abfbe6",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_stance_v2/original_sonic_elbow_crawl_reference/summary.json": "cf491b42ea156362deee7f85c0ede4279cb4c2e05056ffd616bdcc13708a7ce9",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_stance_v2/original_sonic_hand_crawl_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "9fee98a46d8f3baa752b94796c52f6ca1bf38f5dec5766e572a143292deefe55",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_stance_v2/original_sonic_hand_crawl_reference/summary.json": "c932af8bb048d58b4ef6882cf6e1364ce43492ace8cb97ca8101470cec2dc3d2",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_stance_v2/original_sonic_happy_dance_measured/configured_sim_fraction1_ankle35_slew5_measured.npz": "0faa2ccfe471d286eb8256b24d203661c5e316c63607e21964ff7b09af8e12ee",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_stance_v2/original_sonic_happy_dance_measured/summary.json": "b6fec0e9ef45962301a8d2b94aac310aff1cf583864d831b041b223905bf1afd",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_stance_v2/original_sonic_happy_dance_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "e1cdddaf12da6a3284269aecbea74d789fa3ed61e36986c7e3939cc6c4c50b8d",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_stance_v2/original_sonic_happy_dance_reference/summary.json": "7541c80b4263288aa584ee5e54c4477a6ceb0dfe7f84eafa783169e8adbde7ba",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_stance_v2/pico_crouch_anchor_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "e710efa4cb634ac986deede98119bd27e63fdaca0efbe634c88a79cea32c682e",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_stance_v2/pico_crouch_anchor_reference/summary.json": "441e660e0d3bb875cf0668b0efb668bd050936356aec5a3f7ecf2d6412870e3f",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_stance_v2/pico_standing_anchor_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "27cc301af25c5e5ccee0a40ff2026333e7fbf565688db65d43818d0251b4bb11",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_stance_v2/pico_standing_anchor_reference/summary.json": "470856128f1de972138910ecf6b204432adeaece19a402038bfdd217931104b7",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_stance_v2/pico_twist2_walk_001_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "75e0030b4da17b6c35e8e942447231f196acc0070f976220dfece67178b15f70",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_stance_v2/pico_twist2_walk_001_reference/summary.json": "8871aeaabe70041bd8c99bd240b06dbde4201b2c0f1f81a5d730fe60b6942807",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_stance_v2/pico_twist2_walk_010_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "732e3581e723d549b266cf95df1583f6ad4f0b9ccb06d5eb7d99d1d0b34d11c1",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_stance_v2/pico_twist2_walk_010_reference/summary.json": "5a47813fc4a9fb61fcf8ecccb874e1c4fe42a1f9ca9291c87d5a98fd34744991",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_stance_v2/pico_upright_anchor_reference/configured_sim_fraction1_ankle35_slew5_reference.npz": "ea845dd7db57c17c8da69e3dcd7b365a37a26889aa4d9519b4072deb00ad91ea",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_stance_v2/pico_upright_anchor_reference/summary.json": "9faf5893ac8215b44fee28d6eaa9009e033a3a24e36f26383f279e8ef39b2b30",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/eval/model_100.diagnostic.decoder.json": "b15653819f8f2918a1fad009e6c0574a17659eaa23e929b512d8ea732e8b7849",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/eval/model_100.diagnostic.decoder.onnx": "6e85051a1812ec4a809c509b430c1711692f8638e8214ac43ba4097e809ed5c1",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/eval/model_100.diagnostic.encoder.json": "d631a7ac65a133f71b17a19f42cb31f229aeb87ec60a2d40ebd30694c7bc9547",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/eval/model_100.diagnostic.encoder.onnx": "3806b2b63ebadf4d6cbf9f79b7072f2bf27ab8eb8bc6a9b3042f97739cc5428a",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/readiness_audit_20260905_v1/motor_health.json": "7a9806e76f6cb7f503427e995698b14974eb36c61d8865738f207f755e332fff",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/stance_retarget_20260906_v2/motions.json": "ad07e57201d5778b326686f0d2a198c01d2d28b73faf40927797c7093f103f72",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/stance_retarget_20260906_v2/original_sonic_elbow_crawl.npz": "8cc661bf606beff6a11e9588eb3be3d7a4894f0d9d82abb0b6bc9a3aedf821c0",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/stance_retarget_20260906_v2/original_sonic_hand_crawl.npz": "9dc56a8dc3a66d309924519c32501874fca09b2c4a96e348919bf8696587b979",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/stance_retarget_20260906_v2/original_sonic_happy_dance.npz": "4aaa35e0231af67bf6f53a0a8cdc7b62359829be7c7c36791e7b6cf2bd894a26",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/stance_retarget_20260906_v2/pico_crouch_anchor.npz": "ac17115b4105b24174e7053552a4cc1fbf11099c95e3734e8f96efbc45661949",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/stance_retarget_20260906_v2/pico_standing_anchor.npz": "31ed404b44d09b5ab4b91ba758777bdb509dbe432be6af0e30b40a03361d41c1",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/stance_retarget_20260906_v2/pico_twist2_walk_001.npz": "706d070a11eb8de747bc3db93b4dd726a78f39306cbf0fd5245002a69902a718",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/stance_retarget_20260906_v2/pico_twist2_walk_010.npz": "41a4fbf606970a3410235e3d2a1785c5e41922e02b827e603ccfe74ba4cd9763",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/stance_retarget_20260906_v2/pico_upright_anchor.npz": "6693c6d5a96c652d192216681325440140556bd07413f18462144e5a25ac1927",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/config/sim_validation/g1_23dof_mujoco_sim2sim.json": "bc4dab246e709604f435dea7c584adc01f1c38a6abb6ac1bc22fc699c42272c3",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/config/sim_validation/g1_true23_frozen_lora_original_sonic_rehearsal_v1.json": "3ea1b4e3a6b514e86919d2bb7503b2872de884e57f5d77852d84fba0a7237b41",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23.py": "64c27e20d61de6013dfb9b40c2dff01fc2908fec34be8deceed4be01224da9d4",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_causal_history.py": "13acda79144d69ee2a7870cb76656b0e0c92d5d078c1a8d0bfaba3d8f04e98b5",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_causal_multimotion_v14.py": "3b943f56d41dfaeba0f319208f7ebbae61bf0d677ad5806f29be86c3fbf039c8",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_low_latency_recovery.py": "db893c7a362f37da30f914500470f23694f5fb55a40c1ee34522b4a14cf144f9",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_stage_one_actuation.py": "87b8b670870036a2986ec53e8ad84e8af1e69e752e27b176fe8610d3dcb9ef2e",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/build_g1_23dof_low_latency_recovery_motion.py": "8877e31886c84d605f3ed6d8f07e5744ca6c26408d41ed330f374800bf066198",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/evaluate_g1_true23_deployment_envelope.py": "07d819fb04e642a0d8641562a8b479138544b540008203ec353d2bb319f5a9c5",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/evaluate_g1_true23_paired_envelope_suite.py": "e37b53b63fdf626c604ce06660292e9b6ff28aea417a8145645aaa6a34c7258c",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab.py": "888462e28b1bb91414fdb24e63bac112623ae691f75cb601eb2af007241879b8",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab_causal_history.py": "5fce5b3f88f5e66497ee38806b1184677e17c3c7b0f64b855afa88348e263e83",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab_frozen_lora.py": "20e7a0d99fd03f84374d7841652f09b5ee64ed61069761d43850a9317fe2f3eb",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab_low_latency_recovery.py": "076f2fe95e94a261dc3d75c4b589a47c744181335519d2be2d3c85b39421e3a8",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab_teleop_v13.py": "5d14a4db598fe80d93ac7398c9dd09e91327353d964b56ab3f4978401c168362",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab_teleop_v14.py": "7e5ca3facf05fd89cc22de47c96234d14a6de0aa33e269d466b52c3d1bb10f32",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/causal_history_runner.py": "03b84975f3341941199d2b7b36e17da9404c274b04710de2a0ea57baa4ae5c00",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/causal_teleop_runner_v14.py": "841da1d8de469a0b4f5a12f924a488dc857ada1d78d05609de80f67277e6c3c8",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/config.py": "b090b9476145773d2aaf74464b55e5db75e0cbdc45d7de5d22483efe3dc6ac95",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/frozen_platform_lora_actor.py": "8412b1ebba479312f3b6f1d016acd41a74b16c60a4c54c926beef45ced2cf085",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/frozen_platform_lora_runner.py": "1eecf5e08295201851f88f90e616007d1db1ec8c10f0543881a24bb909963571",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/runner.py": "dd25b62f05de7c1fab623b3aa224749dbb1a2ce96d3581caf2f1d70e40605c2d",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/true23_actor.py": "d41f954cb7ca750c6becb10df931e6e9ecf763dc6ff758f2ddc846d6d0086efe",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_artifact.py": "cda9d310aa52053b765e53081ef00b2b64d4f56a134ce7ff06494d7023c145dc",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_checkpoint_io.py": "e1c970258de1f79d12c08b4db4af7ae680bbd0158f48b6c9fcb204d7e0c4c827",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_contract.py": "113ba62dd9734b77c4c32f812e5891066c5bac0c21635c74739b643267fef55a",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_mjlab_training.py": "9c6ed3735abb904477ec3598579df5a821ce177d9a7954bd884b6f7e54ce5be3",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_safe_target_transform.py": "13bb352b59faa83195c7b423d40056ab37deab197a8aa66f8e0aaa33641503cf",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_actuation_profile.py": "9db4f5a4c715915de35ceaee242013b733f03ac4afe2fc65c7a861048f4e3913",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_clean_mujoco_teleop.py": "0630709a9e55d5ce782dc93944aa8faeba24ff680bdd8c163ce324416bfb897a",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_frozen_lora_gates.py": "289a04d366b37f9ed2d63d9995dbc2188c6a47d4da86bb2d0677da49bf74c0b8",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_motion_fidelity.py": "689de00a422e7071ee4ba60e5ebb2087b77d11faccc20d6bfb5d0af587d2a863",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_predictive_target_filter.py": "e68de3348d619d5b6a3af8b2680a926bf85283707672e3397fa84eea5180efda",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_projected_controller_state.py": "b2af8748e3806e292770b085756436b630c11143bb46eafb795a53a74f8f9647",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_sim_acquisition.py": "41d97a7fc6a304ab40156d4e059aa1e82b0d7e6414c6371fdcabfdc4ffe528ab",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_sonic_library_replay.py": "92fd5add66ee9f37a708d358132cc48686ce8f7c520225f7ac8a99e8b908f28f",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_step1b_mujoco.py": "ffed3a136b9c0f7343fd768a880fc395ce8f4737b735b7158c8f8ddd375ead3d",
+      "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/true23_active_gantry_core.hpp": "5c7965251b49d4f3005e9802aebddb03f60534603992c11837078e5ac41badaf",
+      "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/external/unitree_rl_mjlab/deploy/robots/g1/config/policy/velocity/v0/exported/policy.onnx": "2a66ca6336eadb3c0b34b557763f3e06d01ff8fcf6260dd4cedbd69d6093fc28",
+      "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/internet_pico_twist2_v1/canonical_safe9_001/0807_yanjie_walk_001_50hz.canonical.safe9.npz": "810b2c85ebae8e0100d8a3ff9f479e79610e31fbedac852ed6a0dca4b6f06557",
+      "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/internet_pico_twist2_v1/canonical_safe9_010_hold510/0807_yanjie_walk_010_50hz.canonical.safe9.hold510.npz": "939888db3e28ee96d814e29d193e93599e2d48f22c5859e37c6f5bf2bfdbee5e",
+      "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/pico_fullbody_motion_v1/crouch.true23.npz": "3c09046f9916926ec07935e1ec672506990e45735e62af9a2cd2d4b4bab0482d",
+      "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/pico_fullbody_motion_v1/standing_1806.true23.npz": "46b9a59f7a4646d45eb1cec831544308f053bfd166bd88b0875a5f5df179196a",
+      "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/pico_fullbody_motion_v1/upright.true23.npz": "3cba00b7ff1c51e6c80c7739ddd03082b6f19c9abc50ec5686cdc9dd41e4515e",
+      "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_elbow_physical_reference_v1/elbow_crawling.true23.npz": "b1e76b3b3bfaff35b34f6b80f104d702597ed1cd9448ea48515f51d398d309b6",
+      "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_hand_original_speed_v1/hand_crawling.true23.npz": "1ea643d5d51c130eee2ea666585d19a2040f663613399c808af0c277d5b7d229",
+      "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_happy_physical_reference_v1/happy_dance.true23.npz": "e5b73bc131721c630500870c6ce7185c538dd237942ad58e2d02d0aad5a05e04",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/__init__.py": "7188c934643ba7bf61e34a6eeacfdcfec59cea1d9aeb706aed1fe3d08667de8f",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/g1_23dof_constants.py": "5cfcb779fa6795a604d0b140caf8082c40e623324d79f98bfb15c49031e60797",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/g1_constants.py": "9000a7ffe25b68903fb528f9b5563105afbc7a3e6d74c72b6796124d9cdaedaf",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/head_link.STL": "005fb67fbd3eff94aa8bf4a6e83238174e9f91b6721f7111594322f223724411",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/left_ankle_pitch_link.STL": "d49e3abc6f5b12e532062cd575b87b5ef40cd2a3fc18f54a1ca5bba4f773d51d",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/left_ankle_roll_link.STL": "c4092af943141d4d9f74232f3cfa345afc6565f46a077793b8ae0e68b39dc33f",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/left_elbow_link.STL": "fa752198accd104d5c4c3a01382e45165b944fbbc5acce085059223324e5bed3",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/left_hip_pitch_link.STL": "4725168105ee768ee31638ef22b53f6be2d7641bfd7cfefe803488d884776fa4",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/left_hip_roll_link.STL": "91f25922ee8a7c3152790051bebad17b4d9cd243569c38fe340285ff93a97acf",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/left_hip_yaw_link.STL": "a16d88aa6ddac8083aa7ad55ed317bea44b1fa003d314fba88965b7ed0f3b55b",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/left_knee_link.STL": "8d92b9e3d3a636761150bb8025e32514c4602b91c7028d523ee42b3e632de477",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/left_rubber_hand.STL": "cff2221a690fa69303f61fce68f2d155c1517b52efb6ca9262dd56e0bc6e70fe",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/left_shoulder_pitch_link.STL": "f0d1cfd02fcf0d42f95e678eeca33da3afbcc366ffba5c052847773ec4f31d52",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/left_shoulder_roll_link.STL": "fb9df21687773522598dc384f1a2945c7519f11cbc8bd372a49170316d6eee88",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/left_shoulder_yaw_link.STL": "1aa97e9748e924336567992181f78c7cd0652fd52a4afcca3df6b2ef6f9e712e",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/left_wrist_pitch_link.STL": "b251d8e05047f695d0f536cd78c11973cfa4e78d08cfe82759336cc3471de3a9",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/left_wrist_roll_link.STL": "edc387c9a0ba8c2237e9b296d32531426fabeb6f53e58df45c76106bca74148c",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/left_wrist_roll_rubber_hand.STL": "e81030abd023bd9e4a308ef376d814a2c12d684d8a7670c335bbd5cd7809c909",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/left_wrist_yaw_link.STL": "83f8fb3a726bf9613d65dd14f0f447cb918c3c95b3938042a0c9c09749267d3b",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/logo_link.STL": "8571a0a19bc4916fa55f91449f51d5fdefd751000054865a842449429d5f155b",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/pelvis.STL": "5ba6bbc888e630550140d3c26763f10206da8c8bd30ed886b8ede41c61f57a31",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/pelvis_contour_link.STL": "5cc5c2c7a312329e3feeb2b03d3fc09fc29705bd01864f6767e51be959662420",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/right_ankle_pitch_link.STL": "15be426539ec1be70246d4d82a168806db64a41301af8b35c197a33348c787a9",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/right_ankle_roll_link.STL": "4b66222ea56653e627711b56d0a8949b4920da5df091da0ceb343f54e884e3a5",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/right_elbow_link.STL": "1be925d7aa268bb8fddf5362b9173066890c7d32092c05638608126e59d1e2ab",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/right_hip_pitch_link.STL": "e4f3c99d7f4a7d34eadbef9461fc66e3486cb5442db1ec50c86317d459f1a9c6",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/right_hip_roll_link.STL": "4c254ef66a356f492947f360dd931965477b631e3fcc841f91ccc46d945d54f6",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/right_hip_yaw_link.STL": "e479c2936ca2057e9eb2f7dff6c189b7419d7b8484dea0b298cbb36a2a6aa668",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/right_knee_link.STL": "63c4008449c9bbe701a6e2b557b7a252e90cf3a5abcf54cee46862b9a69f8ec8",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/right_rubber_hand.STL": "99533b778bca6246144fa511bb9d4e555e075c641f2a0251e04372869cd99d67",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/right_shoulder_pitch_link.STL": "24cdb387e0128dfe602770a81c56cdce3a0181d34d039a11d1aaf8819b7b8c02",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/right_shoulder_roll_link.STL": "962b97c48f9ce9e8399f45dd9522e0865d19aa9fd299406b2d475a8fc4a53e81",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/right_shoulder_yaw_link.STL": "a0b76489271da0c72461a344c9ffb0f0c6e64f019ea5014c1624886c442a2fe5",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/right_wrist_pitch_link.STL": "d22f8f3b3127f15a63e5be1ee273cd5075786c3142f1c3d9f76cbf43d2a26477",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/right_wrist_roll_link.STL": "a7ee9212ff5b94d6cb7f52bb1bbf3f352194d5b598acff74f4c77d340c5b344f",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/right_wrist_roll_rubber_hand.STL": "0729aff1ac4356f9314de13a46906267642e58bc47f0d8a7f17f6590a6242ccf",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/right_wrist_yaw_link.STL": "bc9dece2d12509707e0057ba2e48df8f3d56db0c79410212963a25e8a50f61a6",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/torso_link_23dof_rev_1_0.STL": "3cd0d56fde14b73c1623304684805029971c4f84b596f9914e823ca70a107fd2",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/torso_link_rev_1_0.STL": "11ddb46f2098efbbd8816b1d65893632d8e78be936376c7cdcd6771899ccc723",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/waist_roll_link_rev_1_0.STL": "b67c347a05abc3e8ddae600d98a082bee273bb39f8e651647708b0a7140a8a97",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/assets/waist_yaw_link_rev_1_0.STL": "ec6db442b11f25eed898b5add07940c85d804f300de24dcbd264ccd8be7d554c",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/g1.xml": "44848330ddbecefa6305644d912a6f0f768d2a4a6fb0a409c9e3477b3afaf364",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/g1_23dof.xml": "9bf3d7d3f3f2a66868ee742314fecafd9572e4d1980e9095bec81d45dacfc9fb",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/scene_g1.xml": "1f85390f8f5a8319ae8200834b68ecf395032f2c3d7b20a91c1d9f577a024e17",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/scene_g1_23dof.xml": "d829d1cb4f7601cc27eac6c3174e8f23bc6b1edeab3ecb6be1738af201e9aa47",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/xmls/scene_g1_native_23dof_deploy.xml": "50abecbc5d2094bb8236a08085161a177be1bf1327a18a4ce38b30871238e07b",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/tasks/tracking/config/g1_23dof/env_cfgs.py": "338894a8b36333195565dfeb5b06115e3ded9d0dff428121b24b459e3a7530fc",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/tasks/tracking/mdp/commands.py": "82c83a6fd908002aae8368c55cbe08a2ee7e60fcb8de4d5be3d6c5b2be911bbd",
+      "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab/src/tasks/tracking/tracking_env_cfg.py": "33f058321a7f8a0e66dbdae3d3a9cd3ea87abd7bf8eecee54daa3c6bf541a0cb",
+      "/mnt/z/codex/GR00T-WholeBodyControl/gear_sonic/data/robots/g1/g1_23dof_rev_1_0.xml": "16e304c970bfc68783ea69d01d05192e6bd9d83d62f6ee4aac0ac72ff18db612"
+    },
+    "independently_rechecked_unique_files": 185,
+    "models": {
+      "baseline100": {
+        "decoder": {
+          "active_motor_control_authorized": false,
+          "decoder": {
+            "filename": "model_100.diagnostic.decoder.onnx",
+            "input_name": "obs_dict",
+            "input_shape": [
+              1,
+              994
+            ],
+            "opset": 13,
+            "output_name": "action",
+            "output_shape": [
+              1,
+              23
+            ],
+            "sha256": "90e27f37df747c28d8d8fc74a21f892314c67119074e99882a68d73d34295381"
+          },
+          "deployment_ready": false,
+          "diagnostic_only": true,
+          "encoder_contract": {
+            "dtype": "float32",
+            "fsq_formula": "fsq_tanh_round_ste_even_levels_v1",
+            "fsq_level": 32,
+            "input_shape": [
+              1,
+              267
+            ],
+            "output_shape": [
+              1,
+              64
+            ]
+          },
+          "hardware_authorized": false,
+          "kind": "g1_true23_frozen_lora_diagnostic_decoder_onnx",
+          "paired_encoder_state_sha256": "3625edb10aabd266196702aefd464ad07c93847f2d1722a977e18ef2a0143990",
+          "promotion_eligible": false,
+          "schema_version": 1,
+          "source": {
+            "adapter_state_sha256": "17958372709a6aa6b205da60c7a83143a2d38abf80c021d9d2b742f213e0aed1",
+            "filename": "model_100.diagnostic.pt",
+            "policy_state_sha256": "be5d327fad4035ac2bc8203af4a69076c31cb46fa36e5cadda47cffebb0dc033",
+            "sha256": "7fa84db5ef7bd22b043de1c9cdb49313cd7fc142840981ed2d25ba4a4e3158a3",
+            "update_count": 100
+          },
+          "validation": {
+            "exact_merged_decoder_reconstructed": true,
+            "onnx_runtime_parity": {
+              "onnx_checker_full_check": true,
+              "ort_provider": "CPUExecutionProvider",
+              "parity_atol": 0.00001,
+              "parity_case_count": 3,
+              "parity_inputs_sha256": "5ca85cb07e8bcab951714e79ddc27d8c2fb70617c179d784a88515499e3f6638",
+              "parity_max_abs_error": 0.000002622604,
+              "parity_max_rel_error": 0.000041240255,
+              "parity_outputs_sha256": "cf8294710d509f9c953c0e18a9dd64fc2d7d6e898f293562b3d40fda402068e4",
+              "parity_rtol": 0.00001,
+              "shape_inference": true
+            },
+            "onnx_structure_validated": true,
+            "weights_only_diagnostic_policy_validated": true
+          }
+        },
+        "encoder": {
+          "active_motor_control_authorized": false,
+          "deployment_ready": false,
+          "diagnostic_only": true,
+          "encoder": {
+            "filename": "model_100.diagnostic.encoder.onnx",
+            "input_name": "teleop_obs",
+            "input_shape": [
+              1,
+              267
+            ],
+            "opset": 13,
+            "output_name": "token",
+            "output_shape": [
+              1,
+              64
+            ],
+            "sha256": "3806b2b63ebadf4d6cbf9f79b7072f2bf27ab8eb8bc6a9b3042f97739cc5428a"
+          },
+          "encoder_contract": {
+            "dtype": "float32",
+            "fsq_formula": "fsq_tanh_round_ste_even_levels_v1",
+            "fsq_level": 32,
+            "input_shape": [
+              1,
+              267
+            ],
+            "output_shape": [
+              1,
+              64
+            ]
+          },
+          "hardware_authorized": false,
+          "kind": "g1_true23_frozen_lora_diagnostic_encoder_onnx",
+          "paired_encoder_state_sha256": "3625edb10aabd266196702aefd464ad07c93847f2d1722a977e18ef2a0143990",
+          "promotion_eligible": false,
+          "schema_version": 1,
+          "source": {
+            "adapter_state_sha256": "17958372709a6aa6b205da60c7a83143a2d38abf80c021d9d2b742f213e0aed1",
+            "filename": "model_100.diagnostic.pt",
+            "policy_state_sha256": "be5d327fad4035ac2bc8203af4a69076c31cb46fa36e5cadda47cffebb0dc033",
+            "sha256": "7fa84db5ef7bd22b043de1c9cdb49313cd7fc142840981ed2d25ba4a4e3158a3",
+            "update_count": 100
+          },
+          "validation": {
+            "exact_merged_encoder_reconstructed": true,
+            "onnx_runtime_parity": {
+              "onnx_checker_full_check": true,
+              "ort_provider": "CPUExecutionProvider",
+              "parity_atol": 0.00001,
+              "parity_case_count": 3,
+              "parity_inputs_sha256": "74b0477b02116472af881df5d086a49128b4c3b5eaf7a906513777fb2c46095c",
+              "parity_max_abs_error": 0,
+              "parity_max_rel_error": 0,
+              "parity_outputs_sha256": "239ae2d67f91aeb0caa9398af3c9e150cf457304796e6ea20da940fc960d73ec",
+              "parity_rtol": 0.00001,
+              "shape_inference": true
+            },
+            "onnx_structure_validated": true,
+            "weights_only_diagnostic_policy_validated": true
+          }
+        }
+      },
+      "penalty2_100": {
+        "decoder": {
+          "active_motor_control_authorized": false,
+          "decoder": {
+            "filename": "model_100.diagnostic.decoder.onnx",
+            "input_name": "obs_dict",
+            "input_shape": [
+              1,
+              994
+            ],
+            "opset": 13,
+            "output_name": "action",
+            "output_shape": [
+              1,
+              23
+            ],
+            "sha256": "6e85051a1812ec4a809c509b430c1711692f8638e8214ac43ba4097e809ed5c1"
+          },
+          "deployment_ready": false,
+          "diagnostic_only": true,
+          "encoder_contract": {
+            "dtype": "float32",
+            "fsq_formula": "fsq_tanh_round_ste_even_levels_v1",
+            "fsq_level": 32,
+            "input_shape": [
+              1,
+              267
+            ],
+            "output_shape": [
+              1,
+              64
+            ]
+          },
+          "hardware_authorized": false,
+          "kind": "g1_true23_frozen_lora_diagnostic_decoder_onnx",
+          "paired_encoder_state_sha256": "3625edb10aabd266196702aefd464ad07c93847f2d1722a977e18ef2a0143990",
+          "promotion_eligible": false,
+          "schema_version": 1,
+          "source": {
+            "adapter_state_sha256": "fa61c79c5bf0bb8cb60d13c9c8fa7fcc67a9fadb7fc3293cf5848be2df62d9b1",
+            "filename": "model_100.diagnostic.pt",
+            "policy_state_sha256": "4776286da1f9b3dde3ea0c28eda9334cf8417caa763e0966881975526f33f2fd",
+            "sha256": "2a506e28add12a4aef67d08a0a8666b4b4ebc0bc08d3b7414f833b530f20bf1b",
+            "update_count": 100
+          },
+          "validation": {
+            "exact_merged_decoder_reconstructed": true,
+            "onnx_runtime_parity": {
+              "onnx_checker_full_check": true,
+              "ort_provider": "CPUExecutionProvider",
+              "parity_atol": 0.00001,
+              "parity_case_count": 3,
+              "parity_inputs_sha256": "5ca85cb07e8bcab951714e79ddc27d8c2fb70617c179d784a88515499e3f6638",
+              "parity_max_abs_error": 0.000001549721,
+              "parity_max_rel_error": 0.000008411448,
+              "parity_outputs_sha256": "e4201017561a55f2c0aa779cd77f88715107b1cd9d584048c1aff3eb54cbc602",
+              "parity_rtol": 0.00001,
+              "shape_inference": true
+            },
+            "onnx_structure_validated": true,
+            "weights_only_diagnostic_policy_validated": true
+          }
+        },
+        "encoder": {
+          "active_motor_control_authorized": false,
+          "deployment_ready": false,
+          "diagnostic_only": true,
+          "encoder": {
+            "filename": "model_100.diagnostic.encoder.onnx",
+            "input_name": "teleop_obs",
+            "input_shape": [
+              1,
+              267
+            ],
+            "opset": 13,
+            "output_name": "token",
+            "output_shape": [
+              1,
+              64
+            ],
+            "sha256": "3806b2b63ebadf4d6cbf9f79b7072f2bf27ab8eb8bc6a9b3042f97739cc5428a"
+          },
+          "encoder_contract": {
+            "dtype": "float32",
+            "fsq_formula": "fsq_tanh_round_ste_even_levels_v1",
+            "fsq_level": 32,
+            "input_shape": [
+              1,
+              267
+            ],
+            "output_shape": [
+              1,
+              64
+            ]
+          },
+          "hardware_authorized": false,
+          "kind": "g1_true23_frozen_lora_diagnostic_encoder_onnx",
+          "paired_encoder_state_sha256": "3625edb10aabd266196702aefd464ad07c93847f2d1722a977e18ef2a0143990",
+          "promotion_eligible": false,
+          "schema_version": 1,
+          "source": {
+            "adapter_state_sha256": "fa61c79c5bf0bb8cb60d13c9c8fa7fcc67a9fadb7fc3293cf5848be2df62d9b1",
+            "filename": "model_100.diagnostic.pt",
+            "policy_state_sha256": "4776286da1f9b3dde3ea0c28eda9334cf8417caa763e0966881975526f33f2fd",
+            "sha256": "2a506e28add12a4aef67d08a0a8666b4b4ebc0bc08d3b7414f833b530f20bf1b",
+            "update_count": 100
+          },
+          "validation": {
+            "exact_merged_encoder_reconstructed": true,
+            "onnx_runtime_parity": {
+              "onnx_checker_full_check": true,
+              "ort_provider": "CPUExecutionProvider",
+              "parity_atol": 0.00001,
+              "parity_case_count": 3,
+              "parity_inputs_sha256": "74b0477b02116472af881df5d086a49128b4c3b5eaf7a906513777fb2c46095c",
+              "parity_max_abs_error": 0,
+              "parity_max_rel_error": 0,
+              "parity_outputs_sha256": "239ae2d67f91aeb0caa9398af3c9e150cf457304796e6ea20da940fc960d73ec",
+              "parity_rtol": 0.00001,
+              "shape_inference": true
+            },
+            "onnx_structure_validated": true,
+            "weights_only_diagnostic_policy_validated": true
+          }
+        }
+      }
+    },
+    "suites": {
+      "baseline100/original": {
+        "cases": 8,
+        "clips": 8,
+        "fidelity_passes": 0,
+        "frames": 6035,
+        "lifecycle_passes": 0,
+        "rows": [
+          {
+            "completed": 2,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 4,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": -1.9640303981833611,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 13.374998189936475,
+                  "intersection_gap_rad": 0.01674999637987295,
+                  "intersection_lower_rad": 0.013910222400709405,
+                  "intersection_upper_rad": -0.0028397739791635457,
+                  "joint": "left_ankle_pitch_joint",
+                  "previous_target_rad": 0.023910222400709405,
+                  "q_rad": -0.16945962919725457,
+                  "requested_target_rad": 0.2181030809879303,
+                  "unslewed_lower_rad": -0.5861476014716304,
+                  "unslewed_upper_rad": -0.0028397739791635457
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 2,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.022251010599122035,
+            "measured": false,
+            "name": "pico_upright_anchor",
+            "physics_steps": 23,
+            "projection_cost_completed_substeps_mean": 0.055898165177786216,
+            "requested": 1013,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 2,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 4,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": -2.2846047035763672,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 27.381097152517842,
+                  "intersection_gap_rad": 0.04476219430503568,
+                  "intersection_lower_rad": 0.021287560875323422,
+                  "intersection_upper_rad": -0.02347463342971226,
+                  "joint": "left_ankle_pitch_joint",
+                  "previous_target_rad": 0.031287560875323424,
+                  "q_rad": -0.16968609451082742,
+                  "requested_target_rad": 0.22211161255836487,
+                  "unslewed_lower_rad": -0.606782460922179,
+                  "unslewed_upper_rad": -0.02347463342971226
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 2,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.02196696400952568,
+            "measured": false,
+            "name": "pico_standing_anchor",
+            "physics_steps": 24,
+            "projection_cost_completed_substeps_mean": 0.05317513530093385,
+            "requested": 1013,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 3,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 3,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": 1.1242303750641458,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.307507679770396,
+                  "intersection_gap_rad": 0.0006150153595410046,
+                  "intersection_lower_rad": 2.1377994079192777,
+                  "intersection_upper_rad": 2.1371843925597367,
+                  "joint": "left_knee_joint",
+                  "previous_target_rad": 2.127184392559737,
+                  "q_rad": 2.3993570724111075,
+                  "requested_target_rad": 1.6893277168273926,
+                  "unslewed_lower_rad": 2.1377994079192777,
+                  "unslewed_upper_rad": 2.804056194003149
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 3,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.052342729741107985,
+            "measured": false,
+            "name": "pico_crouch_anchor",
+            "physics_steps": 33,
+            "projection_cost_completed_substeps_mean": 0.2510218926465388,
+            "requested": 1013,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 1,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 10,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": -2.0930336513816856,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 6.725099852978623,
+                  "intersection_gap_rad": 0.003450199705957252,
+                  "intersection_lower_rad": 0.08811398097438412,
+                  "intersection_upper_rad": 0.08466378126842687,
+                  "joint": "right_ankle_pitch_joint",
+                  "previous_target_rad": 0.09811398097438412,
+                  "q_rad": -0.07374347177933145,
+                  "requested_target_rad": 0.17046096920967102,
+                  "unslewed_lower_rad": -0.49864404622403985,
+                  "unslewed_upper_rad": 0.08466378126842687
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 1,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.007301496366072151,
+            "measured": false,
+            "name": "pico_twist2_walk_001",
+            "physics_steps": 19,
+            "projection_cost_completed_substeps_mean": 1.4278655748308042,
+            "requested": 684,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 1,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 10,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": -2.6182698200954055,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 14.051502769439832,
+                  "intersection_gap_rad": 0.01810300553887967,
+                  "intersection_lower_rad": 0.0747529137134552,
+                  "intersection_upper_rad": 0.05664990817457553,
+                  "joint": "right_ankle_pitch_joint",
+                  "previous_target_rad": 0.0847529137134552,
+                  "q_rad": -0.06831977184946969,
+                  "requested_target_rad": 0.33006682991981506,
+                  "unslewed_lower_rad": -0.5266579193178913,
+                  "unslewed_upper_rad": 0.05664990817457553
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 1,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.007073454786688977,
+            "measured": false,
+            "name": "pico_twist2_walk_010",
+            "physics_steps": 19,
+            "projection_cost_completed_substeps_mean": 0.8041143115482049,
+            "requested": 499,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 43,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 6,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": 0.38281465653774804,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.054969031527107,
+                  "intersection_gap_rad": 0.00010993806305420462,
+                  "intersection_lower_rad": -0.48199619257529863,
+                  "intersection_upper_rad": -0.48210613063835284,
+                  "joint": "right_hip_pitch_joint",
+                  "previous_target_rad": -0.49210613063835285,
+                  "q_rad": 0.01380221139497225,
+                  "requested_target_rad": -1.5239285230636597,
+                  "unslewed_lower_rad": -0.48199619257529863,
+                  "unslewed_upper_rad": 0.5583420912637242
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 43,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.4110845962183924,
+            "measured": false,
+            "name": "original_sonic_hand_crawl",
+            "physics_steps": 430,
+            "projection_cost_completed_substeps_mean": 0.08175716707176389,
+            "requested": 595,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 51,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 6,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": 0.052293419994691503,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.11192190849763,
+                  "intersection_gap_rad": 0.00022384381699525058,
+                  "intersection_lower_rad": -0.5212534553998888,
+                  "intersection_upper_rad": -0.521477299216884,
+                  "joint": "right_hip_pitch_joint",
+                  "previous_target_rad": -0.531477299216884,
+                  "q_rad": -0.004413415993552782,
+                  "requested_target_rad": -1.4550879001617432,
+                  "unslewed_lower_rad": -0.5212534553998888,
+                  "unslewed_upper_rad": 0.519084828439134
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 51,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.40330950177206903,
+            "measured": false,
+            "name": "original_sonic_elbow_crawl",
+            "physics_steps": 514,
+            "projection_cost_completed_substeps_mean": 0.06854244118655,
+            "requested": 595,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 47,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 6,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": 0.39248677719220615,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.016560830530647,
+                  "intersection_gap_rad": 0.00003312166106128611,
+                  "intersection_lower_rad": -0.5966610589832531,
+                  "intersection_upper_rad": -0.5966941806443143,
+                  "joint": "right_hip_pitch_joint",
+                  "previous_target_rad": -0.6066941806443144,
+                  "q_rad": -0.10147840133788814,
+                  "requested_target_rad": -1.4622386693954468,
+                  "unslewed_lower_rad": -0.5966610589832531,
+                  "unslewed_upper_rad": 0.4436772248557697
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 47,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.4080509926929728,
+            "measured": false,
+            "name": "original_sonic_happy_dance",
+            "physics_steps": 475,
+            "projection_cost_completed_substeps_mean": 0.07431478564494903,
+            "requested": 535,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          }
+        ],
+        "summary": {
+          "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_original/suite_summary.json",
+          "sha256": "2366ed5021b25a94bb73db422d31c1902fe0fd4bdfc3ad528532a3cdfa5d12ae"
+        }
+      },
+      "baseline100/stance_v2": {
+        "cases": 9,
+        "clips": 8,
+        "fidelity_passes": 0,
+        "frames": 6035,
+        "lifecycle_passes": 0,
+        "rows": [
+          {
+            "completed": 48,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 4,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": -2.410780970536371,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 9.144966123014742,
+                  "intersection_gap_rad": 0.008289932246029474,
+                  "intersection_lower_rad": -0.6780101718744611,
+                  "intersection_upper_rad": -0.6863001041204906,
+                  "joint": "left_ankle_pitch_joint",
+                  "previous_target_rad": -0.6680101718744611,
+                  "q_rad": -0.8244789345648641,
+                  "requested_target_rad": 0.33125564455986023,
+                  "unslewed_lower_rad": -0.8226699999999999,
+                  "unslewed_upper_rad": -0.6863001041204906
+                },
+                {
+                  "compact_index": 10,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": -4.248558040505262,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 18.61652429202032,
+                  "intersection_gap_rad": 0.02723304858404063,
+                  "intersection_lower_rad": -0.6407358714228513,
+                  "intersection_upper_rad": -0.6679689200068919,
+                  "joint": "right_ankle_pitch_joint",
+                  "previous_target_rad": -0.6307358714228513,
+                  "q_rad": -0.6891512284316934,
+                  "requested_target_rad": 0.42706218361854553,
+                  "unslewed_lower_rad": -0.8226699999999999,
+                  "unslewed_upper_rad": -0.6679689200068919
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 48,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.3388278776469145,
+            "measured": false,
+            "name": "pico_upright_anchor",
+            "physics_steps": 481,
+            "projection_cost_completed_substeps_mean": 0.11252490997033479,
+            "requested": 1013,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 38,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 6,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": -0.09890349879442359,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.014748292371418,
+                  "intersection_gap_rad": 0.00002949658474282746,
+                  "intersection_lower_rad": -0.6302386854312723,
+                  "intersection_upper_rad": -0.6302681820160151,
+                  "joint": "right_hip_pitch_joint",
+                  "previous_target_rad": -0.6402681820160151,
+                  "q_rad": -0.10377315122317493,
+                  "requested_target_rad": -1.6392306089401245,
+                  "unslewed_lower_rad": -0.6302386854312723,
+                  "unslewed_upper_rad": 0.4100995984077506
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 38,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.27444742282747675,
+            "measured": false,
+            "name": "pico_standing_anchor",
+            "physics_steps": 386,
+            "projection_cost_completed_substeps_mean": 0.09114089172788582,
+            "requested": 1013,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 27,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 4,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": 1.844245525958756,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.163793684661355,
+                  "intersection_gap_rad": 0.0003275873693227016,
+                  "intersection_lower_rad": -0.5624138827301279,
+                  "intersection_upper_rad": -0.5627414700994506,
+                  "joint": "left_ankle_pitch_joint",
+                  "previous_target_rad": -0.5727414700994506,
+                  "q_rad": -0.3881682857015382,
+                  "requested_target_rad": -0.7505511045455933,
+                  "unslewed_lower_rad": -0.5624138827301279,
+                  "unslewed_upper_rad": 0.020893944762338745
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 27,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.25360546011236584,
+            "measured": false,
+            "name": "pico_crouch_anchor",
+            "physics_steps": 279,
+            "projection_cost_completed_substeps_mean": 0.379607742751598,
+            "requested": 1013,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 17,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 4,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": -1.9781052588810986,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.371649058437095,
+                  "intersection_gap_rad": 0.0007432981168741803,
+                  "intersection_lower_rad": -0.22942572474800865,
+                  "intersection_upper_rad": -0.23016902286488283,
+                  "joint": "left_ankle_pitch_joint",
+                  "previous_target_rad": -0.21942572474800864,
+                  "q_rad": -0.39589284462143265,
+                  "requested_target_rad": 0.3588303029537201,
+                  "unslewed_lower_rad": -0.8134768503573495,
+                  "unslewed_upper_rad": -0.23016902286488283
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 17,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.4134699713918026,
+            "measured": false,
+            "name": "pico_twist2_walk_001",
+            "physics_steps": 172,
+            "projection_cost_completed_substeps_mean": 0.3791344507899298,
+            "requested": 684,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 24,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 4,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": -0.7817264840055381,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.4080333162922765,
+                  "intersection_gap_rad": 0.0008160666325845445,
+                  "intersection_lower_rad": -0.29630167398733137,
+                  "intersection_upper_rad": -0.2971177406199159,
+                  "joint": "left_ankle_pitch_joint",
+                  "previous_target_rad": -0.28630167398733136,
+                  "q_rad": -0.5390054007253937,
+                  "requested_target_rad": 0.35805872082710266,
+                  "unslewed_lower_rad": -0.8226699999999999,
+                  "unslewed_upper_rad": -0.2971177406199159
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 24,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.3838378683272063,
+            "measured": false,
+            "name": "pico_twist2_walk_010",
+            "physics_steps": 241,
+            "projection_cost_completed_substeps_mean": 0.4140884163997583,
+            "requested": 499,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 43,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 6,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": 0.11508781062321621,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.3938667562201115,
+                  "intersection_gap_rad": 0.0007877335124402141,
+                  "intersection_lower_rad": -0.5597112452521456,
+                  "intersection_upper_rad": -0.5604989787645858,
+                  "joint": "right_hip_pitch_joint",
+                  "previous_target_rad": -0.5704989787645858,
+                  "q_rad": -0.04686882091240803,
+                  "requested_target_rad": -1.5292799472808838,
+                  "unslewed_lower_rad": -0.5597112452521456,
+                  "unslewed_upper_rad": 0.4806270385868772
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 43,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.4250406415462727,
+            "measured": false,
+            "name": "original_sonic_hand_crawl",
+            "physics_steps": 431,
+            "projection_cost_completed_substeps_mean": 0.098075829384791,
+            "requested": 595,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 52,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 6,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": -0.26295310907404074,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.159625867651063,
+                  "intersection_gap_rad": 0.00031925173530211737,
+                  "intersection_lower_rad": -0.5088687255711974,
+                  "intersection_upper_rad": -0.5091879773064996,
+                  "joint": "right_hip_pitch_joint",
+                  "previous_target_rad": -0.5191879773064996,
+                  "q_rad": 0.028040531191721483,
+                  "requested_target_rad": -1.5565996170043945,
+                  "unslewed_lower_rad": -0.5088687255711974,
+                  "unslewed_upper_rad": 0.5314695582678253
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 52,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.4093163700671715,
+            "measured": false,
+            "name": "original_sonic_elbow_crawl",
+            "physics_steps": 521,
+            "projection_cost_completed_substeps_mean": 0.07312632327673227,
+            "requested": 595,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 49,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 6,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": 0.5597847659648889,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.065251581744312,
+                  "intersection_gap_rad": 0.00013050316348861557,
+                  "intersection_lower_rad": -0.5481292707554477,
+                  "intersection_upper_rad": -0.5482597739189363,
+                  "joint": "right_hip_pitch_joint",
+                  "previous_target_rad": -0.5582597739189363,
+                  "q_rad": -0.06359713386257641,
+                  "requested_target_rad": -1.4932914972305298,
+                  "unslewed_lower_rad": -0.5481292707554477,
+                  "unslewed_upper_rad": 0.49220901308357506
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 49,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.41055217415286527,
+            "measured": false,
+            "name": "original_sonic_happy_dance",
+            "physics_steps": 496,
+            "projection_cost_completed_substeps_mean": 0.0660226560218716,
+            "requested": 535,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 70,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 1,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": 0.20601750380163725,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.26537297178209,
+                  "intersection_gap_rad": 0.0005307459435641704,
+                  "intersection_lower_rad": 0.37447257307650367,
+                  "intersection_upper_rad": 0.3739418271329395,
+                  "joint": "left_hip_roll_joint",
+                  "previous_target_rad": 0.3844725730765037,
+                  "q_rad": 0.027697952452895296,
+                  "requested_target_rad": 0.6521925926208496,
+                  "unslewed_lower_rad": -0.2923149589509323,
+                  "unslewed_upper_rad": 0.3739418271329395
+                },
+                {
+                  "compact_index": 4,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": -2.6730093939682056,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 11.748899640461552,
+                  "intersection_gap_rad": 0.013497799280923095,
+                  "intersection_lower_rad": -0.5440859696638602,
+                  "intersection_upper_rad": -0.5575837689447833,
+                  "joint": "left_ankle_pitch_joint",
+                  "previous_target_rad": -0.5340859696638602,
+                  "q_rad": -0.6790686194622445,
+                  "requested_target_rad": 0.39018556475639343,
+                  "unslewed_lower_rad": -0.8226699999999999,
+                  "unslewed_upper_rad": -0.5575837689447833
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 70,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.3922239836629874,
+            "measured": true,
+            "name": "original_sonic_happy_dance",
+            "physics_steps": 707,
+            "projection_cost_completed_substeps_mean": 0.11424322894461288,
+            "requested": 535,
+            "return_completed": 0,
+            "return_failure": "empty effort/position/slew target intersection",
+            "return_failure_details": [
+              {
+                "compact_index": 1,
+                "configured_slew_rad_s": 5,
+                "dq_rad_s": 0.20601750380163725,
+                "infeasible_without_slew": false,
+                "instantaneous_minimum_slew_rad_s": 5.264419680890725,
+                "intersection_gap_rad": 0.0005288393617814413,
+                "intersection_lower_rad": 0.37447257307650367,
+                "intersection_upper_rad": 0.3739437337147222,
+                "joint": "left_hip_roll_joint",
+                "previous_target_rad": 0.3844725730765037,
+                "q_rad": 0.027697952452895296,
+                "requested_target_rad": 0.060467857897281645,
+                "unslewed_lower_rad": -0.2923159284378943,
+                "unslewed_upper_rad": 0.3739437337147222
+              },
+              {
+                "compact_index": 4,
+                "configured_slew_rad_s": 5,
+                "dq_rad_s": -2.6730093939682056,
+                "infeasible_without_slew": false,
+                "instantaneous_minimum_slew_rad_s": 11.727475221256721,
+                "intersection_gap_rad": 0.013454950442513436,
+                "intersection_lower_rad": -0.5440859696638602,
+                "intersection_upper_rad": -0.5575409201063737,
+                "joint": "left_ankle_pitch_joint",
+                "previous_target_rad": -0.5340859696638602,
+                "q_rad": -0.6790686194622445,
+                "requested_target_rad": 0.0820439122915268,
+                "unslewed_lower_rad": -0.8226699999999999,
+                "unslewed_upper_rad": -0.5575409201063737
+              }
+            ],
+            "return_passed": false,
+            "return_physics_steps": 0,
+            "startup_completed": 250,
+            "startup_passed": true
+          }
+        ],
+        "summary": {
+          "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/envelope_stance_v2/suite_summary.json",
+          "sha256": "39e8bfc5fdabd6fd4ef3fdda0f851e720d2c0040310f01aa84f5a289daefa92c"
+        }
+      },
+      "penalty2_100/original": {
+        "cases": 8,
+        "clips": 8,
+        "fidelity_passes": 0,
+        "frames": 6035,
+        "lifecycle_passes": 0,
+        "rows": [
+          {
+            "completed": 2,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 4,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": -1.9072473835278845,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 11.641857173986866,
+                  "intersection_gap_rad": 0.01328371434797373,
+                  "intersection_lower_rad": 0.013910222400709405,
+                  "intersection_upper_rad": 0.0006265080527356748,
+                  "joint": "left_ankle_pitch_joint",
+                  "previous_target_rad": 0.023910222400709405,
+                  "q_rad": -0.16960826615255853,
+                  "requested_target_rad": 0.2564220726490021,
+                  "unslewed_lower_rad": -0.5826813194397311,
+                  "unslewed_upper_rad": 0.0006265080527356748
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 2,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.021274618680033684,
+            "measured": false,
+            "name": "pico_upright_anchor",
+            "physics_steps": 23,
+            "projection_cost_completed_substeps_mean": 0.06590041531047723,
+            "requested": 1013,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 2,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 4,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": -2.276437593110882,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 27.348894355346392,
+                  "intersection_gap_rad": 0.044697788710692785,
+                  "intersection_lower_rad": 0.021287560875323422,
+                  "intersection_upper_rad": -0.023410227835369363,
+                  "joint": "left_ankle_pitch_joint",
+                  "previous_target_rad": 0.031287560875323424,
+                  "q_rad": -0.17014162331713936,
+                  "requested_target_rad": 0.26626530289649963,
+                  "unslewed_lower_rad": -0.6067180553278361,
+                  "unslewed_upper_rad": -0.023410227835369363
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 2,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.02135863101062995,
+            "measured": false,
+            "name": "pico_standing_anchor",
+            "physics_steps": 24,
+            "projection_cost_completed_substeps_mean": 0.0639233663016647,
+            "requested": 1013,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 3,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 3,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": 1.274986585945566,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 6.895988727425362,
+                  "intersection_gap_rad": 0.0037919774548509366,
+                  "intersection_lower_rad": 2.1481982680181786,
+                  "intersection_upper_rad": 2.1444062905633277,
+                  "joint": "left_knee_joint",
+                  "previous_target_rad": 2.134406290563328,
+                  "q_rad": 2.4001584940440526,
+                  "requested_target_rad": 1.7527920007705688,
+                  "unslewed_lower_rad": 2.1481982680181786,
+                  "unslewed_upper_rad": 2.8144550541020505
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 3,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.049752772179552665,
+            "measured": false,
+            "name": "pico_crouch_anchor",
+            "physics_steps": 34,
+            "projection_cost_completed_substeps_mean": 0.2676166779691107,
+            "requested": 1013,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 1,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 10,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": -2.0944844505335682,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 6.788232446403794,
+                  "intersection_gap_rad": 0.003576464892807593,
+                  "intersection_lower_rad": 0.08811398097438412,
+                  "intersection_upper_rad": 0.08453751608157653,
+                  "joint": "right_ankle_pitch_joint",
+                  "previous_target_rad": 0.09811398097438412,
+                  "q_rad": -0.07377737622357985,
+                  "requested_target_rad": 0.18110516667366028,
+                  "unslewed_lower_rad": -0.49877031141089023,
+                  "unslewed_upper_rad": 0.08453751608157653
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 1,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.007443029327471728,
+            "measured": false,
+            "name": "pico_twist2_walk_001",
+            "physics_steps": 19,
+            "projection_cost_completed_substeps_mean": 1.3755120891726493,
+            "requested": 684,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 1,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 10,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": -2.361334610295562,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 10.260768477642047,
+                  "intersection_gap_rad": 0.0105215369552841,
+                  "intersection_lower_rad": 0.08696598529815673,
+                  "intersection_upper_rad": 0.07644444834287263,
+                  "joint": "right_ankle_pitch_joint",
+                  "previous_target_rad": 0.09696598529815673,
+                  "q_rad": -0.06488223516226378,
+                  "requested_target_rad": 0.3430374562740326,
+                  "unslewed_lower_rad": -0.5068633791495941,
+                  "unslewed_upper_rad": 0.07644444834287263
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 1,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.006953317022810872,
+            "measured": false,
+            "name": "pico_twist2_walk_010",
+            "physics_steps": 18,
+            "projection_cost_completed_substeps_mean": 0.7909589348059192,
+            "requested": 499,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 43,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 6,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": 0.4873101552528203,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.071275176412149,
+                  "intersection_gap_rad": 0.00014255035282428885,
+                  "intersection_lower_rad": -0.46848159776666637,
+                  "intersection_upper_rad": -0.46862414811949066,
+                  "joint": "right_hip_pitch_joint",
+                  "previous_target_rad": -0.47862414811949067,
+                  "q_rad": 0.02066441614337934,
+                  "requested_target_rad": -1.4891163110733032,
+                  "unslewed_lower_rad": -0.46848159776666637,
+                  "unslewed_upper_rad": 0.5718566860723564
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 43,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.39731767839649895,
+            "measured": false,
+            "name": "original_sonic_hand_crawl",
+            "physics_steps": 438,
+            "projection_cost_completed_substeps_mean": 0.07466168985831982,
+            "requested": 595,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 55,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 6,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": 0.46340074429443734,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.128904076494689,
+                  "intersection_gap_rad": 0.00025780815298936943,
+                  "intersection_lower_rad": -0.522766489265315,
+                  "intersection_upper_rad": -0.5230242974183044,
+                  "joint": "right_hip_pitch_joint",
+                  "previous_target_rad": -0.5330242974183044,
+                  "q_rad": -0.032098354979165085,
+                  "requested_target_rad": -1.5635746717453003,
+                  "unslewed_lower_rad": -0.522766489265315,
+                  "unslewed_upper_rad": 0.5175717945737077
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 55,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.4046401630024014,
+            "measured": false,
+            "name": "original_sonic_elbow_crawl",
+            "physics_steps": 552,
+            "projection_cost_completed_substeps_mean": 0.05901279706076389,
+            "requested": 595,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 48,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 6,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": 0.7522691854983025,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.192107640102194,
+                  "intersection_gap_rad": 0.0003842152802043808,
+                  "intersection_lower_rad": -0.5758051155084276,
+                  "intersection_upper_rad": -0.576189330788632,
+                  "joint": "right_hip_pitch_joint",
+                  "previous_target_rad": -0.586189330788632,
+                  "q_rad": -0.10352691734973829,
+                  "requested_target_rad": -1.4437592029571533,
+                  "unslewed_lower_rad": -0.5758051155084276,
+                  "unslewed_upper_rad": 0.4645331683305952
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 48,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.4041498177418284,
+            "measured": false,
+            "name": "original_sonic_happy_dance",
+            "physics_steps": 484,
+            "projection_cost_completed_substeps_mean": 0.06374017830370207,
+            "requested": 535,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          }
+        ],
+        "summary": {
+          "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_original/suite_summary.json",
+          "sha256": "65f60f1dd9406bfcdca704866f5fd6164e6aceb9c141b3f52dc010259c5ad3a4"
+        }
+      },
+      "penalty2_100/stance_v2": {
+        "cases": 9,
+        "clips": 8,
+        "fidelity_passes": 0,
+        "frames": 6035,
+        "lifecycle_passes": 0,
+        "rows": [
+          {
+            "completed": 46,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 6,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": 0.5569317694772038,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.162794723644115,
+                  "intersection_gap_rad": 0.0003255894472882215,
+                  "intersection_lower_rad": -0.6990647791335356,
+                  "intersection_upper_rad": -0.6993903685808238,
+                  "joint": "right_hip_pitch_joint",
+                  "previous_target_rad": -0.7093903685808238,
+                  "q_rad": -0.2143510148432175,
+                  "requested_target_rad": -1.7700756788253784,
+                  "unslewed_lower_rad": -0.6990647791335356,
+                  "unslewed_upper_rad": 0.3412735047054871
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 46,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.31079845731741435,
+            "measured": false,
+            "name": "pico_upright_anchor",
+            "physics_steps": 469,
+            "projection_cost_completed_substeps_mean": 0.09015440813689618,
+            "requested": 1013,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 37,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 6,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": 0.4923792210608293,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.063401921697796,
+                  "intersection_gap_rad": 0.00012680384339558426,
+                  "intersection_lower_rad": -0.5295746326278581,
+                  "intersection_upper_rad": -0.5297014364712537,
+                  "joint": "right_hip_pitch_joint",
+                  "previous_target_rad": -0.5397014364712537,
+                  "q_rad": -0.04075132546987798,
+                  "requested_target_rad": -1.5510761737823486,
+                  "unslewed_lower_rad": -0.5295746326278581,
+                  "unslewed_upper_rad": 0.5107636512111646
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 37,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.2568986471455851,
+            "measured": false,
+            "name": "pico_standing_anchor",
+            "physics_steps": 371,
+            "projection_cost_completed_substeps_mean": 0.08119233979818688,
+            "requested": 1013,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 27,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 4,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": 1.8289150507693428,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.058838500319018,
+                  "intersection_gap_rad": 0.00011767700063802788,
+                  "intersection_lower_rad": -0.5879857115462431,
+                  "intersection_upper_rad": -0.5881033885468812,
+                  "joint": "left_ankle_pitch_joint",
+                  "previous_target_rad": -0.5981033885468812,
+                  "q_rad": -0.4127641461549079,
+                  "requested_target_rad": -0.7235298156738281,
+                  "unslewed_lower_rad": -0.5879857115462431,
+                  "unslewed_upper_rad": -0.004677884053776393
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 27,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.2574833539913185,
+            "measured": false,
+            "name": "pico_crouch_anchor",
+            "physics_steps": 271,
+            "projection_cost_completed_substeps_mean": 0.4155950248328715,
+            "requested": 1013,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 16,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 4,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": -1.4602855171549936,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.179122740216716,
+                  "intersection_gap_rad": 0.0003582454804334223,
+                  "intersection_lower_rad": -0.16306069024885253,
+                  "intersection_upper_rad": -0.16341893572928595,
+                  "joint": "left_ankle_pitch_joint",
+                  "previous_target_rad": -0.15306069024885252,
+                  "q_rad": -0.3621081861033845,
+                  "requested_target_rad": 0.30679836869239807,
+                  "unslewed_lower_rad": -0.7467267632217527,
+                  "unslewed_upper_rad": -0.16341893572928595
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 16,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.3850008045505423,
+            "measured": false,
+            "name": "pico_twist2_walk_001",
+            "physics_steps": 165,
+            "projection_cost_completed_substeps_mean": 0.38325851611052814,
+            "requested": 684,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 24,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 4,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": -0.9283292745600493,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.574175266296138,
+                  "intersection_gap_rad": 0.0011483505325922683,
+                  "intersection_lower_rad": -0.3239537404280329,
+                  "intersection_upper_rad": -0.32510209096062515,
+                  "joint": "left_ankle_pitch_joint",
+                  "previous_target_rad": -0.31395374042803287,
+                  "q_rad": -0.557656727548984,
+                  "requested_target_rad": 0.3754027783870697,
+                  "unslewed_lower_rad": -0.8226699999999999,
+                  "unslewed_upper_rad": -0.32510209096062515
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 24,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.3827963198550845,
+            "measured": false,
+            "name": "pico_twist2_walk_010",
+            "physics_steps": 241,
+            "projection_cost_completed_substeps_mean": 0.41350358781364865,
+            "requested": 499,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 44,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 6,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": 0.06595158421549213,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.27922157294941,
+                  "intersection_gap_rad": 0.0005584431458988126,
+                  "intersection_lower_rad": -0.5499148657784811,
+                  "intersection_upper_rad": -0.55047330892438,
+                  "joint": "right_hip_pitch_joint",
+                  "previous_target_rad": -0.56047330892438,
+                  "q_rad": -0.03394433211182422,
+                  "requested_target_rad": -1.4961262941360474,
+                  "unslewed_lower_rad": -0.5499148657784811,
+                  "unslewed_upper_rad": 0.49042341806054157
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 44,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.42108890459736115,
+            "measured": false,
+            "name": "original_sonic_hand_crawl",
+            "physics_steps": 440,
+            "projection_cost_completed_substeps_mean": 0.08862710005429385,
+            "requested": 595,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 53,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 6,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": 0.4323221526514359,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.018975794073288,
+                  "intersection_gap_rad": 0.000037951588146567516,
+                  "intersection_lower_rad": -0.48287722708839,
+                  "intersection_upper_rad": -0.48291517867653655,
+                  "joint": "right_hip_pitch_joint",
+                  "previous_target_rad": -0.49291517867653656,
+                  "q_rad": 0.009769431791392811,
+                  "requested_target_rad": -1.475575566291809,
+                  "unslewed_lower_rad": -0.48287722708839,
+                  "unslewed_upper_rad": 0.5574610567506327
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 53,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.39880070944223533,
+            "measured": false,
+            "name": "original_sonic_elbow_crawl",
+            "physics_steps": 536,
+            "projection_cost_completed_substeps_mean": 0.05743279700265966,
+            "requested": 595,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 58,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 4,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": -2.9897524634842423,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 11.095234243445551,
+                  "intersection_gap_rad": 0.012190468486891093,
+                  "intersection_lower_rad": -0.7072259951963314,
+                  "intersection_upper_rad": -0.7194164636832225,
+                  "joint": "left_ankle_pitch_joint",
+                  "previous_target_rad": -0.6972259951963314,
+                  "q_rad": -0.8207368241149483,
+                  "requested_target_rad": 0.39193275570869446,
+                  "unslewed_lower_rad": -0.8226699999999999,
+                  "unslewed_upper_rad": -0.7194164636832225
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 58,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.4618772390941164,
+            "measured": false,
+            "name": "original_sonic_happy_dance",
+            "physics_steps": 588,
+            "projection_cost_completed_substeps_mean": 0.09418533913953041,
+            "requested": 535,
+            "return_completed": null,
+            "return_failure": null,
+            "return_failure_details": null,
+            "return_passed": null,
+            "return_physics_steps": 0,
+            "startup_completed": null,
+            "startup_passed": null
+          },
+          {
+            "completed": 75,
+            "failure": {
+              "details": [
+                {
+                  "compact_index": 4,
+                  "configured_slew_rad_s": 5,
+                  "dq_rad_s": -1.1472832189852242,
+                  "infeasible_without_slew": false,
+                  "instantaneous_minimum_slew_rad_s": 5.082087647441891,
+                  "intersection_gap_rad": 0.0001641752948837727,
+                  "intersection_lower_rad": -0.2774014271214996,
+                  "intersection_upper_rad": -0.2775656024163834,
+                  "joint": "left_ankle_pitch_joint",
+                  "previous_target_rad": -0.2674014271214996,
+                  "q_rad": -0.4961811979758726,
+                  "requested_target_rad": 0.35767194628715515,
+                  "unslewed_lower_rad": -0.8226699999999999,
+                  "unslewed_upper_rad": -0.2775656024163834
+                }
+              ],
+              "message": "empty effort/position/slew target intersection",
+              "transition": 75,
+              "type": "TargetIntersectionError"
+            },
+            "fidelity_passed": false,
+            "maximum_joint_rmse_rad": 0.40072048357981405,
+            "measured": true,
+            "name": "original_sonic_happy_dance",
+            "physics_steps": 758,
+            "projection_cost_completed_substeps_mean": 0.0844190686416659,
+            "requested": 535,
+            "return_completed": 0,
+            "return_failure": "empty effort/position/slew target intersection",
+            "return_failure_details": [
+              {
+                "compact_index": 4,
+                "configured_slew_rad_s": 5,
+                "dq_rad_s": -1.1472832189852242,
+                "infeasible_without_slew": false,
+                "instantaneous_minimum_slew_rad_s": 5.072173052869777,
+                "intersection_gap_rad": 0.00014434610573954565,
+                "intersection_lower_rad": -0.2774014271214996,
+                "intersection_upper_rad": -0.27754577322723917,
+                "joint": "left_ankle_pitch_joint",
+                "previous_target_rad": -0.2674014271214996,
+                "q_rad": -0.4961811979758726,
+                "requested_target_rad": 0.360050552368164,
+                "unslewed_lower_rad": -0.8226699999999999,
+                "unslewed_upper_rad": -0.27754577322723917
+              }
+            ],
+            "return_passed": false,
+            "return_physics_steps": 0,
+            "startup_completed": 250,
+            "startup_passed": true
+          }
+        ],
+        "summary": {
+          "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/envelope_stance_v2/suite_summary.json",
+          "sha256": "fdb6e563fba1e64f2bcffca359421d6a5a4ea2671a83af2cf6c973443d7b211d"
+        }
+      }
+    },
+    "training_files": {
+      "baseline100": {
+        "checkpoints/frozen_lora_model_0.pt": {
+          "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/checkpoints/frozen_lora_model_0.pt",
+          "sha256": "5805661a0ad823a8650671cbfa7ed23759c31e4488e1a9061a172831468fbea8"
+        },
+        "checkpoints/frozen_lora_model_100.pt": {
+          "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/checkpoints/frozen_lora_model_100.pt",
+          "sha256": "8b15a754ec6a158df846aee42570068a48e402f0c138a2d0f8ec251618024b06"
+        },
+        "environment_prime.json": {
+          "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/environment_prime.json",
+          "sha256": "04f245772ab4c11eda47c1029e07b9919e27aa343345bbbadecd4091f740945e"
+        },
+        "lineage.json": {
+          "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/lineage.json",
+          "sha256": "3f954a7f726a7dba4ae7fca321e599c746948a4e22954b99128b7b2ddfeab71c"
+        },
+        "resolved_training.json": {
+          "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/resolved_training.json",
+          "sha256": "a1588271f22c3b4d8b6b21c6c502879a93d9dfe85ae1341dfb3f28996f247c53"
+        }
+      },
+      "penalty2_100": {
+        "checkpoints/frozen_lora_model_0.pt": {
+          "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/checkpoints/frozen_lora_model_0.pt",
+          "sha256": "d34c8cc576b6666e3f6515e9ed39419314d7879c33455314e0ad9a09d0526a44"
+        },
+        "checkpoints/frozen_lora_model_100.pt": {
+          "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/checkpoints/frozen_lora_model_100.pt",
+          "sha256": "9658268f6fad4698380b1846087efba942727e16ccfe0f0914e3505be6cb7c51"
+        },
+        "environment_prime.json": {
+          "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/environment_prime.json",
+          "sha256": "0c93f374fab086f3dac801231ada7e1b66e096c681c1a64c8afce741c25d6664"
+        },
+        "lineage.json": {
+          "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/lineage.json",
+          "sha256": "76110148005f76f53d6c803806190de22caeccfb838754b3f1739e76c48f2770"
+        },
+        "resolved_training.json": {
+          "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100/resolved_training.json",
+          "sha256": "55d6a4033329b4b17f65a28eb5f0c5078dcda15f64ef6c3afda4204c8bc7ebbc"
+        }
+      }
+    }
+  },
+  "reproduction": {
+    "baseline_command": "wsl --cd /mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof env PYTHONPATH=/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof:/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab /root/.venvs/g1_true23_mjlab/bin/python -m gear_sonic.scripts.train_g1_23dof_mjlab_frozen_lora train --source-checkpoint /mnt/z/codex/GR00T-WholeBodyControl/low_latency/last.pt --warm-start /mnt/z/codex/GR00T-WholeBodyControl/sonic_release/g1_23dof_rev_1_0_low_latency_init.pt --motion-file artifacts/g1_true23_frozen_lora/original_sonic_rehearsal_corpus_v1/corpus.npz --motion-metadata artifacts/g1_true23_frozen_lora/original_sonic_rehearsal_corpus_v1/corpus.recovery.json --spans artifacts/g1_true23_frozen_lora/original_sonic_rehearsal_corpus_v1/corpus.spans.json --actuation-profile native_support_stateful_v2 --lora-rank 8 --lora-alpha 8 --num-envs 32 --iterations 100 --save-interval 100 --learning-rate 0.000005 --seed 20260906 --projection-penalty-weight 0 --run-dir artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100",
+    "penalty_command": "wsl --cd /mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof env PYTHONPATH=/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof:/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/unitree_rl_mjlab /root/.venvs/g1_true23_mjlab/bin/python -m gear_sonic.scripts.train_g1_23dof_mjlab_frozen_lora train --source-checkpoint /mnt/z/codex/GR00T-WholeBodyControl/low_latency/last.pt --warm-start /mnt/z/codex/GR00T-WholeBodyControl/sonic_release/g1_23dof_rev_1_0_low_latency_init.pt --motion-file artifacts/g1_true23_frozen_lora/original_sonic_rehearsal_corpus_v1/corpus.npz --motion-metadata artifacts/g1_true23_frozen_lora/original_sonic_rehearsal_corpus_v1/corpus.recovery.json --spans artifacts/g1_true23_frozen_lora/original_sonic_rehearsal_corpus_v1/corpus.spans.json --actuation-profile native_support_stateful_v2 --lora-rank 8 --lora-alpha 8 --num-envs 32 --iterations 100 --save-interval 100 --learning-rate 0.000005 --seed 20260906 --projection-penalty-weight 2 --run-dir artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/penalty2_100",
+    "serial_export_python": "import subprocess,sys\nfrom pathlib import Path\nroot=Path('artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1')\nassets=Path('/mnt/z/codex/GR00T-WholeBodyControl')\nfor name in ['baseline100','penalty2_100']:\n p=root/name\n out=p/'eval'\n commands=[\n [sys.executable,'-m','gear_sonic.scripts.materialize_g1_true23_frozen_lora_diagnostic','--checkpoint',str(p/'checkpoints/frozen_lora_model_100.pt'),'--warm-start',str(assets/'sonic_release/g1_23dof_rev_1_0_low_latency_init.pt'),'--source-checkpoint',str(assets/'low_latency/last.pt'),'--output',str(out/'model_100.diagnostic.pt')],\n ]\n for cmd in commands:\n  print('START',name,cmd[2],flush=True)\n  subprocess.run(cmd,check=True)\n for kind in ['encoder','decoder']:\n  cmd=[sys.executable,'-m','gear_sonic.scripts.export_g1_true23_frozen_lora_diagnostic_'+kind,'--diagnostic-policy',str(out/'model_100.diagnostic.pt'),'--output',str(out/('model_100.diagnostic.'+kind+'.onnx')),'--report',str(out/('model_100.diagnostic.'+kind+'.json'))]\n  print('START',name,kind,flush=True)\n  subprocess.run(cmd,check=True)\n print('DONE',name,flush=True)\n",
+    "serial_envelope_python": "import subprocess,sys\nfrom pathlib import Path\nroot=Path('artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1')\nassets=Path('/mnt/z/codex/GR00T-WholeBodyControl')\nmanifests={\n 'original':'gear_sonic/config/sim_validation/g1_true23_frozen_lora_original_sonic_rehearsal_v1.json',\n 'stance_v2':'artifacts/g1_true23_frozen_lora/stance_retarget_20260906_v2/motions.json'\n}\nfor run in ['baseline100','penalty2_100']:\n for family,manifest in manifests.items():\n  p=root/run\n  cmd=[sys.executable,'-m','gear_sonic.scripts.evaluate_g1_true23_paired_envelope_suite','--asset-root',str(assets),'--manifest',manifest,'--encoder-report',str(p/'eval/model_100.diagnostic.encoder.json'),'--decoder-report',str(p/'eval/model_100.diagnostic.decoder.json'),'--output-dir',str(p/('envelope_'+family))]\n  if family=='stance_v2':\n   cmd+=['--measured-motion','original_sonic_happy_dance','--motor-health-snapshot','artifacts/g1_true23_frozen_lora/readiness_audit_20260905_v1/motor_health.json','--transition-balance-model',str(assets/'artifacts/external/unitree_rl_mjlab/deploy/robots/g1/config/policy/velocity/v0/exported/policy.onnx')]\n  print('SUITE_START',run,family,flush=True)\n  subprocess.run(cmd,check=True)\n  print('SUITE_DONE',run,family,flush=True)\n",
+    "checkpoint_comparison_python": "import torch,json,hashlib\nfrom pathlib import Path\nroot=Path('artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1')\ndef diff(a,b,path=''):\n if isinstance(a,dict) and isinstance(b,dict):\n  return [d for k in sorted(a.keys()|b.keys()) for d in (diff(a[k],b[k],path+'.'+str(k)) if k in a and k in b else [{'path':path+'.'+str(k),'missing':True}])]\n if isinstance(a,list) and isinstance(b,list) and len(a)==len(b):\n  return [d for i,(x,y) in enumerate(zip(a,b)) for d in diff(x,y,path+'['+str(i)+']')]\n return [] if a==b else [{'path':path,'baseline':a,'penalty':b}]\nloaded={}\nfor run in ['baseline100','penalty2_100']:\n loaded[run]={i:torch.load(root/run/'checkpoints'/('frozen_lora_model_'+str(i)+'.pt'),map_location='cpu',weights_only=False) for i in [0,100]}\na,b=loaded['baseline100'][0],loaded['penalty2_100'][0]\nchecks={}\nfor key in ['adapter_state_dict','critic_state_dict']:\n checks[key]={'same_keys':a[key].keys()==b[key].keys(),'all_tensors_bit_identical':all(torch.equal(a[key][k],b[key][k]) and a[key][k].dtype==b[key][k].dtype for k in a[key]),'tensor_count':len(a[key])}\nfor key in ['adapter_contract','adapter_contract_sha256','adapter_state_sha256','critic_state_sha256','optimizer_state_dict','trainer_state','merged_true23_policy_sha256']:\n checks[key]=a[key]==b[key]\nconfigs=[json.loads((root/run/'resolved_training.json').read_text()) for run in loaded]\nresult={'initial_equality':checks,'initial_actor_sha256':a['merged_true23_policy_sha256'],'initial_adapter_sha256':a['adapter_state_sha256'],'initial_critic_sha256':a['critic_state_sha256'],'resolved_config_differences':diff(*configs),'lineage_differences':diff(a['lineage'],b['lineage']),'runs':{}}\nfor run,checkpoints in loaded.items():\n init,final=checkpoints[0],checkpoints[100]\n p=root/run\n result['runs'][run]={'updates':final['update_count'],'trainer_state':final['trainer_state'],'adapter_contract_unchanged':init['adapter_contract']==final['adapter_contract'],'adapter_sha256':final['adapter_state_sha256'],'critic_sha256':final['critic_state_sha256'],'merged_actor_sha256':final['merged_true23_policy_sha256'],'lineage_sha256':final['lineage_sha256'],'updated_adapter_tensors':sum(not torch.equal(init['adapter_state_dict'][k],v) for k,v in final['adapter_state_dict'].items()),'adapter_tensor_count':len(final['adapter_state_dict']),'checkpoint_sha256':hashlib.sha256((p/'checkpoints/frozen_lora_model_100.pt').read_bytes()).hexdigest()}\nprint(json.dumps(result,sort_keys=True))\n",
+    "source_and_result_verification_python": "import json,hashlib\nfrom pathlib import Path\nimport numpy as np\nfrom gear_sonic.utils.g1_23dof_contract import HARDWARE_23_ACTION_SCALE\nroot=Path.cwd()\nrun_root=root/'artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1'\nassets=Path('/mnt/z/codex/GR00T-WholeBodyControl')\ndef identity(p):\n p=Path(p).resolve(strict=True)\n d=hashlib.sha256()\n with p.open('rb') as f:\n  for chunk in iter(lambda:f.read(1024*1024),b''):d.update(chunk)\n return {'path':str(p),'sha256':d.hexdigest()}\nchecked={}\ndef verify(p,h):\n p=Path(p).resolve(strict=True)\n if str(p) not in checked:checked[str(p)]=identity(p)['sha256']\n if checked[str(p)]!=h:raise ValueError('hash changed: '+str(p))\nresult={'suites':{},'models':{},'training_files':{}}\nfor run in ['baseline100','penalty2_100']:\n p=run_root/run\n result['models'][run]={kind:json.loads((p/('eval/model_100.diagnostic.'+kind+'.json')).read_text()) for kind in ['encoder','decoder']}\n lineage=json.loads((p/'lineage.json').read_text())\n for name,group in lineage['materials'].items():\n  if not isinstance(group,dict) or 'files' not in group:continue\n  for item in group['files']:\n   logical=item['logical_path']\n   if logical.startswith('causal_recovery/'):\n    matches=list((root/'gear_sonic').rglob(Path(logical).name))\n    if len(matches)!=1:raise ValueError('ambiguous source: '+logical)\n    actual=matches[0]\n   elif logical.startswith('unitree_rl_mjlab/'):\n    actual=assets/'external_dependencies'/logical\n   elif logical.startswith('unitree_g1/'):\n    actual=assets/'external_dependencies/unitree_rl_mjlab/src/assets/robots'/logical\n   elif logical.startswith('motions/'):\n    actual=root/'artifacts/g1_true23_frozen_lora/original_sonic_rehearsal_corpus_v1'/Path(logical).name\n   else:actual=root/logical\n   verify(actual,item['sha256'])\n result['training_files'][run]={f:identity(p/f) for f in ['resolved_training.json','lineage.json','checkpoints/frozen_lora_model_0.pt','checkpoints/frozen_lora_model_100.pt','environment_prime.json']}\n for family in ['original','stance_v2']:\n  summary_path=p/('envelope_'+family)/'suite_summary.json'\n  suite=json.loads(summary_path.read_text())\n  for item in suite['inputs']:verify(item['path'],item['sha256'])\n  rows=[]\n  for item in suite['cases']:\n   verify(item['summary']['path'],item['summary']['sha256'])\n   detail=json.loads(Path(item['summary']['path']).read_text())\n   for path,h in detail['sources'].items():verify(path,h)\n   for trace in item['trajectories']:verify(trace['path'],trace['sha256'])\n   r=item['result']\n   with np.load(item['trajectories'][0]['path'],allow_pickle=False) as trace:\n    residual=(trace['actuation_requested']-trace['actuation_target'])/np.array(HARDWARE_23_ACTION_SCALE)\n    costs=np.square(np.clip(np.nan_to_num(residual,nan=10,posinf=10,neginf=-10),-10,10)).mean(axis=1)\n   rows.append({'name':item['name'],'measured':item['measured_start'],'completed':r['completed_transitions'],'requested':r['requested_transitions'],'physics_steps':r['completed_active_physics_steps'],'maximum_joint_rmse_rad':r['maximums'].get('joint_rmse_rad'),'failure':r['failure'],'fidelity_passed':r['motion_fidelity']['passed'],'projection_cost_completed_substeps_mean':float(costs.mean()) if len(costs) else None,'startup_completed':r['startup_hold'].get('completed_transitions'),'startup_passed':r['startup_hold'].get('existing_guard_screen_passed'),'return_completed':r['return_hold'].get('completed_transitions'),'return_physics_steps':r['return_hold'].get('completed_physics_steps'),'return_passed':r['return_hold'].get('existing_guard_screen_passed'),'return_failure':r['return_hold'].get('failure'),'return_failure_details':r['return_hold'].get('failure_details')})\n  result['suites'][run+'/'+family]={'summary':identity(summary_path),'clips':suite['reference_clip_count'],'frames':suite['reference_frame_count'],'cases':suite['case_count'],'fidelity_passes':suite['full_clip_motion_fidelity_passed_count'],'lifecycle_passes':suite['paired_lifecycle_screen_passed_count'],'rows':rows}\nresult['independently_rechecked_unique_files']=len(checked)\nresult['independently_rechecked_files']=checked\nprint(json.dumps(result,sort_keys=True))\n"
+  },
+  "verification": {
+    "focused_pytest_passes": 255,
+    "pytest_skips": 0,
+    "changed_python_full_ruff_passed": true
+  },
+  "limitations": [
+    "100 updates and one seed do not establish convergence, generalization or parity.",
+    "All 34 full requested replays fail target intersection feasibility; no policy promoted.",
+    "Reference initializations are synthetic; recorded posture and standing actor do not simulate Unitree ownership transfer.",
+    "Projection residual means cover only completed physics substeps; differing rollout lengths are not matched-input full-motion costs.",
+    "Physical bit-30 motors-off cause remains unknown; no hardware action occurred."
+  ]
+}

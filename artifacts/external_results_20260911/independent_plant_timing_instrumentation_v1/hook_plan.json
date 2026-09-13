@@ -1,0 +1,117 @@
+{
+  "proposal_only": true,
+  "hook_sites": [
+    {
+      "file": "E:/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/session.py",
+      "source_sha256": "84168ebc41bd7ebd78fa7067b481772940ca3558fb584dd7f87ecd471f979e8e",
+      "function": "Session.tick_once",
+      "line": 64,
+      "phases": [
+        "TICK_ENVELOPE",
+        "OUTER_LOG"
+      ],
+      "original_function_ast_sha256": "45695b0c46ccd73c164f347deb22a4d4f2795f59e310ae9a7d3f08c8862c9e09",
+      "inserted": false
+    },
+    {
+      "file": "E:/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/clock_core.py",
+      "source_sha256": "76c54a589689411b1f4dd7c4937b9485f7979ec21065408c5cb51cfb67443626",
+      "function": "PlantFoundation.tick",
+      "line": 556,
+      "phases": [
+        "RESULT_POLL_AND_ADMIT",
+        "FIXED_WAIT",
+        "CAPTURE_OWNERSHIP",
+        "VERIFY_OWNERSHIP",
+        "STEP_LEDGER"
+      ],
+      "original_function_ast_sha256": "769fe2d91770d2be989a015e6b087772f356cc0dd463db0b56652347519dff7b",
+      "inserted": false
+    },
+    {
+      "file": "E:/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/clock_core.py",
+      "source_sha256": "76c54a589689411b1f4dd7c4937b9485f7979ec21065408c5cb51cfb67443626",
+      "function": "PlantFoundation._boundary",
+      "line": 517,
+      "phases": [
+        "BOUNDARY_SNAPSHOT",
+        "BOUNDARY_HISTORY",
+        "BOUNDARY_SERIALIZATION"
+      ],
+      "original_function_ast_sha256": "a51ede3b7d9b547dbe8ce25ac8769f98a2dd8b22a3039b839440060b410a30c2",
+      "inserted": false
+    },
+    {
+      "file": "E:/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/clock_core.py",
+      "source_sha256": "76c54a589689411b1f4dd7c4937b9485f7979ec21065408c5cb51cfb67443626",
+      "function": "PlantFoundation._attempt_job_publication",
+      "line": 451,
+      "phases": [
+        "JOB_PUBLICATION"
+      ],
+      "original_function_ast_sha256": "a9e082bde9a24d6a76867bbdfdd2765011418dc08e7b76de1972d77e802fcb23",
+      "inserted": false
+    },
+    {
+      "file": "E:/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/native_stepper.py",
+      "source_sha256": "126b5585deecabe70a6453ba4040707d40bea138100383131a7482cf0c7a580f",
+      "function": "NativeStepper.step",
+      "line": 177,
+      "phases": [
+        "PD_AND_INPUT",
+        "MJ_STEP"
+      ],
+      "original_function_ast_sha256": "2d739ebc6b8f32cd84b09fec32a579581d3ea276b5720ecee0815305b63a6a56",
+      "inserted": false
+    },
+    {
+      "file": "E:/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/clock_core.py",
+      "source_sha256": "76c54a589689411b1f4dd7c4937b9485f7979ec21065408c5cb51cfb67443626",
+      "function": "PlantFoundation.tick",
+      "line": 556,
+      "phases": [
+        "CAPTURE",
+        "VERIFY"
+      ],
+      "original_function_ast_sha256": "769fe2d91770d2be989a015e6b087772f356cc0dd463db0b56652347519dff7b",
+      "inserted": false
+    }
+  ],
+  "producer_source_sha256": {
+    "bfm_observations.py": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d",
+    "capture_schema.py": "dff89834dff1f897f73041e5cd285e1f9179bcc2482170975987818c25a6f4ae",
+    "clock_core.py": "76c54a589689411b1f4dd7c4937b9485f7979ec21065408c5cb51cfb67443626",
+    "counted_api.py": "d89dca860a6fba62986364664c7e6a7056566b2be6850569371e91157d667987",
+    "dummy_worker.py": "d2230fc8741093a050078bdb56d4d6d988e84547e228d5cbd93a46a4ffd2475a",
+    "evidence.py": "d22c189b5986ba3cba741b9f6d033d0f277f2bd03bd1eb4ab2dbe1bf07df5be4",
+    "history.py": "cc89415bed7e235a9cd1acdec8311ba51f0811605ed22d43709fd9f5879fde8f",
+    "mailbox.py": "01f68ee330e68dd229199d214316a35dee33d474f66afb6fbfe5d4378def7d28",
+    "model_identity.py": "e85e5c5eaeb4a8c76c8ef5cfa01c48bc33b6df15884ed21dc6d41d2ede6a87f4",
+    "native_loader.py": "bbe3ab14f48591381af61d4da861b70fdb742992b7e690a9e5eb8f4ee216ab9f",
+    "native_stepper.py": "126b5585deecabe70a6453ba4040707d40bea138100383131a7482cf0c7a580f",
+    "oracle_source.py": "0027210cda5a44255debecd7151ecd454e2281a5ff4e3137641d102701fb1330",
+    "packet_io.py": "0bb8ac18c6e12accf7caec778be7a0e688122b74a48d6ff749eaf713d137e4db",
+    "pending_result.py": "18f1b1c23e0f90796aa497a9c19bf76d4c30ebd6a13bf12c69dde343a38d00a5",
+    "recorded_protocol.py": "a50df344dff5c4ee049f47178e2db77507cb9e69e333d5704efe94f6bdb989ea",
+    "run_clock.py": "7fda498aa73e6585c931f05cebb95d73d91c3e07335c4c72a9977aec3c3c9cc7",
+    "session.py": "84168ebc41bd7ebd78fa7067b481772940ca3558fb584dd7f87ecd471f979e8e",
+    "shared_mailbox.py": "054505f4affe7ee71b8ecd36890ef62ec5a2ebf33365f3578e5b077c24dcd151",
+    "stage_watchdog.py": "a6613da97b1163031b6b7641af62f4c9ec63662bc3c6ff25deda3ee09b0b8089",
+    "test_pending_publication.py": "c472ad0a6b0ee790bf90eb8cbcf06bc49b4b872a8fd3063f5fcd7de26ea092b3",
+    "test_pending_result.py": "68d47ffce54bf647caff0a95a7edd13b314adfde678cb8197a4c0610019ebcb1",
+    "test_runner_stubs.py": "88319cc5d47cb1b5c9bf4ba7bb9638f122fe7a7b7c74b61ce742d220a63799d2",
+    "test_scaffold.py": "e1a9e9f86f6aa1da6b836f9bc92674844cc43740421c2d9393e8b6deb347739d",
+    "test_stage_watchdog.py": "f3eada8720741f12d825c455b7860fde3734e20f0078ef455bc3ab3f8c31280f"
+  },
+  "source_runtime_modified": false,
+  "full_controls": 1819,
+  "full_native_steps": 18190,
+  "model_serializations": 4,
+  "span_capacity": 262144,
+  "planned_span_bound": 223727,
+  "gc_event_capacity": 4096,
+  "table_bytes": 33947648,
+  "fixed_step_ns": 2000000,
+  "fixed_control_ns": 20000000,
+  "callback_registry_changed": false
+}

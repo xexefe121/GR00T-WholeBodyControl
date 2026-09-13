@@ -1,0 +1,56 @@
+{
+  "kind": "one_fixed_prior_memory_intervention_recommendation",
+  "recommended": true,
+  "execution_selected_by_this_review": false,
+  "primary_controls": [
+    251,
+    252
+  ],
+  "all_controls": [
+    250,
+    251,
+    252,
+    253,
+    254,
+    255,
+    256,
+    257,
+    258,
+    259,
+    260,
+    261
+  ],
+  "proposed_graph_calls": {
+    "backward": 12,
+    "actor": 24,
+    "head": 24,
+    "total": 60
+  },
+  "proposed_physics_steps": 0,
+  "proposed_optimizer_updates": 0,
+  "proposed_training_labels": 0,
+  "model": "unchanged ordinary70000",
+  "baseline": "original WSL batch1 reproduces saved actual inputs/outputs byte-exact before intervention",
+  "intervention": "same actual qpos/qvel/frame and unchanged actor lag-history; substitute same-clock qualified teacher current previous raw action coherently into actor last_action and derived clipped previous-target features, recompute BFM base and head with cached same-state backward latent",
+  "control250_noop_required": true,
+  "nominal_source_skipping": false,
+  "limits_relaxed": false,
+  "why_not_mask": "Existing head depends on both direct prior representations and prior-conditioned BFM base; a runtime mask breaks trained semantics and does not isolate all feedback.",
+  "why_not_prior_fit_yet": "Saved Jacobian magnitude and observed early errors do not identify direct prior feedback causally; local linearization vector error exceeds observed response.",
+  "report_all_results": true,
+  "causal_input_intervention_only": true,
+  "physically_coherent_trajectory_claim": false,
+  "reviewer_model_calls": 0,
+  "reviewer_physics_steps": 0,
+  "reviewer_optimizer_updates": 0,
+  "input_hashes": {
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\previous_command_design_review_v1\\RECOMMENDATION.md": "da1916c95b1b938c9a2520a0b77795b49c4b03175706d9a09020c6131f30b07f",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\previous_command_design_review_v1\\saved_assessment.json": "57b08fa0a1d5c65d2d5d637aee45061818af6b34123631c537db48c26b8acdc1",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\previous_command_design_review_v1\\request.json": "0165de72dadf33d90c50681bcaa2a34d547aed3eb40971eed01740ee826b8a80",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\previous_command_design_review_v1\\assess_saved.py": "5cacaed8fd72627f2465d7245a1df10ca38e7ada798a380ecc0df56c23c50669",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\student_velocity_chord_saved_outcome_v1\\report.json": "7a24e28350e138af70949a71cfeefffb1d734b51baa3fadd836d56d52fc7e7d0",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\student_velocity_chord_saved_outcome_v1\\early_departure.json": "dc7ef079cd0516bced0c9e5a2a3b4b8b0953bf06d6d5d167635b15b0db23d550",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\student_velocity_chord_fixed_map_v1\\report.json": "82a743ee3ce6136d4d1a265ee89505e2cfab1744e6f0348a22b4d059a04197aa",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\velocity_chord_final_export_review_v1\\review.json": "dc0ba6b00a5daa073c0c62a24f4f443bfe24235881ea882bbc1e944adce55ac1"
+  }
+}

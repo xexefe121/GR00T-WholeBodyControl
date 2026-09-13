@@ -1,0 +1,55 @@
+{
+  "kind": "root_independent_saved_clock_source_review",
+  "version": 2,
+  "passed": true,
+  "source_sha256": {
+    "audit_clock.py": "910e2633025a14df8c5a6c6852b539d33fbc06c713df7849cb486614bc27dbc8",
+    "clock_accounting.py": "efcc2fce3aa1acf08d034be2255246fe8c296868f8041d2f05794ff494581b79",
+    "clock_control_math.py": "3f2e8ff9663cdfaabc0438ac6cf5f9b8db22f1da055a4fbd8878a23e95110758",
+    "clock_protocol_math.py": "6cf637367d21fb48c167173ce9d075d0b77a98cc4279693cd5afc415a605f6e6",
+    "clock_saved_math.py": "7473253faff05addf2b0e1c7181ecb570bab56dccf6cbbfe08565a18d5659c40",
+    "prepare_request.py": "108322c4afce92c5ec35697e82896915cf6ffc8f50e9851d4f2bb51609f20a6e",
+    "qualified_binary_math.py": "7d35c7cbfbc392f7bde6230452d4950d10942352afb6b64c026955fdaa5bd1f8",
+    "test_clock_accounting.py": "dc08535429c240ceefd78d98e5e620b8412f89756a8b667f8210214d07b7e637",
+    "test_clock_audit_gates.py": "dcae66892798f8ecbcc853afebd5229ee924cb878be90c19640acde655cf0e07",
+    "test_clock_control_math.py": "b0ba6e7353ab2f51adeac18269bc45901fabad6ddbf17e02acbcee9609685aeb",
+    "test_clock_protocol_math.py": "d6351032ac7d688c515bf45b06327aad0cdebee1145ad3f94fde4fc37a57fc1a",
+    "test_clock_saved_math.py": "67023a55c0a8a037fc342bea33237ee7582faed11b5b9962e7176f0ea5748c20"
+  },
+  "preparation_subject": {
+    "path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_plant_clock_saved_root_review_v1\\source_preparation_audit_v2.json",
+    "sha256": "7f22377e0230a8f7bd27f2ca0302381f238c7a2c5925a767eb36588ea2a98e26"
+  },
+  "root_synthetic_tests": {
+    "passed": 43,
+    "failed": 0,
+    "skipped": 0,
+    "path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_plant_clock_saved_root_review_v1\\root_audit_synthetic_tests_v2.xml",
+    "sha256": "6cd2cd9ca078119b6c259c39647573f7e5f70839f49112f7767ab1fa0d898b9f"
+  },
+  "synthetic_observation_reference": {
+    "path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_v1\\source_draft_v3\\bfm_observations.py",
+    "sha256": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d"
+  },
+  "reviewed": [
+    "All 12 final source files; unchanged binary decoder verified against previously reviewed source.",
+    "Literal source, request, launch, clearance, owner, process and output subject binding with final rehash.",
+    "Independent full291/packed373 reconstruction, unchanged manual PD and original strict predicates.",
+    "Nonfinite captured state/force retained as strict failure evidence; original initial force exception preserved.",
+    "Fixed epoch and deadlines, actual plant-copy admission, worker timing, canonical jobs and command bytes.",
+    "Incoming applied prior, lagged history and held-command provenance; no oracle replacement of actual state.",
+    "Native attempt/return/capture/verification counts and reserved uncommitted fault bytes without full-scope credit.",
+    "Four actual saved MJB buffers compared directly without additional serialization.",
+    "Worker cleanup and observed process absence; failed-start uncertainty retained.",
+    "Physical, timing, command and evidence-integrity verdicts remain separate."
+  ],
+  "limitations": [
+    "Source/synthetic review only; actual benchmark and saved audit have not run.",
+    "An uncommitted failed cycle can lack timing samples; incomplete evidence cannot qualify the component.",
+    "Recorded expert command benchmark cannot qualify learned online policy or live Pico teleoperation."
+  ],
+  "actual_task_array_evaluations": 0,
+  "native_steps": 0,
+  "model_calls": 0,
+  "optimizer_updates": 0
+}

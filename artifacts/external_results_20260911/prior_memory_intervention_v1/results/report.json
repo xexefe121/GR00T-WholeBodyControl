@@ -1,0 +1,425 @@
+{
+  "passed": true,
+  "all12_baseline_byteexact": true,
+  "control250_noop_byteexact": true,
+  "graph_calls": {
+    "backward": {
+      "attempted": 12,
+      "returned": 12
+    },
+    "actor": {
+      "attempted": 24,
+      "returned": 24
+    },
+    "head": {
+      "attempted": 24,
+      "returned": 24
+    }
+  },
+  "total_graph_calls": 60,
+  "request_sha256": "7a098565f31b356b3a9358125391884069dd6140766d3286193025956c477d28",
+  "clearance_sha256": "c4bbfe2410acfea2407d3368b3051c5d1ebb5f223884b1f53dae2304b58126a6",
+  "arrays_sha256": "ab5abd25375854c45ae1858c0a9f3b189efd442275c27c0bb0afc6507e132dc6",
+  "runtime": {
+    "numpy": "1.26.4",
+    "onnxruntime": "1.23.2",
+    "binary_sha256": "f22a6994fbadefe3888cd3a5300a63021884372dafecaea9875987dce697c8c1",
+    "threads": 1,
+    "execution": "ORT_SEQUENTIAL",
+    "provider": "CPUExecutionProvider"
+  },
+  "rows": [
+    {
+      "control": 250,
+      "fixed_map_feedback_clipped_joints": [],
+      "baseline_raw_vs_map_rmse_rad": 0.02860632838363124,
+      "baseline_applied_vs_map_rmse_rad": 0.02860632838363124,
+      "intervention_raw_vs_map_rmse_rad": 0.02860632838363124,
+      "intervention_applied_vs_map_rmse_rad": 0.02860632838363124,
+      "target_change_rms_rad": 0.0,
+      "base_change_rms_rad": 0.0,
+      "head_change_rms_rad": 0.0,
+      "prior_change_rms": 0.0,
+      "baseline_clipped_joints": [],
+      "intervention_clipped_joints": []
+    },
+    {
+      "control": 251,
+      "fixed_map_feedback_clipped_joints": [
+        "left_hip_pitch_joint",
+        "right_hip_pitch_joint",
+        "right_shoulder_pitch_joint"
+      ],
+      "baseline_raw_vs_map_rmse_rad": 0.11900662025180307,
+      "baseline_applied_vs_map_rmse_rad": 0.11900662025180307,
+      "intervention_raw_vs_map_rmse_rad": 0.1147610312825515,
+      "intervention_applied_vs_map_rmse_rad": 0.1147610312825515,
+      "target_change_rms_rad": 0.019043793025092005,
+      "base_change_rms_rad": 0.0066145503067961825,
+      "head_change_rms_rad": 0.019679727501855596,
+      "prior_change_rms": 0.07506740037830407,
+      "baseline_clipped_joints": [],
+      "intervention_clipped_joints": []
+    },
+    {
+      "control": 252,
+      "fixed_map_feedback_clipped_joints": [],
+      "baseline_raw_vs_map_rmse_rad": 0.2967816953870947,
+      "baseline_applied_vs_map_rmse_rad": 0.2967816953870947,
+      "intervention_raw_vs_map_rmse_rad": 0.23212536021668104,
+      "intervention_applied_vs_map_rmse_rad": 0.23212536021668104,
+      "target_change_rms_rad": 0.11497637018404683,
+      "base_change_rms_rad": 0.08133523439760466,
+      "head_change_rms_rad": 0.11351914431571382,
+      "prior_change_rms": 0.25284488535261646,
+      "baseline_clipped_joints": [],
+      "intervention_clipped_joints": []
+    },
+    {
+      "control": 253,
+      "fixed_map_feedback_clipped_joints": [
+        "left_hip_pitch_joint",
+        "left_hip_roll_joint",
+        "left_hip_yaw_joint",
+        "left_knee_joint",
+        "left_ankle_roll_joint",
+        "right_hip_pitch_joint",
+        "right_hip_roll_joint",
+        "right_hip_yaw_joint",
+        "right_knee_joint",
+        "left_shoulder_pitch_joint",
+        "left_shoulder_roll_joint",
+        "left_shoulder_yaw_joint",
+        "left_elbow_joint",
+        "right_shoulder_pitch_joint",
+        "right_elbow_joint"
+      ],
+      "baseline_raw_vs_map_rmse_rad": 0.40108841979725396,
+      "baseline_applied_vs_map_rmse_rad": 0.39468562026658066,
+      "intervention_raw_vs_map_rmse_rad": 0.29182525078437477,
+      "intervention_applied_vs_map_rmse_rad": 0.2652835666575769,
+      "target_change_rms_rad": 0.26438623192553146,
+      "base_change_rms_rad": 0.08966192931109482,
+      "head_change_rms_rad": 0.22178174534557682,
+      "prior_change_rms": 0.695068371117646,
+      "baseline_clipped_joints": [
+        "right_hip_roll_joint",
+        "right_knee_joint"
+      ],
+      "intervention_clipped_joints": [
+        "right_knee_joint",
+        "right_ankle_pitch_joint"
+      ]
+    },
+    {
+      "control": 254,
+      "fixed_map_feedback_clipped_joints": [
+        "left_hip_pitch_joint",
+        "left_hip_roll_joint",
+        "left_hip_yaw_joint",
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_hip_pitch_joint",
+        "right_hip_roll_joint",
+        "right_knee_joint",
+        "right_shoulder_pitch_joint",
+        "right_shoulder_roll_joint",
+        "right_shoulder_yaw_joint"
+      ],
+      "baseline_raw_vs_map_rmse_rad": 0.2711080306005926,
+      "baseline_applied_vs_map_rmse_rad": 0.2703372431393458,
+      "intervention_raw_vs_map_rmse_rad": 0.35399709155986536,
+      "intervention_applied_vs_map_rmse_rad": 0.31621707279516353,
+      "target_change_rms_rad": 0.2582314459669757,
+      "base_change_rms_rad": 0.07933635291782286,
+      "head_change_rms_rad": 0.26133778677881836,
+      "prior_change_rms": 1.1968836014729671,
+      "baseline_clipped_joints": [
+        "left_ankle_roll_joint"
+      ],
+      "intervention_clipped_joints": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint"
+      ]
+    },
+    {
+      "control": 255,
+      "fixed_map_feedback_clipped_joints": [
+        "left_hip_pitch_joint",
+        "left_hip_roll_joint",
+        "left_hip_yaw_joint",
+        "left_ankle_pitch_joint",
+        "right_hip_pitch_joint",
+        "right_hip_roll_joint",
+        "right_hip_yaw_joint",
+        "right_ankle_pitch_joint",
+        "left_shoulder_pitch_joint",
+        "left_shoulder_roll_joint",
+        "left_elbow_joint",
+        "right_shoulder_pitch_joint",
+        "right_shoulder_roll_joint",
+        "right_shoulder_yaw_joint"
+      ],
+      "baseline_raw_vs_map_rmse_rad": 0.4787478966489992,
+      "baseline_applied_vs_map_rmse_rad": 0.34913759174464454,
+      "intervention_raw_vs_map_rmse_rad": 0.35401038396641843,
+      "intervention_applied_vs_map_rmse_rad": 0.2779288162884438,
+      "target_change_rms_rad": 0.2002712766329214,
+      "base_change_rms_rad": 0.055032170129094074,
+      "head_change_rms_rad": 0.23106064317846742,
+      "prior_change_rms": 0.7045639428415099,
+      "baseline_clipped_joints": [
+        "left_ankle_pitch_joint"
+      ],
+      "intervention_clipped_joints": [
+        "left_ankle_pitch_joint"
+      ]
+    },
+    {
+      "control": 256,
+      "fixed_map_feedback_clipped_joints": [
+        "left_hip_pitch_joint",
+        "left_hip_roll_joint",
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_hip_pitch_joint",
+        "right_hip_roll_joint",
+        "right_knee_joint",
+        "left_shoulder_pitch_joint",
+        "left_shoulder_roll_joint",
+        "left_shoulder_yaw_joint",
+        "right_shoulder_pitch_joint"
+      ],
+      "baseline_raw_vs_map_rmse_rad": 0.414133276317259,
+      "baseline_applied_vs_map_rmse_rad": 0.3876562396052762,
+      "intervention_raw_vs_map_rmse_rad": 0.4403533686421513,
+      "intervention_applied_vs_map_rmse_rad": 0.35522105198637355,
+      "target_change_rms_rad": 0.2517663219817988,
+      "base_change_rms_rad": 0.15434452435972787,
+      "head_change_rms_rad": 0.3063619396844635,
+      "prior_change_rms": 1.1850434753808918,
+      "baseline_clipped_joints": [
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_ankle_roll_joint"
+      ],
+      "intervention_clipped_joints": [
+        "left_ankle_pitch_joint",
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ]
+    },
+    {
+      "control": 257,
+      "fixed_map_feedback_clipped_joints": [
+        "left_hip_pitch_joint",
+        "left_hip_roll_joint",
+        "left_hip_yaw_joint",
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_hip_pitch_joint",
+        "right_hip_roll_joint",
+        "right_hip_yaw_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint",
+        "left_shoulder_pitch_joint",
+        "left_shoulder_roll_joint",
+        "left_shoulder_yaw_joint",
+        "left_elbow_joint",
+        "right_shoulder_pitch_joint",
+        "right_shoulder_roll_joint",
+        "right_elbow_joint"
+      ],
+      "baseline_raw_vs_map_rmse_rad": 0.37028534874303054,
+      "baseline_applied_vs_map_rmse_rad": 0.34468738338418903,
+      "intervention_raw_vs_map_rmse_rad": 0.37144460735660095,
+      "intervention_applied_vs_map_rmse_rad": 0.3239774504389341,
+      "target_change_rms_rad": 0.2144633305974414,
+      "base_change_rms_rad": 0.21705392023835746,
+      "head_change_rms_rad": 0.23055718504071304,
+      "prior_change_rms": 0.9506783153063039,
+      "baseline_clipped_joints": [
+        "left_ankle_roll_joint",
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "intervention_clipped_joints": [
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ]
+    },
+    {
+      "control": 258,
+      "fixed_map_feedback_clipped_joints": [
+        "left_hip_pitch_joint",
+        "left_hip_roll_joint",
+        "left_hip_yaw_joint",
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_hip_pitch_joint",
+        "right_hip_roll_joint",
+        "right_hip_yaw_joint",
+        "right_ankle_pitch_joint",
+        "left_shoulder_pitch_joint",
+        "left_shoulder_roll_joint",
+        "left_shoulder_yaw_joint",
+        "left_elbow_joint",
+        "right_shoulder_pitch_joint",
+        "right_shoulder_roll_joint",
+        "right_elbow_joint"
+      ],
+      "baseline_raw_vs_map_rmse_rad": 0.7640751890747458,
+      "baseline_applied_vs_map_rmse_rad": 0.6216008305809905,
+      "intervention_raw_vs_map_rmse_rad": 0.41448254873028517,
+      "intervention_applied_vs_map_rmse_rad": 0.4084776453549144,
+      "target_change_rms_rad": 0.41298594622092444,
+      "base_change_rms_rad": 0.15276988687071455,
+      "head_change_rms_rad": 0.5317136582054856,
+      "prior_change_rms": 0.8775037109547031,
+      "baseline_clipped_joints": [
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "intervention_clipped_joints": [
+        "right_ankle_roll_joint"
+      ]
+    },
+    {
+      "control": 259,
+      "fixed_map_feedback_clipped_joints": [
+        "left_hip_pitch_joint",
+        "left_hip_roll_joint",
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_hip_pitch_joint",
+        "right_hip_roll_joint",
+        "right_hip_yaw_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint",
+        "left_shoulder_pitch_joint",
+        "left_shoulder_roll_joint",
+        "left_elbow_joint",
+        "right_shoulder_pitch_joint",
+        "right_shoulder_roll_joint",
+        "right_shoulder_yaw_joint",
+        "right_elbow_joint"
+      ],
+      "baseline_raw_vs_map_rmse_rad": 0.8726726142043619,
+      "baseline_applied_vs_map_rmse_rad": 0.4677514292800811,
+      "intervention_raw_vs_map_rmse_rad": 0.7573792174738563,
+      "intervention_applied_vs_map_rmse_rad": 0.37147468394078964,
+      "target_change_rms_rad": 0.3298452272319661,
+      "base_change_rms_rad": 0.2903779908210344,
+      "head_change_rms_rad": 0.46301458378028637,
+      "prior_change_rms": 1.8453516777403438,
+      "baseline_clipped_joints": [
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "intervention_clipped_joints": [
+        "left_ankle_pitch_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ]
+    },
+    {
+      "control": 260,
+      "fixed_map_feedback_clipped_joints": [
+        "left_hip_pitch_joint",
+        "left_hip_yaw_joint",
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "right_hip_pitch_joint",
+        "right_hip_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint",
+        "waist_yaw_joint",
+        "left_shoulder_pitch_joint",
+        "left_shoulder_roll_joint",
+        "left_shoulder_yaw_joint",
+        "left_elbow_joint",
+        "right_shoulder_pitch_joint",
+        "right_shoulder_roll_joint",
+        "right_shoulder_yaw_joint",
+        "right_elbow_joint"
+      ],
+      "baseline_raw_vs_map_rmse_rad": 0.8142726144182347,
+      "baseline_applied_vs_map_rmse_rad": 0.7787360835186689,
+      "intervention_raw_vs_map_rmse_rad": 0.7838480785667397,
+      "intervention_applied_vs_map_rmse_rad": 0.7477912314448122,
+      "target_change_rms_rad": 0.3819186020548689,
+      "base_change_rms_rad": 0.3548606897000303,
+      "head_change_rms_rad": 0.46541061273932854,
+      "prior_change_rms": 2.060843276377347,
+      "baseline_clipped_joints": [
+        "right_knee_joint",
+        "right_ankle_roll_joint"
+      ],
+      "intervention_clipped_joints": [
+        "left_ankle_pitch_joint",
+        "right_knee_joint",
+        "right_ankle_roll_joint"
+      ]
+    },
+    {
+      "control": 261,
+      "fixed_map_feedback_clipped_joints": [
+        "left_hip_pitch_joint",
+        "left_hip_roll_joint",
+        "left_hip_yaw_joint",
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "right_hip_pitch_joint",
+        "right_hip_roll_joint",
+        "right_hip_yaw_joint",
+        "right_knee_joint",
+        "right_ankle_roll_joint",
+        "waist_yaw_joint",
+        "left_shoulder_pitch_joint",
+        "left_shoulder_roll_joint",
+        "left_elbow_joint",
+        "right_shoulder_pitch_joint",
+        "right_shoulder_roll_joint",
+        "right_shoulder_yaw_joint"
+      ],
+      "baseline_raw_vs_map_rmse_rad": 1.3755066357480317,
+      "baseline_applied_vs_map_rmse_rad": 1.0373282276650027,
+      "intervention_raw_vs_map_rmse_rad": 1.1688787051037457,
+      "intervention_applied_vs_map_rmse_rad": 0.7482994793529925,
+      "target_change_rms_rad": 0.5530013999032729,
+      "base_change_rms_rad": 0.22376365819270125,
+      "head_change_rms_rad": 0.5277302036122138,
+      "prior_change_rms": 2.2898830414988387,
+      "baseline_clipped_joints": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "intervention_clipped_joints": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint"
+      ]
+    }
+  ],
+  "all_frozen_inputs_unchanged": true,
+  "physics_steps": 0,
+  "optimizer_updates": 0,
+  "new_training_labels": 0,
+  "limitation": "Current-memory input intervention only: actual state and four previous actor-history samples held fixed. Teacher current prior is not physically coherent with the altered student trajectory. Fixed committed-map targets do not replan or certify perturbed states."
+}

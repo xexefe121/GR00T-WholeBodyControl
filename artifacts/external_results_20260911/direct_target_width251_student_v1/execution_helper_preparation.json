@@ -1,0 +1,44 @@
+{
+  "source_preparation_pass": true,
+  "source_review_pass": true,
+  "reviewer": "root",
+  "helper_sha256": {
+    "prepare_execution.py": "9a4ee6d5f37584c2b726a06194591554b2f8e005303d90aa43dfac3fa29607ea",
+    "execution_common.py": "20cb98ffb08bb5bf642489cebf818a95fbf2ab800bb83f80fdb2d4e81d941f47",
+    "run_fit_durable_v1.ps1": "4ef560d43487dcaba415d1432581610622e631c753923adf39ae8d7662bd15e8",
+    "dispatch_fit.ps1": "fc13467a5cf211dbcdd3ef1bf4c9fab4eabe097a31a7a5788f16c31423e90a1e",
+    "verify_completed.py": "152c85b5a78505332f6d14d5d329cf37405ec02daa6155d00f95bd80142e514a",
+    "read_fit_progress_v1.ps1": "1b31b0ff85bf0b76961f68b7cfa36d4d75448ecca9108a422ce58930d18b192e",
+    "test_execution_helpers.py": "ed1e3f954c725f61771c02be1b1ffecff93d54b3f53a42050a12e2e2779b3924",
+    "test_launcher.ps1": "56e4dd23c31549fd0c0c65aa7140d1607f6d782680e01aab986db8286bd4dde8",
+    "prove_actual_metadata_gate.py": "14df17966f753d3f2b28b148368ab93a2107214a86aeabe3f0f88f28628ea522"
+  },
+  "evidence_sha256": {
+    "root_execution_tests_v1.xml": "2e226f84f99d0d26cda2974dfa12098956528be96ca2c482ed503df363872ba9",
+    "launcher_tests.json": "8c709ede654ca62b26d9c9ddfa3dba21078d623a2c6a5262b8cdf9397ea705fc",
+    "metadata_schema_proof.json": "4e6a8217ca7018cf757ad9d817718818c970db69d7a8e867e5288400e116cf90",
+    "metadata_gate_proof.json": "a0027faf2987649c6c7b564838e1db64acf0d2d7157152ade57d4aebf3b3d241",
+    "source_preparation.json": "658ee9edccc99f9b1e8c8124d827ccff1db1ecef53ac08d6631e2ca869d42420",
+    "root_review.json": "15731f7dedf2cf3e05b1c331b519745c756d1e82a70ec727af4c75f8a024beec",
+    "selected_protocol.json": "1cade1a88df2324511ca2b9599b69261e9a9b7a72ba34c540b09b8ac10896128",
+    "launcher_derivation.patch": "83267d963b621f74731210d1e9f06ccd71898ea68ce5cf80b76141cb71511510"
+  },
+  "synthetic_tests": 37,
+  "PS51_checks": 14,
+  "metadata_lineage_checks": 81,
+  "original_trainer_sources_unchanged": 39,
+  "source_preparation_sha256": "658ee9edccc99f9b1e8c8124d827ccff1db1ecef53ac08d6631e2ca869d42420",
+  "scope": [
+    "Configuration-only metadata proof precedes streaming actual file rehash.",
+    "Native512 source restored without expansion; old corpus/schedule/context filenames checked against actual manifests.",
+    "Captured handles, exact receipt/clearance arguments, unknown-exit rejection and no automatic retry.",
+    "Owner checks all request subjects, process arguments, source/runtime/input pins, dispatch and independently observed absence.",
+    "Owner accounting does not establish model authenticity or physical qualification."
+  ],
+  "task_array_loads": 0,
+  "checkpoint_loads": 0,
+  "model_calls": 0,
+  "native_steps": 0,
+  "actual_dispatch": false,
+  "writer_sha256": "a67851e544d8478c71cb2d67a289bc68283f0baebb0115dea83fb83a4e06ed8c"
+}

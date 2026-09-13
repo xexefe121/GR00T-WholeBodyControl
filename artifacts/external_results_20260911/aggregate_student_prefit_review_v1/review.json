@@ -1,0 +1,26 @@
+{
+  "review": "unexecuted aggregate trainer and durable launcher v1",
+  "utc": "2026-09-11T03:44:29.976285+00:00",
+  "source_receipt_sha256": "ac8e4837ce6f0dd33ca86c3344f330ccd72416217a053057396b48d92da9bf94",
+  "trainer_sha256": "8e18e9af5e0257c0ee99631d6fe4f883197234f88c09a4c011a3b697d14ce5c8",
+  "launcher_sha256": "279736fee0cffdfc01f70fcbddc715e57e01a09e7e6966885aa2609d5851f8fd",
+  "scope_checks": [
+    "All16source/46input hashes exact, prior15 copied files byte-identical.",
+    "Explicit control masks produceold250/100/819/100 andfresh249/100/819/100.",
+    "Fullfinal20000model/AdamW/RNG restore after construction; exact prior predictions/ONNXbytes and RNG assertions before updates.",
+    "Fixedsteps20001..60000,32old+32fresh perphase, oldnorm/span/architecture/loss retained; no earlystop/intermediatephysics/checkpointselection.",
+    "Phase-outer then dataset-inner sampler order differs provisional metadata but is accurately declared before execution and retains requested weights.",
+    "No physics/controller rollout calls in trainer; fit folder contains onlyzero_head.onnx before launch."
+  ],
+  "required_prelaunch_corrections": [
+    "Owner identified finalcheckpoint onlysaved afterexportparity: preserve ordinaryfinal60000 model+AdamW+RNG/fitarrays beforeexport validation, retaining failedexport evidence.",
+    "Do not label originalCONFIG(steps1000,old64perphase,all1269) as currentoptimizer; record original_configuration separately and actual optimizer fields.",
+    "Durable launcher must refuse existing status/stdout/stderr beforewriting, preserving incomplete attempts and preventing implicit restarts."
+  ],
+  "reviewer_execution": {
+    "inference_calls": 0,
+    "optimizer_calls": 0,
+    "physics_steps": 0,
+    "fit_runs": 0
+  }
+}

@@ -101,8 +101,22 @@ def audit_norms(residual, groups):
     return {"passed": maximum == 0.0, "maximum_normalized_excess": maximum, "categories": categories}
 
 
-def solve_box_soc(diagonal, cost, matrix, lower, upper, norm_groups):
+def solve_box_soc(
+    diagonal,
+    cost,
+    matrix,
+    lower,
+    upper,
+    norm_groups,
+    *,
+    solver_tolerance=1e-9,
+    accept_independently_feasible_inaccurate=False,
+):
     """Strict box/SOC solve with independent original-row and norm audits."""
+    if not np.isfinite(solver_tolerance) or not 1e-12 <= solver_tolerance <= 1e-9:
+        raise ValueError("solver tolerance may only tighten the original 1e-9 precision")
+    if type(accept_independently_feasible_inaccurate) is not bool:
+        raise ValueError("inaccurate-iterate diagnostic selection must be explicit boolean")
     diagonal, cost, lower, upper = [np.asarray(x, dtype=float) for x in (diagonal, cost, lower, upper)]
     matrix = sparse.csc_matrix(matrix)
     if (
@@ -157,7 +171,7 @@ def solve_box_soc(diagonal, cost, matrix, lower, upper, norm_groups):
     settings.verbose = False
     settings.max_iter, settings.max_threads = 200, 1
     settings.direct_solve_method = "qdldl"
-    settings.tol_feas = settings.tol_gap_abs = settings.tol_gap_rel = 1e-9
+    settings.tol_feas = settings.tol_gap_abs = settings.tol_gap_rel = solver_tolerance
     answer = clarabel.DefaultSolver(
         sparse.diags(diagonal, format="csc"),
         cost,
@@ -175,11 +189,12 @@ def solve_box_soc(diagonal, cost, matrix, lower, upper, norm_groups):
         "norm_constraint_count": len(norm_groups),
         "accepted": False,
         "original_row_audit_tolerance": 1e-8,
-        "requested_feasibility_tolerance": 1e-9,
+        "requested_feasibility_tolerance": solver_tolerance,
     }
     if not np.isfinite(report["solve_time_s"]):
         report["solve_time_s"] = None
-    if answer.status != clarabel.SolverStatus.Solved or answer.x is None:
+    inaccurate = answer.status == clarabel.SolverStatus.AlmostSolved
+    if answer.status not in (clarabel.SolverStatus.Solved, clarabel.SolverStatus.AlmostSolved) or answer.x is None:
         return None, report
     solution = np.asarray(answer.x, dtype=float)
     if solution.shape != diagonal.shape or not np.isfinite(solution).all():
@@ -197,6 +212,11 @@ def solve_box_soc(diagonal, cost, matrix, lower, upper, norm_groups):
     if not np.isfinite(violation + norm_violation) or max(violation, norm_violation) > 1e-8:
         report["status"] = "independent_original_constraints_failed"
         return None, report
+    if inaccurate:
+        report["inaccurate_solution_independently_feasible"] = True
+        report["qp_optimality_proven"] = False
+        if not accept_independently_feasible_inaccurate:
+            return None, report
     report["accepted"] = True
     return solution, report
 

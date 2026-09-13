@@ -1,0 +1,278 @@
+{
+  "kind": "g1_original29_native23_hand_contact_semantics_audit_v1",
+  "inputs": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original29_hand_contact_audit_20260906_v1/audit_hands.py": "e0e125d4f6c3adbaca7f4211b4c635ebae9bc4bfa942266c9c579ef7c42f8a5e",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_task_space_retarget.py": "c170d49b15066b66a96eee10e21c9209a91a12dc0da724922e3a39feb463f9a6",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original29_recorded_baseline_20260906_v1/report.json": "ba3f74b9fe84325f21673dc095840ab1db5673c62f26e1c8a2ab6194d86b6932",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original29_recorded_native23_fit_20260906_v1/report.json": "fc9e61d35d3ca5c6e1e3922e7a9d86b6e432b6667f20bdff652e1e019f7aaf6b",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/g1/scene_29dof.xml": "28e120602f1530ac9604f0bdbea975df67a62e4e68365840814fc7c2ce14ccd0",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/g1/g1_29dof_old.xml": "9a2c36fe863309aabdcafc5903f1c725afaebe45eff2b294ead5a9269a1381ef",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/src/g1_deploy_onnx_ref.cpp": "2079bc5ae3d25b015b198e0f228031c436c3b1acaecc92c9da739619f7c8fe9d",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original29_recorded_baseline_20260906_v1/original29.mjb": "40bd428f7a2e090a3bb2f85f61e965be179b6ab91b63d6f1a827733cf6a0cd96",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original29_recorded_native23_fit_20260906_v1/native23.mjb": "4965a4f65b5045aaa5e9509c0a90ea1629d0535ab234b56140baba561f8a5525",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original29_recorded_baseline_20260906_v1/hand_crawling.cpp_parameters_and_float32_targets.npz": "0425a82f5ad6d68c00b6346b4b496d6b54a3e90cfa7972e32b69ad528b70fe9e",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original29_recorded_native23_fit_20260906_v1/hand_crawling.native23.npz": "fa8175dbb09affacad66c621659394a65d72f1f289807a1e31695706e454a7bd",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original29_recorded_baseline_20260906_v1/happy_dance.cpp_parameters_and_float32_targets.npz": "af363e4571d688d5005c56bfbc7ee2eca4aab0f0f9dff0c095992f911de38e23",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original29_recorded_native23_fit_20260906_v1/happy_dance.native23.npz": "3f096e8ac07bb9c940ca8525ef78a3b36cb0ed8dc79d54527f7bdbd983b9ce9a"
+  },
+  "records": [
+    {
+      "clip": "hand_crawling",
+      "model": "original29",
+      "frames": 606,
+      "hand_geoms": [
+        {
+          "geom_id": 58,
+          "body": "left_wrist_yaw_link",
+          "mesh": "left_rubber_hand",
+          "contype": 0,
+          "conaffinity": 0
+        },
+        {
+          "geom_id": 73,
+          "body": "right_wrist_yaw_link",
+          "mesh": "right_rubber_hand",
+          "contype": 0,
+          "conaffinity": 0
+        }
+      ],
+      "explicit_contact_pair_count": 0,
+      "frames_with_virtual_hand_point_below_floor": 472,
+      "frames_with_rubber_hand_mesh_below_floor_including_visual_only": 472,
+      "worst": {
+        "frame": 520,
+        "virtual_hand_positions": {
+          "left_hand": [
+            2.2038043061176333,
+            0.2072142762803347,
+            -0.10747883669760107
+          ],
+          "right_hand": [
+            2.338443074594073,
+            -0.24380173876211877,
+            -0.15159146933295042
+          ]
+        },
+        "minimum_rubber_hand_vertex_z_m": -0.1459469377074161
+      },
+      "frame191": {
+        "frame": 191,
+        "virtual_hand_positions": {
+          "left_hand": [
+            1.0867435820737483,
+            0.132626132330034,
+            -0.0878239733231361
+          ],
+          "right_hand": [
+            1.1981151745479852,
+            -0.3018909068153202,
+            -0.14675445496977466
+          ]
+        },
+        "minimum_rubber_hand_vertex_z_m": -0.13966504291224535
+      }
+    },
+    {
+      "clip": "hand_crawling",
+      "model": "native23",
+      "frames": 606,
+      "hand_geoms": [
+        {
+          "geom_id": 48,
+          "body": "left_wrist_roll_rubber_hand",
+          "mesh": "left_wrist_roll_rubber_hand",
+          "contype": 0,
+          "conaffinity": 0
+        },
+        {
+          "geom_id": 49,
+          "body": "left_wrist_roll_rubber_hand",
+          "mesh": "left_wrist_roll_rubber_hand",
+          "contype": 1,
+          "conaffinity": 1
+        },
+        {
+          "geom_id": 58,
+          "body": "right_wrist_roll_rubber_hand",
+          "mesh": "right_wrist_roll_rubber_hand",
+          "contype": 0,
+          "conaffinity": 0
+        },
+        {
+          "geom_id": 59,
+          "body": "right_wrist_roll_rubber_hand",
+          "mesh": "right_wrist_roll_rubber_hand",
+          "contype": 1,
+          "conaffinity": 1
+        }
+      ],
+      "explicit_contact_pair_count": 0,
+      "frames_with_virtual_hand_point_below_floor": 471,
+      "frames_with_rubber_hand_mesh_below_floor_including_visual_only": 473,
+      "worst": {
+        "frame": 191,
+        "virtual_hand_positions": {
+          "left_hand": [
+            1.0980380422194842,
+            0.12712303290313012,
+            -0.038918675398448815
+          ],
+          "right_hand": [
+            1.1904393509040718,
+            -0.28271772335042183,
+            -0.11684056162998654
+          ]
+        },
+        "minimum_rubber_hand_vertex_z_m": -0.19122544505830397
+      },
+      "frame191": {
+        "frame": 191,
+        "virtual_hand_positions": {
+          "left_hand": [
+            1.0980380422194842,
+            0.12712303290313012,
+            -0.038918675398448815
+          ],
+          "right_hand": [
+            1.1904393509040718,
+            -0.28271772335042183,
+            -0.11684056162998654
+          ]
+        },
+        "minimum_rubber_hand_vertex_z_m": -0.19122544505830397
+      }
+    },
+    {
+      "clip": "happy_dance",
+      "model": "original29",
+      "frames": 546,
+      "hand_geoms": [
+        {
+          "geom_id": 58,
+          "body": "left_wrist_yaw_link",
+          "mesh": "left_rubber_hand",
+          "contype": 0,
+          "conaffinity": 0
+        },
+        {
+          "geom_id": 73,
+          "body": "right_wrist_yaw_link",
+          "mesh": "right_rubber_hand",
+          "contype": 0,
+          "conaffinity": 0
+        }
+      ],
+      "explicit_contact_pair_count": 0,
+      "frames_with_virtual_hand_point_below_floor": 0,
+      "frames_with_rubber_hand_mesh_below_floor_including_visual_only": 0,
+      "worst": {
+        "frame": 70,
+        "virtual_hand_positions": {
+          "left_hand": [
+            0.19778928028912388,
+            0.18998184268027038,
+            0.5521386824950952
+          ],
+          "right_hand": [
+            0.19716513920977344,
+            -0.17301338089129045,
+            0.5452392939355563
+          ]
+        },
+        "minimum_rubber_hand_vertex_z_m": 0.5469918649032766
+      },
+      "frame191": {
+        "frame": 191,
+        "virtual_hand_positions": {
+          "left_hand": [
+            2.410653927059632,
+            0.2508484794999518,
+            1.2822097577001828
+          ],
+          "right_hand": [
+            2.2180856126080486,
+            -0.21826642153317102,
+            1.3521850741880947
+          ]
+        },
+        "minimum_rubber_hand_vertex_z_m": 1.155752592759052
+      }
+    },
+    {
+      "clip": "happy_dance",
+      "model": "native23",
+      "frames": 546,
+      "hand_geoms": [
+        {
+          "geom_id": 48,
+          "body": "left_wrist_roll_rubber_hand",
+          "mesh": "left_wrist_roll_rubber_hand",
+          "contype": 0,
+          "conaffinity": 0
+        },
+        {
+          "geom_id": 49,
+          "body": "left_wrist_roll_rubber_hand",
+          "mesh": "left_wrist_roll_rubber_hand",
+          "contype": 1,
+          "conaffinity": 1
+        },
+        {
+          "geom_id": 58,
+          "body": "right_wrist_roll_rubber_hand",
+          "mesh": "right_wrist_roll_rubber_hand",
+          "contype": 0,
+          "conaffinity": 0
+        },
+        {
+          "geom_id": 59,
+          "body": "right_wrist_roll_rubber_hand",
+          "mesh": "right_wrist_roll_rubber_hand",
+          "contype": 1,
+          "conaffinity": 1
+        }
+      ],
+      "explicit_contact_pair_count": 0,
+      "frames_with_virtual_hand_point_below_floor": 0,
+      "frames_with_rubber_hand_mesh_below_floor_including_visual_only": 0,
+      "worst": {
+        "frame": 70,
+        "virtual_hand_positions": {
+          "left_hand": [
+            0.18404890335688992,
+            0.1840056370983781,
+            0.6123128721335838
+          ],
+          "right_hand": [
+            0.1845933951981616,
+            -0.16927553527978917,
+            0.6071226286681042
+          ]
+        },
+        "minimum_rubber_hand_vertex_z_m": 0.5362463907416252
+      },
+      "frame191": {
+        "frame": 191,
+        "virtual_hand_positions": {
+          "left_hand": [
+            2.3744323877440134,
+            0.24244860700915732,
+            1.257296616986872
+          ],
+          "right_hand": [
+            2.2130095569578834,
+            -0.2104355096247199,
+            1.3365457820695599
+          ]
+        },
+        "minimum_rubber_hand_vertex_z_m": 1.0930280048133378
+      }
+    }
+  ],
+  "virtual_vr_offset_is_not_a_physical_contact_landmark": true,
+  "native23_collisions_disabled_or_geometry_modified": false,
+  "source_baseline_is_not_full_physical_hand_collision_qualification": true,
+  "teacher_accepted": false,
+  "deployment_ready": false,
+  "hardware_authorized": false
+}

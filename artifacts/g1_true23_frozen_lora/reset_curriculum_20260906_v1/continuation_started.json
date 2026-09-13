@@ -1,0 +1,23 @@
+{
+  "process_pid": 505,
+  "process_start_ticks": "1889",
+  "command": [
+    "/root/.venvs/g1_true23_mjlab/bin/python",
+    "artifacts/g1_true23_frozen_lora/reset_curriculum_20260906_v1/run_training.py",
+    ""
+  ],
+  "inputs": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/reset_curriculum_20260906_v1/finish_sequence.py": "e56f4c30e0f8d9e5312ac3bc9d7f04f18e02fc386820a25d31b8a30c93aa43c9",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/reset_curriculum_20260906_v1/export_evaluate.py": "f7a13e18ccff589b50fd417da4e6f894418fd2fdab219551b7a28ea9c9b83ec1",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/reset_curriculum_20260906_v1/run_regressions.py": "1d511ae2434aa8065467fe10e9c0c8ae9e7156c3bc9fb277c003d6bba9f0d1ab"
+  },
+  "sequence": [
+    "export_and_full_request_evaluation",
+    "focused_regression",
+    "critical_lint",
+    "format_check"
+  ],
+  "restart_training": false,
+  "hardware_authorized": false,
+  "deployment_ready": false
+}

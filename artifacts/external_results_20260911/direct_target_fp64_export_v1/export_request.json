@@ -1,0 +1,139 @@
+{
+  "kind": "one_same_weight_fp64_export_validation",
+  "root_selected": true,
+  "ordinary_final_step": 55000,
+  "features": 1000,
+  "head_output": "normalized_target",
+  "execution_dtype": "float64",
+  "public_input_dtype": "float32",
+  "public_output_dtype": "float32",
+  "ELU_implementation": "Where(x>0,x,Exp(Min(x,0))-1)",
+  "parity_tolerance_rad": 1e-05,
+  "backend_order": [
+    "CPU64",
+    "GPU64",
+    "ORT64"
+  ],
+  "corpus_rows": [
+    9904,
+    140622,
+    3054
+  ],
+  "batch_size": 256,
+  "per_backend_batches": [
+    39,
+    550,
+    12
+  ],
+  "budgets": {
+    "Torch_calls": 1202,
+    "Torch_rows": 307160,
+    "ORT_calls": 601,
+    "ORT_rows": 153580,
+    "trace_forward_calls": 0,
+    "optimizer_updates": 0,
+    "BFM_calls": 0,
+    "native_steps": 0
+  },
+  "subjects": {
+    "checkpoint": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_v1/fit/student_head.pt",
+      "sha256": "9ceef5099ebd154e08a1c2c3784c4e06021d464e607474548763665b24f8f9e7"
+    },
+    "fit_report": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_v1/fit/report.json",
+      "sha256": "dc8d834e8b7ef193cb6212248e4c35ca2cd7dab3cfb839a826a3e7adf7d220e6"
+    },
+    "source_head": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_v1/fit/student_head.onnx",
+      "sha256": "f9b352ce4cedbbdd70c59f09b8a28080f7a696bfff464621719cc93e6c899797"
+    },
+    "normalization": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_v1/fit/normalization.npz",
+      "sha256": "1baf7a2918fe2322ad0ef9583a29902eb7c3d8f8d37000c6bb9fd502d6746079"
+    },
+    "training_request": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_v1/training_request.json",
+      "sha256": "e3dbc8c41433699326cd611ea97767974b6eb9ce5de2c7b1f678f83594054625"
+    },
+    "training_frozen_inputs": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_v1/training_frozen_inputs.json",
+      "sha256": "1b9499a88b26b9feb5e1259d63284010e7521150c591a9815063cacc0251fa9c"
+    },
+    "owner_failure": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_v1/owner_failure_verification.json",
+      "sha256": "11cf0ebf946a697b623ce6a2905eb6e0f2fdd2a809e50af00ef9f8e1d9a4cb8e"
+    },
+    "training_audit": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_failure_audit_v1/results_v1/report.json",
+      "sha256": "0accc9eea0a90158dbcfe38bd85aa04ae90ea88ef224da7ea4f86837672d516c"
+    },
+    "training_review": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_training_only_review_v1/review.json",
+      "sha256": "eb693269af05d9c761e0de6fa7c96f92c4143d8a8cf9c3429dd4b4887bc35649"
+    }
+  },
+  "old_outputs": {
+    "GPU": {
+      "nominal": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_v1/fit/final_GPU_nominal.npy",
+      "velocity": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_v1/fit/final_GPU_velocity.npy",
+      "physical": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_v1/fit/final_GPU_physical.npy"
+    },
+    "CPU": {
+      "nominal": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_v1/fit/final_CPU_nominal.npy",
+      "velocity": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_v1/fit/final_CPU_velocity.npy",
+      "physical": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_v1/fit/final_CPU_physical.npy"
+    },
+    "ORT": {
+      "nominal": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_v1/fit/final_ORT_nominal.npy",
+      "velocity": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_v1/fit/final_ORT_velocity.npy",
+      "physical": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_v1/fit/final_ORT_physical.npy"
+    }
+  },
+  "paths": {
+    "contract": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native23_inputs_v1\\contract.json",
+    "centers": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\velocity_chord_student_v1\\generation\\centers.npz",
+    "velocity_features": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\velocity_chord_student_v1\\generation\\features.npy",
+    "velocity_target": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\velocity_chord_student_v1\\generation\\teacher_target.npy",
+    "generation_report": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\velocity_chord_student_v1\\generation\\report.json",
+    "generation_review": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\velocity_chord_completed_data_review_v1\\review.json",
+    "pico": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_walk002_labels_v1\\collection\\pico\\labels.npz",
+    "walk002": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_walk002_labels_v1\\collection\\walk002\\labels.npz",
+    "pico_report": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_walk002_labels_v1\\collection\\pico\\report.json",
+    "walk002_report": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_walk002_labels_v1\\collection\\walk002\\report.json",
+    "broad_saved_review": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\broader_labels_independent_v1\\saved_array_audit\\report.json",
+    "broad_inference_review": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\broader_labels_independent_v1\\baseline_inference_audit\\report.json",
+    "feasibility": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_feature_feasibility_v1\\results\\report.json",
+    "physical_manifest": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_policy_branch_collection_resume2969_v1\\collection\\data\\manifest.json",
+    "physical_report": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_policy_branch_collection_resume2969_v1\\collection\\report.json",
+    "physical_request": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_policy_branch_collection_resume2969_v1\\request.json",
+    "physical_review": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_branch_combined_data_review_v1\\review.json",
+    "sampled_rows": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_physical_student_v1\\fit\\sampled_center_rows.npy",
+    "sampled_axes": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_physical_student_v1\\fit\\sampled_axes.npy",
+    "sampler_fit_report": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_physical_student_v1\\fit\\report.json",
+    "sampler_audit": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\physical_fit_evidence_independent_v1\\report.json",
+    "sampler_audit_request": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\physical_fit_evidence_independent_v1\\request.json"
+  },
+  "runtime": {
+    "python_path": "E:/codex_sonic_runtime/direct_target_gpu_20260911/venv/Scripts/python.exe",
+    "torch_version": "2.10.0+cu128",
+    "cuda_version": "12.8",
+    "numpy_version": "1.23.5",
+    "onnx_version": "1.22.0",
+    "onnxruntime_version": "1.23.2",
+    "verification_path": "E:/codex_sonic_runtime/direct_target_gpu_20260911/verification.json",
+    "verification_sha256": "671ca4c18c4da39a1538af7a1322180cc7ead9115b6bb93daf554a59a0689dcc",
+    "pass_field": "passed",
+    "identity_path": "E:/codex_sonic_runtime/direct_target_gpu_20260911/runtime_identity.json",
+    "identity_sha256": "b173e01f26921f895f3570eace50d655cc2f767df0c9c98142b5fcff0c0e55f2",
+    "device": "NVIDIA GeForce RTX 3070 Laptop GPU",
+    "deterministic_algorithms": true,
+    "TF32": false,
+    "AMP": false,
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8"
+  },
+  "full_drift_arrays": 27,
+  "automatic_retry": false,
+  "checkpoint_selection": false,
+  "canonical_evaluation_authorized": false
+}

@@ -1,0 +1,74 @@
+{
+  "kind": "pico_foot_precision_training_arithmetic_audit_v1",
+  "parent_actor_critic_adam_and_counters_bit_exact": true,
+  "all_adam_steps_advance_from4000": true,
+  "passed": true,
+  "completed_updates": 1000,
+  "additional_updates": 500,
+  "all_transition_rewards_verified": 1024000,
+  "sampled_input_controls": 156,
+  "sampled_exposure": {
+    "walk002": {
+      "sampled_env_controls": 3804,
+      "unique_sampled_reference_anchors": 1224
+    },
+    "walk003": {
+      "sampled_env_controls": 3842,
+      "unique_sampled_reference_anchors": 1413
+    },
+    "pico": {
+      "sampled_env_controls": 12322,
+      "unique_sampled_reference_anchors": 5020
+    }
+  },
+  "complete_reference_coverage_or_tracking_claimed": false,
+  "maximum_reward_arithmetic_errors": {
+    "potential_before": 4.76837158203125e-07,
+    "potential_after": 4.76837158203125e-07,
+    "shaping": 0.0,
+    "quality": 2.384185791015625e-07,
+    "base": 1.52587890625e-05,
+    "pre_foot": 4.76837158203125e-07,
+    "foot_precision": 2.384185791015625e-07,
+    "returned": 9.5367431640625e-07,
+    "PPO_stored": 0.0,
+    "world_error": 2.9802322387695312e-08
+  },
+  "gradient_norm_max": 0.5000000715750808,
+  "all_seven_lora_a_b_root_exploration_changed": true,
+  "frozen_base_bit_exact": true,
+  "actor_parameter_changes": {
+    "distribution.raw_std": 0.00012683868408203125,
+    "root_conditioner.weight": 0.03595184534788132,
+    "lora_a.0": 0.025674838572740555,
+    "lora_a.1": 0.0269046351313591,
+    "lora_a.2": 0.02592572569847107,
+    "lora_a.3": 0.03976625204086304,
+    "lora_a.4": 0.02270999737083912,
+    "lora_a.5": 0.022355370223522186,
+    "lora_a.6": 0.025907939299941063,
+    "lora_b.0": 0.027959300205111504,
+    "lora_b.1": 0.03147661313414574,
+    "lora_b.2": 0.028301984071731567,
+    "lora_b.3": 0.022240905091166496,
+    "lora_b.4": 0.022457651793956757,
+    "lora_b.5": 0.020671434700489044,
+    "lora_b.6": 0.012708611786365509
+  },
+  "inputs": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_foot_precision_20260910_v1/audit_training.py": "51f0db14302ec9cd2fd0dd6da954d81c8ff99a4f64af0c2da4326e058b4172ff",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_foot_precision_20260910_v1/train500_v1/outcome.json": "7347a520c840ac3d9f20fd60397e5de699b2bbd7d7fd139302bcb55887b667b2",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_foot_precision_20260910_v1/train500_v1/request.json": "ccff19f98aef09fb2a022d65344a02694c7553f68d3d7c12e70505c05f69753a",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_foot_precision_20260910_v1/train500_v1/resolved_training.json": "81ab4b4b1c0fe9a5154fea82d04ff07172af2042694cafd348a6a197d2a8f1e3",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_foot_precision_20260910_v1/train500_v1/checkpoints/foot_precision_model_500.pt": "fae4753183431452ae141ad330fc2d3da060c8ae2192dfc28c23ab5a2db2d5b3",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_foot_precision_20260910_v1/train500_v1/checkpoints/foot_precision_model_1000.pt": "ac2f844894e3e53c364ae466966a64db556ee255c6ab72e736fe15b87adb19fe",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/train500_v1/checkpoints/normal_lora_model_500.pt": "047b7387f8268d2ff8032c8b74764de6a3f0321f4245814c0f5a909e805dc065",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_foot_precision_20260910_v1/train500_v1/reward_capture.npz": "7adfb414eff9ecb1bcf7aaa8b1e520ec9bea7f4ae3bb879a243beef11af80c7b",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_foot_precision_20260910_v1/train500_v1/sampled_actual_inputs.npz": "2b5687c62d94274b570fd8e3a5744df2921674e5724a6dbbf2cea7451764df9a",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_foot_precision_20260910_v1/train500_v1/world_failure_capture.npz": "8d7b9da6a72d57503db23fc87552eb9314938ad5463404cc1ce9730173d7ab84",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_foot_precision_20260910_v1/train500_v1/gradient_capture.json": "b7672d490ababc0d13659a318d58627097b95e29367cb77c476f2ea0bfc7707e",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/bank_v1/curriculum/curriculum.spans.json": "3337268a0e1566744b7d7949d00071b7e08a15700face82ffb24416923627d3f"
+  },
+  "deployment_ready": false,
+  "hardware_authorized": false
+}

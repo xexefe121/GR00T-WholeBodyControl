@@ -1,0 +1,86 @@
+{
+  "clip": "walk002",
+  "actor": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\causal_dynamics_v1\\pilot_direct_body_v1\\actor_00196.onnx",
+  "requested_controls": 2917,
+  "completed_controls": 1788,
+  "physical_complete": false,
+  "source": {
+    "passed": false,
+    "source_controls": 667,
+    "requested_source_controls": 667,
+    "root_p95_m": 1.1635854566899004,
+    "yaw_p95_deg": 41.66792146813658,
+    "hand_head_relative_p95_m": [
+      0.2913726188812486,
+      0.3276812553515249,
+      0.04690898398266075
+    ],
+    "foot_relative_p95_m": [
+      0.3738620232937443,
+      0.3003078155707824
+    ],
+    "leg_rmse_rad": 0.3212896478614025
+  },
+  "main_quiet": {
+    "passed": false,
+    "values": {
+      "xy_p95": 0.03683686643409777,
+      "yaw_p95_deg": 8.48997727333032,
+      "root_speed_p95": 0.002812474086980194,
+      "joint_speed_p95": 0.015195816958412985,
+      "joint_speed_max": 0.01705018583063851,
+      "tilt_max": 0.07336536399556581
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "hold_quiet": null,
+  "failure": {
+    "kind": "physics",
+    "control": 1788,
+    "substep": 5,
+    "time": 35.76999999999775,
+    "reasons": [
+      "native_joint_bound"
+    ],
+    "speed_ratio": 0.08484833264196892,
+    "range_excess": 0.00029587044945966756,
+    "effort_ratio": 1.0,
+    "tilt": 0.1210531250445352
+  },
+  "passed": false,
+  "elapsed_s": 22.01600000000326,
+  "physics_steps": 17885,
+  "maximum_speed_ratio": 0.37859943649355327,
+  "policy_ms_p50_p95_max": [
+    9.805599998799153,
+    11.91930000495631,
+    17.564399997354485
+  ],
+  "packet_report": {
+    "epoch": 0,
+    "received": 1428,
+    "consumed": 1428,
+    "ignored": 0,
+    "rejected": 0,
+    "final_received": true,
+    "full_source_consumed": true,
+    "fault": null,
+    "calibration": null
+  },
+  "future_reference_frames": 0,
+  "prepared_feedback_gains": false,
+  "initial_root_x_velocity_offset": 0.0,
+  "independent_realtime": false,
+  "hardware_authorized": false,
+  "controller_variant": "causal_full_range_actor",
+  "fault_control": null,
+  "fault_quiet": null,
+  "fault_scenario_passed": false
+}

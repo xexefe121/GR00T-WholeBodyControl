@@ -136,6 +136,73 @@ REWARDS = (
 )
 
 
+def test_upper_posture_tracks_measured_arms_not_legs_or_requested_actions():
+    from gear_sonic.utils.g1_23dof_contract import HARDWARE_23_ACTION_SCALE
+
+    command, env = objective_fixture()
+    command.robot_joint_pos[:, :13] += 0.7
+    torch.testing.assert_close(task.q10_measured_upper_body_posture_l2(env), torch.zeros(2))
+    command.robot_joint_pos[:, 16] += 0.5
+    expected = (0.5 / HARDWARE_23_ACTION_SCALE[16]) ** 2 / 10
+    command.motion.joint_pos[11] = float("nan")
+    env.action_manager = None
+    torch.testing.assert_close(task.q10_measured_upper_body_posture_l2(env), torch.full((2,), expected))
+
+
+def test_upper_posture_rejects_nonfinite_and_wrong_physical_shape():
+    command, env = objective_fixture()
+    command.robot_joint_pos[:, 16] = float("nan")
+    with pytest.raises(ValueError, match="finite"):
+        task.q10_measured_upper_body_posture_l2(env)
+    command.robot_joint_pos = torch.zeros(2, 29)
+    with pytest.raises(ValueError, match="native23"):
+        task.q10_measured_upper_body_posture_l2(env)
+
+
+def test_upper_posture_is_only_added_reward_in_new_profile():
+    from copy import deepcopy
+
+    from gear_sonic.envs.mjlab.sonic_true23_causal_multimotion_v14 import make_causal_multimotion_v14_env_cfg
+
+    old = make_causal_multimotion_v14_env_cfg(motion_file="unused_static_configuration.npz", num_envs=2)
+    new = deepcopy(old)
+    spans = [{"timeline": {"total_requested_controls": 1850}}]
+    task.configure_root_feedback_environment(old, spans, objective_profile="root_and_posture_v1")
+    task.configure_root_feedback_environment(new, spans, objective_profile="root_and_upper_posture_v2")
+    assert set(new.rewards) - set(old.rewards) == {"measured_upper_body_posture_l2"}
+    for key in old.rewards:
+        assert new.rewards[key] == old.rewards[key]
+    assert new.actions == old.actions
+    assert new.terminations == old.terminations
+    assert new.rewards["measured_upper_body_posture_l2"].weight == -20
+
+
+def test_world_priority_changes_exactly_one_existing_weight():
+    from copy import deepcopy
+
+    from gear_sonic.envs.mjlab.sonic_true23_causal_multimotion_v14 import make_causal_multimotion_v14_env_cfg
+
+    old = make_causal_multimotion_v14_env_cfg(motion_file="unused_static_configuration.npz", num_envs=2)
+    new = deepcopy(old)
+    spans = [{"timeline": {"total_requested_controls": 1850}}]
+    task.configure_root_feedback_environment(old, spans, objective_profile="root_and_upper_posture_v2")
+    task.configure_root_feedback_environment(new, spans, objective_profile="root_and_upper_world_priority_v3")
+    assert set(new.rewards) == set(old.rewards)
+    for key in old.rewards:
+        if key == "root_world_tracking_error":
+            assert old.rewards[key].weight == -10
+            assert new.rewards[key].weight == -30
+            assert new.rewards[key].func is old.rewards[key].func
+            assert new.rewards[key].params == old.rewards[key].params
+        else:
+            assert new.rewards[key] == old.rewards[key]
+    assert new.actions == old.actions
+    assert new.terminations == old.terminations
+    assert new.observations == old.observations
+    assert new.events == old.events
+    assert new.commands == old.commands
+
+
 @pytest.mark.parametrize("reward", REWARDS)
 def test_every_tracking_reward_uses_q10_and_ignores_future_and_npz_velocity(reward):
     command, env = objective_fixture()
@@ -200,6 +267,7 @@ def test_backward_angular_velocity_is_world_frame_and_quaternion_sign_invariant(
 
 def test_real_active_configuration_has_q10_targets_preserves_weights_and_physical_terms():
     from copy import deepcopy
+
     from gear_sonic.envs.mjlab.sonic_true23_causal_multimotion_v14 import make_causal_multimotion_v14_env_cfg
 
     cfg = make_causal_multimotion_v14_env_cfg(motion_file="unused_static_configuration.npz", num_envs=2)

@@ -1,0 +1,214 @@
+{
+  "kind": "matched_causal_context_utility_study",
+  "root_selected": true,
+  "source_preparation_selected": true,
+  "conditions": [
+    "blinded",
+    "causal"
+  ],
+  "updates_per_condition": 3000,
+  "ordinary_final_step": 68000,
+  "coefficient": 1.8188207859141674,
+  "coefficient_recalibration": false,
+  "learning_rate": [
+    1e-05,
+    1e-06
+  ],
+  "paths": {
+    "contract": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native23_inputs_v1\\contract.json",
+    "centers": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\velocity_chord_student_v1\\generation\\centers.npz",
+    "velocity_features": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\velocity_chord_student_v1\\generation\\features.npy",
+    "velocity_target": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\velocity_chord_student_v1\\generation\\teacher_target.npy",
+    "generation_report": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\velocity_chord_student_v1\\generation\\report.json",
+    "generation_review": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\velocity_chord_completed_data_review_v1\\review.json",
+    "pico": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_walk002_labels_v1\\collection\\pico\\labels.npz",
+    "walk002": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_walk002_labels_v1\\collection\\walk002\\labels.npz",
+    "pico_report": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_walk002_labels_v1\\collection\\pico\\report.json",
+    "walk002_report": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_walk002_labels_v1\\collection\\walk002\\report.json",
+    "broad_saved_review": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\broader_labels_independent_v1\\saved_array_audit\\report.json",
+    "broad_inference_review": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\broader_labels_independent_v1\\baseline_inference_audit\\report.json",
+    "feasibility": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_feature_feasibility_v1\\results\\report.json",
+    "physical_manifest": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_policy_branch_collection_resume2969_v1\\collection\\data\\manifest.json",
+    "physical_report": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_policy_branch_collection_resume2969_v1\\collection\\report.json",
+    "physical_request": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_policy_branch_collection_resume2969_v1\\request.json",
+    "physical_review": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_branch_combined_data_review_v1\\review.json",
+    "sampled_rows": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_physical_student_v1\\fit\\sampled_center_rows.npy",
+    "sampled_axes": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_physical_student_v1\\fit\\sampled_axes.npy",
+    "sampler_fit_report": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_physical_student_v1\\fit\\report.json",
+    "sampler_audit": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\physical_fit_evidence_independent_v1\\report.json",
+    "sampler_audit_request": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\physical_fit_evidence_independent_v1\\request.json"
+  },
+  "full_state_paths": {
+    "report": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_full_state_secants_v1/generation/report.json",
+    "request": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_full_state_secants_v1/request.json",
+    "manifest": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_full_state_secants_v1/generation/manifest.json"
+  },
+  "subjects": {
+    "full_state_root_audit": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_full_state_data_root_review_v1/results_v1/report.json",
+      "sha256": "6eae25bc3d212de13b0940dae11d85d1739aa1d26ce17c549b2b6d5a36f55564",
+      "pass_field": "data_review_pass",
+      "required_fields": {
+        "request_sha256": "474d5e4a04f84702b8ada696560df4baf6a3ebfa3b0ffebb0c343d4da11ebde1",
+        "generation_report_sha256": "68c9cd0ac47d59e2bb6d14269769b98f60ea6aa3a03298f82e4d164e140f4144"
+      }
+    },
+    "full_state_data_review": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_full_state_completed_data_review_v1/review.json",
+      "sha256": "22505dccc1b68e984be6811e08b6774b7e22b72c6af391e3e6ae5affa4062568",
+      "pass_field": "data_review_pass",
+      "required_fields": {
+        "generation_request_sha256": "474d5e4a04f84702b8ada696560df4baf6a3ebfa3b0ffebb0c343d4da11ebde1",
+        "generation_report_sha256": "68c9cd0ac47d59e2bb6d14269769b98f60ea6aa3a03298f82e4d164e140f4144",
+        "generation_manifest_sha256": "2c337d78ca7c9d291ab0e07f95fa34a3175c9e245aef4ff79303b6e57f3a4638",
+        "root_audit_sha256": "6eae25bc3d212de13b0940dae11d85d1739aa1d26ce17c549b2b6d5a36f55564",
+        "root_owner_sha256": "3f47a899d3e08ebb9d5a1ec514e395563dd677c4209a281f774f76401b401e43"
+      }
+    },
+    "full_state_root_owner": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_full_state_data_root_review_v1/owner_completion_v2.json",
+      "sha256": "3f47a899d3e08ebb9d5a1ec514e395563dd677c4209a281f774f76401b401e43"
+    },
+    "checkpoint": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_full_state_student_v1/fit/student_head.pt",
+      "sha256": "8a1b67e09285a77910d62dd1b2214c8d3684004e55a82041544e750006b29a0a"
+    },
+    "normalization": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_full_state_student_v1/fit/normalization.npz",
+      "sha256": "1baf7a2918fe2322ad0ef9583a29902eb7c3d8f8d37000c6bb9fd502d6746079"
+    },
+    "source_fit_report": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_v1/fit/report.json",
+      "sha256": "dc8d834e8b7ef193cb6212248e4c35ca2cd7dab3cfb839a826a3e7adf7d220e6"
+    },
+    "source_training_review": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_continuation_training_only_review_v1/review.json",
+      "sha256": "eb693269af05d9c761e0de6fa7c96f92c4143d8a8cf9c3429dd4b4887bc35649"
+    },
+    "fit_report": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_full_state_student_v1/fit/report.json",
+      "sha256": "7426d281be79c3610ef02ae8889c3ef66264da15a9667551d6bca4166a4beaea"
+    },
+    "coefficient_source": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_full_state_student_v1/fit/coefficient.json",
+      "sha256": "efed1fda38c0e4a68e6d6eba030f45c210a1cfc19206c8cb312d8167240f7bb9"
+    },
+    "fit_owner": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_full_state_student_v1/owner_completion_verification.json",
+      "sha256": "8bacc308af12b0c888313848a8b20fdce04e11e252cb62cc850a3102efb5fce5",
+      "pass_field": "owner_verification_passed"
+    },
+    "fit_audit": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_full_state_fit_independent_v1/results_v1/report.json",
+      "sha256": "2773ae80c0e5a85975b15eb436cdb709c1243d475cc91f9385cbafb41e757367",
+      "pass_field": "evidence_audit_passed",
+      "required_fields": {
+        "export_qualified": true
+      }
+    },
+    "context_source_review": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_context_source_review_v1/review.json",
+      "sha256": "a5fb96bdc1c192454966dfe6f75a08a1ef371cf9f65af59ef1e62d33e3b1c58e",
+      "pass_field": "source_review_pass",
+      "required_fields": {
+        "context_data_review_pass": true
+      }
+    },
+    "context_preparation": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_context_study_v2/source_preparation.json",
+      "sha256": "dfb862c426b1ab7e32aae39a42a63bc9c72e5a8744c476e1d9dc5a2d1de27468",
+      "pass_field": "source_preparation_passed"
+    },
+    "context_proof": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_context_study_v1/context_preflight/report.json",
+      "sha256": "f5add6c31a3c3aec9b215d837d86e62a8a9bffcac4575d096d24012296c04583",
+      "pass_field": "passed"
+    },
+    "split_algebra_review": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_context_split_independent_review_v1/review.json",
+      "sha256": "7819d0d5c19f6466bd4a2328d9390fea83b15c9ee474e3bb33ca75873c013087",
+      "pass_field": "preparation_review_passed"
+    },
+    "failed_initial_root_audit": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_context_initial_failure_root_v1/report.json",
+      "sha256": "df108b650256888562d55c141feda95b5c37fb63063f00d03cffdb31d790cc3e"
+    },
+    "failed_initial_owner": {
+      "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_context_study_v1/owner_completion_verification_v3.json",
+      "sha256": "5cdbd6c76fdf24db13e029739b238be02a617a84ace16437d3bedbbc6f7b93a3",
+      "pass_field": "accounting_passed",
+      "required_fields": {
+        "paired_completion_passed": false
+      }
+    }
+  },
+  "restoration_predictions": {
+    "nominal": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_full_state_student_v1/fit/final_GPU32_nominal.npy",
+    "full_state": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_full_state_student_v1/fit/final_GPU32_full_state.npy",
+    "physical": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_full_state_student_v1/fit/final_GPU32_physical.npy"
+  },
+  "schedule_paths": {
+    "centers": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_full_state_student_v1/fit/schedule_centers.npy",
+    "axes": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_full_state_student_v1/fit/schedule_axes.npy"
+  },
+  "runtime": {
+    "python_path": "E:/codex_sonic_runtime/direct_target_gpu_20260911/venv/Scripts/python.exe",
+    "torch_version": "2.10.0+cu128",
+    "cuda_version": "12.8",
+    "numpy_version": "1.23.5",
+    "onnx_version": "1.22.0",
+    "ort_version": "1.23.2",
+    "verification_path": "E:/codex_sonic_runtime/direct_target_gpu_20260911/verification.json",
+    "verification_sha256": "671ca4c18c4da39a1538af7a1322180cc7ead9115b6bb93daf554a59a0689dcc",
+    "pass_field": "passed",
+    "identity_path": "E:/codex_sonic_runtime/direct_target_gpu_20260911/runtime_identity.json",
+    "identity_sha256": "b173e01f26921f895f3570eace50d655cc2f767df0c9c98142b5fcff0c0e55f2",
+    "deterministic_algorithms": true,
+    "TF32": false,
+    "AMP": false,
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8"
+  },
+  "budgets": {
+    "training_forward_rows": 88116000,
+    "training_forward_calls": 18000,
+    "training_updates": 6000,
+    "diagnostic_Torch_rows": 2940560,
+    "diagnostic_Torch_calls": 11496,
+    "diagnostic_ORT_rows": 735140,
+    "diagnostic_ORT_calls": 2874,
+    "calibration_forward_calls": 0,
+    "calibration_gradient_calls": 0,
+    "native_calls": 0,
+    "BFM_calls": 0,
+    "manual_export_trace_calls": 0
+  },
+  "context_order": "previous_action23_then_incoming_history300",
+  "context_std_floor": 0.05,
+  "original_features": 1000,
+  "context_features": 323,
+  "features": 1323,
+  "no_checkpoint_selection": true,
+  "no_controller_selected": true,
+  "actual_execution_clearance_absent": true,
+  "pending_before_actual_fit": [
+    "root concrete split-study request/launcher clearance"
+  ],
+  "automatic_retry": false,
+  "source_preparation_sha256": "dfb862c426b1ab7e32aae39a42a63bc9c72e5a8744c476e1d9dc5a2d1de27468",
+  "context_proof_sha256": "f5add6c31a3c3aec9b215d837d86e62a8a9bffcac4575d096d24012296c04583",
+  "first_layer_execution": "split_contiguous_1000_plus_323",
+  "export_first_layer_execution": "monolithic_float64_1323",
+  "previous_attempt_root": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_context_study_v1",
+  "previous_attempt_owner_sha256": "5cdbd6c76fdf24db13e029739b238be02a617a84ace16437d3bedbbc6f7b93a3",
+  "previous_attempt_counts": {
+    "initial_GPU32_forwards": 1437,
+    "initial_GPU32_rows": 367570,
+    "training_forwards": 0,
+    "optimizer_updates": 0
+  },
+  "condition": "causal",
+  "initialization_sha256": "9e42d1fd8cf967ab68c81fa2e0921056d75aa29dc1425ad69c70ee69fe2efedf",
+  "shared_manifest_sha256": "b5455188cdc1a4da7a036e37982d8cd34a012859f1161b967ac0da0c4b265924",
+  "source_receipt_sha256": "de1f083af0bbcda9dead1e3714e3c586a9e564bee26879072006c27c7ad2c050",
+  "clearance_sha256": "abd16ab09dace711300f645654485c95218711611c30e801b5a02d7037e9b4d0"
+}

@@ -1,0 +1,118 @@
+{
+  "kind": "independent_native23_manual_PD_private_segment",
+  "feasible": false,
+  "first_failure": {
+    "reasons": [
+      "native_joint_bound"
+    ],
+    "physics_step": 3158,
+    "control_index": 315,
+    "substep": 8,
+    "worst_joint_index": 4,
+    "joint_excess_rad": 0.0016883389426362028,
+    "speed_ratio": 0.16792030530567356,
+    "effort_ratio": 0.8681986683509788,
+    "tilt_rad": 0.18567011089697766,
+    "clock_error_seconds": 0.0,
+    "ideal_clock_difference_seconds": 4.733990977001667e-13,
+    "worst_joint_index_scope": "legacy maximum joint range excess; see independent_joint_witnesses for speed or effort"
+  },
+  "requested_controls": 316,
+  "physics_steps": 3158,
+  "complete_controls": 315,
+  "partial_substeps": 8,
+  "original_data_unchanged": true,
+  "root_forces": false,
+  "source_state_copy_after_initialization": false,
+  "initial_time": 0.0,
+  "final_time": 6.315999999999526,
+  "maximum": {
+    "joint_excess_rad": 0.0016883389426362028,
+    "speed_ratio": 0.234646045693966,
+    "effort_ratio": 1.0,
+    "tilt_rad": 0.18567011089697766,
+    "clock_error_seconds": 0.0,
+    "ideal_clock_difference_seconds": 4.733990977001667e-13
+  },
+  "minimum_root_height_m": 0.743886811675469,
+  "final_warning_counts": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "diagnostic_continued_after_failure": false,
+  "live_or_hardware_qualified": false,
+  "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time",
+  "evaluated_saved_controls": 316,
+  "recorded_physics_steps": 3158,
+  "recorded_full_controls": 315,
+  "recorded_partial_substeps": 8,
+  "compared_physics_steps": 3158,
+  "recorded_trace_reproduced_through_last_sample": true,
+  "private_replay_steps_beyond_recorded_prefix": 0,
+  "independent_joint_witnesses": [
+    {
+      "reason": "native_joint_bound",
+      "joint_index": 4,
+      "joint_name": "left_ankle_pitch_joint",
+      "qpos_rad": 0.5252883389426362,
+      "lower_rad": -0.87267,
+      "upper_rad": 0.5236,
+      "qvel_radps": 1.1368541795263774,
+      "native_velocity_radps": 30.0,
+      "constraint_value": 0.0016883389426362028
+    }
+  ],
+  "intended_segment_controls": 1569,
+  "requested_segment_completed": false,
+  "original_trace_comparison": {
+    "all_qpos_bitexact": true,
+    "all_qvel_bitexact": true,
+    "all_command_torque_bitexact": true,
+    "physics_actuator_torque_bitexact": true,
+    "all_physics_time_bitexact": true,
+    "physics_warning_counts_bitexact": true,
+    "physics_warning_lastinfo_bitexact": true
+  },
+  "independent_segment_pass": false,
+  "restored_state_diagnostic": true,
+  "full_source_qualified": false,
+  "feedback_replanning_reproduced": false,
+  "producer_completion": {
+    "completed": null,
+    "failure": {
+      "reasons": [
+        "native_joint_bound"
+      ],
+      "global_control": 315,
+      "local_control": 315,
+      "substep": 8,
+      "time": 6.315999999999526,
+      "range_excess": 0.0016883389426362028,
+      "velocity_ratio": 0.16792030530567356,
+      "effort_ratio": 0.8681986683509788,
+      "tilt": 0.18567011089697766,
+      "clock_error": 0.0
+    },
+    "requested_controls": 1569,
+    "completed_controls": 315
+  },
+  "initialization": "full actual mjSTATE_INTEGRATION fixture; forward then restore again before the first step",
+  "input_hashes": {
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/walk003_canonical_initial_fixture_v1/initial_integration_state.npz": "4f99f1bd0d9559ec23bd0a73afe5e49a711a90c3dcecafd1a121bae89b0dbde3",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_student_evaluation_v1/nominal/trace.npz": "449a31d17aa7df6b23c20d6b0394237fc36b97d779f46544e6375975e0cdf427",
+    "gear_sonic/utils/g1_true23_feasibility_referee.py": "0027210cda5a44255debecd7151ecd454e2281a5ff4e3137641d102701fb1330",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_resume_20260911/audit_restored_native_segment.py": "d9ff4da640b6814e5d6f1aa5a550230b53ca202e8be6a2f7679bdef1aa715a4e",
+    "artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/contract.json": "d1641ce4f2e9016f5008e5d4be3cc24ded46d7f9daf9cfddaab84095f98eb99b",
+    "artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/native_prepared.xml": "03fd1633c0f5080eb21c1b9786143eeaa36c8eed2eb388d1346581ae33bd76fa",
+    "artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/prepared_model_arrays.npz": "38b4eb8f2f42030b76ffb106c016acb6be92253d4c42971529f739962cc68cdb",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/preserved_walk_demo_v1/repo/gear_sonic/utils/g1_true23_mjbatch_mpc.py": "624b4abe93a20314141da39c6703055cb5c6ce5169030d863816b244610bafbd",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_student_evaluation_v1/nominal/report.json": "5670f975403891f148a6c4f9a557dce282b5f472c84aafb2fece9b019907847c"
+  },
+  "trace_sha256": "4bbe49dc0b0cfcb8a2745fd10bc5a04ed8eabd6cbecf3991413804c2e976eaff"
+}

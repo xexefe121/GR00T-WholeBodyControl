@@ -1,0 +1,407 @@
+{
+  "kind": "fixed_recorded_state_recovery_window_diagnostic",
+  "requested_full_controls": 6530,
+  "recorded_full_controls": 4000,
+  "requested_source_controls": 5780,
+  "windows": [
+    {
+      "global_controls": [
+        3700,
+        3800
+      ],
+      "source_seconds": [
+        67.0,
+        69.0
+      ],
+      "metrics": {
+        "original_root_p95_m": 0.15334959408424356,
+        "original_yaw_p95_deg": 13.956624701274764,
+        "original_relative_hand_head_p95_m": [
+          0.11844403638516057,
+          0.11016737336806956,
+          0.07484551856862862
+        ],
+        "world_axis_relative_foot_p95_m": [
+          0.14039009260470395,
+          0.14596925138523734
+        ],
+        "native_leg_rmse_rad": 0.16267113666115476
+      },
+      "unchanged_threshold_diagnostic": {
+        "root": true,
+        "yaw": true,
+        "hands": true,
+        "head": true,
+        "feet": false,
+        "legs": false
+      }
+    },
+    {
+      "global_controls": [
+        3800,
+        3900
+      ],
+      "source_seconds": [
+        69.0,
+        71.0
+      ],
+      "metrics": {
+        "original_root_p95_m": 0.16375447149778974,
+        "original_yaw_p95_deg": 22.459028594199054,
+        "original_relative_hand_head_p95_m": [
+          0.1253643802720518,
+          0.11877212210573414,
+          0.03392804145179784
+        ],
+        "world_axis_relative_foot_p95_m": [
+          0.14192775536719723,
+          0.15913083379974352
+        ],
+        "native_leg_rmse_rad": 0.15998886718247016
+      },
+      "unchanged_threshold_diagnostic": {
+        "root": true,
+        "yaw": false,
+        "hands": true,
+        "head": true,
+        "feet": false,
+        "legs": false
+      }
+    },
+    {
+      "global_controls": [
+        3900,
+        4000
+      ],
+      "source_seconds": [
+        71.0,
+        73.0
+      ],
+      "metrics": {
+        "original_root_p95_m": 0.06327256445542354,
+        "original_yaw_p95_deg": 1.499826035579575,
+        "original_relative_hand_head_p95_m": [
+          0.04959051770467429,
+          0.14439999216613375,
+          0.016742200138415497
+        ],
+        "world_axis_relative_foot_p95_m": [
+          0.0397464183732642,
+          0.034987849062768174
+        ],
+        "native_leg_rmse_rad": 0.058109003196885216
+      },
+      "unchanged_threshold_diagnostic": {
+        "root": true,
+        "yaw": true,
+        "hands": true,
+        "head": true,
+        "feet": true,
+        "legs": true
+      }
+    }
+  ],
+  "bounded_3800_3900_metrics_bitexact": true,
+  "full_source_pass": false,
+  "subset_is_not_full_tracking_qualification": true,
+  "dynamics_executed": false,
+  "timing_or_live_teleoperation_qualified": false,
+  "convention": {
+    "task_point_convention": "native23_source_neutral_wrist_hand_proxy_v1",
+    "hands": [
+      {
+        "name": "left_hand",
+        "source_roll_body": "left_wrist_roll_link",
+        "source_task_body": "left_wrist_yaw_link",
+        "target_roll_body": "left_wrist_roll_rubber_hand",
+        "source_point_unchanged": [
+          0.18,
+          -0.025,
+          0.0
+        ],
+        "legacy_target_point": [
+          0.18,
+          -0.025,
+          0.0
+        ],
+        "corrected_target_point": [
+          0.2640000000000001,
+          -0.025000000000000033,
+          1.521609986447625e-17
+        ],
+        "neutral_source_hand_rotation_in_roll": [
+          [
+            1.0000000000000004,
+            -4.70390321128236e-20,
+            -1.1326885188312897e-20
+          ],
+          [
+            -4.70390321128236e-20,
+            1.0000000000000007,
+            -8.516617802695711e-21
+          ],
+          [
+            -1.1326885188312897e-20,
+            -8.516617802695711e-21,
+            1.0000000000000004
+          ]
+        ],
+        "neutral_legacy_position_error_m": 0.08400000000000003,
+        "neutral_corrected_position_error_m": 1.1188630228279524e-16
+      },
+      {
+        "name": "right_hand",
+        "source_roll_body": "right_wrist_roll_link",
+        "source_task_body": "right_wrist_yaw_link",
+        "target_roll_body": "right_wrist_roll_rubber_hand",
+        "source_point_unchanged": [
+          0.18,
+          0.025,
+          0.0
+        ],
+        "legacy_target_point": [
+          0.18,
+          0.025,
+          0.0
+        ],
+        "corrected_target_point": [
+          0.2640000000000001,
+          0.025000000000000033,
+          1.521609986447625e-17
+        ],
+        "neutral_source_hand_rotation_in_roll": [
+          [
+            1.0000000000000004,
+            4.70390321128236e-20,
+            -1.1326885188312897e-20
+          ],
+          [
+            4.70390321128236e-20,
+            1.0000000000000007,
+            8.516617802695711e-21
+          ],
+          [
+            -1.1326885188312897e-20,
+            8.516617802695711e-21,
+            1.0000000000000004
+          ]
+        ],
+        "neutral_legacy_position_error_m": 0.08400000000000003,
+        "neutral_corrected_position_error_m": 1.1188630228279524e-16
+      }
+    ],
+    "tasks": [
+      {
+        "name": "left_foot",
+        "kind": "body",
+        "source_body": "left_ankle_roll_link",
+        "target_body": "left_ankle_roll_link",
+        "source_point": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "target_point": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "priority": 0,
+        "orientation_priority": null,
+        "position_weight": 32.0,
+        "orientation_weight": 16.0,
+        "contact_side": "left"
+      },
+      {
+        "name": "right_foot",
+        "kind": "body",
+        "source_body": "right_ankle_roll_link",
+        "target_body": "right_ankle_roll_link",
+        "source_point": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "target_point": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "priority": 0,
+        "orientation_priority": null,
+        "position_weight": 32.0,
+        "orientation_weight": 16.0,
+        "contact_side": "right"
+      },
+      {
+        "name": "whole_robot_com",
+        "kind": "subtree_com",
+        "source_body": "pelvis",
+        "target_body": "pelvis",
+        "source_point": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "target_point": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "priority": 1,
+        "orientation_priority": null,
+        "position_weight": 18.0,
+        "orientation_weight": 0.0,
+        "contact_side": null
+      },
+      {
+        "name": "torso_orientation",
+        "kind": "body",
+        "source_body": "torso_link",
+        "target_body": "torso_link",
+        "source_point": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "target_point": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "priority": 2,
+        "orientation_priority": null,
+        "position_weight": 0.0,
+        "orientation_weight": 12.0,
+        "contact_side": null
+      },
+      {
+        "name": "head_proxy",
+        "kind": "body",
+        "source_body": "torso_link",
+        "target_body": "torso_link",
+        "source_point": [
+          0.0,
+          0.0,
+          0.35
+        ],
+        "target_point": [
+          0.0,
+          0.0,
+          0.35
+        ],
+        "priority": 2,
+        "orientation_priority": null,
+        "position_weight": 8.0,
+        "orientation_weight": 0.0,
+        "contact_side": null
+      },
+      {
+        "name": "left_hand",
+        "kind": "body",
+        "source_body": "left_wrist_yaw_link",
+        "target_body": "left_wrist_roll_rubber_hand",
+        "source_point": [
+          0.18,
+          -0.025,
+          0.0
+        ],
+        "target_point": [
+          0.2640000000000001,
+          -0.025000000000000033,
+          1.521609986447625e-17
+        ],
+        "priority": 3,
+        "orientation_priority": 5,
+        "position_weight": 6.0,
+        "orientation_weight": 0.2,
+        "contact_side": null
+      },
+      {
+        "name": "right_hand",
+        "kind": "body",
+        "source_body": "right_wrist_yaw_link",
+        "target_body": "right_wrist_roll_rubber_hand",
+        "source_point": [
+          0.18,
+          0.025,
+          0.0
+        ],
+        "target_point": [
+          0.2640000000000001,
+          0.025000000000000033,
+          1.521609986447625e-17
+        ],
+        "priority": 3,
+        "orientation_priority": 5,
+        "position_weight": 6.0,
+        "orientation_weight": 0.2,
+        "contact_side": null
+      },
+      {
+        "name": "left_elbow",
+        "kind": "body",
+        "source_body": "left_elbow_link",
+        "target_body": "left_elbow_link",
+        "source_point": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "target_point": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "priority": 4,
+        "orientation_priority": null,
+        "position_weight": 1.5,
+        "orientation_weight": 0.0,
+        "contact_side": null
+      },
+      {
+        "name": "right_elbow",
+        "kind": "body",
+        "source_body": "right_elbow_link",
+        "target_body": "right_elbow_link",
+        "source_point": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "target_point": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "priority": 4,
+        "orientation_priority": null,
+        "position_weight": 1.5,
+        "orientation_weight": 0.0,
+        "contact_side": null
+      }
+    ],
+    "source_task_points_and_actual_source_joint_motion_unchanged": true,
+    "default_teleop_and_checkpoint_convention_modified": false,
+    "proxy_is_a_physical_contact_landmark": false,
+    "source_and_target_hand_meshes_identical": false,
+    "teacher_accepted": false,
+    "hardware_authorized": false,
+    "deployment_ready": false
+  },
+  "hashes": {
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_full_control_lm_bounded_segment_comparison_v1\\full_checkpoint.npz": "ef5635e2b240fb3886588520e725f8017de89cec32d4a9f83b56601ae9d5d5d0",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_full_control_lm_bounded_segment_comparison_v1\\report.json": "07d1d6f7eb5403af584551ec10de34c9b5a21b27c32520c52d73dd55c05132c7",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\control_lm_continuation_3800_intent_v1\\report.json": "98ecadee895d734d295cd1fe987b3d269e8a4b191b9fdf047de1540e6dcde45b",
+    "E:\\codex-artifacts\\sonic23_teleop_six_hour_20260910\\mjbatch_intent_floor_inputs_v1\\pico\\reference.npz": "a1b3bd672551acc800e8b28d4d3d2b68c044f7a80ab3b8fb798d46c9dda70c24",
+    "E:\\codex-artifacts\\sonic23_teleop_six_hour_20260910\\mjbatch_intent_floor_inputs_v1\\pico\\portable_receipt.json": "a02da5b44b0a5112dd1be236a32fcd9ddb731068a2f9c59cb8b0eaade859c59e",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native23_inputs_v1\\pico\\original29.npz": "58c65ea2805cfe740989661fe26d09e9b8d9b5f1e2c5ac0697167074fef82c5e",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native23_inputs_v1\\pico\\timeline.json": "293d1dbe71ec170b910a4e6ce5e851bbcd248a1eff380d8aefdccc00998f38a6",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native23_inputs_v1\\manifest.json": "e69ca1427703b1f3b2e3468573373b276aff67d034c7e0284f3d58249e3b4182",
+    "Z:\\codex\\GR00T-WholeBodyControl\\gear_sonic\\data\\robots\\g1\\g1_29dof.xml": "386b1bb9ea5b69ccd6fd0283a73ffea1ee052df95564e23a780125fbcbe2c645",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native23_inputs_v1\\native_prepared.xml": "03fd1633c0f5080eb21c1b9786143eeaa36c8eed2eb388d1346581ae33bd76fa",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native23_inputs_v1\\prepared_model_arrays.npz": "38b4eb8f2f42030b76ffb106c016acb6be92253d4c42971529f739962cc68cdb",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_resume_20260911\\inspect_pico_recovery_windows.py": "8a7b33674edf832461c196fd3d8f3251243d2224846ccec599d9635e2534b8b8",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\gear_sonic\\utils\\g1_true23_hand_frame_tasks.py": "5977fba5835ef999a81a8191c6cf932a8b4a8c06c206fbca59b50376c45abffd"
+  }
+}

@@ -1,0 +1,22 @@
+"""Add future sidecar lifecycle/preservation; no real callback or run here."""
+from pathlib import Path
+import ast,json,hashlib,difflib
+BASE=Path(__file__).resolve().parent;SOURCE=BASE/'source_draft_v1'
+def replace(text,a,b):assert text.count(a)==1,a;return text.replace(a,b)
+def main():
+    p=SOURCE/'run_clock.py';old=p.read_text();t=old
+    t=replace(t,"'recorded_protocol','pending_result','evidence'","'recorded_protocol','pending_result','timing_probe','timing_hooks','timing_preservation','evidence'")
+    t=replace(t,'    import time\n    from counted_api', '    import time\n    import gc\n    import threading\n    from timing_probe import TimingProbe\n    from timing_hooks import TimingHooks\n    from timing_preservation import save_timing\n    from counted_api')
+    t=replace(t,'    output=Path(output);output.mkdir(exist_ok=False)', "    if request.get('timing_probe_contract')!='preallocated_wall_thread_process_GC_v2':\n        raise ValueError('Separately reviewed timing instrumentation request required')\n    output=Path(output);output.mkdir(exist_ok=False)")
+    t=replace(t,'    runtime={};imports={};closed_native=False', "    runtime={};imports={};closed_native=False\n    timing=None;timing_gc_enabled_before=None;timing_gc_enabled_after=None;timing_result=None")
+    t=replace(t,'        # The unchanged constructor owns internal ledger allocation.', "        # Allocate all probe rows/scopes and attach before the one epoch choice.\n        timing=TimingHooks(TimingProbe(wall_ns=time.monotonic_ns,thread_cpu_ns=time.thread_time_ns,\n            process_cpu_ns=time.process_time_ns,thread_id=threading.get_ident))\n        timing_gc_enabled_before=gc.isenabled()\n        timing.probe.attach(gc.callbacks)\n        # The unchanged constructor owns internal ledger allocation.")
+    t=replace(t,'main_controls=1569,event_capacity=80000,transport_capacity=80000,max_debt_steps=100,max_elapsed_ns=60000000000)',
+        'main_controls=1569,event_capacity=80000,transport_capacity=80000,max_debt_steps=100,max_elapsed_ns=60000000000,timing=timing)')
+    t=replace(t,"'counters':counters_only(session,adapter,api),'worker_pid':worker_pid}", "'counters':counters_only(session,adapter,api),'worker_pid':worker_pid,\n            'timing_probe':timing.status(),'gc_enabled_unchanged':gc.isenabled()==timing_gc_enabled_before}")
+    t=replace(t,"            'counters':counters_only(session,adapter,api)})\n        watchdog.check()\n        if lifecycle", "            'counters':counters_only(session,adapter,api),\n            'timing_probe':None if timing is None else timing.status()})\n        watchdog.check()\n        if timing is not None and timing.probe.registry is not None:\n            try:timing.probe.detach()\n            except BaseException as exc:additional_errors.append({'phase':'timing_gc_detach',**error_record(exc)})\n        timing_gc_enabled_after=gc.isenabled()\n        if timing is not None and timing_gc_enabled_after!=timing_gc_enabled_before:\n            additional_errors.append({'phase':'timing_gc_policy','detail':'GC enabled state changed'})\n        if lifecycle")
+    marker="        watchdog.check()\n        try:postcheck=pin_check(request['input_files'])"
+    t=replace(t,marker,"        # Main owned evidence above is preserved first. Sidecar errors cannot\n        # prevent its write and never request an extra native read.\n        if timing is not None:\n            try:timing_result=save_timing(output,timing,adapter,None if session is None else session.foundation,lossless)\n            except BaseException as exc:additional_errors.append({'phase':'timing_sidecar_writer',**error_record(exc)})\n        if timing_result is None or timing_result.get('complete') is not True:\n            additional_errors.append({'phase':'timing_instrumentation','detail':'Incomplete timing evidence'})\n"+marker)
+    t=replace(t,"                'stage_watchdog':watchdog.evidence()}", "                'stage_watchdog':watchdog.evidence(),'timing_instrumentation':timing_result,\n                'gc_enabled_before':timing_gc_enabled_before,'gc_enabled_after':timing_gc_enabled_after}")
+    compile(t,str(p),'exec');p.write_text(t)
+    with (BASE/'supervisor_integration.diff').open('x') as f:f.write(''.join(difflib.unified_diff(old.splitlines(True),t.splitlines(True),fromfile='original/run_clock.py',tofile='integrated/run_clock.py')))
+if __name__=='__main__':main()

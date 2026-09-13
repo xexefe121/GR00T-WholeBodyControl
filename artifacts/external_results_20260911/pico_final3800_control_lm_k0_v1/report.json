@@ -1,0 +1,6292 @@
+{
+  "kind": "one_private_guided_to_K0_control_LM_solve",
+  "actual_control": 3800,
+  "actual_controls_executed": 0,
+  "horizon": 30,
+  "maximum_iterations": 10,
+  "batch_threads": 8,
+  "fd_epsilon": 1e-06,
+  "alphas": [
+    1.0,
+    0.5,
+    0.25,
+    0.125,
+    0.0625,
+    0.03125,
+    0.015625,
+    0.0078125,
+    0.00390625
+  ],
+  "merit_contract": {
+    "joint_inner_margin_rad": 0.02,
+    "joint_margin_normalizer_rad": 0.02,
+    "speed_fraction": 0.9,
+    "speed_normalizer_fraction": 0.1,
+    "minimum_root_height_m": 0.3,
+    "height_normalizer_m": 0.05,
+    "maximum_root_tilt_rad": 1.1,
+    "tilt_normalizer_rad": 0.1,
+    "target_regularization_weight": 0.0001,
+    "target_regularization_reference": "original shifted warm targets",
+    "zero_rollout_feedback": true,
+    "feedback_suppression_scope": "private restoration line search only",
+    "execution_policy": false,
+    "main_tracking_objective_changed": false
+  },
+  "initial_merit": 7.278705671108272,
+  "final_merit": 0.012582465266531624,
+  "solve_ms": 12073.38031100062,
+  "ordinary_final_certificate": {
+    "hard_nominal_pass": true,
+    "nominal_first_failure": null,
+    "tracking_cost": 8661.367864426908,
+    "full_native_oracle": {
+      "kind": "independent_native23_manual_PD_private_segment",
+      "feasible": true,
+      "first_failure": null,
+      "requested_controls": 30,
+      "physics_steps": 300,
+      "complete_controls": 30,
+      "partial_substeps": 0,
+      "original_data_unchanged": true,
+      "root_forces": false,
+      "source_state_copy_after_initialization": false,
+      "initial_time": 76.00000000000428,
+      "final_time": 76.60000000000288,
+      "maximum": {
+        "joint_excess_rad": 0.0,
+        "speed_ratio": 0.8852043153975517,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.8857104666853556,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 1.3926637620897964e-12
+      },
+      "minimum_root_height_m": 0.3168407043121113,
+      "final_warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "diagnostic_continued_after_failure": false,
+      "live_or_hardware_qualified": false,
+      "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+    },
+    "dual_certificate_pass": true
+  },
+  "ordinary_final_sha256": "55ffd9805cfe58936c9633b05e14f3485f22d6d4462a155628bde159337b36db",
+  "optimization_initial_targets": "frozen guided final proposal",
+  "regularization_anchor": "original shifted warm targets, unchanged",
+  "backward_override": "factored closed-loop vx/vxx plus declared control-space LM",
+  "control_LM": "Qraw=luu+B.T@V@B; Qsym=.5*(Qraw+Qraw.T); Qreg=Qsym+mu*I; Qux=B.T@V@A unregularized",
+  "same_Qreg_for_SPD_boxQP_and_feedback_solve": true,
+  "control_LM_schedule": {
+    "initial": 1.0,
+    "reject_factor": 10.0,
+    "accept_factor": 0.1,
+    "floor": 1e-06,
+    "cap": 1000000.0
+  },
+  "eigenvalue_clipping": false,
+  "extra_diagonal_or_jitter_beyond_declared_LM": false,
+  "original_mu_schedule_and_cap": true,
+  "main_controller_changed": false,
+  "admission": "ordinary final proposal only; generated candidates are diagnostic",
+  "backward_calls": [
+    {
+      "iteration": 0,
+      "mu": 1.0,
+      "returned_sweep": true,
+      "all_derivatives_finite": true,
+      "max_abs_k": 0.8295516313749143,
+      "max_abs_K": 40.71443575250735
+    },
+    {
+      "iteration": 1,
+      "mu": 0.1,
+      "returned_sweep": true,
+      "all_derivatives_finite": true,
+      "max_abs_k": 0.6215548225011385,
+      "max_abs_K": 1594.4300911396324
+    },
+    {
+      "iteration": 2,
+      "mu": 0.01,
+      "returned_sweep": true,
+      "all_derivatives_finite": true,
+      "max_abs_k": 0.4908719778680282,
+      "max_abs_K": 1088.8377123718574
+    },
+    {
+      "iteration": 3,
+      "mu": 0.001,
+      "returned_sweep": true,
+      "all_derivatives_finite": true,
+      "max_abs_k": 0.8924191359310302,
+      "max_abs_K": 273.440695808213
+    },
+    {
+      "iteration": 4,
+      "mu": 0.0001,
+      "returned_sweep": true,
+      "all_derivatives_finite": true,
+      "max_abs_k": 3.2722034984137776,
+      "max_abs_K": 27.35605610068154
+    },
+    {
+      "iteration": 5,
+      "mu": 1e-05,
+      "returned_sweep": true,
+      "all_derivatives_finite": true,
+      "max_abs_k": 3.116384284203597,
+      "max_abs_K": 1.7255068437954286
+    },
+    {
+      "iteration": 6,
+      "mu": 1.0000000000000002e-06,
+      "returned_sweep": true,
+      "all_derivatives_finite": true,
+      "max_abs_k": 2.868307851984021,
+      "max_abs_K": 2.2957170526728343
+    },
+    {
+      "iteration": 7,
+      "mu": 1e-06,
+      "returned_sweep": true,
+      "all_derivatives_finite": true,
+      "max_abs_k": 2.6899365394421157,
+      "max_abs_K": 0.0
+    },
+    {
+      "iteration": 8,
+      "mu": 1e-06,
+      "returned_sweep": true,
+      "all_derivatives_finite": true,
+      "max_abs_k": 2.6062942341112043,
+      "max_abs_K": 0.0
+    },
+    {
+      "iteration": 9,
+      "mu": 1e-06,
+      "returned_sweep": true,
+      "all_derivatives_finite": true,
+      "max_abs_k": 2.5657734904216642,
+      "max_abs_K": 0.0
+    }
+  ],
+  "backward_matrix_diagnostics": [
+    {
+      "backward_call": 0,
+      "knot": 29,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.000199999999999964,
+      "symmetric_eigen_min": 0.00019999999999996786,
+      "regularized_eigen_min": 1.0001999999999989,
+      "regularized_eigen_max": 11.401725536889355,
+      "raw_to_symmetric_max": 1.1102230246251565e-16
+    },
+    {
+      "backward_call": 0,
+      "knot": 28,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999784,
+      "symmetric_eigen_min": 0.0001999999999999985,
+      "regularized_eigen_min": 1.0001999999999989,
+      "regularized_eigen_max": 1.0258402110263185,
+      "raw_to_symmetric_max": 1.734723475976807e-18
+    },
+    {
+      "backward_call": 0,
+      "knot": 27,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999535,
+      "symmetric_eigen_min": 0.00019999999999999735,
+      "regularized_eigen_min": 1.0001999999999984,
+      "regularized_eigen_max": 1.0098176219595487,
+      "raw_to_symmetric_max": 1.3010426069826053e-18
+    },
+    {
+      "backward_call": 0,
+      "knot": 26,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999927622,
+      "symmetric_eigen_min": 0.000199999999999705,
+      "regularized_eigen_min": 1.000199999999998,
+      "regularized_eigen_max": 68.0353492068351,
+      "raw_to_symmetric_max": 3.552713678800501e-15
+    },
+    {
+      "backward_call": 0,
+      "knot": 25,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999999994307,
+      "symmetric_eigen_min": 0.00019999999999966198,
+      "regularized_eigen_min": 1.0001999999999989,
+      "regularized_eigen_max": 6.21100862584306,
+      "raw_to_symmetric_max": 6.661338147750939e-16
+    },
+    {
+      "backward_call": 0,
+      "knot": 24,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999869623,
+      "symmetric_eigen_min": 0.0001999999999986958,
+      "regularized_eigen_min": 1.0001999999999982,
+      "regularized_eigen_max": 8.363432624244966,
+      "raw_to_symmetric_max": 7.771561172376096e-16
+    },
+    {
+      "backward_call": 0,
+      "knot": 23,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999982653306,
+      "symmetric_eigen_min": 0.00019999999982746547,
+      "regularized_eigen_min": 1.0001999999998277,
+      "regularized_eigen_max": 37.29807041964381,
+      "raw_to_symmetric_max": 5.329070518200751e-15
+    },
+    {
+      "backward_call": 0,
+      "knot": 22,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999996720701,
+      "symmetric_eigen_min": 0.0001999999996720696,
+      "regularized_eigen_min": 1.000199999999671,
+      "regularized_eigen_max": 1.0828849472768551,
+      "raw_to_symmetric_max": 3.469446951953614e-18
+    },
+    {
+      "backward_call": 0,
+      "knot": 21,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999963536238,
+      "symmetric_eigen_min": 0.00019999999963535842,
+      "regularized_eigen_min": 1.0001999999996354,
+      "regularized_eigen_max": 1.0243482383418603,
+      "raw_to_symmetric_max": 3.469446951953614e-18
+    },
+    {
+      "backward_call": 0,
+      "knot": 20,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999977522,
+      "symmetric_eigen_min": 0.0001999999997752509,
+      "regularized_eigen_min": 1.0001999999997757,
+      "regularized_eigen_max": 1.2601193683793204,
+      "raw_to_symmetric_max": 2.42861286636753e-17
+    },
+    {
+      "backward_call": 0,
+      "knot": 19,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999999784027,
+      "symmetric_eigen_min": 0.0001999999999784282,
+      "regularized_eigen_min": 1.0001999999999782,
+      "regularized_eigen_max": 4.7292167701841485,
+      "raw_to_symmetric_max": 3.3306690738754696e-16
+    },
+    {
+      "backward_call": 0,
+      "knot": 18,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.000199999999962847,
+      "symmetric_eigen_min": 0.00019999999996267467,
+      "regularized_eigen_min": 1.000199999999963,
+      "regularized_eigen_max": 40.874479525614916,
+      "raw_to_symmetric_max": 3.552713678800501e-15
+    },
+    {
+      "backward_call": 0,
+      "knot": 17,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999999544316,
+      "symmetric_eigen_min": 0.00019999999995443796,
+      "regularized_eigen_min": 1.0001999999999545,
+      "regularized_eigen_max": 1.9633386069433223,
+      "raw_to_symmetric_max": 4.683753385137379e-17
+    },
+    {
+      "backward_call": 0,
+      "knot": 16,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999996723577,
+      "symmetric_eigen_min": 0.000199999999967238,
+      "regularized_eigen_min": 1.0001999999999667,
+      "regularized_eigen_max": 1.0826937781720822,
+      "raw_to_symmetric_max": 4.5102810375396984e-17
+    },
+    {
+      "backward_call": 0,
+      "knot": 15,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999999221613,
+      "symmetric_eigen_min": 0.00019999999992215977,
+      "regularized_eigen_min": 1.0001999999999225,
+      "regularized_eigen_max": 1.2099576001802765,
+      "raw_to_symmetric_max": 6.938893903907228e-17
+    },
+    {
+      "backward_call": 0,
+      "knot": 14,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999997983005,
+      "symmetric_eigen_min": 0.00019999999997982962,
+      "regularized_eigen_min": 1.0001999999999798,
+      "regularized_eigen_max": 1.092853958666848,
+      "raw_to_symmetric_max": 1.3877787807814457e-17
+    },
+    {
+      "backward_call": 0,
+      "knot": 13,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019471315788185947,
+      "symmetric_eigen_min": 0.0001931731042141709,
+      "regularized_eigen_min": 1.0001994665405767,
+      "regularized_eigen_max": 61086142822.64035,
+      "raw_to_symmetric_max": 3.814697265625e-06
+    },
+    {
+      "backward_call": 0,
+      "knot": 12,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019610716266782726,
+      "symmetric_eigen_min": 0.00019722925997740315,
+      "regularized_eigen_min": 1.000195007675086,
+      "regularized_eigen_max": 41033616352.457756,
+      "raw_to_symmetric_max": 2.384185791015625e-06
+    },
+    {
+      "backward_call": 0,
+      "knot": 11,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999961607460815,
+      "symmetric_eigen_min": 0.00019999961608679792,
+      "regularized_eigen_min": 1.0001999996160829,
+      "regularized_eigen_max": 2894.409085257622,
+      "raw_to_symmetric_max": 1.1368683772161603e-13
+    },
+    {
+      "backward_call": 0,
+      "knot": 10,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999993846651768,
+      "symmetric_eigen_min": 0.0001999999384665163,
+      "regularized_eigen_min": 1.0001999999384668,
+      "regularized_eigen_max": 1.1555986127198445,
+      "raw_to_symmetric_max": 1.3877787807814457e-17
+    },
+    {
+      "backward_call": 0,
+      "knot": 9,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999996906038992,
+      "symmetric_eigen_min": 0.00019999996906039055,
+      "regularized_eigen_min": 1.0001999999690605,
+      "regularized_eigen_max": 1.1007254791165315,
+      "raw_to_symmetric_max": 2.42861286636753e-17
+    },
+    {
+      "backward_call": 0,
+      "knot": 8,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999994919356014,
+      "symmetric_eigen_min": 0.0001999999491935598,
+      "regularized_eigen_min": 1.0001999999491933,
+      "regularized_eigen_max": 1.042935989796494,
+      "raw_to_symmetric_max": 6.965998958219366e-18
+    },
+    {
+      "backward_call": 0,
+      "knot": 7,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.000199999934149395,
+      "symmetric_eigen_min": 0.000199999934149395,
+      "regularized_eigen_min": 1.000199999934149,
+      "regularized_eigen_max": 1.0400263326819363,
+      "raw_to_symmetric_max": 1.214306433183765e-17
+    },
+    {
+      "backward_call": 0,
+      "knot": 6,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999996166228132,
+      "symmetric_eigen_min": 0.00019999996166228146,
+      "regularized_eigen_min": 1.0001999999616629,
+      "regularized_eigen_max": 1.0349537005912741,
+      "raw_to_symmetric_max": 1.3877787807814457e-17
+    },
+    {
+      "backward_call": 0,
+      "knot": 5,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999996893390622,
+      "symmetric_eigen_min": 0.00019999996893390592,
+      "regularized_eigen_min": 1.0001999999689346,
+      "regularized_eigen_max": 1.0281777770481175,
+      "raw_to_symmetric_max": 6.938893903907228e-18
+    },
+    {
+      "backward_call": 0,
+      "knot": 4,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999998443263737,
+      "symmetric_eigen_min": 0.0001999999844326375,
+      "regularized_eigen_min": 1.0001999999844329,
+      "regularized_eigen_max": 1.0160517352376606,
+      "raw_to_symmetric_max": 3.469446951953614e-18
+    },
+    {
+      "backward_call": 0,
+      "knot": 3,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999998884207923,
+      "symmetric_eigen_min": 0.00019999998884207915,
+      "regularized_eigen_min": 1.0001999999888416,
+      "regularized_eigen_max": 1.0089705453833937,
+      "raw_to_symmetric_max": 5.854691731421724e-18
+    },
+    {
+      "backward_call": 0,
+      "knot": 2,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999118410012,
+      "symmetric_eigen_min": 0.00019999999118410034,
+      "regularized_eigen_min": 1.0001999999911846,
+      "regularized_eigen_max": 1.0140034943427163,
+      "raw_to_symmetric_max": 2.8189256484623115e-18
+    },
+    {
+      "backward_call": 0,
+      "knot": 1,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999953367288,
+      "symmetric_eigen_min": 0.0001999999953367287,
+      "regularized_eigen_min": 1.0001999999953373,
+      "regularized_eigen_max": 1.0034281897604675,
+      "raw_to_symmetric_max": 1.328147661294743e-18
+    },
+    {
+      "backward_call": 0,
+      "knot": 0,
+      "mu": 1.0,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999849350475,
+      "symmetric_eigen_min": 0.00019999999849350489,
+      "regularized_eigen_min": 1.0001999999984934,
+      "regularized_eigen_max": 1.0037781039809914,
+      "raw_to_symmetric_max": 1.2468324983583301e-18
+    },
+    {
+      "backward_call": 1,
+      "knot": 29,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999999993042,
+      "symmetric_eigen_min": 0.00019999999999930411,
+      "regularized_eigen_min": 0.10019999999999987,
+      "regularized_eigen_max": 10.494951583344525,
+      "raw_to_symmetric_max": 1.1102230246251565e-16
+    },
+    {
+      "backward_call": 1,
+      "knot": 28,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999999999997,
+      "symmetric_eigen_min": 0.00019999999999999982,
+      "regularized_eigen_min": 0.10019999999999989,
+      "regularized_eigen_max": 0.10053716020251224,
+      "raw_to_symmetric_max": 4.0657581468206416e-20
+    },
+    {
+      "backward_call": 1,
+      "knot": 27,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999999999998,
+      "symmetric_eigen_min": 0.00019999999999999982,
+      "regularized_eigen_min": 0.10019999999999983,
+      "regularized_eigen_max": 0.10034467686359724,
+      "raw_to_symmetric_max": 2.0328790734103208e-20
+    },
+    {
+      "backward_call": 1,
+      "knot": 26,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999968,
+      "symmetric_eigen_min": 0.0001999999999999998,
+      "regularized_eigen_min": 0.10019999999999991,
+      "regularized_eigen_max": 0.10047081667941478,
+      "raw_to_symmetric_max": 4.0657581468206416e-20
+    },
+    {
+      "backward_call": 1,
+      "knot": 25,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999999999997,
+      "symmetric_eigen_min": 0.00019999999999999985,
+      "regularized_eigen_min": 0.10019999999999989,
+      "regularized_eigen_max": 0.10042953414397114,
+      "raw_to_symmetric_max": 1.6940658945086007e-20
+    },
+    {
+      "backward_call": 1,
+      "knot": 24,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999968,
+      "symmetric_eigen_min": 0.00019999999999999977,
+      "regularized_eigen_min": 0.10019999999999989,
+      "regularized_eigen_max": 0.1003578790366956,
+      "raw_to_symmetric_max": 8.470329472543003e-21
+    },
+    {
+      "backward_call": 1,
+      "knot": 23,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999974,
+      "symmetric_eigen_min": 0.0001999999999999998,
+      "regularized_eigen_min": 0.10019999999999982,
+      "regularized_eigen_max": 0.10028191435930314,
+      "raw_to_symmetric_max": 6.776263578034403e-21
+    },
+    {
+      "backward_call": 1,
+      "knot": 22,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999985,
+      "symmetric_eigen_min": 0.0001999999999999998,
+      "regularized_eigen_min": 0.10019999999999994,
+      "regularized_eigen_max": 0.10024473239177199,
+      "raw_to_symmetric_max": 9.582060215814273e-21
+    },
+    {
+      "backward_call": 1,
+      "knot": 21,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999999999999,
+      "symmetric_eigen_min": 0.00019999999999999968,
+      "regularized_eigen_min": 0.1001999999999999,
+      "regularized_eigen_max": 0.10022764901117653,
+      "raw_to_symmetric_max": 1.0164395367051604e-20
+    },
+    {
+      "backward_call": 1,
+      "knot": 20,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999974,
+      "symmetric_eigen_min": 0.00019999999999999977,
+      "regularized_eigen_min": 0.10019999999999993,
+      "regularized_eigen_max": 0.10022921053625432,
+      "raw_to_symmetric_max": 1.1858461261560205e-20
+    },
+    {
+      "backward_call": 1,
+      "knot": 19,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999948087,
+      "symmetric_eigen_min": 0.00019999999999972777,
+      "regularized_eigen_min": 0.10019999999999962,
+      "regularized_eigen_max": 4.836989989056794,
+      "raw_to_symmetric_max": 1.1102230246251565e-16
+    },
+    {
+      "backward_call": 1,
+      "knot": 18,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999885558,
+      "symmetric_eigen_min": 0.00019999999999979908,
+      "regularized_eigen_min": 0.10019999999999986,
+      "regularized_eigen_max": 36.661285479249294,
+      "raw_to_symmetric_max": 1.7763568394002505e-15
+    },
+    {
+      "backward_call": 1,
+      "knot": 17,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999838,
+      "symmetric_eigen_min": 0.00019999999999999632,
+      "regularized_eigen_min": 0.10019999999999993,
+      "regularized_eigen_max": 0.15904839424941453,
+      "raw_to_symmetric_max": 1.0408340855860843e-17
+    },
+    {
+      "backward_call": 1,
+      "knot": 16,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999947,
+      "symmetric_eigen_min": 0.0001999999999999993,
+      "regularized_eigen_min": 0.1001999999999999,
+      "regularized_eigen_max": 0.10828838016186004,
+      "raw_to_symmetric_max": 8.673617379884035e-19
+    },
+    {
+      "backward_call": 1,
+      "knot": 15,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999727,
+      "symmetric_eigen_min": 0.000199999999999997,
+      "regularized_eigen_min": 0.10019999999999994,
+      "regularized_eigen_max": 0.1100151163772915,
+      "raw_to_symmetric_max": 8.673617379884035e-19
+    },
+    {
+      "backward_call": 1,
+      "knot": 14,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999933,
+      "symmetric_eigen_min": 0.0001999999999999995,
+      "regularized_eigen_min": 0.10019999999999984,
+      "regularized_eigen_max": 0.10283833880316369,
+      "raw_to_symmetric_max": 2.168404344971009e-19
+    },
+    {
+      "backward_call": 1,
+      "knot": 13,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999161482524757,
+      "symmetric_eigen_min": 0.00019993818619502905,
+      "regularized_eigen_min": 0.10019995252960391,
+      "regularized_eigen_max": 556673751.6677034,
+      "raw_to_symmetric_max": 1.4901161193847656e-08
+    },
+    {
+      "backward_call": 1,
+      "knot": 12,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019904972866230072,
+      "symmetric_eigen_min": 0.00019932252983293955,
+      "regularized_eigen_min": 0.10019960910957917,
+      "regularized_eigen_max": 7556753399.931572,
+      "raw_to_symmetric_max": 7.152557373046875e-07
+    },
+    {
+      "backward_call": 1,
+      "knot": 11,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999979298533136,
+      "symmetric_eigen_min": 0.00019999979298532085,
+      "regularized_eigen_min": 0.10019999979298555,
+      "regularized_eigen_max": 5.332283940610647,
+      "raw_to_symmetric_max": 1.1102230246251565e-16
+    },
+    {
+      "backward_call": 1,
+      "knot": 10,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999998099232139,
+      "symmetric_eigen_min": 0.0001999999809923202,
+      "regularized_eigen_min": 0.10019999998099229,
+      "regularized_eigen_max": 0.21905013701798778,
+      "raw_to_symmetric_max": 1.3877787807814457e-17
+    },
+    {
+      "backward_call": 1,
+      "knot": 9,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999998401234618,
+      "symmetric_eigen_min": 0.00019999998401234765,
+      "regularized_eigen_min": 0.10019999998401237,
+      "regularized_eigen_max": 0.1282121370448987,
+      "raw_to_symmetric_max": 2.6020852139652106e-18
+    },
+    {
+      "backward_call": 1,
+      "knot": 8,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999998722911876,
+      "symmetric_eigen_min": 0.00019999998722911938,
+      "regularized_eigen_min": 0.10019999998722913,
+      "regularized_eigen_max": 0.11053417957705533,
+      "raw_to_symmetric_max": 1.8973538018496328e-18
+    },
+    {
+      "backward_call": 1,
+      "knot": 7,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.000199999991655082,
+      "symmetric_eigen_min": 0.0001999999916550817,
+      "regularized_eigen_min": 0.10019999999165516,
+      "regularized_eigen_max": 0.10805988628779523,
+      "raw_to_symmetric_max": 2.5478751053409354e-18
+    },
+    {
+      "backward_call": 1,
+      "knot": 6,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999340818053,
+      "symmetric_eigen_min": 0.00019999999340818042,
+      "regularized_eigen_min": 0.1001999999934082,
+      "regularized_eigen_max": 0.10625539921221759,
+      "raw_to_symmetric_max": 1.734723475976807e-18
+    },
+    {
+      "backward_call": 1,
+      "knot": 5,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999573819073,
+      "symmetric_eigen_min": 0.00019999999573819046,
+      "regularized_eigen_min": 0.10019999999573818,
+      "regularized_eigen_max": 0.10432610545791221,
+      "raw_to_symmetric_max": 2.3310346708438345e-18
+    },
+    {
+      "backward_call": 1,
+      "knot": 4,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999758008266,
+      "symmetric_eigen_min": 0.0001999999975800823,
+      "regularized_eigen_min": 0.10019999999758006,
+      "regularized_eigen_max": 0.1021873244984998,
+      "raw_to_symmetric_max": 1.531435568635775e-18
+    },
+    {
+      "backward_call": 1,
+      "knot": 3,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999983779919,
+      "symmetric_eigen_min": 0.00019999999837799166,
+      "regularized_eigen_min": 0.10019999999837793,
+      "regularized_eigen_max": 0.1011605867875938,
+      "raw_to_symmetric_max": 3.7947076036992655e-19
+    },
+    {
+      "backward_call": 1,
+      "knot": 2,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999992633064,
+      "symmetric_eigen_min": 0.00019999999926330643,
+      "regularized_eigen_min": 0.1001999999992633,
+      "regularized_eigen_max": 0.10113607203111792,
+      "raw_to_symmetric_max": 1.1384122811097797e-18
+    },
+    {
+      "backward_call": 1,
+      "knot": 1,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999887592698,
+      "symmetric_eigen_min": 0.00019999999887592703,
+      "regularized_eigen_min": 0.10019999999887587,
+      "regularized_eigen_max": 0.10076390978792782,
+      "raw_to_symmetric_max": 3.9302328752599536e-19
+    },
+    {
+      "backward_call": 1,
+      "knot": 0,
+      "mu": 0.1,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999923158,
+      "symmetric_eigen_min": 0.0001999999992315798,
+      "regularized_eigen_min": 0.10019999999923154,
+      "regularized_eigen_max": 0.10100797971747719,
+      "raw_to_symmetric_max": 1.2197274440461925e-19
+    },
+    {
+      "backward_call": 2,
+      "knot": 29,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999991907,
+      "symmetric_eigen_min": 0.00019999999999991766,
+      "regularized_eigen_min": 0.010199999999999968,
+      "regularized_eigen_max": 10.30130856077471,
+      "raw_to_symmetric_max": 2.7755575615628914e-17
+    },
+    {
+      "backward_call": 2,
+      "knot": 28,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999999999997,
+      "symmetric_eigen_min": 0.0001999999999999998,
+      "regularized_eigen_min": 0.010199999999999994,
+      "regularized_eigen_max": 0.01026143537545019,
+      "raw_to_symmetric_max": 6.776263578034403e-21
+    },
+    {
+      "backward_call": 2,
+      "knot": 27,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999999999998,
+      "symmetric_eigen_min": 0.00019999999999999987,
+      "regularized_eigen_min": 0.010199999999999978,
+      "regularized_eigen_max": 0.010226840699852073,
+      "raw_to_symmetric_max": 3.3881317890172014e-21
+    },
+    {
+      "backward_call": 2,
+      "knot": 26,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999974,
+      "symmetric_eigen_min": 0.0001999999999999997,
+      "regularized_eigen_min": 0.010199999999999987,
+      "regularized_eigen_max": 0.01025276993062405,
+      "raw_to_symmetric_max": 1.0164395367051604e-20
+    },
+    {
+      "backward_call": 2,
+      "knot": 25,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999614502,
+      "symmetric_eigen_min": 0.0001999999999963884,
+      "regularized_eigen_min": 0.010199999999990729,
+      "regularized_eigen_max": 50.18439447581174,
+      "raw_to_symmetric_max": 2.6645352591003757e-15
+    },
+    {
+      "backward_call": 2,
+      "knot": 24,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999814,
+      "symmetric_eigen_min": 0.0001999999999999967,
+      "regularized_eigen_min": 0.010199999999999983,
+      "regularized_eigen_max": 0.023597332810361762,
+      "raw_to_symmetric_max": 8.673617379884035e-19
+    },
+    {
+      "backward_call": 2,
+      "knot": 23,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999974,
+      "symmetric_eigen_min": 0.00019999999999999974,
+      "regularized_eigen_min": 0.01019999999999999,
+      "regularized_eigen_max": 0.010773148186796328,
+      "raw_to_symmetric_max": 5.421010862427522e-20
+    },
+    {
+      "backward_call": 2,
+      "knot": 22,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999985,
+      "symmetric_eigen_min": 0.0001999999999999998,
+      "regularized_eigen_min": 0.010199999999999989,
+      "regularized_eigen_max": 0.010454197309066651,
+      "raw_to_symmetric_max": 2.0328790734103208e-20
+    },
+    {
+      "backward_call": 2,
+      "knot": 21,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999999999998,
+      "symmetric_eigen_min": 0.00019999999999999966,
+      "regularized_eigen_min": 0.010199999999999987,
+      "regularized_eigen_max": 0.01034122659247784,
+      "raw_to_symmetric_max": 1.5246593050577406e-20
+    },
+    {
+      "backward_call": 2,
+      "knot": 20,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999974,
+      "symmetric_eigen_min": 0.0001999999999999997,
+      "regularized_eigen_min": 0.010199999999999989,
+      "regularized_eigen_max": 0.010493353299264206,
+      "raw_to_symmetric_max": 2.710505431213761e-20
+    },
+    {
+      "backward_call": 2,
+      "knot": 19,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999873244,
+      "symmetric_eigen_min": 0.00019999999999952058,
+      "regularized_eigen_min": 0.010199999999999132,
+      "regularized_eigen_max": 4.769754913498904,
+      "raw_to_symmetric_max": 2.220446049250313e-16
+    },
+    {
+      "backward_call": 2,
+      "knot": 18,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999705299,
+      "symmetric_eigen_min": 0.00019999999999940736,
+      "regularized_eigen_min": 0.010199999999999109,
+      "regularized_eigen_max": 36.41898770051379,
+      "raw_to_symmetric_max": 1.7763568394002505e-15
+    },
+    {
+      "backward_call": 2,
+      "knot": 17,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999999999998,
+      "symmetric_eigen_min": 0.0001999999999999999,
+      "regularized_eigen_min": 0.010199999999999987,
+      "regularized_eigen_max": 0.014819613112199644,
+      "raw_to_symmetric_max": 4.336808689942018e-19
+    },
+    {
+      "backward_call": 2,
+      "knot": 16,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999999999998,
+      "symmetric_eigen_min": 0.00019999999999999987,
+      "regularized_eigen_min": 0.010199999999999992,
+      "regularized_eigen_max": 0.010892826645640525,
+      "raw_to_symmetric_max": 1.8973538018496328e-19
+    },
+    {
+      "backward_call": 2,
+      "knot": 15,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999968,
+      "symmetric_eigen_min": 0.0001999999999999998,
+      "regularized_eigen_min": 0.010199999999999983,
+      "regularized_eigen_max": 0.011195464653503797,
+      "raw_to_symmetric_max": 8.131516293641283e-20
+    },
+    {
+      "backward_call": 2,
+      "knot": 14,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999982,
+      "symmetric_eigen_min": 0.00019999999999999987,
+      "regularized_eigen_min": 0.010199999999999989,
+      "regularized_eigen_max": 0.010445847259064429,
+      "raw_to_symmetric_max": 2.0328790734103208e-20
+    },
+    {
+      "backward_call": 2,
+      "knot": 13,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999677980561385,
+      "symmetric_eigen_min": 0.00019991814625627444,
+      "regularized_eigen_min": 0.01019996317225712,
+      "regularized_eigen_max": 412436750.7037394,
+      "raw_to_symmetric_max": 1.4901161193847656e-08
+    },
+    {
+      "backward_call": 2,
+      "knot": 12,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00012111012118671649,
+      "symmetric_eigen_min": 0.00017181997338287203,
+      "regularized_eigen_min": 0.010157373601350385,
+      "regularized_eigen_max": 411424928740.89343,
+      "raw_to_symmetric_max": 8.392333984375e-05
+    },
+    {
+      "backward_call": 2,
+      "knot": 11,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019988081124558917,
+      "symmetric_eigen_min": 0.0001998808112466522,
+      "regularized_eigen_min": 0.010199880811247447,
+      "regularized_eigen_max": 46.51699861799755,
+      "raw_to_symmetric_max": 3.552713678800501e-15
+    },
+    {
+      "backward_call": 2,
+      "knot": 10,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999552922582664,
+      "symmetric_eigen_min": 0.00019999552922582653,
+      "regularized_eigen_min": 0.010199995529225833,
+      "regularized_eigen_max": 0.018437791088545343,
+      "raw_to_symmetric_max": 1.3010426069826053e-18
+    },
+    {
+      "backward_call": 2,
+      "knot": 9,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999965589072826,
+      "symmetric_eigen_min": 0.00019999655890728254,
+      "regularized_eigen_min": 0.010199996558907286,
+      "regularized_eigen_max": 0.013072017554155069,
+      "raw_to_symmetric_max": 4.336808689942018e-19
+    },
+    {
+      "backward_call": 2,
+      "knot": 8,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999691738370253,
+      "symmetric_eigen_min": 0.00019999691738370248,
+      "regularized_eigen_min": 0.010199996917383703,
+      "regularized_eigen_max": 0.012226134208751979,
+      "raw_to_symmetric_max": 2.439454888092385e-19
+    },
+    {
+      "backward_call": 2,
+      "knot": 7,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999483001451827,
+      "symmetric_eigen_min": 0.00019999483001309737,
+      "regularized_eigen_min": 0.010199994830013317,
+      "regularized_eigen_max": 77.39290358448716,
+      "raw_to_symmetric_max": 7.105427357601002e-15
+    },
+    {
+      "backward_call": 2,
+      "knot": 6,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999800192328752,
+      "symmetric_eigen_min": 0.00019999800192328754,
+      "regularized_eigen_min": 0.010199998001923288,
+      "regularized_eigen_max": 0.010879332414103026,
+      "raw_to_symmetric_max": 3.2526065174565133e-19
+    },
+    {
+      "backward_call": 2,
+      "knot": 5,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999772781395658,
+      "symmetric_eigen_min": 0.0001999977278139566,
+      "regularized_eigen_min": 0.010199997727813959,
+      "regularized_eigen_max": 0.010715568157721197,
+      "raw_to_symmetric_max": 1.8973538018496328e-19
+    },
+    {
+      "backward_call": 2,
+      "knot": 4,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999949883766098,
+      "symmetric_eigen_min": 0.00019999949883766095,
+      "regularized_eigen_min": 0.010199999498837667,
+      "regularized_eigen_max": 0.010572948056961868,
+      "raw_to_symmetric_max": 1.4907779871675686e-19
+    },
+    {
+      "backward_call": 2,
+      "knot": 3,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999973689349413,
+      "symmetric_eigen_min": 0.00019999973689349403,
+      "regularized_eigen_min": 0.01019999973689349,
+      "regularized_eigen_max": 0.010430617370417864,
+      "raw_to_symmetric_max": 7.115076756936123e-20
+    },
+    {
+      "backward_call": 2,
+      "knot": 2,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999988489682944,
+      "symmetric_eigen_min": 0.00019999988489682947,
+      "regularized_eigen_min": 0.010199999884896824,
+      "regularized_eigen_max": 0.010432148854410364,
+      "raw_to_symmetric_max": 9.147955830346444e-20
+    },
+    {
+      "backward_call": 2,
+      "knot": 1,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999992964465665,
+      "symmetric_eigen_min": 0.00019999929644656675,
+      "regularized_eigen_min": 0.010199999296446566,
+      "regularized_eigen_max": 0.010649625774644978,
+      "raw_to_symmetric_max": 1.0503208545953324e-19
+    },
+    {
+      "backward_call": 2,
+      "knot": 0,
+      "mu": 0.01,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999836087203587,
+      "symmetric_eigen_min": 0.00019999836087203587,
+      "regularized_eigen_min": 0.010199998360872035,
+      "regularized_eigen_max": 0.010743367109048864,
+      "raw_to_symmetric_max": 1.15619997300212e-19
+    },
+    {
+      "backward_call": 3,
+      "knot": 29,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.0012000000000000001,
+      "regularized_eigen_max": 0.0012000000000000001,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 3,
+      "knot": 28,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.0012000000000000001,
+      "regularized_eigen_max": 0.0012000000000000001,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 3,
+      "knot": 27,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.0012000000000000001,
+      "regularized_eigen_max": 0.0012000000000000001,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 3,
+      "knot": 26,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.0012000000000000001,
+      "regularized_eigen_max": 0.0012000000000000001,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 3,
+      "knot": 25,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.0012000000000000001,
+      "regularized_eigen_max": 0.0012000000000000001,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 3,
+      "knot": 24,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.0012000000000000001,
+      "regularized_eigen_max": 0.0012000000000000001,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 3,
+      "knot": 23,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.0012000000000000001,
+      "regularized_eigen_max": 0.0012000000000000001,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 3,
+      "knot": 22,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.0012000000000000001,
+      "regularized_eigen_max": 0.0012000000000000001,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 3,
+      "knot": 21,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.0012000000000000001,
+      "regularized_eigen_max": 0.0012000000000000001,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 3,
+      "knot": 20,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.0012000000000000001,
+      "regularized_eigen_max": 0.0012000000000000001,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 3,
+      "knot": 19,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999975067,
+      "symmetric_eigen_min": 0.0001999999999990447,
+      "regularized_eigen_min": 0.0011999999999991878,
+      "regularized_eigen_max": 6.5343042072274855,
+      "raw_to_symmetric_max": 5.551115123125783e-17
+    },
+    {
+      "backward_call": 3,
+      "knot": 18,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999532013,
+      "symmetric_eigen_min": 0.0001999999999944442,
+      "regularized_eigen_min": 0.0011999999999966944,
+      "regularized_eigen_max": 39.80867745031571,
+      "raw_to_symmetric_max": 3.552713678800501e-15
+    },
+    {
+      "backward_call": 3,
+      "knot": 17,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999985,
+      "symmetric_eigen_min": 0.00019999999999999974,
+      "regularized_eigen_min": 0.0011999999999999977,
+      "regularized_eigen_max": 0.0017602429291255725,
+      "raw_to_symmetric_max": 3.218725199566341e-20
+    },
+    {
+      "backward_call": 3,
+      "knot": 16,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999968,
+      "symmetric_eigen_min": 0.0001999999999999998,
+      "regularized_eigen_min": 0.001199999999999998,
+      "regularized_eigen_max": 0.0016417131745184049,
+      "raw_to_symmetric_max": 5.421010862427522e-20
+    },
+    {
+      "backward_call": 3,
+      "knot": 15,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999977,
+      "symmetric_eigen_min": 0.0001999999999999998,
+      "regularized_eigen_min": 0.001199999999999999,
+      "regularized_eigen_max": 0.001428935694142539,
+      "raw_to_symmetric_max": 1.3552527156068805e-20
+    },
+    {
+      "backward_call": 3,
+      "knot": 14,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999982,
+      "symmetric_eigen_min": 0.00019999999999999982,
+      "regularized_eigen_min": 0.0011999999999999986,
+      "regularized_eigen_max": 0.0012428516533325158,
+      "raw_to_symmetric_max": 8.470329472543003e-21
+    },
+    {
+      "backward_call": 3,
+      "knot": 13,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019901132225867653,
+      "symmetric_eigen_min": 0.00019950645893367474,
+      "regularized_eigen_min": 0.001199232136351497,
+      "regularized_eigen_max": 5985516277.631275,
+      "raw_to_symmetric_max": 1.1920928955078125e-07
+    },
+    {
+      "backward_call": 3,
+      "knot": 12,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019937035527287954,
+      "symmetric_eigen_min": 0.00019919100842735618,
+      "regularized_eigen_min": 0.0011990279772355807,
+      "regularized_eigen_max": 2583592154.6480966,
+      "raw_to_symmetric_max": 5.960464477539063e-08
+    },
+    {
+      "backward_call": 3,
+      "knot": 11,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999991501158635,
+      "symmetric_eigen_min": 0.00019999991538249137,
+      "regularized_eigen_min": 0.0011999999153869594,
+      "regularized_eigen_max": 84355.50869070787,
+      "raw_to_symmetric_max": 3.637978807091713e-12
+    },
+    {
+      "backward_call": 3,
+      "knot": 10,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999997261474115,
+      "symmetric_eigen_min": 0.00019999997261474115,
+      "regularized_eigen_min": 0.001199999972614741,
+      "regularized_eigen_max": 0.001448433142275648,
+      "raw_to_symmetric_max": 1.5246593050577406e-20
+    },
+    {
+      "backward_call": 3,
+      "knot": 9,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999998337909245,
+      "symmetric_eigen_min": 0.0001999999833790924,
+      "regularized_eigen_min": 0.001199999983379093,
+      "regularized_eigen_max": 0.001267143693950293,
+      "raw_to_symmetric_max": 3.917527381051139e-21
+    },
+    {
+      "backward_call": 3,
+      "knot": 8,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999997542853064,
+      "symmetric_eigen_min": 0.00019999997542853067,
+      "regularized_eigen_min": 0.0011999999754285307,
+      "regularized_eigen_max": 0.0012447607821559701,
+      "raw_to_symmetric_max": 6.829203137237796e-21
+    },
+    {
+      "backward_call": 3,
+      "knot": 7,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999524120368,
+      "symmetric_eigen_min": 0.00019999999524120363,
+      "regularized_eigen_min": 0.001199999995241205,
+      "regularized_eigen_max": 0.0012529817185651217,
+      "raw_to_symmetric_max": 1.3552527156068805e-20
+    },
+    {
+      "backward_call": 3,
+      "knot": 6,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999438076655,
+      "symmetric_eigen_min": 0.00019999999438076644,
+      "regularized_eigen_min": 0.001199999994380766,
+      "regularized_eigen_max": 0.0012320427141308426,
+      "raw_to_symmetric_max": 8.470329472543003e-21
+    },
+    {
+      "backward_call": 3,
+      "knot": 5,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999781145027,
+      "symmetric_eigen_min": 0.00019999999781145019,
+      "regularized_eigen_min": 0.0011999999978114496,
+      "regularized_eigen_max": 0.0012200622195566247,
+      "raw_to_symmetric_max": 3.22931311140702e-21
+    },
+    {
+      "backward_call": 3,
+      "knot": 4,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999881037566,
+      "symmetric_eigen_min": 0.00019999999881037563,
+      "regularized_eigen_min": 0.0011999999988103758,
+      "regularized_eigen_max": 0.0012097624958078187,
+      "raw_to_symmetric_max": 3.5998900258307764e-21
+    },
+    {
+      "backward_call": 3,
+      "knot": 3,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999989168503,
+      "symmetric_eigen_min": 0.00019999999891685035,
+      "regularized_eigen_min": 0.0011999999989168503,
+      "regularized_eigen_max": 0.0012068497318629965,
+      "raw_to_symmetric_max": 3.8116482626443515e-21
+    },
+    {
+      "backward_call": 3,
+      "knot": 2,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999912924212,
+      "symmetric_eigen_min": 0.00019999999912924193,
+      "regularized_eigen_min": 0.0011999999991292422,
+      "regularized_eigen_max": 0.0012113101057000587,
+      "raw_to_symmetric_max": 5.61159327555974e-21
+    },
+    {
+      "backward_call": 3,
+      "knot": 1,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999948841604,
+      "symmetric_eigen_min": 0.00019999999948841615,
+      "regularized_eigen_min": 0.0011999999994884165,
+      "regularized_eigen_max": 0.0012054759003494312,
+      "raw_to_symmetric_max": 2.9116757561866574e-21
+    },
+    {
+      "backward_call": 3,
+      "knot": 0,
+      "mu": 0.001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999998637738,
+      "symmetric_eigen_min": 0.00019999999986377388,
+      "regularized_eigen_min": 0.001199999999863774,
+      "regularized_eigen_max": 0.0012062771791766884,
+      "raw_to_symmetric_max": 2.752857078576476e-21
+    },
+    {
+      "backward_call": 4,
+      "knot": 29,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00030000000000000003,
+      "regularized_eigen_max": 0.00030000000000000003,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 4,
+      "knot": 28,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00030000000000000003,
+      "regularized_eigen_max": 0.00030000000000000003,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 4,
+      "knot": 27,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00030000000000000003,
+      "regularized_eigen_max": 0.00030000000000000003,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 4,
+      "knot": 26,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00030000000000000003,
+      "regularized_eigen_max": 0.00030000000000000003,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 4,
+      "knot": 25,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00030000000000000003,
+      "regularized_eigen_max": 0.00030000000000000003,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 4,
+      "knot": 24,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00030000000000000003,
+      "regularized_eigen_max": 0.00030000000000000003,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 4,
+      "knot": 23,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00030000000000000003,
+      "regularized_eigen_max": 0.00030000000000000003,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 4,
+      "knot": 22,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00030000000000000003,
+      "regularized_eigen_max": 0.00030000000000000003,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 4,
+      "knot": 21,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00030000000000000003,
+      "regularized_eigen_max": 0.00030000000000000003,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 4,
+      "knot": 20,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00030000000000000003,
+      "regularized_eigen_max": 0.00030000000000000003,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 4,
+      "knot": 19,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999934117,
+      "symmetric_eigen_min": 0.00019999999999933987,
+      "regularized_eigen_min": 0.0002999999999983305,
+      "regularized_eigen_max": 6.677854972995343,
+      "raw_to_symmetric_max": 5.551115123125783e-17
+    },
+    {
+      "backward_call": 4,
+      "knot": 18,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999806024,
+      "symmetric_eigen_min": 0.00019999999999992406,
+      "regularized_eigen_min": 0.00029999999998883724,
+      "regularized_eigen_max": 39.441514094252724,
+      "raw_to_symmetric_max": 7.105427357601002e-15
+    },
+    {
+      "backward_call": 4,
+      "knot": 17,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999974,
+      "symmetric_eigen_min": 0.00019999999999999985,
+      "regularized_eigen_min": 0.0002999999999999997,
+      "regularized_eigen_max": 0.00036581855773826786,
+      "raw_to_symmetric_max": 8.893845946170154e-21
+    },
+    {
+      "backward_call": 4,
+      "knot": 16,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999982,
+      "symmetric_eigen_min": 0.0001999999999999998,
+      "regularized_eigen_min": 0.00029999999999999965,
+      "regularized_eigen_max": 0.00041380556433290793,
+      "raw_to_symmetric_max": 1.4399560103323106e-20
+    },
+    {
+      "backward_call": 4,
+      "knot": 15,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999999999997,
+      "symmetric_eigen_min": 0.0001999999999999998,
+      "regularized_eigen_min": 0.0002999999999999998,
+      "regularized_eigen_max": 0.0007315419856134783,
+      "raw_to_symmetric_max": 1.3552527156068805e-20
+    },
+    {
+      "backward_call": 4,
+      "knot": 14,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999999982,
+      "symmetric_eigen_min": 0.00019999999999999974,
+      "regularized_eigen_min": 0.00029999999999999965,
+      "regularized_eigen_max": 0.0003200263741844366,
+      "raw_to_symmetric_max": 2.964615315390051e-21
+    },
+    {
+      "backward_call": 4,
+      "knot": 13,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001984073018735754,
+      "symmetric_eigen_min": 0.00019863622664095202,
+      "regularized_eigen_min": 0.0002931332641133133,
+      "regularized_eigen_max": 35665777225.16728,
+      "raw_to_symmetric_max": 9.5367431640625e-07
+    },
+    {
+      "backward_call": 4,
+      "knot": 12,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999758548469598,
+      "symmetric_eigen_min": 0.00019999215166866042,
+      "regularized_eigen_min": 0.0002999974035983852,
+      "regularized_eigen_max": 68423652.55627854,
+      "raw_to_symmetric_max": 1.862645149230957e-09
+    },
+    {
+      "backward_call": 4,
+      "knot": 11,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999998296092288,
+      "symmetric_eigen_min": 0.00019999998296113734,
+      "regularized_eigen_min": 0.0002999999829617555,
+      "regularized_eigen_max": 62.123339130640844,
+      "raw_to_symmetric_max": 3.552713678800501e-15
+    },
+    {
+      "backward_call": 4,
+      "knot": 10,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999898781403,
+      "symmetric_eigen_min": 0.00019999998987814028,
+      "regularized_eigen_min": 0.00029999998987814035,
+      "regularized_eigen_max": 0.0006769746138775727,
+      "raw_to_symmetric_max": 1.3552527156068805e-20
+    },
+    {
+      "backward_call": 4,
+      "knot": 9,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999456138628,
+      "symmetric_eigen_min": 0.00019999999456138601,
+      "regularized_eigen_min": 0.00029999999456138617,
+      "regularized_eigen_max": 0.0004558029006315295,
+      "raw_to_symmetric_max": 1.3552527156068805e-20
+    },
+    {
+      "backward_call": 4,
+      "knot": 8,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999662702203,
+      "symmetric_eigen_min": 0.00019999999662702195,
+      "regularized_eigen_min": 0.0002999999966270217,
+      "regularized_eigen_max": 0.00036287846276207586,
+      "raw_to_symmetric_max": 7.623296525288703e-21
+    },
+    {
+      "backward_call": 4,
+      "knot": 7,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999744680128,
+      "symmetric_eigen_min": 0.00019999999744680125,
+      "regularized_eigen_min": 0.00029999999744680133,
+      "regularized_eigen_max": 0.00032795209253902295,
+      "raw_to_symmetric_max": 4.658681209898652e-21
+    },
+    {
+      "backward_call": 4,
+      "knot": 6,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999981921346,
+      "symmetric_eigen_min": 0.00019999999819213466,
+      "regularized_eigen_min": 0.00029999999819213476,
+      "regularized_eigen_max": 0.0003177700577118922,
+      "raw_to_symmetric_max": 3.494010907423989e-21
+    },
+    {
+      "backward_call": 4,
+      "knot": 5,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999896691886,
+      "symmetric_eigen_min": 0.00019999999896691895,
+      "regularized_eigen_min": 0.00029999999896691886,
+      "regularized_eigen_max": 0.0003132696916698977,
+      "raw_to_symmetric_max": 2.117582368135751e-21
+    },
+    {
+      "backward_call": 4,
+      "knot": 4,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999992902125,
+      "symmetric_eigen_min": 0.00019999999929021258,
+      "regularized_eigen_min": 0.0002999999992902126,
+      "regularized_eigen_max": 0.0003090971324562273,
+      "raw_to_symmetric_max": 5.346895479542771e-21
+    },
+    {
+      "backward_call": 4,
+      "knot": 3,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999970196872,
+      "symmetric_eigen_min": 0.00019999999970196872,
+      "regularized_eigen_min": 0.0002999999997019687,
+      "regularized_eigen_max": 0.0003070013335926244,
+      "raw_to_symmetric_max": 6.246867986000465e-21
+    },
+    {
+      "backward_call": 4,
+      "knot": 2,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999988555258,
+      "symmetric_eigen_min": 0.00019999999988555263,
+      "regularized_eigen_min": 0.0002999999998855524,
+      "regularized_eigen_max": 0.00031310302607483165,
+      "raw_to_symmetric_max": 9.740878893424454e-21
+    },
+    {
+      "backward_call": 4,
+      "knot": 1,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999994713857,
+      "symmetric_eigen_min": 0.00019999999994713868,
+      "regularized_eigen_min": 0.00029999999994713867,
+      "regularized_eigen_max": 0.000316109217905468,
+      "raw_to_symmetric_max": 7.209706219012189e-21
+    },
+    {
+      "backward_call": 4,
+      "knot": 0,
+      "mu": 0.0001,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999990427724,
+      "symmetric_eigen_min": 0.00019999999990427732,
+      "regularized_eigen_min": 0.00029999999990427744,
+      "regularized_eigen_max": 0.0003224204894073956,
+      "raw_to_symmetric_max": 4.9763185651190145e-21
+    },
+    {
+      "backward_call": 5,
+      "knot": 29,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00021,
+      "regularized_eigen_max": 0.00021,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 5,
+      "knot": 28,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00021,
+      "regularized_eigen_max": 0.00021,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 5,
+      "knot": 27,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00021,
+      "regularized_eigen_max": 0.00021,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 5,
+      "knot": 26,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00021,
+      "regularized_eigen_max": 0.00021,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 5,
+      "knot": 25,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00021,
+      "regularized_eigen_max": 0.00021,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 5,
+      "knot": 24,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00021,
+      "regularized_eigen_max": 0.00021,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 5,
+      "knot": 23,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00021,
+      "regularized_eigen_max": 0.00021,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 5,
+      "knot": 22,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00021,
+      "regularized_eigen_max": 0.00021,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 5,
+      "knot": 21,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00021,
+      "regularized_eigen_max": 0.00021,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 5,
+      "knot": 20,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00021,
+      "regularized_eigen_max": 0.00021,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 5,
+      "knot": 19,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00021,
+      "regularized_eigen_max": 0.00021,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 5,
+      "knot": 18,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00021,
+      "regularized_eigen_max": 0.00021,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 5,
+      "knot": 17,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00021,
+      "regularized_eigen_max": 0.00021,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 5,
+      "knot": 16,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00021,
+      "regularized_eigen_max": 0.00021,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 5,
+      "knot": 15,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00021,
+      "regularized_eigen_max": 0.00021,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 5,
+      "knot": 14,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.00021,
+      "regularized_eigen_max": 0.00021,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 5,
+      "knot": 13,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999916170812582,
+      "symmetric_eigen_min": 0.00019998987066019067,
+      "regularized_eigen_min": 0.00020999553160448183,
+      "regularized_eigen_max": 95289102.86648147,
+      "raw_to_symmetric_max": 1.862645149230957e-09
+    },
+    {
+      "backward_call": 5,
+      "knot": 12,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999987783668574,
+      "symmetric_eigen_min": 0.00019999979073728012,
+      "regularized_eigen_min": 0.000209999890869136,
+      "regularized_eigen_max": 4274883.082588947,
+      "raw_to_symmetric_max": 2.3283064365386963e-10
+    },
+    {
+      "backward_call": 5,
+      "knot": 11,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999991316756,
+      "symmetric_eigen_min": 0.00019999999991316872,
+      "regularized_eigen_min": 0.00020999999991317084,
+      "regularized_eigen_max": 0.09038530818389902,
+      "raw_to_symmetric_max": 3.469446951953614e-18
+    },
+    {
+      "backward_call": 5,
+      "knot": 10,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999425718,
+      "symmetric_eigen_min": 0.00019999999999425732,
+      "regularized_eigen_min": 0.00020999999999425726,
+      "regularized_eigen_max": 0.0007321477056251454,
+      "raw_to_symmetric_max": 4.0657581468206416e-20
+    },
+    {
+      "backward_call": 5,
+      "knot": 9,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999999955139,
+      "symmetric_eigen_min": 0.00019999999999551382,
+      "regularized_eigen_min": 0.0002099999999955139,
+      "regularized_eigen_max": 0.0003111268610523823,
+      "raw_to_symmetric_max": 1.6940658945086007e-20
+    },
+    {
+      "backward_call": 5,
+      "knot": 8,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999272097,
+      "symmetric_eigen_min": 0.00019999999999272095,
+      "regularized_eigen_min": 0.00020999999999272105,
+      "regularized_eigen_max": 0.00025761347148977644,
+      "raw_to_symmetric_max": 6.776263578034403e-21
+    },
+    {
+      "backward_call": 5,
+      "knot": 7,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999187153,
+      "symmetric_eigen_min": 0.0001999999999918716,
+      "regularized_eigen_min": 0.00020999999999187172,
+      "regularized_eigen_max": 0.0002571832077946039,
+      "raw_to_symmetric_max": 7.623296525288703e-21
+    },
+    {
+      "backward_call": 5,
+      "knot": 6,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999999955879,
+      "symmetric_eigen_min": 0.00019999999999558798,
+      "regularized_eigen_min": 0.00020999999999558796,
+      "regularized_eigen_max": 0.00024109341066285117,
+      "raw_to_symmetric_max": 6.988021814847978e-21
+    },
+    {
+      "backward_call": 5,
+      "knot": 5,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999714953,
+      "symmetric_eigen_min": 0.00019999999999714934,
+      "regularized_eigen_min": 0.0002099999999971495,
+      "regularized_eigen_max": 0.00022414139082758993,
+      "raw_to_symmetric_max": 5.082197683525802e-21
+    },
+    {
+      "backward_call": 5,
+      "knot": 4,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999788248,
+      "symmetric_eigen_min": 0.0001999999999978826,
+      "regularized_eigen_min": 0.00020999999999788262,
+      "regularized_eigen_max": 0.00021628823109823335,
+      "raw_to_symmetric_max": 2.752857078576476e-21
+    },
+    {
+      "backward_call": 5,
+      "knot": 3,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999890431,
+      "symmetric_eigen_min": 0.00019999999999890445,
+      "regularized_eigen_min": 0.00020999999999890453,
+      "regularized_eigen_max": 0.00021364617440309449,
+      "raw_to_symmetric_max": 2.5278639519620526e-21
+    },
+    {
+      "backward_call": 5,
+      "knot": 2,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999954998,
+      "symmetric_eigen_min": 0.00019999999999955,
+      "regularized_eigen_min": 0.0002099999999995501,
+      "regularized_eigen_max": 0.0002158284098132311,
+      "raw_to_symmetric_max": 1.4823076576950256e-21
+    },
+    {
+      "backward_call": 5,
+      "knot": 1,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999999997211,
+      "symmetric_eigen_min": 0.000199999999999721,
+      "regularized_eigen_min": 0.00020999999999972102,
+      "regularized_eigen_max": 0.0002121988331784988,
+      "raw_to_symmetric_max": 5.6827308082393e-22
+    },
+    {
+      "backward_call": 5,
+      "knot": 0,
+      "mu": 1e-05,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.000199999999999874,
+      "symmetric_eigen_min": 0.00019999999999987405,
+      "regularized_eigen_min": 0.00020999999999987402,
+      "regularized_eigen_max": 0.00021454364559441973,
+      "raw_to_symmetric_max": 1.164670302474663e-21
+    },
+    {
+      "backward_call": 6,
+      "knot": 29,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 6,
+      "knot": 28,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 6,
+      "knot": 27,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 6,
+      "knot": 26,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 6,
+      "knot": 25,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 6,
+      "knot": 24,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 6,
+      "knot": 23,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 6,
+      "knot": 22,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 6,
+      "knot": 21,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 6,
+      "knot": 20,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 6,
+      "knot": 19,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 6,
+      "knot": 18,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 6,
+      "knot": 17,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 6,
+      "knot": 16,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 6,
+      "knot": 15,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 6,
+      "knot": 14,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 6,
+      "knot": 13,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999266265671226,
+      "symmetric_eigen_min": 0.00019999831413203351,
+      "regularized_eigen_min": 0.00020099780693566785,
+      "regularized_eigen_max": 50176720.38800725,
+      "raw_to_symmetric_max": 9.313225746154785e-10
+    },
+    {
+      "backward_call": 6,
+      "knot": 12,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999993201423512,
+      "symmetric_eigen_min": 0.0001999999866718083,
+      "regularized_eigen_min": 0.00020099998076618633,
+      "regularized_eigen_max": 618559.8629613107,
+      "raw_to_symmetric_max": 4.001776687800884e-11
+    },
+    {
+      "backward_call": 6,
+      "knot": 11,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.000199999999953436,
+      "symmetric_eigen_min": 0.00019999999995343724,
+      "regularized_eigen_min": 0.0002009999999534361,
+      "regularized_eigen_max": 0.06247850625378562,
+      "raw_to_symmetric_max": 3.469446951953614e-18
+    },
+    {
+      "backward_call": 6,
+      "knot": 10,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999232204,
+      "symmetric_eigen_min": 0.00019999999999232196,
+      "regularized_eigen_min": 0.00020099999999232188,
+      "regularized_eigen_max": 0.00037761217318221877,
+      "raw_to_symmetric_max": 1.3552527156068805e-20
+    },
+    {
+      "backward_call": 6,
+      "knot": 9,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999779705,
+      "symmetric_eigen_min": 0.00019999999999779705,
+      "regularized_eigen_min": 0.00020099999999779707,
+      "regularized_eigen_max": 0.00029215391983502647,
+      "raw_to_symmetric_max": 2.371692252312041e-20
+    },
+    {
+      "backward_call": 6,
+      "knot": 8,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999810686,
+      "symmetric_eigen_min": 0.00019999999999810688,
+      "regularized_eigen_min": 0.00020099999999810677,
+      "regularized_eigen_max": 0.0002417369960142209,
+      "raw_to_symmetric_max": 1.0164395367051604e-20
+    },
+    {
+      "backward_call": 6,
+      "knot": 7,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999999897492,
+      "symmetric_eigen_min": 0.00019999999999893793,
+      "regularized_eigen_min": 0.00020099999999730612,
+      "regularized_eigen_max": 442.78661010749767,
+      "raw_to_symmetric_max": 5.684341886080802e-14
+    },
+    {
+      "backward_call": 6,
+      "knot": 6,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999999993399,
+      "symmetric_eigen_min": 0.00019999999999933978,
+      "regularized_eigen_min": 0.00020099999999933978,
+      "regularized_eigen_max": 0.00022534007344000547,
+      "raw_to_symmetric_max": 5.293955920339377e-21
+    },
+    {
+      "backward_call": 6,
+      "knot": 5,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0001999999999991778,
+      "symmetric_eigen_min": 0.00019999999999917789,
+      "regularized_eigen_min": 0.00020099999999917796,
+      "regularized_eigen_max": 0.00021231532625458433,
+      "raw_to_symmetric_max": 6.246867986000465e-21
+    },
+    {
+      "backward_call": 6,
+      "knot": 4,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999917856,
+      "symmetric_eigen_min": 0.00019999999999917862,
+      "regularized_eigen_min": 0.00020099999999917862,
+      "regularized_eigen_max": 0.00020645161876429693,
+      "raw_to_symmetric_max": 6.776263578034403e-21
+    },
+    {
+      "backward_call": 6,
+      "knot": 3,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999929409,
+      "symmetric_eigen_min": 0.00019999999999929403,
+      "regularized_eigen_min": 0.000200999999999294,
+      "regularized_eigen_max": 0.00020571990055387622,
+      "raw_to_symmetric_max": 3.65282958503417e-21
+    },
+    {
+      "backward_call": 6,
+      "knot": 2,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999954524,
+      "symmetric_eigen_min": 0.00019999999999954521,
+      "regularized_eigen_min": 0.00020099999999954524,
+      "regularized_eigen_max": 0.00020669437753623605,
+      "raw_to_symmetric_max": 1.7999450129153882e-21
+    },
+    {
+      "backward_call": 6,
+      "knot": 1,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999983445,
+      "symmetric_eigen_min": 0.00019999999999983453,
+      "regularized_eigen_min": 0.00020099999999983442,
+      "regularized_eigen_max": 0.00020798705502102303,
+      "raw_to_symmetric_max": 1.0058516248644817e-21
+    },
+    {
+      "backward_call": 6,
+      "knot": 0,
+      "mu": 1.0000000000000002e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.00019999999999988232,
+      "symmetric_eigen_min": 0.0001999999999998823,
+      "regularized_eigen_min": 0.00020099999999988218,
+      "regularized_eigen_max": 0.00020684310357008432,
+      "raw_to_symmetric_max": 1.1117307432712692e-21
+    },
+    {
+      "backward_call": 7,
+      "knot": 29,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 28,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 27,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 26,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 25,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 24,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 23,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 22,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 21,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 20,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 19,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 18,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 17,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 16,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 15,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 14,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 13,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 12,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 11,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 10,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 9,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 8,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 7,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 6,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 5,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 4,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 3,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 2,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 1,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 7,
+      "knot": 0,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 29,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 28,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 27,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 26,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 25,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 24,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 23,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 22,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 21,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 20,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 19,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 18,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 17,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 16,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 15,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 14,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 13,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 12,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 11,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 10,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 9,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 8,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 7,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 6,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 5,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 4,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 3,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 2,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 1,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 8,
+      "knot": 0,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 29,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 28,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 27,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 26,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 25,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 24,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 23,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 22,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 21,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 20,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 19,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 18,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 17,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 16,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 15,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 14,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 13,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 12,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 11,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 10,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 9,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 8,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 7,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 6,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 5,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 4,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 3,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 2,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 1,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    },
+    {
+      "backward_call": 9,
+      "knot": 0,
+      "mu": 1e-06,
+      "finite": true,
+      "raw_lower_triangle_eigen_min": 0.0002,
+      "symmetric_eigen_min": 0.0002,
+      "regularized_eigen_min": 0.000201,
+      "regularized_eigen_max": 0.000201,
+      "raw_to_symmetric_max": 0.0
+    }
+  ],
+  "searches": [
+    {
+      "kind": "initial",
+      "costs": [
+        7.278705671108272,
+        7.278705671108272,
+        7.278705671108272,
+        7.278705671108272,
+        7.278705671108272,
+        7.278705671108272,
+        7.278705671108272,
+        7.278705671108272,
+        7.278705671108272
+      ]
+    },
+    {
+      "kind": "alpha_search",
+      "costs": [
+        10.92871798533488,
+        15.206958827309027,
+        3.69237737555277,
+        4.825924723135045,
+        6.8127396227942105,
+        7.1086046415168225,
+        7.3367620791960935,
+        7.335303243788016,
+        7.461247475409993
+      ],
+      "iteration": 0,
+      "incumbent_merit_before": 7.278705671108272,
+      "best_lane": 2,
+      "alpha": 0.25,
+      "accepted": true,
+      "drop": 3.586328295555502,
+      "tolerance_stop": false,
+      "incumbent_merit_after": 3.69237737555277
+    },
+    {
+      "kind": "alpha_search",
+      "costs": [
+        42.512635349666894,
+        11.390904293915472,
+        2.0532633833983356,
+        2.834566763519178,
+        3.130881693858434,
+        3.3473043221242564,
+        3.42782637801806,
+        3.4813612865239785,
+        3.6548831194912794
+      ],
+      "iteration": 1,
+      "incumbent_merit_before": 3.69237737555277,
+      "best_lane": 2,
+      "alpha": 0.25,
+      "accepted": true,
+      "drop": 1.6391139921544342,
+      "tolerance_stop": false,
+      "incumbent_merit_after": 2.0532633833983356
+    },
+    {
+      "kind": "alpha_search",
+      "costs": [
+        7.5240332669313945,
+        0.9430761833334435,
+        13.593725093827969,
+        14.719940244835245,
+        1.7324782499407998,
+        2.00385681344037,
+        2.0307161014441784,
+        2.0583902114291472,
+        2.08129426549621
+      ],
+      "iteration": 2,
+      "incumbent_merit_before": 2.0532633833983356,
+      "best_lane": 1,
+      "alpha": 0.5,
+      "accepted": true,
+      "drop": 1.110187200064892,
+      "tolerance_stop": false,
+      "incumbent_merit_after": 0.9430761833334435
+    },
+    {
+      "kind": "alpha_search",
+      "costs": [
+        2.2113073491114963,
+        0.7126614738687281,
+        0.8114815175553886,
+        0.8954265059861897,
+        0.8991846543727042,
+        0.921582568462785,
+        0.9231129267115278,
+        0.8994379466179834,
+        0.9423430084944643
+      ],
+      "iteration": 3,
+      "incumbent_merit_before": 0.9430761833334435,
+      "best_lane": 1,
+      "alpha": 0.5,
+      "accepted": true,
+      "drop": 0.23041470946471532,
+      "tolerance_stop": false,
+      "incumbent_merit_after": 0.7126614738687281
+    },
+    {
+      "kind": "alpha_search",
+      "costs": [
+        34.437898472029595,
+        0.4964754521505186,
+        0.6363404501545308,
+        0.7817741589346835,
+        0.6914746095364184,
+        0.7710957360746089,
+        0.7392707345760245,
+        0.7361035740270273,
+        0.7165297821805245
+      ],
+      "iteration": 4,
+      "incumbent_merit_before": 0.7126614738687281,
+      "best_lane": 1,
+      "alpha": 0.5,
+      "accepted": true,
+      "drop": 0.21618602171820955,
+      "tolerance_stop": false,
+      "incumbent_merit_after": 0.4964754521505186
+    },
+    {
+      "kind": "alpha_search",
+      "costs": [
+        122.10404400817791,
+        11.136123973765493,
+        1.6252446759795562,
+        0.019385874339747693,
+        0.1683105044185312,
+        0.3201843162711038,
+        0.4010274707921812,
+        0.4517744308815517,
+        0.477684272652263
+      ],
+      "iteration": 5,
+      "incumbent_merit_before": 0.4964754521505186,
+      "best_lane": 3,
+      "alpha": 0.125,
+      "accepted": true,
+      "drop": 0.4770895778107709,
+      "tolerance_stop": false,
+      "incumbent_merit_after": 0.019385874339747693
+    },
+    {
+      "kind": "alpha_search",
+      "costs": [
+        106.27965855577204,
+        32.439912631102274,
+        14.039921827710563,
+        0.06725479125888818,
+        0.013937840670811013,
+        0.014876750693270976,
+        0.01654381610345697,
+        0.017311333708664063,
+        0.017199292954569578
+      ],
+      "iteration": 6,
+      "incumbent_merit_before": 0.019385874339747693,
+      "best_lane": 4,
+      "alpha": 0.0625,
+      "accepted": true,
+      "drop": 0.00544803366893668,
+      "tolerance_stop": false,
+      "incumbent_merit_after": 0.013937840670811013
+    },
+    {
+      "kind": "alpha_search",
+      "costs": [
+        150.70445971315792,
+        45.50837582105693,
+        23.51766848162301,
+        7.041940770400607,
+        2.968993654322166,
+        0.013084541251990179,
+        0.01350782196495863,
+        0.013721989068774332,
+        0.01382970430751505
+      ],
+      "iteration": 7,
+      "incumbent_merit_before": 0.013937840670811013,
+      "best_lane": 5,
+      "alpha": 0.03125,
+      "accepted": true,
+      "drop": 0.000853299418820834,
+      "tolerance_stop": false,
+      "incumbent_merit_after": 0.013084541251990179
+    },
+    {
+      "kind": "alpha_search",
+      "costs": [
+        155.84283008097748,
+        43.69499967776814,
+        22.784069861200365,
+        3.9817237117673843,
+        8.02731412828615,
+        2.869323017364916,
+        0.012680849230941555,
+        0.012881904556686315,
+        0.012983025233143358
+      ],
+      "iteration": 8,
+      "incumbent_merit_before": 0.013084541251990179,
+      "best_lane": 6,
+      "alpha": 0.015625,
+      "accepted": true,
+      "drop": 0.00040369202104862355,
+      "tolerance_stop": false,
+      "incumbent_merit_after": 0.012680849230941555
+    },
+    {
+      "kind": "alpha_search",
+      "costs": [
+        156.27287428308094,
+        58.54929224693925,
+        16.62654700705785,
+        9.416527502662175,
+        1.6644766063554948,
+        3.755546864198103,
+        2.0993416911627296,
+        1.7604023294550921,
+        0.012582465266531624
+      ],
+      "iteration": 9,
+      "incumbent_merit_before": 0.012680849230941555,
+      "best_lane": 8,
+      "alpha": 0.00390625,
+      "accepted": true,
+      "drop": 9.838396440993089e-05,
+      "tolerance_stop": false,
+      "incumbent_merit_after": 0.012582465266531624
+    }
+  ],
+  "source_hashes": {
+    "gear_sonic/utils/g1_true23_mjbatch_ilqr_core.py": "1efc9cb21e446d8e41e3d3acebe05d12b951e8a0002b264ddf0a6b723e32f45a",
+    "gear_sonic/utils/g1_true23_mjbatch_mpc.py": "7695d03787de93dc3d4b1fb2001d6b6b0dcdb9016af9c96734e8f7d94a5e5dde",
+    "gear_sonic/utils/g1_true23_mjbatch_model.py": "61d1c168ba5db189fc1e882bfb1e2c9f7773584353b8e2251713ae0d0dd7dc9e",
+    "gear_sonic/utils/g1_true23_mjbatch_restoration.py": "3fb4aa5a786d8acb3de44a3c96a4ac9ea26cfbaf17887c0aecbb7d3915bd71c5",
+    "gear_sonic/utils/g1_true23_feasibility_referee.py": "0027210cda5a44255debecd7151ecd454e2281a5ff4e3137641d102701fb1330",
+    "gear_sonic/utils/g1_true23_relative_foot_cost.py": "36f89cac4374364cd155184c7c6f098de913ebca22976c0d59c8d1489089cc35"
+  },
+  "original_actual_state_and_history_fixture_sha256": "5e42c57498d30d0994b0fd75cda2fdd338c2b2d34769eda8846ff4acc17c4fe8",
+  "all_generated_certificates": [
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 14,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0009765036312873732,
+        "speed_ratio": 0.9056556055219489,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3819080561376071,
+        "root_tilt_rad": 0.2144618862030593
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 0,
+      "lane": 0,
+      "merit": 7.278705671108272
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 24,
+        "substep": 5,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 5.2665317686884094e-05,
+        "speed_ratio": 0.28346068614467823,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3274653276410435,
+        "root_tilt_rad": 0.4444559482413275
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 1,
+      "lane": 0,
+      "merit": 10.92871798533488
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 24,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0005871540144863907,
+        "speed_ratio": 0.2694744633308757,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3244983011196991,
+        "root_tilt_rad": 0.42218356007776
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 1,
+      "lane": 1,
+      "merit": 15.206958827309027
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 14,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0007692229090177083,
+        "speed_ratio": 0.8975519714500366,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.38201889565742037,
+        "root_tilt_rad": 0.21332540751296117
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 1,
+      "lane": 2,
+      "merit": 3.69237737555277
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 14,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.00046254353563496275,
+        "speed_ratio": 0.8978757011623897,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.381905326973323,
+        "root_tilt_rad": 0.21425709098490278
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 1,
+      "lane": 3,
+      "merit": 4.825924723135045
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 14,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.000557937275186271,
+        "speed_ratio": 0.9000605437189529,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3818582833777956,
+        "root_tilt_rad": 0.21470420536090712
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 1,
+      "lane": 4,
+      "merit": 6.8127396227942105
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 14,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0006651457623137458,
+        "speed_ratio": 0.8978771140035188,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.38190311280748074,
+        "root_tilt_rad": 0.2142532328661685
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 1,
+      "lane": 5,
+      "merit": 7.1086046415168225
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 14,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0006349418280567898,
+        "speed_ratio": 0.9080258265608568,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3818549090405438,
+        "root_tilt_rad": 0.21480475827539736
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 1,
+      "lane": 6,
+      "merit": 7.3367620791960935
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 14,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0006364076315386602,
+        "speed_ratio": 0.8982073311452136,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.38187711308942734,
+        "root_tilt_rad": 0.21435894574745054
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 1,
+      "lane": 7,
+      "merit": 7.335303243788016
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 14,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0007244407625278115,
+        "speed_ratio": 0.9005398493036847,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3818555435869224,
+        "root_tilt_rad": 0.21474975466075996
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 1,
+      "lane": 8,
+      "merit": 7.461247475409993
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 25,
+        "substep": 5,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.007493260360338927,
+        "speed_ratio": 0.41691743808771986,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.30601582635135205,
+        "root_tilt_rad": 0.6011762181947511
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 2,
+      "lane": 0,
+      "merit": 42.512635349666894
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 24,
+        "substep": 8,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.002116075728523459,
+        "speed_ratio": 0.27682442509500227,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3287322733685515,
+        "root_tilt_rad": 0.466852585842475
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 2,
+      "lane": 1,
+      "merit": 11.390904293915472
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 29,
+        "substep": 4,
+        "reasons": [
+          "joint_speed"
+        ],
+        "range_excess_rad": 0.0,
+        "speed_ratio": 1.0307086054846373,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.33635743177366406,
+        "root_tilt_rad": 0.8320035567086691
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 2,
+      "lane": 2,
+      "merit": 2.0532633833983356
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 18,
+        "substep": 7,
+        "reasons": [
+          "joint_speed"
+        ],
+        "range_excess_rad": 0.0,
+        "speed_ratio": 1.0003861168733899,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.33814135629754366,
+        "root_tilt_rad": 0.1549513380776608
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 2,
+      "lane": 3,
+      "merit": 2.834566763519178
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 18,
+        "substep": 7,
+        "reasons": [
+          "joint_speed"
+        ],
+        "range_excess_rad": 0.0,
+        "speed_ratio": 1.0053256560071588,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3379711092906682,
+        "root_tilt_rad": 0.1550397490967338
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 2,
+      "lane": 4,
+      "merit": 3.130881693858434
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 18,
+        "substep": 7,
+        "reasons": [
+          "joint_speed"
+        ],
+        "range_excess_rad": 0.0,
+        "speed_ratio": 1.0087429855016112,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3379716552633733,
+        "root_tilt_rad": 0.1550712721962593
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 2,
+      "lane": 5,
+      "merit": 3.3473043221242564
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 18,
+        "substep": 7,
+        "reasons": [
+          "joint_speed"
+        ],
+        "range_excess_rad": 0.0,
+        "speed_ratio": 1.0099958135012121,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.33792460042965117,
+        "root_tilt_rad": 0.15482127893269168
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 2,
+      "lane": 6,
+      "merit": 3.42782637801806
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 14,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 7.281463466790594e-06,
+        "speed_ratio": 0.90673956945857,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.38192129351717863,
+        "root_tilt_rad": 0.21416800920621126
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 2,
+      "lane": 7,
+      "merit": 3.4813612865239785
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 14,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0002493681869830122,
+        "speed_ratio": 0.8979467886535186,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3819120003602898,
+        "root_tilt_rad": 0.21411824271296562
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 2,
+      "lane": 8,
+      "merit": 3.6548831194912794
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 23,
+        "substep": 9,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.005972490029573008,
+        "speed_ratio": 0.48026471044285685,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.32758572383657525,
+        "root_tilt_rad": 0.43545059890658244
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 3,
+      "lane": 0,
+      "merit": 7.5240332669313945
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 29,
+        "substep": 5,
+        "reasons": [
+          "joint_speed"
+        ],
+        "range_excess_rad": 0.0,
+        "speed_ratio": 1.071582404188037,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.33256753860738264,
+        "root_tilt_rad": 0.8741615999902455
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 3,
+      "lane": 1,
+      "merit": 0.9430761833334435
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 24,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0020765526893795627,
+        "speed_ratio": 0.26917388005520143,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.32669846544140857,
+        "root_tilt_rad": 0.43635124485078775
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 3,
+      "lane": 2,
+      "merit": 13.593725093827969
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 24,
+        "substep": 4,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.00313169176021999,
+        "speed_ratio": 0.28606254464142217,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.32646675877734505,
+        "root_tilt_rad": 0.44359921362308513
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 3,
+      "lane": 3,
+      "merit": 14.719940244835245
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 29,
+        "substep": 5,
+        "reasons": [
+          "joint_speed"
+        ],
+        "range_excess_rad": 0.0,
+        "speed_ratio": 1.0380414869855197,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.31999670246516,
+        "root_tilt_rad": 0.890794621576343
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 3,
+      "lane": 4,
+      "merit": 1.7324782499407998
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 29,
+        "substep": 4,
+        "reasons": [
+          "joint_speed"
+        ],
+        "range_excess_rad": 0.0,
+        "speed_ratio": 1.0196184743235344,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3361020111588482,
+        "root_tilt_rad": 0.835276400007513
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 3,
+      "lane": 5,
+      "merit": 2.00385681344037
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 29,
+        "substep": 4,
+        "reasons": [
+          "joint_speed"
+        ],
+        "range_excess_rad": 0.0,
+        "speed_ratio": 1.0323004008492092,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3370420346408771,
+        "root_tilt_rad": 0.8341794184976546
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 3,
+      "lane": 6,
+      "merit": 2.0307161014441784
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 29,
+        "substep": 4,
+        "reasons": [
+          "joint_speed"
+        ],
+        "range_excess_rad": 0.0,
+        "speed_ratio": 1.0329003798859726,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3370658313135657,
+        "root_tilt_rad": 0.8338716573172521
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 3,
+      "lane": 7,
+      "merit": 2.0583902114291472
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 29,
+        "substep": 4,
+        "reasons": [
+          "joint_speed"
+        ],
+        "range_excess_rad": 0.0,
+        "speed_ratio": 1.0212333160725964,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.33620344069242414,
+        "root_tilt_rad": 0.8330031265251268
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 3,
+      "lane": 8,
+      "merit": 2.08129426549621
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 24,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0005973894543693792,
+        "speed_ratio": 0.29133736985158637,
+        "effort_ratio": 0.9967274633076246,
+        "root_height_m": 0.33162600317555185,
+        "root_tilt_rad": 0.49553639568400676
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 4,
+      "lane": 0,
+      "merit": 2.2113073491114963
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 11352.708815777452,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.9883656852137559,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.867067614305224,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3159363144597486,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 4,
+      "lane": 1,
+      "merit": 0.7126614738687281
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 26,
+        "substep": 3,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.006284276842596581,
+        "speed_ratio": 0.25250935186650214,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.31509979021049916,
+        "root_tilt_rad": 0.6499150850722537
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 4,
+      "lane": 2,
+      "merit": 0.8114815175553886
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 26,
+        "substep": 5,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0020542422041348596,
+        "speed_ratio": 0.32914422733599813,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3167191082157531,
+        "root_tilt_rad": 0.665212926393656
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 4,
+      "lane": 3,
+      "merit": 0.8954265059861897
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 29,
+        "substep": 6,
+        "reasons": [
+          "joint_speed"
+        ],
+        "range_excess_rad": 0.0,
+        "speed_ratio": 1.0552025525782738,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.31704154128376155,
+        "root_tilt_rad": 0.9126925154569178
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 4,
+      "lane": 4,
+      "merit": 0.8991846543727042
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 29,
+        "substep": 6,
+        "reasons": [
+          "joint_speed"
+        ],
+        "range_excess_rad": 0.0,
+        "speed_ratio": 1.0556213915448531,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.31653506680324256,
+        "root_tilt_rad": 0.9064044633813831
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 4,
+      "lane": 5,
+      "merit": 0.921582568462785
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 29,
+        "substep": 5,
+        "reasons": [
+          "joint_speed"
+        ],
+        "range_excess_rad": 0.0,
+        "speed_ratio": 1.0679330530000009,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3327921478655506,
+        "root_tilt_rad": 0.8757332819576955
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 4,
+      "lane": 6,
+      "merit": 0.9231129267115278
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 29,
+        "substep": 5,
+        "reasons": [
+          "joint_speed"
+        ],
+        "range_excess_rad": 0.0,
+        "speed_ratio": 1.0704954502055728,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.33260368107351906,
+        "root_tilt_rad": 0.8745101132564381
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 4,
+      "lane": 7,
+      "merit": 0.8994379466179834
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 29,
+        "substep": 5,
+        "reasons": [
+          "joint_speed"
+        ],
+        "range_excess_rad": 0.0,
+        "speed_ratio": 1.0706704828134659,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3325205092211277,
+        "root_tilt_rad": 0.8744050025162369
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 4,
+      "lane": 8,
+      "merit": 0.9423430084944643
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 27,
+        "substep": 6,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.00904544424622189,
+        "speed_ratio": 0.3225235625663235,
+        "effort_ratio": 0.6568326003465645,
+        "root_height_m": 0.3520896882219789,
+        "root_tilt_rad": 0.9396008628462034
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 5,
+      "lane": 0,
+      "merit": 34.437898472029595
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 9702.754348083938,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.9031291800844741,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8921206246157874,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.31678246748736827,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 5,
+      "lane": 1,
+      "merit": 0.4964754521505186
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 10107.632344109552,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.9729015519230978,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.7559868143858628,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.31934540086883756,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 5,
+      "lane": 2,
+      "merit": 0.6363404501545308
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 10991.46386349642,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.98178023173509,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8099534498311963,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.31769115032100037,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 5,
+      "lane": 3,
+      "merit": 0.7817741589346835
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 11258.546522759376,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.9776184974625279,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8495859547210196,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.31565764728948686,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 5,
+      "lane": 4,
+      "merit": 0.6914746095364184
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 11312.502665885484,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.9834701337670302,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8647116518000671,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3156095215149363,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 5,
+      "lane": 5,
+      "merit": 0.7710957360746089
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 11337.985275082592,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.9856574178501724,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.868208964862442,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.31568206286683564,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 5,
+      "lane": 6,
+      "merit": 0.7392707345760245
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 11356.94269397881,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.9907315624637532,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8662196188167435,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.31574484007537734,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 5,
+      "lane": 7,
+      "merit": 0.7361035740270273
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 11347.955140293989,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.9920907286238941,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8678318920736745,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.31586674571064993,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 5,
+      "lane": 8,
+      "merit": 0.7165297821805245
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 25,
+        "substep": 10,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0081301354835287,
+        "speed_ratio": 0.274698801814282,
+        "effort_ratio": 0.606284549366957,
+        "root_height_m": 0.2751735803463841,
+        "root_tilt_rad": 0.665162484724748
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 6,
+      "lane": 0,
+      "merit": 122.10404400817791
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 26,
+        "substep": 8,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.006121287982078005,
+        "speed_ratio": 0.29909149009219105,
+        "effort_ratio": 0.7106486024286898,
+        "root_height_m": 0.35313490002175574,
+        "root_tilt_rad": 0.8734464133374148
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 6,
+      "lane": 1,
+      "merit": 11.136123973765493
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 29,
+        "substep": 10,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.005403605382354182,
+        "speed_ratio": 0.6201454662245929,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.33722902820934614,
+        "root_tilt_rad": 0.8466459694789239
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 6,
+      "lane": 2,
+      "merit": 1.6252446759795562
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 8942.698117520511,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8767208133780141,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.865023410034449,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.31735273012839527,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 6,
+      "lane": 3,
+      "merit": 0.019385874339747693
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 9318.912463129014,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8791837848471634,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8469329352914128,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.31582347582824744,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 6,
+      "lane": 4,
+      "merit": 0.1683105044185312
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 9396.528612183887,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8921339586652006,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8452004443925515,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3167522463836458,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 6,
+      "lane": 5,
+      "merit": 0.3201843162711038
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 9506.186687689991,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.9005401262126175,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8417185764469998,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3171912443900141,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 6,
+      "lane": 6,
+      "merit": 0.4010274707921812
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 9521.111864913213,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.9072671192014997,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8511974983549875,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3175172781511381,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 6,
+      "lane": 7,
+      "merit": 0.4517744308815517
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 9897.399432456608,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.9087910383756352,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8513542814332435,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3140866789064223,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 6,
+      "lane": 8,
+      "merit": 0.477684272652263
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 26,
+        "substep": 1,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.005936786151844786,
+        "speed_ratio": 0.2515334298862602,
+        "effort_ratio": 0.5716242176484881,
+        "root_height_m": 0.3075028096910428,
+        "root_tilt_rad": 0.8143979510433911
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 7,
+      "lane": 0,
+      "merit": 106.27965855577204
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 26,
+        "substep": 4,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.01041367359775558,
+        "speed_ratio": 0.267133603087041,
+        "effort_ratio": 0.6359215403444549,
+        "root_height_m": 0.3550908610614982,
+        "root_tilt_rad": 0.9180409978059064
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 7,
+      "lane": 1,
+      "merit": 32.439912631102274
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 28,
+        "substep": 5,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0038873810215143134,
+        "speed_ratio": 0.4087644308516795,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.36152959351402586,
+        "root_tilt_rad": 0.8947303266997333
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 7,
+      "lane": 2,
+      "merit": 14.039921827710563
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 8636.132244040573,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8828772291503303,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8908011362724937,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.316198155619577,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 7,
+      "lane": 3,
+      "merit": 0.06725479125888818
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 9002.002057202395,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.876101535867475,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8540137618836761,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3145034875151348,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 7,
+      "lane": 4,
+      "merit": 0.013937840670811013
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 9078.141718085133,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.886304359957523,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8505084554327753,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3157034619393736,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 7,
+      "lane": 5,
+      "merit": 0.014876750693270976
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 9089.553849605201,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.880300371374319,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8545028680418382,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3161943909079145,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 7,
+      "lane": 6,
+      "merit": 0.01654381610345697
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 9030.592910600957,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8827419203100683,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8485416506303757,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3164841116971642,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 7,
+      "lane": 7,
+      "merit": 0.017311333708664063
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 9044.593120716092,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8921228570560333,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8546956548187741,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.316751305937286,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 7,
+      "lane": 8,
+      "merit": 0.017199292954569578
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 25,
+        "substep": 8,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.012995591355725367,
+        "speed_ratio": 0.25788895916714055,
+        "effort_ratio": 0.5909388030215146,
+        "root_height_m": 0.3128682875096668,
+        "root_tilt_rad": 0.770125316299782
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 8,
+      "lane": 0,
+      "merit": 150.70445971315792
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 26,
+        "substep": 4,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.012456351838816437,
+        "speed_ratio": 0.2628825758976243,
+        "effort_ratio": 0.5911074317121111,
+        "root_height_m": 0.35432264061466107,
+        "root_tilt_rad": 0.9178768323778588
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 8,
+      "lane": 1,
+      "merit": 45.50837582105693
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 27,
+        "substep": 9,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.00856927214869263,
+        "speed_ratio": 0.34609243090948094,
+        "effort_ratio": 0.6328759679432258,
+        "root_height_m": 0.35587321760026136,
+        "root_tilt_rad": 0.8537635962114631
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 8,
+      "lane": 2,
+      "merit": 23.51766848162301
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 29,
+        "substep": 3,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.006730646292961384,
+        "speed_ratio": 0.35726642774498546,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.33611950124403434,
+        "root_tilt_rad": 0.8200331415644505
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 8,
+      "lane": 3,
+      "merit": 7.041940770400607
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 29,
+        "substep": 9,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.005340869303816942,
+        "speed_ratio": 0.6108814705021585,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3379646290058469,
+        "root_tilt_rad": 0.8414579351514938
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 8,
+      "lane": 4,
+      "merit": 2.968993654322166
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 8695.900340046572,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": false,
+        "first_failure": {
+          "reasons": [
+            "native_joint_bound"
+          ],
+          "physics_step": 300,
+          "control_index": 29,
+          "substep": 10,
+          "worst_joint_index": 10,
+          "joint_excess_rad": 0.0026020936326925925,
+          "speed_ratio": 0.6445230946989227,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8583648397419679,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0026020936326925925,
+          "speed_ratio": 0.8791195044889306,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8583648397419679,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.31442545159680013,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": false,
+      "search": 8,
+      "lane": 5,
+      "merit": 0.013084541251990179
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 8796.803288633848,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.875991119145368,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8833939585168381,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.31716809140358654,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 8,
+      "lane": 6,
+      "merit": 0.01350782196495863
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 9001.926143345725,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8793997804606256,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8556139874556956,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3143078554895781,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 8,
+      "lane": 7,
+      "merit": 0.013721989068774332
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 9026.827587362339,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8823687860443232,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8553395897549821,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3144786681488352,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 8,
+      "lane": 8,
+      "merit": 0.01382970430751505
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 25,
+        "substep": 8,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.01244972936545996,
+        "speed_ratio": 0.25788374704246514,
+        "effort_ratio": 0.5904984433819862,
+        "root_height_m": 0.31288542128105146,
+        "root_tilt_rad": 0.7689480557179067
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 9,
+      "lane": 0,
+      "merit": 155.84283008097748
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 26,
+        "substep": 3,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0016753269713490893,
+        "speed_ratio": 0.2515279699146319,
+        "effort_ratio": 0.5977206731241447,
+        "root_height_m": 0.35227113861158127,
+        "root_tilt_rad": 0.9104834611225213
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 9,
+      "lane": 1,
+      "merit": 43.69499967776814
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 27,
+        "substep": 6,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0004005251282858113,
+        "speed_ratio": 0.34773242878123894,
+        "effort_ratio": 0.5923513077472372,
+        "root_height_m": 0.36796603673994943,
+        "root_tilt_rad": 0.8946516385209804
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 9,
+      "lane": 2,
+      "merit": 22.784069861200365
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 29,
+        "substep": 8,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0004710842913069335,
+        "speed_ratio": 0.5404571225065753,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.37121904178721193,
+        "root_tilt_rad": 0.9697503543734548
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 9,
+      "lane": 3,
+      "merit": 3.9817237117673843
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 28,
+        "substep": 9,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0014744002811031276,
+        "speed_ratio": 0.46277412960799075,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.33839929002128977,
+        "root_tilt_rad": 0.7807476777946566
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 9,
+      "lane": 4,
+      "merit": 8.02731412828615
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 29,
+        "substep": 9,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.004773006499342869,
+        "speed_ratio": 0.611606175574446,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.33801546573205205,
+        "root_tilt_rad": 0.8413903066766341
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 9,
+      "lane": 5,
+      "merit": 2.869323017364916
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 8659.154878931357,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8776075151188749,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.882916745196635,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3168921973382861,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 9,
+      "lane": 6,
+      "merit": 0.012680849230941555
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 8670.60027425531,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8763330157485383,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8803024140794915,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3170546491366187,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 9,
+      "lane": 7,
+      "merit": 0.012881904556686315
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 8691.040818368512,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8809500556255214,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8805487119935095,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.31716810625717695,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 9,
+      "lane": 8,
+      "merit": 0.012983025233143358
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 25,
+        "substep": 8,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.013392487255417973,
+        "speed_ratio": 0.2581646168354623,
+        "effort_ratio": 0.591710445302518,
+        "root_height_m": 0.31269079205480504,
+        "root_tilt_rad": 0.7692881809993878
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 10,
+      "lane": 0,
+      "merit": 156.27287428308094
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 26,
+        "substep": 3,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.012441810069205306,
+        "speed_ratio": 0.24857871006055654,
+        "effort_ratio": 0.6030031460575441,
+        "root_height_m": 0.35262029227745806,
+        "root_tilt_rad": 0.9012781595263758
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 10,
+      "lane": 1,
+      "merit": 58.54929224693925
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 27,
+        "substep": 4,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0032002823801156044,
+        "speed_ratio": 0.3414799777977762,
+        "effort_ratio": 0.5626046859615802,
+        "root_height_m": 0.3660360284581519,
+        "root_tilt_rad": 0.8869130827553884
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 10,
+      "lane": 2,
+      "merit": 16.62654700705785
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 29,
+        "substep": 5,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.00830718140047182,
+        "speed_ratio": 0.4499184649352578,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3758165317236622,
+        "root_tilt_rad": 0.9730427537315336
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 10,
+      "lane": 3,
+      "merit": 9.416527502662175
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 29,
+        "substep": 10,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.005716328844990071,
+        "speed_ratio": 0.5816973790024642,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.36597692002865406,
+        "root_tilt_rad": 0.9133355375368934
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 10,
+      "lane": 4,
+      "merit": 1.6644766063554948
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 29,
+        "substep": 8,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.0039075508116998,
+        "speed_ratio": 0.5815717855861094,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3399851054958303,
+        "root_tilt_rad": 0.8450807033422079
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 10,
+      "lane": 5,
+      "merit": 3.755546864198103
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 29,
+        "substep": 10,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.008893266197642857,
+        "speed_ratio": 0.6340867626030005,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.3401555266185331,
+        "root_tilt_rad": 0.84445265986988
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 10,
+      "lane": 6,
+      "merit": 2.0993416911627296
+    },
+    {
+      "hard_nominal_pass": false,
+      "nominal_first_failure": {
+        "control": 29,
+        "substep": 10,
+        "reasons": [
+          "joint_range"
+        ],
+        "range_excess_rad": 0.006441768965090078,
+        "speed_ratio": 0.6297719105687521,
+        "effort_ratio": 1.0,
+        "root_height_m": 0.34093098092613244,
+        "root_tilt_rad": 0.8545725625272025
+      },
+      "tracking_cost": null,
+      "dual_certificate_pass": false,
+      "search": 10,
+      "lane": 7,
+      "merit": 1.7604023294550921
+    },
+    {
+      "hard_nominal_pass": true,
+      "nominal_first_failure": null,
+      "tracking_cost": 8661.367864426908,
+      "full_native_oracle": {
+        "kind": "independent_native23_manual_PD_private_segment",
+        "feasible": true,
+        "first_failure": null,
+        "requested_controls": 30,
+        "physics_steps": 300,
+        "complete_controls": 30,
+        "partial_substeps": 0,
+        "original_data_unchanged": true,
+        "root_forces": false,
+        "source_state_copy_after_initialization": false,
+        "initial_time": 76.00000000000428,
+        "final_time": 76.60000000000288,
+        "maximum": {
+          "joint_excess_rad": 0.0,
+          "speed_ratio": 0.8852043153975517,
+          "effort_ratio": 1.0,
+          "tilt_rad": 0.8857104666853556,
+          "clock_error_seconds": 0.0,
+          "ideal_clock_difference_seconds": 1.3926637620897964e-12
+        },
+        "minimum_root_height_m": 0.3168407043121113,
+        "final_warning_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_continued_after_failure": false,
+        "live_or_hardware_qualified": false,
+        "clock_expectation": "independent repeated binary64 addition of .002 from initial time; never resynchronized to observed time"
+      },
+      "dual_certificate_pass": true,
+      "search": 10,
+      "lane": 8,
+      "merit": 0.012582465266531624
+    }
+  ],
+  "feasible_generated_candidates": 28,
+  "original_full_actual_state_unchanged": true,
+  "original_history_fixture_unchanged": true
+}

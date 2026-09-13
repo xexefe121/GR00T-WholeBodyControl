@@ -1,0 +1,32 @@
+{
+  "kind": "same55000_fp64_export_source_preparation_review",
+  "passed": true,
+  "source_review_pass": true,
+  "preparation_only": true,
+  "proposal": {
+    "path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_fp64_export_v1\\proposal.json",
+    "sha256": "a1e805e2598c94a1047e44af7f8fffd59321660c6be0867c6242eb7730e36826"
+  },
+  "source_sha256": {
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_fp64_export_v1\\source_draft_v1\\promoted_model.py": "37e0fed989ceb5b55cb7fa9b6681badbaddf8bf4fec058c205c706a08a33d139",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_fp64_export_v1\\source_draft_v1\\test_promoted.py": "47eb6791a03d91925595ea029726a3d3f99ed2e35c1404257d2dd8e8d213b165"
+  },
+  "reviewed_findings": [],
+  "findings": [
+    "All source f32 weights/biases/normalization are exact f64 promotions; public features cast before normalization; final output casts to f32.",
+    "Double native Torch ELU alpha1 is the reference. ONNX Where(x>0,x,Exp(Min(x,0))-1) matches its mathematical function and avoids unused-positive-branch exponential overflow. Rounding near zero need not be bit-identical; the selected full-corpus unchanged1e-5 rad gate measures it.",
+    "The execution arithmetic changes from the failed FP32 export; this is explicitly a new numerical execution variant, without weight, architecture, normalization, objective or limit changes.",
+    "9904+140622+3054 rows and independent batch256 partitions give601 calls per backend; two Torch passes1202 calls/307160 rows plus601 ORT calls/153580 rows. Manual graph construction needs no traced task forward.",
+    "Reviewed five owner synthetic tests without repeating their tiny model calls. Actual full runner/request/launcher, attempt/return preservation, final promotion identity and source rehash require final concrete review."
+  ],
+  "synthetic_tests": {
+    "path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_fp64_export_v1\\tests\\report.json",
+    "sha256": "0c52179447d797a2d088a36872ef2d84a004bc29f7504d1db978a6e75d686320"
+  },
+  "actual_validation_cleared": false,
+  "export_review_pass": false,
+  "canonical_evaluation_cleared": false,
+  "reviewer_model_calls": 0,
+  "reviewer_native_steps": 0,
+  "reviewer_optimizer_updates": 0
+}

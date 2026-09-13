@@ -1,0 +1,38 @@
+{
+  "original": {
+    "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_full_state_student_v1/run_fit_durable_v1.ps1",
+    "sha256": "5ff6a81edde3a9ab131dbce99714fd39a7ed875c8fa7b8554fce822905173e41"
+  },
+  "result": {
+    "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_context_study_v1/run_fit_durable_v1.ps1",
+    "sha256": "444b56956e5963298af53eb0294c6373c3f5283c26dab0ce486d65d6aa7b0a19"
+  },
+  "substitutions": [
+    [
+      "$clear.additional_updates -ne 10000 -or $clear.ordinary_final_step -ne 65000",
+      "$clear.updates_per_condition -ne 3000 -or $clear.ordinary_final_step -ne 68000 -or (@($clear.conditions) -join ',') -ne 'blinded,causal'"
+    ],
+    [
+      "$request.kind -ne 'one_full_state_finite_feedback_fit' -or $request.root_selected -ne $true -or $request.updates -ne 10000 -or $request.sampler_seed -ne 20260911",
+      "$request.kind -ne 'matched_causal_context_utility_study' -or $request.root_selected -ne $true -or $request.updates_per_condition -ne 3000 -or (@($request.conditions) -join ',') -ne 'blinded,causal' -or $request.coefficient -ne 1.8188207859141674"
+    ],
+    [
+      "'train_full_state.py'",
+      "'train_context_pair.py'"
+    ],
+    [
+      "kind='one_full_state_finite_feedback_fit'",
+      "kind='matched_causal_context_utility_study'"
+    ],
+    [
+      "updates=10000;ordinary_final_step=65000",
+      "updates_per_condition=3000;ordinary_final_step=68000;conditions=@('blinded','causal')"
+    ],
+    [
+      "kind='one_full_state_finite_feedback_fit_exit'",
+      "kind='matched_causal_context_utility_study_exit'"
+    ]
+  ],
+  "replaced_success_verdict": "Exact completed pair plus both condition reports, model subjects and fixed counts; raw child exit separately preserved",
+  "task_calls": 0
+}

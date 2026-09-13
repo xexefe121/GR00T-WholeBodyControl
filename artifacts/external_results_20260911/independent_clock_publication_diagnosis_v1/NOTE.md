@@ -1,0 +1,17 @@
+# One-shot BUSY publication lost command 420
+
+The saved chain is consistent: 419 jobs reached the worker, all 419 replies were published and sealed, and job 420 received one `BUSY` publication result. The attempt ran from monotonic 132991903623 to 132991908848 ns, lasting 5,225 ns. Its fixed activation deadline was 133011372988 ns: 19,464,140 ns remained after the failed attempt. No worker receipt or sealed result exists for 420.
+
+The diagnosis verifies base64 length and SHA256 for all 839 transport, 889 foundation and 4,694 outer-cycle envelopes. Each successful job/result chain also matches its saved payload hashes, identity, activation and strict admission deadline. Source bytes match the actual request/imported-source pins. No saved native trace was replayed.
+
+`clock_core.py` lines 445–457 creates the next immutable job and publishes it once at the predecessor boundary. `tick()` polls results but has no publication retry. A BUSY job remains issued without entering `published_jobs`. At control 420, the missing sealed command latches `COMMAND_DEADLINE_MISSED`; that latch prevents later jobs. Controls 420–469 consequently hold command 419. The later native joint-bound failure ended the run at 4,694 returned/captured steps, 4,693 verified.
+
+`shared_mailbox.py` returns BUSY when `lock.acquire(False)` fails. Worker polling acquires these same locks even when slots are empty. Ten earlier worker-BUSY intervals each overlap a matching-slot plant publication. For the failed plant publication, empty worker polls were omitted from logging, so the exact acquisition/release interval and lock duration cannot be recovered. The 5,225 ns failed call is not a measurement of how long the other process held the lock. Concurrent worker polling is the expected holder under the saved two-endpoint topology; a successful retry remains a hypothesis.
+
+The smallest change keeps one pending immutable job and its original serialized bytes after BUSY. Attempt publication at most once on each later physics tick before the original activation boundary and deadline: original attempt plus at most nine retries. Clear pending state after PUBLISHED; retain every attempt and expiry. Never regenerate the snapshot/history, change created time, spin, wait on a lock, overwrite FULL, shift a deadline, skip a native step, or republish a successful job. A call returning PUBLISHED after the deadline stays recorded but cannot admit a late result. Keep original native/control/MJB budgets, worker limits and ledger capacities; declare the new bounded transport-attempt count explicitly.
+
+Synthetic acceptance should force BUSY then success, persistent BUSY through expiry, a success returning late, a latched fault, and a full ledger. Check identical job bytes, one attempt per tick, no duplicate success, unchanged activation/history and continued native tick accounting. Worker result publication is still single-attempt; no result-side BUSY occurred here, so that remains a separate risk.
+
+This fixes a demonstrated delivery weakness, not all qualification failures. The first step timing miss was already at index 610, before job 420; six timing misses were retained. No retry design can retrospectively qualify this run. No corrected clock run or source mutation was performed.
+
+The first local diagnostic draft confused the reference-archive hash with the command-table hash. Its failed assertion and source are preserved. The final decoder uses the actual `run_clock.py` binding: reference role hash, model hash, and separate command-table window identity.

@@ -1,0 +1,62 @@
+{
+    "passed":  true,
+    "started_utc":  "2026-09-11T21:55:00.9414792Z",
+    "ended_utc":  "2026-09-11T21:55:06.6883913Z",
+    "powershell_version":  "5.1.26100.9444",
+    "child_pid":  4152,
+    "handle_acquired":  true,
+    "raw_exit_code":  0,
+    "windows_child_absent":  true,
+    "wsl_arguments":  [
+                          "-d",
+                          "Ubuntu-22.04",
+                          "--cd",
+                          "/",
+                          "--",
+                          "bash",
+                          "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/RUN_PASSING_WALK_WSL.sh",
+                          "env",
+                          "OMP_NUM_THREADS=1",
+                          "OPENBLAS_NUM_THREADS=1",
+                          "MKL_NUM_THREADS=1",
+                          "PYTHONDONTWRITEBYTECODE=1",
+                          "PYTHONPATH=/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_expert_recovery_v1/source_snapshot_v1",
+                          "bash",
+                          "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_expert_recovery_v1/argv_probe_v2.sh",
+                          "FIXED_ARG_ONE",
+                          "FIXED_ARG_TWO"
+                      ],
+    "serialized_arguments":  "-d Ubuntu-22.04 --cd / -- bash /mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/RUN_PASSING_WALK_WSL.sh env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_expert_recovery_v1/source_snapshot_v1 bash /mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_expert_recovery_v1/argv_probe_v2.sh FIXED_ARG_ONE FIXED_ARG_TWO",
+    "actual_launcher_assignment":  "$arguments=($receipt.wsl_arguments | ForEach-Object {if(($_ -match \u0027\\s\u0027) -or $_.IndexOf([char]34) -ge 0 -or $_.IndexOf([char]39) -ge 0){throw \u0027Invalid fixed WSL argument.\u0027};$_}) -join \u0027 \u0027",
+    "guard_tests":  [
+                        {
+                            "value":  "contains space",
+                            "rejected":  true
+                        },
+                        {
+                            "value":  "contains\"quote",
+                            "rejected":  true
+                        },
+                        {
+                            "value":  "contains\u0027quote",
+                            "rejected":  true
+                        }
+                    ],
+    "linux_output":  {
+                         "cwd":  "/",
+                         "PYTHONPATH":  "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width512_expert_recovery_v1/source_snapshot_v1",
+                         "OMP_NUM_THREADS":  "1",
+                         "OPENBLAS_NUM_THREADS":  "1",
+                         "MKL_NUM_THREADS":  "1",
+                         "PYTHONDONTWRITEBYTECODE":  "1",
+                         "argv":  [
+                                      "FIXED_ARG_ONE",
+                                      "FIXED_ARG_TWO"
+                                  ],
+                         "linux_pid":  375,
+                         "probe_only":  true
+                     },
+    "task_python_calls":  0,
+    "model_calls":  0,
+    "native_steps":  0
+}

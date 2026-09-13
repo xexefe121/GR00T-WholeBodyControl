@@ -1,0 +1,84 @@
+{
+  "original_sha256": "84efe15543c6c969869d269d373f84ea6b7fd4701686f9680ffd59e6c9f95cac",
+  "derived_sha256": "b604dccf4cada7596ad9e53157809d826585828631a63b4c33adb213bd0f39d7",
+  "substitutions": [
+    {
+      "old": "\"\"\"One freshcanonical BFM250, learned1019, terminal300 and250 lifecycle.\"\"\"",
+      "new": "\"\"\"One selected canonical final70000 evaluation; original raw-history controller.\"\"\""
+    },
+    {
+      "old": "from quiet_metrics import standing_windows,quiet_diagnostic,yaw",
+      "new": "from quiet_metrics import standing_windows,quiet_diagnostic,yaw\nfrom evaluation_gate import require_ready\nfrom proposal_evidence import ProposalEvidence,exact,trace_arrays"
+    },
+    {
+      "old": "    frozen=assert_frozen();assert mujoco.__version__=='3.2.3'",
+      "new": "    evaluation_binding=require_ready(BASE)\n    HEAD=evaluation_binding['head']\n    frozen=assert_frozen();assert mujoco.__version__=='3.2.3'"
+    },
+    {
+      "old": "    fit=json.loads((BASE/'fit/report.json').read_text())\n    assert sha(BASE/'fit/student_head.onnx')==fit['checkpoints']['student_head.onnx']\n    assert fit['steps']==65000 and fit['additional_updates']==5000\n    assert fit['full_objective_improved'] and fit['export_parity_passed'] and fit['rollout_numerical_prerequisites_pass']",
+      "new": "    fit=evaluation_binding['fit_report']\n    assert fit['ordinary_final_step']==70000 and fit['additional_updates']==5000"
+    },
+    {
+      "old": "    runtime=LinearStudentRuntime(native,c,original,motion,original29,BASE/'fit/student_head.onnx')",
+      "new": "    runtime=LinearStudentRuntime(native,c,original,motion,original29,HEAD)\n    evidence=ProposalEvidence(runtime,c)"
+    },
+    {
+      "old": "        head_sha256=sha(BASE/'fit/student_head.onnx'),baseline250_trace_sha256=sha(BASE.parent/'original_bfm_entry250_v1/entry250/trace.npz'),",
+      "new": "        head_sha256=sha(HEAD),baseline250_trace_sha256=sha(BASE.parent/'original_bfm_entry250_v1/entry250/trace.npz'),\n        ordinary_final_step=70000,evaluation_binding_sha256=evaluation_binding['binding_sha256'],\n        proposal_diagnostics='raw base+delta and inverse actual target are recorded only; original raw combined-action history remains unchanged',"
+    },
+    {
+      "old": "checks={key:dict(bitexact=bool(np.array_equal(actual,expected)),actual_shape=list(np.shape(actual)),expected_shape=list(np.shape(expected)))",
+      "new": "checks={key:dict(bitexact=exact(actual,expected),actual_shape=list(np.shape(actual)),expected_shape=list(np.shape(expected)))"
+    },
+    {
+      "old": "        record_parity('actual_query250_input_parity.json',pairs)",
+      "new": "        record_parity('actual_query250_input_parity.json',pairs)\n        witness=evaluation_binding['first_export']\n        record_parity('actual_query250_ownexport_output_parity.json',[(\n            'features',proposed['features'],witness['features']),('onnx_delta',proposed['delta'],witness['onnx_delta'])])"
+    },
+    {
+      "old": "        trace=new_trace(data);trace['physics_expected_time'][0]=expected_time",
+      "new": "        trace=new_trace(data);trace['physics_expected_time'][0]=expected_time\n        trace['raw_proposal']=[];trace['actual_normalized_action']=[]"
+    },
+    {
+      "old": "            trace['control_previous_action_before'].append(runtime.seed.previous_action.copy())",
+      "new": "            trace['control_previous_action_before'].append(runtime.seed.previous_action.copy())\n            evidence.begin(control,data.qpos,data.qvel,trace['control_integration_before'][-1],expected_time,data.warning.number,data.warning.lastinfo)"
+    },
+    {
+      "old": "                proposed=runtime.propose(control,data.qpos,data.qvel,terminal=control>=switch,disable_head=control<250)",
+      "new": "                proposed=runtime.propose(control,data.qpos,data.qvel,terminal=control>=switch,disable_head=control<250)\n                evidence.accepted_proposal(proposed)"
+    },
+    {
+      "old": "                    substep=0,time=float(data.time),exception_type=type(exc).__name__,message=str(exc))\n                break",
+      "new": "                    substep=0,time=float(data.time),exception_type=type(exc).__name__,message=str(exc))\n                evidence.preserve(dest/'rejected_precontrol.npz',repr(exc),data.qpos,data.qvel,get_state(native,data),expected_time,data.warning.number,data.warning.lastinfo)\n                break"
+    },
+    {
+      "old": "                joint_error=data.qpos[7:]-motion['joint_pos'][frame],root_error=data.qpos[:3]-motion['body_pos_w'][frame,0],**proposed)",
+      "new": "                joint_error=data.qpos[7:]-motion['joint_pos'][frame],root_error=data.qpos[:3]-motion['body_pos_w'][frame,0],\n                raw_proposal=evidence.last_raw_proposal.copy(),actual_normalized_action=evidence.last_actual_action.copy(),**proposed)"
+    },
+    {
+      "old": "            if failure:break\n        arrays={k:np.asarray(v) for k,v in trace.items()}",
+      "new": "            if failure:\n                evidence.preserve(dest/'strict_failure_state.npz',failure,data.qpos,data.qvel,get_state(native,data),expected_time,data.warning.number,data.warning.lastinfo)\n                break\n        arrays=trace_arrays(trace)"
+    },
+    {
+      "old": "                mujoco.mj_step(native,data);expected_time+=.002;actual_substeps+=1",
+      "new": "                try:\n                    mujoco.mj_step(native,data)\n                except BaseException as exc:\n                    evidence.current['attempted_native_ctrl']=data.ctrl.copy()\n                    evidence.current['native_step_attempt_substep']=np.asarray(sub,np.int64)\n                    evidence.preserve(dest/'native_exception_state.npz',repr(exc),data.qpos,data.qvel,get_state(native,data),expected_time,data.warning.number,data.warning.lastinfo)\n                    np.savez_compressed(dest/'native_exception_completed_samples.npz',**{key:np.asarray(value) for key,value in trace.items()})\n                    (dest/'fatal_failure.json').write_text(json.dumps(dict(reason='native_step_exception',exception_type=type(exc).__name__,message=str(exc),global_control=control,attempted_substep=sub,completed_prior_substeps=actual_substeps,requested_controls=count,full_segment_completed=False,unclassified_attempted_step=True),indent=2)+'\\n')\n                    raise\n                expected_time+=.002;actual_substeps+=1"
+    },
+    {
+      "old": "            attempted_controls=len(arrays['target']),partial_substeps=len(arrays['physics_torque'])%10,physics_steps=len(arrays['physics_torque']),",
+      "new": "            attempted_controls=len(arrays['target']),partial_substeps=len(arrays['physics_torque'])%10,physics_steps=len(arrays['physics_torque']),\n            attempted_precontrols=len(arrays['control_integration_before']),controller_recorded_controls=runtime.seed.recorded_controls,\n            raw_proposal_and_actual_normalized_action_recorded=True,actual_normalized_action_used_for_history=False,"
+    },
+    {
+      "old": "one_fixed_phase_only_fit=True,ordinary_final_global_step=65000",
+      "new": "one_fixed_velocity_chord_fit=True,ordinary_final_global_step=70000"
+    },
+    {
+      "old": "original lifecycle stopped at firststrictphysicalfailure",
+      "new": "original lifecycle stopped at first failure; saved failure identifies policy, parity or native limit"
+    }
+  ],
+  "strict_oracle_ast_unchanged": true,
+  "original_runtime_file_unchanged": true,
+  "draft_only": true,
+  "final_head_bound": false,
+  "physics_steps": 0,
+  "inference_calls": 0
+}

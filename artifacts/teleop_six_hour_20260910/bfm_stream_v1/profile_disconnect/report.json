@@ -1,0 +1,132 @@
+{
+  "kind": "bfmzero_received_stream_simulation_v1",
+  "mode": "latched_standing",
+  "controls": 650,
+  "physics_steps": 6500,
+  "physics_steps_per_control": 10,
+  "control_hz": 50,
+  "physics_hz": 500,
+  "received_source_buffer_seconds": 0.14,
+  "stale_seconds": 0.1,
+  "epochs": [
+    {
+      "epoch": 0,
+      "received": 450,
+      "consumed": 448,
+      "ignored": 0,
+      "rejected": 0,
+      "final_received": false,
+      "full_source_consumed": false,
+      "fault": {
+        "reason": "packet_timeout",
+        "time": 9.1,
+        "epoch": 0,
+        "last_sequence": 449,
+        "consumed": 448
+      },
+      "calibration": null
+    }
+  ],
+  "any_fault_latched": true,
+  "physical_failure": null,
+  "full_uninterrupted_source_consumed": false,
+  "standing_return_verified": true,
+  "range_excess_max_rad": 0.0,
+  "range_excess_controls": 0,
+  "effort_ratio_max": 0.7625705417724777,
+  "velocity_ratio_max": 0.3644013918958597,
+  "events": [
+    {
+      "kind": "source_control_started",
+      "time": 0.14,
+      "epoch": 0,
+      "received_window": 8
+    },
+    {
+      "kind": "active_bfm_standing_transition",
+      "reason": "packet_timeout",
+      "time": 9.1,
+      "control": 455,
+      "target_qpos": [
+        -0.07940499236781226,
+        -0.1185665431827659,
+        0.76,
+        0.10719649616870758,
+        0.0,
+        0.0,
+        -0.9942378544438711,
+        -0.312,
+        0.0,
+        0.0,
+        0.669,
+        -0.363,
+        0.0,
+        -0.312,
+        0.0,
+        0.0,
+        0.669,
+        -0.363,
+        0.0,
+        0.0,
+        0.2,
+        0.2,
+        0.0,
+        0.6,
+        0.0,
+        0.2,
+        -0.2,
+        0.0,
+        0.6,
+        0.0
+      ],
+      "simulator_state_rewritten": false,
+      "root_force_applied": false
+    },
+    {
+      "kind": "measured_standing_verified",
+      "time": 12.08,
+      "mode": "latched_standing",
+      "consecutive_controls": 50
+    },
+    {
+      "kind": "latched_fault",
+      "reason": "packet_timeout",
+      "time": 9.1,
+      "epoch": 0,
+      "last_sequence": 449,
+      "consumed": 448
+    }
+  ],
+  "ground_truth_pose_feedback": true,
+  "simulator_pose_writes_after_initialization": 0,
+  "root_assistance_forces": 0,
+  "controller_fallback": false,
+  "deployment_ready": false,
+  "hardware_authorized": false,
+  "scenario": "disconnect",
+  "clip": "walk002",
+  "paced": false,
+  "requested_controls": 650,
+  "budget_completed": true,
+  "source_packets_requested": 1417,
+  "rearm_events": [],
+  "wall_elapsed_seconds": 8.382329700005357,
+  "simulated_seconds": 13.0,
+  "full_loop_ms_p50_p95_max": [
+    11.674599998514168,
+    21.550484994804712,
+    47.234199999365956
+  ],
+  "control_start_late_ms_p95_max": [
+    0.0,
+    0.0
+  ],
+  "deadline_misses": 40,
+  "timing_qualified": false,
+  "source_tracking_qualified": false,
+  "request_sha256": "022da9ab60221b1c4994e148255cf789fdd8a3dc9c3b16da598c03babba1aad3",
+  "trace_sha256": "7bc8206856cd5a974d53862b0f903d72cc6ac4b68f99f8417d5bec0c621bf58d",
+  "protocol_scenario_passed": true,
+  "physical_lifecycle_passed": true,
+  "scenario_passed": true
+}

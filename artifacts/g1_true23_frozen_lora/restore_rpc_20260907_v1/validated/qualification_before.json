@@ -1,0 +1,50 @@
+{
+  "active_controller_launched": false,
+  "checks": {
+    "core_harness_passed": true,
+    "forbidden_source_hits": [],
+    "missing_runtime_guards": [],
+    "surface_audit_passed": true
+  },
+  "dds_opened": false,
+  "generated_at_utc": "2026-09-06T16:13:57.929722+00:00",
+  "inputs": {
+    "active_controller_sha256": "abb258b03549ef002adfaf5a7e322341913076a30ecb7437616f4c2e308116ff",
+    "active_controller_source_sha256": "7c94f882ad4e7faccd8ba1de6571167fbf82f2c9fc12eaa6f9b7f0c00a017ddf",
+    "core_harness_sha256": "3d5e0ccc313b3137b69f3c8b28d73b31dc1dc693322c5707b9fb99362e5d9f32",
+    "surface_audit_sha256": "880f2519829fbf05bb1c3d2be252136c029754da01d009a248ffd7280e63041c"
+  },
+  "kind": "g1_true23_active_lifecycle_no_robot_qualification",
+  "lifecycle": {
+    "deadman_release_tested": true,
+    "injected_stalls_ms": [
+      101,
+      290,
+      500
+    ],
+    "internal_control_handoff_audited": true,
+    "lowcmd_publisher_close_before_mode_rpc_audited": true,
+    "normal_completion_tested": true,
+    "operator_stop_tested": true,
+    "positive_gain_recovery_frames": 4000,
+    "published_damping_frames": 0,
+    "scenarios": 9,
+    "ten_second_restore_stability_gate_tested": true,
+    "walkrun_standing_restore_match_tested": true,
+    "writer_failure_boundary_tested": true,
+    "writer_quiescence_before_mode_rpc_tested": true
+  },
+  "lowcmd_channel_opened": false,
+  "passed": true,
+  "robot_commands_published": false,
+  "schema_version": 1,
+  "scope": "compiled safety-core lifecycle and binary/source surface only; does not prove physical Unitree RPC, network, balance, or actuator behavior",
+  "stderr": {
+    "core_harness": "",
+    "surface_audit": ""
+  },
+  "stdout": {
+    "core_harness": "true23 active gantry core harness: all checks passed; robot_free_lifecycle_scenarios=9 recovery_frames=4000 published_damping_frames=0 dds_opened=false",
+    "surface_audit": "-- true23 active gantry surface audit passed"
+  }
+}

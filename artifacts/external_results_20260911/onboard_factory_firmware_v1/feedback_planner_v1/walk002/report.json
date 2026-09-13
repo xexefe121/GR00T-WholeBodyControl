@@ -1,0 +1,86 @@
+{
+  "policy": "received_native23_factory_feedback_planner",
+  "actor": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/onboard_factory_firmware_v1/received_pico_demo_v1/controller.onnx",
+  "clip": "walk002",
+  "simulation_seconds": 8.497999999999507,
+  "requested_seconds": 58.34,
+  "physical_complete": false,
+  "complete_requested_lifecycle": false,
+  "failure": {
+    "time": 8.497999999999507,
+    "reasons": [
+      "native_joint_speed"
+    ],
+    "speed_ratio": 1.0144056057039008,
+    "range_excess": 0.0,
+    "effort_ratio": 0.13376311263912208,
+    "tilt": 1.11801422316214
+  },
+  "source": {
+    "passed": false,
+    "source_controls": 75,
+    "requested_source_controls": 667,
+    "root_p95_m": 1.2479804784281174,
+    "yaw_p95_deg": 9.035976551808286,
+    "hand_head_relative_p95_m": [
+      0.20146506302308406,
+      0.2583805929975851,
+      0.3066914688525027
+    ],
+    "foot_relative_p95_m": [
+      0.35681062587548595,
+      0.6250584978969682
+    ],
+    "leg_rmse_rad": 0.23697758985439074
+  },
+  "quiet": {
+    "passed": false,
+    "values": {
+      "xy_p95": 1.5726096316626599,
+      "yaw_p95_deg": 69.72575775796089,
+      "root_speed_p95": 1.376292409937837,
+      "joint_speed_p95": 11.615763941026032,
+      "joint_speed_max": 31.249939593753744,
+      "tilt_max": 1.11801422316214
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "max_speed_ratio": 1.0144056057039008,
+  "max_effort_ratio": 1.0,
+  "inference_ms_p50_p95_max": [
+    2.2291,
+    183.83783279999997,
+    232.19061
+  ],
+  "wall_seconds": 16.430546692999997,
+  "future_reference_frames": 0,
+  "independent_realtime": false,
+  "hardware_commands": false,
+  "lookahead_steps": 200,
+  "lookahead_candidates": 32,
+  "reference_prediction": "constant velocity from current/past received poses; no recorded suffix",
+  "packet_report": {
+    "epoch": 0,
+    "received": 436,
+    "consumed": 436,
+    "ignored": 0,
+    "rejected": 0,
+    "final_received": false,
+    "full_source_consumed": false,
+    "fault": null,
+    "calibration": null
+  },
+  "passed": false,
+  "general_live_teleop_qualified": false,
+  "generations_per_plan": 2,
+  "plan_interval_seconds": 0.1,
+  "leg_target_filter_alpha": 0.9,
+  "synchronous_planning_diagnostic": true
+}

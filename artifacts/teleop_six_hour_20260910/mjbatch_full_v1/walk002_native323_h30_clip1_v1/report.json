@@ -1,0 +1,61 @@
+{
+  "kind": "offline_native23_mjbatch_ilqr_probe",
+  "clip": "walk002",
+  "probe": "full-lifecycle",
+  "completed_controls": 1417,
+  "requested_controls": 1417,
+  "probe_completed": true,
+  "full_source_completed": true,
+  "failure": null,
+  "metrics": {
+    "phase": "source_motion",
+    "controls": 667,
+    "leg_rmse": 0.11214993892321273,
+    "arm_rmse": 0.027048138685733886,
+    "root_p95": 0.1386502088517485,
+    "tracked_body_position_p95": [
+      0.1386502088517485,
+      0.14062225811164264,
+      0.07846426341183252,
+      0.12105844297855725,
+      0.12642836997175286,
+      0.1273147293732008
+    ]
+  },
+  "range_excess_max": 0.0018248733578203336,
+  "velocity_ratio_max": 0.5124413805978163,
+  "effort_ratio_max": 1.0,
+  "feedback_correction_clip_rad": 0.1,
+  "feedback_correction_clipped_controls": 0,
+  "planning_ms_p50_p95_max": [
+    4171.188306999966,
+    8606.85766689995,
+    10284.552313999939
+  ],
+  "planning_deadlines_missed": 284,
+  "elapsed_wall_seconds": 1207.800870667,
+  "simulated_seconds": 28.33999999999517,
+  "physics_steps": 14170,
+  "declared_future_preview_seconds": 0.6,
+  "conservative_effective_source_preview_seconds": 0.74,
+  "recorded_target_seed": {
+    "path": "artifacts/teleop_six_hour_20260910/bfm_walk002_feedback_v2",
+    "trace_sha256": "74bbd9c8e4cae7c8c8b421b4a1448f917872161b837efce04001810041b94f97",
+    "report_sha256": "05891f641b8cf7711fcd678bc5577d5d3973d3c653dacc2a77c238e303e06f05",
+    "controls": 1417,
+    "original_generator_preview_seconds": 0.14,
+    "selection": "lower actual-rollout cost of recorded BFM targets and shifted previous MPC plan",
+    "physical_states_copied": false
+  },
+  "mujoco": "3.2.3",
+  "controller": "iLQR position targets with measured-state feedback and native manualPD",
+  "physical_state_rewrites_after_initialization": 0,
+  "root_assistance_forces": 0,
+  "timing_qualified": false,
+  "full_body_tracking_qualified": false,
+  "hardware_authorized": false,
+  "native323_replay_required": true,
+  "request_sha256": "774607e2ebb32d45424fe03fcb465b4431b200fe6052a9921e16ac358d855ac4",
+  "trace_sha256": "53e31c21ed6eceae4203221993166fa0bf7f07f28fa13e20feb8cacffccfcc6d",
+  "plans_sha256": "2707bac13a5d99421621c2defe83d92aa6512e4bfae4410b0f45537b8d0d0181"
+}

@@ -1,0 +1,16 @@
+{
+  "mujoco": "3.2.3",
+  "exported_spec": "mjSTATE_INTEGRATION",
+  "state_spec": 8191,
+  "state_size": 291,
+  "restore": "MjData(native); mj_setState(vector,spec); mj_forward(native,data); mj_setState(vector,spec) again before any step; then nativePD with no state writes",
+  "reason_for_second_initial_state_application": "mj_forward changed actual saved qacc_warmstart",
+  "naive_forward_warmstart_max_change": 57.26101408961004,
+  "preserved_failed_v1_script": "export_3740_state.py",
+  "restored_continuation_physics_steps": 300,
+  "qpos_qvel_torque_bitexact_to_full_actual_MjData_branch": true,
+  "physical_state_rewrites_after_first_physics_step": 0,
+  "snapshot_sha256": "52060ba5f7892aa97808a0cda623af5a5ab0875a268340acaad6197f9d7878d6",
+  "probe_sha256": "e92630bea799610466e8397e3b576a8b9683f3d1303677e70bc616d04f1ef44c",
+  "script_sha256": "f237bbfc452674c25363093bdf6bc08bb80e51948fc4368a36c308c23e5705ee"
+}

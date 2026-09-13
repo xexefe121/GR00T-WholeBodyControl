@@ -1,0 +1,84 @@
+{
+  "kind": "conditional_single_velocity_chord_learner_design",
+  "status": "proposed_to_root_no_execution_authorization_inferred",
+  "choice": "C: unclipped proposal-displacement regularization against the exact clipped committed teacher map",
+  "nominal_rows": 3057,
+  "datasets": [
+    "old_walk003",
+    "query1_walk003",
+    "query250_walk003"
+  ],
+  "controls": [
+    250,
+    1268
+  ],
+  "excluded": [
+    "PICO",
+    "walk002",
+    "heldout_walk008"
+  ],
+  "joint_velocity_axis_radius_native_cap_fraction": 0.01,
+  "axis_pairs": 70311,
+  "perturbed_inputs": 140622,
+  "total_input_rows": 143679,
+  "preparation_ONNX_calls": {
+    "actor": 143679,
+    "backward": 3057,
+    "total": 146736
+  },
+  "restored_and_final_head_ONNX_calls": 1126,
+  "full_nominal_loss": "unchanged equal nine dataset-by-phase cell means normalized by frozen native span",
+  "chord_loss": "mean over both signs, output joints,64 sampled row-axis pairs per each of nine cells of (((Upert-Ucenter)-(Tpert-Tcenter))/native_span)^2; U is unclipped total proposal and T uses both exact teacher clips",
+  "lambda_chord": 1.0,
+  "optimizer": {
+    "restore_full_step": 65000,
+    "additional_updates": 5000,
+    "ordinary_final_step": 70000,
+    "learning_rate_cosine_start": 3e-06,
+    "learning_rate_cosine_end": 3e-07,
+    "weight_decay": 1e-05,
+    "gradient_clip_norm": 10.0,
+    "threads": 1,
+    "full_nominal_rows_per_update": 3057,
+    "axis_pairs_per_update": 576,
+    "perturbed_rows_per_update": 1152
+  },
+  "training_head_row_evaluations": 21045000,
+  "initial_final_diagnostic_torch_rows": 287372,
+  "canonical": {
+    "controls": 1569,
+    "conditional_continuous_hold_controls": 250,
+    "runtime": "unchanged original unfiltered phase runtime; raw combined-action prior retained",
+    "prefix": "original BFM250 exact",
+    "learned_controls": [
+      250,
+      1268
+    ],
+    "terminal_yaw_gain": 4
+  },
+  "current_task_executed": {
+    "model_inference_calls": 0,
+    "optimizer_updates": 0,
+    "physics_steps": 0,
+    "generated_labels": 0,
+    "generated_feature_rows": 0
+  },
+  "source_and_evidence_sha256": {
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_phase_fit_v1\\fit\\student_head.pt": "d92ae9d781e16e536b8ac616d65164bcd4d58e2da5ccf94fe31d24550f3db87d",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_phase_fit_v1\\fit\\student_head.onnx": "861b4c39349276851e23edab43978a74bab4cc613915da87805471c6164bc365",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_phase_fit_v1\\fit\\report.json": "8812f7eab1f43ac6a247122a9e4ada03280bc6f729dc58a0ff1fd45c102919a8",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\bfm_entry250_labels_v1\\compatibility\\report.json": "197c609bc40d83956f718e60d02e2ff92a7566d921bd9ce9db791b0b57de742d",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\bfm250_expert_labels_independent_v1\\report.json": "9a0d73faf235b5ad98e64dc310790aad8d05a721e3df1456b6c494a4d73f122d",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\phase_student_sensitivity_review_v1\\report.json": "d739148a00fd4922019467fd7d4e1f322db233b5b021659ee7f80de208db5c92",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\three_expert_feedback_audit_v1\\report.json": "9e2a98fbaac93910de6ea83b9befd188b22fa6473a8c5faf8759f8710ce64268",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_phase_fit_v1\\source_snapshot_v1\\student_linear_runtime.py": "35b3e3dd4f4c2966ae224a77afc5213d02cead3200bf63218fb0aab26710f543",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_phase_fit_v1\\source_snapshot_v1\\fit_phase_fullbatch_once.py": "7e534797102411f906bf5c1e227b4201c210f7fa564471bbfd8ad4bacdb76b67",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_phase_fit_v1\\source_snapshot_v1\\gear_sonic\\utils\\g1_true23_mjbatch_bfm_seed.py": "2f3d808b6a95fd80a3c1f9a0fabbe80264cf9cc93fbf01e2b2be65f6a5ec75de",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_phase_fit_v1\\source_snapshot_v1\\gear_sonic\\utils\\g1_true23_bfm_seed_observations.py": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_phase_fit_v1\\source_snapshot_v1\\gear_sonic\\utils\\g1_true23_mpc_student.py": "6d71e82b4b7e491f4bbfd3c2a99e05df2ee27f9fb5e6febb4cc9c39c8c39d905",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\bfm_entry250_actual_oracle_v1\\source_snapshot_v1\\gear_sonic\\utils\\g1_true23_mjbatch_ilqr_core.py": "1efc9cb21e446d8e41e3d3acebe05d12b951e8a0002b264ddf0a6b723e32f45a"
+  },
+  "proposal_sha256": "f87a68d6f4fa493738071b5efe591da5b6528a0c8be01f2e0ecee95471d406ff",
+  "scales_sha256": "0f9604447b893c744706a5f04cf41cc6e60121ca481a04e7760abcd4b190cef8",
+  "scale_analysis_source_sha256": "6cf8ee353767ae08c966e9a4e2c2753e1f3ad9bc2e10aabe266e141e725f6b5d"
+}

@@ -1,0 +1,56 @@
+{
+  "case": "bfm_walk002_arms_v2",
+  "parameters": {
+    "height_enter_m": 0.025,
+    "height_exit_m": 0.04,
+    "speed_enter_m_s": 0.5,
+    "speed_exit_m_s": 0.8,
+    "height_weight_m": 0.02,
+    "speed_weight_m_s": 0.4,
+    "anchor_blend": 0.25,
+    "dt_s": 0.02
+  },
+  "metrics": {
+    "elapsed_s": 28.34,
+    "xy_error_rmse_m": 0.10623087405467554,
+    "xy_error_p95_m": 0.14405632308338379,
+    "xy_error_max_m": 0.1791011148077069,
+    "xy_error_final_m": 0.13794250561180338,
+    "error_xyz_final_m": [
+      -0.04704888188119158,
+      -0.12967088172828967,
+      0.030024287100833935
+    ],
+    "xyz_error_p95_m": 0.1442642621023289,
+    "xy_velocity_rmse_m_s": 0.024438866587912784,
+    "velocity_integral_xy_final_m": 0.037221535871026654,
+    "fallback_assumed_support_fraction": 0.0,
+    "two_feet_inferred_support_fraction": 0.7813822284908322,
+    "anchor_disagreement_p95_m": 0.055131680227541606,
+    "touchdown_point_events": 101
+  },
+  "estimator_inputs": [
+    "imu_quat_wxyz",
+    "joint_q",
+    "gyro_body",
+    "joint_dq"
+  ],
+  "actual_contact_or_force_input": false,
+  "measured_root_translation_input": false,
+  "measured_root_linear_velocity_input": false,
+  "desired_reference_input": false,
+  "initialized_xy": [
+    0.0,
+    0.0
+  ],
+  "heading_registration": "initial IMU yaw only; no trajectory alignment",
+  "contact_assumption": "at least one non-slipping lower sole point; fallback explicitly logged",
+  "simulated_imu_noise_added": false,
+  "hardware_calibration_validated": false,
+  "estimator_qualified": false,
+  "controller_integration": false,
+  "source_trace_sha256": "078acf67012e7a5054bd77bdf2b0502b2e86858bf0abb1d79655c638ea17d685",
+  "sensor_input_sha256": "c05b09ede78d26852d541d7d8e701873b5c9bd3530b96c6c1a40089a485762c2",
+  "script_sha256": "2c14ce26c4606dcfed3dfb482df84b507f6056cce3cc381159f3eee3475f1d0b",
+  "processing_s": 1.0258727000036743
+}

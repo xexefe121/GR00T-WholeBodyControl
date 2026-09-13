@@ -1,0 +1,58 @@
+{
+  "anchor_adapter_sha256": "60482bc1c129fc0bc2190b9a058e36a9bd86502cfac3178deaa4dff1b9aaf86a",
+  "anchor_cache_sha256": "6429d8cd2d1c8870c426269ca4c11c463aee1f3ca2246b6f142fb76e2628ff87",
+  "batch_size": 128,
+  "deployment_ready": false,
+  "full_motion_teacher_accepted": false,
+  "hardware_authorized": false,
+  "held_out_training_rows": 0,
+  "inputs": {
+    "deployment_ready": false,
+    "episodes": [
+      {
+        "name": "bounded_nominal",
+        "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/interior_effort_20260906_v1/representable_standing/bounded_nominal.npz",
+        "rows": 500,
+        "sha256": "e6708b8bc0776db4169e095b322fdf91519609b1694c0db436eef1f4e6aabd72"
+      },
+      {
+        "name": "bounded_plus",
+        "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/interior_effort_20260906_v1/representable_standing/bounded_plus.npz",
+        "rows": 500,
+        "sha256": "f4707049c7444164d1f6d3ce7e729a40672bfb74f97844759f8ad670fd4070b2"
+      },
+      {
+        "name": "bounded_minus",
+        "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/interior_effort_20260906_v1/representable_standing/bounded_minus.npz",
+        "rows": 500,
+        "sha256": "62f57140aa628b94b6bdb01eee0430922598b025cad82de8dd5e7839332553d7"
+      }
+    ],
+    "failed_motion_actions_used": false,
+    "full_motion_teacher_accepted": false,
+    "hardware_authorized": false,
+    "held_out_rows_loaded": 0,
+    "kind": "g1_true23_standing_only_retention_inputs_v1",
+    "teacher_report_path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/interior_effort_20260906_v1/representable_standing/report.json",
+    "teacher_report_sha256": "7adc1c626ac577ee33ba1301b3b10163b716a3431bdf73e5ae4b86dc12ff683c",
+    "train_rows": 1500
+  },
+  "joint_loss_before_gradient_clipping": true,
+  "kind": "g1_true23_standing_output_retention_ppo_v1",
+  "loss": "mean_scaled_safe_target_squared_error_plus_0p01_raw_squared_error",
+  "original_motion_sampler_retained": true,
+  "runtime": {
+    "deployment_ready": false,
+    "exploration_distribution_changed": false,
+    "hardware_authorized": false,
+    "joint_loss_before_gradient_clipping": true,
+    "optimizer_steps_per_minibatch": 1,
+    "separate_retention_optimizer": false,
+    "upstream_path": "/root/.venvs/g1_true23_mjlab/lib/python3.11/site-packages/rsl_rl/algorithms/ppo.py",
+    "upstream_sha256": "a2d35e7ad7b884c80b7434e7d2ce785a6da1e18d93c96f1179fbd3a208669f8c"
+  },
+  "sampling": "cpu_generator_seed_plus_actual_adam_minibatch_step",
+  "seed": 20260906,
+  "target": "checked_standing_adapter_outputs_on_three_training_episodes",
+  "weight": 10.0
+}

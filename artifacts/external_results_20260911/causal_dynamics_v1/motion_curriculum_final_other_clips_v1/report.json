@@ -1,0 +1,222 @@
+{
+  "cases": [
+    {
+      "clip": "walk003",
+      "actor": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\causal_dynamics_v1\\motion_curriculum_run_v1\\training\\actor_00226.onnx",
+      "requested_controls": 3069,
+      "completed_controls": 313,
+      "physical_complete": false,
+      "source": {
+        "passed": false,
+        "source_controls": 0
+      },
+      "main_quiet": null,
+      "hold_quiet": null,
+      "failure": {
+        "kind": "physics",
+        "control": 313,
+        "substep": 2,
+        "time": 6.263999999999532,
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "speed_ratio": 0.0397320259277065,
+        "range_excess": 0.00038147112955606854,
+        "effort_ratio": 0.32554145319337024,
+        "tilt": 0.04017040179740003
+      },
+      "passed": false,
+      "elapsed_s": 4.297000000005937,
+      "physics_steps": 3132,
+      "maximum_speed_ratio": 0.21753211515800666,
+      "policy_ms_p50_p95_max": [
+        11.226049995457288,
+        13.935604997823246,
+        17.735200002789497
+      ],
+      "packet_report": {
+        "epoch": 0,
+        "received": 325,
+        "consumed": 325,
+        "ignored": 0,
+        "rejected": 0,
+        "final_received": false,
+        "full_source_consumed": false,
+        "fault": null,
+        "calibration": null
+      },
+      "future_reference_frames": 0,
+      "prepared_feedback_gains": false,
+      "initial_root_x_velocity_offset": 0.0,
+      "independent_realtime": false,
+      "hardware_authorized": false,
+      "controller_variant": "causal_full_range_actor",
+      "fault_control": null,
+      "fault_quiet": null,
+      "fault_scenario_passed": false
+    },
+    {
+      "clip": "pico",
+      "actor": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\causal_dynamics_v1\\motion_curriculum_run_v1\\training\\actor_00226.onnx",
+      "requested_controls": 8030,
+      "completed_controls": 1136,
+      "physical_complete": false,
+      "source": {
+        "passed": false,
+        "source_controls": 786,
+        "requested_source_controls": 5780,
+        "root_p95_m": 0.13136872311513909,
+        "yaw_p95_deg": 20.604326617599135,
+        "hand_head_relative_p95_m": [
+          0.2274202201955799,
+          0.24116515146210937,
+          0.04654077815607589
+        ],
+        "foot_relative_p95_m": [
+          0.1395553668071529,
+          0.1431468774372266
+        ],
+        "leg_rmse_rad": 0.18077174804984295
+      },
+      "main_quiet": null,
+      "hold_quiet": null,
+      "failure": {
+        "kind": "physics",
+        "control": 1136,
+        "substep": 2,
+        "time": 22.723999999998284,
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "speed_ratio": 0.2043535809302411,
+        "range_excess": 0.0006885989632292033,
+        "effort_ratio": 0.2003184397551817,
+        "tilt": 0.0053234270043460786
+      },
+      "passed": false,
+      "elapsed_s": 15.485000000000582,
+      "physics_steps": 11362,
+      "maximum_speed_ratio": 0.2268416529651199,
+      "policy_ms_p50_p95_max": [
+        11.125899996841326,
+        13.426280007115565,
+        26.73099999083206
+      ],
+      "packet_report": {
+        "epoch": 0,
+        "received": 1148,
+        "consumed": 1148,
+        "ignored": 0,
+        "rejected": 0,
+        "final_received": false,
+        "full_source_consumed": false,
+        "fault": null,
+        "calibration": null
+      },
+      "future_reference_frames": 0,
+      "prepared_feedback_gains": false,
+      "initial_root_x_velocity_offset": 0.0,
+      "independent_realtime": false,
+      "hardware_authorized": false,
+      "controller_variant": "causal_full_range_actor",
+      "fault_control": null,
+      "fault_quiet": null,
+      "fault_scenario_passed": false
+    },
+    {
+      "clip": "walk008",
+      "actor": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\causal_dynamics_v1\\motion_curriculum_run_v1\\training\\actor_00226.onnx",
+      "requested_controls": 2614,
+      "completed_controls": 2614,
+      "physical_complete": true,
+      "source": {
+        "passed": false,
+        "source_controls": 364,
+        "requested_source_controls": 364,
+        "root_p95_m": 2.5879107727573443,
+        "yaw_p95_deg": 48.313088139671116,
+        "hand_head_relative_p95_m": [
+          0.5842920639647355,
+          0.6204462377417691,
+          0.05832142426926462
+        ],
+        "foot_relative_p95_m": [
+          0.2740618665897087,
+          0.259249419544938
+        ],
+        "leg_rmse_rad": 0.2264054480592007
+      },
+      "main_quiet": {
+        "passed": true,
+        "values": {
+          "xy_p95": 0.03886864132263695,
+          "yaw_p95_deg": 3.9393756231069874,
+          "root_speed_p95": 0.02647326765033355,
+          "joint_speed_p95": 0.08343468769022361,
+          "joint_speed_max": 0.14452450137011263,
+          "tilt_max": 0.02369716163147003
+        },
+        "limits": {
+          "xy_p95": 0.05,
+          "yaw_p95_deg": 5,
+          "root_speed_p95": 0.05,
+          "joint_speed_p95": 0.5,
+          "joint_speed_max": 2,
+          "tilt_max": 0.15
+        }
+      },
+      "hold_quiet": {
+        "passed": true,
+        "values": {
+          "xy_p95": 0.02982455941471453,
+          "yaw_p95_deg": 3.564403418398324,
+          "root_speed_p95": 0.00010668630975604285,
+          "joint_speed_p95": 0.0007171665846177279,
+          "joint_speed_max": 0.0007200359650284108,
+          "tilt_max": 0.018723708179552524
+        },
+        "limits": {
+          "xy_p95": 0.05,
+          "yaw_p95_deg": 5,
+          "root_speed_p95": 0.05,
+          "joint_speed_p95": 0.5,
+          "joint_speed_max": 2,
+          "tilt_max": 0.15
+        }
+      },
+      "failure": null,
+      "passed": false,
+      "elapsed_s": 34.85899999999674,
+      "physics_steps": 26140,
+      "maximum_speed_ratio": 0.2999183694045364,
+      "policy_ms_p50_p95_max": [
+        10.860700007469859,
+        13.340494998556096,
+        27.359800005797297
+      ],
+      "packet_report": {
+        "epoch": 0,
+        "received": 1125,
+        "consumed": 1125,
+        "ignored": 0,
+        "rejected": 0,
+        "final_received": true,
+        "full_source_consumed": true,
+        "fault": null,
+        "calibration": null
+      },
+      "future_reference_frames": 0,
+      "prepared_feedback_gains": false,
+      "initial_root_x_velocity_offset": 0.0,
+      "independent_realtime": false,
+      "hardware_authorized": false,
+      "controller_variant": "causal_full_range_actor",
+      "fault_control": null,
+      "fault_quiet": null,
+      "fault_scenario_passed": false
+    }
+  ],
+  "scenario": "nominal",
+  "passed": false,
+  "general_live_teleop_qualified": false
+}

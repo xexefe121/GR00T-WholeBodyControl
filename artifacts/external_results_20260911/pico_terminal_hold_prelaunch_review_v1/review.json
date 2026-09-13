@@ -1,0 +1,50 @@
+{
+  "kind": "read_only_same_mpc_terminal_hold_prelaunch_review",
+  "verdict": "CLEAR_ONE_ROOT_AUTHORIZED_250_CONTROL_HOLD_AFTER_EXACT_TAIL_GATE",
+  "hashes": {
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_terminal_hold_v1_process\\launch_receipt.json": "119c068ea1df67aa9c8d9051135e7b256daefe7c627adb3621310f7f20c4f90b",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_terminal_hold_v1_process\\run_durable.ps1": "66f1936e56d1dd3f80bbf628ff10c1243df93b25627f7e7d6453108df32bea6f",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\launch_pico_terminal_hold_v1.ps1": "6f83cf7e552d845539f84f1e8ea3a577cda76134cef2f1d017bb15692a514465",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_terminal_hold_source_v1\\frozen_source_hashes.json": "0747d9a5c5321e26d0d93c1792fe8b1a981747b0ea0cb92fb7050ecf0a1dc7ce",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_terminal_hold_source_v1\\repo\\gear_sonic\\scripts\\evaluate_g1_true23_mjbatch_mpc.py": "eee7a637cf0208a67c0dd419d358487b66b16059a30d9b00e8edd971a743112b",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_terminal_hold_source_v1\\repo\\gear_sonic\\utils\\pico_terminal_continuity.py": "51257fc750e0dcc93c6916e2b07f54b2770bd2e4e3eef922c9bdf8ed6960d7ae",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_terminal_hold_source_v1\\source_transformations.json": "0ea46fd7aafd73f0edee293d73644aab908f4ebde5767d047b18fb6430cc03af",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_terminal_hold_source_v1\\preflight.py": "2c01886a48d3d0c0b54dd398e967e60e4fc6b378649271caf0b1ce83c4d54c18",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_terminal_hold_source_v1\\preflight.json": "146db717ad48860425cfded93819d60582c0b1b05cb3b2ee92e92793798e706d",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_terminal_hold_source_v1\\test_continuity.py": "8b8a6eb606cb41f0c7ecadc5edbc710a51bb3c7f42e4f0a11a14c85ca7c9670b",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_terminal_hold_source_v1\\focused_tests_v3.xml": "b40fa915b72d044a332728231a2ec0fde1646c6db6b99d5ab35cfb9d1985d3fd",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_endpoint_continuity_review_v1\\review.json": "32ecb5c9610b05fe0a7cf13ab6b369030a9225f9aff420488fcd5363faa23f02"
+  },
+  "launch_hashes_verified": 104,
+  "frozen_sources_verified": 14,
+  "declared_evaluator_transformations_verified": 14,
+  "controller_utilities_byte_exact": 10,
+  "focused_tests": {
+    "tests": 25,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "python_ast_valid": true,
+  "powershell_ast_valid": true,
+  "checks": [
+    "Same native H30/5/commit5/8threads/BLAS1/FD1e-6/feedbackclip.1/margin.05/weight2000/relativefoot400/hard guided-K0-thirdLM and both original BFM seeds.",
+    "Canonical checkpoint6500 every field/prefix sample and all6500 action/history records checked against immutable final trace; warm fullH30 plan6495 with5 committed controls.",
+    "Initial checkpoint restored once with qpos/qvel/time/qacc_warmstart/ctrl/warnings, zero applied forces and native291 topology.",
+    "Recompute6500..6529 through unchanged original controller; compare all saved tail fields and300 physics samples before any extension command.",
+    "Full291 independent root endpoint plus q/dq/qacc/ctrl/time/warnings comparison only; no endpoint state injection.",
+    "At6530 reset only recording buffers, preserve actual plant/planner/warm/history/global clock; explicitly hold unchanged last reference sample.",
+    "Exactly250 extension controls; native strict2ms checks and raw partial failures retained; canonical empty-array schema preserved.",
+    "Source-first metadata clamped atEOF, original full trace and frozen source unmodified.",
+    "Durable hidden launch command pins104 files, absolute frozen evaluator and PYTHONPATH; output/log/status absence verified."
+  ],
+  "findings_resolved": [
+    "Empty canonical trace trailing shapes on zero-command rejection",
+    "EOF first reference frame metadata cannot exceed last reference frame"
+  ],
+  "limitations": [
+    "Reviewer executed no policy inference, optimizer, physics, model loading or hold.",
+    "Source clearance is not runtime boundary or hold qualification; root independent physical and quiet audits remain required.",
+    "Cached private planner/restorer objects are recreated; mandatory exact tail replay checks numerical equivalence before extension."
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "cases": [
+    {
+      "categories": [
+        "in_distribution",
+        "tail",
+        "out_of_distribution"
+      ],
+      "completed_transitions": 372,
+      "failure_type": "CrawlPhysicalGateFailure",
+      "label": "happy_dance",
+      "maximum_relative_tracking_error_m": 0.8862911073700412,
+      "passed": false,
+      "requested_transitions": 535
+    }
+  ],
+  "checkpoint_update_count": 30,
+  "decoder_report": {
+    "filename": "model_30.diagnostic.decoder.json",
+    "sha256": "9996b33563d6d110eb61e2ed40ed57ff8bffdbfa12c0f3ea665195dad36a9afc"
+  },
+  "deployment_ready": false,
+  "diagnostic_only": true,
+  "hardware_authorized": false,
+  "in_distribution": {
+    "case_count": 1,
+    "mean_tracking_error": 0.8862911073700412,
+    "passed_count": 0,
+    "success_rate": 0.0
+  },
+  "kind": "g1_true23_frozen_lora_comparison_result_v1",
+  "out_of_distribution": {
+    "case_count": 1,
+    "mean_tracking_error": 0.8862911073700412,
+    "passed_count": 0,
+    "success_rate": 0.0
+  },
+  "robot_network_commands": false,
+  "second_referee": {
+    "backend": "cpu_mujoco_reference_vs_training_mujoco_warp",
+    "completed_transitions": 372,
+    "requested_transitions": 535,
+    "survival_rate": 0.6953271028037383
+  },
+  "suite": {
+    "filename": "happy_focus_suite.json",
+    "sha256": "da440f88cddbed67e1566a7136d93723fd5c0ddd6cba6b7a884abc7551dd5a7d"
+  },
+  "tail": {
+    "case_count": 1,
+    "mean_tracking_error": 0.8862911073700412,
+    "passed_count": 0,
+    "success_rate": 0.0
+  }
+}

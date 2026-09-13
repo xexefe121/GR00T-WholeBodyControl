@@ -1,0 +1,74 @@
+{
+  "policy": "dance",
+  "actor": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\onboard_factory_firmware_v1\\native23_trainable_v1\\factory23_raw.onnx",
+  "clip": "walk003",
+  "simulation_seconds": 7.0959999999994405,
+  "requested_seconds": 61.38,
+  "physical_complete": false,
+  "failure": {
+    "time": 7.0959999999994405,
+    "reasons": [
+      "native_joint_speed",
+      "fall"
+    ],
+    "speed_ratio": 1.0340422170360384,
+    "range_excess": 0.0,
+    "effort_ratio": 0.4082884537191051,
+    "tilt": 1.2018644477152673
+  },
+  "wall_seconds": 1.7009285999956774,
+  "max_speed_ratio": 1.0340422170360384,
+  "max_effort_ratio": 1.0,
+  "inference_ms_p50_p95_max": [
+    2.0268,
+    2.8698300000000003,
+    3.6807
+  ],
+  "future_reference_frames": 0,
+  "reference_velocity": "received-pose backward differences, reference body frame",
+  "absent_vendor_joints": "fixed zero position and velocity",
+  "independent_realtime": false,
+  "hardware_commands": false,
+  "source": {
+    "passed": false,
+    "source_controls": 5,
+    "requested_source_controls": 819,
+    "root_p95_m": 0.7309068695667473,
+    "yaw_p95_deg": 63.399192883030146,
+    "hand_head_relative_p95_m": [
+      0.30493732963445475,
+      0.3189193014685115,
+      0.4421538538999251
+    ],
+    "foot_relative_p95_m": [
+      0.5638403418950073,
+      0.7904383834040383
+    ],
+    "leg_rmse_rad": 0.3631085128565315
+  },
+  "packet_report": {
+    "epoch": 0,
+    "received": 366,
+    "consumed": 366,
+    "ignored": 0,
+    "rejected": 0,
+    "final_received": false,
+    "full_source_consumed": false,
+    "fault": null,
+    "calibration": null
+  },
+  "controller_status": {
+    "mode": "source",
+    "epoch": 0,
+    "fault": null,
+    "explicit_rearm_required": false,
+    "future_reference_frames": 0,
+    "qualified": false,
+    "controller": "native23_factory_pose_error",
+    "joint_bias_compensation": true
+  },
+  "input_loss_control": null,
+  "automatic_rearm": false,
+  "fault_scenario_passed": false,
+  "passed": false
+}

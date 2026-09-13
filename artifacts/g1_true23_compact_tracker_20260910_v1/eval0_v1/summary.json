@@ -1,0 +1,111 @@
+{
+  "cases": [
+    {
+      "name": "pico",
+      "completed": 56,
+      "requested": 6530,
+      "failure": {
+        "type": "ValueError",
+        "message": "no verified next-control joint-range target found by bounded inward search",
+        "completed_controls": 56,
+        "physics_steps": 560
+      },
+      "source_metrics": {
+        "source_controls": 0
+      },
+      "report_sha256": "d4010e62cffcf6205dbd970faccc3f2a90c5b8ab1a487a4d4633ff965128b165",
+      "deployment_ready": false,
+      "hardware_authorized": false,
+      "simulator_qualified": false
+    },
+    {
+      "name": "walk002",
+      "completed": 56,
+      "requested": 1417,
+      "failure": {
+        "type": "ValueError",
+        "message": "no verified next-control joint-range target found by bounded inward search",
+        "completed_controls": 56,
+        "physics_steps": 560
+      },
+      "source_metrics": {
+        "source_controls": 0
+      },
+      "report_sha256": "5f159e9a956a720bac9f9fa54e2e4e85e0b8a2a59077a7591e8727e18b3817a2",
+      "deployment_ready": false,
+      "hardware_authorized": false,
+      "simulator_qualified": false
+    },
+    {
+      "name": "walk003",
+      "completed": 56,
+      "requested": 1569,
+      "failure": {
+        "type": "ValueError",
+        "message": "no verified next-control joint-range target found by bounded inward search",
+        "completed_controls": 56,
+        "physics_steps": 560
+      },
+      "source_metrics": {
+        "source_controls": 0
+      },
+      "report_sha256": "ae3497541d69523b9f1fb4ad1e20e00965d7ca1e43facfa32d4f94875e6150e2",
+      "deployment_ready": false,
+      "hardware_authorized": false,
+      "simulator_qualified": false
+    },
+    {
+      "name": "walk008",
+      "completed": 56,
+      "requested": 1114,
+      "failure": {
+        "type": "ValueError",
+        "message": "no verified next-control joint-range target found by bounded inward search",
+        "completed_controls": 56,
+        "physics_steps": 560
+      },
+      "source_metrics": {
+        "source_controls": 0
+      },
+      "report_sha256": "5b09e68f5b47c9fffa758b8477967f630e28550ad120855600c3cd95740629c2",
+      "deployment_ready": false,
+      "hardware_authorized": false,
+      "simulator_qualified": false
+    }
+  ],
+  "identity": {
+    "kind": "compact_native23_cpu_referee_v1",
+    "checkpoint_sha256": "1f83654973d884d2d5bc16f319a87ea9c27d0db49a31d9db893ee399baa0b05c",
+    "completed_training_updates": 0,
+    "actor_contract": {
+      "kind": "native23_explicit_goal_residual165_v1",
+      "input_dim": 165,
+      "goal_dim": 90,
+      "proprioception_dim": 75,
+      "output_dim": 23,
+      "current_proprioception": "latest_frame_of_existing_term_major_history930",
+      "goal_order": [
+        "hardware_q23",
+        "hardware_dq23",
+        "root9",
+        "root_rotation6",
+        "original29_vr21",
+        "feet_error_current_pelvis6",
+        "root_heights2"
+      ],
+      "source_target": "received_q1; adjacent_q1_minus_q0_velocity",
+      "source_timing_unchanged": true,
+      "source_motion_is_sonic_compatible": true,
+      "actor_is_frozen_sonic": false,
+      "ground_truth_root_is_sim_only": true,
+      "deployment_ready": false,
+      "hardware_authorized": false
+    },
+    "frozen_sonic_policy_parity_claimed": false,
+    "deployment_ready": false,
+    "hardware_authorized": false
+  },
+  "deployment_ready": false,
+  "hardware_authorized": false,
+  "simulator_qualified": false
+}

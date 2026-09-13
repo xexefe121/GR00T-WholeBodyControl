@@ -1,0 +1,39 @@
+{
+  "source_review_pass": true,
+  "reviewer": "root",
+  "reviewed_utc": "2026-09-11T15:55:20.4174891Z",
+  "preparation_sha256": "b20c4cea9e289475828be28345bc683e79a43329d5a0bbf5985cdeef563f936d",
+  "source_sha256": {
+    "audit_full_state_math.py": "e467f5f581c8983e11bcce74ad783015f0bd5fc1c84964f1b6f5d6a105eabd81",
+    "audit_graph.py": "b6f1bd0babdec8a5e0e0b791759eca867667d8185ae9d1a963b78c0318381cea",
+    "audit_math.py": "6313988b729ac56f51dfd8c75bcde6d201d9aef237690a5bbd25a659f2aaa82f",
+    "audit_restoration.py": "24b25ba9914e511461e00c8413e21ba0cc5b3742d93f8ff8f5e322c1e71c3092",
+    "audit_saved_fit.py": "1edd7af952cd076529e7c8618ac6203b63091877bd452482c36b313e5158ec54",
+    "test_saved_math.py": "ce196a79bc50d3cda517b52a74b29251be861ddfb47dfcd516bb3c23f3d2c1c8"
+  },
+  "helper_sha256": {
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_full_state_fit_independent_v1\\prepare_audit_request.py": "2b249186c46e0550d202da88b9ec5a90383c4654ae8ea55d7c0e769a66d00a0c"
+  },
+  "source_read_completely": true,
+  "synthetic_tests_passed": 12,
+  "synthetic_exit_code": 0,
+  "checks": [
+    "Independent fixed PCG64 schedule and 54 equal groups",
+    "Actual saved calibration forwards and gradients; widened subtraction",
+    "Exact source actor, normalization, RNG, fresh optimizer and final optimizer state",
+    "All saved backend metrics and preclamp parity; literal FP64 graph weights",
+    "Thirteen direct release subjects and corrected data-owner v2",
+    "Failure evidence distinct from export qualification; fixed reduction roundoff allowance"
+  ],
+  "task_model_calls": 0,
+  "gradient_calls": 0,
+  "optimizer_updates": 0,
+  "ORT_calls": 0,
+  "native_steps": 0,
+  "actual_saved_audit_selected": true,
+  "limitations": [
+    "Saved-data consistency does not independently authenticate unsaved optimizer gradients",
+    "Process absence handled by separately bound owner verification",
+    "No connected simulation qualification granted"
+  ]
+}

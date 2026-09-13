@@ -1,0 +1,35 @@
+{
+  "original_sha256": "6d71e82b4b7e491f4bbfd3c2a99e05df2ee27f9fb5e6febb4cc9c39c8c39d905",
+  "direct_sha256": "26b816a2059edbb83daba386196c21b70002d1c83e2eda6e5cbf6a550ee4a251",
+  "edits": [
+    [
+      "class GoalFeatures:",
+      "class DirectFeatures:"
+    ],
+    [
+      "def __call__(self,qpos,qvel,previous_target,frame):",
+      "def __call__(self,qpos,qvel,frame):"
+    ],
+    [
+      "np.asarray(previous_target)-self.default,np.asarray(qvel[:3])@heading,qpos[2]",
+      "np.asarray(qvel[:3])@heading,qpos[2]"
+    ],
+    [
+      "proprio.shape==(79,)",
+      "proprio.shape==(56,)"
+    ]
+  ],
+  "retained_slices": [
+    [
+      0,
+      52
+    ],
+    [
+      75,
+      1023
+    ]
+  ],
+  "feature_count": 1000,
+  "model_calls": 0,
+  "native_steps": 0
+}

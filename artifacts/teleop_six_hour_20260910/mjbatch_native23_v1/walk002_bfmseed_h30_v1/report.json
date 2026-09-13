@@ -1,0 +1,59 @@
+{
+  "kind": "offline_native23_mjbatch_ilqr_probe",
+  "clip": "walk002",
+  "probe": "source-prefix",
+  "completed_controls": 500,
+  "requested_controls": 500,
+  "probe_completed": true,
+  "full_source_completed": false,
+  "failure": null,
+  "metrics": {
+    "phase": "source_motion",
+    "controls": 150,
+    "leg_rmse": 0.09102828060577552,
+    "arm_rmse": 0.012142674452626808,
+    "root_p95": 0.06306271929231053,
+    "tracked_body_position_p95": [
+      0.06306271929231053,
+      0.06367016266361525,
+      0.03789103202392259,
+      0.058725305443225885,
+      0.05923491423186253,
+      0.06030941910966203
+    ]
+  },
+  "range_excess_max": 0.0,
+  "velocity_ratio_max": 0.3620594036533775,
+  "effort_ratio_max": 1.0,
+  "planning_ms_p50_p95_max": [
+    5865.535753000017,
+    6940.3433168499705,
+    7495.052972999929
+  ],
+  "planning_deadlines_missed": 100,
+  "elapsed_wall_seconds": 572.371832841,
+  "simulated_seconds": 10.000000000000009,
+  "physics_steps": 5000,
+  "declared_future_preview_seconds": 0.6,
+  "conservative_effective_source_preview_seconds": 0.74,
+  "recorded_target_seed": {
+    "path": "artifacts/teleop_six_hour_20260910/bfm_walk002_feedback_v2",
+    "trace_sha256": "74bbd9c8e4cae7c8c8b421b4a1448f917872161b837efce04001810041b94f97",
+    "report_sha256": "05891f641b8cf7711fcd678bc5577d5d3973d3c653dacc2a77c238e303e06f05",
+    "controls": 1417,
+    "original_generator_preview_seconds": 0.14,
+    "selection": "lower actual-rollout cost of recorded BFM targets and shifted previous MPC plan",
+    "physical_states_copied": false
+  },
+  "mujoco": "3.11.0",
+  "controller": "iLQR position targets with measured-state feedback and native manualPD",
+  "physical_state_rewrites_after_initialization": 0,
+  "root_assistance_forces": 0,
+  "timing_qualified": false,
+  "full_body_tracking_qualified": false,
+  "hardware_authorized": false,
+  "native323_replay_required": true,
+  "request_sha256": "3f0962c381e238b2b96eafbfa26d3bc8a700a9724b856fa6bab89162609fcb6a",
+  "trace_sha256": "6484afd1eacece8f9ffd672a2368282e92297f9e584f705aa35a230386c6a706",
+  "plans_sha256": "b507aa3efd354a15171d0488196f6b4825a503a346fdb86aef64a9803783298c"
+}

@@ -1,0 +1,39 @@
+{
+    "kind":  "causal_response_balanced_continuation",
+    "wrapper_pid":  24400,
+    "started_utc":  "2026-09-11T18:43:07.2378367Z",
+    "clearance_sha256":  "eee14560a9e448e49773b95fe96bd516107c0fba8a6d38c130428f013328cdd8",
+    "request_sha256":  "4c332bb060e48cceb1dac7010b330fd868a5c1d517133fb7506979e6a5c2d717",
+    "frozen_receipt_sha256":  "470130562e4af377ab7b3fcf389488d38d1e372f92f6eb1e7a9221f91d8009c1",
+    "command":  {
+                    "python":  "E:\\codex_sonic_runtime\\direct_target_gpu_20260911\\venv\\Scripts\\python.exe",
+                    "arguments":  [
+                                      "-u",
+                                      "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_causal_response_balanced_student_v1\\source_snapshot_v1\\train_response_balanced.py"
+                                  ],
+                    "working_directory":  "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_causal_response_balanced_student_v1\\source_snapshot_v1",
+                    "CUBLAS_WORKSPACE_CONFIG":  ":4096:8",
+                    "threads":  1
+                },
+    "updates":  3000,
+    "ordinary_start_step":  68000,
+    "ordinary_final_step":  71000,
+    "condition":  "causal",
+    "optimizer_start_step":  3000,
+    "optimizer_final_step":  6000,
+    "budgets":  {
+                    "training_forward_rows":  44058000,
+                    "training_forward_calls":  9000,
+                    "training_updates":  3000,
+                    "diagnostic_Torch_rows":  1470280,
+                    "diagnostic_Torch_calls":  5748,
+                    "diagnostic_ORT_rows":  367570,
+                    "diagnostic_ORT_calls":  1437,
+                    "calibration_forward_calls":  0,
+                    "calibration_gradient_calls":  0,
+                    "native_calls":  0,
+                    "BFM_calls":  0,
+                    "manual_export_trace_calls":  0
+                },
+    "automatic_retry":  false
+}

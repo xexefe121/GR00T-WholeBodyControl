@@ -1,0 +1,74 @@
+{
+  "original_sha256": "40a47fd2e7554368c38a262fc9a2bdd0e75a3ceaa94ca817fbfb8646e191a55b",
+  "source_sha256": "d4055bfea1fd7d7a0813954cc8f6135f43466ed021160e781a6ef5d6b8c829a5",
+  "changes": [
+    {
+      "old": "from audit_math import balanced_moments, phase_indices, summarize, targets",
+      "new": "from audit_math import balanced_moments, phase_indices, summarize, targets\nfrom audit_restoration import differences"
+    },
+    {
+      "old": "sources=[Path(__file__),Path(__file__).with_name('audit_math.py')]",
+      "new": "sources=[Path(__file__),Path(__file__).with_name('audit_math.py'),Path(__file__).with_name('audit_restoration.py')]"
+    },
+    {
+      "old": "report['ordinary_final_step']==5000",
+      "new": "report['ordinary_final_step']==55000"
+    },
+    {
+      "old": "exact('all_2880000_sampled_centers',npy(fit/'replayed_center_rows.npy'),npy(paths['sampled_rows']))",
+      "new": "exact('all_28800000_repeated_sampled_centers',npy(fit/'replayed_center_rows.npy'),np.tile(npy(paths['sampled_rows']),(10,1)))"
+    },
+    {
+      "old": "exact('all_2880000_sampled_axes',npy(fit/'replayed_axes.npy'),npy(paths['sampled_axes']))",
+      "new": "exact('all_28800000_repeated_sampled_axes',npy(fit/'replayed_axes.npy'),np.tile(npy(paths['sampled_axes']),(10,1)))"
+    },
+    {
+      "old": "check('5000_complete_finite_loss_records',progress.shape==(5000,6)",
+      "new": "check('50000_complete_finite_loss_records',progress.shape==(50000,6)"
+    },
+    {
+      "old": "for index in range(5000):",
+      "new": "for index in range(50000):"
+    },
+    {
+      "old": "rate=3e-5+.5*(3e-4-3e-5)*(1+math.cos(math.pi*index/4999))",
+      "new": "rate=3e-6+.5*(3e-5-3e-6)*(1+math.cos(math.pi*index/49999))"
+    },
+    {
+      "old": "nc.shape==(5000,15) and vc.shape==pc.shape==(5000,9)",
+      "new": "nc.shape==(50000,15) and vc.shape==pc.shape==(50000,9)"
+    },
+    {
+      "old": "'training_head_rows_attempted':70550000,'training_head_rows_returned':70550000",
+      "new": "'training_head_rows_attempted':705500000,'training_head_rows_returned':705500000"
+    },
+    {
+      "old": "checkpoint['ordinary_final_step']==checkpoint['additional_updates']==5000",
+      "new": "checkpoint['ordinary_final_step']==55000 and checkpoint['additional_updates']==50000"
+    },
+    {
+      "old": "optimization['ordinary_final_step']==5000",
+      "new": "optimization['ordinary_final_step']==55000"
+    },
+    {
+      "old": "float(state['step'])==5000",
+      "new": "float(state['step'])==55000"
+    },
+    {
+      "old": "group['lr']==3e-5",
+      "new": "group['lr']==3e-6"
+    },
+    {
+      "old": "        compare('checkpoint_request',checkpoint['request'],request)",
+      "new": "        compare('checkpoint_request',checkpoint['request'],request)\n        old_fit=experiment.parent/'direct_target_student_v1/fit'\n        old_checkpoint_path=bind(old_fit/'student_head.pt')\n        check('exact_selected_source_checkpoint',sha(old_checkpoint_path)=='ad6d657affba0796e7313d85ace240cd31d46e188c577da049880a7a031aecba')\n        old_checkpoint=torch.load(old_checkpoint_path,map_location='cpu',weights_only=True)\n        restored=torch.load(bind(fit/'initialization.pt'),map_location='cpu',weights_only=True)\n        check('restoration_source_subject',restored['source_checkpoint_sha256']==sha(old_checkpoint_path))\n        for name in ('actor_state','optimizer_state'):\n            problems=differences(restored[name],old_checkpoint[name],name)\n            check('restored_start_exact.'+name,not problems,problems)\n        problems=differences(restored['rng_after_restoration'],old_checkpoint['rng'],'rng')\n        check('restored_all_rng_exact',not problems,problems)\n        problems=differences(checkpoint['rng'],old_checkpoint['rng'],'final_rng')\n        check('no_new_rng_draws_in_fixed_continuation',not problems,problems)\n        old_norm=archive(old_fit/'normalization.npz')\n        check('normalization_keys_unchanged',set(old_norm)==set(norm))\n        for key in norm:exact('source_normalization_exact.'+key,norm[key],old_norm[key])\n        for corpus in ('nominal','velocity','physical'):\n            exact('initial_GPU_matches_old_final_GPU.'+corpus,outputs['initial_GPU'][corpus],npy(old_fit/f'final_GPU_{corpus}.npy'))\n        compare('initial_metrics_match_old_final',read(bind(fit/'initial_metrics.json')),read(bind(old_fit/'final_metrics.json')))\n        check('selected_additional_budget',request['updates']==50000)\n"
+    },
+    {
+      "old": "'RNG initialization and CUDA execution flags covered by trainer source/runtime review, not reproduced by this array audit'",
+      "new": "'restored model/optimizer/RNG and initial predictions are checked exactly; CUDA execution flags covered by trainer source/runtime review'"
+    }
+  ],
+  "unchanged_math_sha256": "6313988b729ac56f51dfd8c75bcde6d201d9aef237690a5bbd25a659f2aaa82f",
+  "model_calls": 0,
+  "optimizer_calls": 0,
+  "native_steps": 0
+}

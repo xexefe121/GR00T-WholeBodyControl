@@ -1,0 +1,13 @@
+# Source v2 additions; no actual run
+
+The tested source_draft v1 and its request/results remain unchanged. Source_draft_v2 keeps all nine copied native/foundation/mailbox component files byte-identical. New composition changes add parent-side worker lifecycle timestamps and an owned postrun exporter; command decoding also checks incoming feedback against the exact recorded predecessor.
+
+`WorkerLifecycle` now records start-call/return, observed readiness, stop request and cleanup completion using the injected monotonic clock. It prohibits restart and repeated close. Real process/event handles are used only by a future selected supervisor. Current tests use fake handles.
+
+`evidence.export_owned(session)` performs no native reads and returns three groups for a future postrun writer:
+
+- NumPy arrays: each committed373-f64 capture plus full291/qpos30/qvel29/actual-force23 views copied into owned arrays; commanded torque, target, raw-action bytes; int32 warning counts/lastinfo; int64 step indices and fixed/actual timestamps, wake debt and lateness; repeated simulation time and verification flags. Control arrays include full291, incoming/outgoing raw action, exact300-f32 flat history, actual/admitted activation timestamps and both nominal/active source frames.
+- Metadata: exact command IDs and window IDs, original named before/after history and measured terms, immutable foundation/transport/outer records, summary, and an explicit main-to-hold certificate. At boundary1569 it compares actual full291 against the immediately preceding captured native step, history against the previous actual boundary update, and incoming prior against the previously activated command. No reset/reconstruction is used.
+- Raw immutable failure capsules: foundation capture/verifier return evidence, native fault/capture evidence, last validated capture and commanded torque, ledger overflow records. Full raw capsules are not passed through a second truncating diagnostic serializer. Initial captured state/command/warnings are included whenever the adapter completed initialization. Returned-but-uncommitted StepRecord/ControlRecord overflow items remain retained separately in metadata.
+
+Arrays preserve canonical empty trailing shapes on zero-step failure. Postrun arrays are copies; modifying an exported array cannot mutate the committed plant ledger. Partial strict failure keeps its captured sample and false verification flag. The writer and independent every-sample verifier are explicitly still unimplemented, unselected runtime work. `component_preliminary_pass` additionally requires successful exit model identity; it remains insufficient without root's later trace comparison and the supervisor's process-cleanup evidence.

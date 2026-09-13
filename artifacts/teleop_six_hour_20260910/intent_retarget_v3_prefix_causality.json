@@ -1,0 +1,39 @@
+{
+  "kind": "retarget_v3_independent_prefix_causality_check",
+  "frames": 1110,
+  "source_clip": "walk003",
+  "includes_previous_v2_speed_violation_frame": true,
+  "all_pose_and_diagnostic_arrays_exact": true,
+  "exact_arrays": {
+    "qpos": true,
+    "body_pos_w": true,
+    "body_quat_w": true,
+    "foot_position_error": true,
+    "foot_orientation_error": true,
+    "leg_nfev": true,
+    "arm_nfev": true,
+    "original_task_error": true,
+    "leg_solver_success": true,
+    "leg_solver_status": true,
+    "leg_solver_cost": true,
+    "leg_solver_optimality": true,
+    "arm_solver_success": true,
+    "arm_orientation_error": true
+  },
+  "derivatives_before_prefix_endpoint_exact": {
+    "joint_vel": true,
+    "body_lin_vel_w": true,
+    "body_ang_vel_w": true
+  },
+  "endpoint_derivative_difference": {
+    "joint_vel": 1.236889623838802,
+    "body_lin_vel_w": 0.32959220685442325,
+    "body_ang_vel_w": 0.8989434344052514
+  },
+  "endpoint_difference_reason": "Declared offline central derivatives use a following sample; prefix endpoint uses backward difference.",
+  "full_reference_sha256": "d62c4eab74b32b9da29837397a7abbdc3e125f69af5bf234bad7844903fac091",
+  "prefix_reference_sha256": "73db37a4d342784f132df885634709aeae2860a8e96b795fa016406b23a02f3e",
+  "source_file_sha256": "1925d325de96dc86f1050eeaa39c123b93839f64dff36cd4ed9d7bdcaad837ac",
+  "dynamics_qualified": false,
+  "hardware_authorized": false
+}

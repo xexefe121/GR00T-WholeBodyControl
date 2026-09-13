@@ -1,0 +1,49 @@
+{
+  "source_sha256": "ee9cbe52b66c1eb090391932b9af0869f6aa0b3f3cc327b03f7201921286106d",
+  "layers": [
+    {
+      "name": ".encoder.encoder.0",
+      "input": 210,
+      "output": 256
+    },
+    {
+      "name": ".encoder.encoder.2",
+      "input": 256,
+      "output": 128
+    },
+    {
+      "name": ".fc_vel",
+      "input": 128,
+      "output": 27
+    },
+    {
+      "name": ".fc_mu",
+      "input": 128,
+      "output": 37
+    },
+    {
+      "name": ".low_level_net.low_level_net.0",
+      "input": 114,
+      "output": 256
+    },
+    {
+      "name": ".low_level_net.low_level_net.2",
+      "input": 256,
+      "output": 128
+    },
+    {
+      "name": ".low_level_net.low_level_net.4",
+      "input": 128,
+      "output": 32
+    },
+    {
+      "name": "act__matmul_converted",
+      "input": 32,
+      "output": 12
+    }
+  ],
+  "schema_sources": [
+    "https://github.com/alibaba/MNN/blob/master/schema/default/MNN.fbs",
+    "https://github.com/alibaba/MNN/blob/master/schema/default/CaffeOp.fbs"
+  ]
+}

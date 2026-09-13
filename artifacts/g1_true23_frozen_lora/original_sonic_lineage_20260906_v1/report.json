@@ -1,0 +1,156 @@
+{
+  "kind": "g1_true23_original_sonic_reference_lineage_audit_v1",
+  "records": [
+    {
+      "name": "original_sonic_hand_crawl",
+      "native_reference_kind": "task_space_retarget_from_original_planner",
+      "original_planner": "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_motion_suite_v2/hand_crawling.npz",
+      "legacy_reference": "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_hand_original_speed_v1/hand_crawling.true23.npz",
+      "raw_30hz_frames": 364,
+      "resampled_50hz_frames": 606,
+      "root_path": {
+        "frames_checked": 606,
+        "frames_dropped": 0,
+        "time_warp_applied": false,
+        "comparison_origin": "each_path_first_root_position",
+        "candidate_per_frame_xyz_correction_bound_m": 0.08000020000000001,
+        "source_horizontal_displacement_m": 4.499869133284652,
+        "candidate_horizontal_displacement_m": 4.499869133284652,
+        "maximum_translation_aligned_root_error_m": 1.9110848175210413e-07,
+        "minimum_possible_maximum_error_under_xyz_box_m": 0.0,
+        "xyz_lower_bound_worst_frame": 0,
+        "xyz_error_at_lower_bound_worst_frame_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "minimum_possible_maximum_horizontal_error_allowing_yaw_m": 0.0,
+        "yaw_invariant_lower_bound_worst_frame": 0,
+        "lower_bounds_ignore_derivative_contact_and_force_constraints": true,
+        "original_choreography_parity_proven": false,
+        "hardware_authorized": false,
+        "deployment_ready": false
+      },
+      "existing_pelvis_error_screen_m": 0.25,
+      "repair_box_cannot_recover_original_path_within_screen": false
+    },
+    {
+      "name": "original_sonic_elbow_crawl",
+      "native_reference_kind": "recorded_true23_controller_rollout_not_original_planner_path",
+      "original_planner": "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_motion_suite_v2/elbow_crawling.npz",
+      "legacy_reference": "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_elbow_physical_reference_v1/elbow_crawling.true23.npz",
+      "raw_30hz_frames": 364,
+      "resampled_50hz_frames": 606,
+      "root_path": {
+        "frames_checked": 606,
+        "frames_dropped": 0,
+        "time_warp_applied": false,
+        "comparison_origin": "each_path_first_root_position",
+        "candidate_per_frame_xyz_correction_bound_m": 0.08000020000000001,
+        "source_horizontal_displacement_m": 7.082597514782352,
+        "candidate_horizontal_displacement_m": 2.643039734548443,
+        "maximum_translation_aligned_root_error_m": 4.464152143304153,
+        "minimum_possible_maximum_error_under_xyz_box_m": 4.287812247380672,
+        "xyz_lower_bound_worst_frame": 605,
+        "xyz_error_at_lower_bound_worst_frame_m": [
+          -4.429768085479736,
+          0.552960678935051,
+          -0.00659961998462677
+        ],
+        "minimum_possible_maximum_horizontal_error_allowing_yaw_m": 4.213283044568788,
+        "yaw_invariant_lower_bound_worst_frame": 605,
+        "lower_bounds_ignore_derivative_contact_and_force_constraints": true,
+        "original_choreography_parity_proven": false,
+        "hardware_authorized": false,
+        "deployment_ready": false
+      },
+      "existing_pelvis_error_screen_m": 0.25,
+      "repair_box_cannot_recover_original_path_within_screen": true
+    },
+    {
+      "name": "original_sonic_happy_dance",
+      "native_reference_kind": "recorded_true23_controller_rollout_not_original_planner_path",
+      "original_planner": "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_motion_suite_v2/happy_dance.npz",
+      "legacy_reference": "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_happy_physical_reference_v1/happy_dance.true23.npz",
+      "raw_30hz_frames": 328,
+      "resampled_50hz_frames": 546,
+      "root_path": {
+        "frames_checked": 546,
+        "frames_dropped": 0,
+        "time_warp_applied": false,
+        "comparison_origin": "each_path_first_root_position",
+        "candidate_per_frame_xyz_correction_bound_m": 0.08000020000000001,
+        "source_horizontal_displacement_m": 8.975195438716677,
+        "candidate_horizontal_displacement_m": 8.309352661837849,
+        "maximum_translation_aligned_root_error_m": 0.6738640905183588,
+        "minimum_possible_maximum_error_under_xyz_box_m": 0.5056213575073242,
+        "xyz_lower_bound_worst_frame": 545,
+        "xyz_error_at_lower_bound_worst_frame_m": [
+          -0.6656217575073242,
+          0.0991076584905386,
+          0.03490215539932251
+        ],
+        "minimum_possible_maximum_horizontal_error_allowing_yaw_m": 0.43956804121370735,
+        "yaw_invariant_lower_bound_worst_frame": 545,
+        "lower_bounds_ignore_derivative_contact_and_force_constraints": true,
+        "original_choreography_parity_proven": false,
+        "hardware_authorized": false,
+        "deployment_ready": false
+      },
+      "existing_pelvis_error_screen_m": 0.25,
+      "repair_box_cannot_recover_original_path_within_screen": true
+    }
+  ],
+  "manifest_clips": [
+    "pico_upright_anchor",
+    "pico_standing_anchor",
+    "pico_crouch_anchor",
+    "pico_twist2_walk_001",
+    "pico_twist2_walk_010",
+    "original_sonic_hand_crawl",
+    "original_sonic_elbow_crawl",
+    "original_sonic_happy_dance"
+  ],
+  "planner_mapped_clips": [
+    "original_sonic_hand_crawl",
+    "original_sonic_elbow_crawl",
+    "original_sonic_happy_dance"
+  ],
+  "pico_entries_not_assessed_against_sonic_planner": [
+    "pico_upright_anchor",
+    "pico_standing_anchor",
+    "pico_crouch_anchor",
+    "pico_twist2_walk_001",
+    "pico_twist2_walk_010"
+  ],
+  "files": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/config/sim_validation/g1_true23_frozen_lora_original_sonic_rehearsal_v1.json": "3ea1b4e3a6b514e86919d2bb7503b2872de884e57f5d77852d84fba0a7237b41",
+    "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_motion_suite_v2/report.json": "958e5b3d5d73f57507f2f768dd7dadf33121e93c091a53873cdde85259fb5c97",
+    "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_hand_original_speed_v1/hand_crawling.true23.npz": "1ea643d5d51c130eee2ea666585d19a2040f663613399c808af0c277d5b7d229",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/stance_retarget_20260906_v2/original_sonic_hand_crawl.report.json": "44580b175b45ba3f28e3fe4962a66ee5596cfcc4f13a512a8011d114dd09ae83",
+    "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_motion_suite_v2/hand_crawling.npz": "388bbb1fe3bb2fd88363942a09d4d54bfda0b7a0d80549eaeb135028a9c8b7ae",
+    "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_hand_original_speed_v1/report.json": "60a86296dd8af3401dc992eb707f3cb90fb41cb5a3b932804c91eee94469d78f",
+    "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_elbow_physical_reference_v1/elbow_crawling.true23.npz": "b1e76b3b3bfaff35b34f6b80f104d702597ed1cd9448ea48515f51d398d309b6",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/stance_retarget_20260906_v2/original_sonic_elbow_crawl.report.json": "c14d8567cd288ac7f32fcae017f579b02ff7c67c516f26671ff24ae29f351b09",
+    "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_motion_suite_v2/elbow_crawling.npz": "24576ca4e698393cd8b95c67218cc5056bc6d82eaac4a0dcac4359e7a13a8461",
+    "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_elbow_physical_reference_v1/manifest.json": "f06a27bc0cd4d285ec006f06772eb8b8ca494f7276d5abb310c243db24822416",
+    "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_released_adapter_v11_elbow_dataset/elbow_crawling.true23.physical.npz": "9206b5bae8ddd08ebddedd7620108506ea091f55fd7f0072566ea104781e658c",
+    "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_released_adapter_v11_elbow_dataset/report.json": "7906dbd6eaf398a0de754407a099182ca1ed7e75efc558d9f3a900d7ba7e44f9",
+    "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_happy_physical_reference_v1/happy_dance.true23.npz": "e5b73bc131721c630500870c6ce7185c538dd237942ad58e2d02d0aad5a05e04",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/stance_retarget_20260906_v2/original_sonic_happy_dance.report.json": "69c26301087e1db49a02cf8ce73e8f0f27923c8a92f342f1a63276e97a48f455",
+    "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_motion_suite_v2/happy_dance.npz": "b43c1e7d21f73e569dfeff9628dddcba76f97adf9ed898e7cfe70eb51a89b806",
+    "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_happy_physical_reference_v1/manifest.json": "c1365c69865567a9205964c10dd0e1523d4e670e298c252f7624539617b91ead",
+    "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_released_adapter_v10_happy_dataset/happy_dance.true23.physical.npz": "d75562a98ac0351d6e5832197fe0df7ed52d8f22a6a02ee25061694594cf3239",
+    "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_released_adapter_v10_happy_dataset/report.json": "49cf23dee7dc3a76c19a9d21a8972d87b20d4fdf56ec4a85732010ebff138dd1",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/audit_g1_true23_reference_lineage.py": "7345be8a93310e74fb72efbe6a5f6717e7545b8705ff6e3c3c8dd255ff81b4e9",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/build_g1_true23_sonic_library_motions.py": "f8d891ce890e518faf17538922bcb926b0cde64d8ed6f894fc9f081c9139a405",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_reference_lineage.py": "d0d5236317e1de89ecf3bcd4b68ba7bd46491f1ed57bf928842a525928a0e230",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_motion_fidelity.py": "689de00a422e7071ee4ba60e5ebb2087b77d11faccc20d6bfb5d0af587d2a863"
+  },
+  "frames_dropped_from_compared_clips": 0,
+  "thresholds_are_provisional_not_manufacturer_limits": true,
+  "comparison_is_reference_lineage_not_policy_or_hardware_evaluation": true,
+  "original_choreography_parity_proven": false,
+  "hardware_authorized": false,
+  "deployment_ready": false
+}

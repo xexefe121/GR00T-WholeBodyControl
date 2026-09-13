@@ -1,0 +1,241 @@
+{
+  "kind": "explicit_offline_recorded_MPC_targets_then_BFM_standing_hybrid",
+  "clip": "walk003",
+  "motion_override": {
+    "path": "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_floor_inputs_v1/walk003/reference.npz",
+    "reference_sha256": "2d3b508e1b489499ece5cea8e88a885d9b94aeca82a6a0e8542bc39e690b8033",
+    "portable_receipt_sha256": "67a703db8e3bf839ae9b4527fdbfc1dc35968fa0a25f9cb2e7432fa4ef52217f",
+    "base_native_reference_sha256": "08deea5cb5cd716ff0e645fd2d53564a8710efb8a28c9740977662099d7aee85",
+    "original29_sha256": "4d462a077f10bda04c97deaf5a5ff29ec5f891a29b8bae30a6f0080cfaf06f84",
+    "reference_floor_transform": {
+      "kind": "causal_upward_whole_pose_translation",
+      "lift_min_m": 0.02,
+      "lift_max_m": 0.03761963419034562,
+      "physical_floor_changed": false,
+      "root_relative_intent_preserved": true,
+      "joints_unchanged": true,
+      "source_timing_changed": false,
+      "transform_receipt_file": "floor_transform_receipt.json",
+      "transform_receipt_sha256": "9d343b32fd18b7bda45b43801e0ad0e24ac1d890123cb213ce01d5c632b56e33",
+      "frame_lift_file": "frame_lift.npz",
+      "frame_lift_sha256": "88f8c980af9ea03ab8799500a633497ab32569ab8a2ed208e1335f93a59b1d1b",
+      "transform_receipt_path": "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_floor_inputs_v1/walk003/floor_transform_receipt.json",
+      "frame_lift_path": "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_floor_inputs_v1/walk003/frame_lift.npz",
+      "input_reference_sha256": "541b7841c6a86eb6a72ed3057751132d200f86ba0e2988e8a433b6decece6924",
+      "pose_preview_frames": 0,
+      "exported_linear_velocity_future_pose_support_frames": 1,
+      "exported_linear_velocity_future_pose_support_seconds": 0.02,
+      "independent_numeric_whole_pose_and_native_clearance_validation": true
+    }
+  },
+  "reference_sha256": "2d3b508e1b489499ece5cea8e88a885d9b94aeca82a6a0e8542bc39e690b8033",
+  "original29_sha256": "4d462a077f10bda04c97deaf5a5ff29ec5f891a29b8bae30a6f0080cfaf06f84",
+  "completed_controls": 1569,
+  "complete_controls": 1569,
+  "requested_controls": 1569,
+  "physics_steps": 15690,
+  "simulated_seconds": 31.379999999993487,
+  "absolute_physics_start_seconds": 0.0,
+  "absolute_physics_end_seconds": 31.379999999993487,
+  "full_source_completed": true,
+  "full_lifecycle_completed": true,
+  "failure": null,
+  "engine_warning_counts": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "engine_warning_sampling_seconds": 0.002,
+  "range_excess_max": 0.0,
+  "velocity_ratio_max": 0.80780932272625,
+  "effort_ratio_max": 1.0,
+  "strict_physical_limits_pass": true,
+  "switch_control": 1269,
+  "switch_seconds": 25.38,
+  "prefix_physics_steps_bit_exact": 12690,
+  "prefix_measured_histories_verified": 1270,
+  "BFM_controls": 300,
+  "BFM_original_goal_reference": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/walk003/native_original.npz",
+  "BFM_terminal_yaw_gain": 4.0,
+  "standing_windows": {
+    "last_1s": {
+      "physics_samples": 500,
+      "interval_seconds": [
+        30.37999999999404,
+        31.379999999993487
+      ],
+      "declared_v4_root_error_m": {
+        "p50": 0.04468964072205865,
+        "p95": 0.04482487324914445,
+        "maximum": 0.04483940325773076
+      },
+      "original_BFM_root_error_m": {
+        "p50": 0.018798591701513847,
+        "p95": 0.01894484252210113,
+        "maximum": 0.018960301928899918
+      },
+      "horizontal_root_error_m": {
+        "p50": 0.01413222256898964,
+        "p95": 0.014230480971023942,
+        "maximum": 0.014240562259839789
+      },
+      "original_heading_absolute_error_deg": {
+        "p50": 3.0736245125652197,
+        "p95": 3.099154022607734,
+        "maximum": 3.101772486502346
+      },
+      "root_tilt_rad": {
+        "p50": 0.06840677443553625,
+        "p95": 0.06847063392956844,
+        "maximum": 0.06847730176796353
+      },
+      "horizontal_displacement_from_window_start_m": 0.00027603906338931447,
+      "maximum_absolute_joint_speed_radps": {
+        "p50": 0.0029138631212455024,
+        "p95": 0.0034118157766182856,
+        "maximum": 0.0034894038797146747
+      },
+      "joint_speed_rms_radps": 0.0012739285695947072,
+      "root_linear_speed_mps": {
+        "p50": 0.000377015717689433,
+        "p95": 0.0003892043368904803,
+        "maximum": 0.00038978142235567714
+      },
+      "final_maximum_joint_speed_radps": 0.0025167710901574593,
+      "final_declared_v4_root_error_m": 0.04483940325773076,
+      "final_original_BFM_root_error_m": 0.018960301928899918
+    },
+    "last_3s": {
+      "physics_samples": 1500,
+      "interval_seconds": [
+        28.37999999999515,
+        31.379999999993487
+      ],
+      "declared_v4_root_error_m": {
+        "p50": 0.044372722399524236,
+        "p95": 0.04479545307459549,
+        "maximum": 0.04483940325773076
+      },
+      "original_BFM_root_error_m": {
+        "p50": 0.018455788612073056,
+        "p95": 0.01891337726672746,
+        "maximum": 0.018960301928899918
+      },
+      "horizontal_root_error_m": {
+        "p50": 0.013902101164148998,
+        "p95": 0.014209762161871427,
+        "maximum": 0.014240562259839789
+      },
+      "original_heading_absolute_error_deg": {
+        "p50": 3.0034052761871752,
+        "p95": 3.093795749523886,
+        "maximum": 3.101772486502346
+      },
+      "root_tilt_rad": {
+        "p50": 0.06853667609816866,
+        "p95": 0.06859359513731957,
+        "maximum": 0.06859406259576949
+      },
+      "horizontal_displacement_from_window_start_m": 0.000929536981108272,
+      "maximum_absolute_joint_speed_radps": {
+        "p50": 0.004249382202664121,
+        "p95": 0.007529563723202633,
+        "maximum": 0.008153372734133345
+      },
+      "joint_speed_rms_radps": 0.0015877327830643828,
+      "root_linear_speed_mps": {
+        "p50": 0.0003947265076475245,
+        "p95": 0.00043510105130046775,
+        "maximum": 0.0004362809359958794
+      },
+      "final_maximum_joint_speed_radps": 0.0025167710901574593,
+      "final_declared_v4_root_error_m": 0.04483940325773076,
+      "final_original_BFM_root_error_m": 0.018960301928899918
+    }
+  },
+  "physics_state_rewrites_after_initialization": 0,
+  "root_assistance_forces": 0,
+  "post_lifecycle_extension": false,
+  "extension_does_not_replace_or_pad_original_lifecycle": true,
+  "timing_qualified": false,
+  "online_controller_qualified": false,
+  "hardware_authorized": false,
+  "trace_sha256": "ea39c3e06b6a62b3f1c99b8a59fab00fb68cd4ec668dd35d7865cf987f886796",
+  "provenance_sha256": "77da43c0faef40cfd6d3ec0a3e507f7bdcf9cade3c15e81074237ad695c8f9dc",
+  "quiet_standing_diagnostic": {
+    "quiet_standing_diagnostic_pass": true,
+    "gates": {
+      "all_prior_strict_physical_and_warning_gates": true,
+      "full_three_second_window": true,
+      "original_root_XY": true,
+      "original_heading": true,
+      "root_linear_speed": true,
+      "joint_speed_p95": true,
+      "joint_speed_maximum": true,
+      "maximum_tilt": true
+    },
+    "thresholds": {
+      "window_seconds": 3,
+      "root_XY_error_p95_m": 0.05,
+      "original_heading_abs_p95_deg": 5.0,
+      "root_linear_speed_p95_mps": 0.05,
+      "max_joint_speed_p95_radps": 0.5,
+      "max_joint_speed_max_radps": 2.0,
+      "tilt_max_rad": 0.15
+    },
+    "raw_last_three_second_distributions": {
+      "physics_samples": 1500,
+      "interval_seconds": [
+        28.37999999999515,
+        31.379999999993487
+      ],
+      "declared_v4_root_error_m": {
+        "p50": 0.044372722399524236,
+        "p95": 0.04479545307459549,
+        "maximum": 0.04483940325773076
+      },
+      "original_BFM_root_error_m": {
+        "p50": 0.018455788612073056,
+        "p95": 0.01891337726672746,
+        "maximum": 0.018960301928899918
+      },
+      "horizontal_root_error_m": {
+        "p50": 0.013902101164148998,
+        "p95": 0.014209762161871427,
+        "maximum": 0.014240562259839789
+      },
+      "original_heading_absolute_error_deg": {
+        "p50": 3.0034052761871752,
+        "p95": 3.093795749523886,
+        "maximum": 3.101772486502346
+      },
+      "root_tilt_rad": {
+        "p50": 0.06853667609816866,
+        "p95": 0.06859359513731957,
+        "maximum": 0.06859406259576949
+      },
+      "horizontal_displacement_from_window_start_m": 0.000929536981108272,
+      "maximum_absolute_joint_speed_radps": {
+        "p50": 0.004249382202664121,
+        "p95": 0.007529563723202633,
+        "maximum": 0.008153372734133345
+      },
+      "joint_speed_rms_radps": 0.0015877327830643828,
+      "root_linear_speed_mps": {
+        "p50": 0.0003947265076475245,
+        "p95": 0.00043510105130046775,
+        "maximum": 0.0004362809359958794
+      },
+      "final_maximum_joint_speed_radps": 0.0025167710901574593,
+      "final_declared_v4_root_error_m": 0.04483940325773076,
+      "final_original_BFM_root_error_m": 0.018960301928899918
+    },
+    "existing_fifteen_source_gates_changed": false,
+    "hardware_certification": false
+  }
+}

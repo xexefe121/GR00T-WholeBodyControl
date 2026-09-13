@@ -1,0 +1,35 @@
+{
+    "kind":  "one_full_state_finite_feedback_fit",
+    "wrapper_pid":  10408,
+    "started_utc":  "2026-09-11T15:38:59.5180599Z",
+    "clearance_sha256":  "25292993ca0ef9b6159c160685b5f5ff1efe59a9ad89aebd7230813c7911d08c",
+    "request_sha256":  "0c3bbc4e8567f6dfc09dfe7d9cdfcdd8af5a56178ea112af3a647d84c48d0dea",
+    "frozen_receipt_sha256":  "bbb67b48187dcead0dc0886496573447ffdd58582eaeb63f41a7fa947e922f18",
+    "command":  {
+                    "python":  "E:\\codex_sonic_runtime\\direct_target_gpu_20260911\\venv\\Scripts\\python.exe",
+                    "arguments":  [
+                                      "-u",
+                                      "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_full_state_student_v1\\source_snapshot_v1\\train_full_state.py"
+                                  ],
+                    "working_directory":  "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_full_state_student_v1\\source_snapshot_v1",
+                    "CUBLAS_WORKSPACE_CONFIG":  ":4096:8",
+                    "threads":  1
+                },
+    "updates":  10000,
+    "ordinary_final_step":  65000,
+    "budgets":  {
+                    "calibration_forward_rows":  14686,
+                    "calibration_forward_calls":  3,
+                    "calibration_gradient_calls":  3,
+                    "training_forward_rows":  146860000,
+                    "training_forward_calls":  30000,
+                    "diagnostic_Torch_rows":  1470280,
+                    "diagnostic_Torch_calls":  5748,
+                    "diagnostic_ORT_rows":  367570,
+                    "diagnostic_ORT_calls":  1437,
+                    "native_calls":  0,
+                    "BFM_calls":  0,
+                    "manual_export_trace_calls":  0
+                },
+    "automatic_retry":  false
+}

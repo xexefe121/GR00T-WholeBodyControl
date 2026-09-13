@@ -1,0 +1,33 @@
+{
+  "inputs": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/ieee_motion_ppo_20260906_v2/breadth_serial/checkpoints/frozen_lora_model_100.pt": "f20f82385dd7c652a7a74b6103a4753f0317b6fb10055452862d647e7dc14de5",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/reset_curriculum_20260906_v1/run_training.py": "79dc86a245661d76464baf341bc0dbd7c79ddd767c80de15eae73ba4a9d47201",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/ieee_motion_ppo_20260906_v2/experiment_report.json": "ee5167c0fc3a03c4db2b09070434f9988086551739e222d31ac86daccfde4b47",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/sensor_exploration_20260906_v1/reset_controls_report.json": "1a25db881974d58ce5892eeedc1d5a2f02df165c6fd0b6e4efc749a6a5ff4a62",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_true23_reset_curriculum.py": "6aabaf67045cd58f5a7eb0394539ba4af14811d0f435cf548e2d1a14312c54aa",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_reset_curriculum.py": "545797faa0b29c35843a7d70f28867a200bcf3ae5113ba284dc8823a095340ba",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/tests/test_g1_true23_reset_curriculum.py": "d8ba4f29f06e8d16de07d025f0ee5578bb13b5fe80b3fe1c06861ec50e5c3694"
+  },
+  "plan": [
+    {
+      "name": "smoke",
+      "updates": 3,
+      "envs": 4,
+      "iterations": 4,
+      "save": 1,
+      "warm": 8,
+      "end": 16
+    },
+    {
+      "name": "train500",
+      "updates": 500,
+      "envs": 32,
+      "iterations": 500,
+      "save": 100,
+      "warm": 1600,
+      "end": 6400
+    }
+  ],
+  "hardware_authorized": false,
+  "deployment_ready": false
+}

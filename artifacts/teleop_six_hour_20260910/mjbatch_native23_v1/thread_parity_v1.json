@@ -1,0 +1,40 @@
+{
+  "kind": "same_input_native23_planner_thread_parity",
+  "mujoco": "3.11.0",
+  "trace_sha256": "6484afd1eacece8f9ffd672a2368282e92297f9e584f705aa35a230386c6a706",
+  "seed_sha256": "74bbd9c8e4cae7c8c8b421b4a1448f917872161b837efce04001810041b94f97",
+  "code_sha256": "58fbdd1e110222a7fbd5bd627c7076ed8e641670d31dea8786745e3a8fd85a16",
+  "control": 400,
+  "horizon": 30,
+  "iterations": 10,
+  "records": [
+    {
+      "threads": 4,
+      "solve_seconds": 3.807785717999991,
+      "cost": 390.55904728933245
+    },
+    {
+      "threads": 8,
+      "solve_seconds": 2.4966700150000065,
+      "cost": 390.55904728933245
+    },
+    {
+      "threads": 8,
+      "solve_seconds": 2.4910936160000006,
+      "cost": 390.55904728933245
+    },
+    {
+      "threads": 4,
+      "solve_seconds": 3.564461436000002,
+      "cost": 390.55904728933245
+    }
+  ],
+  "bit_exact": true,
+  "parity_max_abs": {
+    "state": 0.0,
+    "target": 0.0,
+    "feedback_gain": 0.0
+  },
+  "timing_environment": "shared host; root replays and separate MuJoCo3.2.3 build may run",
+  "qualification": "Relative timing diagnostic only, not a real-time claim"
+}

@@ -1,0 +1,59 @@
+{
+  "kind": "independent_frozen_memory_intervention_prelaunch_review",
+  "passed": true,
+  "source_review_passed": true,
+  "launch_clear": true,
+  "request_sha256": "7a098565f31b356b3a9358125391884069dd6140766d3286193025956c477d28",
+  "launcher_sha256": "f723ab8067b5f6b6893a273528be67d9b49736bd09b281f1d0bf977a76b78edd",
+  "source_directory": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\prior_memory_intervention_v1\\source_snapshot_v2",
+  "source_sha256": {
+    "run_diagnostic.py": "9b652f985adf54827fab46db32cd19795c464da0a85d383c071cba0e31a506f0",
+    "stateless_adapter.py": "5f932ab291ebed5abbe900f793869420208f51f688fe64c91e21fe712d964848",
+    "frozen/g1_true23_bfm_seed_observations.py": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d",
+    "frozen/g1_true23_mjbatch_bfm_seed.py": "2f3d808b6a95fd80a3c1f9a0fabbe80264cf9cc93fbf01e2b2be65f6a5ec75de",
+    "frozen/g1_true23_mpc_student.py": "6d71e82b4b7e491f4bbfd3c2a99e05df2ee27f9fb5e6febb4cc9c39c8c39d905",
+    "frozen/student_linear_runtime.py": "35b3e3dd4f4c2966ae224a77afc5213d02cead3200bf63218fb0aab26710f543"
+  },
+  "all6_source_and1104_input_hashes_exact": true,
+  "selected_controls": [
+    250,
+    251,
+    252,
+    253,
+    254,
+    255,
+    256,
+    257,
+    258,
+    259,
+    260,
+    261
+  ],
+  "graph_calls": {
+    "backward": 12,
+    "actor": 24,
+    "head": 24,
+    "total": 60
+  },
+  "resolved_findings": [
+    "Unexecuted v1 preserved; v2 pins initial request and clearance identities through final rehash, preventing a rewritten manifest from redefining unchanged inputs."
+  ],
+  "findings": [],
+  "checks": [
+    "Stateless adapter executes only named AST-extracted original observation, reference, yaw2 goal, GoalFeatures and LinearFeatures definitions; no MuJoCo models/data or dynamics imports.",
+    "All12 original actual baselines compare state, raw/base BFM, head features/delta, proposal/applied target, raw/applied action and history bytes before intervention starts.",
+    "Current teacher prior comes from same-clock dataset2 row2038+i; actual qpos/qvel and actor lag-history remain fixed. Actor last_action, derived native-clipped previous target, raw-prior head features and BFM base change together.",
+    "Each actual-state latent computed once and cached; separate attempted/returned hard caps12 backward,24 actor,24 head. Control250 is an exact no-op over all result fields.",
+    "Every graph feed and returned array saved atomically before validation; per-control outputs saved before parity gates; phase committed prefixes distinguish accepted rows from failed attempts.",
+    "Request/clearance/source/input final identity gates precede report completion. Wrapper refuses existing attempt, captures WSL nonzero/null status and gates report60 calls.",
+    "Both before/after commanded values and original frozen-map target retained; no trial, fit, labels or physical feasibility claim follows from the memory intervention."
+  ],
+  "outputs_absent_at_review": true,
+  "powershell_parser_errors": 0,
+  "head_sha256": "219b86cc4decd51671cb7aa036a944741cebed684accd91f7a03de37a7694bb5",
+  "fixed_map_report_sha256": "82a743ee3ce6136d4d1a265ee89505e2cfab1744e6f0348a22b4d059a04197aa",
+  "reviewer_inference_calls": 0,
+  "reviewer_physics_steps": 0,
+  "reviewer_optimizer_updates": 0,
+  "hardware_authorized": false
+}

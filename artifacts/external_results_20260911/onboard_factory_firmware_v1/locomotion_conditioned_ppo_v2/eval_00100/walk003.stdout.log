@@ -1,0 +1,80 @@
+{
+  "policy": "native_locomotion_full_body_conditioned",
+  "actor": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\onboard_factory_firmware_v1\\locomotion_conditioned_ppo_v2\\actor_00100.onnx",
+  "clip": "walk003",
+  "simulation_seconds": 15.056000000001697,
+  "requested_seconds": 61.38,
+  "physical_complete": false,
+  "failure": {
+    "time": 15.056000000001697,
+    "reasons": [
+      "native_joint_speed"
+    ],
+    "speed_ratio": 1.000138572086029,
+    "range_excess": 0.0,
+    "effort_ratio": 0.3223260417625174,
+    "tilt": 0.2998635715874737
+  },
+  "wall_seconds": 4.079596899973694,
+  "max_speed_ratio": 1.000138572086029,
+  "max_effort_ratio": 0.8917136919474598,
+  "inference_ms_p50_p95_max": [
+    2.4663,
+    2.68822,
+    6.5745
+  ],
+  "future_reference_frames": 0,
+  "reference_velocity": "backward differences; current measured heading",
+  "absent_vendor_joints": null,
+  "independent_realtime": false,
+  "hardware_commands": false,
+  "clock_expected_time": "independent repeated addition of .002; tolerance unchanged at1e-10",
+  "source": {
+    "passed": false,
+    "source_controls": 403,
+    "requested_source_controls": 819,
+    "root_p95_m": 0.6485198743177365,
+    "yaw_p95_deg": 42.79498781516241,
+    "hand_head_relative_p95_m": [
+      0.2632161636490075,
+      0.22154800783109463,
+      0.11265894493417457
+    ],
+    "foot_relative_p95_m": [
+      0.4203299668021073,
+      0.39727273343755964
+    ],
+    "leg_rmse_rad": 0.31440024439547265
+  },
+  "packet_report": {
+    "epoch": 0,
+    "received": 764,
+    "consumed": 764,
+    "ignored": 0,
+    "rejected": 0,
+    "final_received": false,
+    "full_source_consumed": false,
+    "fault": null,
+    "calibration": null
+  },
+  "controller_status": {
+    "mode": "source",
+    "epoch": 0,
+    "fault": null,
+    "explicit_rearm_required": false,
+    "future_reference_frames": 0,
+    "qualified": false,
+    "controller": "native_locomotion_full_body_conditioned",
+    "velocity_command": [
+      0.4860838150750235,
+      -1.0,
+      -3.895042091261252
+    ],
+    "motion_fraction": 1.0
+  },
+  "input_loss_control": null,
+  "automatic_rearm": false,
+  "fault_scenario_passed": false,
+  "passed": false
+}
+The device supports: i8sdot:0, fp16:0, i8mm: 0, sve2: 0, sme2: 0

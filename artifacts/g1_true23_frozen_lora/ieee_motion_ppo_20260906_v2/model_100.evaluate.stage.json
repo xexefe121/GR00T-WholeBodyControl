@@ -1,0 +1,24 @@
+{
+  "name": "model_100.evaluate",
+  "command": [
+    "/root/.venvs/g1_true23_mjlab/bin/python",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/evaluate_g1_true23_motion_ppo.py",
+    "--encoder-report",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/ieee_motion_ppo_20260906_v2/model_100/model_100.diagnostic.encoder.json",
+    "--decoder-report",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/ieee_motion_ppo_20260906_v2/model_100/model_100.diagnostic.decoder.json",
+    "--full-request-report",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/interior_effort_20260906_v1/report.json",
+    "--stationary-report",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/interior_effort_20260906_v1/stationary/report.json",
+    "--asset-root",
+    "/mnt/z/codex/GR00T-WholeBodyControl",
+    "--motor-health-snapshot",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/readiness_audit_20260905_v1/motor_health.json",
+    "--output-dir",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/ieee_motion_ppo_20260906_v2/model_100/evaluation"
+  ],
+  "return_code": 0,
+  "elapsed_s": 60.82138139699998,
+  "log": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/ieee_motion_ppo_20260906_v2/model_100.evaluate.log"
+}

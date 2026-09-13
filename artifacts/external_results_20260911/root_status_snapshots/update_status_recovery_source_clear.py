@@ -1,0 +1,16 @@
+from pathlib import Path
+from datetime import datetime,timezone
+import json
+new=Path('E:/codex-artifacts/sonic23_teleop_resume_20260911');art=Path('Z:/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_resume_20260911')
+now=datetime.now(timezone.utc).isoformat()
+note='''Pending-result saved audit COMPLETE PASS, no repeat: NEW/independent_plant_pending_result_saved_actual_v1/results_v1/report.json14659b36321c3f5b9ef825a9029e95a2388ea65c45ec4f3f24802659e8e8157a; owner66a2af16af7a3e861122b793001371b908bdf98584c937e41d341db43091a0f9.22963comparisons, all3842pins; wrapper15628/child22552 absent/raw0/errornull. Requestd5db2163820b0dd244b4d4a3de4ee4db4a324d8bdee3255048d5e35fc0346e51; launchf1e55e3b436161feb90653545d2fc24675dd9df636309967294a7794e2a990ab; rootconcrete2c438f7e6acd9e524ac2fc23a80ad40cf249b27a8c4f954f4172cd79662cead8. Root11helpertests passed; rootv1 metadata assertion incorrectly compared literal a*64 preview with actual request, preserved; corrected v2 only substitutes placeholder, no production change. Clock physical/timing/command/component remains failed. Diagnosisreportc17f2e2b9d9b7330bb97f9b15974cf339a94539318e8dc4fa7813f380269632f/receipt9c823ba4624cb3d2d60c5f30890373781135c212a98ee52ae655e1bd5a7e9e3f: tick12099 body23.076358ms, nextjob1211 created1.414741ms after originaldeadline.40misses,first4800,maximumdebt10. WorkerBUSY0/all1210priorPUBLISHED; pending-result retry unexercised. Pico prepares source-only bounded wall/CPU/GC/subphase instrumentation, no next clock selected.
+
+Recovery source now CLEAR: NEW/direct_target_width512_expert_recovery_v1/source_preparation_v2.json1f7211ba3c08e985daf191b2c106682b97e6336db67b5a805e98d6b604f4b573; independent NEW/direct_target_width512_expert_recovery_review_v1/source_review.json771a5ec79b84039d805533cd09446f1eb8c32370ec0b148e0c52919af05be28f,36independent syntheticchecks/20sources/14qualified unchanged. V1019e28bf preserved; v2 only phase rename after seed certification plus first-optimized-target snapshot,19/20sources exact. Root authorized ONE saved-only input extraction after source review, then concrete packet preparation; no actual model/native recovery selected yet. Expert owns prep; reviewer checks extracted boundary/request/launcher. Conditional future collection design NEW/direct_target_width251_followup_design_v1/DESIGN.md excludes all251prefixcontrols and admits no data or training.'''
+path=art/'CURRENT.md';s=path.read_text(encoding='utf-8-sig')
+with (new/'root_status_snapshots/CURRENT_before_recovery_source_clear.md').open('x',encoding='utf-8') as f:f.write(s)
+index=s.index('\n## Width81000 canonical')
+s=s[:index]+'\n## Latest completed audit and recovery preparation\n\n'+note+'\n'+s[index:]
+lines=s.splitlines();lines[2]='Updated '+now+'. User said continue. Fast full-body simulation unqualified; real Pico/DDS/robot waits. Latest section supersedes older preparation statements below.'
+path.write_text('\n'.join(lines)+'\n',encoding='utf-8')
+with (art/'SESSION.md').open('a',encoding='utf-8') as f:f.write('\n\n'+now+': '+note+'\n')
+print(json.dumps({'updated_utc':now,'saved_clock_audit_complete':True,'recovery_source_clear':True,'actual_recovery_started':False}))

@@ -276,6 +276,8 @@ def _parser() -> argparse.ArgumentParser:
     workspace = Path(__file__).resolve().parents[2]
     parser = argparse.ArgumentParser(description="Real PICO -> pinned SOMA -> causal read-only ZMQ shadow")
     parser.add_argument("--bind", default="tcp://127.0.0.1:5557")
+    parser.add_argument("--native23-body-packets", action="store_true",
+                        help="Attach current original29 full-body geometry for native23 simulation")
     parser.add_argument("--packets", type=int, default=50)
     parser.add_argument("--timeout-seconds", type=float, default=120.0)
     parser.add_argument("--subscriber-warmup-s", type=float, default=2.0)
@@ -1106,11 +1108,13 @@ def main(argv: list[str] | None = None) -> int:
     )
     try:
         if args.experimental_solver_iterations is None:
-            rolling = PinnedSomaRollingRetargeter(soma_source_root=args.soma_source_root.resolve())
+            rolling = PinnedSomaRollingRetargeter(soma_source_root=args.soma_source_root.resolve(),
+                                                include_native_body=args.native23_body_packets)
         else:
             rolling = ExperimentalSomaRollingRetargeter(
                 soma_source_root=args.soma_source_root.resolve(),
                 solver_iterations=args.experimental_solver_iterations,
+                include_native_body=args.native23_body_packets,
             )
         worker = _new_worker(
             args,
@@ -1405,6 +1409,12 @@ def main(argv: list[str] | None = None) -> int:
             validation = validate_causal_history_packet(semantic)
             validation_finished_ns = time.monotonic_ns()
             reference = causal_history_reference_terms(semantic)
+            if args.native23_body_packets:
+                body = rolling_row["native23_body_pose"]
+                if (body["source_frame_index"] != reference["control_source_frame_index"]
+                        or body["reference_monotonic_ns"] != reference["control_monotonic_ns"]):
+                    raise RuntimeError("native23 body extension is not the current received pose")
+                reference["native23_body_pose"] = body
             control_index = int(reference["control_source_frame_index"])
             control_ns = int(reference["control_monotonic_ns"])
             if last_published_control_index is not None and (

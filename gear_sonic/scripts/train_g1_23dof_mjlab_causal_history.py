@@ -30,40 +30,29 @@ from gear_sonic.scripts.train_g1_23dof_mjlab_low_latency_recovery import (
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_RUN = Path(
-    "/root/g1_true23_runs/causal_history_recovery_stand_transition_dance_v1"
-)
+DEFAULT_RUN = Path("/root/g1_true23_runs/causal_history_recovery_stand_transition_dance_v1")
 CAUSAL_SOURCE_FILES = (
-    REPO_ROOT
-    / "gear_sonic"
-    / "envs"
-    / "mjlab"
-    / "sonic_true23_causal_history.py",
-    REPO_ROOT
-    / "gear_sonic"
-    / "envs"
-    / "mjlab"
-    / "sonic_true23_low_latency_recovery.py",
-    REPO_ROOT
-    / "gear_sonic"
-    / "trl"
-    / "mjlab"
-    / "causal_history_runner.py",
-    REPO_ROOT
-    / "gear_sonic"
-    / "scripts"
-    / "build_g1_23dof_low_latency_recovery_motion.py",
-    REPO_ROOT
-    / "gear_sonic"
-    / "scripts"
-    / "train_g1_23dof_mjlab_low_latency_recovery.py",
+    REPO_ROOT / "gear_sonic" / "envs" / "mjlab" / "sonic_true23_causal_history.py",
+    REPO_ROOT / "gear_sonic" / "envs" / "mjlab" / "sonic_true23_low_latency_recovery.py",
+    REPO_ROOT / "gear_sonic" / "trl" / "mjlab" / "causal_history_runner.py",
+    REPO_ROOT / "gear_sonic" / "scripts" / "build_g1_23dof_low_latency_recovery_motion.py",
+    REPO_ROOT / "gear_sonic" / "scripts" / "train_g1_23dof_mjlab_low_latency_recovery.py",
     Path(__file__).resolve(),
 )
 
 
+def selected_semantic_contract(args):
+    timing = getattr(args, "reference_timing", "causal_history")
+    if timing == "causal_history":
+        return causal_history_profile_contract()
+    from gear_sonic.utils.g1_true23_buffered_reference import reference_profile_contract
+
+    return reference_profile_contract(timing)
+
+
 def preflight(args: argparse.Namespace) -> dict[str, Any]:
     base = low_latency_material_preflight(args)
-    contract = causal_history_profile_contract()
+    contract = selected_semantic_contract(args)
     problems = list(base["problems"])
     if contract["future_samples_relative_to_emission"] is not False:
         problems.append("causal profile unexpectedly requires future samples")
@@ -121,8 +110,7 @@ def run_training(args: argparse.Namespace) -> Path:
     audit = preflight(args)
     if not audit["ready"]:
         raise RuntimeError(
-            "causal-history recovery preflight failed:\n"
-            + json.dumps(audit, indent=2, sort_keys=True)
+            "causal-history recovery preflight failed:\n" + json.dumps(audit, indent=2, sort_keys=True)
         )
     warm_start = args.warm_start.expanduser().resolve()
     motion_path = args.motion_file.expanduser().resolve()
@@ -142,14 +130,10 @@ def run_training(args: argparse.Namespace) -> Path:
     agent_cfg.algorithm.max_grad_norm = 0.5
     if args.mode == "smoke":
         agent_cfg.num_steps_per_env = min(agent_cfg.num_steps_per_env, 8)
-        agent_cfg.algorithm.num_learning_epochs = min(
-            agent_cfg.algorithm.num_learning_epochs, 2
-        )
-        agent_cfg.algorithm.num_mini_batches = min(
-            agent_cfg.algorithm.num_mini_batches, 2
-        )
+        agent_cfg.algorithm.num_learning_epochs = min(agent_cfg.algorithm.num_learning_epochs, 2)
+        agent_cfg.algorithm.num_mini_batches = min(agent_cfg.algorithm.num_mini_batches, 2)
 
-    semantic_contract = causal_history_profile_contract()
+    semantic_contract = selected_semantic_contract(args)
     resolved = _resolved_training_config(
         agent_cfg=agent_cfg,
         mode=args.mode,
@@ -157,7 +141,7 @@ def run_training(args: argparse.Namespace) -> Path:
         num_envs=args.num_envs,
         seed=args.seed,
         planned_updates=args.iterations,
-        reference_profile=CAUSAL_HISTORY_PROFILE,
+        reference_profile=semantic_contract["profile"],
     )
     resolved["schema"] = "g1_true23_mjlab_causal_history_recovery_v1"
     resolved["task"] = "Unitree-G1-23Dof-SONIC-CausalHistory-Recovery"
@@ -181,6 +165,13 @@ def run_training(args: argparse.Namespace) -> Path:
         "checkpoint_filename_pattern": "causal_model_N.pt",
         "released_future_profile_exporter_must_reject": True,
     }
+    if semantic_contract["profile"] != CAUSAL_HISTORY_PROFILE:
+        resolved["schema"] = "g1_true23_mjlab_received_source_horizon_v1"
+        resolved["task"] = "Unitree-G1-23Dof-SONIC-ReceivedSourceHorizon200ms"
+        resolved["architecture_initialization"].update(
+            source_future_semantics_inherited=True,
+            input_horizon_requires_explicit_200ms_received_sample_buffer=True,
+        )
 
     source_files = _source_files()
     for path in CAUSAL_SOURCE_FILES:
@@ -216,9 +207,7 @@ def run_training(args: argparse.Namespace) -> Path:
         wrapped = RslRlVecEnvWrapper(env, clip_actions=agent_cfg.clip_actions)
         prime = prime_sonic_true23_training_environment(wrapped)
         prime_name = (
-            "environment_prime.json"
-            if args.resume is None
-            else f"environment_prime_{args.resume.stem}.json"
+            "environment_prime.json" if args.resume is None else f"environment_prime_{args.resume.stem}.json"
         )
         _write_or_verify_json(run_dir / prime_name, prime)
         runner = CausalHistoryMjlabOnPolicyRunner(
@@ -237,7 +226,12 @@ def run_training(args: argparse.Namespace) -> Path:
             runner.load(str(args.resume.expanduser().resolve()))
         _write_or_verify_json(run_dir / "resolved_training.json", resolved)
         _write_or_verify_json(run_dir / "lineage.json", runner.training_lineage)
-        _write_or_verify_json(run_dir / "causal_semantic_profile.json", semantic_contract)
+        semantic_name = (
+            "causal_semantic_profile.json"
+            if semantic_contract["profile"] == CAUSAL_HISTORY_PROFILE
+            else "buffered_semantic_profile.json"
+        )
+        _write_or_verify_json(run_dir / semantic_name, semantic_contract)
         remaining = args.iterations - runner.completed_update_count
         if remaining <= 0:
             raise ValueError("resume checkpoint already reached planned updates")

@@ -1,0 +1,9 @@
+Independent saved-fit audit source is prepared at ROOTART/audit_physical_fit_evidence.py with the separate audit_physical_fit_math.py helper. Original audit_velocity_fit_evidence.py remains preserved.
+
+The eventual invocation requires --experiment, --training-receipt-sha256 and a new --output directory. No final receipt hash exists in this preparation; the audit has not been run on real fit/checkpoint/graph data.
+
+The audit independently enumerates all3054 requested starts/successors, derives validity/status and clipping/replan/zero-gain groups from completed manifest arrays, keeps fixed99/819/100 denominators and requested first24 windows, and compares saved training selection/coverage. It reconstructs all45000 private RNG draws covering2.88M sampled row-axis pairs, final RNG,5000 cosine rates and all three-term losses and per-cell reductions. It checks six optimizer75000 counters and finite states, unchanged normalization/spans, ONNX initializers and graph, restored70000 export, full initial legacy prediction bytes and all initial/final nominal, velocity and physical metrics over saved predictions.
+
+All input/source hashes are recorded before the saved math and rechecked afterward. Failure output preserves the comparison log, first array mismatch/context and traceback. Counters include full nominal/velocity/physical rows, fixed actual head-call budget and the original14 analytical evaluations.
+
+This is evidence verification only. It performs no network evaluation, ORT session, optimizer update, BFM inference or native step. It does not regenerate graph outputs, replay optimizer updates or independently recompute analytical sensitivity values; those files and counts are bound explicitly. Behavioral qualification remains a separate simulation gate. Preparation tests use tiny synthetic arrays and a private RNG only.

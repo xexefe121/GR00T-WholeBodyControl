@@ -1,0 +1,449 @@
+{
+  "kind": "independent_full_native323_walk002_intent_physical_audit",
+  "audit_script_sha256": "e21a8bd4c25fb84000a466553924ae780b4c5066f6bd067d0bac041c97d6e6f0",
+  "report_sha256": "f0d5c1ef0d8be934405250667f4f0f28488a9635b24c795b5b60841602c8aae3",
+  "trace_sha256": "53e31c21ed6eceae4203221993166fa0bf7f07f28fa13e20feb8cacffccfcc6d",
+  "runtime_attestation_sha256": "22ec1ccbe6c650b69f71af46b046a97181f87c5255c49021327c0d070deff117",
+  "immutable_input_hash_checks": {
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native23_inputs_v1\\manifest.json": true,
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native23_inputs_v1\\contract.json": true,
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native23_inputs_v1\\walk002\\native_original.npz": true,
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native23_inputs_v1\\walk002\\timeline.json": true,
+    "E:\\codex-artifacts\\sonic23_teleop_six_hour_20260910\\mjbatch_full_v1\\walk002_native323_h30_clip1_v1\\evaluate_g1_true23_mjbatch_mpc_snapshot.py": true,
+    "E:\\codex-artifacts\\sonic23_teleop_six_hour_20260910\\mjbatch_full_v1\\walk002_native323_h30_clip1_v1\\g1_true23_mjbatch_ilqr_core_snapshot.py": true,
+    "E:\\codex-artifacts\\sonic23_teleop_six_hour_20260910\\mjbatch_full_v1\\walk002_native323_h30_clip1_v1\\g1_true23_mjbatch_model_snapshot.py": true,
+    "E:\\codex-artifacts\\sonic23_teleop_six_hour_20260910\\mjbatch_full_v1\\walk002_native323_h30_clip1_v1\\g1_true23_mjbatch_mpc_snapshot.py": true,
+    "E:\\codex_sonic_runtime\\mjbatch323_20260910\\venv\\lib\\python3.11\\site-packages\\mjbatch\\_bindings.cpython-311-x86_64-linux-gnu.so": true,
+    "E:\\codex_sonic_runtime\\mjbatch323_20260910\\venv\\lib\\python3.11\\site-packages\\mujoco\\libmujoco.so.3.2.3": true
+  },
+  "original_native_reference_sha256": "94cbd249255716cfd4cfe6eac290b8e0767a3efb262c1bde22402b971a729990",
+  "original29_reference_sha256": "0e6ac0dcea5c3f2335bf281aa75de91cfecb41dff0b8d31fce69a87d258380e5",
+  "native_model_sha256": "16e304c970bfc68783ea69d01d05192e6bd9d83d62f6ee4aac0ac72ff18db612",
+  "original29_model_sha256": "386b1bb9ea5b69ccd6fd0283a73ffea1ee052df95564e23a780125fbcbe2c645",
+  "physical_replay_performed": false,
+  "source_frames_removed": 0,
+  "source_timing_scale": 1.0,
+  "full_lifecycle_controls": 1417,
+  "full_source_controls": 667,
+  "all_controls_have_10_substeps": true,
+  "physical_steps": 14170,
+  "simulated_seconds": 28.34,
+  "source_control_slice": [
+    350,
+    1017
+  ],
+  "source_pose_frame_slice": [
+    361,
+    1028
+  ],
+  "original29_source_task_fk_max_abs_m": 4.440892098500626e-16,
+  "task_order": [
+    "left_hand",
+    "right_hand",
+    "head_proxy",
+    "left_ankle_origin",
+    "right_ankle_origin"
+  ],
+  "relative_metric_convention": "Subtract each robot root translation separately; preserve world axes. No yaw alignment or fitted transform.",
+  "source_metrics": {
+    "name": "source_motion",
+    "controls": 667,
+    "full_controls": 667,
+    "start_seconds": 7.0,
+    "stop_seconds": 20.34,
+    "source_frame_start": 361,
+    "source_frame_stop_exclusive": 1028,
+    "leg_rmse": 0.11214993892321273,
+    "root_p95_m": 0.1386502088517485,
+    "original_world_task_error_p95": [
+      0.16054431919421414,
+      0.20571978244679673,
+      0.14384231542441808,
+      0.07846426341183252,
+      0.12105844297855725
+    ],
+    "original_root_relative_task_error_p95": [
+      0.1106724541297487,
+      0.12077527303969027,
+      0.07411239775714282,
+      0.1368492858493446,
+      0.1066526572976296
+    ],
+    "original_foot_orientation_error_rad_p95": [
+      0.10046465240541984,
+      0.10907272668292335
+    ],
+    "original_hand_orientation_error_rad_p95": [
+      0.4542624509467491,
+      0.48425683402498726
+    ],
+    "original_torso_orientation_error_rad_p95": 0.21286260067108503,
+    "original_root_yaw_error_deg_p95": 1.4429780231542584,
+    "native_world_foot_error_p95": [
+      0.07846426341183252,
+      0.12105844297855725
+    ],
+    "native_root_relative_foot_error_p95": [
+      0.13684928584934458,
+      0.1066526572976296
+    ]
+  },
+  "phase_metrics": [
+    {
+      "name": "initial_standing",
+      "controls": 250,
+      "full_controls": 250,
+      "start_seconds": 0.0,
+      "stop_seconds": 5.0,
+      "source_frame_start": 11,
+      "source_frame_stop_exclusive": 261,
+      "leg_rmse": 0.012657723570417655,
+      "root_p95_m": 0.001674702242058816,
+      "original_world_task_error_p95": [
+        0.001675038967907017,
+        0.0016732774145992032,
+        0.011666622863712414,
+        0.0039125439206753035,
+        0.0039007539042923787
+      ],
+      "original_root_relative_task_error_p95": [
+        0.0001936106245178449,
+        0.00017195898423444847,
+        0.010000245164958142,
+        0.0024583668697374036,
+        0.0024361926078937278
+      ],
+      "original_foot_orientation_error_rad_p95": [
+        0.005853217787943021,
+        0.005855555051540144
+      ],
+      "original_hand_orientation_error_rad_p95": [
+        0.00033397012515668715,
+        0.00029888171072444444
+      ],
+      "original_torso_orientation_error_rad_p95": 0.0005066732862750795,
+      "original_root_yaw_error_deg_p95": 0.016470563349951457,
+      "native_world_foot_error_p95": [
+        0.0039125439206753035,
+        0.0039007539042923787
+      ],
+      "native_root_relative_foot_error_p95": [
+        0.0024583668697373876,
+        0.0024361926078937095
+      ]
+    },
+    {
+      "name": "acquisition_ramp",
+      "controls": 100,
+      "full_controls": 100,
+      "start_seconds": 5.0,
+      "stop_seconds": 7.0,
+      "source_frame_start": 261,
+      "source_frame_stop_exclusive": 361,
+      "leg_rmse": 0.02530281761162502,
+      "root_p95_m": 0.018749271475056617,
+      "original_world_task_error_p95": [
+        0.031689018701865745,
+        0.06486465281962547,
+        0.036679258951442514,
+        0.01958252536383487,
+        0.013420792957012859
+      ],
+      "original_root_relative_task_error_p95": [
+        0.017471557114455274,
+        0.06026452288049131,
+        0.02044999695859181,
+        0.025440335577082585,
+        0.023030602851741886
+      ],
+      "original_foot_orientation_error_rad_p95": [
+        0.06447888491877124,
+        0.05277887943872182
+      ],
+      "original_hand_orientation_error_rad_p95": [
+        0.08596836649847618,
+        0.28636847939267
+      ],
+      "original_torso_orientation_error_rad_p95": 0.04576370598688179,
+      "original_root_yaw_error_deg_p95": 0.5194605312740883,
+      "native_world_foot_error_p95": [
+        0.01958252536383487,
+        0.013420792957012859
+      ],
+      "native_root_relative_foot_error_p95": [
+        0.025440335577082585,
+        0.023030602851741903
+      ]
+    },
+    {
+      "name": "source_motion",
+      "controls": 667,
+      "full_controls": 667,
+      "start_seconds": 7.0,
+      "stop_seconds": 20.34,
+      "source_frame_start": 361,
+      "source_frame_stop_exclusive": 1028,
+      "leg_rmse": 0.11214993892321273,
+      "root_p95_m": 0.1386502088517485,
+      "original_world_task_error_p95": [
+        0.16054431919421414,
+        0.20571978244679673,
+        0.14384231542441808,
+        0.07846426341183252,
+        0.12105844297855725
+      ],
+      "original_root_relative_task_error_p95": [
+        0.1106724541297487,
+        0.12077527303969027,
+        0.07411239775714282,
+        0.1368492858493446,
+        0.1066526572976296
+      ],
+      "original_foot_orientation_error_rad_p95": [
+        0.10046465240541984,
+        0.10907272668292335
+      ],
+      "original_hand_orientation_error_rad_p95": [
+        0.4542624509467491,
+        0.48425683402498726
+      ],
+      "original_torso_orientation_error_rad_p95": 0.21286260067108503,
+      "original_root_yaw_error_deg_p95": 1.4429780231542584,
+      "native_world_foot_error_p95": [
+        0.07846426341183252,
+        0.12105844297855725
+      ],
+      "native_root_relative_foot_error_p95": [
+        0.13684928584934458,
+        0.1066526572976296
+      ]
+    },
+    {
+      "name": "return_ramp",
+      "controls": 100,
+      "full_controls": 100,
+      "start_seconds": 20.34,
+      "stop_seconds": 22.34,
+      "source_frame_start": 1028,
+      "source_frame_stop_exclusive": 1128,
+      "leg_rmse": 0.018464182565833803,
+      "root_p95_m": 0.016694272048848983,
+      "original_world_task_error_p95": [
+        0.017580602054024425,
+        0.0756742042705703,
+        0.031166961906876647,
+        0.018386069334425183,
+        0.015396388532110299
+      ],
+      "original_root_relative_task_error_p95": [
+        0.008987849370466535,
+        0.07499656617923915,
+        0.0219062279026496,
+        0.013978620358143271,
+        0.014601384496250246
+      ],
+      "original_foot_orientation_error_rad_p95": [
+        0.05518874292585599,
+        0.020616436192242623
+      ],
+      "original_hand_orientation_error_rad_p95": [
+        0.05134313545543298,
+        0.3523979837755609
+      ],
+      "original_torso_orientation_error_rad_p95": 0.05610845126378582,
+      "original_root_yaw_error_deg_p95": 0.3031291682809468,
+      "native_world_foot_error_p95": [
+        0.018386069334425183,
+        0.015396388532110299
+      ],
+      "native_root_relative_foot_error_p95": [
+        0.013978620358143267,
+        0.01460138449625025
+      ]
+    },
+    {
+      "name": "returned_standing",
+      "controls": 250,
+      "full_controls": 250,
+      "start_seconds": 22.34,
+      "stop_seconds": 27.34,
+      "source_frame_start": 1128,
+      "source_frame_stop_exclusive": 1378,
+      "leg_rmse": 0.012671674384894024,
+      "root_p95_m": 0.0016794498584570248,
+      "original_world_task_error_p95": [
+        0.001594476850486932,
+        0.0016037203025015235,
+        0.011549987164913835,
+        0.00992378940780543,
+        0.00794588737264314
+      ],
+      "original_root_relative_task_error_p95": [
+        0.00034502880827206917,
+        0.00030079876259419587,
+        0.010002061659551491,
+        0.008748284154142045,
+        0.006680576246357253
+      ],
+      "original_foot_orientation_error_rad_p95": [
+        0.00625135685050897,
+        0.0061792831789226205
+      ],
+      "original_hand_orientation_error_rad_p95": [
+        0.00036587362217534695,
+        0.0004384112120185237
+      ],
+      "original_torso_orientation_error_rad_p95": 0.0008374762714440657,
+      "original_root_yaw_error_deg_p95": 0.03825797747298228,
+      "native_world_foot_error_p95": [
+        0.00992378940780543,
+        0.00794588737264314
+      ],
+      "native_root_relative_foot_error_p95": [
+        0.008748284154142036,
+        0.006680576246357253
+      ]
+    },
+    {
+      "name": "standing_proof_margin",
+      "controls": 50,
+      "full_controls": 50,
+      "start_seconds": 27.34,
+      "stop_seconds": 28.34,
+      "source_frame_start": 1378,
+      "source_frame_stop_exclusive": 1428,
+      "leg_rmse": 0.012576930285281718,
+      "root_p95_m": 0.0015528801357634655,
+      "original_world_task_error_p95": [
+        0.0015637945131222067,
+        0.0015561629905302401,
+        0.011512501628629905,
+        0.004223336565318359,
+        0.004138480421406718
+      ],
+      "original_root_relative_task_error_p95": [
+        0.0001694823783838123,
+        0.00031659303481826854,
+        0.010001556115922019,
+        0.0028794537802702227,
+        0.0027447319539694224
+      ],
+      "original_foot_orientation_error_rad_p95": [
+        0.0058975991183635645,
+        0.005913130381818885
+      ],
+      "original_hand_orientation_error_rad_p95": [
+        0.0002491513838444488,
+        0.00037166864447245876
+      ],
+      "original_torso_orientation_error_rad_p95": 0.0007544295524253185,
+      "original_root_yaw_error_deg_p95": 0.024227650040048718,
+      "native_world_foot_error_p95": [
+        0.004223336565318359,
+        0.004138480421406718
+      ],
+      "native_root_relative_foot_error_p95": [
+        0.0028794537802702444,
+        0.0027447319539693864
+      ]
+    }
+  ],
+  "foot_metric_discrepancy_resolved": "Producer tracked_body_position is absolute world ankle-origin error. Referee relative_landmark subtracts actual-minus-reference root translation before taking the same world-axis ankle-origin norm. Neither changes ankle landmark or axes.",
+  "strict_joint_range_pass": false,
+  "strict_range_excess_max_rad": 0.0018248733578203336,
+  "strict_range_violation_samples": 25,
+  "strict_range_violation_blocks": [
+    {
+      "first_step": 8729,
+      "last_step": 8753,
+      "samples": 25,
+      "first_time_s": 17.458000000000002,
+      "last_time_s": 17.506
+    }
+  ],
+  "velocity_limits_pass": true,
+  "velocity_ratio_max": 0.5124413805978163,
+  "effort_limits_pass": true,
+  "effort_ratio_max": 1.0,
+  "pd_torque_reconstruction_max_abs_Nm": 0.0,
+  "worst_joint": {
+    "name": "left_ankle_roll_joint",
+    "hardware_index": 5,
+    "physical_step": 8736,
+    "time_s": 17.472,
+    "control_index": 873,
+    "active_source_frame": 884,
+    "q_rad": -0.2636248733578203,
+    "limits_rad": [
+      -0.2618,
+      0.2618
+    ],
+    "dq_radps": -0.010083745015178324,
+    "pd_target_rad": -0.2618,
+    "source_joint_goal_rad": -0.10380946301201528
+  },
+  "final_root_error_m": 0.001506312320859113,
+  "final_joint_velocity_max_radps": 0.01657634386544131,
+  "final_root_height_m": 0.7584950392229929,
+  "final_root_tilt_deg": 0.023295528523449592,
+  "planning_ms_p50_p95_max": [
+    4171.188306999966,
+    8606.85766689995,
+    10284.552313999939
+  ],
+  "planning_deadlines_missed": 284,
+  "plans": 284,
+  "planning_commit_budget_ms": 100,
+  "conservative_effective_source_preview_seconds": 0.74,
+  "joint_margin_analysis": {
+    "current_margin_rad": 0.01,
+    "current_weight": 200.0,
+    "event_specific_target_inset_lower_bound_rad": 0.0018248733578203336,
+    "inset_assumption": "Only if the same outward tracking undershoot persisted after shifting the saturated target inward; this is not a controller guarantee.",
+    "penalty_grid_at_observed_peak": [
+      {
+        "margin_rad": 0.01,
+        "weight": 200.0,
+        "local_peak_state_penalty": 0.02796552598569783,
+        "local_peak_inward_penalty_gradient": 4.729949343128133
+      },
+      {
+        "margin_rad": 0.02,
+        "weight": 200.0,
+        "local_peak_state_penalty": 0.09526501941697917,
+        "local_peak_inward_penalty_gradient": 8.729949343128133
+      },
+      {
+        "margin_rad": 0.03,
+        "weight": 200.0,
+        "local_peak_state_penalty": 0.20256451284826046,
+        "local_peak_inward_penalty_gradient": 12.729949343128133
+      },
+      {
+        "margin_rad": 0.01,
+        "weight": 1000.0,
+        "local_peak_state_penalty": 0.13982762992848916,
+        "local_peak_inward_penalty_gradient": 23.649746715640667
+      },
+      {
+        "margin_rad": 0.02,
+        "weight": 1000.0,
+        "local_peak_state_penalty": 0.47632509708489584,
+        "local_peak_inward_penalty_gradient": 43.64974671564067
+      },
+      {
+        "margin_rad": 0.03,
+        "weight": 1000.0,
+        "local_peak_state_penalty": 1.0128225642413025,
+        "local_peak_inward_penalty_gradient": 63.64974671564067
+      }
+    ],
+    "minimum_safe_weight_identifiable_from_single_trace": false,
+    "reason": "A soft penalty cannot guarantee a strict state bound. The nominal planned trajectory itself crosses the ankle limit; tuning weight/margin requires new closed-loop optimization and every-2ms validation. No unique minimum weight follows from this trajectory.",
+    "suggested_bounded_followup": "Test margin0.02 or0.03 rad with weight1000 as explicit ablations; preserve all goals and timing. Require a strict physics-feasibility gate before accepting a teacher."
+  },
+  "received_stream_controller": false,
+  "full_body_tracking_qualified": false,
+  "timing_qualified": false,
+  "hardware_authorized": false
+}

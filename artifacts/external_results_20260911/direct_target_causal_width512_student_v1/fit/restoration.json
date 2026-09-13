@@ -1,0 +1,63 @@
+{
+  "source_checkpoint_sha256": "395aabf879c0a40b5187a4265ae850de49cfb62583e144145c1986d65402143d",
+  "old_actor_blocks_exact": true,
+  "expanded_actor_exact": true,
+  "learned_context_columns_preserved": true,
+  "normalization_exact": true,
+  "old_optimizer_blocks_exact": true,
+  "new_optimizer_moments_zero": true,
+  "whole_optimizer_group_exact": true,
+  "optimizer_state_count": 6,
+  "optimizer_start_step": 6000,
+  "shared_optimizer_step_for_new_entries": 6000,
+  "fresh_optimizer": false,
+  "RNG_exact": true,
+  "expansion_seed": 20260912,
+  "old_hidden_width": 256,
+  "new_hidden_width": 512,
+  "new_outgoing_paths_zero": true,
+  "global_rng_unchanged_by_expansion": true,
+  "zero_preserving_addition": true,
+  "old_block_contractions_preserved": true,
+  "learning_rate_restart_after_restoration": {
+    "ramp_updates": 250,
+    "ramp_inclusive": [
+      1e-06,
+      1e-05
+    ],
+    "cosine_updates": 9750,
+    "cosine_inclusive": [
+      1e-05,
+      1e-06
+    ]
+  },
+  "initial_drift": {
+    "passed": true,
+    "tolerance_rad": 1e-05,
+    "max_preclip_error_rad": 0.0,
+    "corpora": {
+      "nominal": {
+        "max_preclip_error_rad": 0.0,
+        "RMS_preclip_error_rad": 0.0,
+        "byte_equal": true
+      },
+      "full_state": {
+        "max_preclip_error_rad": 0.0,
+        "RMS_preclip_error_rad": 0.0,
+        "byte_equal": true
+      },
+      "physical": {
+        "max_preclip_error_rad": 0.0,
+        "RMS_preclip_error_rad": 0.0,
+        "byte_equal": true
+      }
+    },
+    "source_ordinary_step": 71000,
+    "changed_MatMul_dimension": true,
+    "stored_first_layer_width": 1323,
+    "stored_hidden_width": 512,
+    "old_block_contractions_preserved": true,
+    "first_layer_execution": "split_old256_new256_original1000_plus323",
+    "byte_gate_required": false
+  }
+}

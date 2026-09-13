@@ -1,0 +1,68 @@
+{
+  "kind": "offline_native23_mjbatch_ilqr_probe",
+  "clip": "walk002",
+  "probe": "source-prefix",
+  "completed_controls": 385,
+  "requested_controls": 500,
+  "probe_completed": false,
+  "full_source_completed": false,
+  "failure": {
+    "kind": "fall_or_nonfinite",
+    "control": 385,
+    "substep": 10,
+    "time": 7.699999999999374,
+    "height": 0.25543671674294777,
+    "tilt": 1.2002732245414074
+  },
+  "metrics": {
+    "phase": "source_motion",
+    "controls": 35,
+    "leg_rmse": 0.12941181562008622,
+    "arm_rmse": 0.10912021207364585,
+    "root_p95": 0.8566739403598701,
+    "tracked_body_position_p95": [
+      0.8566739403598701,
+      0.9023391376099482,
+      0.1567697915496108,
+      0.10880500722390143,
+      0.9036303871385833,
+      0.879887970488107
+    ]
+  },
+  "range_excess_max": 0.0,
+  "velocity_ratio_max": 0.2641344272116498,
+  "effort_ratio_max": 0.7049992041354568,
+  "feedback_correction_clip_rad": 0.1,
+  "feedback_correction_clipped_controls": 0,
+  "planning_ms_p50_p95_max": [
+    1941.7481659997975,
+    2208.948057899943,
+    2229.032040999982
+  ],
+  "planning_deadlines_missed": 39,
+  "elapsed_wall_seconds": 77.34288311299997,
+  "simulated_seconds": 7.699999999999374,
+  "physics_steps": 3850,
+  "declared_future_preview_seconds": 0.6,
+  "conservative_effective_source_preview_seconds": 0.74,
+  "recorded_target_seed": {
+    "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/bfm_walk002_feedback_v2",
+    "trace_sha256": "74bbd9c8e4cae7c8c8b421b4a1448f917872161b837efce04001810041b94f97",
+    "report_sha256": "05891f641b8cf7711fcd678bc5577d5d3973d3c653dacc2a77c238e303e06f05",
+    "controls": 1417,
+    "original_generator_preview_seconds": 0.14,
+    "selection": "lower actual-rollout cost of recorded BFM targets and shifted previous MPC plan",
+    "physical_states_copied": false
+  },
+  "mujoco": "3.2.3",
+  "controller": "iLQR position targets with measured-state feedback and native manualPD",
+  "physical_state_rewrites_after_initialization": 0,
+  "root_assistance_forces": 0,
+  "timing_qualified": false,
+  "full_body_tracking_qualified": false,
+  "hardware_authorized": false,
+  "native323_replay_required": true,
+  "request_sha256": "3c93e64138afb99c95672a0871842b405bb59b8f552a9375ac94fdea717725df",
+  "trace_sha256": "1d37096b549a9513044ad2976c0bcfc5fd94c7a9fd475259031e17127d8180fe",
+  "plans_sha256": "9dd7a5d07c420273f3e336cbeb57d5d82a8dfa34937fab43737da526f26ac882"
+}

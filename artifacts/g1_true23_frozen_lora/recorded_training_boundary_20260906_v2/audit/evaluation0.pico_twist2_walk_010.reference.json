@@ -1,0 +1,516 @@
+{
+  "evaluation_report": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/ieee_motion_ppo_20260906_v2/model_100/recorded_evaluation/report.json",
+  "label": "pico_twist2_walk_010.reference",
+  "source": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/contact_trajectory_20260906_v2/pico_twist2_walk_010.npz",
+  "hardware_authorized": false,
+  "deployment_ready": false,
+  "promotion_eligible": false,
+  "recorded_trace": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/ieee_motion_ppo_20260906_v2/model_100/recorded_evaluation/pico_twist2_walk_010.reference.npz",
+  "witness_arrays": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/recorded_training_boundary_20260906_v2/audit/evaluation0.pico_twist2_walk_010.reference.npz",
+  "recorded_inference_calls": 25,
+  "requested_transitions": 499,
+  "completed_transitions": 24,
+  "completed_active_substeps": 242,
+  "stationary_prerequisite_only": false,
+  "startup_target_reconstruction_rows": 0,
+  "devices": {
+    "cpu": {
+      "encoder267": {
+        "shape": [
+          25,
+          267
+        ],
+        "maximum_absolute_difference": 8.940696716308594e-08,
+        "changed_elements": 206,
+        "rows_outside_tolerance": [],
+        "absolute_tolerance": 1e-05,
+        "within_tolerance": true
+      },
+      "encoder_terms": {
+        "lower_body": {
+          "shape": [
+            25,
+            240
+          ],
+          "maximum_absolute_difference": 0.0,
+          "changed_elements": 0,
+          "rows_outside_tolerance": [],
+          "absolute_tolerance": 1e-05,
+          "within_tolerance": true
+        },
+        "vr_position": {
+          "shape": [
+            25,
+            9
+          ],
+          "maximum_absolute_difference": 8.940696716308594e-08,
+          "changed_elements": 109,
+          "rows_outside_tolerance": [],
+          "absolute_tolerance": 1e-05,
+          "within_tolerance": true
+        },
+        "vr_orientation": {
+          "shape": [
+            25,
+            12
+          ],
+          "maximum_absolute_difference": 5.960464477539063e-08,
+          "changed_elements": 47,
+          "rows_outside_tolerance": [],
+          "absolute_tolerance": 1e-05,
+          "within_tolerance": true
+        },
+        "anchor_orientation": {
+          "shape": [
+            25,
+            6
+          ],
+          "maximum_absolute_difference": 1.4901161193847656e-08,
+          "changed_elements": 50,
+          "rows_outside_tolerance": [],
+          "absolute_tolerance": 1e-05,
+          "within_tolerance": true
+        }
+      },
+      "history930": {
+        "shape": [
+          25,
+          930
+        ],
+        "maximum_absolute_difference": 8.940696716308594e-08,
+        "changed_elements": 1682,
+        "rows_outside_tolerance": [],
+        "absolute_tolerance": 1e-05,
+        "within_tolerance": true
+      },
+      "history_terms": {
+        "gyro": {
+          "shape": [
+            25,
+            30
+          ],
+          "maximum_absolute_difference": 0.0,
+          "changed_elements": 0,
+          "rows_outside_tolerance": [],
+          "absolute_tolerance": 1e-05,
+          "within_tolerance": true
+        },
+        "joint_pos_rel": {
+          "shape": [
+            25,
+            290
+          ],
+          "maximum_absolute_difference": 8.940696716308594e-08,
+          "changed_elements": 1571,
+          "rows_outside_tolerance": [],
+          "absolute_tolerance": 1e-05,
+          "within_tolerance": true
+        },
+        "joint_vel": {
+          "shape": [
+            25,
+            290
+          ],
+          "maximum_absolute_difference": 0.0,
+          "changed_elements": 0,
+          "rows_outside_tolerance": [],
+          "absolute_tolerance": 1e-05,
+          "within_tolerance": true
+        },
+        "previous_action": {
+          "shape": [
+            25,
+            290
+          ],
+          "maximum_absolute_difference": 0.0,
+          "changed_elements": 0,
+          "rows_outside_tolerance": [],
+          "absolute_tolerance": 1e-05,
+          "within_tolerance": true
+        },
+        "gravity": {
+          "shape": [
+            25,
+            30
+          ],
+          "maximum_absolute_difference": 3.725290298461914e-09,
+          "changed_elements": 111,
+          "rows_outside_tolerance": [],
+          "absolute_tolerance": 1e-05,
+          "within_tolerance": true
+        }
+      },
+      "fsq64": {
+        "shape": [
+          25,
+          64
+        ],
+        "maximum_absolute_difference": 0.0,
+        "changed_elements": 0,
+        "rows_outside_tolerance": [],
+        "absolute_tolerance": 0,
+        "within_tolerance": true
+      },
+      "raw23": {
+        "shape": [
+          25,
+          23
+        ],
+        "maximum_absolute_difference": 1.0132789611816406e-06,
+        "changed_elements": 496,
+        "rows_outside_tolerance": [],
+        "absolute_tolerance": 0.0001,
+        "within_tolerance": true
+      },
+      "safe_target": {
+        "shape": [
+          25,
+          23
+        ],
+        "maximum_absolute_difference": 4.3213367462158203e-07,
+        "changed_elements": 441,
+        "rows_outside_tolerance": [],
+        "absolute_tolerance": 1e-05,
+        "within_tolerance": true
+      },
+      "requested_target": {
+        "shape": [
+          242,
+          23
+        ],
+        "maximum_absolute_difference": 1.1920928955078125e-07,
+        "changed_elements": 1202,
+        "rows_outside_tolerance": [],
+        "absolute_tolerance": 2e-06,
+        "within_tolerance": true
+      },
+      "projected_target": {
+        "shape": [
+          242,
+          23
+        ],
+        "maximum_absolute_difference": 1.1920928955078125e-07,
+        "changed_elements": 3415,
+        "rows_outside_tolerance": [],
+        "absolute_tolerance": 2e-06,
+        "within_tolerance": true
+      },
+      "applied_effort": {
+        "shape": [
+          242,
+          23
+        ],
+        "maximum_absolute_difference": 7.861230767680638e-06,
+        "changed_elements": 5255,
+        "rows_outside_tolerance": [],
+        "absolute_tolerance": 2e-05,
+        "within_tolerance": true
+      },
+      "invalid_successful_substeps": [],
+      "terminal": {
+        "rejected_by_training": true,
+        "training_output_effort": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "training_target": [
+          0.5134673714637756,
+          0.0492279976606369,
+          0.056239280849695206,
+          0.26284703612327576,
+          -0.3237936496734619,
+          0.01102522574365139,
+          0.02459843084216118,
+          0.038996923714876175,
+          -0.11310291290283203,
+          0.39510729908943176,
+          -0.474483460187912,
+          -0.12838129699230194,
+          -0.03524443879723549,
+          0.0406106635928154,
+          0.6494596004486084,
+          -0.07632790505886078,
+          1.0150959491729736,
+          -0.0697694644331932,
+          0.32456719875335693,
+          -0.35229748487472534,
+          -0.15436610579490662,
+          1.0107544660568237,
+          0.5196589827537537
+        ],
+        "evaluator_physics_stopped_before_this_substep": true,
+        "training_zero_effort_until_50hz_reset_is_not_a_physical_return": true
+      }
+    },
+    "cuda:0": {
+      "encoder267": {
+        "shape": [
+          25,
+          267
+        ],
+        "maximum_absolute_difference": 4.76837158203125e-07,
+        "changed_elements": 507,
+        "rows_outside_tolerance": [],
+        "absolute_tolerance": 1e-05,
+        "within_tolerance": true
+      },
+      "encoder_terms": {
+        "lower_body": {
+          "shape": [
+            25,
+            240
+          ],
+          "maximum_absolute_difference": 4.76837158203125e-07,
+          "changed_elements": 308,
+          "rows_outside_tolerance": [],
+          "absolute_tolerance": 1e-05,
+          "within_tolerance": true
+        },
+        "vr_position": {
+          "shape": [
+            25,
+            9
+          ],
+          "maximum_absolute_difference": 8.940696716308594e-08,
+          "changed_elements": 108,
+          "rows_outside_tolerance": [],
+          "absolute_tolerance": 1e-05,
+          "within_tolerance": true
+        },
+        "vr_orientation": {
+          "shape": [
+            25,
+            12
+          ],
+          "maximum_absolute_difference": 5.960464477539063e-08,
+          "changed_elements": 42,
+          "rows_outside_tolerance": [],
+          "absolute_tolerance": 1e-05,
+          "within_tolerance": true
+        },
+        "anchor_orientation": {
+          "shape": [
+            25,
+            6
+          ],
+          "maximum_absolute_difference": 1.4901161193847656e-08,
+          "changed_elements": 49,
+          "rows_outside_tolerance": [],
+          "absolute_tolerance": 1e-05,
+          "within_tolerance": true
+        }
+      },
+      "history930": {
+        "shape": [
+          25,
+          930
+        ],
+        "maximum_absolute_difference": 8.940696716308594e-08,
+        "changed_elements": 1682,
+        "rows_outside_tolerance": [],
+        "absolute_tolerance": 1e-05,
+        "within_tolerance": true
+      },
+      "history_terms": {
+        "gyro": {
+          "shape": [
+            25,
+            30
+          ],
+          "maximum_absolute_difference": 0.0,
+          "changed_elements": 0,
+          "rows_outside_tolerance": [],
+          "absolute_tolerance": 1e-05,
+          "within_tolerance": true
+        },
+        "joint_pos_rel": {
+          "shape": [
+            25,
+            290
+          ],
+          "maximum_absolute_difference": 8.940696716308594e-08,
+          "changed_elements": 1571,
+          "rows_outside_tolerance": [],
+          "absolute_tolerance": 1e-05,
+          "within_tolerance": true
+        },
+        "joint_vel": {
+          "shape": [
+            25,
+            290
+          ],
+          "maximum_absolute_difference": 0.0,
+          "changed_elements": 0,
+          "rows_outside_tolerance": [],
+          "absolute_tolerance": 1e-05,
+          "within_tolerance": true
+        },
+        "previous_action": {
+          "shape": [
+            25,
+            290
+          ],
+          "maximum_absolute_difference": 0.0,
+          "changed_elements": 0,
+          "rows_outside_tolerance": [],
+          "absolute_tolerance": 1e-05,
+          "within_tolerance": true
+        },
+        "gravity": {
+          "shape": [
+            25,
+            30
+          ],
+          "maximum_absolute_difference": 3.725290298461914e-09,
+          "changed_elements": 111,
+          "rows_outside_tolerance": [],
+          "absolute_tolerance": 1e-05,
+          "within_tolerance": true
+        }
+      },
+      "fsq64": {
+        "shape": [
+          25,
+          64
+        ],
+        "maximum_absolute_difference": 0.0,
+        "changed_elements": 0,
+        "rows_outside_tolerance": [],
+        "absolute_tolerance": 0,
+        "within_tolerance": true
+      },
+      "raw23": {
+        "shape": [
+          25,
+          23
+        ],
+        "maximum_absolute_difference": 1.0132789611816406e-06,
+        "changed_elements": 496,
+        "rows_outside_tolerance": [],
+        "absolute_tolerance": 0.0001,
+        "within_tolerance": true
+      },
+      "safe_target": {
+        "shape": [
+          25,
+          23
+        ],
+        "maximum_absolute_difference": 4.3213367462158203e-07,
+        "changed_elements": 441,
+        "rows_outside_tolerance": [],
+        "absolute_tolerance": 1e-05,
+        "within_tolerance": true
+      },
+      "requested_target": {
+        "shape": [
+          242,
+          23
+        ],
+        "maximum_absolute_difference": 1.1920928955078125e-07,
+        "changed_elements": 1930,
+        "rows_outside_tolerance": [],
+        "absolute_tolerance": 2e-06,
+        "within_tolerance": true
+      },
+      "projected_target": {
+        "shape": [
+          242,
+          23
+        ],
+        "maximum_absolute_difference": 1.1920928955078125e-07,
+        "changed_elements": 3753,
+        "rows_outside_tolerance": [],
+        "absolute_tolerance": 2e-06,
+        "within_tolerance": true
+      },
+      "applied_effort": {
+        "shape": [
+          242,
+          23
+        ],
+        "maximum_absolute_difference": 7.861230767680638e-06,
+        "changed_elements": 5255,
+        "rows_outside_tolerance": [],
+        "absolute_tolerance": 2e-05,
+        "within_tolerance": true
+      },
+      "invalid_successful_substeps": [],
+      "terminal": {
+        "rejected_by_training": true,
+        "training_output_effort": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "training_target": [
+          0.5134673714637756,
+          0.0492279976606369,
+          0.056239280849695206,
+          0.26284703612327576,
+          -0.3237936496734619,
+          0.01102522574365139,
+          0.02459843084216118,
+          0.038996923714876175,
+          -0.11310291290283203,
+          0.39510729908943176,
+          -0.474483460187912,
+          -0.12838129699230194,
+          -0.03524443879723549,
+          0.0406106635928154,
+          0.6494596004486084,
+          -0.07632790505886078,
+          1.0150959491729736,
+          -0.0697694644331932,
+          0.32456719875335693,
+          -0.35229748487472534,
+          -0.15436610579490662,
+          1.0107544660568237,
+          0.5196589827537537
+        ],
+        "evaluator_physics_stopped_before_this_substep": true,
+        "training_zero_effort_until_50hz_reset_is_not_a_physical_return": true
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "kind": "independent_selected_one_step_branch_collector_final_source_and_launch_review",
+  "passed": true,
+  "source_review_pass": true,
+  "launch_review_pass": true,
+  "decision": "CLEAR",
+  "utc": "2026-09-11T09:40:20.022125+00:00",
+  "scope": "ONE root-selected3054-row collection, all original nominal transitions first, then one fixed-head policy branch per row; no fit, new MPC queries or connected canonical trial.",
+  "request_path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_policy_branch_collection_v1\\request.json",
+  "request_sha256": "c727fed067bd37ff142293c1f229e17e0260a882f05c21fce3f997ae7a7f60e8",
+  "launcher_path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_policy_branch_collection_v1\\run_durable.ps1",
+  "launcher_sha256": "faed8763cc715dcbe0b5524ba1197d4e43b0e0c0407971771e54ea7d2f008d35",
+  "source_sha256": {
+    "branch_inputs.py": "c1c75e99e2877d3db229396109c76769bbb2fcd767ea1a4e45d7f5cf0c3f3731",
+    "collection_arrays.py": "99e1b69afb32180370d98a394dcf7ca59d7e2c2b248d7758b3dc44c76c3d0695",
+    "collect_branches.py": "9622493d2cd4a12c484a99ad4c48637124f774de32d03e95b6a5f6073a505141",
+    "native_capture.py": "0cfc1b9d8625c0385c92838c4d9b9eb195175efd4eda1c47d66722dc468ab260",
+    "native_forecast.py": "81af01274f55c703850cb3ec3801bb41912e3f3786440af5099b769b7bd28824",
+    "stateless_adapter.py": "5f932ab291ebed5abbe900f793869420208f51f688fe64c91e21fe712d964848",
+    "test_collection.py": "4d12cc0e65ca1613b789fce7e91b56e518eb412d43c4a5e6b81d6ac4d921f394",
+    "frozen/g1_true23_bfm_seed_observations.py": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d",
+    "frozen/g1_true23_mjbatch_bfm_seed.py": "2f3d808b6a95fd80a3c1f9a0fabbe80264cf9cc93fbf01e2b2be65f6a5ec75de",
+    "frozen/g1_true23_mjbatch_ilqr_core.py": "1efc9cb21e446d8e41e3d3acebe05d12b951e8a0002b264ddf0a6b723e32f45a",
+    "frozen/g1_true23_mjbatch_mpc.py": "7695d03787de93dc3d4b1fb2001d6b6b0dcdb9016af9c96734e8f7d94a5e5dde",
+    "frozen/g1_true23_mpc_student.py": "6d71e82b4b7e491f4bbfd3c2a99e05df2ee27f9fb5e6febb4cc9c39c8c39d905",
+    "frozen/student_linear_runtime.py": "35b3e3dd4f4c2966ae224a77afc5213d02cead3200bf63218fb0aab26710f543"
+  },
+  "source_count": 13,
+  "input_count": 1156,
+  "all_pins_exact": true,
+  "verification_sha256": "b6b1d673be751c74cef2bc5019b62ae0418b621d92d4f37747914a1e1f68b69c",
+  "powershell_parse_sha256": "a492ba8d37157f563166016bceb3fac386deabdc944f2184b5e6891fadb6715f",
+  "pure_checks_sha256": "dee0570872e3d63728392914e9b1aa055929f12589213b2d2fdfa56aaf0b4278",
+  "tests_passed": 9,
+  "pure_current_successor_rows_pass": 3054,
+  "output_attempts_absent": {
+    "collection": true,
+    "process_status.json": true,
+    "stdout.log": true,
+    "stderr.log": true,
+    "preflight_failure.json": true
+  },
+  "findings": [],
+  "resolved_findings": [
+    "Each graph attempt clears previous same-graph output fields and tracks current-call returned flag; saved nominal outputs remain in dedicated arrays.",
+    "Final manifest/report bind graph/native ledgers, schema, execution order, nominal parity and calibration evidence; nonfinite native report metadata is explicit while raw arrays remain IEEE."
+  ],
+  "gates": [
+    "All3054 original10step native transitions and complete successor291 states compared before any graph invocation.",
+    "Calibration row2036/query250 is first and counted once; original actual250 inputs/head/rawcommand/history and actual251 native samples/full291/base/features/head must match before broader rows.",
+    "NativeForecast81af0127 unchanged; private state restoration, strict every2ms PD, source-unchanged checks, copied trace views and attempted/returned/captured accounting retained.",
+    "Original raw command history semantics and exact full58 successor committed feedback map preserved; all strict-failed rows retained without endpoint graph calls or valid labels.",
+    "Exactly frozen ordinary70000 WSL batch1 head and yaw2 BFM; ceilings61080native steps and12216 graph calls; selected graph totals3054backward,3054actor,6108head maximum.",
+    "Source/request/clearance/input hashes rechecked before complete; wrapper refuses existingattempt, uses absolute frozen WSL script, null/nonzero exit rejection and explicit completed-report gate."
+  ],
+  "launch_note": "Run the durable PowerShell wrapper as one hidden process. This receipt supplies the already-selected source/launch gate; do not launch duplicate collection processes.",
+  "limitations": [
+    "Source review does not claim resulting collection success or actor authenticity beyond its executed evidence.",
+    "Root independent physical and saved-label audits remain required before any learner stage; no fit is selected by this clearance.",
+    "One-command committed-map labels are not fresh replanning or full source/quiet/real-hardware qualification."
+  ],
+  "reviewer_graph_calls": 0,
+  "reviewer_native_steps": 0,
+  "reviewer_optimizer_updates": 0
+}

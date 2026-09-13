@@ -1,0 +1,52 @@
+{
+  "source_preparation_pass": true,
+  "source_sha256": {
+    "saved_common.py": "25bfbb82b471a7e432645b6662c99c361d1eff0f17c3e127e9c124d9a400e105",
+    "audit_saved.py": "da69b67a18912ce95e40115259fd8c49f2fd9ce5351a358ce7c368bdcec257ef",
+    "release_checks.py": "198de7ef39124843dc31f4e5985f641befdfc6571ce4a96818b33cab19442f97",
+    "fixed_maps.py": "3c0d406a4fbdd3674d7f4aa01942288a59210d648f37ed37db7df1365ec4373c",
+    "prepare_request.py": "6ae7449b7f5faa177a64e3fda8c2f39979806921728c26cda9a6aae5a9d46e7e",
+    "test_saved.py": "a733d771ae45870e3e72e9bcea0c109283150bf2f7d18a3b613652c978507a4f",
+    "record_preparation.py": "a2dbf9d0fb9ce7f0678c94b6c61b8923cf5787f3ddfa4b2165e12b1af79926b0"
+  },
+  "tests_run": 15,
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "test_log_sha256": "5729ac2d5e23991e036133b49b71e237b488c59c627399e50f676ef086c4d992",
+  "preserved_original_semantics_source": {
+    "path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_fp64_saved_semantics_review_v1\\audit_saved.py",
+    "sha256": "48593b126a369a548f901f9c2d2d334de17fa7023bb98312537df91377385f80"
+  },
+  "preserved_original_map_source": {
+    "path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_fp64_fixed_map_v1\\diagnose_fixed_map.py",
+    "sha256": "6d5c927bb88effdc4f4347f09c158c79e80383bae0fe6b7050960a52796bdab6"
+  },
+  "unchanged_map_function_AST": {
+    "difference_function": true,
+    "committed_target": true,
+    "grouped": true
+  },
+  "actual_evaluator_source_sha256": {
+    "direct_features.py": "26b816a2059edbb83daba386196c21b70002d1c83e2eda6e5cbf6a550ee4a251",
+    "direct_runtime.py": "9e90e64932991aa4f9f444ab12e08ade7e0ccc3d2feef5b12853a07bc16679e5",
+    "proposal_evidence.py": "0c46139a9a052422f939c83e4804ee5940c3fd25f2a54967042a08567bc35437",
+    "evaluate_direct_target_student.py": "ce3b591a4a05bf9b799ff6911d4feda2673df957aa77079357174d9883d406aa",
+    "export_release_gate.py": "e88f060654109c750f4665e3264cbc267ebea9114f28e5fb388976d3fa237564"
+  },
+  "python": "3.10.11",
+  "numpy": "1.23.5",
+  "model_calls": 0,
+  "BFM_calls": 0,
+  "native_steps": 0,
+  "optimizer_updates": 0,
+  "actual_request_created": false,
+  "actual_audit_executed": false,
+  "changes": [
+    "Hardcoded292/42 replaced with actual issued main prefix and continuous terminal hold state/history handoff.",
+    "Unified65000 release subjects replace old55000 failed-FP32/separate-FP64 release identities.",
+    "Applied-target inverse applies only to learned phase; original raw BFM action remains startup/terminal feedback.",
+    "Returned head output and failure capsule verified conditionally for actual phase; rejected commands never counted as issued.",
+    "All actual learned rows receive same-clock immutable query250 map/group comparisons after semantic checks; no model, native or planning calls."
+  ]
+}

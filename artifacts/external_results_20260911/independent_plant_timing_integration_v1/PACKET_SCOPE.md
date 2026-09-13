@@ -1,0 +1,11 @@
+# Timing-instrumented recorded-clock helper preparation
+
+Source and synthetic metadata only. No actual request, executable launch scripts, clearance, processes, worker, clock, native/model calls or callbacks are created by this preparation. Text previews are parsed but never executed. Frozen 32-file producer and corrected 25-file saved auditor remain unchanged.
+
+The future packet inherits all 3,689 external inputs of the original 3,718-pin benchmark unchanged: the same recorded expert commands/actions, 1,819 controls, 18,190 native steps, continuous main/hold state and four model serializations. It retains the fixed epoch, 2 ms steps, 20 ms control deadlines, no skipping/rebasing, watchdog budgets 240/120/180 seconds and outer 555-second limit. Existing job BUSY retry and result BUSY retry contracts remain literal and unchanged. The only added request contract is `preallocated_wall_thread_process_GC_v2`.
+
+Actual packet creation requires explicit `--audit-source-review` and `--audit-source-review-sha256`. The helper verifies the supplied file digest, literal positive source review, corrected preparation digest and full 25-file map. There is no fabricated future review hash or recursive subject search. The separately completed producer review is already bound. Actual clock selection still requires a later concrete review and separate finalizer; preparation does not select execution.
+
+Original durable launcher generators, preserved PowerShell template and parse checker are byte-identical to the completed pending-result benchmark. They retain hidden child handles, known raw exit, no automatic retry, CreateNew locks, exact pre/post input hashes, FILE_SHARE_DELETE streaming and forward-slash absolute WSL paths. Mandatory launcher arguments are taken from actual generated scripts when a run is selected.
+
+The additive owner helper checks sidecar report/main-manifest identities and completeness. Missing or partially written sidecars need explicit preservation errors and stay unqualified. Already retained bytes remain in owner output evidence. Original stage receipts, main traces, raw outcomes, full-state gaps and observed Windows/Linux process absence are unchanged. No attempt/return/native/verification count is synthesized. Independent detailed sidecar arithmetic remains the separate saved auditor's task.

@@ -1,0 +1,119 @@
+{
+  "actor": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/causal_dynamics_v1/motion_curriculum_run_v1/training/actor_00226.onnx",
+  "clip": "walk002",
+  "standing_diagnostic": false,
+  "requested_controls": 2917,
+  "completed_controls": 2917,
+  "physical_steps": 29170,
+  "physical_complete": true,
+  "physical_failure": false,
+  "controller_deadline_misses": 0,
+  "plant_wakes_over2ms_late": 0,
+  "plant_finishes_over2ms_late": 0,
+  "maximum_plant_finish_lateness_ms": 1.927177,
+  "missed_observation_publications": 0,
+  "first_latched_plant_fault_control": -1,
+  "maximum_speed_ratio": 0.5363526590693551,
+  "maximum_range_excess": 0.0,
+  "maximum_effort_ratio": 0.9404628284716376,
+  "controller_ms_p50_p95_max": [
+    8.6064005,
+    10.682306749999999,
+    15.050567
+  ],
+  "first_target_application_ms_p50_p95_max": [
+    10.0,
+    12.0,
+    16.0
+  ],
+  "controls_with_previous_then_current_command": 2916,
+  "activation_schedule": "new command applies at next 2ms step after publication; previous target stays applied during computation",
+  "source": {
+    "passed": false,
+    "source_controls": 667,
+    "requested_source_controls": 667,
+    "root_p95_m": 0.9915317219921194,
+    "yaw_p95_deg": 19.89993321189915,
+    "hand_head_relative_p95_m": [
+      0.22125656884142952,
+      0.2700906718633869,
+      0.050033292180957964
+    ],
+    "foot_relative_p95_m": [
+      0.25999642038943316,
+      0.27911196848144265
+    ],
+    "leg_rmse_rad": 0.17973374066311817
+  },
+  "main_quiet": {
+    "passed": true,
+    "values": {
+      "xy_p95": 0.04160608658805692,
+      "yaw_p95_deg": 2.1597984765530245,
+      "root_speed_p95": 0.001006595016757321,
+      "joint_speed_p95": 0.009861454073467738,
+      "joint_speed_max": 0.01168941330442153,
+      "tilt_max": 0.019368211477092445
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "final_quiet": {
+    "passed": true,
+    "values": {
+      "xy_p95": 0.048205906315719874,
+      "yaw_p95_deg": 2.7859983228593475,
+      "root_speed_p95": 0.00010067349442188468,
+      "joint_speed_p95": 0.0010014213229668262,
+      "joint_speed_max": 0.001037559316013264,
+      "tilt_max": 0.028817531695096155
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "packet_report": {
+    "epoch": 0,
+    "received": 1428,
+    "consumed": 1428,
+    "ignored": 0,
+    "rejected": 0,
+    "final_received": true,
+    "full_source_consumed": true,
+    "fault": null,
+    "calibration": null
+  },
+  "passed": false,
+  "one_learned_controller": true,
+  "identical_targets_in_both_legacy_channels": true,
+  "applied_history_owner": "unchanged native plant; imported once per observed control boundary",
+  "independent_physics_500hz": true,
+  "independent_packet_producer_50hz": true,
+  "controller_hz": 50,
+  "warmed_onnx_calls": 10,
+  "physics_steps_during_warmup": 0,
+  "preclock_received_samples": 12,
+  "simulation_time_frozen_for_inference": false,
+  "future_reference_frames": 0,
+  "prepared_motion_specific": false,
+  "injected_input_loss_control": null,
+  "explicit_rearm_api_preserved": true,
+  "automatic_rearm": false,
+  "fault_quiet": null,
+  "fault_scenario_passed": false,
+  "native_clock_long_pico_recurrence_unresolved": false,
+  "native_clock_expected_time": "Independent repeated additions of .002 from zero; tolerance 1e-10",
+  "general_live_teleop_qualified": false,
+  "hardware_authorized": false
+}

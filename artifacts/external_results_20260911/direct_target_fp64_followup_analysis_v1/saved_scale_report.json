@@ -1,0 +1,350 @@
+{
+  "passed": true,
+  "request_sha256": "3557349c02d1a35419f5970cbe1853bd1adb1037e61d722429d7bbe96549645a",
+  "model_calls": 0,
+  "native_calls": 0,
+  "optimizer_calls": 0,
+  "formula": "signed endpoint-minus-center, divided by signed normalized-native-speed radius 0.01; squared multiplier10000",
+  "derivative_scope": "finite secants through both exact committed-plan clips; not analytic K or a replanned expert",
+  "objective_results": {
+    "old": {
+      "nominal_loss": 0.0014692213347492118,
+      "velocity_loss": 5.558931284759087e-05,
+      "physical_loss": 0.00019344341161008,
+      "original_scalar_sum": 0.0017182540592068827,
+      "velocity_scalar_share": 0.03235220807407838,
+      "signed_secant_loss": 0.5558931284759087,
+      "secant_scalar_to_nominal_ratio": 378.3590091759705,
+      "secant_scalar_share_if_coefficient_one": 0.9970179401477467,
+      "odd_error_MSE": 5.4840773569781484e-05,
+      "even_error_MSE": 7.485392778093846e-07,
+      "teacher_chord_MSE": 3.348514657479436e-05,
+      "teacher_signed_secant_MSE": 0.33485146574794367,
+      "student_signed_secant_MSE": 0.35249277042649346,
+      "per_cell": [
+        {
+          "dataset": 0,
+          "phase": 0,
+          "rows": 100,
+          "chord_MSE": 6.406863785489371e-05,
+          "signed_secant_MSE": 0.640686378548937,
+          "teacher_secant_MSE": 0.347234078157012,
+          "nominal_loss": 0.0017967704916372895
+        },
+        {
+          "dataset": 0,
+          "phase": 1,
+          "rows": 819,
+          "chord_MSE": 4.7009444457258497e-05,
+          "signed_secant_MSE": 0.47009444457258487,
+          "teacher_secant_MSE": 0.2879478453258869,
+          "nominal_loss": 0.0013829338131472468
+        },
+        {
+          "dataset": 0,
+          "phase": 2,
+          "rows": 100,
+          "chord_MSE": 5.2171754817796556e-05,
+          "signed_secant_MSE": 0.5217175481779655,
+          "teacher_secant_MSE": 0.33462332717100046,
+          "nominal_loss": 0.001245684688910842
+        },
+        {
+          "dataset": 1,
+          "phase": 0,
+          "rows": 100,
+          "chord_MSE": 6.26763925426437e-05,
+          "signed_secant_MSE": 0.6267639254264369,
+          "teacher_secant_MSE": 0.34211251334664217,
+          "nominal_loss": 0.0019416206050664186
+        },
+        {
+          "dataset": 1,
+          "phase": 1,
+          "rows": 819,
+          "chord_MSE": 4.843435271501798e-05,
+          "signed_secant_MSE": 0.48434352715017964,
+          "teacher_secant_MSE": 0.30233010860305654,
+          "nominal_loss": 0.001285606762394309
+        },
+        {
+          "dataset": 1,
+          "phase": 2,
+          "rows": 100,
+          "chord_MSE": 4.8347238347792644e-05,
+          "signed_secant_MSE": 0.4834723834779264,
+          "teacher_secant_MSE": 0.2827066837948581,
+          "nominal_loss": 0.000991342356428504
+        },
+        {
+          "dataset": 2,
+          "phase": 0,
+          "rows": 100,
+          "chord_MSE": 6.426913626439264e-05,
+          "signed_secant_MSE": 0.6426913626439263,
+          "teacher_secant_MSE": 0.3303044319267537,
+          "nominal_loss": 0.0019496161257848144
+        },
+        {
+          "dataset": 2,
+          "phase": 1,
+          "rows": 819,
+          "chord_MSE": 5.0343301627427756e-05,
+          "signed_secant_MSE": 0.5034330162742781,
+          "teacher_secant_MSE": 0.3272189364622037,
+          "nominal_loss": 0.0013487578835338354
+        },
+        {
+          "dataset": 2,
+          "phase": 2,
+          "rows": 100,
+          "chord_MSE": 6.298355700109431e-05,
+          "signed_secant_MSE": 0.6298355700109434,
+          "teacher_secant_MSE": 0.4591852669440795,
+          "nominal_loss": 0.0007741660811007023
+        }
+      ],
+      "groups": {
+        "all": {
+          "probe_rows": 140622,
+          "raw_count_weighted_chord_MSE": 5.065466326457936e-05,
+          "raw_count_weighted_signed_secant_MSE": 0.5065466326457936,
+          "raw_count_weighted_teacher_secant_RMS": 0.5606921815006328
+        },
+        "feedback_clip": {
+          "probe_rows": 28098,
+          "raw_count_weighted_chord_MSE": 0.00011138349459352332,
+          "raw_count_weighted_signed_secant_MSE": 1.1138349459352337,
+          "raw_count_weighted_teacher_secant_RMS": 1.0075698969116802
+        },
+        "native_clip": {
+          "probe_rows": 6631,
+          "raw_count_weighted_chord_MSE": 8.960225175936546e-05,
+          "raw_count_weighted_signed_secant_MSE": 0.8960225175936545,
+          "raw_count_weighted_teacher_secant_RMS": 0.818459519271125
+        },
+        "any_clip": {
+          "probe_rows": 32609,
+          "raw_count_weighted_chord_MSE": 0.00010291157610626269,
+          "raw_count_weighted_signed_secant_MSE": 1.0291157610626267,
+          "raw_count_weighted_teacher_secant_RMS": 0.9529401485524419
+        },
+        "unclipped": {
+          "probe_rows": 108013,
+          "raw_count_weighted_chord_MSE": 3.487836160779315e-05,
+          "raw_count_weighted_signed_secant_MSE": 0.3487836160779315,
+          "raw_count_weighted_teacher_secant_RMS": 0.367603835742816
+        },
+        "branch_changed": {
+          "probe_rows": 32498,
+          "raw_count_weighted_chord_MSE": 0.00010329519526816684,
+          "raw_count_weighted_signed_secant_MSE": 1.0329519526816686,
+          "raw_count_weighted_teacher_secant_RMS": 0.9552060786550852
+        }
+      }
+    },
+    "new": {
+      "nominal_loss": 0.00044877491988396895,
+      "velocity_loss": 6.803711439777371e-05,
+      "physical_loss": 9.564621726189055e-05,
+      "original_scalar_sum": 0.0006124582515436332,
+      "velocity_scalar_share": 0.11108857497844742,
+      "signed_secant_loss": 0.6803711439777371,
+      "secant_scalar_to_nominal_ratio": 1516.0632063700164,
+      "secant_scalar_share_if_coefficient_one": 0.9992004572005136,
+      "odd_error_MSE": 6.700567029155776e-05,
+      "even_error_MSE": 1.0314441062159679e-06,
+      "teacher_chord_MSE": 3.348514657479436e-05,
+      "teacher_signed_secant_MSE": 0.33485146574794367,
+      "student_signed_secant_MSE": 0.5163817159736248,
+      "per_cell": [
+        {
+          "dataset": 0,
+          "phase": 0,
+          "rows": 100,
+          "chord_MSE": 8.276506823902161e-05,
+          "signed_secant_MSE": 0.827650682390216,
+          "teacher_secant_MSE": 0.347234078157012,
+          "nominal_loss": 0.0005408082506619394
+        },
+        {
+          "dataset": 0,
+          "phase": 1,
+          "rows": 819,
+          "chord_MSE": 6.582889123918087e-05,
+          "signed_secant_MSE": 0.6582889123918085,
+          "teacher_secant_MSE": 0.2879478453258869,
+          "nominal_loss": 0.0004504234530031681
+        },
+        {
+          "dataset": 0,
+          "phase": 2,
+          "rows": 100,
+          "chord_MSE": 5.3258697802385384e-05,
+          "signed_secant_MSE": 0.5325869780238538,
+          "teacher_secant_MSE": 0.33462332717100046,
+          "nominal_loss": 0.00036231245030649006
+        },
+        {
+          "dataset": 1,
+          "phase": 0,
+          "rows": 100,
+          "chord_MSE": 8.106432343037403e-05,
+          "signed_secant_MSE": 0.8106432343037403,
+          "teacher_secant_MSE": 0.34211251334664217,
+          "nominal_loss": 0.0005403452087193727
+        },
+        {
+          "dataset": 1,
+          "phase": 1,
+          "rows": 819,
+          "chord_MSE": 6.69769875466633e-05,
+          "signed_secant_MSE": 0.6697698754666329,
+          "teacher_secant_MSE": 0.30233010860305654,
+          "nominal_loss": 0.00043509097304195166
+        },
+        {
+          "dataset": 1,
+          "phase": 2,
+          "rows": 100,
+          "chord_MSE": 4.8461827526191075e-05,
+          "signed_secant_MSE": 0.48461827526191065,
+          "teacher_secant_MSE": 0.2827066837948581,
+          "nominal_loss": 0.0003656854678411037
+        },
+        {
+          "dataset": 2,
+          "phase": 0,
+          "rows": 100,
+          "chord_MSE": 8.161627466909063e-05,
+          "signed_secant_MSE": 0.8161627466909063,
+          "teacher_secant_MSE": 0.3303044319267537,
+          "nominal_loss": 0.0005055267829447985
+        },
+        {
+          "dataset": 2,
+          "phase": 1,
+          "rows": 819,
+          "chord_MSE": 6.86197699720378e-05,
+          "signed_secant_MSE": 0.6861976997203778,
+          "teacher_secant_MSE": 0.3272189364622037,
+          "nominal_loss": 0.00047373949200846255
+        },
+        {
+          "dataset": 2,
+          "phase": 2,
+          "rows": 100,
+          "chord_MSE": 6.374218915501884e-05,
+          "signed_secant_MSE": 0.6374218915501884,
+          "teacher_secant_MSE": 0.4591852669440795,
+          "nominal_loss": 0.0002664316270966083
+        }
+      ],
+      "groups": {
+        "all": {
+          "probe_rows": 140622,
+          "raw_count_weighted_chord_MSE": 6.740544468920952e-05,
+          "raw_count_weighted_signed_secant_MSE": 0.6740544468920954,
+          "raw_count_weighted_teacher_secant_RMS": 0.5606921815006328
+        },
+        "feedback_clip": {
+          "probe_rows": 28098,
+          "raw_count_weighted_chord_MSE": 0.00012195617487085359,
+          "raw_count_weighted_signed_secant_MSE": 1.2195617487085362,
+          "raw_count_weighted_teacher_secant_RMS": 1.0075698969116802
+        },
+        "native_clip": {
+          "probe_rows": 6631,
+          "raw_count_weighted_chord_MSE": 0.0001052080392793511,
+          "raw_count_weighted_signed_secant_MSE": 1.0520803927935107,
+          "raw_count_weighted_teacher_secant_RMS": 0.818459519271125
+        },
+        "any_clip": {
+          "probe_rows": 32609,
+          "raw_count_weighted_chord_MSE": 0.0001146369844864675,
+          "raw_count_weighted_signed_secant_MSE": 1.146369844864675,
+          "raw_count_weighted_teacher_secant_RMS": 0.9529401485524419
+        },
+        "unclipped": {
+          "probe_rows": 108013,
+          "raw_count_weighted_chord_MSE": 5.314629735278904e-05,
+          "raw_count_weighted_signed_secant_MSE": 0.5314629735278901,
+          "raw_count_weighted_teacher_secant_RMS": 0.367603835742816
+        },
+        "branch_changed": {
+          "probe_rows": 32498,
+          "raw_count_weighted_chord_MSE": 0.0001148900207342984,
+          "raw_count_weighted_signed_secant_MSE": 1.1489002073429835,
+          "raw_count_weighted_teacher_secant_RMS": 0.9552060786550852
+        }
+      }
+    }
+  },
+  "teacher_chord_abs": {
+    "min": 0.0,
+    "p50": 0.00021216765403909296,
+    "p95": 0.009690549910831334,
+    "max": 0.1909854915734425,
+    "rms": 0.00560692181500633
+  },
+  "teacher_secant_abs": {
+    "min": 0.0,
+    "p50": 0.021216765403909297,
+    "p95": 0.9690549910831333,
+    "max": 19.098549157344248,
+    "rms": 0.5606921815006328
+  },
+  "generation_clip_counts": {
+    "feedback_clipped_probes": 28098,
+    "native_clipped_probes": 6631,
+    "branch_changed_probes": 32498,
+    "zero_gain_centers": 50
+  },
+  "nominal_mass": {
+    "acquisition": 0.3333333333333333,
+    "source": 0.3333333333333333,
+    "return_phase": 0.3333333333333333,
+    "walk003_three_datasets": 0.6,
+    "each_query250_acquisition_row": 0.0006666666666666666,
+    "each_query250_source_row": 8.14000814000814e-05,
+    "each_pico_source_row": 1.1534025374855825e-05
+  },
+  "expert_plans": 204,
+  "fresh_seed_ms": {
+    "min": 212.15286000006017,
+    "p50": 288.66874500045014,
+    "p95": 383.90979600017084,
+    "max": 445.83813000008377,
+    "rms": 294.3705984701659
+  },
+  "expert_nominal_wall_seconds": 2664.324351,
+  "actual_outcome": {
+    "physics_steps": 2916,
+    "attempted_controls": 292,
+    "failure": {
+      "reasons": [
+        "native_joint_speed"
+      ],
+      "global_control": 291,
+      "local_control": 291,
+      "substep": 6,
+      "time": 5.83199999999958,
+      "range_excess": 0.0,
+      "velocity_ratio": 1.1199488179140533,
+      "effort_ratio": 1.0,
+      "tilt": 0.2545027666350939,
+      "clock_error": 0.0
+    },
+    "policy_ms_p50_p95_max": [
+      6.405200499997932,
+      7.901910550005197,
+      13.939701000012406
+    ],
+    "source_metrics": {
+      "source_controls": 0,
+      "no_source_samples": true
+    }
+  },
+  "parameter_gradient_claim": false,
+  "all_inputs_unchanged": true
+}

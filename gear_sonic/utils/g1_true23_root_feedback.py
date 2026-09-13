@@ -13,7 +13,9 @@ import json
 import numpy as np
 
 
-def root_feedback_contract():
+def root_feedback_contract(reference_timing="causal_history"):
+    if reference_timing not in ("causal_history", "received_source_horizon_200ms_v1"):
+        raise ValueError("unknown root feedback reference timing")
     body = {
         "kind": "g1_native23_root_feedback9_v1",
         "dimension": 9,
@@ -38,6 +40,15 @@ def root_feedback_contract():
         "physical_world_state_estimator_required": True,
         "simulator_state_is_physical_estimator_qualification": False,
     }
+    if reference_timing == "received_source_horizon_200ms_v1":
+        body.update(
+            kind="g1_native23_buffered_source_root_feedback9_v2",
+            desired_position_frame="received_horizon_q1_age_180ms",
+            desired_velocity_definition="(received_root_q1-received_root_q0)/0.02",
+            measured_state_frame="current_control_boundary_not_delayed",
+            sonic_semantic_branch_reference_frame="received_horizon_q0_age_200ms",
+            reference_timing=reference_timing,
+        )
     encoded = json.dumps(body, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()
     return {**body, "contract_sha256": hashlib.sha256(encoded).hexdigest()}
 

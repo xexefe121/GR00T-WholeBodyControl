@@ -1,0 +1,42 @@
+{
+  "kind": "preserved_original_standing_intent_metric_erratum",
+  "original_report_modified": false,
+  "original_report_sha256": "ec505221818ac25f4e9ab7364235c455fee6484926b13356818e5fe2850fcaa6",
+  "original_provenance_sha256": "62aa0f703cc27581c29d00d6dc1f3d8cbaa3a37a13d145f671f2628f8d29e151",
+  "original_trace_sha256": "3ca8f1285e8f75ce98182e00158cd41f3eeecc27a5f4fb579d51349642f7c800",
+  "invalid_original_report_fields": [
+    "metrics.original_relative_hand_head_p95_m"
+  ],
+  "invalid_original_trace_fields": [
+    "original_relative_hand_head_error"
+  ],
+  "reason": "Old code compared task_points(actual)[:3] (left foot, right foot, legacy left-hand point) with original29 left hand, right hand, head. It also used a legacy 0.18 m native hand proxy instead of the 0.264 m neutral-source hand convention.",
+  "original_wrong_p95_m": [
+    0.6187215714485731,
+    0.6187192584031649,
+    0.5665355560016729
+  ],
+  "corrected_directory": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native323_replay_v1\\standing_executed_target_v2",
+  "corrected_report_sha256": "e378eaa203878c6debae138b915d24c6208746d0596bdc399daad678bbf7dbc9",
+  "corrected_trace_sha256": "881f3a0e9b0b98c2c9b969ef00541b57c0efa12d5431d7d6a53bfdba32237e82",
+  "corrected_metric_revision": 2,
+  "corrected_p95_m": [
+    0.0003306771682489749,
+    0.0003308387286327244,
+    0.01000851069061314
+  ],
+  "physical_arrays_bit_identical": {
+    "qpos": true,
+    "qvel": true,
+    "target": true,
+    "source_frame": true,
+    "physics_qpos": true,
+    "physics_qvel": true,
+    "physics_torque": true,
+    "physics_substeps": true
+  },
+  "physics_results_retain_their_original_scope": true,
+  "full_source_completed": false,
+  "full_body_tracking_qualified": false,
+  "hardware_authorized": false
+}

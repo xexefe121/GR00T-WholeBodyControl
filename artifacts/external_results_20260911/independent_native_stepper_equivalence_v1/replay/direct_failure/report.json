@@ -1,0 +1,282 @@
+{
+  "equivalence_passed": true,
+  "error": null,
+  "first_mismatch": null,
+  "comparisons": 26219,
+  "segment_results": [
+    {
+      "segment": "direct_failure",
+      "requested_controls": 1569,
+      "recorded_controls": 316,
+      "reproduced_steps": 3158,
+      "expected_issue": [
+        315,
+        8,
+        "native_joint_bound"
+      ],
+      "actual_issue": [
+        315,
+        8,
+        "native_joint_bound"
+      ],
+      "all_saved_samples_byte_exact": true,
+      "requested_segment_complete": false,
+      "adapter_counters": {
+        "attempted": 3158,
+        "returned": 3158,
+        "capture_attempts": 3158,
+        "captured": 3158,
+        "verification_attempts": 3158,
+        "verified": 3157,
+        "expected_time": 6.315999999999526,
+        "initial_time": 0.0,
+        "initialized": true,
+        "mutation_uncertain": false,
+        "stage": "STEP_VERIFY",
+        "closed": false,
+        "model_identity": {
+          "expected_sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+          "entry_verified": true,
+          "exit_verified": false,
+          "checks": [
+            {
+              "phase": "entry",
+              "passed": true,
+              "serialization_attempted_before": 0,
+              "serialization_returned_before": 0,
+              "actual_sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+              "serialization_attempted_after": 2,
+              "serialization_returned_after": 2
+            }
+          ],
+          "serialization_attempted": 2,
+          "serialization_returned": 2,
+          "process_global_identity_proven": false,
+          "portable_cross_platform_identity": false
+        }
+      }
+    }
+  ],
+  "adapter_fault": {
+    "reason": "STRICT_NATIVE_VIOLATION",
+    "stage": "STEP_VERIFY",
+    "attempted": 3158,
+    "returned": 3158,
+    "captured": 3158,
+    "detail": "native_joint_bound",
+    "evidence_sha256": "50c321e29626aefe1df861e195bd5d05a0bab7a15ac734db475683082df2aea9",
+    "capture_return_evidence_sha256": "9c18942444d77892b5c0bd63806c92d29c6577e6cae554c8d86c19316ca2a9b5"
+  },
+  "adapter_counters": {
+    "attempted": 3158,
+    "returned": 3158,
+    "capture_attempts": 3158,
+    "captured": 3158,
+    "verification_attempts": 3158,
+    "verified": 3157,
+    "expected_time": 6.315999999999526,
+    "initial_time": 0.0,
+    "initialized": true,
+    "mutation_uncertain": false,
+    "stage": "STEP_VERIFY",
+    "closed": true,
+    "model_identity": {
+      "expected_sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+      "entry_verified": true,
+      "exit_verified": true,
+      "checks": [
+        {
+          "phase": "entry",
+          "passed": true,
+          "serialization_attempted_before": 0,
+          "serialization_returned_before": 0,
+          "actual_sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+          "serialization_attempted_after": 2,
+          "serialization_returned_after": 2
+        },
+        {
+          "phase": "exit",
+          "passed": true,
+          "serialization_attempted_before": 2,
+          "serialization_returned_before": 2,
+          "actual_sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+          "serialization_attempted_after": 4,
+          "serialization_returned_after": 4
+        }
+      ],
+      "serialization_attempted": 4,
+      "serialization_returned": 4,
+      "process_global_identity_proven": false,
+      "portable_cross_platform_identity": false
+    }
+  },
+  "initial_api_counters": {
+    "step_budget": 21348,
+    "step_attempted": 18190,
+    "step_returned": 18190,
+    "serialization_budget": 8,
+    "serialization_attempted": 4,
+    "serialization_returned": 4,
+    "denied_step_calls": 0,
+    "denied_serialization_calls": 0,
+    "serialization_records": [
+      {
+        "index": 0,
+        "native_returned": true,
+        "file": "00.mjb",
+        "sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+        "bytes": 95115288,
+        "dtype": "|u1",
+        "shape": [
+          95115288
+        ]
+      },
+      {
+        "index": 1,
+        "native_returned": true,
+        "file": "01.mjb",
+        "sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+        "bytes": 95115288,
+        "dtype": "|u1",
+        "shape": [
+          95115288
+        ]
+      },
+      {
+        "index": 2,
+        "native_returned": true,
+        "file": "02.mjb",
+        "sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+        "bytes": 95115288,
+        "dtype": "|u1",
+        "shape": [
+          95115288
+        ]
+      },
+      {
+        "index": 3,
+        "native_returned": true,
+        "file": "03.mjb",
+        "sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+        "bytes": 95115288,
+        "dtype": "|u1",
+        "shape": [
+          95115288
+        ]
+      }
+    ]
+  },
+  "final_api_counters": {
+    "step_budget": 21348,
+    "step_attempted": 21348,
+    "step_returned": 21348,
+    "serialization_budget": 8,
+    "serialization_attempted": 8,
+    "serialization_returned": 8,
+    "denied_step_calls": 0,
+    "denied_serialization_calls": 0,
+    "serialization_records": [
+      {
+        "index": 0,
+        "native_returned": true,
+        "file": "00.mjb",
+        "sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+        "bytes": 95115288,
+        "dtype": "|u1",
+        "shape": [
+          95115288
+        ]
+      },
+      {
+        "index": 1,
+        "native_returned": true,
+        "file": "01.mjb",
+        "sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+        "bytes": 95115288,
+        "dtype": "|u1",
+        "shape": [
+          95115288
+        ]
+      },
+      {
+        "index": 2,
+        "native_returned": true,
+        "file": "02.mjb",
+        "sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+        "bytes": 95115288,
+        "dtype": "|u1",
+        "shape": [
+          95115288
+        ]
+      },
+      {
+        "index": 3,
+        "native_returned": true,
+        "file": "03.mjb",
+        "sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+        "bytes": 95115288,
+        "dtype": "|u1",
+        "shape": [
+          95115288
+        ]
+      },
+      {
+        "index": 4,
+        "native_returned": true,
+        "file": "04.mjb",
+        "sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+        "bytes": 95115288,
+        "dtype": "|u1",
+        "shape": [
+          95115288
+        ]
+      },
+      {
+        "index": 5,
+        "native_returned": true,
+        "file": "05.mjb",
+        "sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+        "bytes": 95115288,
+        "dtype": "|u1",
+        "shape": [
+          95115288
+        ]
+      },
+      {
+        "index": 6,
+        "native_returned": true,
+        "file": "06.mjb",
+        "sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+        "bytes": 95115288,
+        "dtype": "|u1",
+        "shape": [
+          95115288
+        ]
+      },
+      {
+        "index": 7,
+        "native_returned": true,
+        "file": "07.mjb",
+        "sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+        "bytes": 95115288,
+        "dtype": "|u1",
+        "shape": [
+          95115288
+        ]
+      }
+    ]
+  },
+  "exit_model_identity": {
+    "phase": "exit",
+    "passed": true,
+    "serialization_attempted_before": 2,
+    "serialization_returned_before": 2,
+    "actual_sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+    "serialization_attempted_after": 4,
+    "serialization_returned_after": 4
+  },
+  "no_reset_between_segments": true,
+  "model_inference_calls": 0,
+  "other_oracle_native_steps": 0,
+  "wallclock_or_balance_qualification": false
+}

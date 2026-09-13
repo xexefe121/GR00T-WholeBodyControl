@@ -1,0 +1,283 @@
+Setting seed: 20260906
+Warp 1.12.0 initialized:
+   CUDA Toolkit 12.9, Driver 12.9
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA GeForce RTX 3070 Laptop GPU" (8 GiB, sm_86, mempool enabled)
+   Kernel cache:
+     /root/.cache/warp/1.12.0
+Warp DeprecationWarning: The symbol `warp.context.runtime` will soon be removed from the public API. It can still be accessed from `warp._src.context.runtime` but might be changed or removed without notice.
+Module mujoco_warp._src.smooth 75c1b76 load on device 'cuda:0' took 12.52 ms  (cached)
+Module mujoco_warp._src.collision_driver 4d8b905 load on device 'cuda:0' took 4.09 ms  (cached)
+Module _nxn_broadphase__locals__kernel_e916423b e916423 load on device 'cuda:0' took 4.42 ms  (cached)
+Module _primitive_narrowphase__locals__primitive_narrowphase_886c85b7 886c85b load on device 'cuda:0' took 6.11 ms  (cached)
+Module mujoco_warp._src.constraint e4fb920 load on device 'cuda:0' took 8.47 ms  (cached)
+Module _actuator_velocity__locals__actuator_velocity_54391827 7ce5a05 load on device 'cuda:0' took 3.74 ms  (cached)
+Module mujoco_warp._src.passive 7fb8524 load on device 'cuda:0' took 6.46 ms  (cached)
+Module mujoco_warp._src.sensor 912ac95 load on device 'cuda:0' took 9.89 ms  (cached)
+Module mujoco_warp._src.forward 5922a95 load on device 'cuda:0' took 7.43 ms  (cached)
+Module mujoco_warp._src.support 343d1ae load on device 'cuda:0' took 4.97 ms  (cached)
+Module _tile_cholesky_factorize_solve__locals__cholesky_factorize_solve_7c4626c2 68c124c load on device 'cuda:0' took 78.75 ms  (cached)
+Module mujoco_warp._src.solver 4a4fc90 load on device 'cuda:0' took 6.74 ms  (cached)
+Module solve_init_jaref__locals__kernel_e8e73468 e8e7346 load on device 'cuda:0' took 4.91 ms  (cached)
+Module mul_m_dense__locals___mul_m_dense_5b182806 5b18280 load on device 'cuda:0' took 3.86 ms  (cached)
+Module update_constraint_efc__locals__kernel_84abb40b 84abb40 load on device 'cuda:0' took 4.93 ms  (cached)
+Module update_constraint_gauss_cost__locals__kernel_026115d4 026115d load on device 'cuda:0' took 3.30 ms  (cached)
+Module update_gradient_JTDAJ_dense_tiled__locals__kernel_39517fdb 4e5a3dd load on device 'cuda:0' took 6.84 ms  (cached)
+Module update_gradient_cholesky__locals__kernel_ac06d661 8d9cf28 load on device 'cuda:0' took 144.47 ms  (cached)
+Module linesearch_jv_fused__locals__kernel_0ca87d41 0ca87d4 load on device 'cuda:0' took 3.33 ms  (cached)
+Module linesearch_prepare_gauss__locals__kernel_b235c0c8 b235c0c load on device 'cuda:0' took 3.45 ms  (cached)
+Module update_constraint_efc__locals__kernel_19805a28 19805a2 load on device 'cuda:0' took 4.12 ms  (cached)
+Module _contact_sort__locals__contact_sort_c2bd81ce 47863e6 load on device 'cuda:0' took 4.36 ms  (cached)
+Module _tile_euler_dense__locals__euler_dense_2facc489 09a40c4 load on device 'cuda:0' took 213.21 ms  (cached)
+Module reset_data__locals__reset_xfrc_applied_f86f0829 f86f082 load on device 'cuda:0' took 4.32 ms  (cached)
+Module reset_data__locals__reset_qM_1511185b 1511185 load on device 'cuda:0' took 2.64 ms  (cached)
+Module reset_data__locals__reset_mocap_841cb68f 841cb68 load on device 'cuda:0' took 4.45 ms  (cached)
+Module reset_data__locals__reset_contact_76c1c25e 76c1c25 load on device 'cuda:0' took 4.00 ms  (cached)
+Module reset_data__locals__reset_nworld_d108b6ac d108b6a load on device 'cuda:0' took 3.05 ms  (cached)
+
++-----------------------------------+
+|          Base Environment         |
++------------------------+----------+
+| Property               | Value    |
++------------------------+----------+
+| Number of environments | 4        |
+| Environment device     | cuda:0   |
+| Environment seed       | 20260906 |
+| Physics step-size      | 0.002    |
+| Environment step-size  | 0.02     |
++------------------------+----------+
+
+[INFO] <EventManager> contains 0 active terms.
+
+[INFO] <CommandManager> contains 1 active terms.
++--------------------------------------+
+|         Active Command Terms         |
++-------+--------+---------------------+
+| Index | Name   |         Type        |
++-------+--------+---------------------+
+|   0   | motion | CorpusMotionCommand |
++-------+--------+---------------------+
+
+[INFO] <ActionManager> contains 1 active terms.
++---------------------------------+
+| Active Action Terms (shape: 23) |
++-------+-----------+-------------+
+| Index | Name      |   Dimension |
++-------+-----------+-------------+
+|   0   | joint_pos |          23 |
++-------+-----------+-------------+
+
+[INFO] <ObservationManager> contains 3 groups.
++----------------------------------------------------------------+
+| Active Observation Terms in Group: 'tokenizer' (shape: (268,)) |
++---------+-----------------------------------------+------------+
+|  Index  | Name                                    |   Shape    |
++---------+-----------------------------------------+------------+
+|    0    | encoder_index                           |    (1,)    |
+|    1    | causal_history_lower_body               |   (240,)   |
+|    2    | vr_3point_local_target                  |    (9,)    |
+|    3    | vr_3point_local_orn_target              |   (12,)    |
+|    4    | motion_anchor_ori_b                     |    (6,)    |
++---------+-----------------------------------------+------------+
++-------------------------------------------------------------+
+| Active Observation Terms in Group: 'policy' (shape: (930,)) |
++--------+------------------------+---------------------------+
+| Index  | Name                   |           Shape           |
++--------+------------------------+---------------------------+
+|   0    | base_ang_vel           |      (30,)  ← 10×(3,)     |
+|   1    | joint_pos_rel          |     (290,)  ← 10×(29,)    |
+|   2    | joint_vel              |     (290,)  ← 10×(29,)    |
+|   3    | previous_action        |     (290,)  ← 10×(29,)    |
+|   4    | projected_gravity      |      (30,)  ← 10×(3,)     |
++--------+------------------------+---------------------------+
++-------------------------------------------------------------+
+| Active Observation Terms in Group: 'critic' (shape: (256,)) |
++-----------+------------------------------------+------------+
+|   Index   | Name                               |   Shape    |
++-----------+------------------------------------+------------+
+|     0     | command                            |   (46,)    |
+|     1     | motion_anchor_pos_b                |    (3,)    |
+|     2     | motion_anchor_ori_b                |    (6,)    |
+|     3     | body_pos                           |   (42,)    |
+|     4     | body_ori                           |   (84,)    |
+|     5     | base_lin_vel                       |    (3,)    |
+|     6     | base_ang_vel                       |    (3,)    |
+|     7     | joint_pos                          |   (23,)    |
+|     8     | joint_vel                          |   (23,)    |
+|     9     | actions                            |   (23,)    |
++-----------+------------------------------------+------------+
+
+[INFO] <TerminationManager> contains 6 active terms.
++----------------------------------------------+
+|           Active Termination Terms           |
++-------+---------------------------+----------+
+| Index | Name                      | Time Out |
++-------+---------------------------+----------+
+|   0   | time_out                  |   True   |
+|   1   | anchor_pos                |  False   |
+|   2   | anchor_ori                |  False   |
+|   3   | ee_body_pos               |  False   |
+|   4   | corpus_clip_time_out      |   True   |
+|   5   | stage_one_actuation_guard |  False   |
++-------+---------------------------+----------+
+
+[INFO] <RewardManager> contains 15 active terms.
++----------------------------------------------------+
+|                Active Reward Terms                 |
++-------+----------------------------------+---------+
+| Index | Name                             |  Weight |
++-------+----------------------------------+---------+
+|   0   | motion_global_root_pos           |     0.5 |
+|   1   | motion_global_root_ori           |     0.5 |
+|   2   | motion_body_pos                  |     1.0 |
+|   3   | motion_body_ori                  |     1.0 |
+|   4   | motion_body_lin_vel              |     1.0 |
+|   5   | motion_body_ang_vel              |     1.0 |
+|   6   | action_rate_l2                   |    -0.2 |
+|   7   | joint_limit                      |   -20.0 |
+|   8   | self_collisions                  |   -10.0 |
+|   9   | action_target_reference_l2       |    -2.0 |
+|   10  | action_target_soft_limit_barrier |   -10.0 |
+|   11  | alive                            |     5.0 |
+|   12  | non_timeout_termination          | -5000.0 |
+|   13  | worst_ee_z_normalized_squared    |   -20.0 |
+|   14  | right_wrist_prethreshold_barrier |   -25.0 |
++-------+----------------------------------+---------+
+
+[INFO] <NullCurriculumManager> (inactive)
+[INFO] <NullMetricsManager> (inactive)
+--------------------------------------------------------------------------------
+Resolved observation sets: 
+	 actor :  ('tokenizer', 'policy')
+	 critic :  ('critic',)
+--------------------------------------------------------------------------------
+Actor Model: True23SonicActorModel(
+  (core): True23SonicCore(
+    (actor_module): _SonicActorModule(
+      (encoders): ModuleDict(
+        (teleop): _ExactSiluMlp(
+          (module): Sequential(
+            (0): Linear(in_features=267, out_features=2048, bias=True)
+            (1): SiLU()
+            (2): Linear(in_features=2048, out_features=1024, bias=True)
+            (3): SiLU()
+            (4): Linear(in_features=1024, out_features=512, bias=True)
+            (5): SiLU()
+            (6): Linear(in_features=512, out_features=512, bias=True)
+            (7): SiLU()
+            (8): Linear(in_features=512, out_features=64, bias=True)
+          )
+        )
+      )
+      (decoders): ModuleDict(
+        (g1_dyn): _ExactSiluMlp(
+          (module): Sequential(
+            (0): Linear(in_features=994, out_features=4096, bias=True)
+            (1): SiLU()
+            (2): Linear(in_features=4096, out_features=4096, bias=True)
+            (3): SiLU()
+            (4): Linear(in_features=4096, out_features=2048, bias=True)
+            (5): SiLU()
+            (6): Linear(in_features=2048, out_features=2048, bias=True)
+            (7): SiLU()
+            (8): Linear(in_features=2048, out_features=1024, bias=True)
+            (9): SiLU()
+            (10): Linear(in_features=1024, out_features=1024, bias=True)
+            (11): SiLU()
+            (12): Linear(in_features=1024, out_features=512, bias=True)
+            (13): SiLU()
+            (14): Linear(in_features=512, out_features=512, bias=True)
+            (15): SiLU()
+            (16): Linear(in_features=512, out_features=23, bias=True)
+          )
+        )
+      )
+    )
+  )
+  (distribution): GaussianDistribution()
+)
+Critic Model: MLPModel(
+  (obs_normalizer): EmpiricalNormalization()
+  (mlp): MLP(
+    (0): Linear(in_features=256, out_features=512, bias=True)
+    (1): ELU(alpha=1.0)
+    (2): Linear(in_features=512, out_features=256, bias=True)
+    (3): ELU(alpha=1.0)
+    (4): Linear(in_features=256, out_features=128, bias=True)
+    (5): ELU(alpha=1.0)
+    (6): Linear(in_features=128, out_features=1, bias=True)
+  )
+)
+Could not find git repository in /root/.venvs/g1_true23_mjlab/lib/python3.11/site-packages/rsl_rl/__init__.py. Skipping.
+################################################################################
+[1m                             Learning iteration 0/2                             [0m 
+
+                               Run name: true23_h10
+                            Total steps: 32 
+                       Steps per second: 11 
+                        Collection time: 2.639s 
+                          Learning time: 0.234s 
+                        Mean value loss: 4452.8702
+                    Mean surrogate loss: -0.0725
+                      Mean entropy loss: -20.3239
+                            Mean reward: -99.83
+                    Mean episode length: 2.29
+                        Mean action std: 0.10
+  Episode_Reward/motion_global_root_pos: 0.0020
+  Episode_Reward/motion_global_root_ori: 0.0019
+         Episode_Reward/motion_body_pos: 0.0041
+         Episode_Reward/motion_body_ori: 0.0036
+     Episode_Reward/motion_body_lin_vel: 0.0030
+     Episode_Reward/motion_body_ang_vel: 0.0029
+          Episode_Reward/action_rate_l2: -0.0125
+             Episode_Reward/joint_limit: 0.0000
+         Episode_Reward/self_collisions: 0.0000
+Episode_Reward/action_target_reference_l2: -0.0010
+Episode_Reward/action_target_soft_limit_barrier: -0.0001
+                   Episode_Reward/alive: 0.0108
+ Episode_Reward/non_timeout_termination: -10.0000
+Episode_Reward/worst_ee_z_normalized_squared: -0.0010
+Episode_Reward/right_wrist_prethreshold_barrier: 0.0000
+        Metrics/motion/error_anchor_pos: 0.0451
+        Metrics/motion/error_anchor_rot: 0.0867
+    Metrics/motion/error_anchor_lin_vel: 0.4097
+    Metrics/motion/error_anchor_ang_vel: 0.5173
+          Metrics/motion/error_body_pos: 0.0372
+          Metrics/motion/error_body_rot: 0.1224
+         Metrics/motion/error_joint_pos: 0.2777
+         Metrics/motion/error_joint_vel: 5.0656
+        Metrics/motion/sampling_entropy: 1.0000
+      Metrics/motion/sampling_top1_prob: 0.0084
+       Metrics/motion/sampling_top1_bin: 0.5000
+           Episode_Termination/time_out: 0.0000
+         Episode_Termination/anchor_pos: 0.0000
+         Episode_Termination/anchor_ori: 0.0000
+        Episode_Termination/ee_body_pos: 0.0000
+Episode_Termination/corpus_clip_time_out: 0.0000
+Episode_Termination/stage_one_actuation_guard: 1.1667
+--------------------------------------------------------------------------------
+                         Iteration time: 2.87s
+                           Time elapsed: 00:00:02
+                                    ETA: 00:00:02
+
+################################################################################
+[1m                             Learning iteration 1/2                             [0m 
+
+                               Run name: true23_h10
+                            Total steps: 64 
+                       Steps per second: 49 
+                        Collection time: 0.615s 
+                          Learning time: 0.036s 
+                        Mean value loss: 589.5388
+                    Mean surrogate loss: -0.0305
+                      Mean entropy loss: -20.3239
+                            Mean reward: -99.71
+                    Mean episode length: 3.12
+                        Mean action std: 0.10
+--------------------------------------------------------------------------------
+                         Iteration time: 0.65s
+                           Time elapsed: 00:00:03
+                                    ETA: 00:00:00
+
+/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/v14_native_ieee_20260906_v1/smoke

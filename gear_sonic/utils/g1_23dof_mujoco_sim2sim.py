@@ -921,8 +921,15 @@ def prepare_mujoco_model(
         or not np.array_equal(model.jnt_actfrcrange[joint_ids, 1], effort)
     ):
         raise ValueError("MuJoCo Isaac-matched physics override did not apply exactly")
+    # Armature changes invalidate compile-time quantities used by the constraint
+    # solver (dof_M0/invweight0, body_invweight0 and actuator_acc0). Refresh once
+    # during model construction, before a controller state exists. Updating only
+    # dof_armature leaves the CPU evaluator inconsistent with a model compiled
+    # from these same intended physical parameters.
+    mujoco.mj_setConst(model, mujoco.MjData(model))
     physics_contract = {
         "kind": PHYSICS_CONTRACT_KIND,
+        "derived_constants": "mj_setConst_after_native_physics_override_v1",
         "timestep_s": physics["timestep_s"],
         "control_decimation": physics["control_decimation"],
         "control_hz": config["control_hz"],

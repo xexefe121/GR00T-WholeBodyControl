@@ -1,0 +1,260 @@
+{
+  "initial_parity": {
+    "features": {
+      "bit_exact": true,
+      "max_abs_delta": 0.0
+    },
+    "state": {
+      "bit_exact": true,
+      "max_abs_delta": 0.0
+    },
+    "history": {
+      "bit_exact": true,
+      "max_abs_delta": 0.0
+    },
+    "previous_action": {
+      "bit_exact": true,
+      "max_abs_delta": 0.0
+    },
+    "base_target": {
+      "bit_exact": true,
+      "max_abs_delta": 0.0
+    },
+    "qpos": {
+      "bit_exact": true
+    },
+    "qvel": {
+      "bit_exact": true
+    },
+    "rollout_vs_saved_teacher_prediction_target_max_delta_rad": 3.129243850708008e-07,
+    "note": "Predictions were saved from separate batch/single numerical execution; input/base arrays are exact. No new inference performed."
+  },
+  "first24_teacher_input_target_RMSE": 0.09391259064225485,
+  "first24_actual_rollout_target_RMSE": 0.3176219831865494,
+  "exact_duplicate_feature_groups": [],
+  "near_pair_threshold_descriptions": [
+    {
+      "normalized_feature_RMS_distance_at_most": 0.01,
+      "pairs": 50,
+      "target_RMS_difference_quantiles": {
+        "min": 0.003794915299442969,
+        "p50": 0.011342327247157828,
+        "p95": 0.03875240293076845,
+        "max": 0.07739737923885817
+      },
+      "target_max_difference_quantiles": {
+        "min": 0.008617215621013936,
+        "p50": 0.03831456426045231,
+        "p95": 0.11183225221721244,
+        "max": 0.24519753043282755
+      }
+    },
+    {
+      "normalized_feature_RMS_distance_at_most": 0.05,
+      "pairs": 1312,
+      "target_RMS_difference_quantiles": {
+        "min": 0.003794915299442969,
+        "p50": 0.05925881031453337,
+        "p95": 0.1875971209858161,
+        "max": 0.30574870893613304
+      },
+      "target_max_difference_quantiles": {
+        "min": 0.008617215621013936,
+        "p50": 0.1809378979297105,
+        "p95": 0.6707017019250191,
+        "max": 1.39627
+      }
+    },
+    {
+      "normalized_feature_RMS_distance_at_most": 0.1,
+      "pairs": 11054,
+      "target_RMS_difference_quantiles": {
+        "min": 0.003794915299442969,
+        "p50": 0.12716039592143366,
+        "p95": 0.24676741673806898,
+        "max": 0.45786744485932823
+      },
+      "target_max_difference_quantiles": {
+        "min": 0.008617215621013936,
+        "p50": 0.42210995277564456,
+        "p95": 0.9526812603485902,
+        "max": 1.39627
+      }
+    },
+    {
+      "normalized_feature_RMS_distance_at_most": 0.25,
+      "pairs": 31117,
+      "target_RMS_difference_quantiles": {
+        "min": 0.003794915299442969,
+        "p50": 0.1600409184783438,
+        "p95": 0.2791209228156959,
+        "max": 0.46392589631096126
+      },
+      "target_max_difference_quantiles": {
+        "min": 0.008617215621013936,
+        "p50": 0.5248619900600721,
+        "p95": 1.0635781333485115,
+        "max": 1.39627
+      }
+    }
+  ],
+  "selected_actual_query_snapshot": {
+    "control": 1,
+    "seconds": 0.02,
+    "reason": "First measured actual state divergence after exact control0 input; control0 already has a qualified teacher label. This captures error growth before prolonged drift or physical violation.",
+    "original_trace_sha256": "62b05301f5ab8f7f7d53c5a7d9177bf1bbb5f14cf7187da4d30f33401a5fbff8",
+    "snapshot_sha256": "e1b46b8cfd85f75d29fe0bca5f5e3abdce57686b5b26f3e05d4be6888d6d8f8b",
+    "actual_query_launched": false,
+    "selected_state_qualified_as_expert": false,
+    "history": "Named arrays are copied from precontrol buffer; previous action retains the student combined preclip contract. Goal source/timing unchanged.",
+    "initialization_only": "mj_setState(full integration), mj_forward, mj_setState(same full integration); no further state writes. Query and full-remaining-continuation certification not authorized by this artifact."
+  }
+}
+NEAREST {
+  "distance_quantiles": {
+    "min": 0.002910514912446686,
+    "p50": 0.028398414538697396,
+    "p95": 0.0693630973313804,
+    "max": 0.15245373231431736
+  },
+  "target_RMS_difference_quantiles": {
+    "min": 0.003794915299442969,
+    "p50": 0.05591514536954121,
+    "p95": 0.21728877142507066,
+    "max": 0.30873796478283805
+  },
+  "target_max_difference_quantiles": {
+    "min": 0.008617215621013936,
+    "p50": 0.16497749357547636,
+    "p95": 0.7763763151293234,
+    "max": 1.39627
+  },
+  "target_RMS_per_normalized_feature_RMS_ratio_quantiles": {
+    "min": 0.025291725986799893,
+    "p50": 2.1763049285712874,
+    "p95": 7.782599733842628,
+    "max": 14.25128825360347
+  },
+  "closest10": [
+    {
+      "control": 68,
+      "neighbor": 69,
+      "separation_controls": 1,
+      "normalized_feature_RMS_distance": 0.002910514912446686,
+      "normalized_feature_L2_distance": 0.09516093080886286,
+      "target_RMS_difference_rad": 0.003952970896841071,
+      "target_max_difference_rad": 0.010045297747099377,
+      "maximum_target_difference_joint": "right_ankle_pitch_joint",
+      "signed_maximum_target_difference_rad": -0.010045297747099377,
+      "residual_RMS_difference_rad": 0.0038900643957343753
+    },
+    {
+      "control": 69,
+      "neighbor": 68,
+      "separation_controls": 1,
+      "normalized_feature_RMS_distance": 0.002910514912446686,
+      "normalized_feature_L2_distance": 0.09516093080886286,
+      "target_RMS_difference_rad": 0.003952970896841071,
+      "target_max_difference_rad": 0.010045297747099377,
+      "maximum_target_difference_joint": "right_ankle_pitch_joint",
+      "signed_maximum_target_difference_rad": 0.010045297747099377,
+      "residual_RMS_difference_rad": 0.0038900643957343753
+    },
+    {
+      "control": 70,
+      "neighbor": 69,
+      "separation_controls": 1,
+      "normalized_feature_RMS_distance": 0.002939260030400601,
+      "normalized_feature_L2_distance": 0.09610076869425119,
+      "target_RMS_difference_rad": 0.025178275740094385,
+      "target_max_difference_rad": 0.07955396885252745,
+      "maximum_target_difference_joint": "right_ankle_pitch_joint",
+      "signed_maximum_target_difference_rad": -0.07955396885252745,
+      "residual_RMS_difference_rad": 0.026590162849169503
+    },
+    {
+      "control": 75,
+      "neighbor": 76,
+      "separation_controls": 1,
+      "normalized_feature_RMS_distance": 0.0030857628497729032,
+      "normalized_feature_L2_distance": 0.10089076121343447,
+      "target_RMS_difference_rad": 0.018473170997993484,
+      "target_max_difference_rad": 0.05717980601504785,
+      "maximum_target_difference_joint": "right_ankle_pitch_joint",
+      "signed_maximum_target_difference_rad": -0.05717980601504785,
+      "residual_RMS_difference_rad": 0.018173722026711574
+    },
+    {
+      "control": 76,
+      "neighbor": 75,
+      "separation_controls": 1,
+      "normalized_feature_RMS_distance": 0.0030857628497729032,
+      "normalized_feature_L2_distance": 0.10089076121343447,
+      "target_RMS_difference_rad": 0.018473170997993484,
+      "target_max_difference_rad": 0.05717980601504785,
+      "maximum_target_difference_joint": "right_ankle_pitch_joint",
+      "signed_maximum_target_difference_rad": 0.05717980601504785,
+      "residual_RMS_difference_rad": 0.018173722026711574
+    },
+    {
+      "control": 12,
+      "neighbor": 13,
+      "separation_controls": 1,
+      "normalized_feature_RMS_distance": 0.0032129619182727203,
+      "normalized_feature_L2_distance": 0.10504960668256402,
+      "target_RMS_difference_rad": 0.013448827096874205,
+      "target_max_difference_rad": 0.03415876087069819,
+      "maximum_target_difference_joint": "left_hip_pitch_joint",
+      "signed_maximum_target_difference_rad": 0.03415876087069819,
+      "residual_RMS_difference_rad": 0.012382415801937914
+    },
+    {
+      "control": 13,
+      "neighbor": 12,
+      "separation_controls": 1,
+      "normalized_feature_RMS_distance": 0.0032129619182727203,
+      "normalized_feature_L2_distance": 0.10504960668256402,
+      "target_RMS_difference_rad": 0.013448827096874205,
+      "target_max_difference_rad": 0.03415876087069819,
+      "maximum_target_difference_joint": "left_hip_pitch_joint",
+      "signed_maximum_target_difference_rad": -0.03415876087069819,
+      "residual_RMS_difference_rad": 0.012382415801937914
+    },
+    {
+      "control": 11,
+      "neighbor": 12,
+      "separation_controls": 1,
+      "normalized_feature_RMS_distance": 0.0033680372811537742,
+      "normalized_feature_L2_distance": 0.11011988335909818,
+      "target_RMS_difference_rad": 0.004625837973246928,
+      "target_max_difference_rad": 0.015332343156320233,
+      "maximum_target_difference_joint": "left_ankle_pitch_joint",
+      "signed_maximum_target_difference_rad": 0.015332343156320233,
+      "residual_RMS_difference_rad": 0.00279898064444259
+    },
+    {
+      "control": 73,
+      "neighbor": 74,
+      "separation_controls": 1,
+      "normalized_feature_RMS_distance": 0.0042663774600647285,
+      "normalized_feature_L2_distance": 0.13949162347373767,
+      "target_RMS_difference_rad": 0.009786358650394322,
+      "target_max_difference_rad": 0.03186122603931689,
+      "maximum_target_difference_joint": "right_ankle_pitch_joint",
+      "signed_maximum_target_difference_rad": -0.03186122603931689,
+      "residual_RMS_difference_rad": 0.008146114728000252
+    },
+    {
+      "control": 74,
+      "neighbor": 73,
+      "separation_controls": 1,
+      "normalized_feature_RMS_distance": 0.0042663774600647285,
+      "normalized_feature_L2_distance": 0.13949162347373767,
+      "target_RMS_difference_rad": 0.009786358650394322,
+      "target_max_difference_rad": 0.03186122603931689,
+      "maximum_target_difference_joint": "right_ankle_pitch_joint",
+      "signed_maximum_target_difference_rad": 0.03186122603931689,
+      "residual_RMS_difference_rad": 0.008146114728000252
+    }
+  ]
+}

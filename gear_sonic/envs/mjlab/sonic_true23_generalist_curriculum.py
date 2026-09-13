@@ -7,14 +7,15 @@ import torch
 from gear_sonic.envs.mjlab.sonic_true23_causal_history import CausalHistoryMotionCommand
 
 
-def advance_lifecycle_command(command):
+def advance_lifecycle_command(command, *, hold_reference=None):
     """Target-buffer updates only. At the boundary clamp, never resample."""
     current_pos = command.robot_anchor_pos_w.clone()
     current_quat = command.robot_anchor_quat_w.clone()
     resampled = command._causal_resampled.clone()
     advancing = ~resampled
-    command.time_steps[advancing] = torch.minimum(
-        command.time_steps[advancing] + 1, command._lifecycle_last_anchor[advancing]
+    reference_advancing = advancing if hold_reference is None else advancing & ~hold_reference
+    command.time_steps[reference_advancing] = torch.minimum(
+        command.time_steps[reference_advancing] + 1, command._lifecycle_last_anchor[reference_advancing]
     )
     if torch.any(advancing):
         command._causal_robot_anchor_pos_w[advancing] = command._causal_last_current_anchor_pos_w[advancing]

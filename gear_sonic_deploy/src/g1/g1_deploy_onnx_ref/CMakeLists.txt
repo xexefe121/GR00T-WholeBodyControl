@@ -46,6 +46,8 @@ list(REMOVE_ITEM PROJECT_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/g1_true23_active_g
 list(REMOVE_ITEM PROJECT_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/g1_true23_native124_active_gantry.cpp)
 list(REMOVE_ITEM PROJECT_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/g1_true23_gantry_hold_smoke.cpp)
 list(REMOVE_ITEM PROJECT_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/g1_mode_probe.cpp)
+list(REMOVE_ITEM PROJECT_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/g1_restore_walkrun.cpp)
+list(REMOVE_ITEM PROJECT_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/g1_fsm_command.cpp)
 
 
 # Optional AddressSanitizer support
@@ -392,6 +394,36 @@ set_target_properties(
   PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/target/release/"
     OUTPUT_NAME g1_mode_probe
+    BUILD_RPATH "/usr/local/lib;/usr/local/lib64"
+    INSTALL_RPATH "/usr/local/lib;/usr/local/lib64"
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED ON
+    CXX_EXTENSIONS OFF)
+
+add_executable(
+  g1_fsm_command
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/g1_fsm_command.cpp)
+target_link_libraries(g1_fsm_command PRIVATE unitree_sdk2)
+set_target_properties(
+  g1_fsm_command
+  PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/target/release/"
+    OUTPUT_NAME g1_fsm_command
+    BUILD_RPATH "/usr/local/lib;/usr/local/lib64"
+    INSTALL_RPATH "/usr/local/lib;/usr/local/lib64"
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED ON
+    CXX_EXTENSIONS OFF)
+
+add_executable(
+  g1_restore_walkrun
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/g1_restore_walkrun.cpp)
+target_link_libraries(g1_restore_walkrun PRIVATE unitree_sdk2)
+set_target_properties(
+  g1_restore_walkrun
+  PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/target/release/"
+    OUTPUT_NAME g1_restore_walkrun
     BUILD_RPATH "/usr/local/lib;/usr/local/lib64"
     INSTALL_RPATH "/usr/local/lib;/usr/local/lib64"
     CXX_STANDARD 20

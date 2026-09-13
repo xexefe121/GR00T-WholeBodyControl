@@ -68,8 +68,10 @@ def test_live_controller_uses_frozen_policy_without_direct_dance() -> None:
         evidence="/repo/execution.jsonl",
         duration_seconds=10,
         gantry_authorize="I_CONFIRM_G1_TRUE23_STAGE1_GANTRY",
+        control_cpu_set="0-3",
         frozen_lora_policy=True,
     )
     assert "--frozen-lora-policy" in command
     assert "--direct-dance-command" not in command
     assert command[command.index("--post-arm-duration-seconds") + 1] == "10"
+    assert command[command.index("taskset") + 1 : command.index("taskset") + 3] == ["-c", "0-3"]

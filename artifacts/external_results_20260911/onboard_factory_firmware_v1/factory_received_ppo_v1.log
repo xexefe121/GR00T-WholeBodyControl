@@ -1,0 +1,68 @@
+Warp 1.12.0 initialized:
+   CUDA Toolkit 12.9, Driver 12.9
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA GeForce RTX 3070 Laptop GPU" (8 GiB, sm_86, mempool enabled)
+   Kernel cache:
+     /root/.cache/warp/1.12.0
+Warp DeprecationWarning: The symbol `warp.context.runtime` will soon be removed from the public API. It can still be accessed from `warp._src.context.runtime` but might be changed or removed without notice.
+Module mujoco_warp._src.smooth 75c1b76 load on device 'cuda:0' took 19.25 ms  (cached)
+Module mujoco_warp._src.collision_driver 4d8b905 load on device 'cuda:0' took 4.72 ms  (cached)
+Module _nxn_broadphase__locals__kernel_e916423b e916423 load on device 'cuda:0' took 4.05 ms  (cached)
+Module ccd_kernel_builder__locals__ccd_kernel_9b1566d8 9b1566d load on device 'cuda:0' took 8.15 ms  (cached)
+Module ccd_kernel_builder__locals__ccd_kernel_42c40339 42c4033 load on device 'cuda:0' took 6.21 ms  (cached)
+Module ccd_kernel_builder__locals__ccd_kernel_326254de 326254d load on device 'cuda:0' took 9.59 ms  (cached)
+Module ccd_kernel_builder__locals__ccd_kernel_6df0b0ad 6df0b0a load on device 'cuda:0' took 8.92 ms  (cached)
+Module _primitive_narrowphase__locals__primitive_narrowphase_68f960b5 68f960b load on device 'cuda:0' took 4.90 ms  (cached)
+Module mujoco_warp._src.constraint e4fb920 load on device 'cuda:0' took 8.22 ms  (cached)
+Module _actuator_velocity__locals__actuator_velocity_54391827 7ce5a05 load on device 'cuda:0' took 3.59 ms  (cached)
+Module mujoco_warp._src.passive 7fb8524 load on device 'cuda:0' took 5.48 ms  (cached)
+Module mujoco_warp._src.sensor 912ac95 load on device 'cuda:0' took 8.88 ms  (cached)
+Module mujoco_warp._src.forward 5922a95 load on device 'cuda:0' took 6.49 ms  (cached)
+Module mujoco_warp._src.support 343d1ae load on device 'cuda:0' took 3.13 ms  (cached)
+Module _tile_cholesky_factorize_solve__locals__cholesky_factorize_solve_7c4626c2 68c124c load on device 'cuda:0' took 208.42 ms  (cached)
+Module mujoco_warp._src.solver 4a4fc90 load on device 'cuda:0' took 6.75 ms  (cached)
+Module solve_init_jaref__locals__kernel_e8e73468 e8e7346 load on device 'cuda:0' took 3.53 ms  (cached)
+Module mul_m_dense__locals___mul_m_dense_5b182806 5b18280 load on device 'cuda:0' took 3.85 ms  (cached)
+Module update_constraint_efc__locals__kernel_84abb40b 84abb40 load on device 'cuda:0' took 4.52 ms  (cached)
+Module update_constraint_gauss_cost__locals__kernel_026115d4 026115d load on device 'cuda:0' took 2.92 ms  (cached)
+Module update_gradient_JTDAJ_dense_tiled__locals__kernel_aa2c02e8 f673571 load on device 'cuda:0' took 4.41 ms  (cached)
+Module update_gradient_cholesky__locals__kernel_ac06d661 8d9cf28 load on device 'cuda:0' took 195.97 ms  (cached)
+Module linesearch_jv_fused__locals__kernel_0ca87d41 0ca87d4 load on device 'cuda:0' took 3.59 ms  (cached)
+Module linesearch_prepare_gauss__locals__kernel_b235c0c8 b235c0c load on device 'cuda:0' took 4.00 ms  (cached)
+Module update_constraint_efc__locals__kernel_19805a28 19805a2 load on device 'cuda:0' took 4.32 ms  (cached)
+Module _tile_euler_dense__locals__euler_dense_2facc489 09a40c4 load on device 'cuda:0' took 212.04 ms  (cached)
+Module reset_data__locals__reset_xfrc_applied_f86f0829 f86f082 load on device 'cuda:0' took 4.08 ms  (cached)
+Module reset_data__locals__reset_qM_1511185b 1511185 load on device 'cuda:0' took 3.07 ms  (cached)
+Module reset_data__locals__reset_mocap_841cb68f 841cb68 load on device 'cuda:0' took 5.60 ms  (cached)
+Module reset_data__locals__reset_contact_76c1c25e 76c1c25 load on device 'cuda:0' took 3.01 ms  (cached)
+Module reset_data__locals__reset_nworld_d108b6ac d108b6a load on device 'cuda:0' took 2.75 ms  (cached)
+/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_true23_factory_dynamics.py:87: DeprecationWarning: You are using the legacy TorchScript-based ONNX export. Starting in PyTorch 2.9, the new torch.export-based ONNX exporter will be the default. To switch now, set dynamo=True in torch.onnx.export. This new exporter supports features like exporting LLMs with DynamicCache. We encourage you to try it and share feedback to help improve the experience. Learn more about the new export logic: https://pytorch.org/docs/stable/onnx_dynamo.html. For exporting control flow: https://pytorch.org/tutorials/beginner/onnx/export_control_flow_model_to_onnx_tutorial.html.
+  torch.onnx.export(cpu,torch.zeros(1,WIDTH),str(onnx_path),input_names=['features'],output_names=['normalized_target'],
+{"bootstrap": 0, "target_rmse_rad": 0.4246622920036316, "elapsed_seconds": 9.408388312}
+{"bootstrap": 50, "target_rmse_rad": 0.23919175565242767, "elapsed_seconds": 9.790818565999999}
+{"bootstrap": 100, "target_rmse_rad": 0.20357918739318848, "elapsed_seconds": 10.158451893999995}
+{"bootstrap": 150, "target_rmse_rad": 0.18640975654125214, "elapsed_seconds": 10.53362306599999}
+{"bootstrap": 200, "target_rmse_rad": 0.17082807421684265, "elapsed_seconds": 10.92067479299999}
+{"bootstrap": 250, "target_rmse_rad": 0.16616301238536835, "elapsed_seconds": 11.292926013999988}
+{"native_baseline_completions": 0, "seconds": 5.080000000000004}
+{"status": "training", "update": 5, "limit": 100, "update_seconds": 4.342841482000011, "controlled_states_per_second": 1886.3225917763255, "elapsed_seconds": 50.34592287599999, "reward_mean": -0.6534557342529297, "failure_fraction_root_error_leg_error": [0.0185546875, 0.1298712193965912, 0.22098243236541748], "approx_kl": 0.18730278313159943, "source_episode_seconds": 2.0, "simulation_ready": false}
+{"status": "training", "update": 10, "limit": 100, "update_seconds": 4.615510219999976, "controlled_states_per_second": 1774.88503102048, "elapsed_seconds": 72.618186518, "reward_mean": -0.7860841751098633, "failure_fraction_root_error_leg_error": [0.0302734375, 0.11539989709854126, 0.20990845561027527], "approx_kl": 0.5756549835205078, "source_episode_seconds": 2.0, "simulation_ready": false}
+{"status": "training", "update": 15, "limit": 100, "update_seconds": 4.779060201999982, "controlled_states_per_second": 1714.1445501296973, "elapsed_seconds": 95.939185943, "reward_mean": -0.6495577692985535, "failure_fraction_root_error_leg_error": [0.02880859375, 0.11930544674396515, 0.21595849096775055], "approx_kl": 0.13123929500579834, "source_episode_seconds": 2.0, "simulation_ready": false}
+{"status": "training", "update": 20, "limit": 100, "update_seconds": 4.4934492270000135, "controlled_states_per_second": 1823.0983785855017, "elapsed_seconds": 118.60939910699999, "reward_mean": -0.7480162978172302, "failure_fraction_root_error_leg_error": [0.0316162109375, 0.12064830958843231, 0.21013611555099487], "approx_kl": 0.3577715754508972, "source_episode_seconds": 2.0, "simulation_ready": false}
+{"status": "training", "update": 25, "limit": 100, "update_seconds": 4.909950072999976, "controlled_states_per_second": 1668.448737401253, "elapsed_seconds": 142.46815278600002, "reward_mean": -0.779287576675415, "failure_fraction_root_error_leg_error": [0.032958984375, 0.12202602624893188, 0.2098017781972885], "approx_kl": 0.19516077637672424, "source_episode_seconds": 2.0, "simulation_ready": false}
+{"status": "training", "update": 30, "limit": 100, "update_seconds": 4.578999006999993, "controlled_states_per_second": 1789.0372955916241, "elapsed_seconds": 165.84216049599996, "reward_mean": -0.6605491638183594, "failure_fraction_root_error_leg_error": [0.02294921875, 0.11084255576133728, 0.2083909511566162], "approx_kl": 0.35129672288894653, "source_episode_seconds": 2.0, "simulation_ready": false}
+{"status": "training", "update": 35, "limit": 100, "update_seconds": 4.472889670000029, "controlled_states_per_second": 1831.478217525528, "elapsed_seconds": 189.191884873, "reward_mean": -0.693354070186615, "failure_fraction_root_error_leg_error": [0.023681640625, 0.11507172882556915, 0.21020039916038513], "approx_kl": 0.21208630502223969, "source_episode_seconds": 2.0, "simulation_ready": false}
+Warning: opt.ccd_iterations, currently set to 35, needs to be increased.
+{"status": "training", "update": 40, "limit": 100, "update_seconds": 4.811668338000004, "controlled_states_per_second": 1702.5279850034403, "elapsed_seconds": 212.80930800099998, "reward_mean": -0.5677290558815002, "failure_fraction_root_error_leg_error": [0.0213623046875, 0.10093628615140915, 0.20643171668052673], "approx_kl": 0.12564101815223694, "source_episode_seconds": 2.0, "simulation_ready": false}
+Warning: opt.ccd_iterations, currently set to 35, needs to be increased.
+Warning: opt.ccd_iterations, currently set to 35, needs to be increased.
+{"status": "training", "update": 45, "limit": 100, "update_seconds": 4.665915994999978, "controlled_states_per_second": 1755.7109919635488, "elapsed_seconds": 236.51137203399998, "reward_mean": -0.6170284748077393, "failure_fraction_root_error_leg_error": [0.0181884765625, 0.10399748384952545, 0.2125120609998703], "approx_kl": 0.11465226113796234, "source_episode_seconds": 2.0, "simulation_ready": false}
+{"status": "training", "update": 50, "limit": 100, "update_seconds": 4.565650686000026, "controlled_states_per_second": 1794.2677973853106, "elapsed_seconds": 259.93575050299995, "reward_mean": -0.578196108341217, "failure_fraction_root_error_leg_error": [0.016845703125, 0.10186083614826202, 0.21350431442260742], "approx_kl": 0.2366637885570526, "source_episode_seconds": 2.0, "simulation_ready": false}
+/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_true23_factory_dynamics.py:87: DeprecationWarning: You are using the legacy TorchScript-based ONNX export. Starting in PyTorch 2.9, the new torch.export-based ONNX exporter will be the default. To switch now, set dynamo=True in torch.onnx.export. This new exporter supports features like exporting LLMs with DynamicCache. We encourage you to try it and share feedback to help improve the experience. Learn more about the new export logic: https://pytorch.org/docs/stable/onnx_dynamo.html. For exporting control flow: https://pytorch.org/tutorials/beginner/onnx/export_control_flow_model_to_onnx_tutorial.html.
+  torch.onnx.export(cpu,torch.zeros(1,WIDTH),str(onnx_path),input_names=['features'],output_names=['normalized_target'],
+{"native_evaluation": {"update": 50, "physical_completions": 0, "physical_seconds": 3.1280000000000023, "all_tracking_and_hold_passed": false}}
+{"status": "training", "update": 55, "limit": 100, "update_seconds": 4.5235805289999576, "controlled_states_per_second": 1810.954828256596, "elapsed_seconds": 300.414576818, "reward_mean": -0.6083604693412781, "failure_fraction_root_error_leg_error": [0.0166015625, 0.10821729153394699, 0.20917534828186035], "approx_kl": 0.5067090392112732, "source_episode_seconds": 2.0, "simulation_ready": false}
+{"status": "training", "update": 60, "limit": 100, "update_seconds": 4.803203284999995, "controlled_states_per_second": 1705.5284804586422, "elapsed_seconds": 324.624467119, "reward_mean": -0.6767721176147461, "failure_fraction_root_error_leg_error": [0.0230712890625, 0.1119774729013443, 0.19826892018318176], "approx_kl": 0.09670194983482361, "source_episode_seconds": 2.0, "simulation_ready": false}
+/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_true23_factory_dynamics.py:87: DeprecationWarning: You are using the legacy TorchScript-based ONNX export. Starting in PyTorch 2.9, the new torch.export-based ONNX exporter will be the default. To switch now, set dynamo=True in torch.onnx.export. This new exporter supports features like exporting LLMs with DynamicCache. We encourage you to try it and share feedback to help improve the experience. Learn more about the new export logic: https://pytorch.org/docs/stable/onnx_dynamo.html. For exporting control flow: https://pytorch.org/tutorials/beginner/onnx/export_control_flow_model_to_onnx_tutorial.html.
+  torch.onnx.export(cpu,torch.zeros(1,WIDTH),str(onnx_path),input_names=['features'],output_names=['normalized_target'],

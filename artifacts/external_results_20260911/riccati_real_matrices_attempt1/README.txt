@@ -1,0 +1,1 @@
+Initial arithmetic replay assertion failed before output: gradient reload max difference 2.36468622e-10. Loader copied every array to C order; original matrix order and unsymmetrized saved Hessian need preserving. No physics or controller was run.

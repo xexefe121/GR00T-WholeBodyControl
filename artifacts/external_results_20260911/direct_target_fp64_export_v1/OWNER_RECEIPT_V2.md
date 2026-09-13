@@ -1,0 +1,3 @@
+The owner completion receipt to bind is `owner_completion_verification_v2.json`, SHA256 `696a0ecf7643127b2558dd31651282bc5704274fb7f0554a3728b2c4ff10749d`.
+
+Version 1 remains unchanged. Version 2 corrects a receipt-name ambiguity: `direct_subject_sha256.export_manifest` identifies `export_frozen_inputs.json`, while `output_manifest` identifies `export/manifest.json`. It also verifies that the absence receipt names the actual wrapper and child process IDs from the durable exit report. All input/source/output hashes were rechecked, without task-model, optimizer or native calls. The ONNX graph, saved outputs and successful numerical result did not change.

@@ -1,0 +1,9 @@
+One bounded canonical initial_entry check: 250 controls (5 seconds), original frozen h8pos1/yaw2 BFM, residual disabled. No head switching, acquisition, source rollout, training or expert query. All original 15 pilot source files are byte-exact.
+
+The first 100 controls must reproduce every saved native2ms position/velocity and commanded torque exactly against the original zero_parity trace. Comparison only; no recorded state or command is injected. The same plant and measured BFM history continue through control249. Native limits/warnings/clock checked every2ms. Full integration, named history, prior actions, final plant/history and all substeps retained. Last3s quiet uses unchanged thresholds. Root independent physical and quiet audits remain required.
+
+Completed once on 2026-09-11 at 04:14:20 UTC. Hidden durable PID17300 exited0. All250 controls and2500 native physics steps completed. The first100 controls reproduce all1001 saved q/dq states and1000 command torques bit-exactly; no replayed commands or state injection. Producer strict physical and last3s quiet checks pass. Root independent replay/quiet audit remains separate.
+
+Trace SHA256: 8a2013cee1112aedc9a9e290382a7c7801d1c8c49f0e1bd0d978619873de8b41. Maximum native speed ratio .16843708, effort ratio .84159866, range excess0, clock error0 and warnings0. Last3s root XY p95 .010456m, original heading p95 3.20678deg, root speed p95 .00062134m/s, maximum joint-speed p95/max .0108426/.0166177rad/s, tilt max .068253rad. Recorded policy inference p95/max11.31/12.26ms with0 over20ms; no paced runtime qualification claimed.
+
+This establishes only the original yaw2 standing prior's canonical five-second entry. No acquisition, switch to learned residual, source motion, full-body teleoperation or hardware qualification follows from this result. Failed ordinary-final60000 learner artifact remains unchanged.

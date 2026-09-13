@@ -1,0 +1,44 @@
+{
+  "kind": "source_only_clock_timeout_delta",
+  "actual_run_selected": false,
+  "original_request_subject": {
+    "path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_process_clock_v1/clock_request.json",
+    "sha256": "d6a6c3332039046c77ff9c93eaedd0694f0ac3c8487a474760c25646e75ba91a"
+  },
+  "proposed_changes": {
+    "run_id": "query250-recorded-clock-timeout-v2",
+    "input_epoch": 2,
+    "source_directory": "E:/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_clock_timeout_correction_v1/source_draft_v1",
+    "output_directory": "E:/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_clock_timeout_correction_v1/run",
+    "stage_directory": "E:/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_clock_timeout_correction_v1/stage_receipts",
+    "watchdog_budgets": {
+      "setup_ns": 240000000000,
+      "plant_ns": 120000000000,
+      "preservation_ns": 180000000000,
+      "outer_timeout_seconds": 555,
+      "outer_kill_grace_seconds": 5
+    },
+    "outer_process_timeout_seconds": 555
+  },
+  "unchanged": {
+    "native_step_budget": 18190,
+    "serialization_budget": 4,
+    "epoch_lead_ns": 200000000,
+    "debt_abort_steps": 100,
+    "elapsed_abort_ns": 60000000000,
+    "epoch_rebase_allowed": false,
+    "model_inference_calls": 0,
+    "optimizer_updates": 0,
+    "main_controls": 1569,
+    "hold_controls": 250
+  },
+  "required_before_execution": [
+    "Freeze all actual original runtime/reference/native inputs and new source files into a new request.",
+    "Obtain concrete reviewed budget/request/launcher subjects and a separate parent single-run selection.",
+    "Adapt the independent saved audit to bind the additional stage records."
+  ],
+  "actual_request_created": false,
+  "launch_receipt_created": false,
+  "native_calls": 0,
+  "model_calls": 0
+}

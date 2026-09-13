@@ -1,0 +1,88 @@
+{
+  "clip": "pico",
+  "completed": 607,
+  "requested": 6530,
+  "available": 6530,
+  "failure": {
+    "kind": "physical_limit",
+    "control": 606,
+    "range_excess": 0.01102362043998184,
+    "velocity_ratio": 0.06905861384323306
+  },
+  "full_lifecycle_completed": false,
+  "source_metrics": {
+    "source_controls": 257,
+    "source_requested": 5780,
+    "leg_rmse": 0.10613253133146501,
+    "arm_rmse": 0.1703305774631738,
+    "root_p95": 0.1852640255418928,
+    "landmark_p95": [
+      0.2419632359202967,
+      0.13415922652324935,
+      0.23168494102679218,
+      0.22472205143041632,
+      0.1979447568774579
+    ],
+    "relative_landmark_p95": [
+      0.15680642051756633,
+      0.11041088242588931,
+      0.12591937059658082,
+      0.14765020558953318,
+      0.035576501578501396
+    ]
+  },
+  "range_excess_max": 0.01102362043998184,
+  "effort_ratio_max": 0.8483974893416211,
+  "velocity_ratio_max": 0.2945752337590035,
+  "inference_ms_p95": 23.931789996277065,
+  "elapsed_seconds": 13.51848909999535,
+  "goal_horizon": 8,
+  "goal_gyro_convention": "published-world-unscaled",
+  "goal_buffer_ms": 140,
+  "reference_path": "C:\\Users\\camer\\sonic23_sim_artifacts\\internet_pico_20260909_v1\\pico_freedancing_v1\\optical_reference_v2\\lifecycle23.npz",
+  "motion_override": null,
+  "reference_geometry_retargeted": false,
+  "ground_truth_pose_feedback": true,
+  "root_xy_feedback_used": true,
+  "heading_feedback_sensor_equivalent": "pelvis_IMU_orientation_with_initial_calibration",
+  "position_gain": 1.0,
+  "yaw_gain": 2.0,
+  "arm_reference": false,
+  "ankle_barrier": {
+    "kind": "measured_ankle_roll_inward_spring_outward_damping",
+    "joint_indices": [
+      5,
+      11
+    ],
+    "margin_rad": 0.05,
+    "stiffness_Nm_per_rad": 150.0,
+    "damping_Nm_per_rad_per_second": 2.0,
+    "effort_clip_order": "clip(BFM_PD_torque + declared_ankle_torque, native_effort)",
+    "zero_other_joint_torque": true,
+    "formal_safety_guarantee": false
+  },
+  "full_physics_trace_recorded": true,
+  "arm_intent_ik": true,
+  "waist_intent_yaw": false,
+  "arm_ik_goal": "original29 hand positions relative to original root, world axes, translated to measured current root; original hand rotations",
+  "arm_ik_evaluation_budget": 6,
+  "arm_ik_target_step_rad": 0.12,
+  "arm_ik_joint_margin": 0.03,
+  "arm_ik_velocity_feedforward": 1.0,
+  "arm_ik_ms_p95": 11.476840000250363,
+  "arm_ik_position_residual_p95": [
+    0.03164897527988133,
+    0.02672998474338034
+  ],
+  "arm_ik_budget_exhausted_count": [
+    300,
+    284
+  ],
+  "leg_error_gain": 0.0,
+  "residual_checkpoint": null,
+  "residual_updates": null,
+  "model_path": "Z:\\codex\\GR00T-WholeBodyControl\\gear_sonic\\data\\robots\\g1\\g1_23dof_rev_1_0.xml",
+  "action_contract": "target=default_q+5*tanh_actor*.25*training_effort/training_kp; native effort clipped",
+  "hardware_authorized": false,
+  "deployment_ready": false
+}

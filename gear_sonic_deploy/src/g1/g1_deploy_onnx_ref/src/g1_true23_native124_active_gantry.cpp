@@ -208,7 +208,7 @@ int RunNative(const NativeArguments& arguments) {
                                    std::chrono::seconds(kStateGateTimeoutSeconds))) {
     throw std::runtime_error("five advancing CRC-valid mode-4 states not obtained");
   }
-  ReleaseMotionModeAfterGate();
+  ReleaseMotionModeAfterGate(monitor);
   monitor.WithCore([](active::GantrySafetyCore& value) { value.CheckWatchdogs(NowNs()); });
   if (monitor.fault() != active::Fault::None) throw std::runtime_error("state fault before publisher");
   auto publisher = std::make_shared<unitree::robot::ChannelPublisher<LowCmd>>(

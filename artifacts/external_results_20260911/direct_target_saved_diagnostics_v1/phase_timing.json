@@ -1,0 +1,32 @@
+{
+  "trace_sha256": "449a31d17aa7df6b23c20d6b0394237fc36b97d779f46544e6375975e0cdf427",
+  "source_sha256": "a653bf0a8754e7ef8fb4391524b603aa47f354e5757337b560ea24a27be3b70b",
+  "phases": {
+    "startup_BFM": {
+      "controls": 250,
+      "p50_p95_max_ms": [
+        6.479999500001554,
+        8.807849450002436,
+        18.898297999996316
+      ],
+      "policy_only_20ms_misses": 0
+    },
+    "direct_target": {
+      "controls": 66,
+      "p50_p95_max_ms": [
+        0.4248000000046659,
+        0.6507000000084417,
+        0.960700000007364
+      ],
+      "policy_only_20ms_misses": 0
+    },
+    "terminal_BFM": {
+      "controls": 0,
+      "p50_p95_max_ms": null,
+      "policy_only_20ms_misses": 0
+    }
+  },
+  "new_inference_calls": 0,
+  "native_steps": 0,
+  "limitation": "Saved proposal/inference timer only; excludes independent wall-clock plant deadline and complete input/IPC/control loop. No real-time qualification."
+}

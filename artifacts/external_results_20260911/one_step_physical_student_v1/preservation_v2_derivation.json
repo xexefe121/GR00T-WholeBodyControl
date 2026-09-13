@@ -1,0 +1,96 @@
+{
+  "preparation_only": true,
+  "actual_model_evaluations": 0,
+  "optimizer_updates": 0,
+  "physics_steps": 0,
+  "prior_preparation_report_sha256": "24525fda29832457f1cd46cabc359f8671df7cd5acf670bea0e70b237c9c18c3",
+  "unchanged_trainer_sha256": "8a30bf5d5873f20edaef9b5375c36fa906aacf435dc732506c20d6d2eec9510f",
+  "modified_file": "physical_fit_diagnostics.py",
+  "old_sha256": "ee5f6578f0aaa0101260b6acd12cab85973d41707da5397ee186a8dbd6745e7f",
+  "new_sha256": "9db3b767e1dab22c0ce4a48eb3be6b965647507a38341a2e72bd90fa9c65c375",
+  "exact_substitutions": [
+    {
+      "old": "    last_outputs = {}\n",
+      "new": "    last_outputs = {}\n    current_call_returned=False\n    current_stage=\"not_started\"\n    current_batch=np.array([-1,-1],np.int64)\n",
+      "count": 1
+    },
+    {
+      "old": "                current_input=features[start:stop].copy()\n",
+      "new": "                current_input=features[start:stop].copy()\n                current_stage='Torch';current_batch=np.array([start,stop],np.int64)\n                current_call_returned=False;last_output=np.empty((0,23),np.float32);last_outputs={}\n",
+      "count": 1
+    },
+    {
+      "old": "                ledger['diagnostic_torch_rows_returned']+=stop-start",
+      "new": "                ledger['diagnostic_torch_rows_returned']+=stop-start\n                current_call_returned=True",
+      "count": 1
+    },
+    {
+      "old": "        if session_factory is None:",
+      "new": "        current_stage='construct_ORT';current_batch=np.array([-1,-1],np.int64)\n        current_input=np.empty((0,1069),np.float32)\n        current_call_returned=False;last_output=np.empty((0,23),np.float32);last_outputs={}\n        if session_factory is None:",
+      "count": 1
+    },
+    {
+      "old": "\n            current_input=features[start:stop].copy()\n",
+      "new": "\n            current_input=features[start:stop].copy()\n            current_stage='ORT';current_batch=np.array([start,stop],np.int64)\n            current_call_returned=False;last_output=np.empty((0,23),np.float32);last_outputs={}\n",
+      "count": 1
+    },
+    {
+      "old": "            ledger['head_onnx_calls_returned']+=1",
+      "new": "            ledger['head_onnx_calls_returned']+=1\n            current_call_returned=True",
+      "count": 1
+    },
+    {
+      "old": "            current_input=current_input,last_returned_output=last_output,**last_outputs)",
+      "new": "            current_input=current_input,last_returned_output=last_output,**last_outputs,\n            current_call_returned=np.asarray(current_call_returned),current_stage=np.asarray(current_stage),\n            current_batch=current_batch)",
+      "count": 1
+    },
+    {
+      "old": "                first24_response_MSE=float(np.mean(pair[ids[:24]]**2)),\n",
+      "new": "",
+      "count": 1
+    },
+    {
+      "old": "        cells.append(item)",
+      "new": "        first=(251,350,1169)[len(cells)%3]\n        window=ids[(physical['successor_control'][ids]>=first)&(physical['successor_control'][ids]<first+24)]\n        item['first24_requested_window']=dict(successor_control_range=[first,first+23],requested=24,\n            valid=len(window),strict_failed=24-len(window),\n            response_valid_MSE=float(np.mean(pair[window]**2)) if len(window) else None)\n        cells.append(item)",
+      "count": 1
+    }
+  ],
+  "source_sha256": {
+    "chord_common.py": "a23c9557b3f560a84283fb0977fdcb2fd58a63fd49f1d0365561d2dfa575d081",
+    "chord_fit_diagnostics.py": "57f221c95d58a69905713a53b6998d9a63eb790bde356c29022806504ddc7302",
+    "chord_head_sensitivity.py": "1a09251e82c77736bf7c1b8c75770a0d77ba2483382a156709aff65687903439",
+    "chord_training_objective.py": "9949f70c67e94197e3ffa97c5ecd48b64b2318cb3e7168d77627c8bc669135e9",
+    "collect_nominal_labels.py": "4756570fd0bf01cbbec397d5ecb0e286a61057d4e2f57db906cfa325bac26a50",
+    "continue_linear_fit.py": "cf6a64c2de3928eb301444db11216e65b40edc76c7365d40c26d8db4bbe39cd6",
+    "evaluate_nominal_pilot.py": "b36599789ef612d3f0c02338cfd8f526fb6552ed16d8636aa66da62a1920ca43",
+    "evaluate_phase_student.py": "84efe15543c6c969869d269d373f84ea6b7fd4701686f9680ffd59e6c9f95cac",
+    "fit_aggregate_once.py": "8651d30dbb78b2cb958b895bf98c7de9d1a410fc7c1968447d3fd93955f02517",
+    "fit_linear_head.py": "ef26f98e8e2b2c8449381ebcb2e95f2db3416a02f423f52894b96791f08e6ff0",
+    "fit_phase_fullbatch_once.py": "7e534797102411f906bf5c1e227b4201c210f7fa564471bbfd8ad4bacdb76b67",
+    "fit_physical_continuation.py": "8a30bf5d5873f20edaef9b5375c36fa906aacf435dc732506c20d6d2eec9510f",
+    "fit_velocity_chords.py": "0ec709025546e4b7e16784afeb81c4eb0f46efcfb355c0c6f50908262ecc0b20",
+    "generate_velocity_chords.py": "93810015192415aa9cf82335e6bab9d4a1cbbe258391b2cda2851a7da334415f",
+    "initialize_zero_head.py": "7906124b640e977ad0af9de2a8faf2887bb0799ccc16edfd369cf4a336b631aa",
+    "physical_fit_diagnostics.py": "9db3b767e1dab22c0ce4a48eb3be6b965647507a38341a2e72bd90fa9c65c375",
+    "physical_training_inputs.py": "575758dad72447709083181891a8073796e4f2f5e819bbd905bc88f149636bad",
+    "physical_training_objective.py": "f62d54dda13c470f8d3f7e8b71dea1ef7c12946786b759fc76717cd8a44253d6",
+    "quiet_metrics.py": "1d3b480507c475564c2d172adc6ba0947199db3d2d44da0b12fb813d22fc8c69",
+    "saved_committed_map.py": "886be88ce9582f6a851e28c3788f55d0b3482ac1ab6e14ed289652dd018b7b95",
+    "student_linear_runtime.py": "35b3e3dd4f4c2966ae224a77afc5213d02cead3200bf63218fb0aab26710f543",
+    "terminal_yaw4_goal.py": "93cbf143e614cbc92204c27053c3cc7a1a02ab14049fa0aeee412f285d33918c",
+    "test_chord_objective.py": "591059e9e549c2cb93c055332903823631ddb2aac059604283a6e2c724fe7145",
+    "test_diagnostic_preservation.py": "28e54595a75d701088124d74a406a7818775f6c57402b680d1351b6589157a33",
+    "test_preservation.py": "1dc4bfa10621cfe984b9085a365fa76a6664fbc4b17ac93b127b666f05159553",
+    "test_saved_centers.py": "31aa083886baaf19b486d120804807707ab9e43ec44bc0e331ea0a69f6f4882d",
+    "training_runtime_identity.py": "08b99ada80277e2a5ac5cae4e313b70cc1889b09d7b8763be8af6d0a49594c99",
+    "gear_sonic/__init__.py": "2be6bec4383c9d16a6b0f33d13a63fa533ef02b92b6f30f03d3a14a86c878cf9",
+    "gear_sonic/utils/g1_true23_bfm_seed_observations.py": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d",
+    "gear_sonic/utils/g1_true23_mjbatch_bfm_seed.py": "2f3d808b6a95fd80a3c1f9a0fabbe80264cf9cc93fbf01e2b2be65f6a5ec75de",
+    "gear_sonic/utils/g1_true23_mjbatch_ilqr_core.py": "5ef946bb0f07ea8f1d688748343bf9f6a3ccc2a10806cfe58963100aca7c06f1",
+    "gear_sonic/utils/g1_true23_mjbatch_model.py": "b0be87b3f2e9d1f6fc6695d668c62e2df355bf944d5b181b333c12038f532e25",
+    "gear_sonic/utils/g1_true23_mjbatch_mpc.py": "624b4abe93a20314141da39c6703055cb5c6ce5169030d863816b244610bafbd",
+    "gear_sonic/utils/g1_true23_mpc_student.py": "6d71e82b4b7e491f4bbfd3c2a99e05df2ee27f9fb5e6febb4cc9c39c8c39d905",
+    "gear_sonic/utils/g1_true23_relative_foot_cost.py": "36f89cac4374364cd155184c7c6f098de913ebca22976c0d59c8d1489089cc35",
+    "gear_sonic/utils/__init__.py": "c1ff1b925a2942aaee377dd7ba39c414dc2ec281a97f7893a4df354f3f214222"
+  }
+}

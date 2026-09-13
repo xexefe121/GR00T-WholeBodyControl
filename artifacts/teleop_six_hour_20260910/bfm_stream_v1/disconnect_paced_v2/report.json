@@ -1,0 +1,170 @@
+{
+  "kind": "bfmzero_received_stream_simulation_v1",
+  "mode": "latched_standing",
+  "controls": 900,
+  "physics_steps": 9000,
+  "physics_steps_per_control": 10,
+  "control_hz": 50,
+  "physics_hz": 500,
+  "received_source_buffer_seconds": 0.14,
+  "stale_seconds": 0.1,
+  "epochs": [
+    {
+      "epoch": 0,
+      "received": 450,
+      "consumed": 447,
+      "ignored": 0,
+      "rejected": 0,
+      "final_received": false,
+      "full_source_consumed": false,
+      "fault": {
+        "reason": "packet_timeout",
+        "time": 9.09283090000099,
+        "epoch": 0,
+        "last_sequence": 449,
+        "consumed": 447
+      },
+      "calibration": null
+    }
+  ],
+  "any_fault_latched": true,
+  "physical_failure": null,
+  "full_uninterrupted_source_consumed": false,
+  "standing_return_verified": true,
+  "range_excess_max_rad": 0.0,
+  "range_excess_controls": 0,
+  "effort_ratio_max": 0.9023332688559322,
+  "velocity_ratio_max": 0.3777779432887387,
+  "events": [
+    {
+      "kind": "source_control_started",
+      "time": 0.14327469999261666,
+      "epoch": 0,
+      "received_window": 8
+    },
+    {
+      "kind": "active_bfm_standing_transition",
+      "reason": "packet_timeout",
+      "time": 9.09283090000099,
+      "control": 454,
+      "target_qpos": [
+        -0.07505257160829987,
+        -0.13866582151410572,
+        0.76,
+        0.09692936172513866,
+        0.0,
+        0.0,
+        -0.9952912633172046,
+        -0.312,
+        0.0,
+        0.0,
+        0.669,
+        -0.363,
+        0.0,
+        -0.312,
+        0.0,
+        0.0,
+        0.669,
+        -0.363,
+        0.0,
+        0.0,
+        0.2,
+        0.2,
+        0.0,
+        0.6,
+        0.0,
+        0.2,
+        -0.2,
+        0.0,
+        0.6,
+        0.0
+      ],
+      "simulator_state_rewritten": false,
+      "root_force_applied": false
+    },
+    {
+      "kind": "measured_standing_verified",
+      "time": 12.061749700001673,
+      "mode": "latched_standing",
+      "consecutive_controls": 50
+    },
+    {
+      "kind": "latched_fault",
+      "reason": "packet_timeout",
+      "time": 9.09283090000099,
+      "epoch": 0,
+      "last_sequence": 449,
+      "consumed": 447
+    }
+  ],
+  "ground_truth_pose_feedback": true,
+  "simulator_pose_writes_after_initialization": 0,
+  "root_assistance_forces": 0,
+  "controller_fallback": false,
+  "deployment_ready": false,
+  "hardware_authorized": false,
+  "scenario": "disconnect",
+  "clip": "walk002",
+  "paced": true,
+  "timing_environment": "shared_cpu_with_gpu_training",
+  "requested_controls": 900,
+  "budget_completed": true,
+  "source_packets_requested": 1417,
+  "rearm_events": [],
+  "wall_elapsed_seconds": 18.002766799996607,
+  "simulated_seconds": 18.0,
+  "full_loop_ms_p50_p95_max": [
+    10.37190000351984,
+    16.773890002514236,
+    54.18490000010934
+  ],
+  "control_start_late_ms_p95_max": [
+    19.006480002571188,
+    48.10519999999086
+  ],
+  "deadline_misses": 330,
+  "timing_qualified": false,
+  "source_tracking_qualified": false,
+  "request_sha256": "010ad0430e75b7e44e02af984750aa3c7cc5d8cfee8a7658a5df45a432a19c55",
+  "trace_sha256": "b5e1fd74c6312bf093e5cb44e5a61e7328539c4c0ee4b7a9e36ac12fdcbfe53a",
+  "phase_ms_p50_p95_max": {
+    "receive_ms": [
+      0.006800000846851617,
+      1.537810003355843,
+      10.555300003034063
+    ],
+    "reference_window_ms": [
+      0.01255000097444281,
+      1.2726599990855902,
+      15.846599999349564
+    ],
+    "goal_feedback_ms": [
+      0.534549995791167,
+      0.9931950073223559,
+      5.5148999963421375
+    ],
+    "backward_ms": [
+      0.5228500012890436,
+      0.826020002568839,
+      3.755600002477877
+    ],
+    "actor_ms": [
+      6.485099998826627,
+      9.634390007704484,
+      30.364900012500584
+    ],
+    "physics_ms": [
+      1.4851999949314632,
+      2.3924899978737812,
+      10.223100005532615
+    ],
+    "diagnostics_ms": [
+      0.35195000236853957,
+      0.5543500010389835,
+      4.117599994060583
+    ]
+  },
+  "protocol_scenario_passed": true,
+  "physical_lifecycle_passed": true,
+  "scenario_passed": true
+}

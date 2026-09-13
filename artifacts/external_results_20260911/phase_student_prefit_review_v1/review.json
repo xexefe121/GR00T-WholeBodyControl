@@ -1,0 +1,46 @@
+{
+  "kind": "independent_read_only_phase_student_prefit_source_review",
+  "verdict": "CLEAR_ONE_ROOT_AUTHORIZED_FIXED5000_FIT_ONLY",
+  "hashes": {
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_phase_fit_v1\\frozen_inputs_v2.json": "0d472a5caa041152936871ff00ce287b779e7a1f3b4b8d17e0893663ffc0cf80",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_phase_fit_v1\\source_snapshot_v1\\fit_phase_fullbatch_once.py": "7e534797102411f906bf5c1e227b4201c210f7fa564471bbfd8ad4bacdb76b67",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_phase_fit_v1\\source_snapshot_v1\\evaluate_phase_student.py": "84efe15543c6c969869d269d373f84ea6b7fd4701686f9680ffd59e6c9f95cac",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_phase_fit_v1\\run_fit_durable.ps1": "c06f26c79739c51ea4dfc04eada23fdd807570c6bdd2211390ec533a63a9b395",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_phase_fit_v1\\run_canonical_durable.ps1": "3fd7dba615d5fb1b40cc05162f15c9346cb59552530453ec769841d74d66b70a",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_phase_fit_v1\\validate_ordinary_final.py": "ad3c5a050452c81814d4caf00c2cb11a3d02e41e5a26c697b1dfe34a19ffc62d",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\fast_controller_phase_fit_v1\\training_clearance_DRAFT.json": "bc205aa6c200e15a0ad730cf54a5c73ce3c551609733a9bae33c1826a0a6ea98",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\bfm250_expert_labels_independent_v1\\report.json": "9a0d73faf235b5ad98e64dc310790aad8d05a721e3df1456b6c494a4d73f122d",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\phase_only_student_experiment_review_v1\\proposal.json": "97bb39bf71c185f2b350c140d36652dca6b8fdfd882c74b0d88468dc291b70e1"
+  },
+  "sources_verified": 18,
+  "inputs_verified": 115,
+  "prior_aggregate_sources_byte_exact": 16,
+  "python_ast_valid": true,
+  "fit_and_canonical_launcher_ast_valid": true,
+  "draft_training_bound_files_verified": 6,
+  "source_findings": [],
+  "training": [
+    "Exactlyold/query1/query250 controls250..1268 each1019, sources261..1279; no initial standing or terminal labels.",
+    "Fullbatch3057 fixed ordered rows every update; loss equal mean of nine dataset-by-phase MSE cells over normalized residual23 outputs.",
+    "Original1069-to256ELU-to256ELU-to23linear-times-native-span architecture and original feature normalization/span unchanged.",
+    "Restore full ordinary60000 model, all6AdamW states and RNG after model construction; require exact2537 previous predictions and byte-identical previousONNX before any update.",
+    "Exactly5000 updates60001..65000; cosine LR3e-5 to3e-6, AdamWwd1e-5/gradientclip10/CPU1; no resets, sampling, earlystop, EMA or candidate selection.",
+    "Fixed21 diagnostics60000..65000 every250; per-dataset/phase/per-joint/first24phase and query250signederrors plus fixed243 nearest-pair diagnostics.",
+    "Nonfinite loss/gradient/model/optimizer abort preserves failedprogress; ordinaryfinal65000 fullcheckpoint/RNG/AdamW, fit arrays and training arrays saved before export validation.",
+    "Final original objective must strictly improve and all3057 Torch/ONNX max delta below1e-5 before any later canonical rollout."
+  ],
+  "canonical_source_review": [
+    "Physical state getter/assess/newtrace/source_metrics/zero_parity helpers AST-identical to prior reviewed evaluator.",
+    "Fresh canonical model and self-generated originalBFM disabledhead controls0..249; exact full250baseline states/commands/features/history/clock/finalintegration checked at250.",
+    "First enabled control250 features/base/prior/history/state/integration/qpos/qvel must equal qualified query250 label input before native command; saved labels are comparisons only.",
+    "Learned acquisition/source/return250..1268, frozen originalBFMyaw4 terminal1269..1568, conditional separate250 hold with same actualplant/history/independentclock.",
+    "All original strict native2ms gates and partialfailure recording preserved; no reset, source skipping, expert-target injection or additional query.",
+    "Durable canonical launcher refuses previous outputs, requires separately pinned final65000 exportclearance/report/checkpoint/validation; current clearance false and output absent."
+  ],
+  "limitations": [
+    "This review authorizes no canonical runtime until final export review is complete.",
+    "Reviewer ran no inference, fitting, physics, model loading or target production.",
+    "Fit success does not establish feedback stability; full canonical source and quiet audits remain required.",
+    "Mode architecture is offline recorded-reference evidence; no live teleoperation or hardware qualification."
+  ]
+}

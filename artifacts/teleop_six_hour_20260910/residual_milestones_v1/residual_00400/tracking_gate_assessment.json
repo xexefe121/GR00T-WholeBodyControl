@@ -1,0 +1,114 @@
+{
+  "time_utc": "2026-09-10T14:41:06.513268+00:00",
+  "thresholds": {
+    "root_p95_m": 0.2,
+    "yaw_p95_deg": 15.0,
+    "foot_relative_p95_m": 0.12,
+    "leg_rmse_rad": 0.15,
+    "original_hand_relative_p95_m": 0.15,
+    "original_head_relative_p95_m": 0.1,
+    "range_tolerance_rad": 1e-06
+  },
+  "cases": [
+    {
+      "clip": "walk002",
+      "gates": {
+        "full_timed_source_and_lifecycle": true,
+        "root_world_position": false,
+        "heading": false,
+        "each_foot_relative_position": false,
+        "twelve_leg_joint_rmse": false,
+        "original_left_hand": false,
+        "original_right_hand": false,
+        "original_head": true,
+        "physical_limits": true
+      },
+      "tracking_passed": false,
+      "failed": [
+        "root_world_position",
+        "heading",
+        "each_foot_relative_position",
+        "twelve_leg_joint_rmse",
+        "original_left_hand",
+        "original_right_hand"
+      ]
+    },
+    {
+      "clip": "pico",
+      "gates": {
+        "full_timed_source_and_lifecycle": true,
+        "root_world_position": false,
+        "heading": false,
+        "each_foot_relative_position": false,
+        "twelve_leg_joint_rmse": false,
+        "original_left_hand": false,
+        "original_right_hand": false,
+        "original_head": false,
+        "physical_limits": false
+      },
+      "tracking_passed": false,
+      "failed": [
+        "root_world_position",
+        "heading",
+        "each_foot_relative_position",
+        "twelve_leg_joint_rmse",
+        "original_left_hand",
+        "original_right_hand",
+        "original_head",
+        "physical_limits"
+      ]
+    },
+    {
+      "clip": "walk003",
+      "gates": {
+        "full_timed_source_and_lifecycle": true,
+        "root_world_position": false,
+        "heading": false,
+        "each_foot_relative_position": false,
+        "twelve_leg_joint_rmse": false,
+        "original_left_hand": false,
+        "original_right_hand": false,
+        "original_head": false,
+        "physical_limits": true
+      },
+      "tracking_passed": false,
+      "failed": [
+        "root_world_position",
+        "heading",
+        "each_foot_relative_position",
+        "twelve_leg_joint_rmse",
+        "original_left_hand",
+        "original_right_hand",
+        "original_head"
+      ]
+    },
+    {
+      "clip": "walk008",
+      "gates": {
+        "full_timed_source_and_lifecycle": false,
+        "root_world_position": true,
+        "heading": false,
+        "each_foot_relative_position": false,
+        "twelve_leg_joint_rmse": true,
+        "original_left_hand": false,
+        "original_right_hand": false,
+        "original_head": true,
+        "physical_limits": false
+      },
+      "tracking_passed": false,
+      "failed": [
+        "full_timed_source_and_lifecycle",
+        "heading",
+        "each_foot_relative_position",
+        "original_left_hand",
+        "original_right_hand",
+        "physical_limits"
+      ]
+    }
+  ],
+  "four_clip_tracking_passed": false,
+  "online_stream_qualification": "separate test required",
+  "sensor_only_pose_qualification": "separate test required",
+  "hardware_authorized": false,
+  "deployment_ready": false
+}

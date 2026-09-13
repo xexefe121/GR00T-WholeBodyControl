@@ -1,0 +1,62 @@
+{
+  "cases": [
+    {
+      "clip": "walk003",
+      "actor": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\causal_dynamics_v1\\pilot_v1\\actor_00400.onnx",
+      "requested_controls": 3069,
+      "completed_controls": 58,
+      "physical_complete": false,
+      "source": {
+        "passed": false,
+        "source_controls": 0
+      },
+      "main_quiet": null,
+      "hold_quiet": null,
+      "failure": {
+        "kind": "physics",
+        "control": 58,
+        "substep": 6,
+        "time": 1.1720000000000008,
+        "reasons": [
+          "native_joint_speed"
+        ],
+        "speed_ratio": 1.0347644735865569,
+        "range_excess": 0.0,
+        "effort_ratio": 1.0,
+        "tilt": 0.21284534742551545
+      },
+      "passed": false,
+      "elapsed_s": 1.1719999999913853,
+      "physics_steps": 586,
+      "maximum_speed_ratio": 1.0347644735865569,
+      "policy_ms_p50_p95_max": [
+        13.105899997754022,
+        25.800610001897436,
+        58.97959999856539
+      ],
+      "packet_report": {
+        "epoch": 0,
+        "received": 70,
+        "consumed": 70,
+        "ignored": 0,
+        "rejected": 0,
+        "final_received": false,
+        "full_source_consumed": false,
+        "fault": null,
+        "calibration": null
+      },
+      "future_reference_frames": 0,
+      "prepared_feedback_gains": false,
+      "initial_root_x_velocity_offset": 0.0,
+      "independent_realtime": false,
+      "hardware_authorized": false,
+      "controller_variant": "causal_full_range_with_neutral_balance",
+      "fault_control": null,
+      "fault_quiet": null,
+      "fault_scenario_passed": false
+    }
+  ],
+  "scenario": "nominal",
+  "passed": false,
+  "general_live_teleop_qualified": false
+}

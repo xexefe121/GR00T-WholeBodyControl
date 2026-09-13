@@ -1,0 +1,69 @@
+{
+  "kind": "offline_native23_mjbatch_ilqr_probe",
+  "clip": "pico",
+  "probe": "source-prefix",
+  "completed_controls": 500,
+  "requested_controls": 500,
+  "probe_completed": true,
+  "full_source_completed": false,
+  "failure": null,
+  "metrics": {
+    "phase": "source_motion",
+    "controls": 150,
+    "leg_rmse": 0.11947567608896484,
+    "arm_rmse": 0.04024795747490685,
+    "root_p95": 0.25113750667300755,
+    "tracked_body_position_p95": [
+      0.25113750667300755,
+      0.25803770099179046,
+      0.17449693177478046,
+      0.07680560066432261,
+      0.23817742412016626,
+      0.26469992493050915
+    ]
+  },
+  "range_excess_max": 0.0,
+  "velocity_ratio_max": 0.8008898575888438,
+  "effort_ratio_max": 1.0,
+  "feedback_correction_clip_rad": 0.1,
+  "feedback_correction_clipped_controls": 1,
+  "planning_ms_p50_p95_max": [
+    3426.8062140000097,
+    4282.069937699986,
+    4734.061040000029
+  ],
+  "planning_deadlines_missed": 100,
+  "elapsed_wall_seconds": 319.35318310700006,
+  "simulated_seconds": 10.000000000000009,
+  "physics_steps": 5000,
+  "declared_future_preview_seconds": 0.6,
+  "conservative_effective_source_preview_seconds": 0.74,
+  "recorded_target_seed": {
+    "path": "artifacts/teleop_six_hour_20260910/bfm_pico_feedback_v2",
+    "trace_sha256": "f7ce1cb7764de7b86e2ed7011f003054dfeb045c171165a07d133f2d8314a1f9",
+    "report_sha256": "faab2b621d27c6511960ab788fbe761d77958449af7deafd0aa1a3d155d82ff9",
+    "controls": 6530,
+    "original_generator_preview_seconds": 0.14,
+    "selection": "lower actual-rollout cost of recorded BFM targets and shifted previous MPC plan",
+    "physical_states_copied": false,
+    "seed_reference_differs_from_optimization_goal": true
+  },
+  "motion_override": {
+    "path": "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_inputs_v1/pico/reference.npz",
+    "reference_sha256": "571fb2723f9a8a9f99c35e724e3dd7e9d88c384152ba0777595fece4cae1cfb9",
+    "portable_receipt_sha256": "0639d22fb8f807ad9ad3c197e90ba5196e8d089af80206a9b933c8a202e826c5",
+    "base_native_reference_sha256": "72ae0f04333ebc18e03fbe2a6e5640c895ceda9e37ce83418f4bca6e9540d953",
+    "original29_sha256": "58c65ea2805cfe740989661fe26d09e9b8d9b5f1e2c5ac0697167074fef82c5e"
+  },
+  "mujoco": "3.2.3",
+  "controller": "iLQR position targets with measured-state feedback and native manualPD",
+  "physical_state_rewrites_after_initialization": 0,
+  "root_assistance_forces": 0,
+  "timing_qualified": false,
+  "full_body_tracking_qualified": false,
+  "hardware_authorized": false,
+  "native323_replay_required": true,
+  "request_sha256": "142054eb439213b832d30bb7e3d6c0ca6628a20374e185fc3a93864fa4422687",
+  "trace_sha256": "90a3dc7aec455d88f846771234ca712e24828bd830df44a3472a317c45b61050",
+  "plans_sha256": "70b746471f89c0466127d09743bf0baca52f46b1f7bac3f2436f21c5ba03986a"
+}

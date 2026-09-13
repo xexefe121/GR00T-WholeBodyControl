@@ -1,0 +1,77 @@
+{
+  "authorization": {
+    "hardware_authorized": false,
+    "robot_network_commands": false,
+    "training_input_only": true
+  },
+  "corpus": {
+    "clip_count": 8,
+    "episode_frames": 500,
+    "full_body_controlled_joint_count": 23,
+    "schema": "g1_true23_native124_incremental_corpus_v1",
+    "source_29dof_physics_used": false,
+    "source_catalog_filename": "corpus.catalog.json",
+    "source_catalog_sha256": "0d1d9b463692f1b63b446d4b3be0501e89061c16b73d6f226c66576d4576e3a4",
+    "span_sidecar_filename": "corpus.spans.json",
+    "span_sidecar_sha256": "e1e66f1879cb8e9548f028120f16d0535791d45425fbfab0a420abecac7d7ed7"
+  },
+  "deployment_ready": false,
+  "kinematics": {
+    "clip_boundaries_are_episode_contained": true,
+    "joint_and_body_arrays_present_at_50hz": true,
+    "motion_arrays_preserved_without_retargeting": true
+  },
+  "model": {
+    "filename": "g1_23dof.xml",
+    "sha256": "9bf3d7d3f3f2a66868ee742314fecafd9572e4d1980e9095bec81d45dacfc9fb"
+  },
+  "output": {
+    "duration_s": 120.68,
+    "filename": "corpus.npz",
+    "fps": 50.0,
+    "frames": 6035,
+    "sha256": "96a35f0a9edee22750f903fa663354fd6715d7f5b91b42742f645039168a358c"
+  },
+  "schema": "g1_true23_low_latency_recovery_motion_v1",
+  "segments_inclusive": {
+    "original_sonic_elbow_crawl": [
+      4883,
+      5488
+    ],
+    "original_sonic_hand_crawl": [
+      4277,
+      4882
+    ],
+    "original_sonic_happy_dance": [
+      5489,
+      6034
+    ],
+    "pico_crouch_anchor": [
+      2048,
+      3071
+    ],
+    "pico_standing_anchor": [
+      1024,
+      2047
+    ],
+    "pico_twist2_walk_001": [
+      3072,
+      3766
+    ],
+    "pico_twist2_walk_010": [
+      3767,
+      4276
+    ],
+    "pico_upright_anchor": [
+      0,
+      1023
+    ]
+  },
+  "simulator_only": true,
+  "source": {
+    "filename": "g1_true23_frozen_lora_original_sonic_rehearsal_v1.json",
+    "frames": 6035,
+    "kind": "g1_true23_pico_fullbody_multimotion_manifest_v1",
+    "sha256": "3ea1b4e3a6b514e86919d2bb7503b2872de884e57f5d77852d84fba0a7237b41"
+  }
+}

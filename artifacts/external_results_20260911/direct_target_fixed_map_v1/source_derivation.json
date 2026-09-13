@@ -1,0 +1,82 @@
+{
+  "prior_source": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\student_physical_response_fixed_map_v1\\diagnose_fixed_map.py",
+  "prior_sha256": "ac3484b82a8a6ccda89ab48a5198be9a434fc86f0469df14c5c75a748da7de15",
+  "derived_source": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_fixed_map_v1\\diagnose_fixed_map.py",
+  "derived_sha256": "4886333fb94ef3497c47a379b6d0a1e5e4799742253b17b566142b23a1dafeee",
+  "changes": [
+    {
+      "old": "All seventy actual learned controls",
+      "new": "All actual direct-target learned controls",
+      "occurrences": 1
+    },
+    {
+      "old": "NEW/'one_step_physical_student_evaluation_v1/nominal/trace.npz'",
+      "new": "NEW/'direct_target_student_evaluation_v1/nominal/trace.npz'",
+      "occurrences": 1
+    },
+    {
+      "old": "NEW/'student_physical_response_saved_outcome_v1/report.json'",
+      "new": "NEW/'direct_target_saved_outcome_review_v1/report.json'",
+      "occurrences": 1
+    },
+    {
+      "old": "NEW/'student_physical_response_independent_physics_v1/report.json'",
+      "new": "local(args.root_physics)",
+      "occurrences": 1
+    },
+    {
+      "old": "NEW/'one_step_physical_student_evaluation_v1/nominal/report.json'",
+      "new": "NEW/'direct_target_student_evaluation_v1/nominal/report.json'",
+      "occurrences": 1
+    },
+    {
+      "old": "NEW/'one_step_physical_student_v1/fit/report.json'",
+      "new": "NEW/'direct_target_student_v1/fit/report.json'",
+      "occurrences": 1
+    },
+    {
+      "old": "    assert sha(p['actual'])=='38428ae27055be7c2e771c5a23056c858f004ef38f260a0b45a57662d8d0aae3'\n    assert read(p['prior_outcome_audit'])['moving_controls']==70\n    assert sha(p['root_physics'])=='ede8ff939da69885f509785e62e6c6cc8d0ecb190b2cb8fb15eb1e5ec4394133'",
+      "new": "    assert args.actual_sha and args.root_physics_sha and args.outcome_sha\n    assert sha(p['actual'])==args.actual_sha\n    assert sha(p['root_physics'])==args.root_physics_sha\n    assert sha(p['prior_outcome_audit'])==args.outcome_sha\n    actual=load(p['actual']);controls=actual['global_control'][actual['controller_mode']==1].astype(int).tolist()\n    assert controls and controls==list(range(250,250+len(controls))) and controls[-1]<1269\n    assert actual['features'].shape==(len(actual['target']),1000)\n    assert read(p['prior_outcome_audit'])['moving_controls']==len(controls)",
+      "occurrences": 1
+    },
+    {
+      "old": "paths={k:str(v) for k,v in p.items()},controls=list(range(250,320)),\n        nominal_map_checks=70,actual_state_map_evaluations=70",
+      "new": "paths={k:str(v) for k,v in p.items()},controls=controls,\n        nominal_map_checks=len(controls),actual_state_map_evaluations=len(controls)",
+      "occurrences": 1
+    },
+    {
+      "old": "dataset2 centers2038..2107",
+      "new": "dataset2 center2038 + control-250",
+      "occurrences": 1
+    },
+    {
+      "old": "actor_history_deviation_rms=rms(a['history'][control]-centers['history'][idx])",
+      "new": "terminal_BFM_history_deviation_rms=rms(a['history'][control]-centers['history'][idx])",
+      "occurrences": 1
+    },
+    {
+      "old": "failing_left_ankle_roll=dict",
+      "new": "left_ankle_roll=dict",
+      "occurrences": 1
+    },
+    {
+      "old": "nominal_map_checks_exact=70,actual_state_map_evaluations=70",
+      "new": "nominal_map_checks_exact=len(records),actual_state_map_evaluations=len(records)",
+      "occurrences": 1
+    },
+    {
+      "old": "The maps do not consume prior/history, replan, establish local feasibility, or provide expert truth for those off-trajectory states.",
+      "new": "The maps do not consume prior/history, replan, establish local feasibility, or provide expert truth for those off-trajectory states. The direct learned head uses only1000 measured-state/prepared-goal features; reported prior/history differences are terminal-handoff bookkeeping, not head inputs.",
+      "occurrences": 1
+    },
+    {
+      "old": "parser=argparse.ArgumentParser();parser.add_argument('--freeze',action='store_true');args=parser.parse_args()",
+      "new": "parser=argparse.ArgumentParser();parser.add_argument('--freeze',action='store_true')\n    parser.add_argument('--root-physics');parser.add_argument('--root-physics-sha');parser.add_argument('--actual-sha');parser.add_argument('--outcome-sha');args=parser.parse_args()",
+      "occurrences": 1
+    }
+  ],
+  "invariant": "Original AST extraction of quat_mul/quat_log/Planner.difference, full K multiplication and both clip expressions remain literal unchanged.",
+  "model_calls": 0,
+  "native_steps": 0,
+  "optimizer_updates": 0
+}

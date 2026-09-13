@@ -1,0 +1,267 @@
+{
+  "actor": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/onboard_factory_firmware_v1/controller_state_ab_v1/retained_controller/controller.onnx",
+  "clip": "walk002",
+  "standing_diagnostic": false,
+  "input_mode": "recorded",
+  "feedback_mode": "ground-truth",
+  "recorded_pico_packet_source": null,
+  "live_packet_log": null,
+  "native_factory_conditioned": false,
+  "factory_locomotion": false,
+  "locomotion_conditioned": false,
+  "task_commands": true,
+  "native_target_actuation": true,
+  "native_limit_brake": false,
+  "native_preview_guard": true,
+  "native_standing_capture": true,
+  "native_preview_delay_substeps": 6,
+  "native_preview_library": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/onboard_factory_firmware_v1/native_preview_backend_v3/libtrue23preview.so",
+  "controller_affinity_cpus": [
+    2,
+    4
+  ],
+  "native_snapshot_protocol": 1,
+  "target_margin_rad": 0.0,
+  "leg_target_filter_alpha": 1.0,
+  "factory_prior_filter_alpha": 0.9,
+  "initial_world_velocity_x_delta_mps": 0.0,
+  "fault_standing_capture_enabled": false,
+  "plant_spin_us": 0,
+  "native_lookahead_library": null,
+  "native_lookahead_steps": 0,
+  "linux_fifo_priorities": [
+    70,
+    50,
+    40
+  ],
+  "producer_gc_disabled_during_replay": true,
+  "producer_wait": "CLOCK_MONOTONIC absolute native sleep",
+  "controller_boundary_wakeup": "native shared futex",
+  "native_library": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/onboard_factory_firmware_v1/factory_clock_v5/libtrue23clock.so",
+  "actual_pd_kp": [
+    99.09843,
+    99.09843,
+    40.17924,
+    99.09843,
+    28.50125,
+    28.50125,
+    99.09843,
+    99.09843,
+    40.17924,
+    99.09843,
+    28.50125,
+    28.50125,
+    300.0,
+    14.25062,
+    14.25062,
+    14.25062,
+    14.25062,
+    14.25062,
+    14.25062,
+    14.25062,
+    14.25062,
+    14.25062,
+    14.25062
+  ],
+  "actual_pd_kd": [
+    6.3088,
+    6.3088,
+    2.55789,
+    6.3088,
+    1.81445,
+    1.81445,
+    6.3088,
+    6.3088,
+    2.55789,
+    6.3088,
+    1.81445,
+    1.81445,
+    5.0,
+    0.90722,
+    0.90722,
+    0.90722,
+    0.90722,
+    0.90722,
+    0.90722,
+    0.90722,
+    0.90722,
+    0.90722,
+    0.90722
+  ],
+  "requested_controls": 2917,
+  "completed_controls": 2917,
+  "physical_steps": 29170,
+  "physical_complete": true,
+  "physical_failure": false,
+  "controller_deadline_misses": 1,
+  "plant_wakes_over2ms_late": 1,
+  "plant_finishes_over2ms_late": 3,
+  "maximum_plant_finish_lateness_ms": 3.976866,
+  "missed_observation_publications": 0,
+  "first_latched_plant_fault_control": 21,
+  "maximum_speed_ratio": 0.30619759963418136,
+  "maximum_range_excess": 0.0,
+  "maximum_effort_ratio": 0.4929425868277886,
+  "controller_ms_p50_p95_max": [
+    3.6601999999999997,
+    4.82891875,
+    16.126998999999998
+  ],
+  "first_target_application_ms_p50_p95_max": [
+    4.0,
+    6.0,
+    18.0
+  ],
+  "controls_with_previous_then_current_command": 2915,
+  "activation_schedule": "new command applies at next 2ms step after publication; previous target stays applied during computation",
+  "source": {
+    "passed": false,
+    "source_controls": 667,
+    "requested_source_controls": 667,
+    "root_p95_m": 2.1658021348538803,
+    "yaw_p95_deg": 165.89382032276995,
+    "hand_head_relative_p95_m": [
+      0.6055440792762856,
+      0.5195872806552231,
+      0.06648094090728025
+    ],
+    "foot_relative_p95_m": [
+      0.4023406036207764,
+      0.33925685159936536
+    ],
+    "leg_rmse_rad": 0.2031452428928139
+  },
+  "main_quiet": {
+    "passed": false,
+    "values": {
+      "xy_p95": 1.4840074336471198,
+      "yaw_p95_deg": 73.9421615653239,
+      "root_speed_p95": 3.0817265452807284e-05,
+      "joint_speed_p95": 0.00047413674641587843,
+      "joint_speed_max": 0.0004780911045299802,
+      "tilt_max": 0.018688423704367123
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "final_quiet": {
+    "passed": false,
+    "values": {
+      "xy_p95": 1.5096649598519576,
+      "yaw_p95_deg": 75.18145529711045,
+      "root_speed_p95": 0.0006266939284089141,
+      "joint_speed_p95": 0.004939408943621949,
+      "joint_speed_max": 0.00508608980461278,
+      "tilt_max": 0.023633104689799064
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "continuous_quiet30": {
+    "passed": false,
+    "values": {
+      "xy_p95": 1.5126483954825787,
+      "yaw_p95_deg": 77.12146869930908,
+      "root_speed_p95": 0.08647261353352143,
+      "joint_speed_p95": 1.0900307350773686,
+      "joint_speed_max": 7.767155605272991,
+      "tilt_max": 0.05990047622693643
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "packet_report": {
+    "epoch": 0,
+    "received": 34,
+    "consumed": 34,
+    "ignored": 1394,
+    "rejected": 0,
+    "final_received": false,
+    "full_source_consumed": false,
+    "fault": {
+      "reason": "native_clock_deadline_fault",
+      "time": 0.441789457,
+      "epoch": 0,
+      "last_sequence": 33,
+      "consumed": 34
+    },
+    "calibration": null
+  },
+  "passed": false,
+  "one_learned_controller": true,
+  "identical_targets_in_both_legacy_channels": true,
+  "applied_history_owner": "native plant; imported once per observed control boundary",
+  "independent_physics_500hz": true,
+  "independent_packet_producer_50hz": true,
+  "controller_hz": 50,
+  "warmed_onnx_calls": 10,
+  "physics_steps_during_warmup": 0,
+  "preclock_received_samples": 12,
+  "simulation_time_frozen_for_inference": false,
+  "future_reference_frames": 0,
+  "prepared_motion_specific": false,
+  "injected_input_loss_control": null,
+  "explicit_rearm_api_preserved": true,
+  "automatic_rearm": false,
+  "fault_quiet": {
+    "passed": true,
+    "values": {
+      "xy_p95": 0.03372849288149455,
+      "yaw_p95_deg": 1.887657794969601,
+      "root_speed_p95": 0.0006266939284089141,
+      "joint_speed_p95": 0.004939408943621949,
+      "joint_speed_max": 0.00508608980461278,
+      "tilt_max": 0.023633104689799064
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "fault_continuous_quiet30": {
+    "passed": false,
+    "values": {
+      "xy_p95": 0.0360214315149045,
+      "yaw_p95_deg": 2.254132817132277,
+      "root_speed_p95": 0.08647261353352143,
+      "joint_speed_p95": 1.0900307350773686,
+      "joint_speed_max": 7.767155605272991,
+      "tilt_max": 0.05990047622693643
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "fault_scenario_passed": false,
+  "native_clock_long_pico_recurrence_unresolved": false,
+  "native_clock_expected_time": "Independent repeated additions of .002 from zero; tolerance 1e-10",
+  "general_live_teleop_qualified": false,
+  "hardware_authorized": false
+}

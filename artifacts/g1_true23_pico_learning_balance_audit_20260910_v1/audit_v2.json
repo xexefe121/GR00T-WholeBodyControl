@@ -1,0 +1,3431 @@
+{
+  "inputs": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_learning_balance_audit_20260910_v1/analyze_v2.py": "f41ac9488927a825b3c2485b31d1dc28553e7e35cfb3a29f2a11568491a54a49",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23.py": "64c27e20d61de6013dfb9b40c2dff01fc2908fec34be8deceed4be01224da9d4",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_learning_balance_audit_20260910_v1/EXPERIMENT.md": "b41561ceb995bb019b351358509c32751d9850dcded41f84c7e9074e376c026a",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_bounded_progress.py": "10bb12a6edb66a291b981159e6b59891904084f37d963237c3bf16ecee9247f9",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_contract.py": "113ba62dd9734b77c4c32f812e5891066c5bac0c21635c74739b643267fef55a",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/bank_v1/report.json": "1ed51fb48efa5ee6ec2e8c32d0fe58d5455ac1b77ce001abb1f034b65df09291",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/bank_v1/curriculum/curriculum.spans.json": "3337268a0e1566744b7d7949d00071b7e08a15700face82ffb24416923627d3f",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/bank_v1/original_intent.spec.json": "0c5220c55c751b6c54bb8c54d4926277be0f8339cfe8a5ceaae36d58a202f2a1",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/bank_v1/curriculum/curriculum.npz": "72e66eb2bf34f37236f73150098fe8326da4ce495e08d1c979c61c8bb8fa40f6",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_ankle_feedforward_20260910_v1/eval1000_v1/pico/report.json": "1e3d84212233ac23e54507efff92b9231e6d278100302c8e6f42f78d384b6792",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_ankle_feedforward_20260910_v1/eval1000_v1/pico/attempts.npz": "5a65b72777d4249f737468991e00121b1999139cd81a41db28d8786a5d75239b",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/train500_v1/arithmetic_audit.json": "54ce08a768495f7bbed137b8a1f41ece739bcb3d384b7ffe8d82ec315894bbb4",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/train500_v1/reward_capture.npz": "7beaeff887bd56e263d9f1d2e5a29f3b3d2fe9d43f7b8426e1fb9086a541ce0f",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/train500_v1/sampled_actual_inputs.npz": "82e2417938657fe9a8eb1e05d9353f2115467779471662c0ac4430252d5b176e",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/train500_v1/world_failure_capture.npz": "883fe20994a845d73d0ffad653bcf8fd0de65b2316d482182a8655da0481d305",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_foot_precision_20260910_v1/train500_v1/arithmetic_audit.json": "d83f8e86716b1fe21243ae6d34a4bb8dccf7b02eaadb3ae7ae1fa2fa0de06a27",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_foot_precision_20260910_v1/train500_v1/reward_capture.npz": "7adfb414eff9ecb1bcf7aaa8b1e520ec9bea7f4ae3bb879a243beef11af80c7b",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_foot_precision_20260910_v1/train500_v1/sampled_actual_inputs.npz": "2b5687c62d94274b570fd8e3a5744df2921674e5724a6dbbf2cea7451764df9a",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_foot_precision_20260910_v1/train500_v1/world_failure_capture.npz": "8d7b9da6a72d57503db23fc87552eb9314938ad5463404cc1ce9730173d7ab84"
+  },
+  "training": [
+    {
+      "name": "parent500",
+      "reward_terms": [
+        {
+          "name": "action_rate_l2",
+          "raw": {
+            "count": 1019850,
+            "mean": 1.1494491453217925,
+            "min": 0.0790090262889862,
+            "p05_p50_p95_p99": [
+              0.3305866986513138,
+              0.7165587842464447,
+              3.0501405358314497,
+              8.637054090499882
+            ],
+            "max": 126.33518981933594
+          },
+          "bounded_reward_contribution": {
+            "count": 1019850,
+            "mean": -0.0017851385758493098,
+            "min": -0.003968586845429962,
+            "p05_p50_p95_p99": [
+              -0.0030123799496218624,
+              -0.001669756470497938,
+              -0.0009938073151832853,
+              -0.0007933852845326538
+            ],
+            "max": -0.0002928947742382484
+          },
+          "fraction_raw_cost_at_least9": 0.00927881551208511,
+          "transform_derivative_per_raw_unit": {
+            "count": 1019850,
+            "mean": 0.3296931158728656,
+            "min": 6.16741425025709e-05,
+            "p05_p50_p95_p99": [
+              0.060962085244861894,
+              0.3393771816741565,
+              0.5648246536403457,
+              0.6426486208407355
+            ],
+            "max": 0.8589143221793805
+          }
+        },
+        {
+          "name": "joint_limit",
+          "raw": {
+            "count": 1019850,
+            "mean": 0.00036230368613203223,
+            "min": 0.0,
+            "p05_p50_p95_p99": [
+              0.0,
+              0.0,
+              0.0,
+              0.014733872711658484
+            ],
+            "max": 0.25742143392562866
+          },
+          "bounded_reward_contribution": {
+            "count": 1019850,
+            "mean": -0.00014018296380729564,
+            "min": -0.08188867375100084,
+            "p05_p50_p95_p99": [
+              0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "max": -0.0
+          },
+          "fraction_raw_cost_at_least9": 0.0,
+          "transform_derivative_per_raw_unit": {
+            "count": 1019850,
+            "mean": 0.9993103182180636,
+            "min": 0.6324675992993574,
+            "p05_p50_p95_p99": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "max": 1.0
+          }
+        },
+        {
+          "name": "self_collisions",
+          "raw": {
+            "count": 1019850,
+            "mean": 0.03336372996028828,
+            "min": 0.0,
+            "p05_p50_p95_p99": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "max": 4.0
+          },
+          "bounded_reward_contribution": {
+            "count": 1019850,
+            "mean": -0.0017400173228089098,
+            "min": -0.16,
+            "p05_p50_p95_p99": [
+              0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "max": -0.0
+          },
+          "fraction_raw_cost_at_least9": 0.0,
+          "transform_derivative_per_raw_unit": {
+            "count": 1019850,
+            "mean": 0.9886929235236119,
+            "min": 0.04,
+            "p05_p50_p95_p99": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "max": 1.0
+          }
+        },
+        {
+          "name": "action_target_reference_l2",
+          "raw": {
+            "count": 1019850,
+            "mean": 0.4000413608292728,
+            "min": 0.007476781494915485,
+            "p05_p50_p95_p99": [
+              0.13377519696950912,
+              0.35099050402641296,
+              0.8180507481098174,
+              1.2008816504478457
+            ],
+            "max": 4.977390766143799
+          },
+          "bounded_reward_contribution": {
+            "count": 1019850,
+            "mean": -0.010782770555245319,
+            "min": -0.03330811694183326,
+            "p05_p50_p95_p99": [
+              -0.01799841393778156,
+              -0.010392093889048593,
+              -0.004719637449332735,
+              -0.002955969298258741
+            ],
+            "max": -0.0002968517640206568
+          },
+          "fraction_raw_cost_at_least9": 0.0,
+          "transform_derivative_per_raw_unit": {
+            "count": 1019850,
+            "mean": 0.5438523571987648,
+            "min": 0.027988311790111905,
+            "p05_p50_p95_p99": [
+              0.302543618283395,
+              0.547892565171834,
+              0.7779399885673266,
+              0.857662631644896
+            ],
+            "max": 0.9852124874050935
+          }
+        },
+        {
+          "name": "action_target_soft_limit_barrier",
+          "raw": {
+            "count": 1019850,
+            "mean": 0.009152147834423195,
+            "min": 0.0,
+            "p05_p50_p95_p99": [
+              0.0,
+              0.0,
+              0.03311574086546898,
+              0.04776512458920479
+            ],
+            "max": 0.12477272003889084
+          },
+          "bounded_reward_contribution": {
+            "count": 1019850,
+            "mean": -0.0017827333125172704,
+            "min": -0.022186299119092544,
+            "p05_p50_p95_p99": [
+              -0.006410848185843539,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "max": -0.0
+          },
+          "fraction_raw_cost_at_least9": 0.0,
+          "transform_derivative_per_raw_unit": {
+            "count": 1019850,
+            "mean": 0.9824035785334018,
+            "min": 0.7904428055241207,
+            "p05_p50_p95_p99": [
+              0.936918992503113,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "max": 1.0
+          }
+        },
+        {
+          "name": "worst_ee_z_normalized_squared",
+          "raw": {
+            "count": 1019850,
+            "mean": 0.11254167374417771,
+            "min": 1.9095892639597878e-05,
+            "p05_p50_p95_p99": [
+              0.007038842118345202,
+              0.08408303931355476,
+              0.3247750550508498,
+              0.5352674651145936
+            ],
+            "max": 0.9983384609222412
+          },
+          "bounded_reward_contribution": {
+            "count": 1019850,
+            "mean": -0.03738290133469799,
+            "min": -0.19983370794184765,
+            "p05_p50_p95_p99": [
+              -0.09806194759247507,
+              -0.03102457515312138,
+              -0.0027958572495680083,
+              -0.0008864981953613248
+            ],
+            "max": -7.638211197378168e-06
+          },
+          "fraction_raw_cost_at_least9": 0.0,
+          "transform_derivative_per_raw_unit": {
+            "count": 1019850,
+            "mean": 0.8279019505733379,
+            "min": 0.25041590297693467,
+            "p05_p50_p95_p99": [
+              0.5697911718229864,
+              0.8508929008808714,
+              0.9860695688631719,
+              0.9955724207672585
+            ],
+            "max": 0.9999618093086522
+          }
+        },
+        {
+          "name": "right_wrist_prethreshold_barrier",
+          "raw": {
+            "count": 1019850,
+            "mean": 0.009397270283817668,
+            "min": 0.0,
+            "p05_p50_p95_p99": [
+              0.0,
+              0.0,
+              0.0,
+              0.07827662922441986
+            ],
+            "max": 19.91697120666504
+          },
+          "bounded_reward_contribution": {
+            "count": 1019850,
+            "mean": -0.0016667914943796483,
+            "min": -0.47609596556500117,
+            "p05_p50_p95_p99": [
+              0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "max": -0.0
+          },
+          "fraction_raw_cost_at_least9": 0.0001568858165416483,
+          "transform_derivative_per_raw_unit": {
+            "count": 1019850,
+            "mean": 0.9947441465162057,
+            "min": 0.0022856114490784384,
+            "p05_p50_p95_p99": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "max": 1.0
+          }
+        },
+        {
+          "name": "requested_effort_excess",
+          "raw": {
+            "count": 1019850,
+            "mean": 5.03535231826705e-07,
+            "min": 0.0,
+            "p05_p50_p95_p99": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "max": 0.012986009009182453
+          },
+          "bounded_reward_contribution": {
+            "count": 1019850,
+            "mean": -1.0046660778456756e-09,
+            "min": -2.5639068839429033e-05,
+            "p05_p50_p95_p99": [
+              0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "max": -0.0
+          },
+          "fraction_raw_cost_at_least9": 0.0,
+          "transform_derivative_per_raw_unit": {
+            "count": 1019850,
+            "mean": 0.9999989965293489,
+            "min": 0.9745252716233092,
+            "p05_p50_p95_p99": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "max": 1.0
+          }
+        },
+        {
+          "name": "root_world_tracking_error",
+          "raw": {
+            "count": 1019850,
+            "mean": 0.035835603140124614,
+            "min": 8.017581421881914e-05,
+            "p05_p50_p95_p99": [
+              0.003951849439181388,
+              0.02586032636463642,
+              0.09672664888203138,
+              0.15911642387509353
+            ],
+            "max": 0.6970446705818176
+          },
+          "bounded_reward_contribution": {
+            "count": 1019850,
+            "mean": -0.006729306321965162,
+            "min": -0.08214806394493335,
+            "p05_p50_p95_p99": [
+              -0.01763915356310359,
+              -0.00504168563692841,
+              -0.000787258759747951,
+              -0.00032294928534217426
+            ],
+            "max": -1.6033877314595046e-05
+          },
+          "fraction_raw_cost_at_least9": 0.0,
+          "transform_derivative_per_raw_unit": {
+            "count": 1019850,
+            "mean": 0.9346980445848229,
+            "min": 0.34722697079818793,
+            "p05_p50_p95_p99": [
+              0.83138695782965,
+              0.9502186084822561,
+              0.9921429068113912,
+              0.9967731145526018
+            ],
+            "max": 0.9998396676539847
+          }
+        },
+        {
+          "name": "measured_joint_posture_l2",
+          "raw": {
+            "count": 1019850,
+            "mean": 0.1541130322255892,
+            "min": 0.00015059167344588786,
+            "p05_p50_p95_p99": [
+              0.036444855853915215,
+              0.1246037557721138,
+              0.3503491133451461,
+              0.6264929354190827
+            ],
+            "max": 2.661686420440674
+          },
+          "bounded_reward_contribution": {
+            "count": 1019850,
+            "mean": -0.025203337289257076,
+            "min": -0.14538035838253716,
+            "p05_p50_p95_p99": [
+              -0.05189015342515936,
+              -0.022159583788074456,
+              -0.007032666648482279,
+              -0.0024150242255067352
+            ],
+            "max": -3.0113799801671626e-05
+          },
+          "fraction_raw_cost_at_least9": 0.0,
+          "transform_derivative_per_raw_unit": {
+            "count": 1019850,
+            "mean": 0.7693995909930713,
+            "min": 0.07458263126050199,
+            "p05_p50_p95_p99": [
+              0.5484131663106304,
+              0.7906803409608019,
+              0.9309097935200253,
+              0.9759955662951861
+            ],
+            "max": 0.9996988846730068
+          }
+        },
+        {
+          "name": "measured_feet_world_position_l2",
+          "raw": {
+            "count": 1019850,
+            "mean": 9.291000249005819,
+            "min": 0.015826836228370667,
+            "p05_p50_p95_p99": [
+              0.9945555448532105,
+              6.083306789398193,
+              27.63853721618652,
+              38.46999828338623
+            ],
+            "max": 73.5526123046875
+          },
+          "bounded_reward_contribution": {
+            "count": 1019850,
+            "mean": -0.016294558843205385,
+            "min": -0.01973173307572024,
+            "p05_p50_p95_p99": [
+              -0.0193016403090339,
+              -0.01717646000733694,
+              -0.00997270341658566,
+              -0.005644790641199191
+            ],
+            "max": -0.0003116050032136106
+          },
+          "fraction_raw_cost_at_least9": 0.3688895425797911,
+          "transform_derivative_per_raw_unit": {
+            "count": 1019850,
+            "mean": 0.05733028871332751,
+            "min": 0.0001799178566563079,
+            "p05_p50_p95_p99": [
+              0.001219265644916721,
+              0.0199309452255863,
+              0.2513666919336145,
+              0.5151800893490668
+            ],
+            "max": 0.9690822438737083
+          }
+        },
+        {
+          "name": "original_task_position_l2",
+          "raw": {
+            "count": 1019850,
+            "mean": 3.0237532941127396,
+            "min": 0.01515279896557331,
+            "p05_p50_p95_p99": [
+              0.5597964882850647,
+              2.2818254232406616,
+              7.939214277267453,
+              10.415127115249634
+            ],
+            "max": 27.723432540893555
+          },
+          "bounded_reward_contribution": {
+            "count": 1019850,
+            "mean": -0.013381857805256844,
+            "min": -0.019303704389385706,
+            "p05_p50_p95_p99": [
+              -0.01776266689892925,
+              -0.013905830621464776,
+              -0.007177814445527516,
+              -0.004665228688003569
+            ],
+            "max": -0.0002985323781998888
+          },
+          "fraction_raw_cost_at_least9": 0.02598323282835711,
+          "transform_derivative_per_raw_unit": {
+            "count": 1019850,
+            "mean": 0.13720861659538802,
+            "min": 0.0012120689434018362,
+            "p05_p50_p95_p99": [
+              0.012514148512926386,
+              0.09284725103574498,
+              0.41102110598342356,
+              0.587888027979122
+            ],
+            "max": 0.9703695661320952
+          }
+        },
+        {
+          "name": "original_task_orientation_l2",
+          "raw": {
+            "count": 1019850,
+            "mean": 0.9838781746320301,
+            "min": 8.340147905983031e-05,
+            "p05_p50_p95_p99": [
+              0.18039798215031624,
+              0.7123463153839111,
+              2.8456897020339964,
+              4.796753134727479
+            ],
+            "max": 10.428792953491211
+          },
+          "bounded_reward_contribution": {
+            "count": 1019850,
+            "mean": -0.008503107349614722,
+            "min": -0.01825003392034585,
+            "p05_p50_p95_p99": [
+              -0.014799372401411985,
+              -0.00832011969754648,
+              -0.003056562021930254,
+              -0.001206404144429384
+            ],
+            "max": -1.6678904766639425e-06
+          },
+          "fraction_raw_cost_at_least9": 0.0002716085698877286,
+          "transform_derivative_per_raw_unit": {
+            "count": 1019850,
+            "mean": 0.3601703871654157,
+            "min": 0.007655953199850296,
+            "p05_p50_p95_p99": [
+              0.06761631854800101,
+              0.3410490096996398,
+              0.7177002262918325,
+              0.8829981129588259
+            ],
+            "max": 0.9998332179069801
+          }
+        }
+      ],
+      "exposure": [
+        {
+          "name": "walk002",
+          "all_controls": 220552,
+          "source_controls": 124058,
+          "sampled_source_anchors": 667,
+          "true_terminal_source_fraction": 0.009439133308613713
+        },
+        {
+          "name": "walk003",
+          "all_controls": 198425,
+          "source_controls": 97657,
+          "sampled_source_anchors": 819,
+          "true_terminal_source_fraction": 0.012892060988971605
+        },
+        {
+          "name": "pico",
+          "all_controls": 605023,
+          "source_controls": 508939,
+          "sampled_source_anchors": 5777,
+          "true_terminal_source_fraction": 0.0023951789900164854
+        }
+      ],
+      "phase_neighborhoods": [
+        {
+          "control_index": 1830,
+          "bank_anchor": 4847,
+          "actual_nearby_training_transitions": 6543,
+          "exact_anchor_transitions": 127,
+          "recorded_input_states_near_phase": 98,
+          "terminated_fraction": 0.0019868561821794286,
+          "negative_reward_by_term": {
+            "action_rate_l2": -0.00239155723232145,
+            "joint_limit": -0.0010797819702731395,
+            "self_collisions": -1.5313935681470137e-05,
+            "action_target_reference_l2": -0.014821682720717306,
+            "action_target_soft_limit_barrier": -0.002064065771654549,
+            "worst_ee_z_normalized_squared": -0.047731526219717844,
+            "right_wrist_prethreshold_barrier": -0.00040228561338126955,
+            "requested_effort_excess": -2.70776736193234e-10,
+            "root_world_tracking_error": -0.009181096334033865,
+            "measured_joint_posture_l2": -0.04039333958940977,
+            "measured_feet_world_position_l2": -0.017784869886029217,
+            "original_task_position_l2": -0.014124196013227874,
+            "original_task_orientation_l2": -0.011726968286783419
+          },
+          "nonterminal_base_reward": {
+            "count": 6530,
+            "mean": 2.2107105966731564,
+            "min": 1.983889102935791,
+            "p05_p50_p95_p99": [
+              2.1265422224998476,
+              2.213239073753357,
+              2.2879326224327086,
+              2.315186996459961
+            ],
+            "max": 2.3390276432037354
+          },
+          "nonterminal_world_quality_bonus": {
+            "count": 6530,
+            "mean": 0.16080974729340894,
+            "min": 0.03197973966598511,
+            "p05_p50_p95_p99": [
+              0.0499006561934948,
+              0.1301271840929985,
+              0.37465182542800896,
+              0.628537569642067
+            ],
+            "max": 1.393593192100525
+          },
+          "nonterminal_foot_bonus": null,
+          "marginal_feature_comparison": {
+            "root_position_error_m": {
+              "distribution": {
+                "count": 98,
+                "mean": 0.13699430995145623,
+                "min": 0.018689023330807686,
+                "p05_p50_p95_p99": [
+                  0.03815793786197901,
+                  0.13025439530611038,
+                  0.26182502806186675,
+                  0.28707174718379974
+                ],
+                "max": 0.2900959551334381
+              },
+              "evaluation_value": 0.19033396244049072,
+              "empirical_fraction_at_or_below_evaluation": 0.7653061224489796
+            },
+            "root_velocity_error_m_s": {
+              "distribution": {
+                "count": 98,
+                "mean": 0.3301465622320467,
+                "min": 0.06905196607112885,
+                "p05_p50_p95_p99": [
+                  0.09801250584423542,
+                  0.31303073465824127,
+                  0.6243048131465911,
+                  0.7574825870990753
+                ],
+                "max": 0.7644475102424622
+              },
+              "evaluation_value": 0.24526344239711761,
+              "empirical_fraction_at_or_below_evaluation": 0.3163265306122449
+            },
+            "root_speed_m_s": {
+              "distribution": {
+                "count": 98,
+                "mean": 0.3135134665181442,
+                "min": 0.09635836631059647,
+                "p05_p50_p95_p99": [
+                  0.1314161080867052,
+                  0.3185960501432419,
+                  0.528743278980255,
+                  0.657714695930481
+                ],
+                "max": 0.7379572987556458
+              },
+              "evaluation_value": 0.44731950759887695,
+              "empirical_fraction_at_or_below_evaluation": 0.9081632653061225
+            },
+            "root_tilt_rad": {
+              "distribution": {
+                "count": 98,
+                "mean": 0.26568919538083124,
+                "min": 0.03044542297720909,
+                "p05_p50_p95_p99": [
+                  0.10607177503407002,
+                  0.23843441158533096,
+                  0.5196761608123779,
+                  0.5504322004318237
+                ],
+                "max": 0.566121518611908
+              },
+              "evaluation_value": 0.15542947625016454,
+              "empirical_fraction_at_or_below_evaluation": 0.2653061224489796
+            },
+            "lower_posture_rms_rad": {
+              "distribution": {
+                "count": 98,
+                "mean": 0.22898385710066144,
+                "min": 0.06508290504303507,
+                "p05_p50_p95_p99": [
+                  0.17539502973563184,
+                  0.2313387452142226,
+                  0.2892827523129935,
+                  0.3063222201768738
+                ],
+                "max": 0.32929639817721823
+              },
+              "evaluation_value": 0.26539706665098306,
+              "empirical_fraction_at_or_below_evaluation": 0.8367346938775511
+            },
+            "legs_velocity_rms_rad_s": {
+              "distribution": {
+                "count": 98,
+                "mean": 1.5125785351407772,
+                "min": 0.4545834958553314,
+                "p05_p50_p95_p99": [
+                  0.84309141933918,
+                  1.4589981436729431,
+                  2.400181543827056,
+                  2.6079562497138977
+                ],
+                "max": 2.799238920211792
+              },
+              "evaluation_value": 1.52512788772583,
+              "empirical_fraction_at_or_below_evaluation": 0.5612244897959183
+            },
+            "right_ankle_roll_rad": {
+              "distribution": {
+                "count": 98,
+                "mean": 0.13302679091444886,
+                "min": 0.0023863897658884525,
+                "p05_p50_p95_p99": [
+                  0.049776261020451795,
+                  0.13873326778411865,
+                  0.21158895716071122,
+                  0.23417481541633606
+                ],
+                "max": 0.24292141199111938
+              },
+              "evaluation_value": 0.17159146070480347,
+              "empirical_fraction_at_or_below_evaluation": 0.7755102040816326
+            },
+            "right_ankle_roll_velocity_rad_s": {
+              "distribution": {
+                "count": 98,
+                "mean": 0.06690818939684078,
+                "min": -2.676093816757202,
+                "p05_p50_p95_p99": [
+                  -1.5484411001205445,
+                  0.10004366934299469,
+                  1.2751989364624017,
+                  2.3458820176124586
+                ],
+                "max": 3.4048285484313965
+              },
+              "evaluation_value": 0.39824894070625305,
+              "empirical_fraction_at_or_below_evaluation": 0.6530612244897959
+            }
+          }
+        },
+        {
+          "control_index": 1853,
+          "bank_anchor": 4870,
+          "actual_nearby_training_transitions": 6285,
+          "exact_anchor_transitions": 131,
+          "recorded_input_states_near_phase": 106,
+          "terminated_fraction": 0.005250596658711217,
+          "negative_reward_by_term": {
+            "action_rate_l2": -0.0025232899419260417,
+            "joint_limit": -0.0012969231720243064,
+            "self_collisions": 0.0,
+            "action_target_reference_l2": -0.014132588869989528,
+            "action_target_soft_limit_barrier": -0.0020474664588411694,
+            "worst_ee_z_normalized_squared": -0.028510105009071487,
+            "right_wrist_prethreshold_barrier": -4.267552875491202e-06,
+            "requested_effort_excess": -1.8619676316701826e-09,
+            "root_world_tracking_error": -0.010199307743010408,
+            "measured_joint_posture_l2": -0.04311153592756174,
+            "measured_feet_world_position_l2": -0.017459432550422586,
+            "original_task_position_l2": -0.01468311422227436,
+            "original_task_orientation_l2": -0.011884297051532102
+          },
+          "nonterminal_base_reward": {
+            "count": 6252,
+            "mean": 2.2259553962995513,
+            "min": 2.0482542514801025,
+            "p05_p50_p95_p99": [
+              2.1445825934410094,
+              2.2310622930526733,
+              2.292549753189087,
+              2.315132026672363
+            ],
+            "max": 2.3390276432037354
+          },
+          "nonterminal_world_quality_bonus": {
+            "count": 6252,
+            "mean": 0.16504806660798568,
+            "min": 0.02827993594110012,
+            "p05_p50_p95_p99": [
+              0.04956751018762588,
+              0.13243770599365234,
+              0.3873808622360229,
+              0.6457024312019348
+            ],
+            "max": 1.393593192100525
+          },
+          "nonterminal_foot_bonus": null,
+          "marginal_feature_comparison": {
+            "root_position_error_m": {
+              "distribution": {
+                "count": 106,
+                "mean": 0.15809534586755172,
+                "min": 0.018689023330807686,
+                "p05_p50_p95_p99": [
+                  0.051567948423326015,
+                  0.14598336815834045,
+                  0.2777792066335678,
+                  0.2880511909723282
+                ],
+                "max": 0.2900959551334381
+              },
+              "evaluation_value": 0.04715505614876747,
+              "empirical_fraction_at_or_below_evaluation": 0.02830188679245283
+            },
+            "root_velocity_error_m_s": {
+              "distribution": {
+                "count": 106,
+                "mean": 0.35721979592487496,
+                "min": 0.07346400618553162,
+                "p05_p50_p95_p99": [
+                  0.11394078843295574,
+                  0.36591780185699463,
+                  0.6141183525323868,
+                  0.7059468418359759
+                ],
+                "max": 0.7644475102424622
+              },
+              "evaluation_value": 0.391149640083313,
+              "empirical_fraction_at_or_below_evaluation": 0.6037735849056604
+            },
+            "root_speed_m_s": {
+              "distribution": {
+                "count": 106,
+                "mean": 0.3280926327800976,
+                "min": 0.10861541330814362,
+                "p05_p50_p95_p99": [
+                  0.1562705636024475,
+                  0.3314346671104431,
+                  0.5057091265916824,
+                  0.553425344824791
+                ],
+                "max": 0.5756070613861084
+              },
+              "evaluation_value": 0.43600770831108093,
+              "empirical_fraction_at_or_below_evaluation": 0.8584905660377359
+            },
+            "root_tilt_rad": {
+              "distribution": {
+                "count": 106,
+                "mean": 0.31985247792359794,
+                "min": 0.03044542297720909,
+                "p05_p50_p95_p99": [
+                  0.10677876509726048,
+                  0.28023001551628113,
+                  0.5981100350618362,
+                  0.6428707867860795
+                ],
+                "max": 0.6570659279823303
+              },
+              "evaluation_value": 0.09950411413658382,
+              "empirical_fraction_at_or_below_evaluation": 0.03773584905660377
+            },
+            "lower_posture_rms_rad": {
+              "distribution": {
+                "count": 106,
+                "mean": 0.23447226275078506,
+                "min": 0.12192001136915051,
+                "p05_p50_p95_p99": [
+                  0.16248716845654299,
+                  0.23938875286538283,
+                  0.30112463051404825,
+                  0.3427577595226187
+                ],
+                "max": 0.3534534269483639
+              },
+              "evaluation_value": 0.21529839694880826,
+              "empirical_fraction_at_or_below_evaluation": 0.330188679245283
+            },
+            "legs_velocity_rms_rad_s": {
+              "distribution": {
+                "count": 106,
+                "mean": 1.653254360804018,
+                "min": 0.4545834958553314,
+                "p05_p50_p95_p99": [
+                  0.8647400587797165,
+                  1.5808908939361572,
+                  2.5546276569366455,
+                  3.4520374417304995
+                ],
+                "max": 3.603151321411133
+              },
+              "evaluation_value": 1.8305919170379639,
+              "empirical_fraction_at_or_below_evaluation": 0.6981132075471698
+            },
+            "right_ankle_roll_rad": {
+              "distribution": {
+                "count": 106,
+                "mean": 0.15917255836187527,
+                "min": 0.0023863897658884525,
+                "p05_p50_p95_p99": [
+                  0.0634180549532175,
+                  0.1683534011244774,
+                  0.2338317185640335,
+                  0.2596652001142502
+                ],
+                "max": 0.26300248503685
+              },
+              "evaluation_value": 0.2090146541595459,
+              "empirical_fraction_at_or_below_evaluation": 0.8113207547169812
+            },
+            "right_ankle_roll_velocity_rad_s": {
+              "distribution": {
+                "count": 106,
+                "mean": 0.04372230865995351,
+                "min": -2.0436739921569824,
+                "p05_p50_p95_p99": [
+                  -1.528831273317337,
+                  0.09786314144730568,
+                  1.3428033292293549,
+                  1.9588657379150396
+                ],
+                "max": 3.4048285484313965
+              },
+              "evaluation_value": 0.07479113340377808,
+              "empirical_fraction_at_or_below_evaluation": 0.49056603773584906
+            }
+          }
+        },
+        {
+          "control_index": 1880,
+          "bank_anchor": 4897,
+          "actual_nearby_training_transitions": 5619,
+          "exact_anchor_transitions": 107,
+          "recorded_input_states_near_phase": 90,
+          "terminated_fraction": 0.007474639615589963,
+          "negative_reward_by_term": {
+            "action_rate_l2": -0.002392555519557145,
+            "joint_limit": -0.00043464920002867,
+            "self_collisions": 0.0,
+            "action_target_reference_l2": -0.015214887872631035,
+            "action_target_soft_limit_barrier": -0.0019006774571224548,
+            "worst_ee_z_normalized_squared": -0.03819144129804571,
+            "right_wrist_prethreshold_barrier": -4.808802045259889e-06,
+            "requested_effort_excess": -1.6128275189260237e-08,
+            "root_world_tracking_error": -0.011273959320635558,
+            "measured_joint_posture_l2": -0.037993120422177555,
+            "measured_feet_world_position_l2": -0.01744385214590619,
+            "original_task_position_l2": -0.015205801608721923,
+            "original_task_orientation_l2": -0.014444919799515286
+          },
+          "nonterminal_base_reward": {
+            "count": 5577,
+            "mean": 2.2193976480173814,
+            "min": 2.0482542514801025,
+            "p05_p50_p95_p99": [
+              2.1377843379974366,
+              2.223942995071411,
+              2.2860021114349367,
+              2.3025105571746827
+            ],
+            "max": 2.3175485134124756
+          },
+          "nonterminal_world_quality_bonus": {
+            "count": 5577,
+            "mean": 0.15414757925168052,
+            "min": 0.02827993594110012,
+            "p05_p50_p95_p99": [
+              0.04943367540836334,
+              0.12909768521785736,
+              0.3602744817733764,
+              0.49631178617477356
+            ],
+            "max": 0.8076130151748657
+          },
+          "nonterminal_foot_bonus": null,
+          "marginal_feature_comparison": {
+            "root_position_error_m": {
+              "distribution": {
+                "count": 90,
+                "mean": 0.1658820378076699,
+                "min": 0.030000286176800728,
+                "p05_p50_p95_p99": [
+                  0.05477034114301205,
+                  0.1587451621890068,
+                  0.2665288060903549,
+                  0.28833399415016175
+                ],
+                "max": 0.2901652157306671
+              },
+              "evaluation_value": 0.08359385281801224,
+              "empirical_fraction_at_or_below_evaluation": 0.16666666666666666
+            },
+            "root_velocity_error_m_s": {
+              "distribution": {
+                "count": 90,
+                "mean": 0.3656249143597152,
+                "min": 0.04165232554078102,
+                "p05_p50_p95_p99": [
+                  0.1812846265733242,
+                  0.36152224242687225,
+                  0.5793139845132828,
+                  0.6615692418813705
+                ],
+                "max": 0.8177449107170105
+              },
+              "evaluation_value": 0.3750385344028473,
+              "empirical_fraction_at_or_below_evaluation": 0.5666666666666667
+            },
+            "root_speed_m_s": {
+              "distribution": {
+                "count": 90,
+                "mean": 0.3512844137019581,
+                "min": 0.1288410723209381,
+                "p05_p50_p95_p99": [
+                  0.200774460285902,
+                  0.3461069166660309,
+                  0.5397144228219986,
+                  0.6214201307296753
+                ],
+                "max": 0.7094437479972839
+              },
+              "evaluation_value": 0.3514530658721924,
+              "empirical_fraction_at_or_below_evaluation": 0.5111111111111111
+            },
+            "root_tilt_rad": {
+              "distribution": {
+                "count": 90,
+                "mean": 0.41647148744927515,
+                "min": 0.12416371703147888,
+                "p05_p50_p95_p99": [
+                  0.24069219306111336,
+                  0.40166835486888885,
+                  0.6067973494529724,
+                  0.6448942989110946
+                ],
+                "max": 0.6570659279823303
+              },
+              "evaluation_value": 0.4387705451797402,
+              "empirical_fraction_at_or_below_evaluation": 0.5666666666666667
+            },
+            "lower_posture_rms_rad": {
+              "distribution": {
+                "count": 90,
+                "mean": 0.2296271719731224,
+                "min": 0.10678255950877305,
+                "p05_p50_p95_p99": [
+                  0.14131238770972485,
+                  0.23419616455381315,
+                  0.3072358881425187,
+                  0.3445648414445773
+                ],
+                "max": 0.3534534269483639
+              },
+              "evaluation_value": 0.27208514566220454,
+              "empirical_fraction_at_or_below_evaluation": 0.7888888888888889
+            },
+            "legs_velocity_rms_rad_s": {
+              "distribution": {
+                "count": 90,
+                "mean": 1.654502467976676,
+                "min": 0.6518681645393372,
+                "p05_p50_p95_p99": [
+                  0.8694494843482972,
+                  1.5572892427444458,
+                  2.7493017315864554,
+                  3.4744493341445923
+                ],
+                "max": 3.603151321411133
+              },
+              "evaluation_value": 2.7546005249023438,
+              "empirical_fraction_at_or_below_evaluation": 0.9444444444444444
+            },
+            "right_ankle_roll_rad": {
+              "distribution": {
+                "count": 90,
+                "mean": 0.15876740457283126,
+                "min": 0.06090012937784195,
+                "p05_p50_p95_p99": [
+                  0.07404752559959889,
+                  0.16180621087551117,
+                  0.2310492396354675,
+                  0.26004929542541505
+                ],
+                "max": 0.26300248503685
+              },
+              "evaluation_value": 0.24894332885742188,
+              "empirical_fraction_at_or_below_evaluation": 0.9666666666666667
+            },
+            "right_ankle_roll_velocity_rad_s": {
+              "distribution": {
+                "count": 90,
+                "mean": 0.05520834798614184,
+                "min": -2.0436739921569824,
+                "p05_p50_p95_p99": [
+                  -1.4074500679969788,
+                  0.10087382793426514,
+                  1.2913004577159874,
+                  1.9795607829093924
+                ],
+                "max": 3.4048285484313965
+              },
+              "evaluation_value": 1.347233533859253,
+              "empirical_fraction_at_or_below_evaluation": 0.9444444444444444
+            }
+          }
+        },
+        {
+          "control_index": 1900,
+          "bank_anchor": 4917,
+          "actual_nearby_training_transitions": 5038,
+          "exact_anchor_transitions": 101,
+          "recorded_input_states_near_phase": 72,
+          "terminated_fraction": 0.0059547439460103215,
+          "negative_reward_by_term": {
+            "action_rate_l2": -0.002151215842620443,
+            "joint_limit": -0.00031435413652432584,
+            "self_collisions": 0.0,
+            "action_target_reference_l2": -0.015119266047356939,
+            "action_target_soft_limit_barrier": -0.002173675952235754,
+            "worst_ee_z_normalized_squared": -0.045089200604986814,
+            "right_wrist_prethreshold_barrier": -1.243111922937074e-05,
+            "requested_effort_excess": -1.7671865021049815e-08,
+            "root_world_tracking_error": -0.010381229153659256,
+            "measured_joint_posture_l2": -0.037524401970003805,
+            "measured_feet_world_position_l2": -0.01767310003324802,
+            "original_task_position_l2": -0.01460725253148794,
+            "original_task_orientation_l2": -0.013379004871127967
+          },
+          "nonterminal_base_reward": {
+            "count": 5008,
+            "mean": 2.2195580799263506,
+            "min": 2.052868604660034,
+            "p05_p50_p95_p99": [
+              2.141858148574829,
+              2.2242976427078247,
+              2.2823792338371276,
+              2.2995800852775576
+            ],
+            "max": 2.311228036880493
+          },
+          "nonterminal_world_quality_bonus": {
+            "count": 5008,
+            "mean": 0.15926800260674387,
+            "min": 0.0295028705149889,
+            "p05_p50_p95_p99": [
+              0.045167396776378155,
+              0.1274026408791542,
+              0.38943379372358305,
+              0.5697664129734074
+            ],
+            "max": 0.8221428990364075
+          },
+          "nonterminal_foot_bonus": null,
+          "marginal_feature_comparison": {
+            "root_position_error_m": {
+              "distribution": {
+                "count": 72,
+                "mean": 0.14736681013730252,
+                "min": 0.014126810245215893,
+                "p05_p50_p95_p99": [
+                  0.040565228275954726,
+                  0.15031735599040985,
+                  0.2714880093932152,
+                  0.29735632330179224
+                ],
+                "max": 0.3075120449066162
+              },
+              "evaluation_value": 0.1681334227323532,
+              "empirical_fraction_at_or_below_evaluation": 0.5972222222222222
+            },
+            "root_velocity_error_m_s": {
+              "distribution": {
+                "count": 72,
+                "mean": 0.32905795156127876,
+                "min": 0.040816426277160645,
+                "p05_p50_p95_p99": [
+                  0.09726402424275876,
+                  0.2987877130508423,
+                  0.5775464415550232,
+                  0.9156443971395514
+                ],
+                "max": 1.1553293466567993
+              },
+              "evaluation_value": 0.5415335297584534,
+              "empirical_fraction_at_or_below_evaluation": 0.8888888888888888
+            },
+            "root_speed_m_s": {
+              "distribution": {
+                "count": 72,
+                "mean": 0.3533033065290915,
+                "min": 0.07531123608350754,
+                "p05_p50_p95_p99": [
+                  0.10837066471576691,
+                  0.34756653010845184,
+                  0.6294016987085344,
+                  0.7283101511001591
+                ],
+                "max": 0.77450031042099
+              },
+              "evaluation_value": 0.1938418298959732,
+              "empirical_fraction_at_or_below_evaluation": 0.125
+            },
+            "root_tilt_rad": {
+              "distribution": {
+                "count": 72,
+                "mean": 0.41315498182343113,
+                "min": 0.12416371703147888,
+                "p05_p50_p95_p99": [
+                  0.22873053327202797,
+                  0.4092445820569992,
+                  0.60377456843853,
+                  0.6337404024600987
+                ],
+                "max": 0.67692631483078
+              },
+              "evaluation_value": 0.24703084981111353,
+              "empirical_fraction_at_or_below_evaluation": 0.09722222222222222
+            },
+            "lower_posture_rms_rad": {
+              "distribution": {
+                "count": 72,
+                "mean": 0.226061738499936,
+                "min": 0.10678255950877305,
+                "p05_p50_p95_p99": [
+                  0.1395200445551235,
+                  0.22200862523905912,
+                  0.31472989639401827,
+                  0.36489105084741236
+                ],
+                "max": 0.39998554950285437
+              },
+              "evaluation_value": 0.254399154717941,
+              "empirical_fraction_at_or_below_evaluation": 0.6666666666666666
+            },
+            "legs_velocity_rms_rad_s": {
+              "distribution": {
+                "count": 72,
+                "mean": 1.482593145635393,
+                "min": 0.5256528854370117,
+                "p05_p50_p95_p99": [
+                  0.7770765334367752,
+                  1.3493934273719788,
+                  2.2960719227790833,
+                  3.408109295368196
+                ],
+                "max": 3.603151321411133
+              },
+              "evaluation_value": 0.9471900463104248,
+              "empirical_fraction_at_or_below_evaluation": 0.1111111111111111
+            },
+            "right_ankle_roll_rad": {
+              "distribution": {
+                "count": 72,
+                "mean": 0.12124640127230021,
+                "min": -0.029493005946278572,
+                "p05_p50_p95_p99": [
+                  0.04237788431346417,
+                  0.11689253523945808,
+                  0.21260219365358357,
+                  0.24117436259984987
+                ],
+                "max": 0.259684294462204
+              },
+              "evaluation_value": 0.15091343224048615,
+              "empirical_fraction_at_or_below_evaluation": 0.7361111111111112
+            },
+            "right_ankle_roll_velocity_rad_s": {
+              "distribution": {
+                "count": 72,
+                "mean": -0.1839519193292492,
+                "min": -2.0117056369781494,
+                "p05_p50_p95_p99": [
+                  -1.311112505197525,
+                  -0.17077671736478806,
+                  0.800591811537743,
+                  1.2254802453517937
+                ],
+                "max": 1.4790228605270386
+              },
+              "evaluation_value": 1.106947898864746,
+              "empirical_fraction_at_or_below_evaluation": 0.9722222222222222
+            }
+          }
+        },
+        {
+          "control_index": 1910,
+          "bank_anchor": 4927,
+          "actual_nearby_training_transitions": 4853,
+          "exact_anchor_transitions": 91,
+          "recorded_input_states_near_phase": 78,
+          "terminated_fraction": 0.0063878013599835155,
+          "negative_reward_by_term": {
+            "action_rate_l2": -0.0019592037520132074,
+            "joint_limit": -0.00016409426834403988,
+            "self_collisions": 0.0,
+            "action_target_reference_l2": -0.014304571847323222,
+            "action_target_soft_limit_barrier": -0.002099760051325826,
+            "worst_ee_z_normalized_squared": -0.037113325310519314,
+            "right_wrist_prethreshold_barrier": -1.4581864434898423e-05,
+            "requested_effort_excess": -1.462951519573973e-08,
+            "root_world_tracking_error": -0.009872246678776292,
+            "measured_joint_posture_l2": -0.03575452737986014,
+            "measured_feet_world_position_l2": -0.017554411922492984,
+            "original_task_position_l2": -0.0142487598043196,
+            "original_task_orientation_l2": -0.012080858444279183
+          },
+          "nonterminal_base_reward": {
+            "count": 4822,
+            "mean": 2.236452723033989,
+            "min": 2.052868604660034,
+            "p05_p50_p95_p99": [
+              2.1591102957725523,
+              2.2424510717391968,
+              2.291836845874786,
+              2.308211226463318
+            ],
+            "max": 2.335179090499878
+          },
+          "nonterminal_world_quality_bonus": {
+            "count": 4822,
+            "mean": 0.17433744138133744,
+            "min": 0.0295028705149889,
+            "p05_p50_p95_p99": [
+              0.04532160460948944,
+              0.13399333506822586,
+              0.44586221575736995,
+              0.6510397231578826
+            ],
+            "max": 1.083217978477478
+          },
+          "nonterminal_foot_bonus": null,
+          "marginal_feature_comparison": {
+            "root_position_error_m": {
+              "distribution": {
+                "count": 78,
+                "mean": 0.1498766100535599,
+                "min": 0.014126810245215893,
+                "p05_p50_p95_p99": [
+                  0.044355115480721,
+                  0.1490355059504509,
+                  0.2806135684251785,
+                  0.2964980933070183
+                ],
+                "max": 0.3075120449066162
+              },
+              "evaluation_value": 0.29687610268592834,
+              "empirical_fraction_at_or_below_evaluation": 0.9871794871794872
+            },
+            "root_velocity_error_m_s": {
+              "distribution": {
+                "count": 78,
+                "mean": 0.3149741576650204,
+                "min": 0.040816426277160645,
+                "p05_p50_p95_p99": [
+                  0.11439305134117604,
+                  0.29734085500240326,
+                  0.5561966955661772,
+                  0.8953893309831633
+                ],
+                "max": 1.1553293466567993
+              },
+              "evaluation_value": 0.5498618483543396,
+              "empirical_fraction_at_or_below_evaluation": 0.9230769230769231
+            },
+            "root_speed_m_s": {
+              "distribution": {
+                "count": 78,
+                "mean": 0.35747802305297977,
+                "min": 0.07531123608350754,
+                "p05_p50_p95_p99": [
+                  0.1034344058483839,
+                  0.35097822546958923,
+                  0.616827771067619,
+                  0.7244067573547366
+                ],
+                "max": 0.77450031042099
+              },
+              "evaluation_value": 0.41153907775878906,
+              "empirical_fraction_at_or_below_evaluation": 0.5897435897435898
+            },
+            "root_tilt_rad": {
+              "distribution": {
+                "count": 78,
+                "mean": 0.4049244971993642,
+                "min": 0.12416371703147888,
+                "p05_p50_p95_p99": [
+                  0.23642612621188164,
+                  0.386466920375824,
+                  0.5996949583292007,
+                  0.6300908887386324
+                ],
+                "max": 0.67692631483078
+              },
+              "evaluation_value": 0.44993033359973245,
+              "empirical_fraction_at_or_below_evaluation": 0.6410256410256411
+            },
+            "lower_posture_rms_rad": {
+              "distribution": {
+                "count": 78,
+                "mean": 0.20897535732676537,
+                "min": 0.10678255950877305,
+                "p05_p50_p95_p99": [
+                  0.14040980041620144,
+                  0.2023020804334707,
+                  0.30181191807034324,
+                  0.36192531856667065
+                ],
+                "max": 0.39998554950285437
+              },
+              "evaluation_value": 0.35416916772996204,
+              "empirical_fraction_at_or_below_evaluation": 0.9871794871794872
+            },
+            "legs_velocity_rms_rad_s": {
+              "distribution": {
+                "count": 78,
+                "mean": 1.2538794088057983,
+                "min": 0.5256528854370117,
+                "p05_p50_p95_p99": [
+                  0.7517485082149505,
+                  1.1633145809173584,
+                  1.9826259672641737,
+                  2.2119882321357727
+                ],
+                "max": 2.244919776916504
+              },
+              "evaluation_value": 1.7071739435195923,
+              "empirical_fraction_at_or_below_evaluation": 0.8589743589743589
+            },
+            "right_ankle_roll_rad": {
+              "distribution": {
+                "count": 78,
+                "mean": 0.10895594018392074,
+                "min": -0.029493005946278572,
+                "p05_p50_p95_p99": [
+                  0.033452121540904045,
+                  0.10926627367734909,
+                  0.182298681885004,
+                  0.1925380413234234
+                ],
+                "max": 0.19367970526218414
+              },
+              "evaluation_value": 0.19035466015338898,
+              "empirical_fraction_at_or_below_evaluation": 0.9743589743589743
+            },
+            "right_ankle_roll_velocity_rad_s": {
+              "distribution": {
+                "count": 78,
+                "mean": -0.06062553882694397,
+                "min": -1.6658716201782227,
+                "p05_p50_p95_p99": [
+                  -0.9958980560302735,
+                  -0.06022150628268719,
+                  0.8510736197233199,
+                  1.1413479256629948
+                ],
+                "max": 1.2063872814178467
+              },
+              "evaluation_value": 0.40722182393074036,
+              "empirical_fraction_at_or_below_evaluation": 0.7435897435897436
+            }
+          }
+        },
+        {
+          "control_index": 1920,
+          "bank_anchor": 4937,
+          "actual_nearby_training_transitions": 4655,
+          "exact_anchor_transitions": 85,
+          "recorded_input_states_near_phase": 77,
+          "terminated_fraction": 0.006874328678839957,
+          "negative_reward_by_term": {
+            "action_rate_l2": -0.0019374015474741613,
+            "joint_limit": -0.0001004284623648488,
+            "self_collisions": 0.0,
+            "action_target_reference_l2": -0.013600617334066098,
+            "action_target_soft_limit_barrier": -0.0021981863337521435,
+            "worst_ee_z_normalized_squared": -0.036298172493176344,
+            "right_wrist_prethreshold_barrier": -0.00011003950765916054,
+            "requested_effort_excess": -5.587679058212209e-09,
+            "root_world_tracking_error": -0.009881262753502092,
+            "measured_joint_posture_l2": -0.03457967793361772,
+            "measured_feet_world_position_l2": -0.017473223696070787,
+            "original_task_position_l2": -0.01423201978033325,
+            "original_task_orientation_l2": -0.010580971136251647
+          },
+          "nonterminal_base_reward": {
+            "count": 4623,
+            "mean": 2.2423011451579264,
+            "min": 2.058502197265625,
+            "p05_p50_p95_p99": [
+              2.1707529067993163,
+              2.2467942237854004,
+              2.296270990371704,
+              2.312946195602417
+            ],
+            "max": 2.335179090499878
+          },
+          "nonterminal_world_quality_bonus": {
+            "count": 4623,
+            "mean": 0.18114667115465094,
+            "min": 0.0295028705149889,
+            "p05_p50_p95_p99": [
+              0.04524314105510712,
+              0.13853056728839874,
+              0.4542047947645183,
+              0.6908932316303252
+            ],
+            "max": 1.083217978477478
+          },
+          "nonterminal_foot_bonus": null,
+          "marginal_feature_comparison": {
+            "root_position_error_m": {
+              "distribution": {
+                "count": 77,
+                "mean": 0.1510482651435516,
+                "min": 0.014126810245215893,
+                "p05_p50_p95_p99": [
+                  0.044277024269104,
+                  0.14569702744483948,
+                  0.2843341410160065,
+                  0.29853129982948295
+                ],
+                "max": 0.3075120449066162
+              },
+              "evaluation_value": 0.39071381092071533,
+              "empirical_fraction_at_or_below_evaluation": 1.0
+            },
+            "root_velocity_error_m_s": {
+              "distribution": {
+                "count": 77,
+                "mean": 0.31806726637598753,
+                "min": 0.040816426277160645,
+                "p05_p50_p95_p99": [
+                  0.11153821349143983,
+                  0.29782500863075256,
+                  0.5469054460525513,
+                  0.8987651753425581
+                ],
+                "max": 1.1553293466567993
+              },
+              "evaluation_value": 0.5115989446640015,
+              "empirical_fraction_at_or_below_evaluation": 0.935064935064935
+            },
+            "root_speed_m_s": {
+              "distribution": {
+                "count": 77,
+                "mean": 0.3872956859020444,
+                "min": 0.07531123608350754,
+                "p05_p50_p95_p99": [
+                  0.10324925631284713,
+                  0.41221895813941956,
+                  0.6729926943778992,
+                  0.7788533854484557
+                ],
+                "max": 0.7926381230354309
+              },
+              "evaluation_value": 0.45700907707214355,
+              "empirical_fraction_at_or_below_evaluation": 0.6753246753246753
+            },
+            "root_tilt_rad": {
+              "distribution": {
+                "count": 77,
+                "mean": 0.3999305324895041,
+                "min": 0.12416371703147888,
+                "p05_p50_p95_p99": [
+                  0.2091781109571457,
+                  0.38486436009407043,
+                  0.6000259995460511,
+                  0.6306991410255429
+                ],
+                "max": 0.67692631483078
+              },
+              "evaluation_value": 0.6501429891851698,
+              "empirical_fraction_at_or_below_evaluation": 0.987012987012987
+            },
+            "lower_posture_rms_rad": {
+              "distribution": {
+                "count": 77,
+                "mean": 0.20283875985102376,
+                "min": 0.10436457573745339,
+                "p05_p50_p95_p99": [
+                  0.1302505635334994,
+                  0.19494011055247373,
+                  0.3022197905082828,
+                  0.3624196072801271
+                ],
+                "max": 0.39998554950285437
+              },
+              "evaluation_value": 0.31668324100583956,
+              "empirical_fraction_at_or_below_evaluation": 0.961038961038961
+            },
+            "legs_velocity_rms_rad_s": {
+              "distribution": {
+                "count": 77,
+                "mean": 1.2005605387997318,
+                "min": 0.5256528854370117,
+                "p05_p50_p95_p99": [
+                  0.7458366751670837,
+                  1.140979528427124,
+                  1.797839641571045,
+                  2.2002471446990968
+                ],
+                "max": 2.2021515369415283
+              },
+              "evaluation_value": 1.3578646183013916,
+              "empirical_fraction_at_or_below_evaluation": 0.7272727272727273
+            },
+            "right_ankle_roll_rad": {
+              "distribution": {
+                "count": 77,
+                "mean": 0.1077081033742273,
+                "min": -0.029493005946278572,
+                "p05_p50_p95_p99": [
+                  0.033285945653915405,
+                  0.1103227511048317,
+                  0.18247892856597903,
+                  0.19255286812782288
+                ],
+                "max": 0.19367970526218414
+              },
+              "evaluation_value": 0.18325956165790558,
+              "empirical_fraction_at_or_below_evaluation": 0.948051948051948
+            },
+            "right_ankle_roll_velocity_rad_s": {
+              "distribution": {
+                "count": 77,
+                "mean": -0.02681380972362958,
+                "min": -2.4714772701263428,
+                "p05_p50_p95_p99": [
+                  -1.0544886589050293,
+                  -0.020936425775289536,
+                  0.9186976909637452,
+                  1.1421925926208492
+                ],
+                "max": 1.2063872814178467
+              },
+              "evaluation_value": 0.20266364514827728,
+              "empirical_fraction_at_or_below_evaluation": 0.6233766233766234
+            }
+          }
+        }
+      ],
+      "sampled_observation_states": 19968,
+      "learned_population_is_nonstationary": true
+    },
+    {
+      "name": "foot1000",
+      "reward_terms": [
+        {
+          "name": "action_rate_l2",
+          "raw": {
+            "count": 1020207,
+            "mean": 1.1010405402266057,
+            "min": 0.09563270211219788,
+            "p05_p50_p95_p99": [
+              0.3363995224237442,
+              0.7114044427871704,
+              2.734846401214596,
+              8.192003078460658
+            ],
+            "max": 121.37129211425781
+          },
+          "bounded_reward_contribution": {
+            "count": 1020207,
+            "mean": -0.0017671008237837025,
+            "min": -0.003967312594883241,
+            "p05_p50_p95_p99": [
+              -0.0029290054875923083,
+              -0.001662738333502481,
+              -0.0010068830967961933,
+              -0.0008056001630203303
+            ],
+            "max": -0.00034914146658030165
+          },
+          "fraction_raw_cost_at_least9": 0.008500235736473087,
+          "transform_derivative_per_raw_unit": {
+            "count": 1020207,
+            "mean": 0.33277480735912135,
+            "min": 6.677915332919512e-05,
+            "p05_p50_p95_p99": [
+              0.07168932785738805,
+              0.34142450610492253,
+              0.5599217997652722,
+              0.6377618949062724
+            ],
+            "max": 0.8330480019402144
+          }
+        },
+        {
+          "name": "joint_limit",
+          "raw": {
+            "count": 1020207,
+            "mean": 0.0009574581514108878,
+            "min": 0.0,
+            "p05_p50_p95_p99": [
+              0.0,
+              0.0,
+              0.0,
+              0.030957132577896118
+            ],
+            "max": 0.2463681995868683
+          },
+          "bounded_reward_contribution": {
+            "count": 1020207,
+            "mean": -0.0003714524174767617,
+            "min": -0.07906754991615851,
+            "p05_p50_p95_p99": [
+              0.0,
+              0.0,
+              -0.0,
+              -0.0
+            ],
+            "max": -0.0
+          },
+          "fraction_raw_cost_at_least9": 0.0,
+          "transform_derivative_per_raw_unit": {
+            "count": 1020207,
+            "mean": 0.998170366898725,
+            "min": 0.6437352344801088,
+            "p05_p50_p95_p99": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "max": 1.0
+          }
+        },
+        {
+          "name": "self_collisions",
+          "raw": {
+            "count": 1020207,
+            "mean": 0.08660007233826077,
+            "min": 0.0,
+            "p05_p50_p95_p99": [
+              0.0,
+              0.0,
+              0.0,
+              4.0
+            ],
+            "max": 4.0
+          },
+          "bounded_reward_contribution": {
+            "count": 1020207,
+            "mean": -0.004710027801547463,
+            "min": -0.16,
+            "p05_p50_p95_p99": [
+              0.0,
+              0.0,
+              -0.0,
+              -0.0
+            ],
+            "max": -0.0
+          },
+          "fraction_raw_cost_at_least9": 0.0,
+          "transform_derivative_per_raw_unit": {
+            "count": 1020207,
+            "mean": 0.9690446108268006,
+            "min": 0.04,
+            "p05_p50_p95_p99": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "max": 1.0
+          }
+        },
+        {
+          "name": "action_target_reference_l2",
+          "raw": {
+            "count": 1020207,
+            "mean": 0.3862314053037508,
+            "min": 0.012889277189970016,
+            "p05_p50_p95_p99": [
+              0.10189444571733475,
+              0.33702337741851807,
+              0.8273525595664977,
+              1.3050469875335684
+            ],
+            "max": 4.19299840927124
+          },
+          "bounded_reward_contribution": {
+            "count": 1020207,
+            "mean": -0.010330323356305226,
+            "min": -0.032297320960355654,
+            "p05_p50_p95_p99": [
+              -0.018110409077534962,
+              -0.01008279684889974,
+              -0.0036988822700146856,
+              -0.002442730802272432
+            ],
+            "max": -0.0005090103125873095
+          },
+          "fraction_raw_cost_at_least9": 0.0,
+          "transform_derivative_per_raw_unit": {
+            "count": 1020207,
+            "mean": 0.563288605368517,
+            "min": 0.03708204024236019,
+            "p05_p50_p95_p99": [
+              0.29947136922076495,
+              0.559399402740127,
+              0.8236069677789476,
+              0.8815927934941143
+            ],
+            "max": 0.9747114165570846
+          }
+        },
+        {
+          "name": "action_target_soft_limit_barrier",
+          "raw": {
+            "count": 1020207,
+            "mean": 0.008727106376287872,
+            "min": 0.0,
+            "p05_p50_p95_p99": [
+              0.0,
+              0.0,
+              0.03311574086546898,
+              0.045848578214645386
+            ],
+            "max": 0.12526917457580566
+          },
+          "bounded_reward_contribution": {
+            "count": 1020207,
+            "mean": -0.0017000285503105364,
+            "min": -0.02226474827643414,
+            "p05_p50_p95_p99": [
+              -0.006410848185843539,
+              0.0,
+              -0.0,
+              -0.0
+            ],
+            "max": -0.0
+          },
+          "fraction_raw_cost_at_least9": 0.0,
+          "transform_derivative_per_raw_unit": {
+            "count": 1020207,
+            "mean": 0.983219489859891,
+            "min": 0.789745492630983,
+            "p05_p50_p95_p99": [
+              0.936918992503113,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "max": 1.0
+          }
+        },
+        {
+          "name": "worst_ee_z_normalized_squared",
+          "raw": {
+            "count": 1020207,
+            "mean": 0.10338061896375476,
+            "min": 9.035924449563026e-06,
+            "p05_p50_p95_p99": [
+              0.0034036196302622557,
+              0.058794256299734116,
+              0.3510605216026304,
+              0.5688906061649283
+            ],
+            "max": 0.9988383054733276
+          },
+          "bounded_reward_contribution": {
+            "count": 1020207,
+            "mean": -0.033851934011501064,
+            "min": -0.19988376303140767,
+            "p05_p50_p95_p99": [
+              -0.1039362829383368,
+              -0.022211777576205533,
+              -0.0013568297198355468,
+              -0.00024302129018447273
+            ],
+            "max": -3.6143371209480503e-06
+          },
+          "fraction_raw_cost_at_least9": 0.0,
+          "transform_derivative_per_raw_unit": {
+            "count": 1020207,
+            "mean": 0.8448948715263427,
+            "min": 0.25029067686543627,
+            "p05_p50_p95_p99": [
+              0.5478357785035968,
+              0.892024631263315,
+              0.9932273575688761,
+              0.9987852626699995
+            ],
+            "max": 0.9999819283960416
+          }
+        },
+        {
+          "name": "right_wrist_prethreshold_barrier",
+          "raw": {
+            "count": 1020207,
+            "mean": 0.013732695894771626,
+            "min": 0.0,
+            "p05_p50_p95_p99": [
+              0.0,
+              0.0,
+              0.0,
+              0.19373291164636594
+            ],
+            "max": 19.941936492919922
+          },
+          "bounded_reward_contribution": {
+            "count": 1020207,
+            "mean": -0.0024937332494639262,
+            "min": -0.4761244620253222,
+            "p05_p50_p95_p99": [
+              0.0,
+              0.0,
+              -0.0,
+              -0.0
+            ],
+            "max": -0.0
+          },
+          "fraction_raw_cost_at_least9": 0.00020682077264711965,
+          "transform_derivative_per_raw_unit": {
+            "count": 1020207,
+            "mean": 0.9921561351687943,
+            "min": 0.002280165254321123,
+            "p05_p50_p95_p99": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "max": 1.0
+          }
+        },
+        {
+          "name": "requested_effort_excess",
+          "raw": {
+            "count": 1020207,
+            "mean": 7.544410032667822e-07,
+            "min": 0.0,
+            "p05_p50_p95_p99": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "max": 0.013341538608074188
+          },
+          "bounded_reward_contribution": {
+            "count": 1020207,
+            "mean": -1.5045033281855358e-09,
+            "min": -2.633177087835583e-05,
+            "p05_p50_p95_p99": [
+              0.0,
+              0.0,
+              -0.0,
+              -0.0
+            ],
+            "max": -0.0
+          },
+          "fraction_raw_cost_at_least9": 0.0,
+          "transform_derivative_per_raw_unit": {
+            "count": 1020207,
+            "mean": 0.9999984976738094,
+            "min": 0.9738415696610417,
+            "p05_p50_p95_p99": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "max": 1.0
+          }
+        },
+        {
+          "name": "root_world_tracking_error",
+          "raw": {
+            "count": 1020207,
+            "mean": 0.03513509637114573,
+            "min": 1.651645652600564e-05,
+            "p05_p50_p95_p99": [
+              0.003946432657539844,
+              0.024813387542963028,
+              0.09545595422387122,
+              0.16094744920730575
+            ],
+            "max": 0.7081108093261719
+          },
+          "bounded_reward_contribution": {
+            "count": 1020207,
+            "mean": -0.006597086295005488,
+            "min": -0.08291157756978455,
+            "p05_p50_p95_p99": [
+              -0.017427620682657834,
+              -0.004842518227138749,
+              -0.0007861839096520855,
+              -0.0003066595419150608
+            ],
+            "max": -3.303236747434994e-06
+          },
+          "fraction_raw_cost_at_least9": 0.0,
+          "transform_derivative_per_raw_unit": {
+            "count": 1020207,
+            "mean": 0.935979231616546,
+            "min": 0.3427424666799145,
+            "p05_p50_p95_p99": [
+              0.8333168422398936,
+              0.9521610672981168,
+              0.992153613031974,
+              0.996935755582716
+            ],
+            "max": 0.9999669679053099
+          }
+        },
+        {
+          "name": "measured_joint_posture_l2",
+          "raw": {
+            "count": 1020207,
+            "mean": 0.1442231345953251,
+            "min": 0.0004233119252603501,
+            "p05_p50_p95_p99": [
+              0.026114926859736442,
+              0.11402426660060883,
+              0.35201210081577294,
+              0.6573842310905456
+            ],
+            "max": 1.8676773309707642
+          },
+          "bounded_reward_contribution": {
+            "count": 1020207,
+            "mean": -0.02360530010877478,
+            "min": -0.13025714649273454,
+            "p05_p50_p95_p99": [
+              -0.052072329915281955,
+              -0.020470697096850204,
+              -0.005090058857180134,
+              -0.0022920342059958563
+            ],
+            "max": -8.462656161934277e-05
+          },
+          "fraction_raw_cost_at_least9": 0.0,
+          "transform_derivative_per_raw_unit": {
+            "count": 1020207,
+            "mean": 0.7837019129068177,
+            "min": 0.12160164038339724,
+            "p05_p50_p95_p99": [
+              0.5470648894173904,
+              0.8057692650222728,
+              0.9497471289074382,
+              0.9772109934600779
+            ],
+            "max": 0.9991539134251799
+          }
+        },
+        {
+          "name": "measured_feet_world_position_l2",
+          "raw": {
+            "count": 1020207,
+            "mean": 9.542357043878576,
+            "min": 0.0029609701596200466,
+            "p05_p50_p95_p99": [
+              1.1754387617111206,
+              6.353797912597656,
+              28.289859390258776,
+              39.82040901184081
+            ],
+            "max": 83.69696044921875
+          },
+          "bounded_reward_contribution": {
+            "count": 1020207,
+            "mean": -0.016504807219782838,
+            "min": -0.01976386401715099,
+            "p05_p50_p95_p99": [
+              -0.019317169818608933,
+              -0.017280316886905695,
+              -0.010806452311124167,
+              -0.007151319575729405
+            ],
+            "max": -5.904457397078596e-05
+          },
+          "fraction_raw_cost_at_least9": 0.3718911946301094,
+          "transform_derivative_per_raw_unit": {
+            "count": 1020207,
+            "mean": 0.04959024962935157,
+            "min": 0.0001394005059901699,
+            "p05_p50_p95_p99": [
+              0.001165642641567926,
+              0.018491690589125833,
+              0.2113032977692986,
+              0.4127214716137795
+            ],
+            "max": 0.9941042582572099
+          }
+        },
+        {
+          "name": "original_task_position_l2",
+          "raw": {
+            "count": 1020207,
+            "mean": 2.9003595962590785,
+            "min": 0.005155062768608332,
+            "p05_p50_p95_p99": [
+              0.4777145624160767,
+              2.1889309883117676,
+              7.649561309814452,
+              10.453440704345681
+            ],
+            "max": 26.204862594604492
+          },
+          "bounded_reward_contribution": {
+            "count": 1020207,
+            "mean": -0.013130452094367034,
+            "min": -0.019264837308754997,
+            "p05_p50_p95_p99": [
+              -0.017687744004157624,
+              -0.0137283057948557,
+              -0.006465586447364639,
+              -0.004299800861668975
+            ],
+            "max": -0.00010257248775943444
+          },
+          "fraction_raw_cost_at_least9": 0.024199010592948295,
+          "transform_derivative_per_raw_unit": {
+            "count": 1020207,
+            "mean": 0.14840916076456165,
+            "min": 0.0013511604564964952,
+            "p05_p50_p95_p99": [
+              0.013366319475789071,
+              0.0983353705071015,
+              0.4579508755456372,
+              0.6162406324583996
+            ],
+            "max": 0.9897690540121693
+          }
+        },
+        {
+          "name": "original_task_orientation_l2",
+          "raw": {
+            "count": 1020207,
+            "mean": 1.500473548919592,
+            "min": 0.0003714983758982271,
+            "p05_p50_p95_p99": [
+              0.26578513979911805,
+              1.0726921558380127,
+              4.148455429077144,
+              6.363592042922964
+            ],
+            "max": 14.912412643432617
+          },
+          "bounded_reward_contribution": {
+            "count": 1020207,
+            "mean": -0.010257724256253105,
+            "min": -0.01874311957286663,
+            "p05_p50_p95_p99": [
+              -0.016115339779654327,
+              -0.010350713711311472,
+              -0.0041995301009974065,
+              -0.003121589086505703
+            ],
+            "max": -7.427208322135411e-06
+          },
+          "fraction_raw_cost_at_least9": 0.00130365700294156,
+          "transform_derivative_per_raw_unit": {
+            "count": 1020207,
+            "mean": 0.2727598064803639,
+            "min": 0.003949371020277396,
+            "p05_p50_p95_p99": [
+              0.037726462571780486,
+              0.23277181470268102,
+              0.624137122573241,
+              0.7122018874119163
+            ],
+            "max": 0.9992574170763452
+          }
+        }
+      ],
+      "exposure": [
+        {
+          "name": "walk002",
+          "all_controls": 182420,
+          "source_controls": 109954,
+          "sampled_source_anchors": 667,
+          "true_terminal_source_fraction": 0.009804099896320279
+        },
+        {
+          "name": "walk003",
+          "all_controls": 180164,
+          "source_controls": 91882,
+          "sampled_source_anchors": 819,
+          "true_terminal_source_fraction": 0.01314729762086154
+        },
+        {
+          "name": "pico",
+          "all_controls": 661416,
+          "source_controls": 554046,
+          "sampled_source_anchors": 5780,
+          "true_terminal_source_fraction": 0.0018319778502146032
+        }
+      ],
+      "phase_neighborhoods": [
+        {
+          "control_index": 1830,
+          "bank_anchor": 4847,
+          "actual_nearby_training_transitions": 6754,
+          "exact_anchor_transitions": 128,
+          "recorded_input_states_near_phase": 113,
+          "terminated_fraction": 0.0051821143026354755,
+          "negative_reward_by_term": {
+            "action_rate_l2": -0.0024155037522158363,
+            "joint_limit": -0.0006991160776223666,
+            "self_collisions": -3.8696234558714096e-05,
+            "action_target_reference_l2": -0.015337826252368134,
+            "action_target_soft_limit_barrier": -0.002654078234187345,
+            "worst_ee_z_normalized_squared": -0.03380773872244384,
+            "right_wrist_prethreshold_barrier": -3.132795750915645e-07,
+            "requested_effort_excess": -1.215356856522919e-09,
+            "root_world_tracking_error": -0.01022490846118885,
+            "measured_joint_posture_l2": -0.03883225397620821,
+            "measured_feet_world_position_l2": -0.01755320219574226,
+            "original_task_position_l2": -0.013607619943300724,
+            "original_task_orientation_l2": -0.012257749583365849
+          },
+          "nonterminal_base_reward": {
+            "count": 6719,
+            "mean": 2.2235895676136654,
+            "min": 1.8296316862106323,
+            "p05_p50_p95_p99": [
+              2.149621272087097,
+              2.2267143726348877,
+              2.2870875120162966,
+              2.301995916366577
+            ],
+            "max": 2.3478479385375977
+          },
+          "nonterminal_world_quality_bonus": {
+            "count": 6719,
+            "mean": 0.17213956057839067,
+            "min": 0.028649017214775085,
+            "p05_p50_p95_p99": [
+              0.049472279474139215,
+              0.14416155219078064,
+              0.39014886915683744,
+              0.5676165652275079
+            ],
+            "max": 1.407148838043213
+          },
+          "nonterminal_foot_bonus": {
+            "count": 6719,
+            "mean": 0.9673541540953353,
+            "min": 0.25972703099250793,
+            "p05_p50_p95_p99": [
+              0.42285028398036956,
+              0.9607320427894592,
+              1.5576761484146118,
+              1.7555751681327814
+            ],
+            "max": 1.9928160905838013
+          },
+          "marginal_feature_comparison": {
+            "root_position_error_m": {
+              "distribution": {
+                "count": 113,
+                "mean": 0.14265978382488267,
+                "min": 0.044803839176893234,
+                "p05_p50_p95_p99": [
+                  0.0598561555147171,
+                  0.13784126937389374,
+                  0.25512867569923403,
+                  0.2736778593063354
+                ],
+                "max": 0.280437707901001
+              },
+              "evaluation_value": 0.19033396244049072,
+              "empirical_fraction_at_or_below_evaluation": 0.7787610619469026
+            },
+            "root_velocity_error_m_s": {
+              "distribution": {
+                "count": 113,
+                "mean": 0.3501822073507098,
+                "min": 0.09052503108978271,
+                "p05_p50_p95_p99": [
+                  0.11996835619211198,
+                  0.3312701880931854,
+                  0.6266348838806152,
+                  0.7437491488456726
+                ],
+                "max": 0.860436201095581
+              },
+              "evaluation_value": 0.24526344239711761,
+              "empirical_fraction_at_or_below_evaluation": 0.2920353982300885
+            },
+            "root_speed_m_s": {
+              "distribution": {
+                "count": 113,
+                "mean": 0.3175497166153076,
+                "min": 0.030572686344385147,
+                "p05_p50_p95_p99": [
+                  0.12993647158145905,
+                  0.3215811550617218,
+                  0.5270084142684931,
+                  0.6253566312789917
+                ],
+                "max": 0.6892651915550232
+              },
+              "evaluation_value": 0.44731950759887695,
+              "empirical_fraction_at_or_below_evaluation": 0.8938053097345132
+            },
+            "root_tilt_rad": {
+              "distribution": {
+                "count": 113,
+                "mean": 0.22373601451384284,
+                "min": 0.03379017487168312,
+                "p05_p50_p95_p99": [
+                  0.0689414232969284,
+                  0.21955335140228271,
+                  0.43502961397171014,
+                  0.4761071598529816
+                ],
+                "max": 0.5360341668128967
+              },
+              "evaluation_value": 0.15542947625016454,
+              "empirical_fraction_at_or_below_evaluation": 0.2920353982300885
+            },
+            "lower_posture_rms_rad": {
+              "distribution": {
+                "count": 113,
+                "mean": 0.207166830984467,
+                "min": 0.08397767262102133,
+                "p05_p50_p95_p99": [
+                  0.1584629782314376,
+                  0.2019659918355638,
+                  0.27972403575631005,
+                  0.2960625776185374
+                ],
+                "max": 0.3226194571363475
+              },
+              "evaluation_value": 0.26539706665098306,
+              "empirical_fraction_at_or_below_evaluation": 0.911504424778761
+            },
+            "legs_velocity_rms_rad_s": {
+              "distribution": {
+                "count": 113,
+                "mean": 1.4246043895198182,
+                "min": 0.598372757434845,
+                "p05_p50_p95_p99": [
+                  0.7490253448486328,
+                  1.343827724456787,
+                  2.2965830802917475,
+                  3.0837268066406223
+                ],
+                "max": 3.21109676361084
+              },
+              "evaluation_value": 1.52512788772583,
+              "empirical_fraction_at_or_below_evaluation": 0.6460176991150443
+            },
+            "right_ankle_roll_rad": {
+              "distribution": {
+                "count": 113,
+                "mean": 0.17625436021954613,
+                "min": 0.06067434698343277,
+                "p05_p50_p95_p99": [
+                  0.11530173569917679,
+                  0.1827695071697235,
+                  0.2183811753988266,
+                  0.22537169992923733
+                ],
+                "max": 0.22624561190605164
+              },
+              "evaluation_value": 0.17159146070480347,
+              "empirical_fraction_at_or_below_evaluation": 0.40707964601769914
+            },
+            "right_ankle_roll_velocity_rad_s": {
+              "distribution": {
+                "count": 113,
+                "mean": 0.1011117729873487,
+                "min": -1.4306248426437378,
+                "p05_p50_p95_p99": [
+                  -0.8224811673164367,
+                  0.1209058091044426,
+                  0.9693744897842403,
+                  1.5614134931564319
+                ],
+                "max": 1.802303433418274
+              },
+              "evaluation_value": 0.39824894070625305,
+              "empirical_fraction_at_or_below_evaluation": 0.7522123893805309
+            }
+          }
+        },
+        {
+          "control_index": 1853,
+          "bank_anchor": 4870,
+          "actual_nearby_training_transitions": 6338,
+          "exact_anchor_transitions": 126,
+          "recorded_input_states_near_phase": 114,
+          "terminated_fraction": 0.002840012622278321,
+          "negative_reward_by_term": {
+            "action_rate_l2": -0.0025388617816747014,
+            "joint_limit": -0.0017338025222278532,
+            "self_collisions": -4.113924050632911e-05,
+            "action_target_reference_l2": -0.01397525495534683,
+            "action_target_soft_limit_barrier": -0.003079823401976416,
+            "worst_ee_z_normalized_squared": -0.03108664603611329,
+            "right_wrist_prethreshold_barrier": -0.00012697198551630192,
+            "requested_effort_excess": -2.4106490698707836e-09,
+            "root_world_tracking_error": -0.00875123611173797,
+            "measured_joint_posture_l2": -0.038062236317999036,
+            "measured_feet_world_position_l2": -0.01724754248534273,
+            "original_task_position_l2": -0.014120688524080473,
+            "original_task_orientation_l2": -0.01256929841453681
+          },
+          "nonterminal_base_reward": {
+            "count": 6320,
+            "mean": 2.22812609178356,
+            "min": 1.8296316862106323,
+            "p05_p50_p95_p99": [
+              2.1470680117607115,
+              2.2348181009292603,
+              2.290896499156952,
+              2.3046930694580077
+            ],
+            "max": 2.3478479385375977
+          },
+          "nonterminal_world_quality_bonus": {
+            "count": 6320,
+            "mean": 0.17513998357632163,
+            "min": 0.028649017214775085,
+            "p05_p50_p95_p99": [
+              0.04860675819218159,
+              0.14721617102622986,
+              0.399020311236381,
+              0.5532921928167308
+            ],
+            "max": 1.407148838043213
+          },
+          "nonterminal_foot_bonus": {
+            "count": 6320,
+            "mean": 1.000595162841904,
+            "min": 0.25972703099250793,
+            "p05_p50_p95_p99": [
+              0.4225508362054825,
+              0.980599045753479,
+              1.6584153175353997,
+              1.8262278819084157
+            ],
+            "max": 1.9928160905838013
+          },
+          "marginal_feature_comparison": {
+            "root_position_error_m": {
+              "distribution": {
+                "count": 114,
+                "mean": 0.13135929255370507,
+                "min": 0.03400346636772156,
+                "p05_p50_p95_p99": [
+                  0.05016182474792004,
+                  0.12244176492094994,
+                  0.2411574244499206,
+                  0.2719230204820633
+                ],
+                "max": 0.27567699551582336
+              },
+              "evaluation_value": 0.04715505614876747,
+              "empirical_fraction_at_or_below_evaluation": 0.02631578947368421
+            },
+            "root_velocity_error_m_s": {
+              "distribution": {
+                "count": 114,
+                "mean": 0.3435456731863189,
+                "min": 0.09328999370336533,
+                "p05_p50_p95_p99": [
+                  0.1256181288510561,
+                  0.32986652851104736,
+                  0.6081619530916212,
+                  0.7435263025760651
+                ],
+                "max": 0.860436201095581
+              },
+              "evaluation_value": 0.391149640083313,
+              "empirical_fraction_at_or_below_evaluation": 0.631578947368421
+            },
+            "root_speed_m_s": {
+              "distribution": {
+                "count": 114,
+                "mean": 0.3121679895802548,
+                "min": 0.0800117701292038,
+                "p05_p50_p95_p99": [
+                  0.1603148400783539,
+                  0.28981639444828033,
+                  0.5491315811872481,
+                  0.6247981411218644
+                ],
+                "max": 0.6892651915550232
+              },
+              "evaluation_value": 0.43600770831108093,
+              "empirical_fraction_at_or_below_evaluation": 0.8771929824561403
+            },
+            "root_tilt_rad": {
+              "distribution": {
+                "count": 114,
+                "mean": 0.26305072689265535,
+                "min": 0.03379017487168312,
+                "p05_p50_p95_p99": [
+                  0.06907157264649869,
+                  0.22052016854286194,
+                  0.5219192594289779,
+                  0.5973799192905427
+                ],
+                "max": 0.6567344069480896
+              },
+              "evaluation_value": 0.09950411413658382,
+              "empirical_fraction_at_or_below_evaluation": 0.10526315789473684
+            },
+            "lower_posture_rms_rad": {
+              "distribution": {
+                "count": 114,
+                "mean": 0.20932257426916995,
+                "min": 0.08397767262102133,
+                "p05_p50_p95_p99": [
+                  0.13701399884820625,
+                  0.20200296143772228,
+                  0.29453518863070033,
+                  0.32385826260543554
+                ],
+                "max": 0.3262152646284812
+              },
+              "evaluation_value": 0.21529839694880826,
+              "empirical_fraction_at_or_below_evaluation": 0.5701754385964912
+            },
+            "legs_velocity_rms_rad_s": {
+              "distribution": {
+                "count": 114,
+                "mean": 1.7061370234740407,
+                "min": 0.6522764563560486,
+                "p05_p50_p95_p99": [
+                  0.9264788746833801,
+                  1.5991020202636719,
+                  2.6546122193336483,
+                  3.368851552009583
+                ],
+                "max": 3.7421183586120605
+              },
+              "evaluation_value": 1.8305919170379639,
+              "empirical_fraction_at_or_below_evaluation": 0.631578947368421
+            },
+            "right_ankle_roll_rad": {
+              "distribution": {
+                "count": 114,
+                "mean": 0.19384287565685154,
+                "min": 0.08001396805047989,
+                "p05_p50_p95_p99": [
+                  0.1310723081231117,
+                  0.1999235302209854,
+                  0.24646496847271918,
+                  0.260444213449955
+                ],
+                "max": 0.26471397280693054
+              },
+              "evaluation_value": 0.2090146541595459,
+              "empirical_fraction_at_or_below_evaluation": 0.6491228070175439
+            },
+            "right_ankle_roll_velocity_rad_s": {
+              "distribution": {
+                "count": 114,
+                "mean": 0.1196048158167845,
+                "min": -1.4306248426437378,
+                "p05_p50_p95_p99": [
+                  -0.885101142525673,
+                  0.11254950985312462,
+                  0.9674449443817137,
+                  1.7890260148048405
+                ],
+                "max": 2.9803078174591064
+              },
+              "evaluation_value": 0.07479113340377808,
+              "empirical_fraction_at_or_below_evaluation": 0.45614035087719296
+            }
+          }
+        },
+        {
+          "control_index": 1880,
+          "bank_anchor": 4897,
+          "actual_nearby_training_transitions": 6089,
+          "exact_anchor_transitions": 122,
+          "recorded_input_states_near_phase": 102,
+          "terminated_fraction": 0.00788306782722943,
+          "negative_reward_by_term": {
+            "action_rate_l2": -0.0026423868214335536,
+            "joint_limit": -0.0016948113080748491,
+            "self_collisions": -4.303923191524582e-05,
+            "action_target_reference_l2": -0.015453467714668743,
+            "action_target_soft_limit_barrier": -0.0027047865274279033,
+            "worst_ee_z_normalized_squared": -0.03741537523486302,
+            "right_wrist_prethreshold_barrier": -0.0001578480412611592,
+            "requested_effort_excess": -5.7860017423856715e-08,
+            "root_world_tracking_error": -0.011643106149933235,
+            "measured_joint_posture_l2": -0.03579219997942346,
+            "measured_feet_world_position_l2": -0.01744914593485882,
+            "original_task_position_l2": -0.014849524269189451,
+            "original_task_orientation_l2": -0.014225802426852199
+          },
+          "nonterminal_base_reward": {
+            "count": 6041,
+            "mean": 2.216611243107326,
+            "min": 1.9484333992004395,
+            "p05_p50_p95_p99": [
+              2.131664276123047,
+              2.221301317214966,
+              2.2861478328704834,
+              2.2994312763214113
+            ],
+            "max": 2.324154853820801
+          },
+          "nonterminal_world_quality_bonus": {
+            "count": 6041,
+            "mean": 0.15413545602351364,
+            "min": 0.03157937154173851,
+            "p05_p50_p95_p99": [
+              0.051352787762880325,
+              0.1307392120361328,
+              0.3309490382671356,
+              0.48048893809318566
+            ],
+            "max": 0.8772123456001282
+          },
+          "nonterminal_foot_bonus": {
+            "count": 6041,
+            "mean": 0.9625698909017941,
+            "min": 0.27733156085014343,
+            "p05_p50_p95_p99": [
+              0.4509774446487427,
+              0.9260806441307068,
+              1.619762897491455,
+              1.8148886442184449
+            ],
+            "max": 1.932664155960083
+          },
+          "marginal_feature_comparison": {
+            "root_position_error_m": {
+              "distribution": {
+                "count": 102,
+                "mean": 0.1416743554394035,
+                "min": 0.03400346636772156,
+                "p05_p50_p95_p99": [
+                  0.04900643602013588,
+                  0.13154052942991257,
+                  0.2644501805305481,
+                  0.2896146583557129
+                ],
+                "max": 0.2919624447822571
+              },
+              "evaluation_value": 0.08359385281801224,
+              "empirical_fraction_at_or_below_evaluation": 0.22549019607843138
+            },
+            "root_velocity_error_m_s": {
+              "distribution": {
+                "count": 102,
+                "mean": 0.38526806790454715,
+                "min": 0.06158819794654846,
+                "p05_p50_p95_p99": [
+                  0.1423646777868271,
+                  0.3965921252965927,
+                  0.6445480614900589,
+                  0.7858140355348585
+                ],
+                "max": 0.9318894147872925
+              },
+              "evaluation_value": 0.3750385344028473,
+              "empirical_fraction_at_or_below_evaluation": 0.45098039215686275
+            },
+            "root_speed_m_s": {
+              "distribution": {
+                "count": 102,
+                "mean": 0.3113999056319396,
+                "min": 0.0800117701292038,
+                "p05_p50_p95_p99": [
+                  0.13345994353294374,
+                  0.2923562079668045,
+                  0.5601146548986433,
+                  0.6247919207811355
+                ],
+                "max": 0.6288369297981262
+              },
+              "evaluation_value": 0.3514530658721924,
+              "empirical_fraction_at_or_below_evaluation": 0.6862745098039216
+            },
+            "root_tilt_rad": {
+              "distribution": {
+                "count": 102,
+                "mean": 0.350939870903305,
+                "min": 0.12706299126148224,
+                "p05_p50_p95_p99": [
+                  0.1825708881020546,
+                  0.3506733775138855,
+                  0.5353425532579421,
+                  0.6000225174427032
+                ],
+                "max": 0.6567344069480896
+              },
+              "evaluation_value": 0.4387705451797402,
+              "empirical_fraction_at_or_below_evaluation": 0.7156862745098039
+            },
+            "lower_posture_rms_rad": {
+              "distribution": {
+                "count": 102,
+                "mean": 0.21158002664184833,
+                "min": 0.10949060507390151,
+                "p05_p50_p95_p99": [
+                  0.13965594973352877,
+                  0.20932398530990243,
+                  0.28974025456095776,
+                  0.3240119075071141
+                ],
+                "max": 0.3262152646284812
+              },
+              "evaluation_value": 0.27208514566220454,
+              "empirical_fraction_at_or_below_evaluation": 0.8921568627450981
+            },
+            "legs_velocity_rms_rad_s": {
+              "distribution": {
+                "count": 102,
+                "mean": 1.8085881050895243,
+                "min": 0.7389951348304749,
+                "p05_p50_p95_p99": [
+                  1.0583250522613525,
+                  1.7371608018875122,
+                  3.0401523590087867,
+                  3.4474970674514767
+                ],
+                "max": 3.7421183586120605
+              },
+              "evaluation_value": 2.7546005249023438,
+              "empirical_fraction_at_or_below_evaluation": 0.9313725490196079
+            },
+            "right_ankle_roll_rad": {
+              "distribution": {
+                "count": 102,
+                "mean": 0.19572228414243928,
+                "min": 0.023760834708809853,
+                "p05_p50_p95_p99": [
+                  0.1138023167848587,
+                  0.20025663822889328,
+                  0.2605586424469948,
+                  0.26943158864974975
+                ],
+                "max": 0.26990658044815063
+              },
+              "evaluation_value": 0.24894332885742188,
+              "empirical_fraction_at_or_below_evaluation": 0.8921568627450981
+            },
+            "right_ankle_roll_velocity_rad_s": {
+              "distribution": {
+                "count": 102,
+                "mean": -0.0375691004846172,
+                "min": -1.815384030342102,
+                "p05_p50_p95_p99": [
+                  -1.1794516444206238,
+                  0.042415961623191833,
+                  0.7468470513820645,
+                  1.698655493259429
+                ],
+                "max": 2.9803078174591064
+              },
+              "evaluation_value": 1.347233533859253,
+              "empirical_fraction_at_or_below_evaluation": 0.9705882352941176
+            }
+          }
+        },
+        {
+          "control_index": 1900,
+          "bank_anchor": 4917,
+          "actual_nearby_training_transitions": 5048,
+          "exact_anchor_transitions": 110,
+          "recorded_input_states_near_phase": 81,
+          "terminated_fraction": 0.01347068145800317,
+          "negative_reward_by_term": {
+            "action_rate_l2": -0.00244861507733088,
+            "joint_limit": -0.0010996434512163913,
+            "self_collisions": -5.220883534136546e-05,
+            "action_target_reference_l2": -0.016406979587122356,
+            "action_target_soft_limit_barrier": -0.0027315358852073096,
+            "worst_ee_z_normalized_squared": -0.039910858270387026,
+            "right_wrist_prethreshold_barrier": -0.00017859905890842118,
+            "requested_effort_excess": -7.025265902239085e-08,
+            "root_world_tracking_error": -0.0131488549960515,
+            "measured_joint_posture_l2": -0.04005004846469402,
+            "measured_feet_world_position_l2": -0.01802364578821217,
+            "original_task_position_l2": -0.01491447922840759,
+            "original_task_orientation_l2": -0.013730679060502439
+          },
+          "nonterminal_base_reward": {
+            "count": 4980,
+            "mean": 2.2094202180224727,
+            "min": 1.9484333992004395,
+            "p05_p50_p95_p99": [
+              2.12418292760849,
+              2.2156494855880737,
+              2.278502357006073,
+              2.2963236498832704
+            ],
+            "max": 2.3179879188537598
+          },
+          "nonterminal_world_quality_bonus": {
+            "count": 4980,
+            "mean": 0.1347649073796758,
+            "min": 0.03157937154173851,
+            "p05_p50_p95_p99": [
+              0.04735342711210251,
+              0.11463973671197891,
+              0.29156918227672585,
+              0.4585033932328225
+            ],
+            "max": 0.672214150428772
+          },
+          "nonterminal_foot_bonus": {
+            "count": 4980,
+            "mean": 0.8775368875348903,
+            "min": 0.27733156085014343,
+            "p05_p50_p95_p99": [
+              0.4400812789797783,
+              0.8561946749687195,
+              1.4059399724006654,
+              1.739963208436966
+            ],
+            "max": 1.9224300384521484
+          },
+          "marginal_feature_comparison": {
+            "root_position_error_m": {
+              "distribution": {
+                "count": 81,
+                "mean": 0.1623105989470158,
+                "min": 0.03471376374363899,
+                "p05_p50_p95_p99": [
+                  0.04963696748018265,
+                  0.15999355912208557,
+                  0.28969308733940125,
+                  0.2982911348342896
+                ],
+                "max": 0.3032888174057007
+              },
+              "evaluation_value": 0.1681334227323532,
+              "empirical_fraction_at_or_below_evaluation": 0.5308641975308642
+            },
+            "root_velocity_error_m_s": {
+              "distribution": {
+                "count": 81,
+                "mean": 0.40636896075289924,
+                "min": 0.06158819794654846,
+                "p05_p50_p95_p99": [
+                  0.10071716457605362,
+                  0.4141106903553009,
+                  0.7252715229988098,
+                  0.8153133630752568
+                ],
+                "max": 0.9318894147872925
+              },
+              "evaluation_value": 0.5415335297584534,
+              "empirical_fraction_at_or_below_evaluation": 0.8271604938271605
+            },
+            "root_speed_m_s": {
+              "distribution": {
+                "count": 81,
+                "mean": 0.2964091204382755,
+                "min": 0.08141427487134933,
+                "p05_p50_p95_p99": [
+                  0.11977017670869827,
+                  0.2910648286342621,
+                  0.5240150690078735,
+                  0.6256252884864807
+                ],
+                "max": 0.6288369297981262
+              },
+              "evaluation_value": 0.1938418298959732,
+              "empirical_fraction_at_or_below_evaluation": 0.24691358024691357
+            },
+            "root_tilt_rad": {
+              "distribution": {
+                "count": 81,
+                "mean": 0.352811524529516,
+                "min": 0.12706299126148224,
+                "p05_p50_p95_p99": [
+                  0.17837272584438324,
+                  0.33395594358444214,
+                  0.5908198356628418,
+                  0.6633408546447754
+                ],
+                "max": 0.686668872833252
+              },
+              "evaluation_value": 0.24703084981111353,
+              "empirical_fraction_at_or_below_evaluation": 0.2345679012345679
+            },
+            "lower_posture_rms_rad": {
+              "distribution": {
+                "count": 81,
+                "mean": 0.2229099541911226,
+                "min": 0.11103284073878346,
+                "p05_p50_p95_p99": [
+                  0.14829031683304508,
+                  0.2177585589490745,
+                  0.29733538241289315,
+                  0.32730081504866887
+                ],
+                "max": 0.35184215305811467
+              },
+              "evaluation_value": 0.254399154717941,
+              "empirical_fraction_at_or_below_evaluation": 0.7283950617283951
+            },
+            "legs_velocity_rms_rad_s": {
+              "distribution": {
+                "count": 81,
+                "mean": 1.5368119654832062,
+                "min": 0.5401745438575745,
+                "p05_p50_p95_p99": [
+                  0.8688207268714905,
+                  1.3671432733535767,
+                  2.823331594467163,
+                  3.5080508232116707
+                ],
+                "max": 3.7480406761169434
+              },
+              "evaluation_value": 0.9471900463104248,
+              "empirical_fraction_at_or_below_evaluation": 0.08641975308641975
+            },
+            "right_ankle_roll_rad": {
+              "distribution": {
+                "count": 81,
+                "mean": 0.17269039505885708,
+                "min": 0.023760834708809853,
+                "p05_p50_p95_p99": [
+                  0.09954918920993805,
+                  0.17459698021411896,
+                  0.2548365294933319,
+                  0.26955050230026245
+                ],
+                "max": 0.26990658044815063
+              },
+              "evaluation_value": 0.15091343224048615,
+              "empirical_fraction_at_or_below_evaluation": 0.2962962962962963
+            },
+            "right_ankle_roll_velocity_rad_s": {
+              "distribution": {
+                "count": 81,
+                "mean": -0.17820157142884938,
+                "min": -1.815384030342102,
+                "p05_p50_p95_p99": [
+                  -1.2427276372909546,
+                  -0.06329681724309921,
+                  0.7480541467666626,
+                  1.061634564399721
+                ],
+                "max": 1.5487743616104126
+              },
+              "evaluation_value": 1.106947898864746,
+              "empirical_fraction_at_or_below_evaluation": 0.9876543209876543
+            }
+          }
+        },
+        {
+          "control_index": 1910,
+          "bank_anchor": 4927,
+          "actual_nearby_training_transitions": 4471,
+          "exact_anchor_transitions": 77,
+          "recorded_input_states_near_phase": 72,
+          "terminated_fraction": 0.01610377991500783,
+          "negative_reward_by_term": {
+            "action_rate_l2": -0.002301330042400033,
+            "joint_limit": -0.0004412983778860482,
+            "self_collisions": -0.0007933621277563082,
+            "action_target_reference_l2": -0.016489377669753644,
+            "action_target_soft_limit_barrier": -0.002867034866442326,
+            "worst_ee_z_normalized_squared": -0.03384240526718865,
+            "right_wrist_prethreshold_barrier": -2.7677985266030552e-05,
+            "requested_effort_excess": -6.968896529614044e-08,
+            "root_world_tracking_error": -0.013607730864646592,
+            "measured_joint_posture_l2": -0.04069428388326884,
+            "measured_feet_world_position_l2": -0.018020898179871243,
+            "original_task_position_l2": -0.014896942280221015,
+            "original_task_orientation_l2": -0.012931010838176278
+          },
+          "nonterminal_base_reward": {
+            "count": 4399,
+            "mean": 2.217007891051632,
+            "min": 2.00659441947937,
+            "p05_p50_p95_p99": [
+              2.1250038623809813,
+              2.223202705383301,
+              2.2883729934692383,
+              2.3084687376022335
+            ],
+            "max": 2.342197895050049
+          },
+          "nonterminal_world_quality_bonus": {
+            "count": 4399,
+            "mean": 0.13752322458619962,
+            "min": 0.03157937154173851,
+            "p05_p50_p95_p99": [
+              0.04691423624753952,
+              0.11275628954172134,
+              0.3125649392604826,
+              0.521658966541286
+            ],
+            "max": 0.8495020270347595
+          },
+          "nonterminal_foot_bonus": {
+            "count": 4399,
+            "mean": 0.8836424335833977,
+            "min": 0.27733156085014343,
+            "p05_p50_p95_p99": [
+              0.44468510150909424,
+              0.85283362865448,
+              1.4654282689094535,
+              1.7631526899337768
+            ],
+            "max": 1.912980556488037
+          },
+          "marginal_feature_comparison": {
+            "root_position_error_m": {
+              "distribution": {
+                "count": 72,
+                "mean": 0.17304681039725742,
+                "min": 0.03471376374363899,
+                "p05_p50_p95_p99": [
+                  0.05565413478761912,
+                  0.17114998400211334,
+                  0.2905650734901428,
+                  0.2988533741235733
+                ],
+                "max": 0.3032888174057007
+              },
+              "evaluation_value": 0.29687610268592834,
+              "empirical_fraction_at_or_below_evaluation": 0.9722222222222222
+            },
+            "root_velocity_error_m_s": {
+              "distribution": {
+                "count": 72,
+                "mean": 0.3960187503447135,
+                "min": 0.06158819794654846,
+                "p05_p50_p95_p99": [
+                  0.11267447322607041,
+                  0.3773895353078842,
+                  0.7284378707408905,
+                  0.8284281688928613
+                ],
+                "max": 0.9318894147872925
+              },
+              "evaluation_value": 0.5498618483543396,
+              "empirical_fraction_at_or_below_evaluation": 0.8333333333333334
+            },
+            "root_speed_m_s": {
+              "distribution": {
+                "count": 72,
+                "mean": 0.2913918759052952,
+                "min": 0.08141427487134933,
+                "p05_p50_p95_p99": [
+                  0.11985997222363949,
+                  0.2816406786441803,
+                  0.5543402314186098,
+                  0.6259865981340409
+                ],
+                "max": 0.6288369297981262
+              },
+              "evaluation_value": 0.41153907775878906,
+              "empirical_fraction_at_or_below_evaluation": 0.8333333333333334
+            },
+            "root_tilt_rad": {
+              "distribution": {
+                "count": 72,
+                "mean": 0.34861602551407284,
+                "min": 0.12706299126148224,
+                "p05_p50_p95_p99": [
+                  0.17724255695939065,
+                  0.3050674647092819,
+                  0.6397887408733368,
+                  0.6838449060916901
+                ],
+                "max": 0.686668872833252
+              },
+              "evaluation_value": 0.44993033359973245,
+              "empirical_fraction_at_or_below_evaluation": 0.7638888888888888
+            },
+            "lower_posture_rms_rad": {
+              "distribution": {
+                "count": 72,
+                "mean": 0.22022534540556055,
+                "min": 0.11103284073878346,
+                "p05_p50_p95_p99": [
+                  0.14180601945519425,
+                  0.21267320761163688,
+                  0.310467080932327,
+                  0.33006171557473163
+                ],
+                "max": 0.35184215305811467
+              },
+              "evaluation_value": 0.35416916772996204,
+              "empirical_fraction_at_or_below_evaluation": 1.0
+            },
+            "legs_velocity_rms_rad_s": {
+              "distribution": {
+                "count": 72,
+                "mean": 1.4011489272945457,
+                "min": 0.4078180491924286,
+                "p05_p50_p95_p99": [
+                  0.6963914424180985,
+                  1.2184399962425232,
+                  2.9506361007690436,
+                  3.535049681663515
+                ],
+                "max": 3.7480406761169434
+              },
+              "evaluation_value": 1.7071739435195923,
+              "empirical_fraction_at_or_below_evaluation": 0.7777777777777778
+            },
+            "right_ankle_roll_rad": {
+              "distribution": {
+                "count": 72,
+                "mean": 0.1498764298287117,
+                "min": 0.023760834708809853,
+                "p05_p50_p95_p99": [
+                  0.0820164654403925,
+                  0.15972218662500381,
+                  0.2034230135381222,
+                  0.22273424342274672
+                ],
+                "max": 0.23061245679855347
+              },
+              "evaluation_value": 0.19035466015338898,
+              "empirical_fraction_at_or_below_evaluation": 0.8333333333333334
+            },
+            "right_ankle_roll_velocity_rad_s": {
+              "distribution": {
+                "count": 72,
+                "mean": -0.17450815553052557,
+                "min": -1.815384030342102,
+                "p05_p50_p95_p99": [
+                  -1.391966563463211,
+                  -0.1023850217461586,
+                  0.7607029885053636,
+                  1.116437791585926
+                ],
+                "max": 1.5487743616104126
+              },
+              "evaluation_value": 0.40722182393074036,
+              "empirical_fraction_at_or_below_evaluation": 0.8333333333333334
+            }
+          }
+        },
+        {
+          "control_index": 1920,
+          "bank_anchor": 4937,
+          "actual_nearby_training_transitions": 3883,
+          "exact_anchor_transitions": 64,
+          "recorded_input_states_near_phase": 64,
+          "terminated_fraction": 0.018799896986865825,
+          "negative_reward_by_term": {
+            "action_rate_l2": -0.002188787430767041,
+            "joint_limit": -0.0002264611137653932,
+            "self_collisions": -0.0013175853018372705,
+            "action_target_reference_l2": -0.015582907937886987,
+            "action_target_soft_limit_barrier": -0.0028398755527197037,
+            "worst_ee_z_normalized_squared": -0.03315128406799745,
+            "right_wrist_prethreshold_barrier": -0.0009157429493006693,
+            "requested_effort_excess": -4.8959352402139455e-08,
+            "root_world_tracking_error": -0.012996629742921924,
+            "measured_joint_posture_l2": -0.041583832076802794,
+            "measured_feet_world_position_l2": -0.017923540446382603,
+            "original_task_position_l2": -0.014990812017069087,
+            "original_task_orientation_l2": -0.011590502898684936
+          },
+          "nonterminal_base_reward": {
+            "count": 3810,
+            "mean": 2.2210105486742155,
+            "min": 1.852316975593567,
+            "p05_p50_p95_p99": [
+              2.1214849829673765,
+              2.2289836406707764,
+              2.292625904083252,
+              2.3195077538490296
+            ],
+            "max": 2.347167730331421
+          },
+          "nonterminal_world_quality_bonus": {
+            "count": 3810,
+            "mean": 0.14193040011768424,
+            "min": 0.03287971764802933,
+            "p05_p50_p95_p99": [
+              0.04644418694078922,
+              0.11266503855586052,
+              0.33409095108509035,
+              0.531813717484474
+            ],
+            "max": 0.8495020270347595
+          },
+          "nonterminal_foot_bonus": {
+            "count": 3810,
+            "mean": 0.9022369685526596,
+            "min": 0.30779603123664856,
+            "p05_p50_p95_p99": [
+              0.4458967372775078,
+              0.8588704466819763,
+              1.5402762413024897,
+              1.8267545187473295
+            ],
+            "max": 1.8922032117843628
+          },
+          "marginal_feature_comparison": {
+            "root_position_error_m": {
+              "distribution": {
+                "count": 64,
+                "mean": 0.1730153071694076,
+                "min": 0.03471376374363899,
+                "p05_p50_p95_p99": [
+                  0.0598282964900136,
+                  0.1681046038866043,
+                  0.2885166525840759,
+                  0.2993531423807144
+                ],
+                "max": 0.3032888174057007
+              },
+              "evaluation_value": 0.39071381092071533,
+              "empirical_fraction_at_or_below_evaluation": 1.0
+            },
+            "root_velocity_error_m_s": {
+              "distribution": {
+                "count": 64,
+                "mean": 0.3700626720674336,
+                "min": 0.06158819794654846,
+                "p05_p50_p95_p99": [
+                  0.10804713815450669,
+                  0.35468269884586334,
+                  0.7025065362453458,
+                  0.8061530297994608
+                ],
+                "max": 0.9318894147872925
+              },
+              "evaluation_value": 0.5115989446640015,
+              "empirical_fraction_at_or_below_evaluation": 0.84375
+            },
+            "root_speed_m_s": {
+              "distribution": {
+                "count": 64,
+                "mean": 0.28582051338162273,
+                "min": 0.08141427487134933,
+                "p05_p50_p95_p99": [
+                  0.11979466639459133,
+                  0.2771044820547104,
+                  0.5224362850189208,
+                  0.6263077622652053
+                ],
+                "max": 0.6288369297981262
+              },
+              "evaluation_value": 0.45700907707214355,
+              "empirical_fraction_at_or_below_evaluation": 0.890625
+            },
+            "root_tilt_rad": {
+              "distribution": {
+                "count": 64,
+                "mean": 0.3497894057072699,
+                "min": 0.12706299126148224,
+                "p05_p50_p95_p99": [
+                  0.17536059096455575,
+                  0.30624254047870636,
+                  0.6500136077404021,
+                  0.684163099527359
+                ],
+                "max": 0.686668872833252
+              },
+              "evaluation_value": 0.6501429891851698,
+              "empirical_fraction_at_or_below_evaluation": 0.9375
+            },
+            "lower_posture_rms_rad": {
+              "distribution": {
+                "count": 64,
+                "mean": 0.22243040491164578,
+                "min": 0.1285497031237225,
+                "p05_p50_p95_p99": [
+                  0.14830718105111657,
+                  0.2136988297617914,
+                  0.3135943126013649,
+                  0.33251584937567596
+                ],
+                "max": 0.35184215305811467
+              },
+              "evaluation_value": 0.31668324100583956,
+              "empirical_fraction_at_or_below_evaluation": 0.953125
+            },
+            "legs_velocity_rms_rad_s": {
+              "distribution": {
+                "count": 64,
+                "mean": 1.3155124294571579,
+                "min": 0.4078180491924286,
+                "p05_p50_p95_p99": [
+                  0.6619813710451127,
+                  1.1825889348983765,
+                  2.3924704194068878,
+                  3.430614135265349
+                ],
+                "max": 3.7480406761169434
+              },
+              "evaluation_value": 1.3578646183013916,
+              "empirical_fraction_at_or_below_evaluation": 0.703125
+            },
+            "right_ankle_roll_rad": {
+              "distribution": {
+                "count": 64,
+                "mean": 0.14530762229696847,
+                "min": 0.023760834708809853,
+                "p05_p50_p95_p99": [
+                  0.07472655922174454,
+                  0.15072859823703766,
+                  0.20165291652083395,
+                  0.21167333558201787
+                ],
+                "max": 0.21951638162136078
+              },
+              "evaluation_value": 0.18325956165790558,
+              "empirical_fraction_at_or_below_evaluation": 0.75
+            },
+            "right_ankle_roll_velocity_rad_s": {
+              "distribution": {
+                "count": 64,
+                "mean": -0.18119781103450805,
+                "min": -1.815384030342102,
+                "p05_p50_p95_p99": [
+                  -1.3753844976425171,
+                  -0.1004815511405468,
+                  0.7715279430150984,
+                  1.16515177130699
+                ],
+                "max": 1.5487743616104126
+              },
+              "evaluation_value": 0.20266364514827728,
+              "empirical_fraction_at_or_below_evaluation": 0.734375
+            }
+          }
+        }
+      ],
+      "sampled_observation_states": 19968,
+      "learned_population_is_nonstationary": true
+    }
+  ],
+  "evaluation_states": [
+    {
+      "control_index": 1830,
+      "bank_anchor": 4847,
+      "executed_source_seconds": 29.6,
+      "features": {
+        "root_position_error_m": 0.19033396244049072,
+        "root_velocity_error_m_s": 0.24526344239711761,
+        "root_speed_m_s": 0.44731950759887695,
+        "root_tilt_rad": 0.15542947625016454,
+        "lower_posture_rms_rad": 0.26539706665098306,
+        "legs_velocity_rms_rad_s": 1.52512788772583,
+        "right_ankle_roll_rad": 0.17159146070480347,
+        "right_ankle_roll_velocity_rad_s": 0.39824894070625305
+      }
+    },
+    {
+      "control_index": 1853,
+      "bank_anchor": 4870,
+      "executed_source_seconds": 30.060000000000002,
+      "features": {
+        "root_position_error_m": 0.04715505614876747,
+        "root_velocity_error_m_s": 0.391149640083313,
+        "root_speed_m_s": 0.43600770831108093,
+        "root_tilt_rad": 0.09950411413658382,
+        "lower_posture_rms_rad": 0.21529839694880826,
+        "legs_velocity_rms_rad_s": 1.8305919170379639,
+        "right_ankle_roll_rad": 0.2090146541595459,
+        "right_ankle_roll_velocity_rad_s": 0.07479113340377808
+      }
+    },
+    {
+      "control_index": 1880,
+      "bank_anchor": 4897,
+      "executed_source_seconds": 30.6,
+      "features": {
+        "root_position_error_m": 0.08359385281801224,
+        "root_velocity_error_m_s": 0.3750385344028473,
+        "root_speed_m_s": 0.3514530658721924,
+        "root_tilt_rad": 0.4387705451797402,
+        "lower_posture_rms_rad": 0.27208514566220454,
+        "legs_velocity_rms_rad_s": 2.7546005249023438,
+        "right_ankle_roll_rad": 0.24894332885742188,
+        "right_ankle_roll_velocity_rad_s": 1.347233533859253
+      }
+    },
+    {
+      "control_index": 1900,
+      "bank_anchor": 4917,
+      "executed_source_seconds": 31.0,
+      "features": {
+        "root_position_error_m": 0.1681334227323532,
+        "root_velocity_error_m_s": 0.5415335297584534,
+        "root_speed_m_s": 0.1938418298959732,
+        "root_tilt_rad": 0.24703084981111353,
+        "lower_posture_rms_rad": 0.254399154717941,
+        "legs_velocity_rms_rad_s": 0.9471900463104248,
+        "right_ankle_roll_rad": 0.15091343224048615,
+        "right_ankle_roll_velocity_rad_s": 1.106947898864746
+      }
+    },
+    {
+      "control_index": 1910,
+      "bank_anchor": 4927,
+      "executed_source_seconds": 31.2,
+      "features": {
+        "root_position_error_m": 0.29687610268592834,
+        "root_velocity_error_m_s": 0.5498618483543396,
+        "root_speed_m_s": 0.41153907775878906,
+        "root_tilt_rad": 0.44993033359973245,
+        "lower_posture_rms_rad": 0.35416916772996204,
+        "legs_velocity_rms_rad_s": 1.7071739435195923,
+        "right_ankle_roll_rad": 0.19035466015338898,
+        "right_ankle_roll_velocity_rad_s": 0.40722182393074036
+      }
+    },
+    {
+      "control_index": 1920,
+      "bank_anchor": 4937,
+      "executed_source_seconds": 31.400000000000002,
+      "features": {
+        "root_position_error_m": 0.39071381092071533,
+        "root_velocity_error_m_s": 0.5115989446640015,
+        "root_speed_m_s": 0.45700907707214355,
+        "root_tilt_rad": 0.6501429891851698,
+        "lower_posture_rms_rad": 0.31668324100583956,
+        "legs_velocity_rms_rad_s": 1.3578646183013916,
+        "right_ankle_roll_rad": 0.18325956165790558,
+        "right_ankle_roll_velocity_rad_s": 0.20266364514827728
+      }
+    }
+  ],
+  "phase_join_exact_at_all_captured_inputs": true,
+  "joint_observation_reconstruction_has_float32_roundoff": true,
+  "reward_transform_derivative_is_not_physics_or_ppo_gradient": true,
+  "marginal_coverage_is_not_joint_state_coverage": true,
+  "novel_failure_state_or_reward_conflict_claimed": false,
+  "no_training_or_dynamics_executed": true,
+  "deployment_ready": false,
+  "hardware_authorized": false
+}

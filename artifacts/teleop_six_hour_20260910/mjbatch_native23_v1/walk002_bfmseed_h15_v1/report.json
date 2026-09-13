@@ -1,0 +1,67 @@
+{
+  "kind": "offline_native23_mjbatch_ilqr_probe",
+  "clip": "walk002",
+  "probe": "source-prefix",
+  "completed_controls": 428,
+  "requested_controls": 500,
+  "probe_completed": false,
+  "full_source_completed": false,
+  "failure": {
+    "kind": "physical_limit",
+    "control": 428,
+    "substep": 2,
+    "time": 8.543999999999523,
+    "range_excess": 0.010817424287483779,
+    "velocity_ratio": 0.39129678221038366,
+    "effort_ratio": 1.0
+  },
+  "metrics": {
+    "phase": "source_motion",
+    "controls": 78,
+    "leg_rmse": 0.17103798066635076,
+    "arm_rmse": 0.09068483314626506,
+    "root_p95": 0.8288898975286944,
+    "tracked_body_position_p95": [
+      0.8288898975286944,
+      0.8549733316142614,
+      0.30765584522594297,
+      0.1219158603317668,
+      0.9131059649470686,
+      0.9604697267894566
+    ]
+  },
+  "range_excess_max": 0.010817424287483779,
+  "velocity_ratio_max": 0.4613761230381101,
+  "effort_ratio_max": 1.0,
+  "planning_ms_p50_p95_max": [
+    1708.7855859999995,
+    1858.6539809999963,
+    2394.8261849999994
+  ],
+  "planning_deadlines_missed": 86,
+  "elapsed_wall_seconds": 149.189176426,
+  "simulated_seconds": 8.543999999999523,
+  "physics_steps": 4272,
+  "declared_future_preview_seconds": 0.3,
+  "conservative_effective_source_preview_seconds": 0.44,
+  "recorded_target_seed": {
+    "path": "artifacts/teleop_six_hour_20260910/bfm_walk002_feedback_v2",
+    "trace_sha256": "74bbd9c8e4cae7c8c8b421b4a1448f917872161b837efce04001810041b94f97",
+    "report_sha256": "05891f641b8cf7711fcd678bc5577d5d3973d3c653dacc2a77c238e303e06f05",
+    "controls": 1417,
+    "original_generator_preview_seconds": 0.14,
+    "selection": "lower actual-rollout cost of recorded BFM targets and shifted previous MPC plan",
+    "physical_states_copied": false
+  },
+  "mujoco": "3.11.0",
+  "controller": "iLQR position targets with measured-state feedback and native manualPD",
+  "physical_state_rewrites_after_initialization": 0,
+  "root_assistance_forces": 0,
+  "timing_qualified": false,
+  "full_body_tracking_qualified": false,
+  "hardware_authorized": false,
+  "native323_replay_required": true,
+  "request_sha256": "c8607b7e9e632a29f46e423ef92d0993f96aafe651ccb764bae8b9f02aa96454",
+  "trace_sha256": "77d580652386ae30a95f7329eac45c0dc3de1cfbf18e7ba7037e33ad1aa0dd32",
+  "plans_sha256": "d2c473d3c38c11c765bdd4da6ecf285fb5741958d6709063447183e9d372ba2a"
+}

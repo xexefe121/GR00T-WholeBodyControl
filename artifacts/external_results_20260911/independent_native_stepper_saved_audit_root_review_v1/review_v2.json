@@ -1,0 +1,47 @@
+{
+  "source_review_passed": true,
+  "preparation_subject": {
+    "path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_saved_audit_v1\\preparation_report_v2.json",
+    "sha256": "58f2fd9e1fcba005e0565878cd7be7f5a578581af5174943d0d083ec7b68478e"
+  },
+  "prior_review_subject": {
+    "path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_saved_audit_root_review_v1\\review.json",
+    "sha256": "6cbd86ee5b92a3552603372ec912d1dbf613d65d9cf82b7f9c16e5c16374dfa6"
+  },
+  "reviewed_delta": {
+    "path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_saved_audit_v1\\source_delta_v2.patch",
+    "sha256": "452c16f33c9813819d315b531d6161ea185be05d89af0eb8886f10496ddc1578"
+  },
+  "source_pins": {
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_saved_audit_v1\\source_v2\\audit_saved.py": "6bd2d730e966201cee4e4cdf4fe70f709291c8395a421d4845af39d147903b0d",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_saved_audit_v1\\source_v2\\saved_math.py": "7d35c7cbfbc392f7bde6230452d4950d10942352afb6b64c026955fdaa5bd1f8",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_saved_audit_v1\\source_v2\\prepare_request.py": "90c95d17a694f12845dc3548669c798fb4bf31cf47ac96bd90b69f500bbb04bd",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_saved_audit_v1\\source_v2\\test_saved_audit.py": "6a8a1f44de87ef543ee2aa23cf1bde4f18f00d286af4ce57af8f62a05fc1e6d3",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_saved_audit_v1\\source_v2\\README.md": "26ecb244e05a38fcf4df828bfce6fb01f426e66ac30022d6f4f102b4015cdd60"
+  },
+  "owner_schema_pins": {
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_equivalence_v1\\verify_completed_stage.py": "586669781c2a94aa8ef7cbe1d803a419abff1a9b89a7d088cbfa366d11292340",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_equivalence_v1\\stage_verdict.py": "9e99b5d033e4007b15e6c63b980cd857490873c6ec300fc770ca067a797aaad4",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_equivalence_v1\\prepare_stage.py": "618f6d06e1c8d9e0284c16fd97d1cc1453daf4c6fac87e53c09b7ddbfb56deac",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_equivalence_v1\\source_preparation.json": "e3568b1926021707adfd72e4da8d56166c73b4566805155fec20e7a6b21eae6a"
+  },
+  "root_tests": {
+    "path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\independent_native_stepper_saved_audit_v1\\source_v2\\root_synthetic_tests.xml",
+    "sha256": "52712f60becf06576c8a060ae8762227449c2ac505475cd33a6c0c505ad31ef2",
+    "passed": 19
+  },
+  "changes_reviewed": [
+    "PIDs checked against actual start/child receipts because actual exit schema has no PIDs.",
+    "Raw/diagnostic/exit known-success and captured-handle fields checked explicitly.",
+    "Owner input map must exactly equal actual launch map; pre/post cover that full map.",
+    "Start record binds actual clearance, launch and review; consumed process records must appear in owner output hashes.",
+    "prepare_request resolves unchanged selected input root from nested source_v2."
+  ],
+  "pure_math_byte_unchanged": true,
+  "actual_audit_selected_once_after_completed_witness_and_replay": true,
+  "actual_audit_run": false,
+  "model_calls": 0,
+  "native_steps": 0,
+  "optimizer_updates": 0,
+  "scope": "Saved-only adapter equivalence, preserving original direct controller failure; no balance or real-time qualification."
+}

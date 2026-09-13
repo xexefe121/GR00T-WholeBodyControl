@@ -1,0 +1,40 @@
+{
+    "kind":  "qualified_width251_recovery_warm512_fit",
+    "wrapper_pid":  24844,
+    "started_utc":  "2026-09-12T01:15:45.5226822Z",
+    "clearance_sha256":  "9d15e35b9da8a241b9eeb054c80be501f22cd74f36e792a130b49ec4e6241de6",
+    "launch_receipt_sha256":  "fa899280f0ef2baeeefbe517c8e29b49e89c11267bb8c1201b6791a8cd6125a1",
+    "request_sha256":  "7d971b56d3746e582f5d9b014c45d98e07c4e71aa7ecf229ff1a86af281ebdb5",
+    "frozen_receipt_sha256":  "50b3958b202cc296505223ece86a1d9435915c037250bc234412565f1736e3c3",
+    "command":  {
+                    "python":  "E:\\codex_sonic_runtime\\direct_target_gpu_20260911\\venv\\Scripts\\python.exe",
+                    "arguments":  [
+                                      "-u",
+                                      "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_width251_student_v1\\source_snapshot_v1\\train_recovery.py"
+                                  ],
+                    "working_directory":  "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_width251_student_v1\\source_snapshot_v1",
+                    "CUBLAS_WORKSPACE_CONFIG":  ":4096:8",
+                    "threads":  1
+                },
+    "updates":  10000,
+    "ordinary_start_step":  81000,
+    "ordinary_final_step":  91000,
+    "condition":  "causal",
+    "optimizer_start_step":  16000,
+    "optimizer_final_step":  26000,
+    "budgets":  {
+                    "training_forward_rows":  157040000,
+                    "training_forward_calls":  40000,
+                    "training_updates":  10000,
+                    "diagnostic_Torch_rows":  1474352,
+                    "diagnostic_Torch_calls":  5764,
+                    "diagnostic_ORT_rows":  368588,
+                    "diagnostic_ORT_calls":  1441,
+                    "calibration_forward_calls":  0,
+                    "calibration_gradient_calls":  0,
+                    "native_calls":  0,
+                    "BFM_calls":  0,
+                    "manual_export_trace_calls":  0
+                },
+    "automatic_retry":  false
+}

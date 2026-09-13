@@ -1,0 +1,37 @@
+{
+  "kind": "load_case_motion_validation_mocked_counterexamples",
+  "physics_run": false,
+  "output_npz_created": false,
+  "cases": [
+    {
+      "label": "impossible joint velocity",
+      "field": "joint_vel",
+      "accepted": true,
+      "reason": null
+    },
+    {
+      "label": "impossible body linear velocity",
+      "field": "body_lin_vel_w",
+      "accepted": true,
+      "reason": null
+    },
+    {
+      "label": "impossible body angular velocity",
+      "field": "body_ang_vel_w",
+      "accepted": true,
+      "reason": null
+    },
+    {
+      "label": "out of range and FK-inconsistent joints",
+      "field": "joint_pos",
+      "accepted": true,
+      "reason": null
+    },
+    {
+      "label": "nonfinite joint velocity",
+      "field": "joint_vel",
+      "accepted": false,
+      "reason": "retarget must preserve all finite timed source samples: joint_vel"
+    }
+  ]
+}

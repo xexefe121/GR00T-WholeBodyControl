@@ -1,0 +1,192 @@
+{
+  "kind": "one_fixed_direct_absolute_target_continuation",
+  "root_selected": true,
+  "updates": 50000,
+  "ordinary_final_step": 55000,
+  "restored_start_step": 5000,
+  "seed": 20260911,
+  "features": 1000,
+  "retained_indices": [
+    [
+      0,
+      52
+    ],
+    [
+      75,
+      1023
+    ]
+  ],
+  "head_output": "normalized_target",
+  "architecture": [
+    1000,
+    256,
+    256,
+    23
+  ],
+  "activation": "ELU",
+  "initialization": "exact ordinary5000 actor/AdamW/RNG; fresh construction overwritten before the fixed initial pass",
+  "restoration": {
+    "checkpoint_path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_student_v1/fit/student_head.pt",
+    "checkpoint_sha256": "ad6d657affba0796e7313d85ace240cd31d46e188c577da049880a7a031aecba",
+    "normalization_path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_student_v1/fit/normalization.npz",
+    "normalization_sha256": "1baf7a2918fe2322ad0ef9583a29902eb7c3d8f8d37000c6bb9fd502d6746079",
+    "predictions": {
+      "nominal": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_student_v1/fit/final_GPU_nominal.npy",
+      "velocity": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_student_v1/fit/final_GPU_velocity.npy",
+      "physical": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_student_v1/fit/final_GPU_physical.npy"
+    },
+    "metrics_path": "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_student_v1/fit/final_metrics.json",
+    "ordinary_start_step": 5000,
+    "all_six_AdamW_states": true,
+    "CPU_CUDA_NumPy_Python_RNG": true,
+    "initial_GPU_exact_before_updates": true
+  },
+  "paths": {
+    "contract": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_six_hour_20260910\\mjbatch_native23_inputs_v1\\contract.json",
+    "centers": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\velocity_chord_student_v1\\generation\\centers.npz",
+    "velocity_features": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\velocity_chord_student_v1\\generation\\features.npy",
+    "velocity_target": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\velocity_chord_student_v1\\generation\\teacher_target.npy",
+    "generation_report": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\velocity_chord_student_v1\\generation\\report.json",
+    "generation_review": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\velocity_chord_completed_data_review_v1\\review.json",
+    "pico": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_walk002_labels_v1\\collection\\pico\\labels.npz",
+    "walk002": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_walk002_labels_v1\\collection\\walk002\\labels.npz",
+    "pico_report": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_walk002_labels_v1\\collection\\pico\\report.json",
+    "walk002_report": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\pico_walk002_labels_v1\\collection\\walk002\\report.json",
+    "broad_saved_review": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\broader_labels_independent_v1\\saved_array_audit\\report.json",
+    "broad_inference_review": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\broader_labels_independent_v1\\baseline_inference_audit\\report.json",
+    "feasibility": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\direct_target_feature_feasibility_v1\\results\\report.json",
+    "physical_manifest": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_policy_branch_collection_resume2969_v1\\collection\\data\\manifest.json",
+    "physical_report": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_policy_branch_collection_resume2969_v1\\collection\\report.json",
+    "physical_request": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_policy_branch_collection_resume2969_v1\\request.json",
+    "physical_review": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_branch_combined_data_review_v1\\review.json",
+    "sampled_rows": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_physical_student_v1\\fit\\sampled_center_rows.npy",
+    "sampled_axes": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_physical_student_v1\\fit\\sampled_axes.npy",
+    "sampler_fit_report": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\one_step_physical_student_v1\\fit\\report.json",
+    "sampler_audit": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\physical_fit_evidence_independent_v1\\report.json",
+    "sampler_audit_request": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\physical_fit_evidence_independent_v1\\request.json"
+  },
+  "normalization": {
+    "restored_byte_exact": true,
+    "population": "original all9904 nominal only",
+    "equal_cells": 15,
+    "mean_variance": "float64 global mean and between-cell population variance",
+    "saved_dtype": "float32",
+    "standard_deviation_floor": 0.05
+  },
+  "target_contract": {
+    "labels": "((absolute_target_f64-default_f64)/existing_span_f32.astype(float64)).astype(float32)",
+    "reconstruction": "default_f64 + existing_span_f32.astype(float64) * head_f32.astype(float64)",
+    "final_clamp": "unchanged native float64 bounds",
+    "output": "normalized absolute target; no BFM or residual output"
+  },
+  "objective": {
+    "nominal_weight": 1,
+    "velocity_weight": 1,
+    "physical_weight": 1,
+    "nominal_cells": 15,
+    "velocity_cells": 9,
+    "physical_cells": 9,
+    "nominal_counts": [
+      [
+        100,
+        819,
+        100
+      ],
+      [
+        100,
+        819,
+        100
+      ],
+      [
+        100,
+        819,
+        100
+      ],
+      [
+        100,
+        5780,
+        100
+      ],
+      [
+        100,
+        667,
+        100
+      ]
+    ],
+    "physical_requested_counts": [
+      99,
+      819,
+      100,
+      99,
+      819,
+      100,
+      99,
+      819,
+      100
+    ],
+    "velocity_pairs_per_step": 576,
+    "velocity_signs": 2,
+    "response_cast": "cast each float32 endpoint and center prediction tofloat64 BEFORE subtraction",
+    "teacher_response": "float64 absolute endpoint minus matching nominal absolute target, divided only by promoted existing span",
+    "sampler": "exact saved original5000x576 rows and axes repeated ten times via index modulo5000; zero new sample draws; differentiable nominal center reuse"
+  },
+  "optimizer": {
+    "name": "AdamW",
+    "lr_start": 3e-05,
+    "lr_end": 3e-06,
+    "schedule": "inclusive cosine over50000 additional updates",
+    "weight_decay": 1e-05,
+    "grad_clip_norm": 10,
+    "foreach": false,
+    "fused": false
+  },
+  "diagnostics": {
+    "partition": "each corpus separately in fixed order nominal,velocity,physical; batch256",
+    "corpora_rows": [
+      9904,
+      140622,
+      3054
+    ],
+    "passes": [
+      "initial_GPU",
+      "final_GPU",
+      "final_CPU",
+      "final_ORT"
+    ],
+    "ORT_calls_per_corpus": [
+      39,
+      550,
+      12
+    ],
+    "preclamp_parity_tolerance_rad": 1e-05,
+    "checkpoint_selection": false
+  },
+  "budgets": {
+    "training_head_rows": 705500000,
+    "diagnostic_torch_rows": 460740,
+    "ORT_calls": 601,
+    "native_steps": 0,
+    "BFM_calls": 0
+  },
+  "runtime": {
+    "python_path": "E:/codex_sonic_runtime/direct_target_gpu_20260911/venv/Scripts/python.exe",
+    "torch_version": "2.10.0+cu128",
+    "cuda_version": "12.8",
+    "numpy_version": "1.23.5",
+    "onnx_version": "1.22.0",
+    "onnxruntime_version": "1.23.2",
+    "verification_path": "E:/codex_sonic_runtime/direct_target_gpu_20260911/verification.json",
+    "verification_sha256": "671ca4c18c4da39a1538af7a1322180cc7ead9115b6bb93daf554a59a0689dcc",
+    "pass_field": "passed",
+    "identity_path": "E:/codex_sonic_runtime/direct_target_gpu_20260911/runtime_identity.json",
+    "identity_sha256": "b173e01f26921f895f3570eace50d655cc2f767df0c9c98142b5fcff0c0e55f2",
+    "device": "NVIDIA GeForce RTX 3070 Laptop GPU",
+    "deterministic_algorithms": true,
+    "TF32": false,
+    "AMP": false,
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8"
+  },
+  "automatic_retry": false,
+  "hardware_authorized": false,
+  "canonical_evaluation_authorized": false
+}

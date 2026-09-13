@@ -1,0 +1,9 @@
+Root selected one canonical ordinary-final 75000 simulation experiment after source, saved-outcome and concrete launch reviews pass. Requested lifecycle: 1569 controls, with a continuous separate 250-control hold only after full nominal success. No additional root permission is needed after those gates.
+
+Only learned native-target-clipped components change their next action feedback: inverse-normalize the applied position target using the existing teacher expression. Every unclipped float32 combined-action component stays bit-exact. The original BFM startup and terminal modes retain their raw actions, even if a BFM position target clips. The head, gains, defaults, joint limits, effort limits, physical model, reference, timing and existing strict native checks stay unchanged.
+
+Retain raw position proposal, raw combined action, applied normalized action, committed feedback action, native target clip mask and enabled feedback clip mask separately. The existing `action` field continues to mean the raw combined action; `feedback_action` is what enters `seed.previous_action`. No unqualified claim that this resolves the initial pre-clipping divergence is permitted.
+
+Reuse exactly the passed 75000 witness fa2dad8a24f43f577ec1120a86e41d7e76f6d09805cc0e637b14907c0a56e088, produced by head fb856003734acc0338586482968a7e31553a11826e549a8b486e0662e4934e81. No new witness, fit, expert query, filter, gain change, sweep, or hardware operation is selected.
+
+Mandatory comparison-only gates: actual original controls0..264 and all2650 native steps byte-exact; full state and integration at control265 exact; first altered prior at265 equals the component-selected applied inverse for control264; current actor lag-history remains unchanged at265 and receives that modified action at266. Nonclipped components must never be round-tripped to force a comparison. Failed gates preserve evidence and stop without retries.

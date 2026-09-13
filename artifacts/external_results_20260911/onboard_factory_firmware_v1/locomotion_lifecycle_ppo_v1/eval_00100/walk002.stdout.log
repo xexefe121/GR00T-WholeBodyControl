@@ -1,0 +1,83 @@
+{
+  "policy": "native_locomotion_full_body_conditioned",
+  "actor": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\onboard_factory_firmware_v1\\locomotion_lifecycle_ppo_v1\\actor_00100.onnx",
+  "clip": "walk002",
+  "simulation_seconds": 12.078000000000703,
+  "requested_seconds": 58.34,
+  "physical_complete": false,
+  "failure": {
+    "time": 12.078000000000703,
+    "reasons": [
+      "fall"
+    ],
+    "speed_ratio": 0.2932799064863596,
+    "range_excess": 0.0,
+    "effort_ratio": 0.4623127463793985,
+    "tilt": 1.200771002803354
+  },
+  "wall_seconds": 3.2042974999931175,
+  "max_speed_ratio": 0.8321331765379999,
+  "max_effort_ratio": 1.0,
+  "inference_ms_p50_p95_max": [
+    2.37865,
+    2.912445,
+    4.6295
+  ],
+  "future_reference_frames": 0,
+  "reference_velocity": "backward differences; current measured heading",
+  "absent_vendor_joints": null,
+  "independent_realtime": false,
+  "hardware_commands": false,
+  "clock_expected_time": "independent repeated addition of .002; tolerance unchanged at1e-10",
+  "command_delay_substeps": 0,
+  "command_delay_physics_seconds": 0.0,
+  "received_gait_phase": false,
+  "source": {
+    "passed": false,
+    "source_controls": 254,
+    "requested_source_controls": 667,
+    "root_p95_m": 1.8356167187002874,
+    "yaw_p95_deg": 25.11557774785894,
+    "hand_head_relative_p95_m": [
+      0.31713806997333216,
+      0.25458849727670496,
+      0.3259034118184921
+    ],
+    "foot_relative_p95_m": [
+      0.4756477068030371,
+      0.48362695347683116
+    ],
+    "leg_rmse_rad": 0.34219106053313675
+  },
+  "packet_report": {
+    "epoch": 0,
+    "received": 615,
+    "consumed": 615,
+    "ignored": 0,
+    "rejected": 0,
+    "final_received": false,
+    "full_source_consumed": false,
+    "fault": null,
+    "calibration": null
+  },
+  "controller_status": {
+    "mode": "source",
+    "epoch": 0,
+    "fault": null,
+    "explicit_rearm_required": false,
+    "future_reference_frames": 0,
+    "qualified": false,
+    "controller": "native_locomotion_full_body_conditioned",
+    "velocity_command": [
+      1.2,
+      1.0,
+      1.0945044723095838
+    ],
+    "motion_fraction": 1.0
+  },
+  "input_loss_control": null,
+  "automatic_rearm": false,
+  "fault_scenario_passed": false,
+  "passed": false
+}
+The device supports: i8sdot:0, fp16:0, i8mm: 0, sve2: 0, sme2: 0

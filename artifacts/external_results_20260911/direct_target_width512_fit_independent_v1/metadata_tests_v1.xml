@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="4" time="3.238" timestamp="2026-09-12T06:27:19.686082+10:00" hostname="MSI"><testcase classname="test_producer_metadata" name="test_request_expected_literals_match_frozen_protocol" time="0.013" /><testcase classname="test_producer_metadata" name="test_restoration_literal_schema_matches_actual_saver" time="0.002" /><testcase classname="test_producer_metadata" name="test_report_and_checkpoint_metadata_keys_exist_in_frozen_writer" time="0.023"><failure message="AssertionError: assert (27 &gt; 30)&#10; +  where 27 = len({'BFM_calls', 'additional_updates', 'all_frozen_inputs_unchanged', 'architecture', 'checkpoint_selection', 'condition', ...})">def test_report_and_checkpoint_metadata_keys_exist_in_frozen_writer():
+        producer=tree(PRODUCER/'train_response_balanced.py');audit=tree(BASE/'audit_saved_warm.py')
+        keys={name:{k.arg for k in assigned(producer,name).keywords} for name in ('checkpoint','report')}
+        required_report=set();required_checkpoint=set()
+        for n in ast.walk(audit):
+            if not isinstance(n,ast.For) or not isinstance(n.iter,ast.Call) or not isinstance(n.iter.func,ast.Attribute):continue
+            if not isinstance(n.iter.func.value,ast.Call) or not isinstance(n.iter.func.value.func,ast.Name) or n.iter.func.value.func.id!='dict':continue
+            strings=[v.value for v in ast.walk(n) if isinstance(v,ast.Constant) and isinstance(v.value,str)]
+            if '_report.' in strings or 'report_extra.' in strings:required_report.update(k.arg for k in n.iter.func.value.keywords)
+            if '_checkpoint.' in strings:required_checkpoint.update(k.arg for k in n.iter.func.value.keywords)
+&gt;       assert len(required_report)&gt;30 and len(required_checkpoint)&gt;12
+E       AssertionError: assert (27 &gt; 30)
+E        +  where 27 = len({'BFM_calls', 'additional_updates', 'all_frozen_inputs_unchanged', 'architecture', 'checkpoint_selection', 'condition', ...})
+
+test_producer_metadata.py:40: AssertionError</failure></testcase><testcase classname="test_producer_metadata" name="test_actual_initial_and_report_drift_metadata_no_extra_byte_gate" time="0.007" /></testsuite></testsuites>

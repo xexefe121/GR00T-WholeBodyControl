@@ -1,0 +1,121 @@
+{
+  "case": "bfm_walk003_arms_v3",
+  "settings": {
+    "dt": 0.02,
+    "enter_height": 0.012,
+    "exit_height": 0.02,
+    "enter_speed": 0.3,
+    "exit_speed": 0.4,
+    "height_sigma": 0.0075,
+    "support_speed_sigma": 0.12,
+    "velocity_observation_sigma": 0.025,
+    "acceleration_process_sigma": 0.2,
+    "bias_random_walk_sigma": 0.001,
+    "initial_velocity_sigma": 0.02,
+    "initial_accel_bias_sigma": 0.1,
+    "angular_acceleration_filter": 0.5
+  },
+  "metrics": {
+    "ideal": {
+      "duration_s": 31.38,
+      "xy_error_p95_m": 0.01822319805926885,
+      "xy_error_max_m": 0.019019484404237407,
+      "xy_error_final_m": 0.019019484404237407,
+      "xy_error_rmse_m": 0.011464904711382813,
+      "xy_velocity_rmse_m_s": 0.023214853106082598,
+      "inertial_only_xy_final_m": 2.1064758323472224,
+      "no_kinematic_update_fraction": 0.0,
+      "accel_bias_final_m_s2": [
+        0.004455848671396313,
+        -8.675399935228207e-05,
+        -0.0008424809150984792
+      ],
+      "actual_initial_velocity_m_s_for_scoring": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "selected_stance_violation_p95_m_s": 0.04787314187863588
+    },
+    "fixed_bias_noise": {
+      "duration_s": 31.38,
+      "xy_error_p95_m": 0.12027776006116288,
+      "xy_error_max_m": 0.12221635493357948,
+      "xy_error_final_m": 0.12048806582608673,
+      "xy_error_rmse_m": 0.0748313140587223,
+      "xy_velocity_rmse_m_s": 0.024289013403204673,
+      "inertial_only_xy_final_m": 6.196499172111457,
+      "no_kinematic_update_fraction": 0.0,
+      "accel_bias_final_m_s2": [
+        0.03205284729761234,
+        -0.011122183830016537,
+        0.018661971303302174
+      ],
+      "actual_initial_velocity_m_s_for_scoring": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "selected_stance_violation_p95_m_s": 0.04891026215240688
+    }
+  },
+  "synthetic_accelerometer": true,
+  "emulator_uses_recorded_ground_truth_linear_velocity": true,
+  "emulator_uses_root_position": false,
+  "acceleration_emulation": "central finite difference of 50Hz world root velocity; body specific force plus angular lever-arm acceleration",
+  "imu_offset_body_m": [
+    0.04525,
+    0.0,
+    -0.08339
+  ],
+  "gravity_world_m_s2": [
+    0.0,
+    0.0,
+    -9.81
+  ],
+  "estimator_inputs": [
+    "imu_quat_wxyz",
+    "joint_q",
+    "gyro_body",
+    "joint_dq",
+    "accel_specific_force_body"
+  ],
+  "estimator_root_position_input": false,
+  "estimator_root_velocity_input": false,
+  "initial_velocity_assumption_m_s": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "initial_xy": [
+    0.0,
+    0.0
+  ],
+  "timestamp_and_latency_emulation": false,
+  "physical_sensor_model_validated": false,
+  "noise_scenario": {
+    "seed": 260911,
+    "joint_q_noise_std_rad": 0.0005,
+    "joint_q_offset_std_rad": 0.003,
+    "joint_dq_noise_std_rad_s": 0.01,
+    "gyro_noise_std_rad_s": 0.003,
+    "gyro_bias_rad_s": [
+      0.001,
+      -0.001,
+      0.002
+    ],
+    "accel_noise_std_m_s2": 0.1,
+    "accel_bias_m_s2": [
+      0.03,
+      -0.02,
+      0.02
+    ],
+    "orientation_noise_std_deg": 0.1,
+    "yaw_drift_deg_s": 0.05
+  },
+  "controller_integration": false,
+  "estimator_qualified": false,
+  "source_trace_sha256": "377df2767122f1c0d1c52acca96f9570eeb4e7903b6556c11e84f5e6a4a7d25c",
+  "script_sha256": "8e76931b7e0d189854b5634a94fd8d677e9a3bc0b3562bdd80ce8bd91394548b",
+  "processing_s": 3.0816817000013543
+}

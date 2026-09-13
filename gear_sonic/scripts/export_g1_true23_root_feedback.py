@@ -13,7 +13,6 @@ import numpy as np
 import torch
 from torch import nn
 
-from gear_sonic.envs.mjlab.sonic_true23_causal_history import causal_history_profile_contract
 from gear_sonic.scripts.export_g1_true23_generalist import EncoderExport
 from gear_sonic.trl.mjlab.native23_root_feedback_actor import (
     ROOT_FEEDBACK_ARCHITECTURE,
@@ -24,6 +23,7 @@ from gear_sonic.trl.mjlab.native23_root_feedback_runner import CHECKPOINT_HEADER
 from gear_sonic.utils import g1_23dof_artifact as artifact
 from gear_sonic.utils.g1_23dof_contract import LOW_LATENCY_RELEASE_SHA256
 from gear_sonic.utils.g1_23dof_mjlab_training import validate_mjlab_training_lineage
+from gear_sonic.utils.g1_true23_buffered_reference import reference_profile_contract
 from gear_sonic.utils.g1_true23_root_feedback import root_feedback_contract
 
 
@@ -47,9 +47,18 @@ def validate_export_semantics(checkpoint):
     if checkpoint.get("lineage_sha256") != lineage["lineage_sha256"]:
         raise ValueError("root-feedback export lineage hash mismatch")
     resolved = lineage["materials"]["resolved_config"]["payload"]
-    if resolved.get("semantic_profile") != causal_history_profile_contract():
-        raise ValueError("root-feedback export requires exact causal SONIC semantic contract")
     generalist, feedback = resolved.get("native23_generalist"), resolved.get("native23_root_feedback")
+    if not isinstance(feedback, Mapping):
+        raise ValueError("root-feedback export requires training configuration")
+    if "ppo_auxiliary_objective" in feedback:
+        from gear_sonic.trl.mjlab.native23_projected_target_ppo import projection_objective_contract
+
+        objective = feedback["ppo_auxiliary_objective"]
+        if not isinstance(objective, Mapping) or objective != projection_objective_contract(objective.get("name")):
+            raise ValueError("root-feedback export has mismatched PPO auxiliary objective")
+    timing = feedback.get("reference_timing", "causal_history")
+    if resolved.get("semantic_profile") != reference_profile_contract(timing):
+        raise ValueError("root-feedback export requires exact executed SONIC semantic contract")
     if not isinstance(generalist, Mapping) or (
         generalist.get("source_checkpoint_sha256") != LOW_LATENCY_RELEASE_SHA256
         or generalist.get("encoder_and_fsq_frozen") is not True
@@ -57,14 +66,28 @@ def validate_export_semantics(checkpoint):
     ):
         raise ValueError("root-feedback export requires pinned frozen SONIC source lineage")
     if not isinstance(feedback, Mapping) or (
-        feedback.get("feature_contract") != root_feedback_contract()
+        feedback.get("feature_contract") != root_feedback_contract(timing)
         or feedback.get("architecture") != ROOT_FEEDBACK_ARCHITECTURE
         or feedback.get("deployment_ready") is not False
     ):
         raise ValueError("root-feedback export requires exact distinct root feature contract")
+    compatibility = feedback.get("release_compatibility")
+    if compatibility is not None:
+        from gear_sonic.utils.g1_true23_release_compatibility import validate_release_compatibility
+
+        validate_release_compatibility(compatibility)
+        if compatibility.get("reference_timing", "causal_history") != timing:
+            raise ValueError("release compatibility and executed reference timing differ")
+        if checkpoint["actor"]["contract"].get("release_compatibility") != compatibility:
+            raise ValueError("actor and executed training release compatibility differ")
+    elif checkpoint.get("actor", {}).get("contract", {}).get("release_compatibility") is not None:
+        raise ValueError("actor release compatibility lacks executed training evidence")
+    if timing != "causal_history" and compatibility is None:
+        raise ValueError("buffered reference requires explicit versioned release compatibility")
     return {
+        **({"release_compatibility": copy.deepcopy(compatibility)} if compatibility is not None else {}),
         "semantic_profile": copy.deepcopy(resolved["semantic_profile"]),
-        "root_feedback_contract": root_feedback_contract(),
+        "root_feedback_contract": root_feedback_contract(timing),
         "training_configuration": copy.deepcopy(generalist),
         "root_feedback_training_configuration": copy.deepcopy(feedback),
     }
@@ -164,6 +187,7 @@ def export_pair(*, checkpoint_path, warm_start_path, source_checkpoint_path, out
         23,
         warm_start_path=str(warm_start_path),
         source_checkpoint_path=str(source_checkpoint_path),
+        release_compatibility=semantics.get("release_compatibility"),
         std_min=exploration["std_min"],
         std_max=exploration["std_max"],
         distribution_cfg={
@@ -236,6 +260,11 @@ def export_pair(*, checkpoint_path, warm_start_path, source_checkpoint_path, out
         onnx.helper.set_model_props(
             graph,
             {
+                **(
+                    {"release_compatibility_sha256": semantics["release_compatibility"]["contract_sha256"]}
+                    if "release_compatibility" in semantics
+                    else {}
+                ),
                 "artifact_role": f"native23_root_feedback_diagnostic_{name}",
                 "deployment_ready": "false",
                 "hardware_authorized": "false",
@@ -243,7 +272,7 @@ def export_pair(*, checkpoint_path, warm_start_path, source_checkpoint_path, out
                 "actor_state_sha256": source["actor_state_sha256"],
                 "semantic_profile": semantics["semantic_profile"]["profile"],
                 "semantic_contract_sha256": semantics["semantic_profile"]["contract_sha256"],
-                "root_feedback_contract_sha256": root_feedback_contract()["contract_sha256"],
+                "root_feedback_contract_sha256": semantics["root_feedback_contract"]["contract_sha256"],
                 "architecture_initialization_profile": actor.reference_profile,
             },
         )

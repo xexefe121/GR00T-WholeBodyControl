@@ -1,0 +1,77 @@
+{
+  "clip": "walk002",
+  "sensor_noise": "ideal",
+  "completed": 100,
+  "requested": 100,
+  "available": 1417,
+  "failure": null,
+  "full_lifecycle_completed": false,
+  "source_metrics": null,
+  "odometry_metrics": {
+    "xy_error_p95_m": 0.0009023085581073732,
+    "xy_error_max_m": 0.0010968115462484452,
+    "xy_error_final_m": 0.0007557038056173452,
+    "no_kinematic_update_fraction": 0.0,
+    "sensor_samples": 1000,
+    "age_ms_p95": 2.0000000000000018
+  },
+  "range_excess_max": 0.0,
+  "effort_ratio_max": 0.4073754721513956,
+  "velocity_ratio_max": 0.1681171716800877,
+  "inference_ms_p95": 24.579649999941463,
+  "elapsed_seconds": 2.781849599996349,
+  "goal_horizon": 8,
+  "goal_buffer_ms": 140,
+  "reference_path": "C:\\Users\\camer\\sonic23_sim_artifacts\\internet_pico_20260909_v1\\walk002\\buffered_initial_lifecycle_v1\\lifecycle_reference.npz",
+  "position_gain": 1.0,
+  "yaw_gain": 2.0,
+  "arm_reference": true,
+  "residual_checkpoint": null,
+  "ground_truth_pose_feedback": false,
+  "root_xy_feedback_source": "causal IMU+joint kinematic estimator",
+  "sensor_contract": "native MuJoCo pelvis accelerometer and gyro at500Hz, quaternion/joint encoders paired pre-integration",
+  "finite_difference_ground_truth_acceleration": false,
+  "estimator_contract": {
+    "kind": "native23_imu_kinematic_odometry_candidate_v1",
+    "config": {
+      "enter_height_m": 0.012,
+      "exit_height_m": 0.02,
+      "enter_speed_m_s": 0.3,
+      "exit_speed_m_s": 0.4,
+      "height_sigma_m": 0.0075,
+      "support_speed_sigma_m_s": 0.12,
+      "velocity_observation_sigma_m_s": 0.025,
+      "acceleration_process_sigma_m_s2": 0.2,
+      "bias_random_walk_sigma": 0.001,
+      "initial_velocity_sigma_m_s": 0.02,
+      "initial_accel_bias_sigma_m_s2": 0.1,
+      "angular_acceleration_filter_tau_s": 0.02
+    },
+    "imu_offset_body_m": [
+      0.04525,
+      0.0,
+      -0.08339
+    ],
+    "measured_root_position_input": false,
+    "measured_root_velocity_input": false,
+    "actual_contact_force_input": false,
+    "initial_local_xy": [
+      0.0,
+      0.0
+    ],
+    "initial_velocity_assumption": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "initial_heading": "pelvis IMU yaw registration once",
+    "initialized_height": "lower modeled sole on flat floor",
+    "estimator_qualified": false,
+    "hardware_authorized": false
+  },
+  "perturbation_contract": null,
+  "noise_scope": "actor and estimator sensor packets; joint servo simulation retains its ideal internal feedback",
+  "model_path": "Z:\\codex\\GR00T-WholeBodyControl\\gear_sonic\\data\\robots\\g1\\g1_23dof_rev_1_0.xml",
+  "hardware_authorized": false,
+  "deployment_ready": false
+}

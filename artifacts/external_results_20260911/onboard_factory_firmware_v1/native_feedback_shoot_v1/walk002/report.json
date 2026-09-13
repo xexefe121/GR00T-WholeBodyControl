@@ -1,0 +1,82 @@
+{
+  "policy": "received_native23_factory_feedback_prediction",
+  "actor": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/onboard_factory_firmware_v1/locomotion_conditioned_ppo_v2/actor_00100.onnx",
+  "clip": "walk002",
+  "simulation_seconds": 7.561999999999389,
+  "requested_seconds": 58.34,
+  "physical_complete": false,
+  "complete_requested_lifecycle": false,
+  "failure": {
+    "time": 7.561999999999389,
+    "reasons": [
+      "native_joint_speed"
+    ],
+    "speed_ratio": 1.0003403062418676,
+    "range_excess": 0.0,
+    "effort_ratio": 0.5872970348858214,
+    "tilt": 0.4967294392158525
+  },
+  "source": {
+    "passed": false,
+    "source_controls": 29,
+    "requested_source_controls": 667,
+    "root_p95_m": 1.0332601002450899,
+    "yaw_p95_deg": 30.637212937984504,
+    "hand_head_relative_p95_m": [
+      0.14382632952420163,
+      0.2394179087191439,
+      0.23933475877897048
+    ],
+    "foot_relative_p95_m": [
+      0.28909396686357786,
+      0.2713429287000939
+    ],
+    "leg_rmse_rad": 0.3824170240710824
+  },
+  "quiet": {
+    "passed": false,
+    "values": {
+      "xy_p95": 1.5484018666250077,
+      "yaw_p95_deg": 76.25228684071809,
+      "root_speed_p95": 1.295008690313339,
+      "joint_speed_p95": 11.073096533959346,
+      "joint_speed_max": 28.084758266347333,
+      "tilt_max": 0.6704510408386009
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "max_speed_ratio": 1.0003403062418676,
+  "max_effort_ratio": 1.0,
+  "inference_ms_p50_p95_max": [
+    37.931039999999996,
+    69.57127799999999,
+    96.00255
+  ],
+  "wall_seconds": 17.414872109999806,
+  "future_reference_frames": 0,
+  "independent_realtime": false,
+  "hardware_commands": false,
+  "lookahead_steps": 200,
+  "lookahead_candidates": 8,
+  "reference_prediction": "constant velocity from current/past received poses; no recorded suffix",
+  "packet_report": {
+    "epoch": 0,
+    "received": 390,
+    "consumed": 390,
+    "ignored": 0,
+    "rejected": 0,
+    "final_received": false,
+    "full_source_consumed": false,
+    "fault": null,
+    "calibration": null
+  },
+  "passed": false,
+  "general_live_teleop_qualified": false
+}

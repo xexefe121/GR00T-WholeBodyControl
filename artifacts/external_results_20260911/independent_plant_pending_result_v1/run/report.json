@@ -1,0 +1,756 @@
+{
+  "kind": "recorded_command_process_clock_component",
+  "request_sha256": "bfa3e9364ca648c810260b39ee86d4480a20a69340c399978338871f655d1f3e",
+  "requested_controls": 1819,
+  "main_controls": 1569,
+  "hold_controls": 250,
+  "requested_native_steps": 18190,
+  "component_preliminary_pass": false,
+  "component_qualified": false,
+  "root_saved_audit_pending": true,
+  "online_policy_qualified": false,
+  "realtime_controller_qualified": false,
+  "model_calls": 0,
+  "optimizer_updates": 0,
+  "other_oracle_native_steps": 0,
+  "first_error": null,
+  "additional_errors": [],
+  "session": {
+    "foundation": {
+      "requested": 18190,
+      "attempted": 12663,
+      "returned": 12663,
+      "captured": 12663,
+      "verified": 12662,
+      "committed": 12663,
+      "unexecuted": 5527,
+      "current_debt": 5527,
+      "last_valid_clock_ns": 196223537170,
+      "clock_fault": null,
+      "max_debt": 10,
+      "cumulative_wake_debt": 113,
+      "deadline_misses": 40,
+      "first_deadline_failure": {
+        "index": 4800,
+        "nominal_end": 133227420673,
+        "actual_end": 133227446032,
+        "lateness_ns": 25359
+      },
+      "epoch_ns": 123625420673,
+      "failure": {
+        "reason": "STRICT_STEP_VIOLATION",
+        "physics": 12663,
+        "issue": "native_joint_bound"
+      },
+      "input_fault": {
+        "reason": "COMMAND_DEADLINE_MISSED",
+        "control": 1211,
+        "nominal_deadline": 147845420673
+      },
+      "history_entries": 1267,
+      "pending_publication": null,
+      "last_job_publication": {
+        "identity": {
+          "binding": {
+            "run": "query250-recorded-clock-pending-result-BUSY-v1",
+            "model_hash": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+            "reference_hash": "2d3b508e1b489499ece5cea8e88a885d9b94aeca82a6a0e8542bc39e690b8033",
+            "epoch": 3
+          },
+          "sequence": 1210,
+          "snapshot_control": 1210,
+          "snapshot_physics": 12100,
+          "activation": 1211,
+          "window_id": "recorded:1211:frame:1222:417418e216fdfd35bc6dc690921778b7001c92a3e9b5e5ae9829bfee40729721",
+          "input_digest": "716e0f69093dbd35500bfae49ff15cb4a39d1c99c9f4e6fc608b169b2e08ba08",
+          "history_digest": "2270fb0fadf0b4eb662ba9adf0064f7687a8ac2dccde46bf31704da4f26a83d8",
+          "schedule_digest": "9f872e5576350397e01728511f60d3cff7d898e644d407bd14c56fefb0cbcebe",
+          "created_ns": 147846835414,
+          "deadline_ns": 147845420673
+        },
+        "payload": "eyJhY3RpdmF0aW9uIjoxMjExLCJiaW5kaW5nIjp7ImVwb2NoIjozLCJtb2RlbF9oYXNoIjoiNzE3Y2M2ZjAxYTYxYmUyZmQxZTc5YmZmMjU3MTBiMzBkZTRkMDFkNWYxNDUxMWYwZjc2YWU0NTE2ODE5NGVlNCIsInJlZmVyZW5jZV9oYXNoIjoiMmQzYjUwOGUxYjQ4OTQ5OWVjZTVjZWE4ZTg4YTg4NWQ5Yjk0YWVjYTgyYTZhMGU4NTQyYmMzOWU2OTBiODAzMyIsInJ1biI6InF1ZXJ5MjUwLXJlY29yZGVkLWNsb2NrLXBlbmRpbmctcmVzdWx0LUJVU1ktdjEifSwiY3JlYXRlZF9ucyI6MTQ3ODQ2ODM1NDE0LCJkZWFkbGluZV9ucyI6MTQ3ODQ1NDIwNjczLCJoaXN0b3J5X2RpZ2VzdCI6IjIyNzBmYjBmYWRmMGI0ZWI2NjJiYTlhZGYwMDY0Zjc2ODdhOGFjMmRjY2RlNDZiZjMxNzA0ZGE0ZjI2YTgzZDgiLCJpbnB1dF9kaWdlc3QiOiI3MTZlMGY2OTA5M2RiZDM1NTAwYmZhZTQ5ZmYxNWNiNGEzOWQxYzk5YzlmNGU2ZmM2MDhiMTY5YjJlMDhiYTA4Iiwic2NoZWR1bGVfZGlnZXN0IjoiOWY4NzJlNTU3NjM1MDM5N2UwMTcyODUxMWY2MGQzY2ZmN2Q4OThlNjQ0ZDQwN2JkMTRjNTZmZWZiMGNiY2ViZSIsInNlcXVlbmNlIjoxMjEwLCJzbmFwc2hvdF9jb250cm9sIjoxMjEwLCJzbmFwc2hvdF9wYXlsb2FkIjoiZXlKaFkzUnBkbVZmWTI5dGJXRnVaQ0k2ZXlKamIyMXRZVzVrWDJsa0lqb2ljMkYyWldRNk1USXhNRG8zTWpGaE5EUmhPRGhpWVROak9HUXhZemxoTkRKak1qTmhZak5sWXpGa01HSXpPV0kxTWpsak56aGhZbUZoTlRSa1pqRTVaakEzWldKbU5XRTRPRFpoSWl3aWIzSnBaMmx1SWpvaWNtVmpiM0prWldRdGNYVmxjbmt5TlRBNk56SXhZVFEwWVRnNFltRXpZemhrTVdNNVlUUXlZekl6WVdJelpXTXhaREJpTXpsaU5USTVZemM0WVdKaFlUVTBaR1l4T1dZd04yVmlaalZoT0RnMllTSXNJbkpoZDE5aFkzUnBiMjRpT2lJMmNHbG1VSFIwT1dKcUsyVkNhV1VyVHpScVJIWnJaM1l3ZWpseU1FSm5MMEZoTkRKUWEwUk9WMkkzUkRGdlR6bEtjVE5yZG1SM2JUWk1NVk5MUVRRclFYUTNhWFpuUlVGcmNqVkhka1ozTDBKNFpWZDJNSEkzUjBWQ1ZtTmhWeTkyVGxGT2RqaG1VbkZ5T0hGeWVteEJSRXN3YWxGRWVFNVpNRUU5SWl3aWRHRnlaMlYwSWpvaU1WaDBVemt2YjA5bmVpOWFlRGczT0ZSMWFsVlFOVWx3WlhoalZqTmlZUzh3VWxCRWQxUk9RM2hVT1hZNFNWaEtWazFJWjFBeUwzZG9ZMnhWZDJSQkwyTkpOVkIwY1RSeWJ6Y3ZTVWRsYmswcmFHVjZkbmhvUWxGQmEwaEVTMHN2VGpZd0swNU1TM2d3UkN0M1J6RmlOWEZtWWxCMkwzRkNSVkV4YzB4TE9DOTZlV3R6TUZFeWFtOU1PRWRVVVd4VlJWRk1RWFk1U1hOcFVuWlJUVGxuTDJaaE9UWkxaRFV3TkV3cmQxSXJWMk5EVFdKM1VEUkxWbXhpUkU1Skswc3ZRVFIyYlZWQ1oyRjZOeXREWTBoblpIVmljbWwyTjBNMlUwWk1NbGN2VVM5c1JYWTJaMnBpZVRoVUszZDZMMGd5U0hWNk5GQjNQVDBpZlN3aWFHbHpkRzl5ZVY5aFpuUmxjaUk2VzFzaVlXTjBhVzl1Y3lJc0lqbE5VMXBRZERZMVlubzVOVzVFU3lzNWVVTTNkbXRuZGpCNk9YSXdRbWN2UkRkek1GQm9hVmhoVERkeEwwbFhPVFJYY2twMlZuQllRVXcyTlVkQ2R5dHFNVXhwZG10Tk0ycHlOVU01TVhjdldFZDVXWFl6WjNOSGEwSkdaMHRsTDJOd1JVNTJNRTVrY1hJNE1ETjZjRUZxTURocVVVbHhiMXBWUkZWQ2NtY3JjMlZXYmxBcmRFNVJOelphWVdGTEsxTkRMMVJRTW5aUlIwUTRPRmQzVVN0UFJsSTVkbkZrZUdkeU1VbDVaRk01TlVodlRYWjJhbUpLZWpWdFduVXlLMEpxTW1GMmRWRlhXRVFyWWxnMWNTOU5Ua0ZoVVVGMGNIRmlMMUJNWjJFdlVWUjVjWFo0WTFSUVJVTnNUWGxPUVdoUFRtNVJSVTVpYlVRMVZWRXhZeTk2TmxGcWRuWnhkWEZ5TlVsTU9VMHZZVGxCV1ZBeGQwZExlamRLWVcweUswbDBhVmgyVW1OTWNuSXpZalZTVXl0dFMwRjVVR2xTTnpkTU5rSldTallyTjFVMVpGQXdkMlp1VEN0V01HaDBRWGhFZVhKMk1rNXlRemM0WlZCTGFTOVVkREE0VVU5RFpVbHJRWEU1TW14QlFqTkxkRkJ6UzBaWVJEaEJlbXN5SzFCaVlWcDJhMmQyTUhvdlpXTkNZeTgyZFVsR1VIQjJUbGRNTkZCM1RHazVXbloyUVhaa1JsTkpjamRVYkhvd0sxQkxTSGgyYmpsSmNEYzFiRkJYVVM5UFJESmtkamRxVFVoRlJEZ3JObmt2WVhOclVYWTBaRGh3WWpodFprUXhRWGcyWjJoUlNHcHJZVEJCUFNKZExGc2lZbUZ6WlY5aGJtZGZkbVZzSWl3aWVHMHpkMDgxVTFoUFRIZGpSelJaTm1KSE5rTlBlbVJNVm1KM1YzbzNNalp2SzNWR2RUVlhjMDFpZDNOYWFTczFVRlJEYUhaTU5rNWhOM2RMYlVGcE55SmRMRnNpWkc5bVgzQnZjeUlzSWtKTU1sSlFWaXRLZDNwNk9YcGlPRGh1YjJONWRtMHhlV2xVTTA5QlZYYzRRVEpXZFZCamJWQnBZak5DYld4VE9XYzFWVlYyV2pCdVpVd3daV0kxY3psQlZFVkJkbGRNUlcxaU0wUmtjVEFyY0RSblRIWXZNbEJxUkRoMVEyaGxMMGN4TURoMmMwcFVNMkkwYlZoaFl5ODRRWEZPVURkWVNYcFVMMVZsTkRRNWNHRmhlRkJOTDJkMmFubHFOR3BESzBwb1pVaFFWRVZxWWxSNGNtbEhPRGxoU1U5UmRsVkxRbGRNTVZrdloyVTVjMFJsUlhaWGNFTnZhakU0Y1ZGTE9VZEVjV1IyWWpSV2NsUTNlVUozTWk5aVZtbE9VRE41VWtkTU9UTTJlbTByV0ZGUVpIWnJNRkZ4UkN0MU5sbDNMMUpYYWxCUWQxRTBha1F3UWpWeFNUaHRNSEU1VUVoR1prMU1OVEUwYjFVNWVqbDBNMUJETmtOalJERjVSbkJsT1ZJME1XTjJablJPT1RkNGIwSTBlVGwxTm5sdVVGbEJNVUp5TW5abGNVTTVRVFJEYzFCb2RITkVjamd4U0VrMEx5dG5hMkYyTWtrclRqYzNUSFowZVN0T1N6SnZVREJpVm1wRU9GUTJUa0V2YWtWeFRGQmFaMmhyYW5kd2VHSjNPSFJHYzNoMmNsRXdhR295THpJeVZUaFlZWGgyVUdGSGNXNXlNR2d5UmlzNU9HbHFaSFpHV1Rkck56TTFiMHR6T1dkek1FdDJWa2hIYnpjeVUyMXhjeXQwTjBsUWRqaHlXR3BxT1U5a2FIVXZaR0Z2TUhacE1tWXpURGREVG1GckwxZzVUMDFRZWpsSk1HbzRQU0pkTEZzaVpHOW1YM1psYkNJc0lrUXpVMlpRVWxWTE9WUXhXVVpxVnpaRWMwOHJkbVE1VVdsVU0yUkpaakk1WWpKNE9YWkdhVWhOVkRVemFVRkJPWFJYT0ZOMmJGQlVUbW8xV2xsQ2NTdE5Ta1JPVUVaNVoyOUVNMHA1ZDBVNVpFaFRTMUJyUlcxc2NqZDZaa2xuSzBoRWNqTjJWMHcxUkRjeFlXUTBTeXRoYlVKWVVGZDFMMFZpSzIxWVdVVTVRekIxTkZCWmVYUnRlbk5JWmxKWE9XWkhjMDFRVXpaQ1oySXdTelp4YlRoUWRrbFpVR2M0SzBwRU1WbDNhRXNyWkUxVmRsQjJUSGM1Y2pJeFRpdFZPR2RKVjJGUVl5OUZVV293YkZKSlFTdHpOMjFUZG5CT1NXZDZORFpqWjJrclpIRjNTblppUjFWYWNqVjROMUpuT1d0eVRVZDJNbmM0ZW1wNllVNUxORGx6VWxONlQydElVV3A2ZW1OR1J6QTRiV1o1VjFCR1UweG9jblowUm1sbkszQXJRVkpRVjI5MlJVdzNOMk5wVlN0SGJuVTBkbGxHZEU5cU1XczRiMk01WjFSRFZsQlVTa3hpVkRVeE1UUXlLMUIyU2psUVp6VjJSSEkyUkhSTU1qaG1NRkpKZG1oaWIxTjZlVVZZTDJVckwzVlVSazlVV21rcmVqTmtaekJYT0ZoNk16RlFaR2htVjNJeVpFdGtUVGxYY21kRFVGaFdWRlpFTm0xTVRrMDRVM2ROTlhaMU9EUkZWRGQ2TmxWNU9URnJXa3BRWlZaWWRFUXpXRmRQV1RsRGVFcGFVSFJqYUdsaU5Xc3dibGtyU2xKRUszWldaMmxUY25GWlpsTnRLMkZRZVU1MlJpdHpOR0kwUFNKZExGc2ljSEp2YW1WamRHVmtYMmR5WVhacGRIa2lMQ0oxVlRSblVHWXdWV1pVZWpONFdDc3ZiakZuYTFCVFkyeG5hbnA2ZDI0ckwxVkhRVzlRWm1oR1oycDRVSGRJS3k4MldHTnpVRk13TUdScWVEVjJiaXN2SWwxZExDSm9hWE4wYjNKNVgySmxabTl5WlNJNlcxc2lZV04wYVc5dWN5SXNJakZCWVRSUWNraHNXbm92Y2xSVlR5dHRWMjFwZG10bmRqQjZPWEl3UW1jdlVFWnpSVkJxYUZWbVlqWnVZMWxMT1ZOTmJsVjJaVkkyUkV3M05ESjVZeXRhYldKMGRtZFpPVzF5TjJ0R2JIY3ZiVEVyWVhaNlJGRkhhMEZNWVdGdEwzcDVORWQyTUVVNGNYSTRXRVY2ZUVGd1ZFMXFVVWxVYWxvd1FrUlhOV2NyVmtWT1dGQTRLMnRKTnpjMmNuRnhLMU5ETDFSUU1uWlJSMFE1WTBKcGN5dDVWM0IwZG1sTVdXdzNNRmhETmpZNU1pdFZWWFp3YVdkTmFqUnJaU3Q1SzJkV1UyVjJkVEZQV0ZRNVRVZzFlUzlzWkVsaVVVMVJPSEUzT1dwaGQzVXZTR3A1YjNZd04yUlFSVVJuYm1sS1FVdDJaSEJSUVdSNWNsUTNRMmhXZHk5QlRUVk9kbW95TW0xaU5VbE1PVTB2TTI1QldGQXJjbWxDVkRaaWVsWnBLMFE0UXpSMlYySTNkMHd6VWxWcFN5c3dOV001VUdwNWFEaGlOUzlUUzJVcldsUXhhMUI2WnpsdVlpczBla0o0UVM5UWRYTjJNbkpLUlV3clNHWkxWeTlLYm5jNVVVMWxiMGxWUWpRMVIzUkJOSG95TWxCdU1qZFpSRGhRWVZSTEswYzNOVFIyYTJkMk1IbzVNR3BvWnk5SWRHY3JVR2h0TkdWTU5XMUxOMHM1TmxSd2NYWlZiMkpMWWpZNE9HdFpLek5VWWpCMmRHbDZjRXczWlRoSFZTOWFNMHRsZGpCeGMwaFZRWFp5TmpZdlJFRkpWM1o1Y1hsd1RDOWlNV294UVZaM1oyaFJSRFozWWxWQlBTSmRMRnNpWW1GelpWOWhibWRmZG1Wc0lpd2lZa2MyUTA5NlpFeFdZbmRYZWpjeU5tOHJkVVoxTlZkelRXSjNjMXBwS3pWUVZFTm9ka3cyVG1FM2QwdHRRV2szVm1VdlZYWklhbVZxY25vMVZubzJOeUpkTEZzaVpHOW1YM0J2Y3lJc0lqRklkVTlRWVZkdGMxUjZVRFJNTkRodkswbDNkbWxaV0doNk1IaEpNakE0WVRSb2RsQlhhVVJyVERGRFoxWnBPVmRRTkVoMllrRXphRXd4Y1ZGeFNUbG1TMnREZGxKbk5tNWlNaXRHWVRBck9HZGpUbll5TVZscVZEazRhMUpwTDJRcmN6VjJiREJFTTJJMVRrVkxaeTl5ZFcxTlVEQldiM3A2T0VWUFNYYzVRV1ZoYVZCS2RFdDJWSGg0V0hwREsyUmxTMFpRWXk5aVpIcDNkV2R1UVRsamFHRllkbFZsVGxoTU16ZFVabVU0WVVGbFRYWmlkWE53ZWpKQlRsRmhPWEl6Y1dkMlVVOUJja1EwWW1KQk5pOU9VbmxQVUM5dlNrZHlPV2xRYW1VcmVUYzNZM1pxVTNSeFJEbEhNVmwzTDBVcmFsRlFOSGhMYVhveVdVbGFTVGhMWTFjNFVFeFNZazFpTmpCT1NWazVkamwwYkZCR01uTmllakpvY1hBMk9VbGthR1oyWmtsdk0ySjRWMDgxVHprcllVTnlVRmxNVGtOeU1WSjRjVTg1YTNCeGNsQnlaWGxFTnk5TE1UUTBMMVJ1V1dKMk0xZHhUa3cwZEc0NWVTdDNhbGR3VURFdlZHcEVPQzlUVGtrdlR6VjFURkJsTTFwbVZIZHNkMkozT0RVM2R6QjJaMjVrYVZReFZVTlRkemhXVVhSeVVGRlhVbkJ5TVRkeVIwODVkbWhITDNaSk1uVnRZakYyZG5Fd09XdDNUVkYyVlhjemNVd3hWMm8yYnl0RVpHOVJkakJIVG1wNk9VVXlRbmt2Y1hGM2VYWnlSalV6VERkbWNEWnJMeTkxUzAxUWVVZEtNSG80UFNKZExGc2laRzltWDNabGJDSXNJbkJzTWtKUVVYUk1kVVF5VFhKYWN6ZENNekJXZGxoNGNrUkVNSFZuV1VjNVEzVnhjSFpFTjNsSFJEUlFVR2xST1ZkTlNWTjJibFJHVEhvM2VUaFFZVGwwVkdac1VFbERSbTFxTTFCNFJVazVTbFZUUVZCeVR6VnJjalpVVTBsTkswOXVTVWwyYm1GelEySXllR3hIWVN0alpUQlpVRnBMZWtKeU9YTlFUVFE0TW1wVGRWQmlSVlZ6ZW5CQ01FazRPRE5DVW5SUVNtNDRiR3A0VldrMFlUYzNVbGx2VUhGbVowVlVNWEZNZUVNckt6TkpiRkJvY0RkMVRESkNZbFJ2T1ZwUVMwaFFXVVYzYkZRd2VWTXlNQ3RrWkdWT2RtbzNlV1pVTkU5aWR6WXJaemRUT1haSU9VVlRURFJYTmtWek9HaEdMek4yZGpkcmVGUnJNbGwyY3preldVNUdka1k0T1RsVU0xbFlNWEU1YmxOdVZGQldjVFJCYWpFeFZURlJLM0JwZWxSUVJYTkVUMkkzZGs5Q1JTczRLMnhOZG1SYVIxTlVNMnhXTjFFNU1URnFiVkJSYzFOWFZEZFlTVmx0SzFwT1NqSlFhVlZSTDNJeFdVbHJjVFp0U0RCd2RtMXFPR3BpZUdaeVQwY3JkRkpCTW5aWFVqRXdhakJVYm01ek5tRk9VMGRRYnpCelNISTJkMnRKT0N0NmVFZHRVRmxvWVVkNk5tUkJjbU00TDJSWlpYWm9iV0UzUkRGMlRrNVZOa05UVG05UVpqWlRLMFF6UTFsTVdUbG5OVlpFVUdvMGEyZHlOMkkxYlRnclJsTXlhSFpUT1dOS2NqRmlZa0ZoS3pWYU9EbDJVM0JTZVRjMFBTSmRMRnNpY0hKdmFtVmpkR1ZrWDJkeVlYWnBkSGtpTENKdU1XZHJVRk5qYkdkcWVucDNiaXN2VlVkQmIxQm1hRVpuYW5oUWQwZ3JMelpZWTNOUVV6QXdaR3A0TlhadUt5OVpjbWQ0VUZsamFGZEVlVlIyU0NzdklsMWRMQ0pwYm1OdmJXbHVaMTl5WVhjaU9pSTVUVk5hVUhRMk5XSjZPVFZ1UkVzck9YbEROM1pyWjNZd2VqbHlNRUpuTDBRM2N6QlFhR2xZWVV3M2NTOUpWemswVjNKS2RsWndXRUZNTmpWSFFuY3JhakZNYVhaclRUTnFjalZET1RGM0wxaEhlVmwyTTJkelIydENSbWRMWlM5amNFVk9kakJPWkhGeU9EQXplbkJCYWpBNGFsRkpjVzlhVlVFOUlpd2ljM1JoZEdVaU9pSmhha0Y2VFhwTmVrOUZSRGRXU2tGSVkyWnpRM2RQVGtadllYYzJUVUppUVdoa05XaEpRMEpKTmxRNFlpOVJZMVIxUzNwalVERk1jbGRTZVRsMmIzY3ZjVkpNYUVGelZVNXJSQzk1ZEVNM1NYVktibk4yTTFsdVlYcHlhMmcxTWk5Q2EzQlpObE4wZUcxRU9GUnhTMDlsZGk5dFdGQXZkR2RFWVRWNVJtTkJMekJFUW0xNE0wbERkMkk0TjJKQkwwaFBXVU5LVUM5MFFrRTRObE5hY1ZjdldqWkViRXhtYTNoellpdFBOV0ZCZEZkS1QzRjJNVGRUVFdsaVpEUk9RUzloVkhsMFVESjFkREJNSzJVekwwaEZOREl5ZWxCNllVMW9RMEZuUW5GREwyOW1jRmxTV1hjMGN6Y3ZiM016ZEdjeVN6ZFdVRGRTZUV4T1RWVmpaVWN2UW5wWlNYSlFLMUk0VkN0dk1tbHFRMUpsU0dsMk9HOVhLMGNyYW1rNFpTOVlRWGhyVFc1cGNUSTNMMWx1WW5aRWNFOTJNRkIzV1Vsd0wwcGtiMlpGTDJsWFIwVnZlR0UxSzFRdlJXWlVOVTFrVTBONGRqazBRMDltU1ZORk4wRXZXVVpVVGxkbFNrTldjaTgwTjBoTVFuVkJNbVZRZHpOWVRXNTJlVVZ4WlM5RWJuSk5aREpRUkdORU9VSmhOek5rWjJVMmVsQTVhU3RuU2xaRGIySTBMMkZCVm00NU9IRnBVbkk0VjBOTlRFMVpaR2t6ZGpScmNWbE9TV0pMY2tVdmFtZzBhM0ZVZFd0Mk56bHlaMDlVY0dwaE1sQjJlVGRuUmxFdmNrMU5XUzgzVUhWRk1HYzBVbTlFS3l0MWMwOVlPV3N6UTNaNlFsZDZiWGh4TW5OWkwyUlFWRE5KUVhSTmR6Y3JNR1prY25kQ1lrdGFVSGxNTkdaSmIweEdURkV2WjA1R04wcElhelZ2UkRsNWQwaENPV3ByTjFKUUwxTmxiRUl6U1hoT1N5OWFTRXhwVmtvMFVEQlVLMWRUVmtkQlVTdGxLM1lyT1ZNME1EQnpMelpITDBOSk1WTk5aWFJQTUV3NUszRmxOVXhFWlhseFVDdGtPVzFYZW5ST0swc3ZUMmhCU0hkcGNrTTRUQ3RMWm5oc0wxcEtOM1JRTjNSbmFXVXJlSFppYVM5TGNEbHlTVEUwZFRkcU9FZEZVbFJwYzFCbVoxQXpWbE50ZW1Oc2VTOUpMMU16TTJoemJEQXZOMkl2V2pGRFp6aEVVbkp4VURJeGQwcFBUMnRtVUU4dlUxZEVkbEpVYVdJd1RDdEdTRXh4ZW5aclptcFFMemRoTUhCNmJGSkJSRUZ2YVhkT2JrVkpVekZpTDFGeVEwdGthaXMzVEhZMWMyTTFWWFJhU25kVVFWaE9WU3R3UlVKc0wxUXJiMkpSYlZKc1pUUkpkME5MU0hCblpqbDJkMUpCTTNCSFNYUmhTSGM0VEM5WGNXSnBTbVJzUkRCMk5GTm5iWEZSWkhsbFV5OHdSM05uTW1nMU4wVk5Rbmt2ZUZaS1ExRkpTVkZCWm1KalFscG5jMEpJUVhVeE5EQnVlbGNyTTB3cldrNU9aV05QVGt4dmRqVkRaVmMxUVVoWFozaEJjR2N3Y213eFNtbDZjams1YmtKUGQxUnpkMmxSVG14TE1IcFhSMHhSWkVGcEswbGtiVWRrTUZCVlFXSTFZbU55V2xORlZIZEZTblI0ZW5kT2EyaFNRV2ROZEdwMVZsZFpUV3RFTjBGb1JHUk1WVkZrVVVSd1RIQkxVMjlNVGpBdlZrNVdkWFpUUW10QmMwTTFNa0ZYYzBzNFptaFFOWGR1TUhnd2FrMVFSUzlxU0dobU9HaHpabmhpT1hkak5VRjJSMElyVWxBd1VsbHhZVGRCVHpreUwxUnViMVl3WlRaWU5UY3JkblZGVTNBMlZGQm9VREJCY1dSMU1HMWhURkV2V1ZJdloxVXJWV1l4WWl0QmRHdFBRVzkyTmt0MmVGbHJTbkJ1ZGxkUFpTOU1XVzE1T1dSelNFRmpRbGxhZGpGcVF6WnFSSFk0TmpkSlRFRmFaVTFyTDNsQ1ZEZEdjM0ZZYjFRNFFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFTSXNJblJsY20xeklqcGJXeUpoWTNScGIyNXpJaXdpT1UxVFdsQjBOalZpZWprMWJrUkxLemw1UXpkMmEyZDJNSG81Y2pCQ1p5OUVOM013VUdocFdHRk1OM0V2U1ZjNU5GZHlTblpXY0ZoQlREWTFSMEozSzJveFRHbDJhMDB6YW5JMVF6a3hkeTlZUjNsWmRqTm5jMGRyUWtablMyVXZZM0JGVG5Zd1RtUnhjamd3TTNwd1FXb3dPR3BSU1hGdldsVkJQU0pkTEZzaVltRnpaVjloYm1kZmRtVnNJaXdpZUcwemQwODFVMWhQVEhkalJ6UlpOaUpkTEZzaVpHOW1YM0J2Y3lJc0lrSk1NbEpRVml0S2QzcDZPWHBpT0RodWIyTjVkbTB4ZVdsVU0wOUJWWGM0UVRKV2RWQmpiVkJwWWpOQ2JXeFRPV2MxVlZWMldqQnVaVXd3WldJMWN6bEJWRVZCZGxkTVJXMWlNMFJrY1RBcmNEUm5USFl2TWxCcVJEaDFRMmhsTDBjeE1EaDJjMHBVTTJJMGJWaGhZeTg0UVhGT1VEZFlTWHBVT0QwaVhTeGJJbVJ2Wmw5MlpXd2lMQ0pFTTFObVVGSlZTemxVTVZsR2FsYzJSSE5QSzNaa09WRnBWRE5rU1dZeU9XSXllRGwyUm1sSVRWUTFNMmxCUVRsMFZ6aFRkbXhRVkU1cU5WcFpRbkVyVFVwRVRsQkdlV2R2UkROS2VYZEZPV1JJVTB0UWEwVnRiSEkzZW1aSlp5dElSSEl6ZGxkTU5VUTNNV0ZrTkVzcllXMUNXRkJYZFM5RllqZzlJbDBzV3lKd2NtOXFaV04wWldSZlozSmhkbWwwZVNJc0luVlZOR2RRWmpCVlpsUjZNM2hZS3k4aVhWMTkiLCJzbmFwc2hvdF9waHlzaWNzIjoxMjEwMCwid2luZG93X2lkIjoicmVjb3JkZWQ6MTIxMTpmcmFtZToxMjIyOjQxNzQxOGUyMTZmZGZkMzViYzZkYzY5MDkyMTc3OGI3MDAxYzkyYTNlOWI1ZTVhZTk4MjliZmVlNDA3Mjk3MjEifQ==",
+        "deadline_ns": 147845420673,
+        "attempts": 1,
+        "last_attempt_index": 12100,
+        "last_status": "PUBLISHED",
+        "event_recorded": true,
+        "retry_checked_ns": null
+      },
+      "job_publication_attempted": 1212,
+      "job_publication_returned": 1212,
+      "job_publication_events": 1212,
+      "pending_expirations": 0,
+      "timing_passed": false,
+      "physical_qualification": false,
+      "real_process_timing_qualified": false
+    },
+    "commands": {
+      "recorded_controls": 1267,
+      "requested_controls": 1819,
+      "mismatch_controls": [
+        1211,
+        1212,
+        1213,
+        1214,
+        1215,
+        1216,
+        1217,
+        1218,
+        1219,
+        1220,
+        1221,
+        1222,
+        1223,
+        1224,
+        1225,
+        1226,
+        1227,
+        1228,
+        1229,
+        1230,
+        1231,
+        1232,
+        1233,
+        1234,
+        1235,
+        1236,
+        1237,
+        1238,
+        1239,
+        1240,
+        1241,
+        1242,
+        1243,
+        1244,
+        1245,
+        1246,
+        1247,
+        1248,
+        1249,
+        1250,
+        1251,
+        1252,
+        1253,
+        1254,
+        1255,
+        1256,
+        1257,
+        1258,
+        1259,
+        1260,
+        1261,
+        1262,
+        1263,
+        1264,
+        1265,
+        1266
+      ],
+      "command_coverage_exact": false,
+      "held_controls": [
+        1211,
+        1212,
+        1213,
+        1214,
+        1215,
+        1216,
+        1217,
+        1218,
+        1219,
+        1220,
+        1221,
+        1222,
+        1223,
+        1224,
+        1225,
+        1226,
+        1227,
+        1228,
+        1229,
+        1230,
+        1231,
+        1232,
+        1233,
+        1234,
+        1235,
+        1236,
+        1237,
+        1238,
+        1239,
+        1240,
+        1241,
+        1242,
+        1243,
+        1244,
+        1245,
+        1246,
+        1247,
+        1248,
+        1249,
+        1250,
+        1251,
+        1252,
+        1253,
+        1254,
+        1255,
+        1256,
+        1257,
+        1258,
+        1259,
+        1260,
+        1261,
+        1262,
+        1263,
+        1264,
+        1265,
+        1266
+      ]
+    },
+    "stepper": {
+      "attempted": 12663,
+      "returned": 12663,
+      "capture_attempts": 12663,
+      "captured": 12663,
+      "verification_attempts": 12663,
+      "verified": 12662,
+      "expected_time": 25.325999999996842,
+      "initial_time": 0.0,
+      "initialized": true,
+      "mutation_uncertain": false,
+      "stage": "STEP_VERIFY",
+      "closed": true,
+      "model_identity": {
+        "expected_sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+        "entry_verified": true,
+        "exit_verified": true,
+        "checks": [
+          {
+            "phase": "entry",
+            "passed": true,
+            "serialization_attempted_before": 0,
+            "serialization_returned_before": 0,
+            "actual_sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+            "serialization_attempted_after": 2,
+            "serialization_returned_after": 2
+          },
+          {
+            "phase": "exit",
+            "passed": true,
+            "serialization_attempted_before": 2,
+            "serialization_returned_before": 2,
+            "actual_sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+            "serialization_attempted_after": 4,
+            "serialization_returned_after": 4
+          }
+        ],
+        "serialization_attempted": 4,
+        "serialization_returned": 4,
+        "process_global_identity_proven": false,
+        "portable_cross_platform_identity": false
+      }
+    },
+    "outer_deadline_miss_indices": [
+      4800,
+      5000,
+      5090,
+      5452,
+      5603,
+      5604,
+      5605,
+      5606,
+      5607,
+      5608,
+      5609,
+      5610,
+      5611,
+      6099,
+      6100,
+      6101,
+      6102,
+      6103,
+      7140,
+      9600,
+      10020,
+      11580,
+      11600,
+      12050,
+      12099,
+      12100,
+      12101,
+      12102,
+      12103,
+      12104,
+      12105,
+      12106,
+      12107,
+      12108,
+      12109,
+      12110,
+      12111,
+      12112,
+      12113,
+      12114
+    ],
+    "application_vs_native_counters_equal": true,
+    "driver_failure": null,
+    "component_preliminary_pass": false,
+    "postrun_model_identity_pass": true,
+    "independent_saved_trace_acceptance_pending": true,
+    "component_qualified": false,
+    "online_policy_qualified": false,
+    "real_time_controller_qualified": false,
+    "main_controls": 1569,
+    "hold_controls": 250
+  },
+  "api_counters": {
+    "step_budget": 18190,
+    "step_attempted": 12663,
+    "step_returned": 12663,
+    "serialization_budget": 4,
+    "serialization_attempted": 4,
+    "serialization_returned": 4,
+    "denied_step_calls": 0,
+    "denied_serialization_calls": 0,
+    "serialization_records": [
+      {
+        "index": 0,
+        "native_returned": true,
+        "file": "00.mjb",
+        "sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+        "bytes": 95115288,
+        "dtype": "|u1",
+        "shape": [
+          95115288
+        ]
+      },
+      {
+        "index": 1,
+        "native_returned": true,
+        "file": "01.mjb",
+        "sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+        "bytes": 95115288,
+        "dtype": "|u1",
+        "shape": [
+          95115288
+        ]
+      },
+      {
+        "index": 2,
+        "native_returned": true,
+        "file": "02.mjb",
+        "sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+        "bytes": 95115288,
+        "dtype": "|u1",
+        "shape": [
+          95115288
+        ]
+      },
+      {
+        "index": 3,
+        "native_returned": true,
+        "file": "03.mjb",
+        "sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+        "bytes": 95115288,
+        "dtype": "|u1",
+        "shape": [
+          95115288
+        ]
+      }
+    ]
+  },
+  "worker_pass": false,
+  "worker_cleanup": {
+    "pid": 470,
+    "exitcode": 0,
+    "terminated": false,
+    "normal_exit": true
+  },
+  "worker_pid": 470,
+  "worker_failure": {
+    "type": "WorkerResultFailure",
+    "detail": "EXPIRED_BEFORE_REPLY"
+  },
+  "worker_report_present": true,
+  "worker_lifecycle": [
+    {
+      "event": "STARTED",
+      "pid": 470,
+      "start_ns": 122450543138,
+      "returned_ns": 123404812807
+    },
+    {
+      "event": "READY",
+      "pid": 470,
+      "observed_ns": 123420634846
+    },
+    {
+      "event": "STOPPED",
+      "pid": 470,
+      "alive": false,
+      "exitcode": 0,
+      "terminated": false,
+      "stop_requested_ns": 148955338887,
+      "cleanup_finished_ns": 148960778755
+    }
+  ],
+  "epoch_chosen_ns": 123425420673,
+  "epoch_ns": 123625420673,
+  "setup_finished_ns": 123431557941,
+  "epoch_rebased": false,
+  "exit_model_identity": {
+    "phase": "exit",
+    "passed": true,
+    "serialization_attempted_before": 2,
+    "serialization_returned_before": 2,
+    "actual_sha256": "717cc6f01a61be2fd1e79bff25710b30de4d01d5f14511f0f76ae45168194ee4",
+    "serialization_attempted_after": 4,
+    "serialization_returned_after": 4
+  },
+  "model_exit_attempted": true,
+  "all_four_MJB_exact": true,
+  "schema": {
+    "arrays": {
+      "packed_capture": {
+        "shape": [
+          12663,
+          373
+        ],
+        "dtype": "<f8"
+      },
+      "step_integration": {
+        "shape": [
+          12663,
+          291
+        ],
+        "dtype": "<f8"
+      },
+      "step_qpos": {
+        "shape": [
+          12663,
+          30
+        ],
+        "dtype": "<f8"
+      },
+      "step_qvel": {
+        "shape": [
+          12663,
+          29
+        ],
+        "dtype": "<f8"
+      },
+      "step_actuator_force": {
+        "shape": [
+          12663,
+          23
+        ],
+        "dtype": "<f8"
+      },
+      "step_command": {
+        "shape": [
+          12663,
+          23
+        ],
+        "dtype": "<f8"
+      },
+      "step_target": {
+        "shape": [
+          12663,
+          23
+        ],
+        "dtype": "<f8"
+      },
+      "step_raw_action": {
+        "shape": [
+          12663,
+          23
+        ],
+        "dtype": "<f4"
+      },
+      "step_warning_counts": {
+        "shape": [
+          12663,
+          8
+        ],
+        "dtype": "<i4"
+      },
+      "step_warning_lastinfo": {
+        "shape": [
+          12663,
+          8
+        ],
+        "dtype": "<i4"
+      },
+      "control_integration": {
+        "shape": [
+          1267,
+          291
+        ],
+        "dtype": "<f8"
+      },
+      "control_incoming_raw": {
+        "shape": [
+          1267,
+          23
+        ],
+        "dtype": "<f4"
+      },
+      "control_flat_history_before": {
+        "shape": [
+          1267,
+          300
+        ],
+        "dtype": "<f4"
+      },
+      "step_index": {
+        "shape": [
+          12663
+        ],
+        "dtype": "<i8"
+      },
+      "step_nominal_start": {
+        "shape": [
+          12663
+        ],
+        "dtype": "<i8"
+      },
+      "step_nominal_end": {
+        "shape": [
+          12663
+        ],
+        "dtype": "<i8"
+      },
+      "step_actual_start": {
+        "shape": [
+          12663
+        ],
+        "dtype": "<i8"
+      },
+      "step_actual_end": {
+        "shape": [
+          12663
+        ],
+        "dtype": "<i8"
+      },
+      "step_wake_lateness_ns": {
+        "shape": [
+          12663
+        ],
+        "dtype": "<i8"
+      },
+      "step_finish_lateness_ns": {
+        "shape": [
+          12663
+        ],
+        "dtype": "<i8"
+      },
+      "step_wake_debt": {
+        "shape": [
+          12663
+        ],
+        "dtype": "<i8"
+      },
+      "step_expected_simulation_time": {
+        "shape": [
+          12663
+        ],
+        "dtype": "<f8"
+      },
+      "step_verified": {
+        "shape": [
+          12663
+        ],
+        "dtype": "|b1"
+      },
+      "control_control": {
+        "shape": [
+          1267
+        ],
+        "dtype": "<i8"
+      },
+      "control_physics": {
+        "shape": [
+          1267
+        ],
+        "dtype": "<i8"
+      },
+      "control_nominal_activation_ns": {
+        "shape": [
+          1267
+        ],
+        "dtype": "<i8"
+      },
+      "control_actual_activation_ns": {
+        "shape": [
+          1267
+        ],
+        "dtype": "<i8"
+      },
+      "control_admitted_ns": {
+        "shape": [
+          1267
+        ],
+        "dtype": "<i8"
+      },
+      "control_held": {
+        "shape": [
+          1267
+        ],
+        "dtype": "|b1"
+      },
+      "control_nominal_source_frame": {
+        "shape": [
+          1267
+        ],
+        "dtype": "<i8"
+      },
+      "control_active_source_frame": {
+        "shape": [
+          1267
+        ],
+        "dtype": "<i8"
+      },
+      "control_target": {
+        "shape": [
+          1267,
+          23
+        ],
+        "dtype": "<f8"
+      },
+      "control_raw_action": {
+        "shape": [
+          1267,
+          23
+        ],
+        "dtype": "<f4"
+      }
+    },
+    "trace_sha256": "3e582a0b8dc7e1bff2db775bf82e8a99bd7124800a3d6338ae8e66939b1e5f05",
+    "evidence_sha256": "cc17f5f4534e0d50e972f093a0871d9e06643a003d3c08e053b7d75b62952651",
+    "raw_capsule_index_sha256": "5b783fa932d57bbc921ad918031488d82e92a62570108c31360409255057cd6a"
+  },
+  "runtime": {
+    "python": "3.11.15 (main, Mar 24 2026, 22:50:29) [Clang 22.1.1 ]",
+    "executable": "/mnt/e/codex_sonic_runtime/mjbatch323_20260910/venv/bin/python",
+    "numpy": "1.26.4",
+    "mujoco": "3.2.3",
+    "pid": 388,
+    "monotonic_clock": {
+      "implementation": "clock_gettime(CLOCK_MONOTONIC)",
+      "monotonic": true,
+      "adjustable": false,
+      "resolution": 1e-09
+    }
+  },
+  "imported_sources": {
+    "packet_io": {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/packet_io.py",
+      "sha256": "0bb8ac18c6e12accf7caec778be7a0e688122b74a48d6ff749eaf713d137e4db"
+    },
+    "counted_api": {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/counted_api.py",
+      "sha256": "d89dca860a6fba62986364664c7e6a7056566b2be6850569371e91157d667987"
+    },
+    "native_loader": {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/native_loader.py",
+      "sha256": "bbe3ab14f48591381af61d4da861b70fdb742992b7e690a9e5eb8f4ee216ab9f"
+    },
+    "model_identity": {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/model_identity.py",
+      "sha256": "e85e5c5eaeb4a8c76c8ef5cfa01c48bc33b6df15884ed21dc6d41d2ede6a87f4"
+    },
+    "native_stepper": {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/native_stepper.py",
+      "sha256": "126b5585deecabe70a6453ba4040707d40bea138100383131a7482cf0c7a580f"
+    },
+    "clock_core": {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/clock_core.py",
+      "sha256": "76c54a589689411b1f4dd7c4937b9485f7979ec21065408c5cb51cfb67443626"
+    },
+    "history": {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/history.py",
+      "sha256": "cc89415bed7e235a9cd1acdec8311ba51f0811605ed22d43709fd9f5879fde8f"
+    },
+    "mailbox": {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/mailbox.py",
+      "sha256": "01f68ee330e68dd229199d214316a35dee33d474f66afb6fbfe5d4378def7d28"
+    },
+    "shared_mailbox": {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/shared_mailbox.py",
+      "sha256": "054505f4affe7ee71b8ecd36890ef62ec5a2ebf33365f3578e5b077c24dcd151"
+    },
+    "session": {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/session.py",
+      "sha256": "84168ebc41bd7ebd78fa7067b481772940ca3558fb584dd7f87ecd471f979e8e"
+    },
+    "dummy_worker": {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/dummy_worker.py",
+      "sha256": "d2230fc8741093a050078bdb56d4d6d988e84547e228d5cbd93a46a4ffd2475a"
+    },
+    "recorded_protocol": {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/recorded_protocol.py",
+      "sha256": "a50df344dff5c4ee049f47178e2db77507cb9e69e333d5704efe94f6bdb989ea"
+    },
+    "pending_result": {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/pending_result.py",
+      "sha256": "18f1b1c23e0f90796aa497a9c19bf76d4c30ebd6a13bf12c69dde343a38d00a5"
+    },
+    "evidence": {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/evidence.py",
+      "sha256": "d22c189b5986ba3cba741b9f6d033d0f277f2bd03bd1eb4ab2dbe1bf07df5be4"
+    },
+    "capture_schema": {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/capture_schema.py",
+      "sha256": "dff89834dff1f897f73041e5cd285e1f9179bcc2482170975987818c25a6f4ae"
+    },
+    "bfm_observations": {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/bfm_observations.py",
+      "sha256": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d"
+    },
+    "oracle_source": {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/oracle_source.py",
+      "sha256": "0027210cda5a44255debecd7151ecd454e2281a5ff4e3137641d102701fb1330"
+    },
+    "stage_watchdog": {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/independent_plant_pending_result_v1/source_draft_v1/stage_watchdog.py",
+      "sha256": "a6613da97b1163031b6b7641af62f4c9ec63662bc3c6ff25deda3ee09b0b8089"
+    },
+    "numpy": {
+      "path": "/mnt/e/codex_sonic_runtime/mjbatch323_20260910/venv/lib/python3.11/site-packages/numpy/__init__.py",
+      "sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e"
+    },
+    "mujoco": {
+      "path": "/mnt/e/codex_sonic_runtime/mjbatch323_20260910/venv/lib/python3.11/site-packages/mujoco/__init__.py",
+      "sha256": "2e7b930b5a75907bfe5fee8a38f51d6ade236bad1ae8898f47f889be1dcfab32"
+    }
+  },
+  "pre_and_post_input_hashes_exact": true,
+  "stage_watchdog": {
+    "phase": "preservation",
+    "deadline_ns": 328950368077,
+    "transitions": [
+      {
+        "stage": "setup",
+        "entered_ns": 6572704000,
+        "deadline_ns": 246572704000
+      },
+      {
+        "stage": "plant",
+        "entered_ns": 123425428556,
+        "deadline_ns": 243625420673
+      },
+      {
+        "stage": "preservation",
+        "entered_ns": 148950368077,
+        "deadline_ns": 328950368077
+      }
+    ],
+    "timeouts": [],
+    "budgets": {
+      "setup_ns": 240000000000,
+      "plant_ns": 120000000000,
+      "preservation_ns": 180000000000,
+      "outer_timeout_seconds": 555,
+      "outer_kill_grace_seconds": 5
+    },
+    "native_signal_delivery_may_be_delayed": true
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "utc": "2026-09-12T01:59:01.152424+00:00",
+  "command": [
+    "C:/Windows/System32/wsl.exe",
+    "-d",
+    "Ubuntu-22.04",
+    "--cd",
+    "/",
+    "--",
+    "bash",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/RUN_PASSING_WALK_WSL.sh",
+    "env",
+    "OMP_NUM_THREADS=1",
+    "OPENBLAS_NUM_THREADS=1",
+    "MKL_NUM_THREADS=1",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "PYTHONPATH=/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof",
+    "/mnt/e/codex_sonic_runtime/mjbatch323_20260910/venv/bin/python",
+    "-B",
+    "-u",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/fast_feedback_walk003_v1/run_paced_controller.py",
+    "--output",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/fast_feedback_walk003_v1/paced_v1"
+  ],
+  "source_sha256": "2646822564a4346add69a5c286f46883aa7b7dabe9af818114cd4ab39cad156f",
+  "automatic_retry": false
+}

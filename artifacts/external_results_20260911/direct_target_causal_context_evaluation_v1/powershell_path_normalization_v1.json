@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "expression": "$receiptPath.Replace([char]92,[char]47)",
+  "command": "$receiptPath='E:\\synthetic\\evaluation_process\\launch_receipt.json'; $actual=$receiptPath.Replace([char]92,[char]47); if ($actual -cne 'E:/synthetic/evaluation_process/launch_receipt.json') { throw 'normalization failed' }; Write-Output $actual",
+  "stdout": "E:/synthetic/evaluation_process/launch_receipt.json\n",
+  "stderr": "",
+  "exit_code": 0,
+  "launcher_generator_sha256": "b8cd5f818be2ed26b56b98d94c6bc8542d52e1d8e9d88930e1cb85d62646c5a7",
+  "source_only": true,
+  "task_process_launched": false
+}

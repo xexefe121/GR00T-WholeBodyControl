@@ -1,0 +1,116 @@
+{
+  "passed": true,
+  "evidence_audit_passed": true,
+  "actual_controls": 310,
+  "moving_controls": 60,
+  "original_requested_controls": 1569,
+  "context_condition": "causal",
+  "features": 1323,
+  "context_order": "incoming_previous_action23_then_pre_update_history300",
+  "original_lifecycle_completed": false,
+  "hold_completed": false,
+  "release_subjects": {
+    "root_intent_sha256": "9d89c2456658a1df603a5b413786846a34a5f92fa140b82ebeda1d93db1e83af",
+    "direct_subject_sha256": {
+      "fit_report": "b5979023fe9bceb14e0d54cf04bf727fbc413d5a1443b39018e149443b418de6",
+      "checkpoint": "825f86468fcc83913066a9a818f4f438d080e054e17aa4aaadc1451974b8688e",
+      "head": "8a4c394b8836dd763d6eb1c5beac73bf49921bcd59fc5f04850b377d0e843044",
+      "normalization": "e914676e8f506ceb9ee0811fb058d75bb43285dac22b6b478c828e34c4acfdb9",
+      "training_manifest": "4cb56ebc741ac40f6de52e83cba8f718a7db78f07e1d02a1c25c02902d78e939",
+      "training_request": "f78bc57dc24af30fca2f7d20a05bd82ddf78e51158ebe1f41f22b85784481248",
+      "export_manifest": "88b6a1bcdc50b81352d4cb2b9ee578c27bd3efcf56aefc653a1bb41f5f9243a5",
+      "coefficient": "efed1fda38c0e4a68e6d6eba030f45c210a1cfc19206c8cb312d8167240f7bb9",
+      "source_checkpoint": "395aabf879c0a40b5187a4265ae850de49cfb62583e144145c1986d65402143d",
+      "full_state_generation_request": "474d5e4a04f84702b8ada696560df4baf6a3ebfa3b0ffebb0c343d4da11ebde1",
+      "full_state_generation_report": "68c9cd0ac47d59e2bb6d14269769b98f60ea6aa3a03298f82e4d164e140f4144",
+      "full_state_data_audit": "6eae25bc3d212de13b0940dae11d85d1739aa1d26ce17c549b2b6d5a36f55564",
+      "full_state_data_owner": "3f47a899d3e08ebb9d5a1ec514e395563dd677c4209a281f774f76401b401e43",
+      "shared_manifest": "ecd8e04c3691a7a6d00b5ee3d39f717e50af57527eb840a98db0ec7e7610f8f4",
+      "context_alignment": "752c4832e39994c5a2dfc6c419e54e85675cdfdacb2c030d7c11a27d8ccb949d",
+      "energy_source": "a9b7a2065d8f2d45a1c1a06dc4d5678c68df910f2ebfc6d098989274266d6cc8"
+    },
+    "runtime_launch_pins": 5243,
+    "actual_runtime_sources": 38,
+    "diagnostic_passed": false,
+    "diagnostic_exit_code": 2
+  },
+  "exact_checks": 7193,
+  "first_feature_departure": 251,
+  "first_learned_target_clip": 264,
+  "learned_clipped_commands": 43,
+  "main_failure": {
+    "reasons": [
+      "native_joint_speed"
+    ],
+    "global_control": 309,
+    "local_control": 309,
+    "substep": 6,
+    "time": 6.19199999999954,
+    "range_excess": 0.0,
+    "velocity_ratio": 1.0035155631063701,
+    "effort_ratio": 1.0,
+    "tilt": 0.38052313774524893,
+    "clock_error": 0.0
+  },
+  "hold_failure": null,
+  "fixed_maps": {
+    "report_sha256": "2e86a56e130b1cf0c06d0405f5cdb6fa6455a3b571efc22201a2f03d74b3877b",
+    "nominal_map_checks_exact": 60,
+    "actual_map_evaluations": 60,
+    "summary": {
+      "all_actual_learned": {
+        "rows": 60,
+        "other35_larger_rows": 50,
+        "raw_change_group_rms_rad": {
+          "root_position": 0.4227943227641672,
+          "root_rotation": 1.32099825006828,
+          "joint_position": 1.281411937384415,
+          "root_linear_velocity": 0.47822886149475025,
+          "root_angular_velocity": 0.6998834214952897,
+          "joint_velocity": 0.8617194026905763
+        }
+      },
+      "departed": {
+        "rows": 59,
+        "other35_larger_rows": 50,
+        "raw_change_group_rms_rad": {
+          "root_position": 0.42636227060032944,
+          "root_rotation": 1.3321461122654135,
+          "joint_position": 1.292225731948477,
+          "root_linear_velocity": 0.4822646196392898,
+          "root_angular_velocity": 0.705789715418453,
+          "joint_velocity": 0.8689914253092998
+        }
+      },
+      "departed_before_first_clip": {
+        "rows": 13,
+        "other35_larger_rows": 10,
+        "raw_change_group_rms_rad": {
+          "root_position": 0.010398549598718766,
+          "root_rotation": 0.03106539466549763,
+          "joint_position": 0.04968278767798399,
+          "root_linear_velocity": 0.05028211482368288,
+          "root_angular_velocity": 0.05223726683347525,
+          "joint_velocity": 0.04026421242407712
+        }
+      }
+    },
+    "unmapped_actual_controls": [],
+    "requested_actual_controls": 60
+  },
+  "request_sha256": "33d6faaa22c5ffa8ebcfcb177ce59129c5b31cd49c31594486f93063eec54ea7",
+  "trace_sha256": "b9061a1c9dc6aee65d713f16909a3135f072d94a5bc20af750b5958cc493629d",
+  "actual_rows_sha256": "275fe0783394926077fb12afc40bcbe2f4f0067876239dcfe17c947b5ec3d1dd",
+  "all_inputs_unchanged": true,
+  "model_calls": 0,
+  "BFM_calls": 0,
+  "native_steps": 0,
+  "optimizer_updates": 0,
+  "replans": 0,
+  "behavioral_qualification": false,
+  "limitations": [
+    "Saved semantic consistency and previously independent native replay do not qualify stability or real-time plant behavior.",
+    "After departure, same-clock expert rows have different states; these comparisons are not replanned expert commands.",
+    "Causal context consistency does not prove hidden-state sufficiency or attribute a rollout difference uniquely to history."
+  ]
+}

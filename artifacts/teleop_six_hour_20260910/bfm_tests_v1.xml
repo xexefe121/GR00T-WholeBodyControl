@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="10" time="5.167" timestamp="2026-09-10T23:45:50.319070+10:00" hostname="MSI"><testcase classname="gear_sonic.tests.test_g1_true23_bfmzero" name="test_physical_joint_and_body_order_matches_native_model" time="0.003"><failure message="FileNotFoundError: [Errno 2] No such file or directory: 'Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\data\\robots\\g1\\g1_23dof_rev_1_0.xml'">def test_physical_joint_and_body_order_matches_native_model():
+        """The embodiment XML, not a second policy index list, supplies the oracle."""
+        root = Path(__file__).resolve().parents[2]
+&gt;       xml = ET.parse(root / "data/robots/g1/g1_23dof_rev_1_0.xml")
+
+gear_sonic\tests\test_g1_true23_bfmzero.py:71: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\camer\AppData\Local\Programs\Python\Python310\lib\xml\etree\ElementTree.py:1222: in parse
+    tree.parse(source, parser)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;xml.etree.ElementTree.ElementTree object at 0x00000240FD3FE8F0&gt;
+source = WindowsPath('Z:/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/data/robots/g1/g1_23dof_rev_1_0.xml')
+parser = None
+
+    def parse(self, source, parser=None):
+        """Load external XML document into element tree.
+    
+        *source* is a file name or file object, *parser* is an optional parser
+        instance that defaults to XMLParser.
+    
+        ParseError is raised if the parser fails to parse the document.
+    
+        Returns the root element of the given source document.
+    
+        """
+        close_source = False
+        if not hasattr(source, "read"):
+&gt;           source = open(source, "rb")
+E           FileNotFoundError: [Errno 2] No such file or directory: 'Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\data\\robots\\g1\\g1_23dof_rev_1_0.xml'
+
+C:\Users\camer\AppData\Local\Programs\Python\Python310\lib\xml\etree\ElementTree.py:569: FileNotFoundError</failure></testcase><testcase classname="gear_sonic.tests.test_g1_true23_bfmzero" name="test_sensor_order_scales_only_body_gyro_and_keeps_previous_action_units" time="0.014" /><testcase classname="gear_sonic.tests.test_g1_true23_bfmzero" name="test_history_contains_previous_observations_newest_first_without_aliasing" time="0.002" /><testcase classname="gear_sonic.tests.test_g1_true23_bfmzero" name="test_reference_features_use_heading_local_x_z_axes_and_world_expert_gyro" time="0.003" /><testcase classname="gear_sonic.tests.test_g1_true23_bfmzero" name="test_world_position_feedback_uses_measured_heading_and_preserves_articulation" time="0.005" /><testcase classname="gear_sonic.tests.test_g1_true23_bfmzero" name="test_yaw_feedback_uses_shortest_wrapped_error_and_consistent_rigid_twist" time="0.003" /><testcase classname="gear_sonic.tests.test_g1_true23_bfmzero" name="test_zero_gain_aligned_goal_matches_unmodified_source_mean[1]" time="0.009" /><testcase classname="gear_sonic.tests.test_g1_true23_bfmzero" name="test_zero_gain_aligned_goal_matches_unmodified_source_mean[8]" time="0.007" /><testcase classname="gear_sonic.tests.test_g1_true23_bfmzero" name="test_referee_scaling_previous_action_and_complete_source_plus_tail" time="0.141"><failure message="AttributeError: 'types.SimpleNamespace' object has no attribute 'arm_reference'">synthetic_referee = (namespace(threads=1, output=WindowsPath('Y:/temp/pytest-of-camer/pytest-1663/test_referee_scaling_previous_0/result')...n_gain=0.0, yaw_gain=0.0), &lt;test_g1_true23_bfmzero.synthetic_referee.&lt;locals&gt;.ActorProbe object at 0x00000240FD43B220&gt;)
+
+    def test_referee_scaling_previous_action_and_complete_source_plus_tail(synthetic_referee):
+        args, policy = synthetic_referee
+&gt;       evaluator.run(args)
+
+gear_sonic\tests\test_g1_true23_bfmzero.py:250: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = namespace(threads=1, output=WindowsPath('Y:/temp/pytest-of-camer/pytest-1663/test_referee_scaling_previous_0/result'), clip='walk002', goal_horizon=8, max_controls=None, position_gain=0.0, yaw_gain=0.0)
+
+    def run(args):
+        torch.set_num_threads(args.threads)
+        args.output.mkdir(parents=True, exist_ok=False)
+        contract = load_contract(PACKAGE / "bfmzero_inspect_v1/config.yaml")
+        policy = BFMZeroInference(PACKAGE / "bfmzero_inference_v1/inference.safetensors")
+        _, model, physics = prepare_true23_model(ROOT.parent / "GR00T-WholeBodyControl" / MODEL, ROOT / PHYSICS)
+        assert (model.nq, model.nv, model.nu) == (30, 29, 23)
+        body_ids = [model.body(n).id for n in contract["body_names"]]
+        limits = model.jnt_range[1:].copy()
+        velocity_limits = np.asarray(json.loads((ROOT / PHYSICS).read_text())["physics"]["velocity_limit_hardware_radps"])
+        motion, timeline, path = load_motion(args.clip)
+        state, privileged = reference_features(motion, contract)
+        latent = policy.backward(torch.from_numpy(state), torch.from_numpy(privileged))
+        # Published current+7 future goal mean, or explicit current-only ablation.
+        # Last standing samples are terminal-hold, not a cropped source recording.
+        count = len(state)
+        latent = torch.cat((latent, latent[-1:].repeat(args.goal_horizon - 1, 1)))
+        goals = torch.stack([latent[i:i + count] for i in range(args.goal_horizon)]).mean(0)
+        goals = 16 * F.normalize(goals, dim=-1)
+        data = mujoco.MjData(model)
+        data.qpos[:] = np.r_[motion["body_pos_w"][10, 0], motion["body_quat_w"][10, 0], motion["joint_pos"][10]]
+        data.qvel[:] = np.r_[motion["body_lin_vel_w"][10, 0],
+                             _quaternion_matrix(data.qpos[3:7]).T @ motion["body_ang_vel_w"][10, 0],
+                             motion["joint_vel"][10]]
+        mujoco.mj_forward(model, data)
+        history = BFMHistory()
+        action = np.zeros(23, dtype=np.float32)
+        available = count - 11
+        requested = min(available, args.max_controls) if args.max_controls else available
+        traces = {k: [] for k in ("qpos", "qvel", "action", "target", "state", "history",
+                                 "joint_error", "root_error", "landmark_error", "relative_landmark_error",
+                                 "range_excess", "velocity_ratio", "effort_ratio", "inference_ms")}
+        traces["qpos"].append(data.qpos.copy())
+        traces["qvel"].append(data.qvel.copy())
+        failure = None
+        started = time.perf_counter()
+        for control in range(requested):
+            frame = control + 11
+            sensed, terms = state_and_terms(data.qpos[7:], data.qvel[6:], data.qpos[3:7],
+                                            data.qvel[3:6], action, contract["default_q"])
+            hist = history.before_update(terms)
+            tick = time.perf_counter()
+            goal = goals[frame:frame + 1]
+            if args.position_gain or args.yaw_gain:
+                goal = corrected_goal(policy, state, privileged, motion, frame, data.qpos,
+                                      args.goal_horizon, args.position_gain, args.yaw_gain)
+            raw = policy.actor(torch.from_numpy(sensed[None]), torch.from_numpy(action[None]),
+                               torch.from_numpy(hist[None]), goal)[0].numpy()
+            inference_ms = (time.perf_counter() - tick) * 1000
+            action = raw * 5.0
+            target = contract["default_q"] + action * .25 * contract["training_effort"] / contract["kp"]
+&gt;           if args.arm_reference:
+E           AttributeError: 'types.SimpleNamespace' object has no attribute 'arm_reference'
+
+gear_sonic\scripts\evaluate_g1_true23_bfmzero.py:144: AttributeError</failure></testcase><testcase classname="gear_sonic.tests.test_g1_true23_bfmzero" name="test_cropped_debug_request_cannot_claim_full_lifecycle" time="0.031"><failure message="AttributeError: 'types.SimpleNamespace' object has no attribute 'arm_reference'">synthetic_referee = (namespace(threads=1, output=WindowsPath('Y:/temp/pytest-of-camer/pytest-1663/test_cropped_debug_request_can0/result')...n_gain=0.0, yaw_gain=0.0), &lt;test_g1_true23_bfmzero.synthetic_referee.&lt;locals&gt;.ActorProbe object at 0x00000240FD5D37F0&gt;)
+
+    def test_cropped_debug_request_cannot_claim_full_lifecycle(synthetic_referee):
+        args, _ = synthetic_referee
+        args.max_controls = 2
+&gt;       evaluator.run(args)
+
+gear_sonic\tests\test_g1_true23_bfmzero.py:270: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = namespace(threads=1, output=WindowsPath('Y:/temp/pytest-of-camer/pytest-1663/test_cropped_debug_request_can0/result'), clip='walk002', goal_horizon=8, max_controls=2, position_gain=0.0, yaw_gain=0.0)
+
+    def run(args):
+        torch.set_num_threads(args.threads)
+        args.output.mkdir(parents=True, exist_ok=False)
+        contract = load_contract(PACKAGE / "bfmzero_inspect_v1/config.yaml")
+        policy = BFMZeroInference(PACKAGE / "bfmzero_inference_v1/inference.safetensors")
+        _, model, physics = prepare_true23_model(ROOT.parent / "GR00T-WholeBodyControl" / MODEL, ROOT / PHYSICS)
+        assert (model.nq, model.nv, model.nu) == (30, 29, 23)
+        body_ids = [model.body(n).id for n in contract["body_names"]]
+        limits = model.jnt_range[1:].copy()
+        velocity_limits = np.asarray(json.loads((ROOT / PHYSICS).read_text())["physics"]["velocity_limit_hardware_radps"])
+        motion, timeline, path = load_motion(args.clip)
+        state, privileged = reference_features(motion, contract)
+        latent = policy.backward(torch.from_numpy(state), torch.from_numpy(privileged))
+        # Published current+7 future goal mean, or explicit current-only ablation.
+        # Last standing samples are terminal-hold, not a cropped source recording.
+        count = len(state)
+        latent = torch.cat((latent, latent[-1:].repeat(args.goal_horizon - 1, 1)))
+        goals = torch.stack([latent[i:i + count] for i in range(args.goal_horizon)]).mean(0)
+        goals = 16 * F.normalize(goals, dim=-1)
+        data = mujoco.MjData(model)
+        data.qpos[:] = np.r_[motion["body_pos_w"][10, 0], motion["body_quat_w"][10, 0], motion["joint_pos"][10]]
+        data.qvel[:] = np.r_[motion["body_lin_vel_w"][10, 0],
+                             _quaternion_matrix(data.qpos[3:7]).T @ motion["body_ang_vel_w"][10, 0],
+                             motion["joint_vel"][10]]
+        mujoco.mj_forward(model, data)
+        history = BFMHistory()
+        action = np.zeros(23, dtype=np.float32)
+        available = count - 11
+        requested = min(available, args.max_controls) if args.max_controls else available
+        traces = {k: [] for k in ("qpos", "qvel", "action", "target", "state", "history",
+                                 "joint_error", "root_error", "landmark_error", "relative_landmark_error",
+                                 "range_excess", "velocity_ratio", "effort_ratio", "inference_ms")}
+        traces["qpos"].append(data.qpos.copy())
+        traces["qvel"].append(data.qvel.copy())
+        failure = None
+        started = time.perf_counter()
+        for control in range(requested):
+            frame = control + 11
+            sensed, terms = state_and_terms(data.qpos[7:], data.qvel[6:], data.qpos[3:7],
+                                            data.qvel[3:6], action, contract["default_q"])
+            hist = history.before_update(terms)
+            tick = time.perf_counter()
+            goal = goals[frame:frame + 1]
+            if args.position_gain or args.yaw_gain:
+                goal = corrected_goal(policy, state, privileged, motion, frame, data.qpos,
+                                      args.goal_horizon, args.position_gain, args.yaw_gain)
+            raw = policy.actor(torch.from_numpy(sensed[None]), torch.from_numpy(action[None]),
+                               torch.from_numpy(hist[None]), goal)[0].numpy()
+            inference_ms = (time.perf_counter() - tick) * 1000
+            action = raw * 5.0
+            target = contract["default_q"] + action * .25 * contract["training_effort"] / contract["kp"]
+&gt;           if args.arm_reference:
+E           AttributeError: 'types.SimpleNamespace' object has no attribute 'arm_reference'
+
+gear_sonic\scripts\evaluate_g1_true23_bfmzero.py:144: AttributeError</failure></testcase></testsuite></testsuites>

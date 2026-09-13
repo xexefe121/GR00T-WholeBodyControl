@@ -1,0 +1,110 @@
+{
+  "nominal": {
+    "kind": "native23_bfm_linear_span_student_nominal_v2",
+    "clip": "walk003",
+    "mujoco": "3.2.3",
+    "segment": "original_lifecycle",
+    "requested_controls": 1569,
+    "completed_full_controls": 24,
+    "completed_controls": 24,
+    "attempted_controls": 24,
+    "partial_substeps": 0,
+    "physics_steps": 240,
+    "full_segment_completed": false,
+    "probe_completed": false,
+    "failure": {
+      "reasons": [
+        "native_joint_bound"
+      ],
+      "global_control": 23,
+      "local_control": 23,
+      "substep": 10,
+      "time": 0.48000000000000037,
+      "range_excess": 0.002097812844853622,
+      "velocity_ratio": 0.10007898003239864,
+      "effort_ratio": 0.25281722751107716,
+      "tilt": 0.48917652898997555,
+      "clock_error": 0.0
+    },
+    "range_excess_max": 0.002097812844853622,
+    "velocity_ratio_max": 0.6157248527851766,
+    "effort_ratio_max": 1.0,
+    "engine_warning_counts": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "engine_warning_lastinfo": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "independent_accumulated_clock_max_error": 0.0,
+    "policy_ms_p50_p95_max": [
+      9.019723999983853,
+      12.960835650005714,
+      50.37403500000437
+    ],
+    "policy_20ms_deadline_misses": 1,
+    "source_metrics": {
+      "source_controls": 0,
+      "no_source_samples": true
+    },
+    "quiet_standing_diagnostic": null,
+    "simulation_start_time": 0.0,
+    "simulation_end_time": 0.48000000000000037,
+    "simulated_seconds": 0.48000000000000037,
+    "full_body_teleoperation_qualified": false,
+    "hardware_authorized": false,
+    "elapsed_seconds": 0.3953728589999628,
+    "trace_sha256": "62b05301f5ab8f7f7d53c5a7d9177bf1bbb5f14cf7187da4d30f33401a5fbff8",
+    "request_sha256": "750f24d5ad772ab193d23d82f9bf849f69f03cdc7ea234e6813bca380255ea73",
+    "motion_override": {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_floor_inputs_v1/walk003/reference.npz",
+      "reference_sha256": "2d3b508e1b489499ece5cea8e88a885d9b94aeca82a6a0e8542bc39e690b8033",
+      "portable_receipt_sha256": "67a703db8e3bf839ae9b4527fdbfc1dc35968fa0a25f9cb2e7432fa4ef52217f",
+      "base_native_reference_sha256": "08deea5cb5cd716ff0e645fd2d53564a8710efb8a28c9740977662099d7aee85",
+      "original29_sha256": "4d462a077f10bda04c97deaf5a5ff29ec5f891a29b8bae30a6f0080cfaf06f84",
+      "reference_floor_transform": {
+        "kind": "causal_upward_whole_pose_translation",
+        "lift_min_m": 0.02,
+        "lift_max_m": 0.03761963419034562,
+        "physical_floor_changed": false,
+        "root_relative_intent_preserved": true,
+        "joints_unchanged": true,
+        "source_timing_changed": false,
+        "transform_receipt_file": "floor_transform_receipt.json",
+        "transform_receipt_sha256": "9d343b32fd18b7bda45b43801e0ad0e24ac1d890123cb213ce01d5c632b56e33",
+        "frame_lift_file": "frame_lift.npz",
+        "frame_lift_sha256": "88f8c980af9ea03ab8799500a633497ab32569ab8a2ed208e1335f93a59b1d1b",
+        "transform_receipt_path": "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_floor_inputs_v1/walk003/floor_transform_receipt.json",
+        "frame_lift_path": "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_floor_inputs_v1/walk003/frame_lift.npz",
+        "input_reference_sha256": "541b7841c6a86eb6a72ed3057751132d200f86ba0e2988e8a433b6decece6924",
+        "pose_preview_frames": 0,
+        "exported_linear_velocity_future_pose_support_frames": 1,
+        "exported_linear_velocity_future_pose_support_seconds": 0.02,
+        "independent_numeric_whole_pose_and_native_clearance_validation": true
+      }
+    },
+    "expert_query_snapshot": "every precontrol fullintegration+history+previousaction retained; partialfailurestate also retained, noquerylaunched"
+  },
+  "extension": {
+    "requested_controls": 250,
+    "attempted_controls": 0,
+    "not_run_reason": "original lifecycle stopped at firststrictphysicalfailure",
+    "no_reset_or_skip_to_terminal": true,
+    "full_segment_completed": false
+  },
+  "DAgger_not_launched": true,
+  "one_fixed_nominal_fit": true
+}

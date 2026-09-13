@@ -1,0 +1,179 @@
+{
+  "cases": [
+    {
+      "name": "walk002",
+      "common_controls": 1417,
+      "old_without_pico": {
+        "source_controls": 667,
+        "leg_rmse_rad": 0.17315378540131737,
+        "arm_rmse_rad": 0.13480235697983076,
+        "root_p95_m": 0.6443774804647154,
+        "relative_foot_p95_m": [
+          0.15884708286678814,
+          0.14465642235280288
+        ],
+        "world_foot_p95_m": [
+          0.6444020120508588,
+          0.6560808769223001
+        ]
+      },
+      "new_with_pico": {
+        "source_controls": 667,
+        "leg_rmse_rad": 0.17991655207306806,
+        "arm_rmse_rad": 0.15665144487044924,
+        "root_p95_m": 0.7292932936214002,
+        "relative_foot_p95_m": [
+          0.16956046427754667,
+          0.1488820977777347
+        ],
+        "world_foot_p95_m": [
+          0.6970248106378125,
+          0.7289405203679931
+        ]
+      },
+      "old_complete_source_controls": 667,
+      "new_complete_source_controls": 667,
+      "requested_source_controls": 667,
+      "deployment_ready": false
+    },
+    {
+      "name": "walk003",
+      "common_controls": 1105,
+      "old_without_pico": {
+        "source_controls": 755,
+        "leg_rmse_rad": 0.20950977536139928,
+        "arm_rmse_rad": 0.16391815406782137,
+        "root_p95_m": 2.210166031765784,
+        "relative_foot_p95_m": [
+          0.1862016651334401,
+          0.17482115789918887
+        ],
+        "world_foot_p95_m": [
+          2.323643530237902,
+          2.250854349705375
+        ]
+      },
+      "new_with_pico": {
+        "source_controls": 755,
+        "leg_rmse_rad": 0.20626430670773319,
+        "arm_rmse_rad": 0.15124194299741348,
+        "root_p95_m": 2.33353834859596,
+        "relative_foot_p95_m": [
+          0.1815778499906847,
+          0.18644546186137048
+        ],
+        "world_foot_p95_m": [
+          2.45160729529022,
+          2.399681814775503
+        ]
+      },
+      "old_complete_source_controls": 819,
+      "new_complete_source_controls": 755,
+      "requested_source_controls": 819,
+      "deployment_ready": false
+    },
+    {
+      "name": "walk008",
+      "common_controls": 1114,
+      "old_without_pico": {
+        "source_controls": 364,
+        "leg_rmse_rad": 0.2095475367042479,
+        "arm_rmse_rad": 0.3810163729242882,
+        "root_p95_m": 2.739877925603884,
+        "relative_foot_p95_m": [
+          0.177712241741384,
+          0.18522065395358348
+        ],
+        "world_foot_p95_m": [
+          2.689858107574034,
+          2.75224984062621
+        ]
+      },
+      "new_with_pico": {
+        "source_controls": 364,
+        "leg_rmse_rad": 0.2192388461898788,
+        "arm_rmse_rad": 0.39574107692443217,
+        "root_p95_m": 2.646332659898391,
+        "relative_foot_p95_m": [
+          0.2005407487759174,
+          0.22546767041611973
+        ],
+        "world_foot_p95_m": [
+          2.702814739138286,
+          2.773983927600815
+        ]
+      },
+      "old_complete_source_controls": 364,
+      "new_complete_source_controls": 364,
+      "requested_source_controls": 364,
+      "deployment_ready": false
+    },
+    {
+      "name": "pico",
+      "common_controls": 1874,
+      "old_without_pico": {
+        "source_controls": 1524,
+        "leg_rmse_rad": 0.1367822104652216,
+        "arm_rmse_rad": 0.3084864330556034,
+        "root_p95_m": 0.5623640696311402,
+        "relative_foot_p95_m": [
+          0.10528856136779312,
+          0.15464646017996037
+        ],
+        "world_foot_p95_m": [
+          0.5851506253773768,
+          0.519841398476045
+        ]
+      },
+      "new_with_pico": {
+        "source_controls": 1524,
+        "leg_rmse_rad": 0.14349511933939343,
+        "arm_rmse_rad": 0.3142933448716967,
+        "root_p95_m": 0.678712839173098,
+        "relative_foot_p95_m": [
+          0.12324787227676366,
+          0.13554722834410382
+        ],
+        "world_foot_p95_m": [
+          0.7191916353116184,
+          0.7053382275976842
+        ]
+      },
+      "old_complete_source_controls": 1867,
+      "new_complete_source_controls": 1524,
+      "requested_source_controls": 5780,
+      "deployment_ready": false
+    }
+  ],
+  "same_completed_100_update_budget": true,
+  "same_actor_reward_and_optimizer_contract": true,
+  "data_membership_changed": true,
+  "wall_clock_runtime_identity_claimed": false,
+  "inputs": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/compare_100_updates.py": "c02ce374aae32f96c87e59e53dcb2e209edfef4da01776f0d7e26c63027be9e2",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/evaluate_checkpoint.py": "7fddbdce66732bc45738fd96937023f51e3290252b4317a80c41b435ba63a5d1",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/normal_core_adaptation_v1/train100_v1/resolved_training.json": "139fcf8cf4822c59bc44d95f9f27e96d2b37efd710114bfa8d8b30c324d84ee2",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/train500_v1/resolved_training.json": "6c4ba99c73fd74ff9deee9c0a04c917bc490b0361b7e23940f62b3e3034cdd47",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/normal_core_adaptation_v1/cpu100_v2/walk002/report.json": "411d0eec4202931198c58ddb42a72514ee3339ec902be4a0bbd30c2b8df17e92",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/eval100_v1/walk002/report.json": "450d08399599383c753adc8f3ad983a804eb98daf6d4d4b781175d9c4e558b66",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/walk002/buffered_initial_lifecycle_v1/lifecycle_reference.npz": "94cbd249255716cfd4cfe6eac290b8e0767a3efb262c1bde22402b971a729990",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/normal_core_adaptation_v1/cpu100_v2/walk002/trace.npz": "e88b16110976ae20ef865f1f9092ad306e1f17f01c3fe8ff24bf5fb1c759f0bb",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/eval100_v1/walk002/trace.npz": "88cb9302e0d68527e8a4d5d8890bddf9f2f16559ccbadee356540b9f5a271971",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/normal_core_adaptation_v1/cpu100_v2/walk003/report.json": "ad81f2f6782bf48336c762f57616b4228d90fdb114dd70a6c429b78b0075f063",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/eval100_v1/walk003/report.json": "8cd48e3ed7d65a0c5a02919c587a23687f1feb429f7712046b2d33732d7f4c5e",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/walk003/buffered_initial_lifecycle_v1/lifecycle_reference.npz": "08deea5cb5cd716ff0e645fd2d53564a8710efb8a28c9740977662099d7aee85",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/normal_core_adaptation_v1/cpu100_v2/walk003/trace.npz": "5e499b21b8d405e0e7909402a0e4eff20a298c1a0534bf84fa45e8a22d96b6ac",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/eval100_v1/walk003/trace.npz": "4bcc51b477f733a875d23ae5d60152df681e2af88758dc0a05d5c2820f4d8581",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/normal_core_adaptation_v1/cpu100_v2/walk008/report.json": "a818c71392e4cdec702332c1c87216c3032332188421514f83cfe095e630d766",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/eval100_v1/walk008/report.json": "6ec4e5bf32b703d97482332d8e250b8fb75840da2500f07950c6cd04e804dc6e",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/walk008/buffered_initial_lifecycle_v1/lifecycle_reference.npz": "b1994008c5d41a572da2ee690ca0f33c6dbaff9372f2d33e0d78701be5a8d9d0",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/normal_core_adaptation_v1/cpu100_v2/walk008/trace.npz": "04788c0c5ed6ffe8fd9a46d6a5e813251fc792b4f4dbc3371d3df8e1cc31ae25",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/eval100_v1/walk008/trace.npz": "3526ade5fd8720131e717c669806f19a5b0e9c15a5da7bab6ce846f53a2944df",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/normal_core_adaptation_v1/cpu100_v2/pico/report.json": "ab43bf2bef2426d07e39b0c0bebb5515fc73a324d160dd0d301468edeed3084e",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/eval100_v1/pico/report.json": "9b581e7c0e940ddea56366c19ff408be42097fff437e061e4a527840d8719743",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/pico_freedancing_v1/optical_reference_v2/lifecycle23.npz": "72ae0f04333ebc18e03fbe2a6e5640c895ceda9e37ce83418f4bca6e9540d953",
+    "/mnt/c/Users/camer/sonic23_sim_artifacts/internet_pico_20260909_v1/normal_core_adaptation_v1/cpu100_v2/pico/trace.npz": "73cd0ed21f7d666185d3d73a01fe8d87f9c31b5d8b6b898c5059595acc1f3586",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_pico_training_20260910_v1/eval100_v1/pico/trace.npz": "059ba58de6132e2452d477dcc964305389faf4ee0039587f6baf469448f4e0b1"
+  },
+  "deployment_ready": false
+}

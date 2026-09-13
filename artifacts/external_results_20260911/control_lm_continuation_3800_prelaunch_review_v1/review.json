@@ -1,0 +1,73 @@
+{
+  "review": "read-only prelaunch source/provenance review",
+  "reviewed_at_utc": "2026-09-11T02:59:46.579440+00:00",
+  "cleared_for": "ONE already-authorized 100-control 2-second actual3800 continuation with exact launch inputs",
+  "checks": {
+    "all_14_frozen_source_hashes": true,
+    "unchanged_ast_backward": true,
+    "unchanged_ast__ilqr_feasible": true,
+    "unchanged_ast_boxqp": true,
+    "source_guided_sha": true,
+    "actual3800_fixture.npz_sha": true,
+    "actual3800_history.npz_sha": true,
+    "fixture_state_vector": true,
+    "fixture_state_spec": true,
+    "fixture_targets": true,
+    "history_previous_action": true,
+    "history_recorded_controls": true,
+    "history_actual_action_max_abs": true,
+    "history_actual_action_components_outside_five": true,
+    "history_memory_actions": true,
+    "history_memory_base_ang_vel": true,
+    "history_memory_dof_pos": true,
+    "history_memory_dof_vel": true,
+    "history_memory_projected_gravity": true,
+    "actual_control3800": true,
+    "state_spec8191_shape291": true,
+    "global_clock_source_equals_expected": true,
+    "warning_ledger_zero_at_handoff": true
+  },
+  "initial_time": 76.00000000000428,
+  "source_hashes": {
+    "repo\\gear_sonic\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "repo\\gear_sonic\\scripts\\continue_g1_true23_mpc_hard_feasibility.py": "982c31294347826ac19c81869a83414bc9f47f90743e9a94c1048302800c84ce",
+    "repo\\gear_sonic\\scripts\\evaluate_g1_true23_mjbatch_mpc.py": "400c527629ed5c8543dd3180ca8de1f080bea8241525033cccd081ca3f0ab2ad",
+    "repo\\gear_sonic\\scripts\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "repo\\gear_sonic\\utils\\g1_true23_bfm_seed_observations.py": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d",
+    "repo\\gear_sonic\\utils\\g1_true23_feasibility_referee.py": "0027210cda5a44255debecd7151ecd454e2281a5ff4e3137641d102701fb1330",
+    "repo\\gear_sonic\\utils\\g1_true23_mjbatch_bfm_seed.py": "2f3d808b6a95fd80a3c1f9a0fabbe80264cf9cc93fbf01e2b2be65f6a5ec75de",
+    "repo\\gear_sonic\\utils\\g1_true23_mjbatch_ilqr_core.py": "2949e296d2b8a73fb4a8ba67595060a9af7d74b43be728fed610db0ddc0e0315",
+    "repo\\gear_sonic\\utils\\g1_true23_mjbatch_model.py": "61d1c168ba5db189fc1e882bfb1e2c9f7773584353b8e2251713ae0d0dd7dc9e",
+    "repo\\gear_sonic\\utils\\g1_true23_mjbatch_mpc.py": "7695d03787de93dc3d4b1fb2001d6b6b0dcdb9016af9c96734e8f7d94a5e5dde",
+    "repo\\gear_sonic\\utils\\g1_true23_mjbatch_restoration.py": "3fb4aa5a786d8acb3de44a3c96a4ac9ea26cfbaf17887c0aecbb7d3915bd71c5",
+    "repo\\gear_sonic\\utils\\g1_true23_mjbatch_restoration_lm.py": "c3031692a79df0d9cf133c75110e660ca54ad258c00248121d98e6b105774274",
+    "repo\\gear_sonic\\utils\\g1_true23_relative_foot_cost.py": "36f89cac4374364cd155184c7c6f098de913ebca22976c0d59c8d1489089cc35",
+    "repo\\gear_sonic\\utils\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "existing_test_receipt": {
+    "path": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\control_lm_continuation_3800_v1_source\\focused_tests_v2.xml",
+    "sha256": "77f8225d59c020969dbe793635968571ab30d63376876539aed3285f2df6935f",
+    "tests": 8,
+    "failures": 0
+  },
+  "reviewer_executions": {
+    "physics_steps": 0,
+    "optimizer_calls": 0,
+    "inference_calls": 0
+  },
+  "conclusions": [
+    "Third fallback reached only after original guided and original-warm K0 do not produce an accepted certificate.",
+    "Third optimization initial targets are captured first guided final; original shifted targets remain regularization anchor.",
+    "Control LM uses symmetric Quu plus mu control identity, unregularized Qux, same Qreg in SPD/boxQP/feedback solve; factored unregularized value update matches archived certified experiment.",
+    "Backward override forbidden on hard main solver; original hard main solver, backward and boxQP AST unchanged.",
+    "K0 flag affects private restoration rollouts only and restored in finally; main gains/correction clip unchanged.",
+    "Initial full291 integration restored with set-forward-set once; exact named history and previous action copied from actual3800 source fixture. Global expected clock continues from proven matching actual clock. Warnings at source handoff all zero.",
+    "All native2ms raw samples recorded before failure; imminent full-control private certificate precedes actual target; no state rewrites after initialization.",
+    "Saved proposals are only loaded inside comparison callback; numerical mismatch aborts before actual control. No saved candidate target injection.",
+    "Requested100 controls must be preserved in launch and report; bounded success cannot establish full original PICO or recovery/tracking qualification."
+  ],
+  "limitations": [
+    "This review executes no optimizer or physics. Runtime seed reproduction and independent executed-trace audit still required.",
+    "Generic non-physics Python exceptions are not caught by the bounded driver; absence of a final report must remain incomplete, never success."
+  ]
+}

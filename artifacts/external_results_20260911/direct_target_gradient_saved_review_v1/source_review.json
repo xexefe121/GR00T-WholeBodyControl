@@ -1,0 +1,29 @@
+{
+  "source_review_passed": true,
+  "request_sha256": "eba680f416038f93c11abcbd0214e0c2f374819fa56fbbb8a79f477f21c07f78",
+  "source_sha256": "c52dec999190b0ffccf226500a0113c02750db43e07f0520b7e3f6392785a8a5",
+  "frozen_receipt_sha256": "a9728e1a00c51f746ec6ce7ba46273e178fe93058e613e370f7d2822d9c09bd1",
+  "input_pins_verified": 209,
+  "budgets": {
+    "forward_calls": 3,
+    "forward_rows": 14110,
+    "gradient_calls": 3,
+    "optimizer_updates": 0,
+    "native_calls": 0,
+    "ORT_calls": 0
+  },
+  "manual_findings": [],
+  "model_calls": 0,
+  "native_calls": 0,
+  "optimizer_updates": 0,
+  "scope": "One original-FP32 diagnostic: original fixed loss math, schedule row0, three forwards and three separate gradients, no updates or policy qualification.",
+  "source_checks": [
+    "safe checkpoint load and exact restored parameters/norm",
+    "all actual consumed subjects and original data/runtime sources pinned",
+    "unchanged loss arithmetic with float64 response subtraction",
+    "shared nominal graph retained through first two gradients",
+    "returned arrays saved and counters/state preserved on failure",
+    "all parameters and grad fields checked unchanged",
+    "original export and physical failures remain unqualified"
+  ]
+}

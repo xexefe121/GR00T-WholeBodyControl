@@ -1,0 +1,289 @@
+{
+  "kind": "g1_true23_deployment_envelope_diagnostic_v1",
+  "diagnostic_pair": {
+    "kind": "g1_true23_diagnostic_pair_provenance_v1",
+    "validated": true,
+    "encoder": {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/eval/model_100.diagnostic.encoder.onnx",
+      "sha256": "3806b2b63ebadf4d6cbf9f79b7072f2bf27ab8eb8bc6a9b3042f97739cc5428a",
+      "report_path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/eval/model_100.diagnostic.encoder.json",
+      "report_sha256": "5bcccbb26bc33cd2d3dbd31be50af5a98ba0e6608a96e7fac86dfe7932cbb24c"
+    },
+    "decoder": {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/eval/model_100.diagnostic.decoder.onnx",
+      "sha256": "90e27f37df747c28d8d8fc74a21f892314c67119074e99882a68d73d34295381",
+      "report_path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/eval/model_100.diagnostic.decoder.json",
+      "report_sha256": "d0f7fada75045e9220b5da6b8cf0cda8c31baffd2cbcaeb77fb42bd011afb8a3"
+    },
+    "paired_encoder_state_sha256": "3625edb10aabd266196702aefd464ad07c93847f2d1722a977e18ef2a0143990",
+    "encoder_contract": {
+      "input_shape": [
+        1,
+        267
+      ],
+      "output_shape": [
+        1,
+        64
+      ],
+      "dtype": "float32",
+      "fsq_level": 32,
+      "fsq_formula": "fsq_tanh_round_ste_even_levels_v1"
+    },
+    "source": {
+      "adapter_state_sha256": "17958372709a6aa6b205da60c7a83143a2d38abf80c021d9d2b742f213e0aed1",
+      "filename": "model_100.diagnostic.pt",
+      "policy_state_sha256": "be5d327fad4035ac2bc8203af4a69076c31cb46fa36e5cadda47cffebb0dc033",
+      "sha256": "7fa84db5ef7bd22b043de1c9cdb49313cd7fc142840981ed2d25ba4a4e3158a3",
+      "update_count": 100
+    },
+    "hardware_authorized": false,
+    "deployment_ready": false,
+    "scope": "same_checkpoint_export_provenance_and_model_bytes_not_new_numerical_or_physical_qualification"
+  },
+  "unpaired_diagnostic_only": false,
+  "cases": [
+    {
+      "completed_transitions": 47,
+      "completed_active_physics_steps": 475,
+      "active_partial_transition_substeps": 5,
+      "active_elapsed_simulation_s": 0.9500000000000001,
+      "active_effort_target_projection": true,
+      "actuation_trace_recorded": true,
+      "predictive_target_filter": {
+        "enabled": false,
+        "post_hoc_simulator_experiment_not_training_or_hardware_parity": false,
+        "completed_filter_calls": 0,
+        "preview_calls": 0,
+        "maximum_filter_elapsed_s": 0.0,
+        "interventions": [],
+        "recursive_feasibility_proven": false,
+        "real_time_qualified": false
+      },
+      "stateful_native_controller": true,
+      "observation_timing": "current_post_integration_pose_and_velocity_v2",
+      "body_tracking_timing": "current_post_integration_kinematics_v2",
+      "previous_action_semantics": "last_applied_target_normalized_native23_not_requested_action",
+      "synthetic_reference_controller_reset": true,
+      "measured_controller_target_reseeded_after_acquisition": false,
+      "initial_controller_failure": null,
+      "projected_active_joint_substeps": 488,
+      "requested_transitions": 535,
+      "library_completion_passed": false,
+      "upright_physical_bounds_passed": false,
+      "failure": {
+        "transition": 47,
+        "type": "TargetIntersectionError",
+        "message": "empty effort/position/slew target intersection",
+        "details": [
+          {
+            "joint": "right_hip_pitch_joint",
+            "compact_index": 6,
+            "q_rad": -0.10147840133788814,
+            "dq_rad_s": 0.39248677719220615,
+            "previous_target_rad": -0.6066941806443144,
+            "requested_target_rad": -1.4622386693954468,
+            "intersection_lower_rad": -0.5966610589832531,
+            "intersection_upper_rad": -0.5966941806443143,
+            "intersection_gap_rad": 3.312166106128611e-05,
+            "unslewed_lower_rad": -0.5966610589832531,
+            "unslewed_upper_rad": 0.4436772248557697,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.016560830530647
+          }
+        ]
+      },
+      "first_predicted_quarter_effort_guard_violation": null,
+      "first_target_margin_guard_violation": null,
+      "slew_clipped_joint_step_fraction": 0.27594081110705154,
+      "maximums": {
+        "height_m": 0.775458285018137,
+        "tilt_rad": 0.10897714170084344,
+        "joint_rmse_rad": 0.4080509926929728,
+        "relative_body_error_m": 0.13103114848883377,
+        "pelvis_orientation_error_rad": 0.08945485418080748,
+        "pelvis_position_error_m": 0.12872523779862444,
+        "maximum_ankle_torque_nm": 8.312500000000002,
+        "knee_flexion_delta_rad": 0.29190905303065573
+      },
+      "minimum_base_height_m": 0.7412633111450159,
+      "horizontal_displacement_m": 0.15305095734174695,
+      "gain_kp_hardware": [
+        40.179238474,
+        99.098427782,
+        40.179238474,
+        99.098427782,
+        28.501246197,
+        28.501246197,
+        40.179238474,
+        99.098427782,
+        40.179238474,
+        99.098427782,
+        28.501246197,
+        28.501246197,
+        40.179238474,
+        14.250623099,
+        14.250623099,
+        14.250623099,
+        14.250623099,
+        14.250623099,
+        14.250623099,
+        14.250623099,
+        14.250623099,
+        14.250623099,
+        14.250623099
+      ],
+      "gain_kd_hardware": [
+        2.557889765,
+        6.308801854,
+        2.557889765,
+        6.308801854,
+        1.814445687,
+        1.814445687,
+        2.557889765,
+        6.308801854,
+        2.557889765,
+        6.308801854,
+        1.814445687,
+        1.814445687,
+        2.557889765,
+        0.907222843,
+        0.907222843,
+        0.907222843,
+        0.907222843,
+        0.907222843,
+        0.907222843,
+        0.907222843,
+        0.907222843,
+        0.907222843,
+        0.907222843
+      ],
+      "effort_limit_hardware_nm": [
+        88.0,
+        139.0,
+        88.0,
+        139.0,
+        35.0,
+        35.0,
+        88.0,
+        139.0,
+        88.0,
+        139.0,
+        35.0,
+        35.0,
+        88.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0
+      ],
+      "motion_fidelity": {
+        "kind": "g1_true23_reference_motion_fidelity_v1",
+        "passed": false,
+        "full_clip_completed": false,
+        "failed_checks": [
+          "full_clip_completion",
+          "maximum_joint_tracking_rmse_rad"
+        ],
+        "maximum_errors": {
+          "maximum_pelvis_position_error_m": 0.25,
+          "maximum_pelvis_orientation_error_rad": 0.5,
+          "maximum_relative_tracked_body_position_error_m": 0.2,
+          "maximum_joint_tracking_rmse_rad": 0.35
+        },
+        "threshold_status": "provisional_engineering_screen_not_hardware_limits",
+        "hardware_authorized": false,
+        "deployment_ready": false
+      },
+      "startup_hold": {
+        "duration_s": 0.0,
+        "completed_physics_steps": 0,
+        "minimum_height_m": 0.7675477862358093,
+        "maximum_knee_flexion_delta_rad": 0.0,
+        "maximum_abs_effort_nm": 0.0,
+        "first_tenth_effort_guard_violation": null,
+        "finite": true,
+        "mode_transfer_simulated": false
+      },
+      "return_hold": {
+        "duration_s": 0.0,
+        "completed_physics_steps": 0,
+        "minimum_height_m": 0.7385591953931254,
+        "maximum_knee_flexion_delta_rad": 0.0,
+        "maximum_abs_effort_nm": 0.0,
+        "first_tenth_effort_guard_violation": null,
+        "finite": true,
+        "mode_transfer_simulated": false
+      },
+      "measured_contact_estimate": null,
+      "reference_kinematic_audit": {
+        "frames_checked": 546,
+        "maximum_body_position_fk_error_m": 4.7616468737780396e-07,
+        "position_fk_consistent": true,
+        "maximum_body_orientation_fk_error_rad": 9.424321830774485e-08,
+        "orientation_fk_consistent": true,
+        "dynamics_feasibility_proven": false
+      },
+      "reference_alignment": null,
+      "lifecycle_simulator_screen_passed": false,
+      "measured_initial_state": null,
+      "encoder_decoder_pair_validated": true,
+      "paired_lifecycle_simulator_screen_passed": false,
+      "label": "configured_sim_fraction1_ankle35_slew5_reference",
+      "gain_profile": "configured_sim",
+      "action_fraction": 1.0,
+      "ankle_effort_nm": 35.0,
+      "target_slew_rad_s": 5.0,
+      "initial_state": "reference"
+    }
+  ],
+  "sources": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/true23_active_gantry_core.hpp": "5c7965251b49d4f3005e9802aebddb03f60534603992c11837078e5ac41badaf",
+    "/mnt/z/codex/GR00T-WholeBodyControl/gear_sonic/data/robots/g1/g1_23dof_rev_1_0.xml": "16e304c970bfc68783ea69d01d05192e6bd9d83d62f6ee4aac0ac72ff18db612",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/config/sim_validation/g1_23dof_mujoco_sim2sim.json": "bc4dab246e709604f435dea7c584adc01f1c38a6abb6ac1bc22fc699c42272c3",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/eval/model_100.diagnostic.encoder.onnx": "3806b2b63ebadf4d6cbf9f79b7072f2bf27ab8eb8bc6a9b3042f97739cc5428a",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/projection_cost_20260906_v1/baseline100/eval/model_100.diagnostic.decoder.onnx": "90e27f37df747c28d8d8fc74a21f892314c67119074e99882a68d73d34295381",
+    "/mnt/z/codex/GR00T-WholeBodyControl/artifacts/g1_true23/sonic_library_true23_happy_physical_reference_v1/happy_dance.true23.npz": "e5b73bc131721c630500870c6ce7185c538dd237942ad58e2d02d0aad5a05e04",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/evaluate_g1_true23_deployment_envelope.py": "07d819fb04e642a0d8641562a8b479138544b540008203ec353d2bb319f5a9c5",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_clean_mujoco_teleop.py": "0630709a9e55d5ce782dc93944aa8faeba24ff680bdd8c163ce324416bfb897a",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_sonic_library_replay.py": "92fd5add66ee9f37a708d358132cc48686ce8f7c520225f7ac8a99e8b908f28f",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_step1b_mujoco.py": "ffed3a136b9c0f7343fd768a880fc395ce8f4737b735b7158c8f8ddd375ead3d",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_motion_fidelity.py": "689de00a422e7071ee4ba60e5ebb2087b77d11faccc20d6bfb5d0af587d2a863",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_safe_target_transform.py": "13bb352b59faa83195c7b423d40056ab37deab197a8aa66f8e0aaa33641503cf",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_actuation_profile.py": "9db4f5a4c715915de35ceaee242013b733f03ac4afe2fc65c7a861048f4e3913",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_sim_acquisition.py": "41d97a7fc6a304ab40156d4e059aa1e82b0d7e6414c6371fdcabfdc4ffe528ab",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_projected_controller_state.py": "b2af8748e3806e292770b085756436b630c11143bb46eafb795a53a74f8f9647",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_predictive_target_filter.py": "e68de3348d619d5b6a3af8b2680a926bf85283707672e3397fa84eea5180efda"
+  },
+  "runtime": {
+    "onnxruntime": "1.28.0",
+    "numpy": "2.3.4",
+    "intra_op_threads": 1,
+    "inter_op_threads": 1
+  },
+  "transition_balance_model": null,
+  "authorization": {
+    "simulator_only": true,
+    "robot_commands_published": false,
+    "dds_opened": false,
+    "network_used": false,
+    "hardware_authorized": false,
+    "deployment_ready": false
+  },
+  "limitations": [
+    "Ideal 500 Hz actuation and 50 Hz inference; no transport or ownership lifecycle.",
+    "Optional holds model only explicit sampled-posture PD, not Unitree mode transfer.",
+    "Optional standing actor is a 29-to-23 compatibility diagnostic, not native Unitree FSM ownership or verified hardware recovery.",
+    "Measured start uses recorded joints/IMU; root position, zero base velocity and ground contact are estimated, gantry forces absent.",
+    "Hardware guard crossings recorded diagnostically, not used to stop physics.",
+    "Ankle limits are hypothetical model ablations, not verified hardware ratings.",
+    "Neutral initial state is a simulated default pose, not measured FSM801 acquisition.",
+    "Legacy library completion tolerates large world drift and tracking error; not dance fidelity."
+  ]
+}

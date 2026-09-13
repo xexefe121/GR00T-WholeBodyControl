@@ -1,0 +1,18 @@
+{
+  "name": "model_200.materialize",
+  "command": [
+    "/root/.venvs/g1_true23_mjlab/bin/python",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/materialize_g1_true23_frozen_lora_diagnostic.py",
+    "--checkpoint",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/ieee_motion_ppo_resume300_20260906_v1/breadth/checkpoints/frozen_lora_model_200.pt",
+    "--warm-start",
+    "/mnt/z/codex/GR00T-WholeBodyControl/sonic_release/g1_23dof_rev_1_0_low_latency_init.pt",
+    "--source-checkpoint",
+    "/mnt/z/codex/GR00T-WholeBodyControl/low_latency/last.pt",
+    "--output",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/ieee_motion_ppo_resume300_20260906_v1/model_200/model_200.diagnostic.pt"
+  ],
+  "return_code": 0,
+  "elapsed_s": 40.895531998000024,
+  "log": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/ieee_motion_ppo_resume300_20260906_v1/model_200.materialize.log"
+}

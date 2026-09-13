@@ -130,18 +130,25 @@ def _load(path):
 def audit_update(*, initial_path, trained_path, parent_path, warm_start_path, source_checkpoint_path):
     initial_path, initial_hash, initial = _load(initial_path)
     trained_path, trained_hash, trained = _load(trained_path)
-    parent_path, parent_hash, parent = _load(parent_path)
+    parent_hash, parent = None, None
+    if parent_path is not None:
+        parent_path, parent_hash, parent = _load(parent_path)
     initial_semantics = validate_export_semantics(initial)
     trained_semantics = validate_export_semantics(trained)
-    validate_base_semantics(parent)
+    if parent is not None:
+        validate_base_semantics(parent)
     if initial["lineage_sha256"] != trained["lineage_sha256"] or initial_semantics != trained_semantics:
         raise ValueError("root-feedback update audit requires identical run lineage")
     bound_parent = initial_semantics["root_feedback_training_configuration"]["curriculum"][
         "parent_actor_initialization"
     ]
-    if not isinstance(bound_parent, dict) or (
-        bound_parent.get("checkpoint_sha256") != parent_hash
-        or bound_parent.get("actor_state_sha256") != parent["actor"]["state_sha256"]
+    if (parent is None and bound_parent is not None) or (
+        parent is not None
+        and (
+            not isinstance(bound_parent, dict)
+            or bound_parent.get("checkpoint_sha256") != parent_hash
+            or bound_parent.get("actor_state_sha256") != parent["actor"]["state_sha256"]
+        )
     ):
         raise ValueError("root-feedback initial checkpoint does not bind supplied old parent")
     exploration = trained["actor"]["contract"]["exploration"]
@@ -152,6 +159,7 @@ def audit_update(*, initial_path, trained_path, parent_path, warm_start_path, so
         23,
         warm_start_path=str(warm_start_path),
         source_checkpoint_path=str(source_checkpoint_path),
+        release_compatibility=initial_semantics.get("release_compatibility"),
         std_min=exploration["std_min"],
         std_max=exploration["std_max"],
         distribution_cfg={
@@ -160,14 +168,15 @@ def audit_update(*, initial_path, trained_path, parent_path, warm_start_path, so
             "init_std": exploration["init_std"],
         },
     )
-    proxy = SimpleNamespace(validate_training_artifact=actor.validate_base_training_artifact)
-    validate_generalist_checkpoint(parent, actor=proxy, lineage=parent["lineage"])
+    if parent is not None:
+        proxy = SimpleNamespace(validate_training_artifact=actor.validate_base_training_artifact)
+        validate_generalist_checkpoint(parent, actor=proxy, lineage=parent["lineage"])
+    original = actor.export_training_artifact()["state_dict"] if parent is None else parent["actor"]["state_dict"]
     validate_root_feedback_checkpoint(initial, actor=actor, lineage=initial["lineage"])
     validate_root_feedback_checkpoint(trained, actor=actor, lineage=initial["lineage"], minimum_update_count=1)
-    before, after, original = (
+    before, after = (
         initial["actor"]["state_dict"],
         trained["actor"]["state_dict"],
-        parent["actor"]["state_dict"],
     )
     changes = summarize_state_changes(before, after, exploration)
     actor.load_training_artifact(initial["actor"])
@@ -177,7 +186,11 @@ def audit_update(*, initial_path, trained_path, parent_path, warm_start_path, so
     checks = changes.pop("checks")
     checks.update(
         {
-            "all_29_old_parent_tensors_exact_in_model0": len(original) == 29
+            (
+                "initial_actor_exact_row_trimmed_release"
+                if parent is None
+                else "all_29_old_parent_tensors_exact_in_model0"
+            ): len(original) == (30 if parent is None else 29)
             and all(torch.equal(value, before[key]) for key, value in original.items()),
             "initial_root_feedback_has_exact_zero_effect": not initial_sensitivity[
                 "any_root_feature_changes_action"
@@ -199,6 +212,7 @@ def audit_update(*, initial_path, trained_path, parent_path, warm_start_path, so
         "initial_checkpoint_sha256": initial_hash,
         "trained_checkpoint_sha256": trained_hash,
         "parent_checkpoint_sha256": parent_hash,
+        "trained_finite_state": finite_training_state_summary(trained),
         "trained_actor_state_sha256": trained["actor"]["state_sha256"],
         "lineage_sha256": trained["lineage_sha256"],
         "completed_update_count": trained["trainer_state"]["completed_update_count"],
@@ -222,12 +236,12 @@ def main(argv=None):
     for name in (
         "initial-checkpoint",
         "trained-checkpoint",
-        "parent-checkpoint",
         "warm-start",
         "source-checkpoint",
         "output",
     ):
         parser.add_argument(f"--{name}", required=True, type=Path)
+    parser.add_argument("--parent-checkpoint", type=Path, help="Omit only for exact fresh released initialization")
     args = parser.parse_args(argv)
     if args.output.exists() or args.output.is_symlink():
         raise FileExistsError("refusing to overwrite root-feedback update receipt")

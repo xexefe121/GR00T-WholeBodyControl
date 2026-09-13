@@ -1,0 +1,970 @@
+{
+  "kind": "saved_only_aggregate_canonical_failure_diagnosis",
+  "controls": 15,
+  "physics_steps": 147,
+  "control0_exact_old_teacher_input": {
+    "features": true,
+    "base_target": true,
+    "previous_action": true,
+    "history": true,
+    "state": true,
+    "qpos": true,
+    "qvel": true
+  },
+  "control0_ONNX_actual_vs_saved_Torch_target_max_difference_rad": 3.2782554626464844e-07,
+  "control0_target_error_rms_rad": 0.02185753441559701,
+  "first_native_target_clip_control": 3,
+  "first_previous_action_outside_any_training_joint_range": 4,
+  "observed_previous_action_max_abs": 9.780749320983887,
+  "observed_produced_action_max_abs": 9.780749320983887,
+  "training_previous_action_max_abs": 6.6955742835998535,
+  "last10000_fit_diagnostics": [
+    {
+      "step": 50000,
+      "old_rmse": 0.03163946836044332,
+      "new_rmse": 0.03172447259711167,
+      "query1_rmse": 0.0288104905957409
+    },
+    {
+      "step": 51000,
+      "old_rmse": 0.028352178360821687,
+      "new_rmse": 0.028589308301616736,
+      "query1_rmse": 0.020001907957572083
+    },
+    {
+      "step": 52000,
+      "old_rmse": 0.025800341019654397,
+      "new_rmse": 0.026433578614371112,
+      "query1_rmse": 0.02244878684080598
+    },
+    {
+      "step": 53000,
+      "old_rmse": 0.028658413683954706,
+      "new_rmse": 0.02884125291902615,
+      "query1_rmse": 0.024650546539611896
+    },
+    {
+      "step": 54000,
+      "old_rmse": 0.026972709597989374,
+      "new_rmse": 0.02778116813959941,
+      "query1_rmse": 0.02059679994606706
+    },
+    {
+      "step": 55000,
+      "old_rmse": 0.025154692638450746,
+      "new_rmse": 0.02531358302668403,
+      "query1_rmse": 0.023272659184837313
+    },
+    {
+      "step": 56000,
+      "old_rmse": 0.02708645688153435,
+      "new_rmse": 0.027469116411242812,
+      "query1_rmse": 0.019161578815277077
+    },
+    {
+      "step": 57000,
+      "old_rmse": 0.026458697612788715,
+      "new_rmse": 0.026522893096107735,
+      "query1_rmse": 0.021849702300574914
+    },
+    {
+      "step": 58000,
+      "old_rmse": 0.026362102589339673,
+      "new_rmse": 0.026567698329064415,
+      "query1_rmse": 0.018199777844142177
+    },
+    {
+      "step": 59000,
+      "old_rmse": 0.02738343025641849,
+      "new_rmse": 0.027652213865646903,
+      "query1_rmse": 0.018948079876970815
+    },
+    {
+      "step": 60000,
+      "old_rmse": 0.03155668560646588,
+      "new_rmse": 0.03188987983434348,
+      "query1_rmse": 0.020002372672321557
+    }
+  ],
+  "actual_rows": [
+    {
+      "control": 0,
+      "executed_substeps": 10,
+      "nearest": {
+        "dataset": "old",
+        "row": 0,
+        "control": 0,
+        "normalized_feature_rms": 0.0,
+        "actual_target_error_rms_rad": 0.02185753441559701,
+        "saved_fit_target_error_rms_rad": 0.02185752794536216,
+        "actual_vs_saved_fit_prediction_rms_rad": 1.5318490097716303e-07
+      },
+      "same_control_old": {
+        "actual_target_error_rms_rad": 0.02185753441559701,
+        "saved_fit_target_error_rms_rad": 0.02185752794536216,
+        "standardized_feature_rms": 0.0,
+        "precontrol_max_joint_position_difference_rad": 0.0,
+        "precontrol_max_joint_velocity_difference_radps": 0.0,
+        "worst_target_joint": "left_shoulder_yaw_joint",
+        "worst_target_difference_rad": -0.05990384117793124
+      },
+      "standardized_feature_block_differences_to_nearest": {
+        "proprio": 0.0,
+        "future_goal": 0.0,
+        "BFM_base_offset": 0.0,
+        "previous_action": 0.0
+      },
+      "features_outside_combined_training_minmax_count": 0,
+      "feature_max_standardized_excursion_outside_training": 0.0,
+      "previous_action_outside_training_joint_ranges": [],
+      "previous_action_max_abs": 0.0,
+      "produced_combined_action_max_abs": 1.5655925273895264,
+      "clipped_target_joints": [],
+      "target_clip_max_abs_rad": 0.0,
+      "learned_correction_max_abs_rad": 0.3312274217605591,
+      "BFM_base_max_abs_rad": 0.5011098982772956,
+      "right_knee": {
+        "base": 0.5011098982772956,
+        "delta": 0.06199910491704941,
+        "raw_target": 0.563109003194345,
+        "applied_target": 0.563109003194345,
+        "actual_precontrol_position": 0.5651714457652562,
+        "actual_precontrol_velocity": 0.0
+      }
+    },
+    {
+      "control": 1,
+      "executed_substeps": 10,
+      "nearest": {
+        "dataset": "new",
+        "row": 0,
+        "control": 1,
+        "normalized_feature_rms": 0.046925076099917494,
+        "actual_target_error_rms_rad": 0.10681140641672077,
+        "saved_fit_target_error_rms_rad": 0.020002372672321557,
+        "actual_vs_saved_fit_prediction_rms_rad": 0.10823922382158042
+      },
+      "same_control_old": {
+        "actual_target_error_rms_rad": 0.10241887095298667,
+        "saved_fit_target_error_rms_rad": 0.021782871056859714,
+        "standardized_feature_rms": 0.050817373709063786,
+        "precontrol_max_joint_position_difference_rad": 0.011863090591385152,
+        "precontrol_max_joint_velocity_difference_radps": 0.7126085491185823,
+        "worst_target_joint": "left_ankle_pitch_joint",
+        "worst_target_difference_rad": -0.29257708925219744
+      },
+      "standardized_feature_block_differences_to_nearest": {
+        "proprio": 0.16443697819131337,
+        "future_goal": 0.0067244959877378625,
+        "BFM_base_offset": 0.03685299100941694,
+        "previous_action": 0.0790850547370677
+      },
+      "features_outside_combined_training_minmax_count": 8,
+      "feature_max_standardized_excursion_outside_training": 0.00015340873630342953,
+      "previous_action_outside_training_joint_ranges": [],
+      "previous_action_max_abs": 1.5655925273895264,
+      "produced_combined_action_max_abs": 1.5900801420211792,
+      "clipped_target_joints": [],
+      "target_clip_max_abs_rad": 0.0,
+      "learned_correction_max_abs_rad": 0.5427298545837402,
+      "BFM_base_max_abs_rad": 0.5900778251148532,
+      "right_knee": {
+        "base": 0.5397867091650315,
+        "delta": 0.06200399994850159,
+        "raw_target": 0.601790709113533,
+        "applied_target": 0.601790709113533,
+        "actual_precontrol_position": 0.5649672512284081,
+        "actual_precontrol_velocity": -0.025792532775523895
+      },
+      "same_control_new": {
+        "actual_target_error_rms_rad": 0.10681140641672077,
+        "saved_fit_target_error_rms_rad": 0.020002372672321557,
+        "standardized_feature_rms": 0.046925075712904336
+      }
+    },
+    {
+      "control": 2,
+      "executed_substeps": 10,
+      "nearest": {
+        "dataset": "old",
+        "row": 2,
+        "control": 2,
+        "normalized_feature_rms": 0.12214550072755356,
+        "actual_target_error_rms_rad": 0.33539013112008337,
+        "saved_fit_target_error_rms_rad": 0.027211470858587897,
+        "actual_vs_saved_fit_prediction_rms_rad": 0.32609034561681144
+      },
+      "same_control_old": {
+        "actual_target_error_rms_rad": 0.33539013112008337,
+        "saved_fit_target_error_rms_rad": 0.027211470858587897,
+        "standardized_feature_rms": 0.12214549995972242,
+        "precontrol_max_joint_position_difference_rad": 0.06949210618661567,
+        "precontrol_max_joint_velocity_difference_radps": 3.5301579884668968,
+        "worst_target_joint": "left_hip_pitch_joint",
+        "worst_target_difference_rad": 0.8901279867160254
+      },
+      "standardized_feature_block_differences_to_nearest": {
+        "proprio": 0.4142088648523557,
+        "future_goal": 0.02260738442665412,
+        "BFM_base_offset": 0.07801895380643813,
+        "previous_action": 0.27760999812182313
+      },
+      "features_outside_combined_training_minmax_count": 8,
+      "feature_max_standardized_excursion_outside_training": 0.002957979718301338,
+      "previous_action_outside_training_joint_ranges": [],
+      "previous_action_max_abs": 1.5900801420211792,
+      "produced_combined_action_max_abs": 2.5138111114501953,
+      "clipped_target_joints": [],
+      "target_clip_max_abs_rad": 0.0,
+      "learned_correction_max_abs_rad": 0.7850768566131592,
+      "BFM_base_max_abs_rad": 0.6169659313326106,
+      "right_knee": {
+        "base": 0.5195255849930439,
+        "delta": -0.26871246099472046,
+        "raw_target": 0.25081312399832345,
+        "applied_target": 0.25081312399832345,
+        "actual_precontrol_position": 0.5736955897700411,
+        "actual_precontrol_velocity": 0.4788749853013074
+      },
+      "same_control_new": {
+        "actual_target_error_rms_rad": 0.3365284646392864,
+        "saved_fit_target_error_rms_rad": 0.03086523784068598,
+        "standardized_feature_rms": 0.12359351058706629
+      }
+    },
+    {
+      "control": 3,
+      "executed_substeps": 10,
+      "nearest": {
+        "dataset": "new",
+        "row": 178,
+        "control": 179,
+        "normalized_feature_rms": 0.3388316312804008,
+        "actual_target_error_rms_rad": 0.9974564884238502,
+        "saved_fit_target_error_rms_rad": 0.018742884518629547,
+        "actual_vs_saved_fit_prediction_rms_rad": 0.9983248116404849
+      },
+      "same_control_old": {
+        "actual_target_error_rms_rad": 1.0216980314538573,
+        "saved_fit_target_error_rms_rad": 0.02258222589528922,
+        "standardized_feature_rms": 0.3483573619901905,
+        "precontrol_max_joint_position_difference_rad": 0.07383236674855354,
+        "precontrol_max_joint_velocity_difference_radps": 8.333233073356078,
+        "worst_target_joint": "right_hip_yaw_joint",
+        "worst_target_difference_rad": 2.397559906482506
+      },
+      "standardized_feature_block_differences_to_nearest": {
+        "proprio": 1.085313567682246,
+        "future_goal": 0.10457994308515361,
+        "BFM_base_offset": 0.38890666074713803,
+        "previous_action": 0.830683415329171
+      },
+      "features_outside_combined_training_minmax_count": 8,
+      "feature_max_standardized_excursion_outside_training": 0.01575289991127058,
+      "previous_action_outside_training_joint_ranges": [],
+      "previous_action_max_abs": 2.5138111114501953,
+      "produced_combined_action_max_abs": 7.937544822692871,
+      "clipped_target_joints": [
+        "left_hip_pitch_joint",
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "target_clip_max_abs_rad": 0.8832522871349037,
+      "learned_correction_max_abs_rad": 2.855670690536499,
+      "BFM_base_max_abs_rad": 0.6721480202300004,
+      "right_knee": {
+        "base": 0.5299886932616491,
+        "delta": 0.9063808917999268,
+        "raw_target": 1.4363695850615759,
+        "applied_target": 1.4363695850615759,
+        "actual_precontrol_position": 0.5520703765123977,
+        "actual_precontrol_velocity": -1.8684988781192098
+      },
+      "same_control_new": {
+        "actual_target_error_rms_rad": 1.0274071607461879,
+        "saved_fit_target_error_rms_rad": 0.021196667416222954,
+        "standardized_feature_rms": 0.3477712855220325
+      }
+    },
+    {
+      "control": 4,
+      "executed_substeps": 10,
+      "nearest": {
+        "dataset": "old",
+        "row": 151,
+        "control": 151,
+        "normalized_feature_rms": 0.7541060981053817,
+        "actual_target_error_rms_rad": 0.7491996254181891,
+        "saved_fit_target_error_rms_rad": 0.026378239545811154,
+        "actual_vs_saved_fit_prediction_rms_rad": 0.7335722086179445
+      },
+      "same_control_old": {
+        "actual_target_error_rms_rad": 0.7371055523449334,
+        "saved_fit_target_error_rms_rad": 0.020761291993181837,
+        "standardized_feature_rms": 0.8232615564175562,
+        "precontrol_max_joint_position_difference_rad": 0.21485552389231616,
+        "precontrol_max_joint_velocity_difference_radps": 9.123529156448342,
+        "worst_target_joint": "left_shoulder_pitch_joint",
+        "worst_target_difference_rad": -2.230899235108518
+      },
+      "standardized_feature_block_differences_to_nearest": {
+        "proprio": 2.2215531591994004,
+        "future_goal": 0.2886367337400255,
+        "BFM_base_offset": 0.7410899978168212,
+        "previous_action": 2.3475093672577936
+      },
+      "features_outside_combined_training_minmax_count": 23,
+      "feature_max_standardized_excursion_outside_training": 2.459887451861671,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_pitch_joint",
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_hip_pitch_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "previous_action_max_abs": 7.937544822692871,
+      "produced_combined_action_max_abs": 4.872128486633301,
+      "clipped_target_joints": [
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "right_hip_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "target_clip_max_abs_rad": 0.9387426167008519,
+      "learned_correction_max_abs_rad": 2.503875494003296,
+      "BFM_base_max_abs_rad": 0.6074872638304591,
+      "right_knee": {
+        "base": 0.6074872638304591,
+        "delta": -1.633496880531311,
+        "raw_target": -1.026009616700852,
+        "applied_target": -0.087267,
+        "actual_precontrol_position": 0.6736987190902912,
+        "actual_precontrol_velocity": 8.067967887046326
+      },
+      "same_control_new": {
+        "actual_target_error_rms_rad": 0.7421719812124856,
+        "saved_fit_target_error_rms_rad": 0.014625268965752548,
+        "standardized_feature_rms": 0.8255819976864843
+      }
+    },
+    {
+      "control": 5,
+      "executed_substeps": 10,
+      "nearest": {
+        "dataset": "new",
+        "row": 26,
+        "control": 27,
+        "normalized_feature_rms": 0.6733951696885306,
+        "actual_target_error_rms_rad": 0.5776877984667634,
+        "saved_fit_target_error_rms_rad": 0.02159668836098461,
+        "actual_vs_saved_fit_prediction_rms_rad": 0.577500286567019
+      },
+      "same_control_old": {
+        "actual_target_error_rms_rad": 0.6172244426368271,
+        "saved_fit_target_error_rms_rad": 0.021870790830424144,
+        "standardized_feature_rms": 0.7078514839422058,
+        "precontrol_max_joint_position_difference_rad": 0.23179998058618523,
+        "precontrol_max_joint_velocity_difference_radps": 5.6579827375717615,
+        "worst_target_joint": "right_hip_yaw_joint",
+        "worst_target_difference_rad": -1.4291369374924752
+      },
+      "standardized_feature_block_differences_to_nearest": {
+        "proprio": 2.0794910506572744,
+        "future_goal": 0.23483593974153183,
+        "BFM_base_offset": 0.50882638279611,
+        "previous_action": 1.9237313628789978
+      },
+      "features_outside_combined_training_minmax_count": 20,
+      "feature_max_standardized_excursion_outside_training": 3.2741799486574785,
+      "previous_action_outside_training_joint_ranges": [
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "right_hip_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "left_shoulder_pitch_joint",
+        "right_wrist_roll_joint"
+      ],
+      "previous_action_max_abs": 4.872128486633301,
+      "produced_combined_action_max_abs": 3.335684299468994,
+      "clipped_target_joints": [
+        "right_knee_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "target_clip_max_abs_rad": 0.3827339555709695,
+      "learned_correction_max_abs_rad": 1.5681787729263306,
+      "BFM_base_max_abs_rad": 0.7251601761904745,
+      "right_knee": {
+        "base": 0.28870597172853,
+        "delta": -0.7587069272994995,
+        "raw_target": -0.4700009555709695,
+        "applied_target": -0.087267,
+        "actual_precontrol_position": 0.6555252334761451,
+        "actual_precontrol_velocity": -1.767538385469278
+      },
+      "same_control_new": {
+        "actual_target_error_rms_rad": 0.616752538851744,
+        "saved_fit_target_error_rms_rad": 0.020167486923324596,
+        "standardized_feature_rms": 0.7088646817328537
+      }
+    },
+    {
+      "control": 6,
+      "executed_substeps": 10,
+      "nearest": {
+        "dataset": "old",
+        "row": 201,
+        "control": 201,
+        "normalized_feature_rms": 0.6700807707334441,
+        "actual_target_error_rms_rad": 0.6087210143915954,
+        "saved_fit_target_error_rms_rad": 0.02409308968104232,
+        "actual_vs_saved_fit_prediction_rms_rad": 0.6241969920728279
+      },
+      "same_control_old": {
+        "actual_target_error_rms_rad": 0.6163930970203697,
+        "saved_fit_target_error_rms_rad": 0.017771892611151318,
+        "standardized_feature_rms": 0.6830092945020569,
+        "precontrol_max_joint_position_difference_rad": 0.1818619224167915,
+        "precontrol_max_joint_velocity_difference_radps": 13.938377607779989,
+        "worst_target_joint": "left_hip_yaw_joint",
+        "worst_target_difference_rad": -1.2845075184240649
+      },
+      "standardized_feature_block_differences_to_nearest": {
+        "proprio": 2.259247355263383,
+        "future_goal": 0.06862537600738763,
+        "BFM_base_offset": 0.7497349700227509,
+        "previous_action": 1.606833855504666
+      },
+      "features_outside_combined_training_minmax_count": 13,
+      "feature_max_standardized_excursion_outside_training": 3.8578688632868157,
+      "previous_action_outside_training_joint_ranges": [
+        "right_knee_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "previous_action_max_abs": 3.335684299468994,
+      "produced_combined_action_max_abs": 3.9705581665039062,
+      "clipped_target_joints": [
+        "left_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "target_clip_max_abs_rad": 1.0050547174009556,
+      "learned_correction_max_abs_rad": 1.7755697965621948,
+      "BFM_base_max_abs_rad": 0.7813881242452966,
+      "right_knee": {
+        "base": 0.23262651021638292,
+        "delta": -0.19308750331401825,
+        "raw_target": 0.03953900690236467,
+        "applied_target": 0.03953900690236467,
+        "actual_precontrol_position": 0.5964340706400755,
+        "actual_precontrol_velocity": -3.530306479350446
+      },
+      "same_control_new": {
+        "actual_target_error_rms_rad": 0.6148099918543369,
+        "saved_fit_target_error_rms_rad": 0.01673303531715302,
+        "standardized_feature_rms": 0.6832481986442092
+      }
+    },
+    {
+      "control": 7,
+      "executed_substeps": 10,
+      "nearest": {
+        "dataset": "old",
+        "row": 156,
+        "control": 156,
+        "normalized_feature_rms": 0.6771549259830058,
+        "actual_target_error_rms_rad": 0.39081274401113014,
+        "saved_fit_target_error_rms_rad": 0.027454064387284313,
+        "actual_vs_saved_fit_prediction_rms_rad": 0.3959699675936894
+      },
+      "same_control_old": {
+        "actual_target_error_rms_rad": 0.4193412133154386,
+        "saved_fit_target_error_rms_rad": 0.015818481542424587,
+        "standardized_feature_rms": 0.7011235135675924,
+        "precontrol_max_joint_position_difference_rad": 0.19398250090284475,
+        "precontrol_max_joint_velocity_difference_radps": 11.495729374541042,
+        "worst_target_joint": "right_hip_yaw_joint",
+        "worst_target_difference_rad": -0.8731575912571196
+      },
+      "standardized_feature_block_differences_to_nearest": {
+        "proprio": 2.2927281610779775,
+        "future_goal": 0.0558625015782052,
+        "BFM_base_offset": 0.60725315978129,
+        "previous_action": 1.661313227425678
+      },
+      "features_outside_combined_training_minmax_count": 6,
+      "feature_max_standardized_excursion_outside_training": 2.799111457163916,
+      "previous_action_outside_training_joint_ranges": [
+        "left_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "previous_action_max_abs": 3.9705581665039062,
+      "produced_combined_action_max_abs": 4.031702995300293,
+      "clipped_target_joints": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "right_hip_roll_joint"
+      ],
+      "target_clip_max_abs_rad": 1.0446131415715079,
+      "learned_correction_max_abs_rad": 1.4549354314804077,
+      "BFM_base_max_abs_rad": 0.7538924430791029,
+      "right_knee": {
+        "base": 0.2886179508683648,
+        "delta": -0.015313459560275078,
+        "raw_target": 0.2733044913080897,
+        "applied_target": 0.2733044913080897,
+        "actual_precontrol_position": 0.42634659854695367,
+        "actual_precontrol_velocity": -9.97048317425616
+      },
+      "same_control_new": {
+        "actual_target_error_rms_rad": 0.419169531717679,
+        "saved_fit_target_error_rms_rad": 0.013772468429156078,
+        "standardized_feature_rms": 0.7013350187977245
+      }
+    },
+    {
+      "control": 8,
+      "executed_substeps": 10,
+      "nearest": {
+        "dataset": "new",
+        "row": 167,
+        "control": 168,
+        "normalized_feature_rms": 0.5324192176538596,
+        "actual_target_error_rms_rad": 0.49530125166658473,
+        "saved_fit_target_error_rms_rad": 0.02941137630685355,
+        "actual_vs_saved_fit_prediction_rms_rad": 0.5038882189672171
+      },
+      "same_control_old": {
+        "actual_target_error_rms_rad": 0.4776128334570238,
+        "saved_fit_target_error_rms_rad": 0.014751152498208736,
+        "standardized_feature_rms": 0.5517054187969118,
+        "precontrol_max_joint_position_difference_rad": 0.22084010269614132,
+        "precontrol_max_joint_velocity_difference_radps": 10.050558685364658,
+        "worst_target_joint": "right_shoulder_pitch_joint",
+        "worst_target_difference_rad": 1.0719545044678667
+      },
+      "standardized_feature_block_differences_to_nearest": {
+        "proprio": 1.6906857814154101,
+        "future_goal": 0.16047504915845526,
+        "BFM_base_offset": 0.6084799419071636,
+        "previous_action": 1.3892255902313173
+      },
+      "features_outside_combined_training_minmax_count": 5,
+      "feature_max_standardized_excursion_outside_training": 2.6091025536725407,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "right_hip_roll_joint"
+      ],
+      "previous_action_max_abs": 4.031702995300293,
+      "produced_combined_action_max_abs": 4.9966583251953125,
+      "clipped_target_joints": [
+        "left_hip_roll_joint",
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "target_clip_max_abs_rad": 1.518750739938552,
+      "learned_correction_max_abs_rad": 2.162592887878418,
+      "BFM_base_max_abs_rad": 0.7800656906556099,
+      "right_knee": {
+        "base": 0.45187517195057486,
+        "delta": -0.3812463581562042,
+        "raw_target": 0.07062881379437064,
+        "applied_target": 0.07062881379437064,
+        "actual_precontrol_position": 0.3685494520675548,
+        "actual_precontrol_velocity": -0.20465370448465525
+      },
+      "same_control_new": {
+        "actual_target_error_rms_rad": 0.47385076458563125,
+        "saved_fit_target_error_rms_rad": 0.013797475996466888,
+        "standardized_feature_rms": 0.5514615337556653
+      }
+    },
+    {
+      "control": 9,
+      "executed_substeps": 10,
+      "nearest": {
+        "dataset": "old",
+        "row": 19,
+        "control": 19,
+        "normalized_feature_rms": 0.5998875453301984,
+        "actual_target_error_rms_rad": 0.8374919767805715,
+        "saved_fit_target_error_rms_rad": 0.017215673038980268,
+        "actual_vs_saved_fit_prediction_rms_rad": 0.8316971386312739
+      },
+      "same_control_old": {
+        "actual_target_error_rms_rad": 0.8649331916405791,
+        "saved_fit_target_error_rms_rad": 0.01408700105585825,
+        "standardized_feature_rms": 0.6442615643440497,
+        "precontrol_max_joint_position_difference_rad": 0.210275607774355,
+        "precontrol_max_joint_velocity_difference_radps": 8.6399028142548,
+        "worst_target_joint": "left_hip_pitch_joint",
+        "worst_target_difference_rad": 2.326308903880747
+      },
+      "standardized_feature_block_differences_to_nearest": {
+        "proprio": 1.7383452850282615,
+        "future_goal": 0.25404039539576184,
+        "BFM_base_offset": 0.7358482663424504,
+        "previous_action": 1.776583261203471
+      },
+      "features_outside_combined_training_minmax_count": 10,
+      "feature_max_standardized_excursion_outside_training": 3.64147156922314,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_roll_joint",
+        "left_knee_joint",
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint",
+        "right_wrist_roll_joint"
+      ],
+      "previous_action_max_abs": 4.9966583251953125,
+      "produced_combined_action_max_abs": 6.338842868804932,
+      "clipped_target_joints": [
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "target_clip_max_abs_rad": 0.23844920946057735,
+      "learned_correction_max_abs_rad": 2.1377789974212646,
+      "BFM_base_max_abs_rad": 0.9328387401283276,
+      "right_knee": {
+        "base": 0.5638693816245443,
+        "delta": 0.43606865406036377,
+        "raw_target": 0.999938035684908,
+        "applied_target": 0.999938035684908,
+        "actual_precontrol_position": 0.34690812340795196,
+        "actual_precontrol_velocity": -1.5413282558708816
+      },
+      "same_control_new": {
+        "actual_target_error_rms_rad": 0.8658921593467893,
+        "saved_fit_target_error_rms_rad": 0.013643224488438743,
+        "standardized_feature_rms": 0.6434245478977852
+      }
+    },
+    {
+      "control": 10,
+      "executed_substeps": 10,
+      "nearest": {
+        "dataset": "new",
+        "row": 26,
+        "control": 27,
+        "normalized_feature_rms": 0.8098403736083561,
+        "actual_target_error_rms_rad": 1.0241264624494255,
+        "saved_fit_target_error_rms_rad": 0.02159668836098461,
+        "actual_vs_saved_fit_prediction_rms_rad": 1.0237819033148536
+      },
+      "same_control_old": {
+        "actual_target_error_rms_rad": 0.8667401898688838,
+        "saved_fit_target_error_rms_rad": 0.015889155817116817,
+        "standardized_feature_rms": 0.8397714394425507,
+        "precontrol_max_joint_position_difference_rad": 0.2895216661578059,
+        "precontrol_max_joint_velocity_difference_radps": 11.705129462368667,
+        "worst_target_joint": "left_shoulder_pitch_joint",
+        "worst_target_difference_rad": -2.2208606297027362
+      },
+      "standardized_feature_block_differences_to_nearest": {
+        "proprio": 2.4380870164401123,
+        "future_goal": 0.3679055795488423,
+        "BFM_base_offset": 0.9649974910064905,
+        "previous_action": 1.891681648279893
+      },
+      "features_outside_combined_training_minmax_count": 9,
+      "feature_max_standardized_excursion_outside_training": 1.8203387294372901,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_pitch_joint",
+        "right_hip_roll_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "previous_action_max_abs": 6.338842868804932,
+      "produced_combined_action_max_abs": 4.7630109786987305,
+      "clipped_target_joints": [],
+      "target_clip_max_abs_rad": 0.0,
+      "learned_correction_max_abs_rad": 1.8579126596450806,
+      "BFM_base_max_abs_rad": 0.8135691540543838,
+      "right_knee": {
+        "base": 0.8012048781527561,
+        "delta": -0.017549248412251472,
+        "raw_target": 0.7836556297405046,
+        "applied_target": 0.7836556297405046,
+        "actual_precontrol_position": 0.516696230817377,
+        "actual_precontrol_velocity": 11.360878865817664
+      },
+      "same_control_new": {
+        "actual_target_error_rms_rad": 0.8655940785564251,
+        "saved_fit_target_error_rms_rad": 0.013668703860675861,
+        "standardized_feature_rms": 0.8401754359659146
+      }
+    },
+    {
+      "control": 11,
+      "executed_substeps": 10,
+      "nearest": {
+        "dataset": "new",
+        "row": 26,
+        "control": 27,
+        "normalized_feature_rms": 0.9708154909399176,
+        "actual_target_error_rms_rad": 0.8490013372911431,
+        "saved_fit_target_error_rms_rad": 0.02159668836098461,
+        "actual_vs_saved_fit_prediction_rms_rad": 0.847432156528353
+      },
+      "same_control_old": {
+        "actual_target_error_rms_rad": 0.7248696432203663,
+        "saved_fit_target_error_rms_rad": 0.013231608756823306,
+        "standardized_feature_rms": 1.0053975603869187,
+        "precontrol_max_joint_position_difference_rad": 0.35769639087485766,
+        "precontrol_max_joint_velocity_difference_radps": 10.224690823031082,
+        "worst_target_joint": "right_shoulder_pitch_joint",
+        "worst_target_difference_rad": 1.488305684475775
+      },
+      "standardized_feature_block_differences_to_nearest": {
+        "proprio": 2.968467580547723,
+        "future_goal": 0.43188819015984997,
+        "BFM_base_offset": 1.5109646014527511,
+        "previous_action": 1.897259420097863
+      },
+      "features_outside_combined_training_minmax_count": 5,
+      "feature_max_standardized_excursion_outside_training": 6.672827438017278,
+      "previous_action_outside_training_joint_ranges": [
+        "left_shoulder_pitch_joint"
+      ],
+      "previous_action_max_abs": 4.7630109786987305,
+      "produced_combined_action_max_abs": 6.028950214385986,
+      "clipped_target_joints": [
+        "left_hip_roll_joint",
+        "left_ankle_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "target_clip_max_abs_rad": 1.7268534703297889,
+      "learned_correction_max_abs_rad": 2.9237234592437744,
+      "BFM_base_max_abs_rad": 1.1096029889139856,
+      "right_knee": {
+        "base": 1.1096029889139856,
+        "delta": -2.9237234592437744,
+        "raw_target": -1.8141204703297888,
+        "applied_target": -0.087267,
+        "actual_precontrol_position": 0.6689975885804065,
+        "actual_precontrol_velocity": 5.624924436832368
+      },
+      "same_control_new": {
+        "actual_target_error_rms_rad": 0.7255277206313738,
+        "saved_fit_target_error_rms_rad": 0.013415981488996882,
+        "standardized_feature_rms": 1.005430215653392
+      }
+    },
+    {
+      "control": 12,
+      "executed_substeps": 10,
+      "nearest": {
+        "dataset": "new",
+        "row": 175,
+        "control": 176,
+        "normalized_feature_rms": 1.0958782975815125,
+        "actual_target_error_rms_rad": 0.8556670859498674,
+        "saved_fit_target_error_rms_rad": 0.02514956112860224,
+        "actual_vs_saved_fit_prediction_rms_rad": 0.8433023466897402
+      },
+      "same_control_old": {
+        "actual_target_error_rms_rad": 0.7517424033690969,
+        "saved_fit_target_error_rms_rad": 0.01411603135913132,
+        "standardized_feature_rms": 1.1179968884180664,
+        "precontrol_max_joint_position_difference_rad": 0.4323808234253431,
+        "precontrol_max_joint_velocity_difference_radps": 15.343435104721065,
+        "worst_target_joint": "right_hip_yaw_joint",
+        "worst_target_difference_rad": 1.9908400613475554
+      },
+      "standardized_feature_block_differences_to_nearest": {
+        "proprio": 3.308953232280686,
+        "future_goal": 0.45389889414263906,
+        "BFM_base_offset": 1.8726492330930142,
+        "previous_action": 2.4994485816895735
+      },
+      "features_outside_combined_training_minmax_count": 13,
+      "feature_max_standardized_excursion_outside_training": 5.956785489233426,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_roll_joint",
+        "left_ankle_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "previous_action_max_abs": 6.028950214385986,
+      "produced_combined_action_max_abs": 7.350346565246582,
+      "clipped_target_joints": [
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "target_clip_max_abs_rad": 2.5510248814796133,
+      "learned_correction_max_abs_rad": 2.9770901203155518,
+      "BFM_base_max_abs_rad": 1.2838315639130216,
+      "right_knee": {
+        "base": 0.1527449323676185,
+        "delta": -1.58488130569458,
+        "raw_target": -1.4321363733269616,
+        "applied_target": -0.087267,
+        "actual_precontrol_position": 0.6133932829504142,
+        "actual_precontrol_velocity": -6.357057230331857
+      },
+      "same_control_new": {
+        "actual_target_error_rms_rad": 0.7510179151097284,
+        "saved_fit_target_error_rms_rad": 0.017471782212273124,
+        "standardized_feature_rms": 1.118284580960354
+      }
+    },
+    {
+      "control": 13,
+      "executed_substeps": 10,
+      "nearest": {
+        "dataset": "old",
+        "row": 116,
+        "control": 116,
+        "normalized_feature_rms": 1.021151372727593,
+        "actual_target_error_rms_rad": 1.0326619953619596,
+        "saved_fit_target_error_rms_rad": 0.013875296034773311,
+        "actual_vs_saved_fit_prediction_rms_rad": 1.0292192749125975
+      },
+      "same_control_old": {
+        "actual_target_error_rms_rad": 1.0606800747786072,
+        "saved_fit_target_error_rms_rad": 0.01571689432466144,
+        "standardized_feature_rms": 1.0597318842078884,
+        "precontrol_max_joint_position_difference_rad": 0.549136735634405,
+        "precontrol_max_joint_velocity_difference_radps": 11.000186349309617,
+        "worst_target_joint": "right_shoulder_pitch_joint",
+        "worst_target_difference_rad": -2.8129083013250136
+      },
+      "standardized_feature_block_differences_to_nearest": {
+        "proprio": 2.8755408944050385,
+        "future_goal": 0.46504432692290365,
+        "BFM_base_offset": 1.5887698621670923,
+        "previous_action": 2.943364722428221
+      },
+      "features_outside_combined_training_minmax_count": 16,
+      "feature_max_standardized_excursion_outside_training": 6.116530088741074,
+      "previous_action_outside_training_joint_ranges": [
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "previous_action_max_abs": 7.350346565246582,
+      "produced_combined_action_max_abs": 9.780749320983887,
+      "clipped_target_joints": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint"
+      ],
+      "target_clip_max_abs_rad": 3.566014186810378,
+      "learned_correction_max_abs_rad": 5.141741752624512,
+      "BFM_base_max_abs_rad": 1.2099088079672409,
+      "right_knee": {
+        "base": -0.28485807690186676,
+        "delta": -0.8100721836090088,
+        "raw_target": -1.0949302605108755,
+        "applied_target": -0.087267,
+        "actual_precontrol_position": 0.561490455549551,
+        "actual_precontrol_velocity": -1.816928778525985
+      },
+      "same_control_new": {
+        "actual_target_error_rms_rad": 1.0563778026228727,
+        "saved_fit_target_error_rms_rad": 0.018605461720290904,
+        "standardized_feature_rms": 1.0603257225501304
+      }
+    },
+    {
+      "control": 14,
+      "executed_substeps": 7,
+      "nearest": {
+        "dataset": "old",
+        "row": 1265,
+        "control": 1265,
+        "normalized_feature_rms": 1.4629038877391172,
+        "actual_target_error_rms_rad": 1.380282667090783,
+        "saved_fit_target_error_rms_rad": 0.022704461334343562,
+        "actual_vs_saved_fit_prediction_rms_rad": 1.3900902924559526
+      },
+      "same_control_old": {
+        "actual_target_error_rms_rad": 1.412225572975151,
+        "saved_fit_target_error_rms_rad": 0.03657155965796584,
+        "standardized_feature_rms": 1.5092400423174228,
+        "precontrol_max_joint_position_difference_rad": 0.6361378691257425,
+        "precontrol_max_joint_velocity_difference_radps": 25.714622885355674,
+        "worst_target_joint": "left_shoulder_pitch_joint",
+        "worst_target_difference_rad": -3.1308410337066817
+      },
+      "standardized_feature_block_differences_to_nearest": {
+        "proprio": 4.715992382974153,
+        "future_goal": 0.3531007488852565,
+        "BFM_base_offset": 1.4675460641905347,
+        "previous_action": 3.9755488498117044
+      },
+      "features_outside_combined_training_minmax_count": 23,
+      "feature_max_standardized_excursion_outside_training": 12.613270076711864,
+      "previous_action_outside_training_joint_ranges": [
+        "left_hip_roll_joint",
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "right_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint",
+        "right_shoulder_pitch_joint",
+        "right_shoulder_yaw_joint"
+      ],
+      "previous_action_max_abs": 9.780749320983887,
+      "produced_combined_action_max_abs": 7.753591537475586,
+      "clipped_target_joints": [
+        "left_ankle_roll_joint",
+        "right_hip_yaw_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint",
+        "right_shoulder_pitch_joint"
+      ],
+      "target_clip_max_abs_rad": 2.1637996403671025,
+      "learned_correction_max_abs_rad": 3.9773848056793213,
+      "BFM_base_max_abs_rad": 0.8918191721608928,
+      "right_knee": {
+        "base": 0.7374364801402965,
+        "delta": 2.0611166954040527,
+        "raw_target": 2.7985531755443493,
+        "applied_target": 2.7985531755443493,
+        "actual_precontrol_position": 0.5159412840784185,
+        "actual_precontrol_velocity": -3.3443017959039754
+      },
+      "same_control_new": {
+        "actual_target_error_rms_rad": 1.4111408864249986,
+        "saved_fit_target_error_rms_rad": 0.022532275685486755,
+        "standardized_feature_rms": 1.5063564301284293
+      }
+    }
+  ],
+  "input_sha256": {
+    "actual": "e1779f3f7c7ad99629266027e9bcb3c7f38814d4803e28f05c3d1d9b5c77a5ca",
+    "old": "8003407282b01f2c66fe1720d7eb038f43377c1d6eab80dce47f1f75911e8083",
+    "new": "e93753597450881c08a46fd520113abd21470653083dba0226c6450469d16ad1",
+    "fit": "a879f85fc9c3cacb1ff5f9e95146ceccae658f16bb94783c29d29ff5b643df33",
+    "fit_metrics": "587c3886c1541c512d0cfd723afa6b42d702087776a3f617207f64390b182596",
+    "contract": "d1641ce4f2e9016f5008e5d4be3cc24ded46d7f9daf9cfddaab84095f98eb99b"
+  },
+  "script_sha256": "1a32c43298256263bf18decae2aa1843a90bc121415ed17049ff1371641d8775",
+  "inference_calls": 0,
+  "optimizer_calls": 0,
+  "new_physics_steps": 0,
+  "causal_intervention_performed": false,
+  "insufficient_observation_proved": false,
+  "hardware_authorized": false
+}

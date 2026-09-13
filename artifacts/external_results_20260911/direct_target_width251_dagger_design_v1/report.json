@@ -1,0 +1,80 @@
+{
+  "source_only": true,
+  "design_complete": true,
+  "implementation_selected": false,
+  "training_selected": false,
+  "update_count": null,
+  "learning_rate": null,
+  "new_supervision_weight": null,
+  "new_sampler": null,
+  "unchanged_benchmarks": {
+    "nominal_rows": 9904,
+    "nominal_cells": 15,
+    "physical_rows": 3054,
+    "physical_cells": 9,
+    "full_state_rows": 354612,
+    "full_state_cells": 54,
+    "diagnostic_rows": 367570
+  },
+  "conditional_new_data": {
+    "rows": 1018,
+    "controls": [
+      251,
+      1268
+    ],
+    "phase_rows": [
+      99,
+      819,
+      100
+    ],
+    "fresh_student_state_queries": 1,
+    "connected_expert_rows_after_first": 1017
+  },
+  "restoration": {
+    "source_ordinary_step": 81000,
+    "source_optimizer_step": 16000,
+    "architecture": [
+      1323,
+      512,
+      512,
+      23
+    ],
+    "all_six_weights_and_moments_preserved": true,
+    "expansion_repeated": false,
+    "normalization_refit": false
+  },
+  "conditional_full_branch_accounting": {
+    "training_calls_per_update": 4,
+    "training_rows_per_update": 15704,
+    "diagnostic_rows_per_backend": 368588,
+    "diagnostic_calls_per_backend": 1441,
+    "note": "Conditional formulas only. No actual numerical budget selected."
+  },
+  "task_checkpoints_opened": 0,
+  "task_arrays_opened": 0,
+  "model_calls": 0,
+  "gradient_calls": 0,
+  "native_steps": 0,
+  "replans": 0,
+  "references": {
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_student_v1/source_prepared_v1/train_response_balanced.py": "a943b1b287973c4072f81de734cd16680f8800733c6d9a5aad4a7bc9e8fbb44e",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_student_v1/source_prepared_v1/response_contract.py": "09dcc2e86604fc636c28f9aca42a2dcb60017ba718225639e321964eae5baf82",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_student_v1/source_prepared_v1/response_data.py": "0680b24b8b539e88fa705c07708238aaa0247ed56b19de1d5317b41460a3f455",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_student_v1/source_prepared_v1/response_restore.py": "2c2b17ac358fe025eb7112dbdf01bf527c44d4c4de39d7d4098a7f94d120982e",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_student_v1/source_prepared_v1/width_restore.py": "3c4ae2420d803c371d74a45426928409de5bd821f666e195c22a73d48c2fb6d9",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_student_v1/source_prepared_v1/width512.py": "48ff62b384628a57c50dabd2bc55d8164ea2da41bc3e1b3538b08c7b06820ae7",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_student_v1/source_prepared_v1/width512_promoted.py": "c34efe4853ccb88b2419c56d8fe40daa11fbb7922ee2e9b85dfc276d4bd9152f",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_student_v1/source_prepared_v1/direct_contract.py": "b0e44878ffea4a035e54a476cb00fc23fdebd14c1563f3d0270b19ee6ef5c6e3",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_student_v1/source_prepared_v1/direct_objective.py": "396e4032d4ffb5ae29ed3c135e6a552b6b9958498e8a128733120e3c0fc19d97",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_student_v1/source_prepared_v1/full_state_data.py": "be75878f4850a417812357c04af8e3d783acd4cec1e6b52e01e15f0bd8b8c1e2",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_student_v1/source_prepared_v1/full_state_objective.py": "0fa1d2fca4f47b1ce1049976ecf8d6771b6b64949c018f3b813d191173b9fed2",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_student_v1/source_prepared_v1/balanced_response_objective.py": "7dd3720b2f451e2bbb3f05cf355266559707c46fb1546747e8ba2d24d602b5b5",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_causal_width512_student_v1/source_prepared_v1/context_diagnostics.py": "611ec7a7e964bf5c039a998aca670f96df1e32f5076d098d9fd1b8e1b914180f",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width251_followup_design_v1/DESIGN.md": "1e46b7d29af96a4dda655557d6322d1312055d1d7c8285582a920f4f41b5b1a5",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width251_collection_v1/source_preparation.json": "6704baa14dd451db12269ab58449e1575ee78c31bc31f4b1ed3da416b1d4cd7e",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width251_collection_v1/OUTPUT_SCHEMA.md": "dd19edf4c727c35dc10f17c63ddf5fcf1b6097fd29bd25fe818137d7194a7a02",
+    "E:/codex-artifacts/sonic23_teleop_resume_20260911/direct_target_width251_collection_root_review_v1/review.json": "8b1aeea19361feb5bde70625b003b0f7050b1b858655786b7b5c776a13c9b285"
+  },
+  "design_sha256": "e7a64d1580cc592a886a00f93c1acba5c7f7a89a72fdc87dc3113f746d1203de",
+  "source_sha256": "33c06570029677d5c0f093074ff5a451fedb70063d0ca4398829bd3da794b651"
+}

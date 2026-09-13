@@ -1,0 +1,103 @@
+{
+  "samples": 550,
+  "same_actual_successful_quiet_states": true,
+  "actor_goal_blend_values": [
+    1.0
+  ],
+  "upper_joint_branch_max_change_rad": 2.049884277700699,
+  "leg_branch_max_change_rad": 0.10382928650258705,
+  "static_goal_task_relative_errors_m": {
+    "current": [
+      0.016820932413037473,
+      0.009879561538296841,
+      0.010000000000000009
+    ],
+    "original_native": [
+      1.2412670766236366e-16,
+      2.220446049250313e-16,
+      0.010000000000000231
+    ],
+    "original_native_arms": [
+      1.2412670766236366e-16,
+      0.0,
+      0.010000000000000009
+    ]
+  },
+  "cases": [
+    {
+      "model": "initial",
+      "variant": "current_terminal",
+      "all_target_rmse_rad": 0.22021007537841797,
+      "leg_target_rmse_rad": 0.061665914952754974,
+      "arm_target_rmse_rad": 0.32699817419052124,
+      "continuous_hold_target_rmse_rad": 0.22220434248447418,
+      "target_to_actual_pose_rms_rad": 0.24105752573794215
+    },
+    {
+      "model": "initial",
+      "variant": "original_native_body_only",
+      "all_target_rmse_rad": 0.005497800186276436,
+      "leg_target_rmse_rad": 0.007339028641581535,
+      "arm_target_rmse_rad": 0.0022101488430052996,
+      "continuous_hold_target_rmse_rad": 0.004989901557564735,
+      "target_to_actual_pose_rms_rad": 0.08773339078075858
+    },
+    {
+      "model": "initial",
+      "variant": "original_native_arms_body_only",
+      "all_target_rmse_rad": 0.024123847484588623,
+      "leg_target_rmse_rad": 0.031617823988199234,
+      "arm_target_rmse_rad": 0.011781212873756886,
+      "continuous_hold_target_rmse_rad": 0.0238825473934412,
+      "target_to_actual_pose_rms_rad": 0.10155394305407572
+    },
+    {
+      "model": "initial",
+      "variant": "alpha_zero_diagnostic_only",
+      "all_target_rmse_rad": 0.0054978602565824986,
+      "leg_target_rmse_rad": 0.007339109666645527,
+      "arm_target_rmse_rad": 0.0022101697977632284,
+      "continuous_hold_target_rmse_rad": 0.00498990248888731,
+      "target_to_actual_pose_rms_rad": 0.08773342811856073
+    },
+    {
+      "model": "focused_v2_40",
+      "variant": "current_terminal",
+      "all_target_rmse_rad": 0.19083085656166077,
+      "leg_target_rmse_rad": 0.058088187128305435,
+      "arm_target_rmse_rad": 0.2821706235408783,
+      "continuous_hold_target_rmse_rad": 0.19299781322479248,
+      "target_to_actual_pose_rms_rad": 0.21220319855258177
+    },
+    {
+      "model": "focused_v2_40",
+      "variant": "original_native_body_only",
+      "all_target_rmse_rad": 0.010810007341206074,
+      "leg_target_rmse_rad": 0.010171987116336823,
+      "arm_target_rmse_rad": 0.010514862835407257,
+      "continuous_hold_target_rmse_rad": 0.010445017367601395,
+      "target_to_actual_pose_rms_rad": 0.08773488411017234
+    },
+    {
+      "model": "focused_v2_40",
+      "variant": "original_native_arms_body_only",
+      "all_target_rmse_rad": 0.026355409994721413,
+      "leg_target_rmse_rad": 0.03420766815543175,
+      "arm_target_rmse_rad": 0.012464497238397598,
+      "continuous_hold_target_rmse_rad": 0.026053467765450478,
+      "target_to_actual_pose_rms_rad": 0.10174850348975564
+    },
+    {
+      "model": "focused_v2_40",
+      "variant": "alpha_zero_diagnostic_only",
+      "all_target_rmse_rad": 0.010810046456754208,
+      "leg_target_rmse_rad": 0.01017207745462656,
+      "arm_target_rmse_rad": 0.010514852590858936,
+      "continuous_hold_target_rmse_rad": 0.01044501643627882,
+      "target_to_actual_pose_rms_rad": 0.08773492096436268
+    }
+  ],
+  "physical_rollouts_performed": false,
+  "simulation_qualified": false,
+  "hardware_authorized": false
+}

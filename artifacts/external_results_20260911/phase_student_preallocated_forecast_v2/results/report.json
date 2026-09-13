@@ -1,0 +1,5256 @@
+{
+  "kind": "fixed232_private_preallocated_forecast_parity_and_cost",
+  "pass_": true,
+  "cases": 232,
+  "requested_horizons_controls": [
+    1,
+    5
+  ],
+  "same_fixed_root_cases": true,
+  "all_state_torque_force_time_warning_samples_bitexact": true,
+  "all_first_failures_and_metrics_exact": true,
+  "all_root_saved_forecast_rows_exact": true,
+  "all_caller_integration_and_warnings_unchanged": true,
+  "no_per_call_MjData_or_trace_workspace_allocation": true,
+  "per_call_python_metadata_and_views_allocated": true,
+  "no_deepcopy_in_component": true,
+  "private_forward_then_full_state_restoration": true,
+  "timing_ms_p50_p95_max": {
+    "1": {
+      "preallocated": [
+        2.1059039999999998,
+        4.10414575,
+        9.469442
+      ],
+      "oracle": [
+        44.549267,
+        65.169454,
+        105.081442
+      ]
+    },
+    "5": {
+      "preallocated": [
+        9.1233545,
+        17.645719,
+        21.475025
+      ],
+      "oracle": [
+        52.590036999999995,
+        76.62923175,
+        80.910958
+      ]
+    }
+  },
+  "timing_includes": "fullstate/warning copy,privateforward+restore,allstrictchecks,fulltrace workspace writes,result metadata,owned output storage copy,component caller-immutability checks",
+  "benchmark_order": "fixed alternating component/oracle order, one pass percase, no bestof selection",
+  "contention_uncontrolled": true,
+  "real_time_qualified": false,
+  "no_connected_controller": true,
+  "no_fallback_selection": true,
+  "policy_inference_calls": 0,
+  "optimizer_calls": 0,
+  "actual_plant_steps": 0,
+  "private_component_steps": 6480,
+  "private_oracle_steps": 6480,
+  "rows": [
+    {
+      "case": 0,
+      "control": 250,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 3.068817,
+        "oracle": 105.081442
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 1,
+      "control": 250,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 53.576141,
+        "preallocated": 9.451017
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 2,
+      "control": 250,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.881916,
+        "oracle": 42.476958
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 3,
+      "control": 250,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 48.698191,
+        "preallocated": 9.484016
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 4,
+      "control": 250,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.851575,
+        "oracle": 42.393358
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 5,
+      "control": 250,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 52.602183,
+        "preallocated": 11.824267
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 6,
+      "control": 250,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.6081,
+        "oracle": 59.574625
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 7,
+      "control": 250,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 60.390183,
+        "preallocated": 11.888525
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 8,
+      "control": 251,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.777775,
+        "oracle": 61.416025
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 9,
+      "control": 251,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 65.109642,
+        "preallocated": 10.605192
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 10,
+      "control": 251,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.619375,
+        "oracle": 46.311191
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 11,
+      "control": 251,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 49.368917,
+        "preallocated": 8.756917
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 12,
+      "control": 251,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.06965,
+        "oracle": 44.353558
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 13,
+      "control": 251,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 49.859792,
+        "preallocated": 8.134408
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 14,
+      "control": 251,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.786583,
+        "oracle": 44.575117
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 15,
+      "control": 251,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 56.882925,
+        "preallocated": 17.638042
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 16,
+      "control": 252,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 4.454542,
+        "oracle": 53.208376
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 17,
+      "control": 252,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 61.879675,
+        "preallocated": 12.739009
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 18,
+      "control": 252,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 4.0359,
+        "oracle": 68.153892
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 19,
+      "control": 252,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 65.323958,
+        "preallocated": 11.642583
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 20,
+      "control": 252,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.6158,
+        "oracle": 44.630667
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 21,
+      "control": 252,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 48.984375,
+        "preallocated": 8.761317
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 22,
+      "control": 252,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.811791,
+        "oracle": 41.153108
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 23,
+      "control": 252,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 49.318133,
+        "preallocated": 8.333875
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 24,
+      "control": 253,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.881275,
+        "oracle": 43.071325
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 25,
+      "control": 253,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 53.361,
+        "preallocated": 10.404625
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 26,
+      "control": 253,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 3.491858,
+        "oracle": 64.68055
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 27,
+      "control": 253,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 61.386784,
+        "preallocated": 11.106883
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 28,
+      "control": 253,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.427975,
+        "oracle": 58.270209
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 29,
+      "control": 253,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 80.910958,
+        "preallocated": 16.560775
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 30,
+      "control": 253,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.264167,
+        "oracle": 43.486758
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 31,
+      "control": 253,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 50.77655,
+        "preallocated": 8.363025
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 32,
+      "control": 254,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.990634,
+        "oracle": 41.625559
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 33,
+      "control": 254,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 51.646742,
+        "preallocated": 9.262825
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 34,
+      "control": 254,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.978167,
+        "oracle": 45.905934
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 35,
+      "control": 254,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 56.469325,
+        "preallocated": 8.585959
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 36,
+      "control": 254,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.849192,
+        "oracle": 44.595192
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 37,
+      "control": 254,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 54.354483,
+        "preallocated": 9.122484
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 38,
+      "control": 254,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.207884,
+        "oracle": 43.795125
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 39,
+      "control": 254,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 51.304,
+        "preallocated": 8.831717
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 40,
+      "control": 255,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.130333,
+        "oracle": 46.015842
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 41,
+      "control": 255,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 54.058675,
+        "preallocated": 10.359617
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 42,
+      "control": 255,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.057825,
+        "oracle": 47.167816
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 43,
+      "control": 255,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 54.812542,
+        "preallocated": 9.4105
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 44,
+      "control": 255,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.539258,
+        "oracle": 46.381959
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 45,
+      "control": 255,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 54.435975,
+        "preallocated": 9.845825
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 46,
+      "control": 255,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.0339,
+        "oracle": 48.646125
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 47,
+      "control": 255,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 54.565133,
+        "preallocated": 8.575142
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 48,
+      "control": 256,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 3.0008,
+        "oracle": 54.372633
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 49,
+      "control": 256,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 54.572466,
+        "preallocated": 8.334517
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 50,
+      "control": 256,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.854875,
+        "oracle": 43.23715
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 51,
+      "control": 256,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 48.06065,
+        "preallocated": 8.2423
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 52,
+      "control": 256,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.76385,
+        "oracle": 41.0938
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 53,
+      "control": 256,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 50.300159,
+        "preallocated": 8.79615
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 54,
+      "control": 256,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.853317,
+        "oracle": 40.965833
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 55,
+      "control": 256,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 51.959967,
+        "preallocated": 9.482733
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 56,
+      "control": 257,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.20055,
+        "oracle": 46.288
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 57,
+      "control": 257,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 51.517675,
+        "preallocated": 10.289583
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 58,
+      "control": 257,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.954058,
+        "oracle": 46.340708
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 59,
+      "control": 257,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 54.267675,
+        "preallocated": 8.449375
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 60,
+      "control": 257,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.154808,
+        "oracle": 45.944616
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 61,
+      "control": 257,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 54.074717,
+        "preallocated": 10.443492
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 62,
+      "control": 257,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.0669,
+        "oracle": 45.519375
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 63,
+      "control": 257,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 54.11945,
+        "preallocated": 11.551833
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 64,
+      "control": 258,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 3.155258,
+        "oracle": 55.375283
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 65,
+      "control": 258,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 76.432492,
+        "preallocated": 19.166033
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 66,
+      "control": 258,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.742484,
+        "oracle": 62.229016
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 67,
+      "control": 258,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 66.403792,
+        "preallocated": 14.60965
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 68,
+      "control": 258,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.956892,
+        "oracle": 51.764442
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 69,
+      "control": 258,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 62.688175,
+        "preallocated": 8.9573
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 70,
+      "control": 258,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.934442,
+        "oracle": 44.262533
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 71,
+      "control": 258,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 53.207092,
+        "preallocated": 10.549642
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 72,
+      "control": 259,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.724333,
+        "oracle": 43.164916
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 73,
+      "control": 259,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 50.27165,
+        "preallocated": 10.836467
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 74,
+      "control": 259,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.644583,
+        "oracle": 50.3283
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 75,
+      "control": 259,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 58.172308,
+        "preallocated": 16.562425
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 76,
+      "control": 259,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 4.7575,
+        "oracle": 50.117742
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 77,
+      "control": 259,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 69.412842,
+        "preallocated": 20.168409
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 78,
+      "control": 259,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 4.602033,
+        "oracle": 54.212492
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 79,
+      "control": 259,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": {
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "physics_step": 41,
+        "control_index": 4,
+        "substep": 1,
+        "worst_joint_index": 11,
+        "joint_excess_rad": 0.004543387922680997,
+        "speed_ratio": 0.2061218678668186,
+        "effort_ratio": 0.47159411169045595,
+        "tilt_rad": 0.10189316511606893,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 8.881784197001252e-15
+      },
+      "feasible": false,
+      "physics_steps": 41,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 54.627284,
+        "preallocated": 7.707241
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 80,
+      "control": 260,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 3.399091,
+        "oracle": 43.250808
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 81,
+      "control": 260,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 51.417391,
+        "preallocated": 11.053992
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 82,
+      "control": 260,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.107416,
+        "oracle": 42.081417
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 83,
+      "control": 260,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 50.088592,
+        "preallocated": 11.716559
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 84,
+      "control": 260,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 9.469442,
+        "oracle": 88.654041
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 85,
+      "control": 260,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 78.181125,
+        "preallocated": 21.475025
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 86,
+      "control": 260,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 3.9809,
+        "oracle": 50.702117
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 87,
+      "control": 260,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 61.368358,
+        "preallocated": 10.20085
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 88,
+      "control": 261,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.241433,
+        "oracle": 44.523417
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 89,
+      "control": 261,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": {
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "physics_step": 24,
+        "control_index": 2,
+        "substep": 4,
+        "worst_joint_index": 5,
+        "joint_excess_rad": 0.0037832496764297896,
+        "speed_ratio": 0.45719743881123126,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.11163247782311991,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 5.329070518200751e-15
+      },
+      "feasible": false,
+      "physics_steps": 24,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 47.660617,
+        "preallocated": 5.658492
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 90,
+      "control": 261,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.711592,
+        "oracle": 44.201666
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 91,
+      "control": 261,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 51.069608,
+        "preallocated": 10.809334
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 92,
+      "control": 261,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.197158,
+        "oracle": 42.71795
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 93,
+      "control": 261,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 65.618117,
+        "preallocated": 12.106967
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 94,
+      "control": 261,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.625059,
+        "oracle": 50.719075
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 95,
+      "control": 261,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": {
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "physics_step": 40,
+        "control_index": 3,
+        "substep": 10,
+        "worst_joint_index": 11,
+        "joint_excess_rad": 0.005584138047211806,
+        "speed_ratio": 0.2513747208475449,
+        "effort_ratio": 0.551100320577554,
+        "tilt_rad": 0.1510404615475356,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 8.881784197001252e-15
+      },
+      "feasible": false,
+      "physics_steps": 40,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 60.986658,
+        "preallocated": 11.659633
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 96,
+      "control": 262,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 4.272859,
+        "oracle": 69.282217
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 97,
+      "control": 262,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 66.194517,
+        "preallocated": 8.447542
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 98,
+      "control": 262,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.017767,
+        "oracle": 43.096625
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 99,
+      "control": 262,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": {
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "physics_step": 26,
+        "control_index": 2,
+        "substep": 6,
+        "worst_joint_index": 10,
+        "joint_excess_rad": 0.008655726315072165,
+        "speed_ratio": 0.21927301045483458,
+        "effort_ratio": 0.5464211835427881,
+        "tilt_rad": 0.1672379619991978,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 5.329070518200751e-15
+      },
+      "feasible": false,
+      "physics_steps": 26,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 43.742692,
+        "preallocated": 5.14195
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 100,
+      "control": 262,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.209442,
+        "oracle": 43.384825
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 101,
+      "control": 262,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": {
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "physics_step": 14,
+        "control_index": 1,
+        "substep": 4,
+        "worst_joint_index": 5,
+        "joint_excess_rad": 0.0037832496764297896,
+        "speed_ratio": 0.45719743881123126,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.11163247782311991,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 2.6645352591003757e-15
+      },
+      "feasible": false,
+      "physics_steps": 14,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 44.91245,
+        "preallocated": 3.104842
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 102,
+      "control": 262,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.1615,
+        "oracle": 44.070767
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 103,
+      "control": 262,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": {
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "physics_step": 49,
+        "control_index": 4,
+        "substep": 9,
+        "worst_joint_index": 11,
+        "joint_excess_rad": 0.0006246151655874832,
+        "speed_ratio": 0.08715682569027283,
+        "effort_ratio": 0.5894181080284205,
+        "tilt_rad": 0.14442711409618314,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 1.0658141036401503e-14
+      },
+      "feasible": false,
+      "physics_steps": 49,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 72.959792,
+        "preallocated": 19.963075
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 104,
+      "control": 263,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 5.291367,
+        "oracle": 53.62665
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 105,
+      "control": 263,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": {
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "physics_step": 26,
+        "control_index": 2,
+        "substep": 6,
+        "worst_joint_index": 5,
+        "joint_excess_rad": 0.0004043484617375359,
+        "speed_ratio": 0.6886245984084068,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.055573035184175446,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 5.329070518200751e-15
+      },
+      "feasible": false,
+      "physics_steps": 26,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 63.714751,
+        "preallocated": 6.517408
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 106,
+      "control": 263,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.804266,
+        "oracle": 57.795283
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 107,
+      "control": 263,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 69.893359,
+        "preallocated": 8.501075
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 108,
+      "control": 263,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.116217,
+        "oracle": 44.363641
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 109,
+      "control": 263,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 49.537034,
+        "preallocated": 9.743342
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 110,
+      "control": 263,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.254266,
+        "oracle": 42.861041
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 111,
+      "control": 263,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 51.704858,
+        "preallocated": 10.859751
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 112,
+      "control": 264,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.335942,
+        "oracle": 43.885875
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 113,
+      "control": 264,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 68.331175,
+        "preallocated": 7.94475
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 114,
+      "control": 264,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.87935,
+        "oracle": 41.193808
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 115,
+      "control": 264,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 46.240058,
+        "preallocated": 7.839883
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 116,
+      "control": 264,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.031058,
+        "oracle": 39.097758
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 117,
+      "control": 264,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": {
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "physics_step": 16,
+        "control_index": 1,
+        "substep": 6,
+        "worst_joint_index": 5,
+        "joint_excess_rad": 0.0004043484617375359,
+        "speed_ratio": 0.6886245984084068,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.055573035184175446,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 3.552713678800501e-15
+      },
+      "feasible": false,
+      "physics_steps": 16,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 62.881408,
+        "preallocated": 3.2571
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 118,
+      "control": 264,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.056542,
+        "oracle": 42.63105
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 119,
+      "control": 264,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 49.119034,
+        "preallocated": 8.905417
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 120,
+      "control": 265,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.104392,
+        "oracle": 42.339
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 121,
+      "control": 265,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 50.292917,
+        "preallocated": 8.310867
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 122,
+      "control": 265,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.460242,
+        "oracle": 43.804841
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 123,
+      "control": 265,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 51.114984,
+        "preallocated": 8.830067
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 124,
+      "control": 265,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.345384,
+        "oracle": 43.231925
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 125,
+      "control": 265,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 50.856667,
+        "preallocated": 9.4765
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 126,
+      "control": 265,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.189367,
+        "oracle": 43.5325
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 127,
+      "control": 265,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 49.49395,
+        "preallocated": 8.669467
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 128,
+      "control": 266,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.885492,
+        "oracle": 41.835567
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 129,
+      "control": 266,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": {
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "physics_step": 47,
+        "control_index": 4,
+        "substep": 7,
+        "worst_joint_index": 9,
+        "joint_excess_rad": 0.005489567492035594,
+        "speed_ratio": 0.3910920550205479,
+        "effort_ratio": 0.3815542610708516,
+        "tilt_rad": 0.41278570668938386,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 1.0658141036401503e-14
+      },
+      "feasible": false,
+      "physics_steps": 47,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 46.748441,
+        "preallocated": 7.613375
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 130,
+      "control": 266,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.825817,
+        "oracle": 40.828608
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 131,
+      "control": 266,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 47.411466,
+        "preallocated": 7.635558
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 132,
+      "control": 266,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.910058,
+        "oracle": 41.784876
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 133,
+      "control": 266,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 48.219784,
+        "preallocated": 8.177675
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 134,
+      "control": 266,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.085966,
+        "oracle": 43.842058
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 135,
+      "control": 266,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 51.362942,
+        "preallocated": 9.422967
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 136,
+      "control": 267,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.127583,
+        "oracle": 42.083983
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 137,
+      "control": 267,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 49.506509,
+        "preallocated": 8.261275
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 138,
+      "control": 267,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.095133,
+        "oracle": 42.559367
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 139,
+      "control": 267,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 49.974467,
+        "preallocated": 7.747025
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 140,
+      "control": 267,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.844425,
+        "oracle": 43.105058
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 141,
+      "control": 267,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": {
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "physics_step": 37,
+        "control_index": 3,
+        "substep": 7,
+        "worst_joint_index": 9,
+        "joint_excess_rad": 0.005489567492035594,
+        "speed_ratio": 0.3910920550205479,
+        "effort_ratio": 0.3815542610708516,
+        "tilt_rad": 0.41278570668938386,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 7.993605777301127e-15
+      },
+      "feasible": false,
+      "physics_steps": 37,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 47.224283,
+        "preallocated": 7.532066
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 142,
+      "control": 267,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.385809,
+        "oracle": 50.41575
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 143,
+      "control": 267,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 66.606558,
+        "preallocated": 16.314741
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 144,
+      "control": 268,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 3.990983,
+        "oracle": 60.903792
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 145,
+      "control": 268,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 71.285134,
+        "preallocated": 17.66875
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 146,
+      "control": 268,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 3.545666,
+        "oracle": 45.177
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 147,
+      "control": 268,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 50.543075,
+        "preallocated": 8.48815
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 148,
+      "control": 268,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.851758,
+        "oracle": 43.628292
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 149,
+      "control": 268,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 50.353875,
+        "preallocated": 9.19325
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 150,
+      "control": 268,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.864225,
+        "oracle": 44.18535
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 151,
+      "control": 268,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 49.286326,
+        "preallocated": 10.854617
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 152,
+      "control": 269,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.091741,
+        "oracle": 59.804984
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 153,
+      "control": 269,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": {
+        "reasons": [
+          "native_joint_speed"
+        ],
+        "physics_step": 11,
+        "control_index": 1,
+        "substep": 1,
+        "worst_joint_index": 0,
+        "joint_excess_rad": 0.0,
+        "speed_ratio": 1.0147019346876323,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.4320369649583427,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 2.6645352591003757e-15
+      },
+      "feasible": false,
+      "physics_steps": 11,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 57.094767,
+        "preallocated": 4.069817
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 154,
+      "control": 269,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 3.211358,
+        "oracle": 54.077833
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 155,
+      "control": 269,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 61.603484,
+        "preallocated": 9.873142
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 156,
+      "control": 269,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 3.127117,
+        "oracle": 53.6503
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 157,
+      "control": 269,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 52.212601,
+        "preallocated": 9.663408
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 158,
+      "control": 269,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.854233,
+        "oracle": 43.772208
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 159,
+      "control": 269,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 48.367184,
+        "preallocated": 9.186008
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 160,
+      "control": 270,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.957817,
+        "oracle": 44.988075
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 161,
+      "control": 270,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 51.085834,
+        "preallocated": 10.720875
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 162,
+      "control": 270,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.2055,
+        "oracle": 59.79105
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 163,
+      "control": 270,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 77.219451,
+        "preallocated": 15.25205
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 164,
+      "control": 270,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": {
+        "reasons": [
+          "native_joint_speed"
+        ],
+        "physics_step": 1,
+        "control_index": 0,
+        "substep": 1,
+        "worst_joint_index": 0,
+        "joint_excess_rad": 0.0,
+        "speed_ratio": 1.0147019346876323,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.4320369649583427,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 0.0
+      },
+      "feasible": false,
+      "physics_steps": 1,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 0.779992,
+        "oracle": 46.138217
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 165,
+      "control": 270,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": {
+        "reasons": [
+          "native_joint_speed"
+        ],
+        "physics_step": 1,
+        "control_index": 0,
+        "substep": 1,
+        "worst_joint_index": 0,
+        "joint_excess_rad": 0.0,
+        "speed_ratio": 1.0147019346876323,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.4320369649583427,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 0.0
+      },
+      "feasible": false,
+      "physics_steps": 1,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 53.793484,
+        "preallocated": 0.98175
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 166,
+      "control": 270,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.4101,
+        "oracle": 51.847309
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 167,
+      "control": 270,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 48.348667,
+        "preallocated": 7.12635
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 168,
+      "control": 271,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.553567,
+        "oracle": 42.207917
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 169,
+      "control": 271,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 50.218483,
+        "preallocated": 9.124225
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 170,
+      "control": 271,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.765317,
+        "oracle": 44.522866
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 171,
+      "control": 271,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 49.503392,
+        "preallocated": 11.883942
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 172,
+      "control": 271,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 3.213191,
+        "oracle": 66.154642
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 173,
+      "control": 271,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 78.065533,
+        "preallocated": 13.449516
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 174,
+      "control": 271,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.472892,
+        "oracle": 52.155217
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 175,
+      "control": 271,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 66.313592,
+        "preallocated": 13.522483
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 176,
+      "control": 272,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.442,
+        "oracle": 44.798325
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 177,
+      "control": 272,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 50.543992,
+        "preallocated": 7.561583
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 178,
+      "control": 272,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.755875,
+        "oracle": 42.046034
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 179,
+      "control": 272,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 48.745491,
+        "preallocated": 7.667916
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 180,
+      "control": 272,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.795384,
+        "oracle": 42.609784
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 181,
+      "control": 272,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 58.648059,
+        "preallocated": 12.273983
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 182,
+      "control": 272,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.411017,
+        "oracle": 64.841058
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 183,
+      "control": 272,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 63.554058,
+        "preallocated": 11.230267
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 184,
+      "control": 273,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.408725,
+        "oracle": 51.421608
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 185,
+      "control": 273,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 79.163791,
+        "preallocated": 8.707784
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 186,
+      "control": 273,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.977984,
+        "oracle": 45.441642
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 187,
+      "control": 273,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 60.249934,
+        "preallocated": 8.541225
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 188,
+      "control": 273,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.057183,
+        "oracle": 44.860933
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 189,
+      "control": 273,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 52.577891,
+        "preallocated": 7.507683
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 190,
+      "control": 273,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.789884,
+        "oracle": 43.258967
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 191,
+      "control": 273,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 68.780709,
+        "preallocated": 7.541783
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 192,
+      "control": 274,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.699775,
+        "oracle": 43.71785
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 193,
+      "control": 274,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 47.467384,
+        "preallocated": 8.753158
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 194,
+      "control": 274,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.772925,
+        "oracle": 40.391541
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 195,
+      "control": 274,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 50.508334,
+        "preallocated": 8.6372
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 196,
+      "control": 274,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.051958,
+        "oracle": 40.857392
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 197,
+      "control": 274,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 50.842641,
+        "preallocated": 9.618491
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 198,
+      "control": 274,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.771367,
+        "oracle": 45.124475
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 199,
+      "control": 274,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 50.719166,
+        "preallocated": 8.235425
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 200,
+      "control": 275,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.77705,
+        "oracle": 43.333767
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 201,
+      "control": 275,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": {
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "physics_step": 28,
+        "control_index": 2,
+        "substep": 8,
+        "worst_joint_index": 1,
+        "joint_excess_rad": 0.005205375984073668,
+        "speed_ratio": 0.3641765335706309,
+        "effort_ratio": 0.533662897726325,
+        "tilt_rad": 0.5558997604855457,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 6.217248937900877e-15
+      },
+      "feasible": false,
+      "physics_steps": 28,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 45.746159,
+        "preallocated": 4.91865
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 202,
+      "control": 275,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.831041,
+        "oracle": 41.8671
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 203,
+      "control": 275,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 51.205733,
+        "preallocated": 8.991767
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 204,
+      "control": 275,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.443375,
+        "oracle": 42.631233
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 205,
+      "control": 275,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": {
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "physics_step": 49,
+        "control_index": 4,
+        "substep": 9,
+        "worst_joint_index": 1,
+        "joint_excess_rad": 0.0025564139617050285,
+        "speed_ratio": 0.4991494382094098,
+        "effort_ratio": 0.7188812081313177,
+        "tilt_rad": 0.538869704723722,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 1.0658141036401503e-14
+      },
+      "feasible": false,
+      "physics_steps": 49,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 49.25085,
+        "preallocated": 8.76425
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 206,
+      "control": 275,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.709125,
+        "oracle": 40.9079
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 207,
+      "control": 275,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": {
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "physics_step": 29,
+        "control_index": 2,
+        "substep": 9,
+        "worst_joint_index": 11,
+        "joint_excess_rad": 0.0018468277039415115,
+        "speed_ratio": 0.11888786222809215,
+        "effort_ratio": 0.2564638956074201,
+        "tilt_rad": 0.49157117428880304,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 6.217248937900877e-15
+      },
+      "feasible": false,
+      "physics_steps": 29,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 43.403984,
+        "preallocated": 4.780875
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 208,
+      "control": 276,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.7512,
+        "oracle": 41.258983
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 209,
+      "control": 276,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": {
+        "reasons": [
+          "native_joint_speed"
+        ],
+        "physics_step": 20,
+        "control_index": 1,
+        "substep": 10,
+        "worst_joint_index": 0,
+        "joint_excess_rad": 0.0,
+        "speed_ratio": 1.015772505368287,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.5977462241511625,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 4.440892098500626e-15
+      },
+      "feasible": false,
+      "physics_steps": 20,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 41.501716,
+        "preallocated": 2.988608
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 210,
+      "control": 276,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.599767,
+        "oracle": 40.267975
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 211,
+      "control": 276,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 50.469742,
+        "preallocated": 8.827959
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 212,
+      "control": 276,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.654216,
+        "oracle": 50.4163
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 213,
+      "control": 276,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": {
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "physics_step": 18,
+        "control_index": 1,
+        "substep": 8,
+        "worst_joint_index": 1,
+        "joint_excess_rad": 0.005205375984073668,
+        "speed_ratio": 0.3641765335706309,
+        "effort_ratio": 0.533662897726325,
+        "tilt_rad": 0.5558997604855457,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 3.552713678800501e-15
+      },
+      "feasible": false,
+      "physics_steps": 18,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 47.73615,
+        "preallocated": 3.348309
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 214,
+      "control": 276,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.716817,
+        "oracle": 53.940975
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 215,
+      "control": 276,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 56.317067,
+        "preallocated": 8.022942
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 216,
+      "control": 277,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.046917,
+        "oracle": 44.015675
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 217,
+      "control": 277,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 53.375575,
+        "preallocated": 8.994792
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 218,
+      "control": 277,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.773291,
+        "oracle": 43.721975
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 219,
+      "control": 277,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 56.143175,
+        "preallocated": 10.089841
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 220,
+      "control": 277,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": {
+        "reasons": [
+          "native_joint_speed"
+        ],
+        "physics_step": 10,
+        "control_index": 0,
+        "substep": 10,
+        "worst_joint_index": 0,
+        "joint_excess_rad": 0.0,
+        "speed_ratio": 1.015772505368287,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.5977462241511625,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 1.7763568394002505e-15
+      },
+      "feasible": false,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.703075,
+        "oracle": 51.688634
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 221,
+      "control": 277,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": {
+        "reasons": [
+          "native_joint_speed"
+        ],
+        "physics_step": 10,
+        "control_index": 0,
+        "substep": 10,
+        "worst_joint_index": 0,
+        "joint_excess_rad": 0.0,
+        "speed_ratio": 1.015772505368287,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.5977462241511625,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 1.7763568394002505e-15
+      },
+      "feasible": false,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 57.116217,
+        "preallocated": 3.97815
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 222,
+      "control": 277,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 4.047908,
+        "oracle": 55.710325
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 223,
+      "control": 277,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 79.413125,
+        "preallocated": 10.35155
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 224,
+      "control": 278,
+      "candidate": "recorded_student",
+      "horizon_controls": 1,
+      "first_failure": {
+        "reasons": [
+          "native_joint_speed"
+        ],
+        "physics_step": 4,
+        "control_index": 0,
+        "substep": 4,
+        "worst_joint_index": 0,
+        "joint_excess_rad": 0.0,
+        "speed_ratio": 1.0044182351249598,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.5714059828809408,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 8.881784197001252e-16
+      },
+      "feasible": false,
+      "physics_steps": 4,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.272334,
+        "oracle": 80.962933
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 225,
+      "control": 278,
+      "candidate": "recorded_student",
+      "horizon_controls": 5,
+      "first_failure": {
+        "reasons": [
+          "native_joint_speed"
+        ],
+        "physics_step": 4,
+        "control_index": 0,
+        "substep": 4,
+        "worst_joint_index": 0,
+        "joint_excess_rad": 0.0,
+        "speed_ratio": 1.0044182351249598,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.5714059828809408,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 8.881784197001252e-16
+      },
+      "feasible": false,
+      "physics_steps": 4,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 43.000284,
+        "preallocated": 1.155275
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 226,
+      "control": 278,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.776867,
+        "oracle": 43.364934
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 227,
+      "control": 278,
+      "candidate": "recorded_original_bfm_clipped",
+      "horizon_controls": 5,
+      "first_failure": {
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "physics_step": 45,
+        "control_index": 4,
+        "substep": 5,
+        "worst_joint_index": 4,
+        "joint_excess_rad": 0.0042330167484651016,
+        "speed_ratio": 0.5843980076220873,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.3518591219137078,
+        "clock_error_seconds": 0.0,
+        "ideal_clock_difference_seconds": 9.769962616701378e-15
+      },
+      "feasible": false,
+      "physics_steps": 45,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 53.383275,
+        "preallocated": 9.603183
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 228,
+      "control": 278,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 1.865875,
+        "oracle": 47.309625
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 229,
+      "control": 278,
+      "candidate": "previous_actual_target",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 53.061159,
+        "preallocated": 10.236508
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    },
+    {
+      "case": 230,
+      "control": 278,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 1,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 10,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "preallocated": 2.032159,
+        "oracle": 51.2314
+      },
+      "timing_order": [
+        "preallocated",
+        "oracle"
+      ]
+    },
+    {
+      "case": 231,
+      "control": 278,
+      "candidate": "current_joint_pose",
+      "horizon_controls": 5,
+      "first_failure": null,
+      "feasible": true,
+      "physics_steps": 50,
+      "all_seven_trace_fields_bitexact": true,
+      "report_fields_exact": true,
+      "root_saved_forecast_report_exact": true,
+      "caller291_warnings_unchanged": true,
+      "timing_ms": {
+        "oracle": 76.061333,
+        "preallocated": 20.2323
+      },
+      "timing_order": [
+        "oracle",
+        "preallocated"
+      ]
+    }
+  ],
+  "request_sha256": "e2ff7f22e9f96598383af7a9ef2ac444fffa61514f003aee676958ce783c3fd6",
+  "output_sha256": {
+    "preallocated_traces.npz": "dae782bfec6153186d9397e3dfb9de97e86bb4a68c07d0e716d67cb95b2ef630",
+    "oracle_traces.npz": "dae782bfec6153186d9397e3dfb9de97e86bb4a68c07d0e716d67cb95b2ef630"
+  }
+}

@@ -1,0 +1,4661 @@
+{
+  "kind": "g1_true23_no_learning_exploration_rollout_v1",
+  "noise_scale": 0.0,
+  "seed": 20260906,
+  "noise_seed": 20260907,
+  "initial_state_sha256": "c37184a6eec7d4841b1ca7099630d0424d149f86ed14ecf6d440df874fb12d1b",
+  "initial_physics_qpos_qvel_sha256": "9a4bf0b10d6004adb3c8b1010004ee4a3d153a8f94e47b8a79406bb4526b21af",
+  "source_std_native23": [
+    0.37682631611824036,
+    0.3808412551879883,
+    0.31909239292144775,
+    0.36928263306617737,
+    0.37197455763816833,
+    0.45408934354782104,
+    0.45589980483055115,
+    0.3300437033176422,
+    0.3308028280735016,
+    0.42911848425865173,
+    0.4300864636898041,
+    0.37230104207992554,
+    0.373094379901886,
+    0.3802875578403473,
+    0.38112306594848633,
+    0.405597984790802,
+    0.4064651131629944,
+    0.4458840489387512,
+    0.4454547166824341,
+    0.3291287422180176,
+    0.33257603645324707,
+    0.3622512221336365,
+    0.36248043179512024
+  ],
+  "checkpoint_lineage_sha256": "c65e698a28b48cdd3414ceca5314bc16b69a516a40d1cbdf921a224252173548",
+  "weights_updated": false,
+  "optimizer_steps": 0,
+  "initial_episode_lengths_randomized": false,
+  "later_resets_paired_across_noise_cases": false,
+  "sampling_mode": "adaptive_full_corpus",
+  "reset_distribution": {
+    "perturbation_scale": 0.0,
+    "pose_range": {
+      "x": [
+        -0.0,
+        0.0
+      ],
+      "y": [
+        -0.0,
+        0.0
+      ],
+      "z": [
+        -0.0,
+        0.0
+      ],
+      "roll": [
+        -0.0,
+        0.0
+      ],
+      "pitch": [
+        -0.0,
+        0.0
+      ],
+      "yaw": [
+        -0.0,
+        0.0
+      ]
+    },
+    "velocity_range": {
+      "x": [
+        -0.0,
+        0.0
+      ],
+      "y": [
+        -0.0,
+        0.0
+      ],
+      "z": [
+        -0.0,
+        0.0
+      ],
+      "roll": [
+        -0.0,
+        0.0
+      ],
+      "pitch": [
+        -0.0,
+        0.0
+      ],
+      "yaw": [
+        -0.0,
+        0.0
+      ]
+    },
+    "joint_position_range": [
+      -0.0,
+      0.0
+    ]
+  },
+  "observation_corruption_enabled": {
+    "tokenizer": true,
+    "policy": true
+  },
+  "initial_contact_audit": {
+    "method": "compiled_model_cpu_position_forward_on_independent_data_no_physics_step",
+    "negative_distance_means_geometric_overlap": true,
+    "dynamics_or_impulse_causation_proven": false,
+    "rows": [
+      {
+        "env_index": 0,
+        "minimum_floor_contact_distance_m": null,
+        "floor_penetration_contact_count": 0,
+        "worst_contacts": []
+      },
+      {
+        "env_index": 1,
+        "minimum_floor_contact_distance_m": -0.0007009847999658245,
+        "floor_penetration_contact_count": 28,
+        "worst_contacts": [
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_foot1_collision",
+            "floor_contact": true,
+            "distance_m": -0.0007009847999658245
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_foot2_collision",
+            "floor_contact": true,
+            "distance_m": -0.0006997818331679496
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_foot3_collision",
+            "floor_contact": true,
+            "distance_m": -0.0006861178228705633
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_foot4_collision",
+            "floor_contact": true,
+            "distance_m": -0.0006637808072724807
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_foot1_collision",
+            "floor_contact": true,
+            "distance_m": -0.0006620440390299152
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_foot5_collision",
+            "floor_contact": true,
+            "distance_m": -0.0006383285307995264
+          }
+        ]
+      },
+      {
+        "env_index": 2,
+        "minimum_floor_contact_distance_m": -0.10191344633083566,
+        "floor_penetration_contact_count": 12,
+        "worst_contacts": [
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_shin_collision",
+            "floor_contact": true,
+            "distance_m": -0.10191344633083566
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_thigh_collision",
+            "floor_contact": true,
+            "distance_m": -0.09182670049121652
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_shin_collision",
+            "floor_contact": true,
+            "distance_m": -0.09146841582657256
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_thigh_collision",
+            "floor_contact": true,
+            "distance_m": -0.08099146345214289
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_shin_collision",
+            "floor_contact": true,
+            "distance_m": -0.04709054779501086
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_shin_collision",
+            "floor_contact": true,
+            "distance_m": -0.03563739150100954
+          }
+        ]
+      },
+      {
+        "env_index": 3,
+        "minimum_floor_contact_distance_m": -0.0062047856168304435,
+        "floor_penetration_contact_count": 5,
+        "worst_contacts": [
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_foot5_collision",
+            "floor_contact": true,
+            "distance_m": -0.0062047856168304435
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_elbow_yaw_collision",
+            "floor_contact": true,
+            "distance_m": -0.00423623065239654
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_foot4_collision",
+            "floor_contact": true,
+            "distance_m": -0.0039379250528654205
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_foot6_collision",
+            "floor_contact": true,
+            "distance_m": -0.0031706346324783027
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_hand_collision",
+            "floor_contact": true,
+            "distance_m": -0.003074941251451968
+          }
+        ]
+      },
+      {
+        "env_index": 4,
+        "minimum_floor_contact_distance_m": null,
+        "floor_penetration_contact_count": 0,
+        "worst_contacts": []
+      },
+      {
+        "env_index": 5,
+        "minimum_floor_contact_distance_m": -0.005702409607593221,
+        "floor_penetration_contact_count": 6,
+        "worst_contacts": [
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_hand_collision",
+            "floor_contact": true,
+            "distance_m": -0.005702409607593221
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_elbow_yaw_collision",
+            "floor_contact": true,
+            "distance_m": -0.004520837677217011
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_thigh_collision",
+            "floor_contact": true,
+            "distance_m": -0.0008298401220631843
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_foot5_collision",
+            "floor_contact": true,
+            "distance_m": -0.0003945059250277574
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_hand_collision",
+            "floor_contact": true,
+            "distance_m": -0.0003748978118539442
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_foot6_collision",
+            "floor_contact": true,
+            "distance_m": -0.00023863060838900073
+          }
+        ]
+      },
+      {
+        "env_index": 6,
+        "minimum_floor_contact_distance_m": null,
+        "floor_penetration_contact_count": 0,
+        "worst_contacts": []
+      },
+      {
+        "env_index": 7,
+        "minimum_floor_contact_distance_m": -0.00886445556493705,
+        "floor_penetration_contact_count": 6,
+        "worst_contacts": [
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot3_collision",
+            "floor_contact": true,
+            "distance_m": -0.00886445556493705
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot4_collision",
+            "floor_contact": true,
+            "distance_m": -0.008548011098363081
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot2_collision",
+            "floor_contact": true,
+            "distance_m": -0.007705885018429099
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot5_collision",
+            "floor_contact": true,
+            "distance_m": -0.007185843580109772
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot6_collision",
+            "floor_contact": true,
+            "distance_m": -0.004684383445739999
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot1_collision",
+            "floor_contact": true,
+            "distance_m": -0.0023644222652037476
+          }
+        ]
+      },
+      {
+        "env_index": 8,
+        "minimum_floor_contact_distance_m": null,
+        "floor_penetration_contact_count": 0,
+        "worst_contacts": []
+      },
+      {
+        "env_index": 9,
+        "minimum_floor_contact_distance_m": null,
+        "floor_penetration_contact_count": 0,
+        "worst_contacts": []
+      },
+      {
+        "env_index": 10,
+        "minimum_floor_contact_distance_m": null,
+        "floor_penetration_contact_count": 0,
+        "worst_contacts": []
+      },
+      {
+        "env_index": 11,
+        "minimum_floor_contact_distance_m": null,
+        "floor_penetration_contact_count": 0,
+        "worst_contacts": []
+      },
+      {
+        "env_index": 12,
+        "minimum_floor_contact_distance_m": -0.00886445556493705,
+        "floor_penetration_contact_count": 6,
+        "worst_contacts": [
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot3_collision",
+            "floor_contact": true,
+            "distance_m": -0.00886445556493705
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot4_collision",
+            "floor_contact": true,
+            "distance_m": -0.008548011098363081
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot2_collision",
+            "floor_contact": true,
+            "distance_m": -0.007705885018429099
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot5_collision",
+            "floor_contact": true,
+            "distance_m": -0.007185843580109772
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot6_collision",
+            "floor_contact": true,
+            "distance_m": -0.004684383445739999
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot1_collision",
+            "floor_contact": true,
+            "distance_m": -0.0023644222652037476
+          }
+        ]
+      },
+      {
+        "env_index": 13,
+        "minimum_floor_contact_distance_m": null,
+        "floor_penetration_contact_count": 0,
+        "worst_contacts": []
+      },
+      {
+        "env_index": 14,
+        "minimum_floor_contact_distance_m": null,
+        "floor_penetration_contact_count": 0,
+        "worst_contacts": []
+      },
+      {
+        "env_index": 15,
+        "minimum_floor_contact_distance_m": -0.00886445556493705,
+        "floor_penetration_contact_count": 6,
+        "worst_contacts": [
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot3_collision",
+            "floor_contact": true,
+            "distance_m": -0.00886445556493705
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot4_collision",
+            "floor_contact": true,
+            "distance_m": -0.008548011098363081
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot2_collision",
+            "floor_contact": true,
+            "distance_m": -0.007705885018429099
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot5_collision",
+            "floor_contact": true,
+            "distance_m": -0.007185843580109772
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot6_collision",
+            "floor_contact": true,
+            "distance_m": -0.004684383445739999
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot1_collision",
+            "floor_contact": true,
+            "distance_m": -0.0023644222652037476
+          }
+        ]
+      },
+      {
+        "env_index": 16,
+        "minimum_floor_contact_distance_m": -0.00886445556493705,
+        "floor_penetration_contact_count": 6,
+        "worst_contacts": [
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot3_collision",
+            "floor_contact": true,
+            "distance_m": -0.00886445556493705
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot4_collision",
+            "floor_contact": true,
+            "distance_m": -0.008548011098363081
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot2_collision",
+            "floor_contact": true,
+            "distance_m": -0.007705885018429099
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot5_collision",
+            "floor_contact": true,
+            "distance_m": -0.007185843580109772
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot6_collision",
+            "floor_contact": true,
+            "distance_m": -0.004684383445739999
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot1_collision",
+            "floor_contact": true,
+            "distance_m": -0.0023644222652037476
+          }
+        ]
+      },
+      {
+        "env_index": 17,
+        "minimum_floor_contact_distance_m": -0.07497835017039031,
+        "floor_penetration_contact_count": 6,
+        "worst_contacts": [
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_shin_collision",
+            "floor_contact": true,
+            "distance_m": -0.07497835017039031
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_shin_collision",
+            "floor_contact": true,
+            "distance_m": -0.06730517944686647
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_thigh_collision",
+            "floor_contact": true,
+            "distance_m": -0.06473171264050501
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_thigh_collision",
+            "floor_contact": true,
+            "distance_m": -0.05716258740287985
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_shin_collision",
+            "floor_contact": true,
+            "distance_m": -0.021975464760764434
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_shin_collision",
+            "floor_contact": true,
+            "distance_m": -0.011442405243507564
+          }
+        ]
+      },
+      {
+        "env_index": 18,
+        "minimum_floor_contact_distance_m": null,
+        "floor_penetration_contact_count": 0,
+        "worst_contacts": []
+      },
+      {
+        "env_index": 19,
+        "minimum_floor_contact_distance_m": -0.016649005558234252,
+        "floor_penetration_contact_count": 8,
+        "worst_contacts": [
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot4_collision",
+            "floor_contact": true,
+            "distance_m": -0.016649005558234252
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot3_collision",
+            "floor_contact": true,
+            "distance_m": -0.015043688974711566
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot5_collision",
+            "floor_contact": true,
+            "distance_m": -0.014259730844653434
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_hand_collision",
+            "floor_contact": true,
+            "distance_m": -0.009928746849482757
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot2_collision",
+            "floor_contact": true,
+            "distance_m": -0.008366737456803766
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot6_collision",
+            "floor_contact": true,
+            "distance_m": -0.006955612822699122
+          }
+        ]
+      },
+      {
+        "env_index": 20,
+        "minimum_floor_contact_distance_m": null,
+        "floor_penetration_contact_count": 0,
+        "worst_contacts": []
+      },
+      {
+        "env_index": 21,
+        "minimum_floor_contact_distance_m": -0.0009994003801260028,
+        "floor_penetration_contact_count": 6,
+        "worst_contacts": [
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot3_collision",
+            "floor_contact": true,
+            "distance_m": -0.0009994003801260028
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot2_collision",
+            "floor_contact": true,
+            "distance_m": -0.0009144132425101988
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot4_collision",
+            "floor_contact": true,
+            "distance_m": -0.0008986986559914017
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot5_collision",
+            "floor_contact": true,
+            "distance_m": -0.0006753684008023644
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot1_collision",
+            "floor_contact": true,
+            "distance_m": -0.00033891198067664136
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot6_collision",
+            "floor_contact": true,
+            "distance_m": -0.0003311556797276488
+          }
+        ]
+      },
+      {
+        "env_index": 22,
+        "minimum_floor_contact_distance_m": null,
+        "floor_penetration_contact_count": 0,
+        "worst_contacts": []
+      },
+      {
+        "env_index": 23,
+        "minimum_floor_contact_distance_m": null,
+        "floor_penetration_contact_count": 0,
+        "worst_contacts": []
+      },
+      {
+        "env_index": 24,
+        "minimum_floor_contact_distance_m": -0.00886445556493705,
+        "floor_penetration_contact_count": 6,
+        "worst_contacts": [
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot3_collision",
+            "floor_contact": true,
+            "distance_m": -0.00886445556493705
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot4_collision",
+            "floor_contact": true,
+            "distance_m": -0.008548011098363081
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot2_collision",
+            "floor_contact": true,
+            "distance_m": -0.007705885018429099
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot5_collision",
+            "floor_contact": true,
+            "distance_m": -0.007185843580109772
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot6_collision",
+            "floor_contact": true,
+            "distance_m": -0.004684383445739999
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot1_collision",
+            "floor_contact": true,
+            "distance_m": -0.0023644222652037476
+          }
+        ]
+      },
+      {
+        "env_index": 25,
+        "minimum_floor_contact_distance_m": -0.007056587426002984,
+        "floor_penetration_contact_count": 7,
+        "worst_contacts": [
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot5_collision",
+            "floor_contact": true,
+            "distance_m": -0.007056587426002984
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot4_collision",
+            "floor_contact": true,
+            "distance_m": -0.006977611016887852
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot3_collision",
+            "floor_contact": true,
+            "distance_m": -0.005081409271673885
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot6_collision",
+            "floor_contact": true,
+            "distance_m": -0.004666514349561666
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot2_collision",
+            "floor_contact": true,
+            "distance_m": -0.0011111936717692877
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_foot4_collision",
+            "floor_contact": true,
+            "distance_m": -0.0003388612490062056
+          }
+        ]
+      },
+      {
+        "env_index": 26,
+        "minimum_floor_contact_distance_m": -0.003382814981814997,
+        "floor_penetration_contact_count": 14,
+        "worst_contacts": [
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot7_collision",
+            "floor_contact": true,
+            "distance_m": -0.003382814981814997
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot7_collision",
+            "floor_contact": true,
+            "distance_m": -0.003330733928062402
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot6_collision",
+            "floor_contact": true,
+            "distance_m": -0.003271543838658031
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot5_collision",
+            "floor_contact": true,
+            "distance_m": -0.0031436067583002145
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot6_collision",
+            "floor_contact": true,
+            "distance_m": -0.0030975931191243094
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot4_collision",
+            "floor_contact": true,
+            "distance_m": -0.002976654465596344
+          }
+        ]
+      },
+      {
+        "env_index": 27,
+        "minimum_floor_contact_distance_m": -0.0020902855441027653,
+        "floor_penetration_contact_count": 5,
+        "worst_contacts": [
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_foot4_collision",
+            "floor_contact": true,
+            "distance_m": -0.0020902855441027653
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_foot5_collision",
+            "floor_contact": true,
+            "distance_m": -0.001962175664884479
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_foot3_collision",
+            "floor_contact": true,
+            "distance_m": -0.00172536141678112
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_foot6_collision",
+            "floor_contact": true,
+            "distance_m": -0.001194091852680941
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_foot2_collision",
+            "floor_contact": true,
+            "distance_m": -0.0007678262060948904
+          }
+        ]
+      },
+      {
+        "env_index": 28,
+        "minimum_floor_contact_distance_m": null,
+        "floor_penetration_contact_count": 0,
+        "worst_contacts": []
+      },
+      {
+        "env_index": 29,
+        "minimum_floor_contact_distance_m": null,
+        "floor_penetration_contact_count": 0,
+        "worst_contacts": []
+      },
+      {
+        "env_index": 30,
+        "minimum_floor_contact_distance_m": -0.07998582110486838,
+        "floor_penetration_contact_count": 6,
+        "worst_contacts": [
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_shin_collision",
+            "floor_contact": true,
+            "distance_m": -0.07998582110486838
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_thigh_collision",
+            "floor_contact": true,
+            "distance_m": -0.07106428409220492
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_shin_collision",
+            "floor_contact": true,
+            "distance_m": -0.06268861971945242
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_thigh_collision",
+            "floor_contact": true,
+            "distance_m": -0.05040639346362758
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/right_shin_collision",
+            "floor_contact": true,
+            "distance_m": -0.021605144027828732
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_shin_collision",
+            "floor_contact": true,
+            "distance_m": -0.004017349333994058
+          }
+        ]
+      },
+      {
+        "env_index": 31,
+        "minimum_floor_contact_distance_m": -0.00886445556493705,
+        "floor_penetration_contact_count": 6,
+        "worst_contacts": [
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot3_collision",
+            "floor_contact": true,
+            "distance_m": -0.00886445556493705
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot4_collision",
+            "floor_contact": true,
+            "distance_m": -0.008548011098363081
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot2_collision",
+            "floor_contact": true,
+            "distance_m": -0.007705885018429099
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot5_collision",
+            "floor_contact": true,
+            "distance_m": -0.007185843580109772
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot6_collision",
+            "floor_contact": true,
+            "distance_m": -0.004684383445739999
+          },
+          {
+            "geom1": "terrain",
+            "geom2": "robot/left_foot1_collision",
+            "floor_contact": true,
+            "distance_m": -0.0023644222652037476
+          }
+        ]
+      }
+    ]
+  },
+  "reset_floor_lift_intervention": {
+    "enabled": false,
+    "scope": "all_synthetic_resets_before_observation_and_controller_state_refresh",
+    "production_training_changed": false,
+    "events": []
+  },
+  "actuation_profile": {
+    "kind": "g1_true23_native_support_stateful_training_v2",
+    "source_sha256": "bc4dab246e709604f435dea7c584adc01f1c38a6abb6ac1bc22fc699c42272c3",
+    "kp": [
+      40.179238474,
+      99.098427782,
+      40.179238474,
+      99.098427782,
+      28.501246197,
+      28.501246197,
+      40.179238474,
+      99.098427782,
+      40.179238474,
+      99.098427782,
+      28.501246197,
+      28.501246197,
+      40.179238474,
+      14.250623099,
+      14.250623099,
+      14.250623099,
+      14.250623099,
+      14.250623099,
+      14.250623099,
+      14.250623099,
+      14.250623099,
+      14.250623099,
+      14.250623099
+    ],
+    "kd": [
+      2.557889765,
+      6.308801854,
+      2.557889765,
+      6.308801854,
+      1.814445687,
+      1.814445687,
+      2.557889765,
+      6.308801854,
+      2.557889765,
+      6.308801854,
+      1.814445687,
+      1.814445687,
+      2.557889765,
+      0.907222843,
+      0.907222843,
+      0.907222843,
+      0.907222843,
+      0.907222843,
+      0.907222843,
+      0.907222843,
+      0.907222843,
+      0.907222843,
+      0.907222843
+    ],
+    "effort": [
+      88.0,
+      139.0,
+      88.0,
+      139.0,
+      35.0,
+      35.0,
+      88.0,
+      139.0,
+      88.0,
+      139.0,
+      35.0,
+      35.0,
+      88.0,
+      25.0,
+      25.0,
+      25.0,
+      25.0,
+      25.0,
+      25.0,
+      25.0,
+      25.0,
+      25.0,
+      25.0
+    ],
+    "joint_scale": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "fraction": 1.0,
+    "slew_rad_s": 5.0,
+    "timestep_s": 0.002,
+    "target_margin_rad": 0.05,
+    "hold_kp_fraction": 0.25,
+    "consistent_controller_state": true,
+    "hardware_joint_names": [
+      "left_hip_pitch_joint",
+      "left_hip_roll_joint",
+      "left_hip_yaw_joint",
+      "left_knee_joint",
+      "left_ankle_pitch_joint",
+      "left_ankle_roll_joint",
+      "right_hip_pitch_joint",
+      "right_hip_roll_joint",
+      "right_hip_yaw_joint",
+      "right_knee_joint",
+      "right_ankle_pitch_joint",
+      "right_ankle_roll_joint",
+      "waist_yaw_joint",
+      "left_shoulder_pitch_joint",
+      "left_shoulder_roll_joint",
+      "left_shoulder_yaw_joint",
+      "left_elbow_joint",
+      "left_wrist_roll_joint",
+      "right_shoulder_pitch_joint",
+      "right_shoulder_roll_joint",
+      "right_shoulder_yaw_joint",
+      "right_elbow_joint",
+      "right_wrist_roll_joint"
+    ],
+    "hardware_motor_slots": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      15,
+      16,
+      17,
+      18,
+      19,
+      22,
+      23,
+      24,
+      25,
+      26
+    ],
+    "control_decimation": 10,
+    "predicted_effort_guard_fraction": 0.25,
+    "raw_to_safe_target_applications": 1,
+    "previous_action_semantics": "last_applied_target_normalized_native23_not_requested_action",
+    "integrator": "euler",
+    "guard_response": "terminate_training_episode_not_hardware_recovery",
+    "effort_status": "unverified_simulator_table_with_35Nm_ankle_cap_not_manufacturer_rating",
+    "hardware_authorized": false,
+    "deployment_ready": false,
+    "source_kind": "native_simulation_config_not_physical_controller",
+    "effort_target_projection": true,
+    "projection_guard_fraction": 0.2375,
+    "empty_intersection_response": "latch_training_termination_and_zero_effort_until_next_50Hz_reset",
+    "gain_review_for_hardware_complete": false,
+    "reset_target": "synthetic_minimum_effort_feasible_target_from_final_reset_q_dq",
+    "reset_history": "observation_manager_repeats_initial_synthetic_state_not_physical_history",
+    "measured_acquisition_reseed_permitted": false,
+    "reset_reachability_proven": false
+  },
+  "episode_audit": {
+    "control_steps_per_environment": 128,
+    "sampled_transitions": 4096,
+    "completed_episodes": 828,
+    "completed_episode_mean_steps": 4.564009661835748,
+    "completed_episode_median_steps": 3.0,
+    "completed_episode_maximum_steps": 60,
+    "one_step_completed_episodes": 18,
+    "unfinished_episode_lengths_steps": [
+      0,
+      0,
+      7,
+      2,
+      2,
+      0,
+      37,
+      0,
+      0,
+      36,
+      13,
+      2,
+      2,
+      1,
+      1,
+      2,
+      19,
+      1,
+      3,
+      2,
+      29,
+      5,
+      0,
+      2,
+      16,
+      50,
+      1,
+      24,
+      38,
+      12,
+      2,
+      8
+    ],
+    "termination_counts_nonexclusive": {
+      "time_out": 0,
+      "anchor_pos": 0,
+      "anchor_ori": 0,
+      "ee_body_pos": 0,
+      "corpus_clip_time_out": 8,
+      "stage_one_actuation_guard": 821
+    },
+    "invalid_controller_at_episode_start": 0,
+    "guard_terminations_from_invalid_episode_start": 0,
+    "guard_terminations_without_invalid_start_that_step": 821
+  },
+  "actuation_failure_capture": {
+    "enabled": true,
+    "maximum_records": 128,
+    "scope": "first_newly_infeasible_rows_before_training_guard_latches",
+    "numeric_detail": "independent_float64_numpy_check_of_float32_torch_flagged_states",
+    "records": [
+      {
+        "env_index": 25,
+        "control_step": 0,
+        "physics_step": 5,
+        "substep": 4,
+        "source_phase": 3420,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.07283352315425873,
+            "dq_rad_s": -4.089169979095459,
+            "previous_target_rad": -0.0033738650381565094,
+            "requested_target_rad": 0.3290197551250458,
+            "intersection_lower_rad": -0.01337386503815651,
+            "intersection_upper_rad": -0.041504255590009156,
+            "intersection_gap_rad": 0.028130390551852645,
+            "unslewed_lower_rad": -0.6248120830824759,
+            "unslewed_upper_rad": -0.041504255590009156,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 19.065195275926325
+          }
+        ]
+      },
+      {
+        "env_index": 9,
+        "control_step": 1,
+        "physics_step": 18,
+        "substep": 7,
+        "source_phase": 4023,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.05688009411096573,
+            "dq_rad_s": -2.6331470012664795,
+            "previous_target_rad": 0.09571181982755661,
+            "requested_target_rad": 0.2661864459514618,
+            "intersection_lower_rad": 0.08571181982755662,
+            "intersection_upper_rad": 0.06714247514381726,
+            "intersection_gap_rad": 0.01856934468373936,
+            "unslewed_lower_rad": -0.5161653523486495,
+            "unslewed_upper_rad": 0.06714247514381726,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 14.284672341869676
+          }
+        ]
+      },
+      {
+        "env_index": 21,
+        "control_step": 1,
+        "physics_step": 19,
+        "substep": 8,
+        "source_phase": 5882,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.674419105052948,
+            "dq_rad_s": -1.120444655418396,
+            "previous_target_rad": -0.43244457244873047,
+            "requested_target_rad": -0.047198742628097534,
+            "intersection_lower_rad": -0.4424445724487305,
+            "intersection_upper_rad": -0.4540949134702353,
+            "intersection_gap_rad": 0.011650341021504806,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.4540949134702353,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 10.825170510752407
+          }
+        ]
+      },
+      {
+        "env_index": 10,
+        "control_step": 2,
+        "physics_step": 23,
+        "substep": 2,
+        "source_phase": 1456,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.18019619584083557,
+            "dq_rad_s": -2.21560001373291,
+            "previous_target_rad": 0.010714376345276833,
+            "requested_target_rad": 0.33501532673835754,
+            "intersection_lower_rad": 0.0007143763452768324,
+            "intersection_upper_rad": -0.029591759764738906,
+            "intersection_gap_rad": 0.030306136110015737,
+            "unslewed_lower_rad": -0.6128995872572056,
+            "unslewed_upper_rad": -0.029591759764738906,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 20.153068055007868
+          }
+        ]
+      },
+      {
+        "env_index": 13,
+        "control_step": 2,
+        "physics_step": 23,
+        "substep": 2,
+        "source_phase": 591,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.1783602237701416,
+            "dq_rad_s": -2.2588882446289062,
+            "previous_target_rad": 0.01243717409670353,
+            "requested_target_rad": 0.3746890723705292,
+            "intersection_lower_rad": 0.002437174096703529,
+            "intersection_upper_rad": -0.030511602064553667,
+            "intersection_gap_rad": 0.032948776161257194,
+            "unslewed_lower_rad": -0.6138194295570205,
+            "unslewed_upper_rad": -0.030511602064553667,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 21.474388080628596
+          }
+        ]
+      },
+      {
+        "env_index": 18,
+        "control_step": 2,
+        "physics_step": 23,
+        "substep": 2,
+        "source_phase": 825,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.1755373626947403,
+            "dq_rad_s": -1.8455448150634766,
+            "previous_target_rad": 0.01243717409670353,
+            "requested_target_rad": 0.20222041010856628,
+            "intersection_lower_rad": 0.002437174096703529,
+            "intersection_upper_rad": -0.0013744809795768753,
+            "intersection_gap_rad": 0.0038116550762804045,
+            "unslewed_lower_rad": -0.5846823084720436,
+            "unslewed_upper_rad": -0.0013744809795768753,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 6.905827538140202
+          }
+        ]
+      },
+      {
+        "env_index": 20,
+        "control_step": 2,
+        "physics_step": 23,
+        "substep": 2,
+        "source_phase": 1743,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17882180213928223,
+            "dq_rad_s": -2.0511093139648438,
+            "previous_target_rad": 0.010714376345276833,
+            "requested_target_rad": 0.29851987957954407,
+            "intersection_lower_rad": 0.0007143763452768324,
+            "intersection_upper_rad": -0.01774556287665699,
+            "intersection_gap_rad": 0.01845993922193382,
+            "unslewed_lower_rad": -0.6010533903691238,
+            "unslewed_upper_rad": -0.01774556287665699,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 14.229969610966911
+          }
+        ]
+      },
+      {
+        "env_index": 23,
+        "control_step": 2,
+        "physics_step": 23,
+        "substep": 2,
+        "source_phase": 574,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17687591910362244,
+            "dq_rad_s": -2.036600112915039,
+            "previous_target_rad": 0.01243717409670353,
+            "requested_target_rad": 0.31829217076301575,
+            "intersection_lower_rad": 0.002437174096703529,
+            "intersection_upper_rad": -0.014875995413843768,
+            "intersection_gap_rad": 0.017313169510547295,
+            "unslewed_lower_rad": -0.5981838229063106,
+            "unslewed_upper_rad": -0.014875995413843768,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 13.656584755273649
+          }
+        ]
+      },
+      {
+        "env_index": 4,
+        "control_step": 2,
+        "physics_step": 24,
+        "substep": 3,
+        "source_phase": 1143,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.1748223900794983,
+            "dq_rad_s": -2.180579423904419,
+            "previous_target_rad": 0.020714376121759415,
+            "requested_target_rad": 0.2657088339328766,
+            "intersection_lower_rad": 0.010714376121759414,
+            "intersection_upper_rad": -0.0219884740104464,
+            "intersection_gap_rad": 0.032702850132205814,
+            "unslewed_lower_rad": -0.6052963015029131,
+            "unslewed_upper_rad": -0.0219884740104464,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 21.35142506610291
+          }
+        ]
+      },
+      {
+        "env_index": 8,
+        "control_step": 2,
+        "physics_step": 24,
+        "substep": 3,
+        "source_phase": 954,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17965267598628998,
+            "dq_rad_s": -2.38797664642334,
+            "previous_target_rad": 0.0032548606395721436,
+            "requested_target_rad": 0.21137776970863342,
+            "intersection_lower_rad": -0.006745139360427857,
+            "intersection_upper_rad": -0.04002207717902312,
+            "intersection_gap_rad": 0.03327693781859526,
+            "unslewed_lower_rad": -0.6233299046714899,
+            "unslewed_upper_rad": -0.04002207717902312,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 21.638468909297632
+          },
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.17856305837631226,
+            "dq_rad_s": -1.9873976707458496,
+            "previous_target_rad": 0.015908198431134224,
+            "requested_target_rad": 0.21873608231544495,
+            "intersection_lower_rad": 0.005908198431134224,
+            "intersection_upper_rad": -0.01343080993249704,
+            "intersection_gap_rad": 0.019339008363631262,
+            "unslewed_lower_rad": -0.5967386374249638,
+            "unslewed_upper_rad": -0.01343080993249704,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 14.66950418181563
+          }
+        ]
+      },
+      {
+        "env_index": 11,
+        "control_step": 2,
+        "physics_step": 24,
+        "substep": 3,
+        "source_phase": 1694,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17409218847751617,
+            "dq_rad_s": -2.118471145629883,
+            "previous_target_rad": 0.020714376121759415,
+            "requested_target_rad": 0.27833887934684753,
+            "intersection_lower_rad": 0.010714376121759414,
+            "intersection_upper_rad": -0.017304336609892473,
+            "intersection_gap_rad": 0.028018712731651886,
+            "unslewed_lower_rad": -0.6006121641023592,
+            "unslewed_upper_rad": -0.017304336609892473,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 19.009356365825944
+          }
+        ]
+      },
+      {
+        "env_index": 14,
+        "control_step": 2,
+        "physics_step": 24,
+        "substep": 3,
+        "source_phase": 2075,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.7844981551170349,
+            "dq_rad_s": -1.6063519716262817,
+            "previous_target_rad": -0.5821564197540283,
+            "requested_target_rad": -0.3577463626861572,
+            "intersection_lower_rad": -0.5921564197540283,
+            "intersection_upper_rad": -0.5951077840445266,
+            "intersection_gap_rad": 0.0029513642904982484,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.5951077840445266,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 6.475682145249128
+          }
+        ]
+      },
+      {
+        "env_index": 28,
+        "control_step": 2,
+        "physics_step": 24,
+        "substep": 3,
+        "source_phase": 818,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.1838669627904892,
+            "dq_rad_s": -2.468632221221924,
+            "previous_target_rad": -0.007670968770980835,
+            "requested_target_rad": 0.18930485844612122,
+            "intersection_lower_rad": -0.017670968770980837,
+            "intersection_upper_rad": -0.04937105735116362,
+            "intersection_gap_rad": 0.031700088580182785,
+            "unslewed_lower_rad": -0.6326788848436303,
+            "unslewed_upper_rad": -0.04937105735116362,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 20.850044290091393
+          },
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.17746451497077942,
+            "dq_rad_s": -1.8372567892074585,
+            "previous_target_rad": 0.015908198431134224,
+            "requested_target_rad": 0.1387523114681244,
+            "intersection_lower_rad": 0.005908198431134224,
+            "intersection_upper_rad": -0.0027740011421198696,
+            "intersection_gap_rad": 0.008682199573254093,
+            "unslewed_lower_rad": -0.5860818286345866,
+            "unslewed_upper_rad": -0.0027740011421198696,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 9.341099786627046
+          }
+        ]
+      },
+      {
+        "env_index": 29,
+        "control_step": 2,
+        "physics_step": 24,
+        "substep": 3,
+        "source_phase": 1837,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17689856886863708,
+            "dq_rad_s": -2.3937716484069824,
+            "previous_target_rad": 0.018410027027130127,
+            "requested_target_rad": 0.3367808759212494,
+            "intersection_lower_rad": 0.008410027027130127,
+            "intersection_upper_rad": -0.03763689134581863,
+            "intersection_gap_rad": 0.046046918372948754,
+            "unslewed_lower_rad": -0.6209447188382854,
+            "unslewed_upper_rad": -0.03763689134581863,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 28.023459186474376
+          }
+        ]
+      },
+      {
+        "env_index": 22,
+        "control_step": 2,
+        "physics_step": 27,
+        "substep": 6,
+        "source_phase": 3906,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": 0.1928989738225937,
+            "dq_rad_s": -3.400670051574707,
+            "previous_target_rad": 0.36115363240242004,
+            "requested_target_rad": 0.36115363240242004,
+            "intersection_lower_rad": 0.35115363240242004,
+            "intersection_upper_rad": 0.2680595081095361,
+            "intersection_gap_rad": 0.08309412429288393,
+            "unslewed_lower_rad": -0.31524831938293074,
+            "unslewed_upper_rad": 0.2680595081095361,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 46.54706214644197
+          }
+        ]
+      },
+      {
+        "env_index": 0,
+        "control_step": 2,
+        "physics_step": 28,
+        "substep": 7,
+        "source_phase": 3381,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": 0.00878930278122425,
+            "dq_rad_s": -3.1668522357940674,
+            "previous_target_rad": 0.1912716031074524,
+            "requested_target_rad": 0.34484657645225525,
+            "intersection_lower_rad": 0.18127160310745238,
+            "intersection_upper_rad": 0.09883514153711995,
+            "intersection_gap_rad": 0.08243646157033244,
+            "unslewed_lower_rad": -0.4844726859553468,
+            "unslewed_upper_rad": 0.09883514153711995,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 46.21823078516622
+          }
+        ]
+      },
+      {
+        "env_index": 24,
+        "control_step": 2,
+        "physics_step": 28,
+        "substep": 7,
+        "source_phase": 2399,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.815928041934967,
+            "dq_rad_s": -2.2752678394317627,
+            "previous_target_rad": -0.6588267087936401,
+            "requested_target_rad": -0.4331810176372528,
+            "intersection_lower_rad": -0.6688267087936401,
+            "intersection_upper_rad": -0.6691221776210885,
+            "intersection_gap_rad": 0.000295468827448353,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.6691221776210885,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.147734413724181
+          }
+        ]
+      },
+      {
+        "env_index": 3,
+        "control_step": 2,
+        "physics_step": 29,
+        "substep": 8,
+        "source_phase": 5457,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_elbow_joint",
+            "compact_index": 16,
+            "q_rad": -0.7307427525520325,
+            "dq_rad_s": -1.7389237880706787,
+            "previous_target_rad": -0.40823376178741455,
+            "requested_target_rad": -0.17032605409622192,
+            "intersection_lower_rad": -0.41823376178741456,
+            "intersection_upper_rad": -0.42479763092909556,
+            "intersection_gap_rad": 0.006563869141681,
+            "unslewed_lower_rad": -0.9971999999999999,
+            "unslewed_upper_rad": -0.42479763092909556,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 8.281934570840505
+          }
+        ]
+      },
+      {
+        "env_index": 6,
+        "control_step": 2,
+        "physics_step": 29,
+        "substep": 8,
+        "source_phase": 3136,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.12343673408031464,
+            "dq_rad_s": -2.7522733211517334,
+            "previous_target_rad": 0.02974568121135235,
+            "requested_target_rad": 0.23966577649116516,
+            "intersection_lower_rad": 0.019745681211352346,
+            "intersection_upper_rad": -0.006997981891984445,
+            "intersection_gap_rad": 0.02674366310333679,
+            "unslewed_lower_rad": -0.5903058093844512,
+            "unslewed_upper_rad": -0.006997981891984445,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 18.371831551668397
+          }
+        ]
+      },
+      {
+        "env_index": 15,
+        "control_step": 2,
+        "physics_step": 29,
+        "substep": 8,
+        "source_phase": 2523,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.8196762204170227,
+            "dq_rad_s": -2.2692861557006836,
+            "previous_target_rad": -0.662291944026947,
+            "requested_target_rad": -0.30783742666244507,
+            "intersection_lower_rad": -0.672291944026947,
+            "intersection_upper_rad": -0.6724895502895374,
+            "intersection_gap_rad": 0.00019760626259035519,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.6724895502895374,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.098803131295182
+          }
+        ]
+      },
+      {
+        "env_index": 26,
+        "control_step": 2,
+        "physics_step": 29,
+        "substep": 8,
+        "source_phase": 5681,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.6883106231689453,
+            "dq_rad_s": -0.6122733950614929,
+            "previous_target_rad": -0.41164296865463257,
+            "requested_target_rad": 0.15842804312705994,
+            "intersection_lower_rad": -0.4216429686546326,
+            "intersection_upper_rad": -0.4356352443701104,
+            "intersection_gap_rad": 0.013992275715477842,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.4356352443701104,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 11.996137857738924
+          }
+        ]
+      },
+      {
+        "env_index": 27,
+        "control_step": 2,
+        "physics_step": 29,
+        "substep": 8,
+        "source_phase": 5752,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.6995546221733093,
+            "dq_rad_s": -1.0850244760513306,
+            "previous_target_rad": -0.4588890075683594,
+            "requested_target_rad": -0.012107402086257935,
+            "intersection_lower_rad": -0.4688890075683594,
+            "intersection_upper_rad": -0.47697551193752724,
+            "intersection_gap_rad": 0.008086504369167857,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.47697551193752724,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 9.043252184583933
+          }
+        ]
+      },
+      {
+        "env_index": 31,
+        "control_step": 2,
+        "physics_step": 29,
+        "substep": 8,
+        "source_phase": 2247,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.8186960220336914,
+            "dq_rad_s": -2.2785699367523193,
+            "previous_target_rad": -0.6615841388702393,
+            "requested_target_rad": -0.5012916922569275,
+            "intersection_lower_rad": -0.6715841388702393,
+            "intersection_upper_rad": -0.6721003757643126,
+            "intersection_gap_rad": 0.0005162368940733186,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.6721003757643126,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.258118447036663
+          }
+        ]
+      },
+      {
+        "env_index": 7,
+        "control_step": 2,
+        "physics_step": 30,
+        "substep": 9,
+        "source_phase": 2238,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.823187530040741,
+            "dq_rad_s": -2.2913742065429688,
+            "previous_target_rad": -0.6667577624320984,
+            "requested_target_rad": -0.5545129179954529,
+            "intersection_lower_rad": -0.6767577624320984,
+            "intersection_upper_rad": -0.6774070289034818,
+            "intersection_gap_rad": 0.000649266471383414,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.6774070289034818,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.324633235691711
+          }
+        ]
+      },
+      {
+        "env_index": 16,
+        "control_step": 2,
+        "physics_step": 30,
+        "substep": 9,
+        "source_phase": 2759,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.8237824440002441,
+            "dq_rad_s": -2.306779384613037,
+            "previous_target_rad": -0.6687799692153931,
+            "requested_target_rad": -0.4648914337158203,
+            "intersection_lower_rad": -0.6787799692153931,
+            "intersection_upper_rad": -0.6789826669588193,
+            "intersection_gap_rad": 0.0002026977434261834,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.6789826669588193,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.101348871713096
+          }
+        ]
+      },
+      {
+        "env_index": 5,
+        "control_step": 3,
+        "physics_step": 31,
+        "substep": 0,
+        "source_phase": 5255,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_elbow_joint",
+            "compact_index": 16,
+            "q_rad": -0.7752062082290649,
+            "dq_rad_s": -1.6870031356811523,
+            "previous_target_rad": -0.4515847861766815,
+            "requested_target_rad": -0.10812342166900635,
+            "intersection_lower_rad": -0.4615847861766815,
+            "intersection_upper_rad": -0.46595571521682044,
+            "intersection_gap_rad": 0.004370929040138916,
+            "unslewed_lower_rad": -0.9971999999999999,
+            "unslewed_upper_rad": -0.46595571521682044,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 7.185464520069462
+          }
+        ]
+      },
+      {
+        "env_index": 12,
+        "control_step": 3,
+        "physics_step": 32,
+        "substep": 1,
+        "source_phase": 2477,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.8343923091888428,
+            "dq_rad_s": -2.4885265827178955,
+            "previous_target_rad": -0.6898404955863953,
+            "requested_target_rad": -0.1553703099489212,
+            "intersection_lower_rad": -0.6998404955863953,
+            "intersection_upper_rad": -0.701162918138484,
+            "intersection_gap_rad": 0.0013224225520886979,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.701162918138484,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.661211276044353
+          }
+        ]
+      },
+      {
+        "env_index": 25,
+        "control_step": 3,
+        "physics_step": 33,
+        "substep": 2,
+        "source_phase": 324,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17649953067302704,
+            "dq_rad_s": -1.9870126247406006,
+            "previous_target_rad": 0.01243717409670353,
+            "requested_target_rad": 0.27063390612602234,
+            "intersection_lower_rad": 0.002437174096703529,
+            "intersection_upper_rad": -0.01134276943918533,
+            "intersection_gap_rad": 0.013779943535888859,
+            "unslewed_lower_rad": -0.594650596931652,
+            "unslewed_upper_rad": -0.01134276943918533,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 11.889971767944429
+          }
+        ]
+      },
+      {
+        "env_index": 1,
+        "control_step": 4,
+        "physics_step": 42,
+        "substep": 1,
+        "source_phase": 5557,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.19033735990524292,
+            "dq_rad_s": -0.8533708453178406,
+            "previous_target_rad": 0.058186642825603485,
+            "requested_target_rad": 0.20112529397010803,
+            "intersection_lower_rad": 0.04818664282560348,
+            "intersection_upper_rad": 0.046989278500255305,
+            "intersection_gap_rad": 0.0011973643253481783,
+            "unslewed_lower_rad": -0.5363185489922115,
+            "unslewed_upper_rad": 0.046989278500255305,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.59868216267409
+          }
+        ]
+      },
+      {
+        "env_index": 19,
+        "control_step": 4,
+        "physics_step": 45,
+        "substep": 4,
+        "source_phase": 5180,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_elbow_joint",
+            "compact_index": 21,
+            "q_rad": -0.7575019598007202,
+            "dq_rad_s": -0.7659224271774292,
+            "previous_target_rad": -0.3787984848022461,
+            "requested_target_rad": -0.11556357145309448,
+            "intersection_lower_rad": -0.3887984848022461,
+            "intersection_upper_rad": -0.3896136477123512,
+            "intersection_gap_rad": 0.0008151629101050828,
+            "unslewed_lower_rad": -0.9971999999999999,
+            "unslewed_upper_rad": -0.3896136477123512,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.407581455052545
+          }
+        ]
+      },
+      {
+        "env_index": 27,
+        "control_step": 4,
+        "physics_step": 48,
+        "substep": 7,
+        "source_phase": 4038,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.08463077247142792,
+            "dq_rad_s": -2.2366690635681152,
+            "previous_target_rad": 0.0785134881734848,
+            "requested_target_rad": 0.34408918023109436,
+            "intersection_lower_rad": 0.06851348817348481,
+            "intersection_upper_rad": 0.06463236623337348,
+            "intersection_gap_rad": 0.0038811219401113234,
+            "unslewed_lower_rad": -0.5186754612590934,
+            "unslewed_upper_rad": 0.06463236623337348,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 6.940560970055659
+          }
+        ]
+      },
+      {
+        "env_index": 9,
+        "control_step": 5,
+        "physics_step": 51,
+        "substep": 0,
+        "source_phase": 2311,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.826343834400177,
+            "dq_rad_s": -2.2840816974639893,
+            "previous_target_rad": -0.6693763732910156,
+            "requested_target_rad": -0.32225126028060913,
+            "intersection_lower_rad": -0.6793763732910156,
+            "intersection_upper_rad": -0.6800990777158338,
+            "intersection_gap_rad": 0.0007227044248181436,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.6800990777158338,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.361352212409076
+          }
+        ]
+      },
+      {
+        "env_index": 21,
+        "control_step": 5,
+        "physics_step": 51,
+        "substep": 0,
+        "source_phase": 2652,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.8309015035629272,
+            "dq_rad_s": -2.472058057785034,
+            "previous_target_rad": -0.6855441927909851,
+            "requested_target_rad": -0.28685250878334045,
+            "intersection_lower_rad": -0.6955441927909851,
+            "intersection_upper_rad": -0.6966236936529457,
+            "intersection_gap_rad": 0.001079500861960625,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.6966236936529457,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.539750430980317
+          }
+        ]
+      },
+      {
+        "env_index": 0,
+        "control_step": 5,
+        "physics_step": 53,
+        "substep": 2,
+        "source_phase": 841,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17709405720233917,
+            "dq_rad_s": -2.0679550170898438,
+            "previous_target_rad": 0.01243717409670353,
+            "requested_target_rad": 0.28538766503334045,
+            "intersection_lower_rad": 0.002437174096703529,
+            "intersection_upper_rad": -0.01709024870882378,
+            "intersection_gap_rad": 0.019527422805527307,
+            "unslewed_lower_rad": -0.6003980762012906,
+            "unslewed_upper_rad": -0.01709024870882378,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 14.763711402763654
+          }
+        ]
+      },
+      {
+        "env_index": 24,
+        "control_step": 5,
+        "physics_step": 53,
+        "substep": 2,
+        "source_phase": 716,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.1785295605659485,
+            "dq_rad_s": -2.298128128051758,
+            "previous_target_rad": 0.01243717409670353,
+            "requested_target_rad": 0.34339120984077454,
+            "intersection_lower_rad": 0.002437174096703529,
+            "intersection_upper_rad": -0.03317902742613246,
+            "intersection_gap_rad": 0.03561620152283599,
+            "unslewed_lower_rad": -0.6164868549185992,
+            "unslewed_upper_rad": -0.03317902742613246,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 22.808100761417997
+          }
+        ]
+      },
+      {
+        "env_index": 28,
+        "control_step": 5,
+        "physics_step": 53,
+        "substep": 2,
+        "source_phase": 387,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17570368945598602,
+            "dq_rad_s": -1.925078272819519,
+            "previous_target_rad": 0.01243717409670353,
+            "requested_target_rad": 0.1987379491329193,
+            "intersection_lower_rad": 0.002437174096703529,
+            "intersection_upper_rad": -0.006604064919129349,
+            "intersection_gap_rad": 0.009041239015832878,
+            "unslewed_lower_rad": -0.589911892411596,
+            "unslewed_upper_rad": -0.006604064919129349,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 9.52061950791644
+          }
+        ]
+      },
+      {
+        "env_index": 20,
+        "control_step": 5,
+        "physics_step": 54,
+        "substep": 3,
+        "source_phase": 784,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.17774851620197296,
+            "dq_rad_s": -1.935651421546936,
+            "previous_target_rad": 0.01277768425643444,
+            "requested_target_rad": 0.13008692860603333,
+            "intersection_lower_rad": 0.0027776842564344404,
+            "intersection_upper_rad": -0.009321999218865673,
+            "intersection_gap_rad": 0.012099683475300113,
+            "unslewed_lower_rad": -0.5926298267113324,
+            "unslewed_upper_rad": -0.009321999218865673,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 11.049841737650057
+          }
+        ]
+      },
+      {
+        "env_index": 22,
+        "control_step": 5,
+        "physics_step": 54,
+        "substep": 3,
+        "source_phase": 5596,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.2642483413219452,
+            "dq_rad_s": -3.457864999771118,
+            "previous_target_rad": -0.17857584357261658,
+            "requested_target_rad": 0.3673650920391083,
+            "intersection_lower_rad": -0.18857584357261659,
+            "intersection_upper_rad": -0.1927289505259176,
+            "intersection_gap_rad": 0.004153106953301011,
+            "unslewed_lower_rad": -0.7760367780183843,
+            "unslewed_upper_rad": -0.1927289505259176,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 7.07655347665051
+          }
+        ]
+      },
+      {
+        "env_index": 29,
+        "control_step": 5,
+        "physics_step": 54,
+        "substep": 3,
+        "source_phase": 1830,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.1734333634376526,
+            "dq_rad_s": -1.9857892990112305,
+            "previous_target_rad": 0.020714376121759415,
+            "requested_target_rad": 0.21929237246513367,
+            "intersection_lower_rad": 0.010714376121759414,
+            "intersection_upper_rad": -0.008198722869057956,
+            "intersection_gap_rad": 0.01891309899081737,
+            "unslewed_lower_rad": -0.5915065503615247,
+            "unslewed_upper_rad": -0.008198722869057956,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 14.456549495408686
+          }
+        ]
+      },
+      {
+        "env_index": 31,
+        "control_step": 5,
+        "physics_step": 54,
+        "substep": 3,
+        "source_phase": 1947,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.1757039725780487,
+            "dq_rad_s": -2.2039639949798584,
+            "previous_target_rad": 0.020714376121759415,
+            "requested_target_rad": 0.28701916337013245,
+            "intersection_lower_rad": 0.010714376121759414,
+            "intersection_upper_rad": -0.024358764540810596,
+            "intersection_gap_rad": 0.03507314066257001,
+            "unslewed_lower_rad": -0.6076665920332773,
+            "unslewed_upper_rad": -0.024358764540810596,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 22.536570331285006
+          }
+        ]
+      },
+      {
+        "env_index": 3,
+        "control_step": 5,
+        "physics_step": 56,
+        "substep": 5,
+        "source_phase": 1231,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.19097013771533966,
+            "dq_rad_s": -2.4378955364227295,
+            "previous_target_rad": -0.02226986549794674,
+            "requested_target_rad": 0.10983583331108093,
+            "intersection_lower_rad": -0.03226986549794674,
+            "intersection_upper_rad": -0.0545174741475766,
+            "intersection_gap_rad": 0.02224760864962986,
+            "unslewed_lower_rad": -0.6378253016400434,
+            "unslewed_upper_rad": -0.0545174741475766,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 16.12380432481493
+          }
+        ]
+      },
+      {
+        "env_index": 5,
+        "control_step": 5,
+        "physics_step": 58,
+        "substep": 7,
+        "source_phase": 4055,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.088156558573246,
+            "dq_rad_s": -2.15997576713562,
+            "previous_target_rad": 0.07658949494361877,
+            "requested_target_rad": 0.37553301453590393,
+            "intersection_lower_rad": 0.06658949494361878,
+            "intersection_upper_rad": 0.06598902702429513,
+            "intersection_gap_rad": 0.0006004679193236523,
+            "unslewed_lower_rad": -0.5173188004681717,
+            "unslewed_upper_rad": 0.06598902702429513,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.300233959661823
+          }
+        ]
+      },
+      {
+        "env_index": 10,
+        "control_step": 5,
+        "physics_step": 58,
+        "substep": 7,
+        "source_phase": 3521,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": 0.06073210388422012,
+            "dq_rad_s": 2.903066396713257,
+            "previous_target_rad": -0.10599550604820251,
+            "requested_target_rad": -0.10599550604820251,
+            "intersection_lower_rad": -0.04610686295820224,
+            "intersection_upper_rad": -0.09599550604820252,
+            "intersection_gap_rad": 0.04988864309000028,
+            "unslewed_lower_rad": -0.04610686295820224,
+            "unslewed_upper_rad": 0.47359999999999997,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 29.944321545000136
+          }
+        ]
+      },
+      {
+        "env_index": 13,
+        "control_step": 5,
+        "physics_step": 60,
+        "substep": 9,
+        "source_phase": 2357,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.823209285736084,
+            "dq_rad_s": -2.3092620372772217,
+            "previous_target_rad": -0.6679810285568237,
+            "requested_target_rad": -0.4593980312347412,
+            "intersection_lower_rad": -0.6779810285568237,
+            "intersection_upper_rad": -0.6785675592720869,
+            "intersection_gap_rad": 0.000586530715263156,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.6785675592720869,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.293265357631582
+          }
+        ]
+      },
+      {
+        "env_index": 6,
+        "control_step": 6,
+        "physics_step": 62,
+        "substep": 1,
+        "source_phase": 2453,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.8332974910736084,
+            "dq_rad_s": -2.414825201034546,
+            "previous_target_rad": -0.6841670274734497,
+            "requested_target_rad": -0.26551538705825806,
+            "intersection_lower_rad": -0.6941670274734497,
+            "intersection_upper_rad": -0.6953761243392049,
+            "intersection_gap_rad": 0.0012090968657552104,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.6953761243392049,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.60454843287761
+          }
+        ]
+      },
+      {
+        "env_index": 16,
+        "control_step": 6,
+        "physics_step": 62,
+        "substep": 1,
+        "source_phase": 3561,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": 0.058621883392333984,
+            "dq_rad_s": -2.006725311279297,
+            "previous_target_rad": 0.23484919965267181,
+            "requested_target_rad": 0.3765851557254791,
+            "intersection_lower_rad": 0.2248491996526718,
+            "intersection_upper_rad": 0.22252369602420596,
+            "intersection_gap_rad": 0.0023255036284658415,
+            "unslewed_lower_rad": -0.36078413146826077,
+            "unslewed_upper_rad": 0.22252369602420596,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 6.162751814232925
+          }
+        ]
+      },
+      {
+        "env_index": 22,
+        "control_step": 6,
+        "physics_step": 63,
+        "substep": 2,
+        "source_phase": 5987,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.604209840297699,
+            "dq_rad_s": -5.2669830322265625,
+            "previous_target_rad": -0.6083735227584839,
+            "requested_target_rad": 0.4349958002567291,
+            "intersection_lower_rad": -0.6183735227584839,
+            "intersection_upper_rad": -0.6478624805270454,
+            "intersection_gap_rad": 0.02948895776856153,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.6478624805270454,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 19.74447888428077
+          }
+        ]
+      },
+      {
+        "env_index": 25,
+        "control_step": 6,
+        "physics_step": 64,
+        "substep": 3,
+        "source_phase": 1247,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.1746263951063156,
+            "dq_rad_s": -2.172903299331665,
+            "previous_target_rad": 0.020714376121759415,
+            "requested_target_rad": 0.21465757489204407,
+            "intersection_lower_rad": 0.010714376121759414,
+            "intersection_upper_rad": -0.02130380176934224,
+            "intersection_gap_rad": 0.03201817789110165,
+            "unslewed_lower_rad": -0.604611629261809,
+            "unslewed_upper_rad": -0.02130380176934224,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 21.009088945550825
+          }
+        ]
+      },
+      {
+        "env_index": 14,
+        "control_step": 6,
+        "physics_step": 66,
+        "substep": 5,
+        "source_phase": 3731,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": 0.026308314874768257,
+            "dq_rad_s": -5.020552158355713,
+            "previous_target_rad": 0.07945356518030167,
+            "requested_target_rad": 0.1315876841545105,
+            "intersection_lower_rad": 0.06945356518030167,
+            "intersection_upper_rad": -0.0016560486684285974,
+            "intersection_gap_rad": 0.07110961384873027,
+            "unslewed_lower_rad": -0.5849638761608953,
+            "unslewed_upper_rad": -0.0016560486684285974,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 40.55480692436513
+          }
+        ]
+      },
+      {
+        "env_index": 11,
+        "control_step": 6,
+        "physics_step": 69,
+        "substep": 8,
+        "source_phase": 5861,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.6941017508506775,
+            "dq_rad_s": -0.29021432995796204,
+            "previous_target_rad": -0.400095671415329,
+            "requested_target_rad": -0.2185712605714798,
+            "intersection_lower_rad": -0.410095671415329,
+            "intersection_upper_rad": -0.4209234551759531,
+            "intersection_gap_rad": 0.010827783760624099,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.4209234551759531,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 10.413891880312054
+          }
+        ]
+      },
+      {
+        "env_index": 1,
+        "control_step": 7,
+        "physics_step": 73,
+        "substep": 2,
+        "source_phase": 804,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17687246203422546,
+            "dq_rad_s": -2.099482297897339,
+            "previous_target_rad": 0.01243717409670353,
+            "requested_target_rad": 0.34892895817756653,
+            "intersection_lower_rad": 0.002437174096703529,
+            "intersection_upper_rad": -0.018875742574242182,
+            "intersection_gap_rad": 0.02131291667094571,
+            "unslewed_lower_rad": -0.6021835700667089,
+            "unslewed_upper_rad": -0.018875742574242182,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 15.656458335472855
+          }
+        ]
+      },
+      {
+        "env_index": 23,
+        "control_step": 7,
+        "physics_step": 73,
+        "substep": 2,
+        "source_phase": 5532,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.1886143982410431,
+            "dq_rad_s": -0.7502975463867188,
+            "previous_target_rad": 0.06653551757335663,
+            "requested_target_rad": 0.11469927430152893,
+            "intersection_lower_rad": 0.056535517573356626,
+            "intersection_upper_rad": 0.055274090176126583,
+            "intersection_gap_rad": 0.001261427397230043,
+            "unslewed_lower_rad": -0.5280337373163402,
+            "unslewed_upper_rad": 0.055274090176126583,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.630713698615022
+          }
+        ]
+      },
+      {
+        "env_index": 27,
+        "control_step": 7,
+        "physics_step": 74,
+        "substep": 3,
+        "source_phase": 1084,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17483073472976685,
+            "dq_rad_s": -2.0950911045074463,
+            "previous_target_rad": 0.020714376121759415,
+            "requested_target_rad": 0.3234957754611969,
+            "intersection_lower_rad": 0.010714376121759414,
+            "intersection_upper_rad": -0.016554463216094384,
+            "intersection_gap_rad": 0.027268839337853797,
+            "unslewed_lower_rad": -0.5998622907085611,
+            "unslewed_upper_rad": -0.016554463216094384,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 18.6344196689269
+          }
+        ]
+      },
+      {
+        "env_index": 0,
+        "control_step": 7,
+        "physics_step": 80,
+        "substep": 9,
+        "source_phase": 3826,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.06085307151079178,
+            "dq_rad_s": -1.7434825897216797,
+            "previous_target_rad": 0.1415623128414154,
+            "requested_target_rad": 0.3334598243236542,
+            "intersection_lower_rad": 0.1315623128414154,
+            "intersection_upper_rad": 0.11980729327220108,
+            "intersection_gap_rad": 0.01175501956921432,
+            "unslewed_lower_rad": -0.4635005342202657,
+            "unslewed_upper_rad": 0.11980729327220108,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 10.877509784607165
+          }
+        ]
+      },
+      {
+        "env_index": 12,
+        "control_step": 8,
+        "physics_step": 81,
+        "substep": 0,
+        "source_phase": 4372,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.5752710700035095,
+            "dq_rad_s": -2.2013211250305176,
+            "previous_target_rad": -0.412026047706604,
+            "requested_target_rad": 0.28880301117897034,
+            "intersection_lower_rad": -0.422026047706604,
+            "intersection_upper_rad": -0.42375761163968084,
+            "intersection_gap_rad": 0.0017315639330768295,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.42375761163968084,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.865781966538419
+          }
+        ]
+      },
+      {
+        "env_index": 30,
+        "control_step": 8,
+        "physics_step": 82,
+        "substep": 1,
+        "source_phase": 4678,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_elbow_joint",
+            "compact_index": 21,
+            "q_rad": 0.9235941767692566,
+            "dq_rad_s": -2.268383026123047,
+            "previous_target_rad": 1.2072339057922363,
+            "requested_target_rad": 1.3436903953552246,
+            "intersection_lower_rad": 1.1972339057922363,
+            "intersection_upper_rad": 1.195832876444076,
+            "intersection_gap_rad": 0.001401029348160332,
+            "unslewed_lower_rad": 0.3625359800555036,
+            "unslewed_upper_rad": 1.195832876444076,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.70051467408017
+          }
+        ]
+      },
+      {
+        "env_index": 2,
+        "control_step": 8,
+        "physics_step": 84,
+        "substep": 3,
+        "source_phase": 4487,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_shoulder_pitch_joint",
+            "compact_index": 13,
+            "q_rad": -0.9834856390953064,
+            "dq_rad_s": 1.0157921314239502,
+            "previous_target_rad": -1.347074270248413,
+            "requested_target_rad": -1.4253121614456177,
+            "intersection_lower_rad": -1.335466751765707,
+            "intersection_upper_rad": -1.337074270248413,
+            "intersection_gap_rad": 0.0016075184827060163,
+            "unslewed_lower_rad": -1.335466751765707,
+            "unslewed_upper_rad": -0.5021698553771348,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.803759241353013
+          }
+        ]
+      },
+      {
+        "env_index": 21,
+        "control_step": 8,
+        "physics_step": 84,
+        "substep": 3,
+        "source_phase": 1470,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17542549967765808,
+            "dq_rad_s": -2.217322826385498,
+            "previous_target_rad": 0.020714376121759415,
+            "requested_target_rad": 0.3484968841075897,
+            "intersection_lower_rad": 0.010714376121759414,
+            "intersection_upper_rad": -0.024930741261457084,
+            "intersection_gap_rad": 0.0356451173832165,
+            "unslewed_lower_rad": -0.6082385687539238,
+            "unslewed_upper_rad": -0.024930741261457084,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 22.82255869160825
+          }
+        ]
+      },
+      {
+        "env_index": 31,
+        "control_step": 8,
+        "physics_step": 84,
+        "substep": 3,
+        "source_phase": 1995,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.1743113249540329,
+            "dq_rad_s": -2.10514497756958,
+            "previous_target_rad": 0.020714376121759415,
+            "requested_target_rad": 0.3468826711177826,
+            "intersection_lower_rad": 0.010714376121759414,
+            "intersection_upper_rad": -0.016675102878519893,
+            "intersection_gap_rad": 0.027389479000279306,
+            "unslewed_lower_rad": -0.5999829303709866,
+            "unslewed_upper_rad": -0.016675102878519893,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 18.694739500139654
+          }
+        ]
+      },
+      {
+        "env_index": 10,
+        "control_step": 8,
+        "physics_step": 85,
+        "substep": 4,
+        "source_phase": 996,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.19688715040683746,
+            "dq_rad_s": -2.87457275390625,
+            "previous_target_rad": -0.04664801061153412,
+            "requested_target_rad": 0.16600868105888367,
+            "intersection_lower_rad": -0.05664801061153412,
+            "intersection_upper_rad": -0.08823422192425587,
+            "intersection_gap_rad": 0.03158621131272175,
+            "unslewed_lower_rad": -0.6715420494167226,
+            "unslewed_upper_rad": -0.08823422192425587,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 20.793105656360876
+          },
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.17396777868270874,
+            "dq_rad_s": -1.9471505880355835,
+            "previous_target_rad": 0.00979110598564148,
+            "requested_target_rad": 0.00979110598564148,
+            "intersection_lower_rad": -0.00020889401435852072,
+            "intersection_upper_rad": -0.006273321374999696,
+            "intersection_gap_rad": 0.006064427360641176,
+            "unslewed_lower_rad": -0.5895811488674664,
+            "unslewed_upper_rad": -0.006273321374999696,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 8.032213680320588
+          }
+        ]
+      },
+      {
+        "env_index": 19,
+        "control_step": 8,
+        "physics_step": 85,
+        "substep": 4,
+        "source_phase": 3403,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": 0.044925201684236526,
+            "dq_rad_s": -4.759578227996826,
+            "previous_target_rad": 0.12368463724851608,
+            "requested_target_rad": 0.15496918559074402,
+            "intersection_lower_rad": 0.11368463724851609,
+            "intersection_upper_rad": 0.03357495455848121,
+            "intersection_gap_rad": 0.08010968269003488,
+            "unslewed_lower_rad": -0.5497328729339855,
+            "unslewed_upper_rad": 0.03357495455848121,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 45.05484134501744
+          }
+        ]
+      },
+      {
+        "env_index": 24,
+        "control_step": 8,
+        "physics_step": 85,
+        "substep": 4,
+        "source_phase": 1720,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.187250554561615,
+            "dq_rad_s": -2.9703118801116943,
+            "previous_target_rad": -0.041357964277267456,
+            "requested_target_rad": 0.1596878468990326,
+            "intersection_lower_rad": -0.05135796427726746,
+            "intersection_upper_rad": -0.08469256815349265,
+            "intersection_gap_rad": 0.03333460387622519,
+            "unslewed_lower_rad": -0.6680003956459594,
+            "unslewed_upper_rad": -0.08469256815349265,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 21.667301938112594
+          }
+        ]
+      },
+      {
+        "env_index": 9,
+        "control_step": 8,
+        "physics_step": 86,
+        "substep": 5,
+        "source_phase": 67,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.19502811133861542,
+            "dq_rad_s": -3.097620725631714,
+            "previous_target_rad": -0.058849453926086426,
+            "requested_target_rad": -0.0518435537815094,
+            "intersection_lower_rad": -0.06884945392608642,
+            "intersection_upper_rad": -0.1005748577577567,
+            "intersection_gap_rad": 0.031725403831670274,
+            "unslewed_lower_rad": -0.6838826852502236,
+            "unslewed_upper_rad": -0.1005748577577567,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 20.862701915835135
+          }
+        ]
+      },
+      {
+        "env_index": 17,
+        "control_step": 8,
+        "physics_step": 88,
+        "substep": 7,
+        "source_phase": 4425,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_elbow_joint",
+            "compact_index": 16,
+            "q_rad": 0.845617949962616,
+            "dq_rad_s": -4.784339904785156,
+            "previous_target_rad": 0.968006432056427,
+            "requested_target_rad": 0.968006432056427,
+            "intersection_lower_rad": 0.958006432056427,
+            "intersection_upper_rad": 0.9576858601590852,
+            "intersection_gap_rad": 0.0003205718973418037,
+            "unslewed_lower_rad": 0.12438896377051278,
+            "unslewed_upper_rad": 0.9576858601590852,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.160285948670906
+          }
+        ]
+      },
+      {
+        "env_index": 29,
+        "control_step": 8,
+        "physics_step": 88,
+        "substep": 7,
+        "source_phase": 2467,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.8152756094932556,
+            "dq_rad_s": -2.2641193866729736,
+            "previous_target_rad": -0.6573737859725952,
+            "requested_target_rad": -0.1569625586271286,
+            "intersection_lower_rad": -0.6673737859725952,
+            "intersection_upper_rad": -0.6677600126334704,
+            "intersection_gap_rad": 0.00038622666087517743,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.6677600126334704,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.193113330437593
+          }
+        ]
+      },
+      {
+        "env_index": 5,
+        "control_step": 8,
+        "physics_step": 89,
+        "substep": 8,
+        "source_phase": 2888,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.8194365501403809,
+            "dq_rad_s": -2.290177583694458,
+            "previous_target_rad": -0.6633659601211548,
+            "requested_target_rad": -0.39003410935401917,
+            "intersection_lower_rad": -0.6733659601211548,
+            "intersection_upper_rad": -0.6735798696265625,
+            "intersection_gap_rad": 0.00021390950540767228,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.6735798696265625,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.106954752703841
+          }
+        ]
+      },
+      {
+        "env_index": 13,
+        "control_step": 8,
+        "physics_step": 90,
+        "substep": 9,
+        "source_phase": 2177,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.8251073360443115,
+            "dq_rad_s": -2.3717780113220215,
+            "previous_target_rad": -0.6740474700927734,
+            "requested_target_rad": -0.23824933171272278,
+            "intersection_lower_rad": -0.6840474700927734,
+            "intersection_upper_rad": -0.6844455000977379,
+            "intersection_gap_rad": 0.00039803000496441143,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.6844455000977379,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.19901500248221
+          }
+        ]
+      },
+      {
+        "env_index": 20,
+        "control_step": 8,
+        "physics_step": 90,
+        "substep": 9,
+        "source_phase": 2133,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.822320818901062,
+            "dq_rad_s": -2.2535157203674316,
+            "previous_target_rad": -0.663821280002594,
+            "requested_target_rad": -0.2927209436893463,
+            "intersection_lower_rad": -0.673821280002594,
+            "intersection_upper_rad": -0.6741301716781631,
+            "intersection_gap_rad": 0.000308891675569134,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.6741301716781631,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.154445837784571
+          }
+        ]
+      },
+      {
+        "env_index": 6,
+        "control_step": 9,
+        "physics_step": 92,
+        "substep": 1,
+        "source_phase": 4979,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.44425469636917114,
+            "dq_rad_s": -2.6821885108947754,
+            "previous_target_rad": -0.3132514953613281,
+            "requested_target_rad": 0.36877307295799255,
+            "intersection_lower_rad": -0.32325149536132813,
+            "intersection_upper_rad": -0.3233542065846675,
+            "intersection_gap_rad": 0.0001027112233393801,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.3233542065846675,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.0513556116696945
+          }
+        ]
+      },
+      {
+        "env_index": 16,
+        "control_step": 9,
+        "physics_step": 93,
+        "substep": 2,
+        "source_phase": 354,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17557646334171295,
+            "dq_rad_s": -1.8953254222869873,
+            "previous_target_rad": 0.01243717409670353,
+            "requested_target_rad": 0.23140200972557068,
+            "intersection_lower_rad": 0.002437174096703529,
+            "intersection_upper_rad": -0.004582713511121217,
+            "intersection_gap_rad": 0.007019887607824746,
+            "unslewed_lower_rad": -0.587890541003588,
+            "unslewed_upper_rad": -0.004582713511121217,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 8.509943803912373
+          }
+        ]
+      },
+      {
+        "env_index": 8,
+        "control_step": 9,
+        "physics_step": 100,
+        "substep": 9,
+        "source_phase": 5273,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_elbow_joint",
+            "compact_index": 16,
+            "q_rad": -0.6562793254852295,
+            "dq_rad_s": -1.790428638458252,
+            "previous_target_rad": -0.33969172835350037,
+            "requested_target_rad": -0.3387221097946167,
+            "intersection_lower_rad": -0.3496917283535004,
+            "intersection_upper_rad": -0.3536131044740267,
+            "intersection_gap_rad": 0.003921376120526343,
+            "unslewed_lower_rad": -0.9971999999999999,
+            "unslewed_upper_rad": -0.3536131044740267,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 6.960688060263176
+          }
+        ]
+      },
+      {
+        "env_index": 26,
+        "control_step": 9,
+        "physics_step": 100,
+        "substep": 9,
+        "source_phase": 5571,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.40172892808914185,
+            "dq_rad_s": -1.0496526956558228,
+            "previous_target_rad": -0.16051054000854492,
+            "requested_target_rad": 0.34100452065467834,
+            "intersection_lower_rad": -0.17051054000854493,
+            "intersection_upper_rad": -0.1768979803745166,
+            "intersection_gap_rad": 0.006387440365971664,
+            "unslewed_lower_rad": -0.7602058078669833,
+            "unslewed_upper_rad": -0.1768979803745166,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 8.193720182985837
+          }
+        ]
+      },
+      {
+        "env_index": 25,
+        "control_step": 10,
+        "physics_step": 101,
+        "substep": 0,
+        "source_phase": 2213,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.8366730213165283,
+            "dq_rad_s": -2.545929431915283,
+            "previous_target_rad": -0.6964955925941467,
+            "requested_target_rad": -0.4144326448440552,
+            "intersection_lower_rad": -0.7064955925941467,
+            "intersection_upper_rad": -0.7070980091458787,
+            "intersection_gap_rad": 0.0006024165517319879,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.7070980091458787,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.301208275865998
+          }
+        ]
+      },
+      {
+        "env_index": 11,
+        "control_step": 10,
+        "physics_step": 102,
+        "substep": 1,
+        "source_phase": 3702,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": 0.11289133876562119,
+            "dq_rad_s": -2.9823906421661377,
+            "previous_target_rad": 0.22559963166713715,
+            "requested_target_rad": 0.3338598906993866,
+            "intersection_lower_rad": 0.21559963166713714,
+            "intersection_upper_rad": 0.2146803672986212,
+            "intersection_gap_rad": 0.000919264368515943,
+            "unslewed_lower_rad": -0.36862746019384557,
+            "unslewed_upper_rad": 0.2146803672986212,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.459632184257976
+          }
+        ]
+      },
+      {
+        "env_index": 1,
+        "control_step": 10,
+        "physics_step": 103,
+        "substep": 2,
+        "source_phase": 397,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17622165381908417,
+            "dq_rad_s": -1.897013545036316,
+            "previous_target_rad": 0.01243717409670353,
+            "requested_target_rad": 0.2998259365558624,
+            "intersection_lower_rad": 0.002437174096703529,
+            "intersection_upper_rad": -0.0053353732205559945,
+            "intersection_gap_rad": 0.007772547317259524,
+            "unslewed_lower_rad": -0.5886432007130228,
+            "unslewed_upper_rad": -0.0053353732205559945,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 8.886273658629761
+          }
+        ]
+      },
+      {
+        "env_index": 14,
+        "control_step": 10,
+        "physics_step": 103,
+        "substep": 2,
+        "source_phase": 181,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17612388730049133,
+            "dq_rad_s": -1.9152071475982666,
+            "previous_target_rad": 0.01243717409670353,
+            "requested_target_rad": 0.22767457365989685,
+            "intersection_lower_rad": 0.002437174096703529,
+            "intersection_upper_rad": -0.006395847414363942,
+            "intersection_gap_rad": 0.008833021511067471,
+            "unslewed_lower_rad": -0.5897036749068307,
+            "unslewed_upper_rad": -0.006395847414363942,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 9.416510755533736
+          }
+        ]
+      },
+      {
+        "env_index": 3,
+        "control_step": 10,
+        "physics_step": 104,
+        "substep": 3,
+        "source_phase": 5184,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_elbow_joint",
+            "compact_index": 21,
+            "q_rad": -0.6591284871101379,
+            "dq_rad_s": -0.7168862223625183,
+            "previous_target_rad": -0.2761716842651367,
+            "requested_target_rad": -0.08041304349899292,
+            "intersection_lower_rad": -0.2861716842651367,
+            "intersection_upper_rad": -0.28811843326822867,
+            "intersection_gap_rad": 0.001946749003091941,
+            "unslewed_lower_rad": -0.9971999999999999,
+            "unslewed_upper_rad": -0.28811843326822867,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.973374501545975
+          }
+        ]
+      },
+      {
+        "env_index": 21,
+        "control_step": 10,
+        "physics_step": 104,
+        "substep": 3,
+        "source_phase": 5600,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.4164779484272003,
+            "dq_rad_s": -2.458716630935669,
+            "previous_target_rad": -0.2700977623462677,
+            "requested_target_rad": 0.31156012415885925,
+            "intersection_lower_rad": -0.2800977623462677,
+            "intersection_upper_rad": -0.28135079690464737,
+            "intersection_gap_rad": 0.001253034558379662,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.28135079690464737,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.6265172791898355
+          }
+        ]
+      },
+      {
+        "env_index": 18,
+        "control_step": 10,
+        "physics_step": 109,
+        "substep": 8,
+        "source_phase": 4742,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_elbow_joint",
+            "compact_index": 21,
+            "q_rad": 0.9820603132247925,
+            "dq_rad_s": -2.7087807655334473,
+            "previous_target_rad": 1.2466744184494019,
+            "requested_target_rad": 1.4289984703063965,
+            "intersection_lower_rad": 1.2366744184494018,
+            "intersection_upper_rad": 1.2262624220485976,
+            "intersection_gap_rad": 0.010411996400804258,
+            "unslewed_lower_rad": 0.3929655256600253,
+            "unslewed_upper_rad": 1.2262624220485976,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 10.205998200402133
+          }
+        ]
+      },
+      {
+        "env_index": 27,
+        "control_step": 10,
+        "physics_step": 109,
+        "substep": 8,
+        "source_phase": 2767,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.8258693814277649,
+            "dq_rad_s": -2.5543365478515625,
+            "previous_target_rad": -0.6865846514701843,
+            "requested_target_rad": -0.2959827780723572,
+            "intersection_lower_rad": -0.6965846514701843,
+            "intersection_upper_rad": -0.6968295828805918,
+            "intersection_gap_rad": 0.00024493141040748956,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.6968295828805918,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.122465705203749
+          }
+        ]
+      },
+      {
+        "env_index": 30,
+        "control_step": 10,
+        "physics_step": 109,
+        "substep": 8,
+        "source_phase": 3085,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.08355336636304855,
+            "dq_rad_s": -2.185692071914673,
+            "previous_target_rad": 0.08747895061969757,
+            "requested_target_rad": 0.35917070508003235,
+            "intersection_lower_rad": 0.07747895061969758,
+            "intersection_upper_rad": 0.06895506842468552,
+            "intersection_gap_rad": 0.008523882195012059,
+            "unslewed_lower_rad": -0.5143527590677812,
+            "unslewed_upper_rad": 0.06895506842468552,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 9.261941097506027
+          }
+        ]
+      },
+      {
+        "env_index": 29,
+        "control_step": 11,
+        "physics_step": 113,
+        "substep": 2,
+        "source_phase": 418,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17754626274108887,
+            "dq_rad_s": -2.1151914596557617,
+            "previous_target_rad": 0.01243717409670353,
+            "requested_target_rad": 0.3030296266078949,
+            "intersection_lower_rad": 0.002437174096703529,
+            "intersection_upper_rad": -0.020549619579592338,
+            "intersection_gap_rad": 0.022986793676295865,
+            "unslewed_lower_rad": -0.603857447072059,
+            "unslewed_upper_rad": -0.020549619579592338,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 16.493396838147934
+          }
+        ]
+      },
+      {
+        "env_index": 5,
+        "control_step": 11,
+        "physics_step": 114,
+        "substep": 3,
+        "source_phase": 360,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.18087513744831085,
+            "dq_rad_s": -2.5715112686157227,
+            "previous_target_rad": -0.009228169918060303,
+            "requested_target_rad": 0.17636176943778992,
+            "intersection_lower_rad": -0.019228169918060305,
+            "intersection_upper_rad": -0.05292871558370682,
+            "intersection_gap_rad": 0.033700545665646515,
+            "unslewed_lower_rad": -0.6362365430761735,
+            "unslewed_upper_rad": -0.05292871558370682,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 21.850272832823258
+          },
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.1772594004869461,
+            "dq_rad_s": -1.8019064664840698,
+            "previous_target_rad": 0.015908198431134224,
+            "requested_target_rad": 0.13584625720977783,
+            "intersection_lower_rad": 0.005908198431134224,
+            "intersection_upper_rad": -0.0003184152172777399,
+            "intersection_gap_rad": 0.006226613648411964,
+            "unslewed_lower_rad": -0.5836262427097445,
+            "unslewed_upper_rad": -0.0003184152172777399,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 8.113306824205981
+          }
+        ]
+      },
+      {
+        "env_index": 19,
+        "control_step": 11,
+        "physics_step": 114,
+        "substep": 3,
+        "source_phase": 1538,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17501862347126007,
+            "dq_rad_s": -2.1237547397613525,
+            "previous_target_rad": 0.020714376121759415,
+            "requested_target_rad": 0.2942146956920624,
+            "intersection_lower_rad": 0.010714376121759414,
+            "intersection_upper_rad": -0.018567135653034056,
+            "intersection_gap_rad": 0.02928151177479347,
+            "unslewed_lower_rad": -0.6018749631455007,
+            "unslewed_upper_rad": -0.018567135653034056,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 19.640755887396736
+          }
+        ]
+      },
+      {
+        "env_index": 24,
+        "control_step": 11,
+        "physics_step": 114,
+        "substep": 3,
+        "source_phase": 1803,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17382340133190155,
+            "dq_rad_s": -2.0861334800720215,
+            "previous_target_rad": 0.020714376121759415,
+            "requested_target_rad": 0.3206518590450287,
+            "intersection_lower_rad": 0.010714376121759414,
+            "intersection_upper_rad": -0.014976869735203874,
+            "intersection_gap_rad": 0.025691245856963286,
+            "unslewed_lower_rad": -0.5982846972276706,
+            "unslewed_upper_rad": -0.014976869735203874,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 17.845622928481642
+          }
+        ]
+      },
+      {
+        "env_index": 20,
+        "control_step": 11,
+        "physics_step": 116,
+        "substep": 5,
+        "source_phase": 1458,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.18453983962535858,
+            "dq_rad_s": -2.0303149223327637,
+            "previous_target_rad": 0.018828319385647774,
+            "requested_target_rad": 0.09401029348373413,
+            "intersection_lower_rad": 0.008828319385647774,
+            "intersection_upper_rad": -0.022139788275717026,
+            "intersection_gap_rad": 0.030968107661364798,
+            "unslewed_lower_rad": -0.6054476157681837,
+            "unslewed_upper_rad": -0.022139788275717026,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 20.4840538306824
+          }
+        ]
+      },
+      {
+        "env_index": 12,
+        "control_step": 11,
+        "physics_step": 117,
+        "substep": 6,
+        "source_phase": 5977,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.7279492020606995,
+            "dq_rad_s": -0.9803587198257446,
+            "previous_target_rad": -0.485291451215744,
+            "requested_target_rad": -0.12498107552528381,
+            "intersection_lower_rad": -0.495291451215744,
+            "intersection_upper_rad": -0.49870686283319354,
+            "intersection_gap_rad": 0.0034154116174495153,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.49870686283319354,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 6.707705808724762
+          }
+        ]
+      },
+      {
+        "env_index": 10,
+        "control_step": 11,
+        "physics_step": 120,
+        "substep": 9,
+        "source_phase": 2326,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.8279937505722046,
+            "dq_rad_s": -2.473314046859741,
+            "previous_target_rad": -0.6832503080368042,
+            "requested_target_rad": -0.469303697347641,
+            "intersection_lower_rad": -0.6932503080368042,
+            "intersection_upper_rad": -0.6937958994101239,
+            "intersection_gap_rad": 0.0005455913733196649,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.6937958994101239,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.272795686659837
+          }
+        ]
+      },
+      {
+        "env_index": 17,
+        "control_step": 12,
+        "physics_step": 121,
+        "substep": 0,
+        "source_phase": 2321,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.8262262940406799,
+            "dq_rad_s": -2.2881791591644287,
+            "previous_target_rad": -0.6696911454200745,
+            "requested_target_rad": -0.2533130943775177,
+            "intersection_lower_rad": -0.6796911454200745,
+            "intersection_upper_rad": -0.6802423898698944,
+            "intersection_gap_rad": 0.0005512444498199098,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.6802423898698944,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.275622224909959
+          }
+        ]
+      },
+      {
+        "env_index": 31,
+        "control_step": 12,
+        "physics_step": 121,
+        "substep": 0,
+        "source_phase": 2705,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.8327636122703552,
+            "dq_rad_s": -2.551985740661621,
+            "previous_target_rad": -0.692827582359314,
+            "requested_target_rad": -0.46766340732574463,
+            "intersection_lower_rad": -0.702827582359314,
+            "intersection_upper_rad": -0.7035741566893361,
+            "intersection_gap_rad": 0.0007465743300221206,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.7035741566893361,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.373287165011065
+          }
+        ]
+      },
+      {
+        "env_index": 16,
+        "control_step": 12,
+        "physics_step": 123,
+        "substep": 2,
+        "source_phase": 475,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17734389007091522,
+            "dq_rad_s": -2.126504898071289,
+            "previous_target_rad": 0.01243717409670353,
+            "requested_target_rad": 0.31163790822029114,
+            "intersection_lower_rad": 0.002437174096703529,
+            "intersection_upper_rad": -0.021067482768451246,
+            "intersection_gap_rad": 0.023504656865154773,
+            "unslewed_lower_rad": -0.604375310260918,
+            "unslewed_upper_rad": -0.021067482768451246,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 16.752328432577386
+          }
+        ]
+      },
+      {
+        "env_index": 8,
+        "control_step": 12,
+        "physics_step": 124,
+        "substep": 3,
+        "source_phase": 754,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17043843865394592,
+            "dq_rad_s": -1.9087189435958862,
+            "previous_target_rad": 0.02243717387318611,
+            "requested_target_rad": 0.2469729483127594,
+            "intersection_lower_rad": 0.012437173873186111,
+            "intersection_upper_rad": -0.00029734687222338074,
+            "intersection_gap_rad": 0.012734520745409492,
+            "unslewed_lower_rad": -0.5836051743646902,
+            "unslewed_upper_rad": -0.00029734687222338074,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 11.367260372704745
+          },
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.18006663024425507,
+            "dq_rad_s": -2.120004177093506,
+            "previous_target_rad": 0.015908198431134224,
+            "requested_target_rad": 0.23849961161613464,
+            "intersection_lower_rad": 0.005908198431134224,
+            "intersection_upper_rad": -0.02337637419079258,
+            "intersection_gap_rad": 0.029284572621926803,
+            "unslewed_lower_rad": -0.6066842016832593,
+            "unslewed_upper_rad": -0.02337637419079258,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 19.642286310963403
+          }
+        ]
+      },
+      {
+        "env_index": 6,
+        "control_step": 12,
+        "physics_step": 125,
+        "substep": 4,
+        "source_phase": 1118,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17502716183662415,
+            "dq_rad_s": -2.019277572631836,
+            "previous_target_rad": 0.01095571555197239,
+            "requested_target_rad": 0.1381286084651947,
+            "intersection_lower_rad": 0.000955715551972389,
+            "intersection_upper_rad": -0.01192445098141795,
+            "intersection_gap_rad": 0.012880166533390339,
+            "unslewed_lower_rad": -0.5952322784738847,
+            "unslewed_upper_rad": -0.01192445098141795,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 11.440083266695169
+          }
+        ]
+      },
+      {
+        "env_index": 26,
+        "control_step": 12,
+        "physics_step": 127,
+        "substep": 6,
+        "source_phase": 3993,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": 0.04447144269943237,
+            "dq_rad_s": -3.3052852153778076,
+            "previous_target_rad": 0.16226322948932648,
+            "requested_target_rad": 0.21200034022331238,
+            "intersection_lower_rad": 0.15226322948932647,
+            "intersection_upper_rad": 0.12570436425837,
+            "intersection_gap_rad": 0.026558865230956463,
+            "unslewed_lower_rad": -0.45760346323409673,
+            "unslewed_upper_rad": 0.12570436425837,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 18.279432615478235
+          }
+        ]
+      },
+      {
+        "env_index": 11,
+        "control_step": 12,
+        "physics_step": 128,
+        "substep": 7,
+        "source_phase": 4150,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.08853918313980103,
+            "dq_rad_s": -2.2339138984680176,
+            "previous_target_rad": 0.07658949494361877,
+            "requested_target_rad": 0.3644157946109772,
+            "intersection_lower_rad": 0.06658949494361878,
+            "intersection_upper_rad": 0.060899354822923746,
+            "intersection_gap_rad": 0.005690140120695034,
+            "unslewed_lower_rad": -0.522408472669543,
+            "unslewed_upper_rad": 0.060899354822923746,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 7.845070060347514
+          }
+        ]
+      },
+      {
+        "env_index": 14,
+        "control_step": 12,
+        "physics_step": 128,
+        "substep": 7,
+        "source_phase": 4037,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.08429419249296188,
+            "dq_rad_s": -2.321781873703003,
+            "previous_target_rad": 0.07874641567468643,
+            "requested_target_rad": 0.19635257124900818,
+            "intersection_lower_rad": 0.06874641567468644,
+            "intersection_upper_rad": 0.05955049642931906,
+            "intersection_gap_rad": 0.009195919245367376,
+            "unslewed_lower_rad": -0.5237573310631477,
+            "unslewed_upper_rad": 0.05955049642931906,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 9.597959622683685
+          }
+        ]
+      },
+      {
+        "env_index": 23,
+        "control_step": 13,
+        "physics_step": 132,
+        "substep": 1,
+        "source_phase": 5266,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_elbow_joint",
+            "compact_index": 16,
+            "q_rad": -0.703636646270752,
+            "dq_rad_s": -0.5671191811561584,
+            "previous_target_rad": -0.3115859925746918,
+            "requested_target_rad": -0.3000226616859436,
+            "intersection_lower_rad": -0.3215859925746918,
+            "intersection_upper_rad": -0.32309212646430063,
+            "intersection_gap_rad": 0.0015061338896088516,
+            "unslewed_lower_rad": -0.9971999999999999,
+            "unslewed_upper_rad": -0.32309212646430063,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.75306694480443
+          }
+        ]
+      },
+      {
+        "env_index": 1,
+        "control_step": 13,
+        "physics_step": 133,
+        "substep": 2,
+        "source_phase": 814,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17892152070999146,
+            "dq_rad_s": -2.309696912765503,
+            "previous_target_rad": 0.01243717409670353,
+            "requested_target_rad": 0.3692797124385834,
+            "intersection_lower_rad": 0.002437174096703529,
+            "intersection_upper_rad": -0.03430747927943606,
+            "intersection_gap_rad": 0.03674465337613959,
+            "unslewed_lower_rad": -0.6176153067719028,
+            "unslewed_upper_rad": -0.03430747927943606,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 23.372326688069794
+          }
+        ]
+      },
+      {
+        "env_index": 2,
+        "control_step": 13,
+        "physics_step": 134,
+        "substep": 3,
+        "source_phase": 5738,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.521669864654541,
+            "dq_rad_s": -2.0024397373199463,
+            "previous_target_rad": -0.3343600630760193,
+            "requested_target_rad": 0.3675791919231415,
+            "intersection_lower_rad": -0.3443600630760193,
+            "intersection_upper_rad": -0.3574952239107642,
+            "intersection_gap_rad": 0.013135160834744919,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.3574952239107642,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 11.567580417372463
+          }
+        ]
+      },
+      {
+        "env_index": 18,
+        "control_step": 13,
+        "physics_step": 134,
+        "substep": 3,
+        "source_phase": 2003,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17546816170215607,
+            "dq_rad_s": -2.289135456085205,
+            "previous_target_rad": 0.020714376121759415,
+            "requested_target_rad": 0.2634079158306122,
+            "intersection_lower_rad": 0.010714376121759414,
+            "intersection_upper_rad": -0.029545137284185508,
+            "intersection_gap_rad": 0.04025951340594492,
+            "unslewed_lower_rad": -0.6128529647766523,
+            "unslewed_upper_rad": -0.029545137284185508,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 25.12975670297246
+          }
+        ]
+      },
+      {
+        "env_index": 27,
+        "control_step": 13,
+        "physics_step": 134,
+        "substep": 3,
+        "source_phase": 1689,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17551767826080322,
+            "dq_rad_s": -2.2215371131896973,
+            "previous_target_rad": 0.020714376121759415,
+            "requested_target_rad": 0.3241802155971527,
+            "intersection_lower_rad": 0.010714376121759414,
+            "intersection_upper_rad": -0.02529120967525758,
+            "intersection_gap_rad": 0.036005585797016994,
+            "unslewed_lower_rad": -0.6085990371677243,
+            "unslewed_upper_rad": -0.02529120967525758,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 23.0027928985085
+          }
+        ]
+      },
+      {
+        "env_index": 5,
+        "control_step": 13,
+        "physics_step": 135,
+        "substep": 4,
+        "source_phase": 3298,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.07708729058504105,
+            "dq_rad_s": -3.0408194065093994,
+            "previous_target_rad": 0.04822847992181778,
+            "requested_target_rad": 0.28716614842414856,
+            "intersection_lower_rad": 0.03822847992181778,
+            "intersection_upper_rad": 0.020982047281572255,
+            "intersection_gap_rad": 0.017246432640245522,
+            "unslewed_lower_rad": -0.5623257802108945,
+            "unslewed_upper_rad": 0.020982047281572255,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 13.623216320122761
+          }
+        ]
+      },
+      {
+        "env_index": 30,
+        "control_step": 13,
+        "physics_step": 140,
+        "substep": 9,
+        "source_phase": 2592,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.8263905644416809,
+            "dq_rad_s": -2.384014368057251,
+            "previous_target_rad": -0.6763688921928406,
+            "requested_target_rad": -0.47430527210235596,
+            "intersection_lower_rad": -0.6863688921928406,
+            "intersection_upper_rad": -0.6865077191592126,
+            "intersection_gap_rad": 0.00013882696637201875,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.6865077191592126,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.069413483186014
+          }
+        ]
+      },
+      {
+        "env_index": 29,
+        "control_step": 14,
+        "physics_step": 143,
+        "substep": 2,
+        "source_phase": 205,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.1781962513923645,
+            "dq_rad_s": -2.1815502643585205,
+            "previous_target_rad": 0.01243717409670353,
+            "requested_target_rad": 0.31389936804771423,
+            "intersection_lower_rad": 0.002437174096703529,
+            "intersection_upper_rad": -0.025424140946215368,
+            "intersection_gap_rad": 0.027861315042918895,
+            "unslewed_lower_rad": -0.608731968438682,
+            "unslewed_upper_rad": -0.025424140946215368,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 18.930657521459448
+          }
+        ]
+      },
+      {
+        "env_index": 12,
+        "control_step": 14,
+        "physics_step": 144,
+        "substep": 3,
+        "source_phase": 1814,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17692331969738007,
+            "dq_rad_s": -2.415786027908325,
+            "previous_target_rad": 0.017552688717842102,
+            "requested_target_rad": 0.35881444811820984,
+            "intersection_lower_rad": 0.007552688717842102,
+            "intersection_upper_rad": -0.03906312110155663,
+            "intersection_gap_rad": 0.04661580981939873,
+            "unslewed_lower_rad": -0.6223709485940234,
+            "unslewed_upper_rad": -0.03906312110155663,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 28.307904909699367
+          }
+        ]
+      },
+      {
+        "env_index": 20,
+        "control_step": 14,
+        "physics_step": 144,
+        "substep": 3,
+        "source_phase": 3624,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.0450405590236187,
+            "dq_rad_s": -3.543647527694702,
+            "previous_target_rad": 0.11179157346487045,
+            "requested_target_rad": 0.406209796667099,
+            "intersection_lower_rad": 0.10179157346487046,
+            "intersection_upper_rad": 0.02101774643126028,
+            "intersection_gap_rad": 0.08077382703361018,
+            "unslewed_lower_rad": -0.5622900810612065,
+            "unslewed_upper_rad": 0.02101774643126028,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 45.38691351680509
+          }
+        ]
+      },
+      {
+        "env_index": 25,
+        "control_step": 14,
+        "physics_step": 147,
+        "substep": 6,
+        "source_phase": 5619,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.5186097621917725,
+            "dq_rad_s": -0.006492066662758589,
+            "previous_target_rad": -0.214262455701828,
+            "requested_target_rad": -0.1485181748867035,
+            "intersection_lower_rad": -0.224262455701828,
+            "intersection_upper_rad": -0.22736914624573135,
+            "intersection_gap_rad": 0.0031066905439033343,
+            "unslewed_lower_rad": -0.810676973738198,
+            "unslewed_upper_rad": -0.22736914624573135,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 6.553345271951671
+          }
+        ]
+      },
+      {
+        "env_index": 0,
+        "control_step": 14,
+        "physics_step": 149,
+        "substep": 8,
+        "source_phase": 5468,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_elbow_joint",
+            "compact_index": 16,
+            "q_rad": -0.6874867677688599,
+            "dq_rad_s": -1.4808131456375122,
+            "previous_target_rad": -0.35002753138542175,
+            "requested_target_rad": -0.349109947681427,
+            "intersection_lower_rad": -0.36002753138542176,
+            "intersection_upper_rad": -0.3651098123089025,
+            "intersection_gap_rad": 0.005082280923480731,
+            "unslewed_lower_rad": -0.9971999999999999,
+            "unslewed_upper_rad": -0.3651098123089025,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 7.54114046174037
+          }
+        ]
+      },
+      {
+        "env_index": 8,
+        "control_step": 15,
+        "physics_step": 154,
+        "substep": 3,
+        "source_phase": 2077,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.780443012714386,
+            "dq_rad_s": -1.866690993309021,
+            "previous_target_rad": -0.5896694660186768,
+            "requested_target_rad": -0.2730496823787689,
+            "intersection_lower_rad": -0.5996694660186768,
+            "intersection_upper_rad": -0.6076263385176223,
+            "intersection_gap_rad": 0.0079568724989455,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.6076263385176223,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 8.978436249472754
+          }
+        ]
+      },
+      {
+        "env_index": 16,
+        "control_step": 15,
+        "physics_step": 154,
+        "substep": 3,
+        "source_phase": 2087,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.7791834473609924,
+            "dq_rad_s": -1.8936424255371094,
+            "previous_target_rad": -0.5889629125595093,
+            "requested_target_rad": -0.2519384026527405,
+            "intersection_lower_rad": -0.5989629125595093,
+            "intersection_upper_rad": -0.6080825546295976,
+            "intersection_gap_rad": 0.009119642070088307,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.6080825546295976,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 9.559821035044157
+          }
+        ]
+      },
+      {
+        "env_index": 30,
+        "control_step": 16,
+        "physics_step": 163,
+        "substep": 2,
+        "source_phase": 1065,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.18172472715377808,
+            "dq_rad_s": -2.379617691040039,
+            "previous_target_rad": 0.010426530614495277,
+            "requested_target_rad": 0.3535744845867157,
+            "intersection_lower_rad": 0.0004265306144952772,
+            "intersection_upper_rad": -0.04156198071906286,
+            "intersection_gap_rad": 0.04198851133355814,
+            "unslewed_lower_rad": -0.6248698082115296,
+            "unslewed_upper_rad": -0.04156198071906286,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 25.99425566677907
+          }
+        ]
+      },
+      {
+        "env_index": 23,
+        "control_step": 16,
+        "physics_step": 164,
+        "substep": 3,
+        "source_phase": 1258,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.1756715327501297,
+            "dq_rad_s": -2.3246142864227295,
+            "previous_target_rad": 0.020714376121759415,
+            "requested_target_rad": 0.3594689667224884,
+            "intersection_lower_rad": 0.010714376121759414,
+            "intersection_upper_rad": -0.032007160821975605,
+            "intersection_gap_rad": 0.04272153694373502,
+            "unslewed_lower_rad": -0.6153149883144424,
+            "unslewed_upper_rad": -0.032007160821975605,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 26.36076847186751
+          }
+        ]
+      },
+      {
+        "env_index": 21,
+        "control_step": 16,
+        "physics_step": 165,
+        "substep": 4,
+        "source_phase": 6022,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.651470422744751,
+            "dq_rad_s": -1.854383111000061,
+            "previous_target_rad": -0.46689727902412415,
+            "requested_target_rad": 0.36370107531547546,
+            "intersection_lower_rad": -0.47689727902412415,
+            "intersection_upper_rad": -0.47787020442443423,
+            "intersection_gap_rad": 0.0009729254003100762,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.47787020442443423,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.486462700155043
+          }
+        ]
+      },
+      {
+        "env_index": 1,
+        "control_step": 16,
+        "physics_step": 168,
+        "substep": 7,
+        "source_phase": 3705,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": 0.1456950455904007,
+            "dq_rad_s": -2.542266368865967,
+            "previous_target_rad": 0.35170382261276245,
+            "requested_target_rad": 0.3803665339946747,
+            "intersection_lower_rad": 0.34170382261276244,
+            "intersection_upper_rad": 0.2755032555975624,
+            "intersection_gap_rad": 0.06620056701520005,
+            "unslewed_lower_rad": -0.30780457189490434,
+            "unslewed_upper_rad": 0.2755032555975624,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 38.10028350760003
+          }
+        ]
+      },
+      {
+        "env_index": 18,
+        "control_step": 16,
+        "physics_step": 168,
+        "substep": 7,
+        "source_phase": 5859,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.6454834342002869,
+            "dq_rad_s": -0.557659387588501,
+            "previous_target_rad": -0.37619176506996155,
+            "requested_target_rad": 0.12234753370285034,
+            "intersection_lower_rad": -0.38619176506996156,
+            "intersection_upper_rad": -0.389331219700156,
+            "intersection_gap_rad": 0.003139454630194438,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.389331219700156,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 6.569727315097223
+          }
+        ]
+      },
+      {
+        "env_index": 29,
+        "control_step": 16,
+        "physics_step": 168,
+        "substep": 7,
+        "source_phase": 4066,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.08824077993631363,
+            "dq_rad_s": -2.187075138092041,
+            "previous_target_rad": 0.07658949494361877,
+            "requested_target_rad": 0.20418718457221985,
+            "intersection_lower_rad": 0.06658949494361878,
+            "intersection_upper_rad": 0.06417960612390111,
+            "intersection_gap_rad": 0.0024098888197176677,
+            "unslewed_lower_rad": -0.5191282213685656,
+            "unslewed_upper_rad": 0.06417960612390111,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 6.2049444098588316
+          }
+        ]
+      },
+      {
+        "env_index": 24,
+        "control_step": 17,
+        "physics_step": 172,
+        "substep": 1,
+        "source_phase": 5788,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.5288859009742737,
+            "dq_rad_s": -2.099914073944092,
+            "previous_target_rad": -0.321679949760437,
+            "requested_target_rad": 0.4362545907497406,
+            "intersection_lower_rad": -0.331679949760437,
+            "intersection_upper_rad": -0.37091666923115607,
+            "intersection_gap_rad": 0.03923671947071905,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.37091666923115607,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 24.61835973535953
+          }
+        ]
+      },
+      {
+        "env_index": 0,
+        "control_step": 17,
+        "physics_step": 174,
+        "substep": 3,
+        "source_phase": 1197,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17463350296020508,
+            "dq_rad_s": -2.0818538665771484,
+            "previous_target_rad": 0.020714376121759415,
+            "requested_target_rad": 0.2715051472187042,
+            "intersection_lower_rad": 0.010714376121759414,
+            "intersection_upper_rad": -0.015514522706556483,
+            "intersection_gap_rad": 0.026228898828315896,
+            "unslewed_lower_rad": -0.5988223501990233,
+            "unslewed_upper_rad": -0.015514522706556483,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 18.11444941415795
+          }
+        ]
+      },
+      {
+        "env_index": 14,
+        "control_step": 17,
+        "physics_step": 174,
+        "substep": 3,
+        "source_phase": 5177,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_elbow_joint",
+            "compact_index": 21,
+            "q_rad": -0.7660974264144897,
+            "dq_rad_s": -0.12589654326438904,
+            "previous_target_rad": -0.3466772437095642,
+            "requested_target_rad": -0.14750003814697266,
+            "intersection_lower_rad": -0.3566772437095642,
+            "intersection_upper_rad": -0.3574638010887002,
+            "intersection_gap_rad": 0.0007865573791359659,
+            "unslewed_lower_rad": -0.9971999999999999,
+            "unslewed_upper_rad": -0.3574638010887002,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.393278689567987
+          }
+        ]
+      },
+      {
+        "env_index": 11,
+        "control_step": 17,
+        "physics_step": 176,
+        "substep": 5,
+        "source_phase": 5543,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.20059671998023987,
+            "dq_rad_s": -0.8861866593360901,
+            "previous_target_rad": 0.05125546455383301,
+            "requested_target_rad": 0.24054917693138123,
+            "intersection_lower_rad": 0.041255464553833006,
+            "intersection_upper_rad": 0.03464079881977686,
+            "intersection_gap_rad": 0.006614665734056148,
+            "unslewed_lower_rad": -0.5486670286726898,
+            "unslewed_upper_rad": 0.03464079881977686,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 8.307332867028075
+          }
+        ]
+      },
+      {
+        "env_index": 25,
+        "control_step": 17,
+        "physics_step": 178,
+        "substep": 7,
+        "source_phase": 3681,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": 0.058045320212841034,
+            "dq_rad_s": -2.2016990184783936,
+            "previous_target_rad": 0.23729896545410156,
+            "requested_target_rad": 0.3904136121273041,
+            "intersection_lower_rad": 0.22729896545410155,
+            "intersection_upper_rad": 0.20953472113258798,
+            "intersection_gap_rad": 0.017764244321513578,
+            "unslewed_lower_rad": -0.37377310635987876,
+            "unslewed_upper_rad": 0.20953472113258798,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 13.882122160756794
+          }
+        ]
+      },
+      {
+        "env_index": 20,
+        "control_step": 17,
+        "physics_step": 179,
+        "substep": 8,
+        "source_phase": 2659,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.8205071091651917,
+            "dq_rad_s": -2.34635853767395,
+            "previous_target_rad": -0.667534589767456,
+            "requested_target_rad": -0.38758328557014465,
+            "intersection_lower_rad": -0.6775345897674561,
+            "intersection_upper_rad": -0.6782270192655186,
+            "intersection_gap_rad": 0.0006924294980625856,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.6782270192655186,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.346214749031297
+          }
+        ]
+      },
+      {
+        "env_index": 12,
+        "control_step": 17,
+        "physics_step": 180,
+        "substep": 9,
+        "source_phase": 2379,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.8232933282852173,
+            "dq_rad_s": -2.3148200511932373,
+            "previous_target_rad": -0.6681944727897644,
+            "requested_target_rad": -0.2830668091773987,
+            "intersection_lower_rad": -0.6781944727897644,
+            "intersection_upper_rad": -0.6790054359766987,
+            "intersection_gap_rad": 0.0008109631869342993,
+            "unslewed_lower_rad": -0.8226699999999999,
+            "unslewed_upper_rad": -0.6790054359766987,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.405481593467154
+          }
+        ]
+      },
+      {
+        "env_index": 8,
+        "control_step": 18,
+        "physics_step": 184,
+        "substep": 3,
+        "source_phase": 825,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.18203586339950562,
+            "dq_rad_s": -2.1355860233306885,
+            "previous_target_rad": -0.011498909443616867,
+            "requested_target_rad": 0.1908670961856842,
+            "intersection_lower_rad": -0.02149890944361687,
+            "intersection_upper_rad": -0.026337578486713115,
+            "intersection_gap_rad": 0.004838669043096246,
+            "unslewed_lower_rad": -0.6096454059791798,
+            "unslewed_upper_rad": -0.026337578486713115,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 7.419334521548124
+          },
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.1777152270078659,
+            "dq_rad_s": -1.8479394912719727,
+            "previous_target_rad": 0.015908198431134224,
+            "requested_target_rad": 0.11345779895782471,
+            "intersection_lower_rad": 0.005908198431134224,
+            "intersection_upper_rad": -0.0037047951150097347,
+            "intersection_gap_rad": 0.009612993546143958,
+            "unslewed_lower_rad": -0.5870126226074764,
+            "unslewed_upper_rad": -0.0037047951150097347,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 9.806496773071979
+          }
+        ]
+      },
+      {
+        "env_index": 16,
+        "control_step": 18,
+        "physics_step": 184,
+        "substep": 3,
+        "source_phase": 1497,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.1759588122367859,
+            "dq_rad_s": -2.349416732788086,
+            "previous_target_rad": 0.020714376121759415,
+            "requested_target_rad": 0.36704394221305847,
+            "intersection_lower_rad": 0.010714376121759414,
+            "intersection_upper_rad": -0.03387341308489611,
+            "intersection_gap_rad": 0.04458778920665552,
+            "unslewed_lower_rad": -0.6171812405773629,
+            "unslewed_upper_rad": -0.03387341308489611,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 27.29389460332776
+          }
+        ]
+      },
+      {
+        "env_index": 30,
+        "control_step": 18,
+        "physics_step": 184,
+        "substep": 3,
+        "source_phase": 3417,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.06320235878229141,
+            "dq_rad_s": -3.771303176879883,
+            "previous_target_rad": 0.03753696382045746,
+            "requested_target_rad": 0.3694046437740326,
+            "intersection_lower_rad": 0.027536963820457457,
+            "intersection_upper_rad": -0.011637062086752727,
+            "intersection_gap_rad": 0.03917402590721018,
+            "unslewed_lower_rad": -0.5949448895792194,
+            "unslewed_upper_rad": -0.011637062086752727,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 24.587012953605093
+          }
+        ]
+      },
+      {
+        "env_index": 29,
+        "control_step": 18,
+        "physics_step": 188,
+        "substep": 7,
+        "source_phase": 4184,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "right_ankle_pitch_joint",
+            "compact_index": 10,
+            "q_rad": -0.08824881166219711,
+            "dq_rad_s": -2.175046920776367,
+            "previous_target_rad": 0.07658949494361877,
+            "requested_target_rad": 0.25201359391212463,
+            "intersection_lower_rad": 0.06658949494361878,
+            "intersection_upper_rad": 0.06493731449513027,
+            "intersection_gap_rad": 0.0016521804484885133,
+            "unslewed_lower_rad": -0.5183705129973364,
+            "unslewed_upper_rad": 0.06493731449513027,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 5.826090224244254
+          }
+        ]
+      },
+      {
+        "env_index": 1,
+        "control_step": 19,
+        "physics_step": 193,
+        "substep": 2,
+        "source_phase": 817,
+        "numpy_confirms_empty_interval": true,
+        "joints": [
+          {
+            "joint": "left_ankle_pitch_joint",
+            "compact_index": 4,
+            "q_rad": -0.17549929022789001,
+            "dq_rad_s": -1.8326221704483032,
+            "previous_target_rad": 0.01243717409670353,
+            "requested_target_rad": 0.17473015189170837,
+            "intersection_lower_rad": 0.002437174096703529,
+            "intersection_upper_rad": -0.0005137274052210983,
+            "intersection_gap_rad": 0.0029509015019246274,
+            "unslewed_lower_rad": -0.5838215548976878,
+            "unslewed_upper_rad": -0.0005137274052210983,
+            "infeasible_without_slew": false,
+            "configured_slew_rad_s": 5.0,
+            "instantaneous_minimum_slew_rad_s": 6.475450750962314
+          }
+        ]
+      }
+    ]
+  },
+  "environment_prime": {
+    "physics_steps": 0,
+    "target_refreshes": 1,
+    "full_batch_reset_retries": 0,
+    "max_reset_attempts": 32,
+    "rejected_termination_counts": [],
+    "initial_termination_counts": {
+      "anchor_pos": 0,
+      "anchor_ori": 0,
+      "ee_body_pos": 0,
+      "stage_one_actuation_guard": 0
+    },
+    "discarded_prime_log_entries": 32,
+    "post_prime_max_ee_z_error": 0.02013441175222397,
+    "ee_z_termination_threshold": 0.25,
+    "common_step_counter": 0,
+    "simulation_step_counter": 0
+  },
+  "sources": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23.py": "64c27e20d61de6013dfb9b40c2dff01fc2908fec34be8deceed4be01224da9d4",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/config.py": "b090b9476145773d2aaf74464b55e5db75e0cbdc45d7de5d22483efe3dc6ac95",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/runner.py": "dd25b62f05de7c1fab623b3aa224749dbb1a2ce96d3581caf2f1d70e40605c2d",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/true23_actor.py": "d41f954cb7ca750c6becb10df931e6e9ecf763dc6ff758f2ddc846d6d0086efe",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_artifact.py": "cda9d310aa52053b765e53081ef00b2b64d4f56a134ce7ff06494d7023c145dc",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_checkpoint_io.py": "e1c970258de1f79d12c08b4db4af7ae680bbd0158f48b6c9fcb204d7e0c4c827",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_contract.py": "113ba62dd9734b77c4c32f812e5891066c5bac0c21635c74739b643267fef55a",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_23dof_mjlab_training.py": "9c6ed3735abb904477ec3598579df5a821ce177d9a7954bd884b6f7e54ce5be3",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab.py": "888462e28b1bb91414fdb24e63bac112623ae691f75cb601eb2af007241879b8",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/external_dependencies/unitree_rl_mjlab/src/assets/robots/unitree_g1/g1_23dof_constants.py": "5cfcb779fa6795a604d0b140caf8082c40e623324d79f98bfb15c49031e60797",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/external_dependencies/unitree_rl_mjlab/src/tasks/tracking/config/g1_23dof/env_cfgs.py": "338894a8b36333195565dfeb5b06115e3ded9d0dff428121b24b459e3a7530fc",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/external_dependencies/unitree_rl_mjlab/src/tasks/tracking/tracking_env_cfg.py": "33f058321a7f8a0e66dbdae3d3a9cd3ea87abd7bf8eecee54daa3c6bf541a0cb",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/external_dependencies/unitree_rl_mjlab/src/tasks/tracking/mdp/commands.py": "82c83a6fd908002aae8368c55cbe08a2ee7e60fcb8de4d5be3d6c5b2be911bbd",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_causal_history.py": "13acda79144d69ee2a7870cb76656b0e0c92d5d078c1a8d0bfaba3d8f04e98b5",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_low_latency_recovery.py": "db893c7a362f37da30f914500470f23694f5fb55a40c1ee34522b4a14cf144f9",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/causal_history_runner.py": "03b84975f3341941199d2b7b36e17da9404c274b04710de2a0ea57baa4ae5c00",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/build_g1_23dof_low_latency_recovery_motion.py": "8877e31886c84d605f3ed6d8f07e5744ca6c26408d41ed330f374800bf066198",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab_low_latency_recovery.py": "076f2fe95e94a261dc3d75c4b589a47c744181335519d2be2d3c85b39421e3a8",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab_causal_history.py": "5fce5b3f88f5e66497ee38806b1184677e17c3c7b0f64b855afa88348e263e83",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab_teleop_v14.py": "7e5ca3facf05fd89cc22de47c96234d14a6de0aa33e269d466b52c3d1bb10f32",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_causal_multimotion_v14.py": "3b943f56d41dfaeba0f319208f7ebbae61bf0d677ad5806f29be86c3fbf039c8",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/causal_teleop_runner_v14.py": "841da1d8de469a0b4f5a12f924a488dc857ada1d78d05609de80f67277e6c3c8",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab_teleop_v13.py": "5d14a4db598fe80d93ac7398c9dd09e91327353d964b56ab3f4978401c168362",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/train_g1_23dof_mjlab_frozen_lora.py": "95e4cf570a92229e0a3c2920315985a0fb35cf0c03d0e6b904f2990a5ea17361",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/frozen_platform_lora_actor.py": "8412b1ebba479312f3b6f1d016acd41a74b16c60a4c54c926beef45ced2cf085",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/trl/mjlab/frozen_platform_lora_runner.py": "1eecf5e08295201851f88f90e616007d1db1ec8c10f0543881a24bb909963571",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_frozen_lora_gates.py": "289a04d366b37f9ed2d63d9995dbc2188c6a47d4da86bb2d0677da49bf74c0b8",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/config/sim_validation/g1_23dof_mujoco_sim2sim.json": "bc4dab246e709604f435dea7c584adc01f1c38a6abb6ac1bc22fc699c42272c3",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_actuation_profile.py": "9db4f5a4c715915de35ceaee242013b733f03ac4afe2fc65c7a861048f4e3913",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/envs/mjlab/sonic_true23_stage_one_actuation.py": "0cc6b4362b11219395ccc14e5047994502ebaf715e4531583ad9abb2ecfa3411",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_projected_controller_state.py": "b2af8748e3806e292770b085756436b630c11143bb46eafb795a53a74f8f9647",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/audit_g1_true23_exploration_rollout.py": "1d6846168259e65b227ae575a93157465768b13b15c9a89042ed4e838767b0a9",
+    "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/mjlab/src/mjlab/envs/manager_based_rl_env.py": "67e5df93d1ab082aa063884cac469f8a032ad2e7bc6a204436b0733dc47f3087",
+    "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/mjlab/src/mjlab/rl/vecenv_wrapper.py": "d458aa421d72c979d0269a24e51a4b49a02e4ec8cb5a9d10e47290aa5d86a3e2",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_sim_acquisition.py": "41d97a7fc6a304ab40156d4e059aa1e82b0d7e6414c6371fdcabfdc4ffe528ab"
+  },
+  "inputs": {
+    "/mnt/z/codex/GR00T-WholeBodyControl/low_latency/last.pt": "0031ae7db24747445d6eb7c27697640973a837546f0b8763e775143c47d4507c",
+    "/mnt/z/codex/GR00T-WholeBodyControl/sonic_release/g1_23dof_rev_1_0_low_latency_init.pt": "5e5be23982f15eaf2eb1d52b2433d081b5f43c260ecb5055457edf222b77c9bb",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original_sonic_rehearsal_corpus_v1/corpus.npz": "96a35f0a9edee22750f903fa663354fd6715d7f5b91b42742f645039168a358c",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original_sonic_rehearsal_corpus_v1/corpus.recovery.json": "669f338d1994e45fa10ad569b2bed8ac04e02c2b541dea96875bb0d4130caa45",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/original_sonic_rehearsal_corpus_v1/corpus.spans.json": "e1e66f1879cb8e9548f028120f16d0535791d45425fbfab0a420abecac7d7ed7",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/g1_true23_frozen_lora/native_support_stateful_20260905_v1/breadth50/checkpoints/frozen_lora_model_50.pt": "9e916b9cdfcfa60890bdd1893aa3faabdaf9dc354fd600190aba533bbe494a83"
+  },
+  "runtime": {
+    "torch": "2.9.0+cu128",
+    "mjlab": "1.2.0",
+    "mujoco": "3.5.0",
+    "mujoco-warp": "3.5.0.2"
+  },
+  "full_clip_fidelity_qualified": false,
+  "hardware_authorized": false,
+  "deployment_ready": false,
+  "rollout_sha256": "8a717c4b54116abbbf92fe1d265892e713a6bd6cb273029857070397ee111eec"
+}

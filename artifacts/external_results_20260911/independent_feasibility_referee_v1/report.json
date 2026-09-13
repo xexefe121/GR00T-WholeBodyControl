@@ -1,0 +1,187 @@
+{
+  "mujoco": "3.2.3",
+  "numpy": "1.26.4",
+  "all_assertions_passed": true,
+  "independent_of_production_feasibility_code": true,
+  "cases": {
+    "complete_walk008": {
+      "kind": "independent_native23_manual_PD_private_segment",
+      "feasible": true,
+      "first_failure": null,
+      "requested_controls": 1114,
+      "physics_steps": 11140,
+      "complete_controls": 1114,
+      "partial_substeps": 0,
+      "original_data_unchanged": true,
+      "root_forces": false,
+      "source_state_copy_after_initialization": false,
+      "initial_time": 0.0,
+      "final_time": 22.27999999999853,
+      "maximum": {
+        "joint_excess_rad": 0.0,
+        "speed_ratio": 0.8123385983519185,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.34236946812094504,
+        "clock_error_seconds": 2.0108359422010835e-12
+      },
+      "minimum_root_height_m": 0.722291445412771,
+      "final_warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "diagnostic_continued_after_failure": false,
+      "live_or_hardware_qualified": false,
+      "every_qpos_qvel_torque_bitexact_to_original_trace": true
+    },
+    "pico3740_safe_BFM": {
+      "kind": "independent_native23_manual_PD_private_segment",
+      "feasible": true,
+      "first_failure": null,
+      "requested_controls": 30,
+      "physics_steps": 300,
+      "complete_controls": 30,
+      "partial_substeps": 0,
+      "original_data_unchanged": true,
+      "root_forces": false,
+      "source_state_copy_after_initialization": false,
+      "initial_time": 74.80000000000707,
+      "final_time": 75.40000000000568,
+      "maximum": {
+        "joint_excess_rad": 0.0,
+        "speed_ratio": 0.19905280856040442,
+        "effort_ratio": 1.0,
+        "tilt_rad": 0.39373390949415177,
+        "clock_error_seconds": 1.3926637620897964e-12
+      },
+      "minimum_root_height_m": 0.38297393563394244,
+      "final_warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "diagnostic_continued_after_failure": false,
+      "live_or_hardware_qualified": false,
+      "every_qpos_qvel_torque_bitexact_to_recovery_probe": true
+    },
+    "pico3758_first_violation": {
+      "kind": "independent_native23_manual_PD_private_segment",
+      "feasible": false,
+      "first_failure": {
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "physics_step": 3,
+        "control_index": 0,
+        "substep": 3,
+        "worst_joint_index": 4,
+        "joint_excess_rad": 0.0011970244740556746,
+        "speed_ratio": 0.10141088539294629,
+        "effort_ratio": 0.1942897901594976,
+        "tilt_rad": 0.2925656011177738,
+        "clock_error_seconds": 1.4210854715202004e-14
+      },
+      "requested_controls": 1,
+      "physics_steps": 3,
+      "complete_controls": 0,
+      "partial_substeps": 3,
+      "original_data_unchanged": true,
+      "root_forces": false,
+      "source_state_copy_after_initialization": false,
+      "initial_time": 75.16000000000624,
+      "final_time": 75.16600000000622,
+      "maximum": {
+        "joint_excess_rad": 0.0011970244740556746,
+        "speed_ratio": 0.10141088539294629,
+        "effort_ratio": 0.1942897901594976,
+        "tilt_rad": 0.2947216082988799,
+        "clock_error_seconds": 1.4210854715202004e-14
+      },
+      "minimum_root_height_m": 0.30799103587580234,
+      "final_warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "diagnostic_continued_after_failure": false,
+      "live_or_hardware_qualified": false,
+      "known_prefix_bitexact_to_original_failure": true
+    },
+    "pico3758_diagnostic_full_control": {
+      "kind": "independent_native23_manual_PD_private_segment",
+      "feasible": false,
+      "first_failure": {
+        "reasons": [
+          "native_joint_bound"
+        ],
+        "physics_step": 3,
+        "control_index": 0,
+        "substep": 3,
+        "worst_joint_index": 4,
+        "joint_excess_rad": 0.0011970244740556746,
+        "speed_ratio": 0.10141088539294629,
+        "effort_ratio": 0.1942897901594976,
+        "tilt_rad": 0.2925656011177738,
+        "clock_error_seconds": 1.4210854715202004e-14
+      },
+      "requested_controls": 1,
+      "physics_steps": 10,
+      "complete_controls": 1,
+      "partial_substeps": 0,
+      "original_data_unchanged": true,
+      "root_forces": false,
+      "source_state_copy_after_initialization": false,
+      "initial_time": 75.16000000000624,
+      "final_time": 75.18000000000619,
+      "maximum": {
+        "joint_excess_rad": 0.023772506519411096,
+        "speed_ratio": 0.10223276073217491,
+        "effort_ratio": 0.20136422818709443,
+        "tilt_rad": 0.2947216082988799,
+        "clock_error_seconds": 4.263256414560601e-14
+      },
+      "minimum_root_height_m": 0.3010426027453147,
+      "final_warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "diagnostic_continued_after_failure": true,
+      "live_or_hardware_qualified": false,
+      "known_prefix_bitexact_to_original_failure": true
+    }
+  },
+  "input_hashes": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_feasibility_referee.py": "8ff131cb29a0655ed00db01cf2f0cc84c644b9f01446ec399951b106f1636877",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_resume_20260911/verify_feasibility_referee.py": "93f24dfe0f57749a57b7d7e41747f1df3bc26fd77377b7883d45605f19a92ea1",
+    "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_full_v1/walk008_v4_native323_allmargin_relativefoot_full_v1/trace.npz": "509a578672fc558fa52a2ddb498e6ec1844d43034c783634b34d18d094cc581b",
+    "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_full_v1/pico_v4_native323_freshseed_allmargin_5iter_full_v1/trace.npz": "6d39520555c54a72e59e9975bef3de383f1849f207d65089c3fbff4e36bf2777",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/recovery_probe_v1/actual_3740_integration_state.npz": "52060ba5f7892aa97808a0cda623af5a5ab0875a268340acaad6197f9d7878d6",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/recovery_probe_v1/3740_source_goals_yaw2.npz": "e92630bea799610466e8397e3b576a8b9683f3d1303677e70bc616d04f1ef44c",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/contract.json": "d1641ce4f2e9016f5008e5d4be3cc24ded46d7f9daf9cfddaab84095f98eb99b",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/native_prepared.xml": "03fd1633c0f5080eb21c1b9786143eeaa36c8eed2eb388d1346581ae33bd76fa",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/prepared_model_arrays.npz": "38b4eb8f2f42030b76ffb106c016acb6be92253d4c42971529f739962cc68cdb"
+  },
+  "full_teleoperation_qualified": false,
+  "live_or_hardware_qualified": false
+}

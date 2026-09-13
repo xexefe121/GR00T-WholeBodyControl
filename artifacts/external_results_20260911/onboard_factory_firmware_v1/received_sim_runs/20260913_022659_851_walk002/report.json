@@ -1,0 +1,69 @@
+{
+  "policy": "received_native23_short_physics_lookahead",
+  "actor": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/onboard_factory_firmware_v1/locomotion_conditioned_ppo_v2/actor_00100.onnx",
+  "clip": "walk002",
+  "simulation_seconds": 6.527999999999503,
+  "requested_seconds": 58.34,
+  "physical_complete": false,
+  "complete_requested_lifecycle": false,
+  "failure": {
+    "time": 6.527999999999503,
+    "reasons": [
+      "fall"
+    ],
+    "speed_ratio": 0.92965715830991,
+    "range_excess": 0.0,
+    "effort_ratio": 0.4119239762475279,
+    "tilt": 1.2079897602521672
+  },
+  "source": {
+    "passed": false,
+    "source_controls": 0
+  },
+  "quiet": {
+    "passed": false,
+    "values": {
+      "xy_p95": 1.5276590585616523,
+      "yaw_p95_deg": 75.3644125193046,
+      "root_speed_p95": 1.7535940168465285,
+      "joint_speed_p95": 2.156281860027034,
+      "joint_speed_max": 25.93667955907281,
+      "tilt_max": 1.2079897602521672
+    },
+    "limits": {
+      "xy_p95": 0.05,
+      "yaw_p95_deg": 5,
+      "root_speed_p95": 0.05,
+      "joint_speed_p95": 0.5,
+      "joint_speed_max": 2,
+      "tilt_max": 0.15
+    }
+  },
+  "max_speed_ratio": 0.92965715830991,
+  "max_effort_ratio": 0.7065716638756161,
+  "inference_ms_p50_p95_max": [
+    18.6621,
+    22.83844999999999,
+    26.0876
+  ],
+  "wall_seconds": 6.998316899999999,
+  "future_reference_frames": 0,
+  "independent_realtime": false,
+  "hardware_commands": false,
+  "lookahead_steps": 30,
+  "lookahead_candidates": 8,
+  "reference_prediction": "constant velocity from current/past received poses; no recorded suffix",
+  "packet_report": {
+    "epoch": 0,
+    "received": 338,
+    "consumed": 338,
+    "ignored": 0,
+    "rejected": 0,
+    "final_received": false,
+    "full_source_consumed": false,
+    "fault": null,
+    "calibration": null
+  },
+  "passed": false,
+  "general_live_teleop_qualified": false
+}

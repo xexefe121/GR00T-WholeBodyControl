@@ -1,0 +1,96 @@
+{
+  "policy": "native23_received_task_commands",
+  "actor": "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\onboard_factory_firmware_v1\\command_space_ppo_v1\\sampled_00100\\actor_sampled.onnx",
+  "clip": "walk002",
+  "simulation_seconds": 20.001999999999793,
+  "requested_seconds": 58.34,
+  "physical_complete": false,
+  "failure": {
+    "time": 20.001999999999793,
+    "reasons": [
+      "fall"
+    ],
+    "speed_ratio": 0.11957969634897632,
+    "range_excess": 0.0,
+    "effort_ratio": 0.3146456972942203,
+    "tilt": 1.200578417578626
+  },
+  "wall_seconds": 6.947420999989845,
+  "max_speed_ratio": 0.9019001301121664,
+  "max_effort_ratio": 1.0,
+  "inference_ms_p50_p95_max": [
+    3.3587,
+    4.5447,
+    5.54
+  ],
+  "future_reference_frames": 0,
+  "reference_velocity": "backward differences; measured body errors; learned factory phase/velocity commands",
+  "absent_vendor_joints": null,
+  "independent_realtime": false,
+  "hardware_commands": false,
+  "clock_expected_time": "independent repeated addition of .002; tolerance unchanged at1e-10",
+  "command_delay_substeps": 0,
+  "initial_world_velocity_x_delta_mps": 0,
+  "command_delay_physics_seconds": 0.0,
+  "received_gait_phase": false,
+  "factory_command_limits": false,
+  "source": {
+    "passed": false,
+    "source_controls": 651,
+    "requested_source_controls": 667,
+    "root_p95_m": 0.7722953752523237,
+    "yaw_p95_deg": 31.980299843230853,
+    "hand_head_relative_p95_m": [
+      0.1583992768354418,
+      0.1784573629431069,
+      0.20086305737784088
+    ],
+    "foot_relative_p95_m": [
+      0.39558991561234846,
+      0.4458927546780148
+    ],
+    "leg_rmse_rad": 0.36533902257830114
+  },
+  "packet_report": {
+    "epoch": 0,
+    "received": 1012,
+    "consumed": 1012,
+    "ignored": 0,
+    "rejected": 0,
+    "final_received": false,
+    "full_source_consumed": false,
+    "fault": null,
+    "calibration": null
+  },
+  "controller_status": {
+    "mode": "source",
+    "epoch": 0,
+    "fault": null,
+    "explicit_rearm_required": false,
+    "future_reference_frames": 0,
+    "qualified": false,
+    "controller": "native23_received_task_commands",
+    "velocity_command": [
+      1.2,
+      -1.0,
+      -4.727834668553972
+    ],
+    "velocity_command_limits": [
+      1.2,
+      1.0,
+      6.0
+    ],
+    "fault_standing_capture_enabled": false,
+    "fault_standing_captured": false,
+    "motion_fraction": 1.0,
+    "leg_target_filter_alpha": 0.9,
+    "sampled_commands": true,
+    "noise_seed": 20260913
+  },
+  "input_loss_control": null,
+  "automatic_rearm": false,
+  "fault_scenario_passed": false,
+  "passed": false,
+  "task_command_noise_seed": 20260913,
+  "leg_target_filter_alpha": 0.9
+}

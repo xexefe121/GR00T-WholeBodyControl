@@ -1,0 +1,62 @@
+{
+  "preparation_only": true,
+  "root_stage_selection_required": true,
+  "old_sources": {
+    "freeze_final_package.py": "5ce4ec20a93b0a3803017193e8938d4bcf6afb1638170ff036c70de256941b68",
+    "prepare_bound_launcher.py": "08745cde2662e2fc17b79e2ae56334ba55a6a392662e05ee40c46b6f184e88d3"
+  },
+  "new_sources": {
+    "freeze_final_package.py": "85c836dff1d3cf451e20ac766b8e3133f3d27a7e506c31f54f98dc19a5b3e0e3",
+    "prepare_bound_launcher.py": "9ce5f50df49859212f87f4437ac7fb902a29769eccc122210abcbd70d97bc634"
+  },
+  "changes": [
+    {
+      "file": "freeze_final_package.py",
+      "old": "FIT=BASE.parent/'velocity_chord_student_v1'",
+      "new": "FIT=BASE.parent/'one_step_physical_student_v1'\nCENTERS=BASE.parent/'velocity_chord_student_v1/generation/centers.npz'"
+    },
+    {
+      "file": "freeze_final_package.py",
+      "old": "    assert config['root_selected'] is True",
+      "new": "    assert config['root_selected'] is True\n    assert config['ordinary_final_step']==75000 and config['stage']==args.mode\n    assert config['requested_main_controls']==(1569 if args.mode=='evaluation' else 0)\n    assert config['conditional_hold_controls']==(250 if args.mode=='evaluation' else 0)\n    assert config['separate_head_calls']==(1 if args.mode=='witness' else 0)\n    assert config['hardware_authorized'] is False"
+    },
+    {
+      "file": "freeze_final_package.py",
+      "old": "        centers=FIT/'generation/centers.npz',query250_labels=BASE.parent/'bfm_entry250_labels_v1/labels/labels.npz').items()}",
+      "new": "        centers=CENTERS,query250_labels=BASE.parent/'bfm_entry250_labels_v1/labels/labels.npz').items()}\n    training_request=read(FIT/'training_request.json')\n    for key in ('manifest','report','collection_request'):\n        final['physical_'+key]=item(training_request['physical_paths'][key])\n    final['training_request']=item(FIT/'training_request.json')\n    for key in ('head','checkpoint','fit_report','training_manifest'):\n        assert config['selected_subject_sha256'][key]==final[key]['sha256'],key"
+    },
+    {
+      "file": "freeze_final_package.py",
+      "old": "        reviews[role]=entry",
+      "new": "        if role=='dataset':\n            for subject in ('centers','physical_manifest','physical_report','physical_collection_request'):\n                assert has_hash(record,final[subject]['sha256']),subject\n        reviews[role]=entry"
+    },
+    {
+      "file": "freeze_final_package.py",
+      "old": "    for path in (Path(__file__),BASE/'prepare_bound_launcher.py',BASE/'original_sources.json',BASE/'derive_evaluator.py',\n                 BASE/'evaluator_derivation.json',BASE/'test_evaluation_package.py',BASE/'focused_final.xml',args.reviews):",
+      "new": "    for path in (Path(__file__),BASE/'prepare_bound_launcher.py',BASE/'prepare_binding_tools.py',BASE/'binding_tools_derivation.json',\n                 BASE/'source_preparation.json',BASE/'source_only_check.json',BASE/'source_freeze.json',BASE/'freeze_sources.py',\n                 BASE/'test_binding_workflow.py',BASE/'binding_workflow_tests.json',BASE/'binding_workflow_tests.log',args.reviews):"
+    },
+    {
+      "file": "freeze_final_package.py",
+      "old": "        onnx_dependencies=DEPS.as_posix(),training_dataset_sha256=[CENTERS_SHA],",
+      "new": "        onnx_dependencies=DEPS.as_posix(),training_dataset_sha256=[CENTERS_SHA,final['physical_manifest']['sha256'],final['physical_report']['sha256']],"
+    },
+    {
+      "file": "prepare_bound_launcher.py",
+      "old": "    launcher=folder/'run.ps1';durable=folder/'run_durable.ps1'",
+      "new": "    launcher=folder/'run.ps1';durable=folder/'run_durable.ps1'\n    # Duplicate-output guards apply before starting the actual WSL command.\n    forbidden=['head_witness'] if mode=='witness' else ['nominal','post_lifecycle_hold_5s','pilot_outcome.json']\n    no_outputs=''.join(\"if (Test-Path -LiteralPath \"+quote(BASE/name)+\") { throw 'Existing attempt output must be preserved.' }\\n\" for name in forbidden)"
+    },
+    {
+      "file": "prepare_bound_launcher.py",
+      "old": "    write(launcher,guard+command+verdict+'exit 0\\n')",
+      "new": "    write(launcher,guard+no_outputs+command+verdict+'exit 0\\n')"
+    }
+  ],
+  "global_subject_substitutions": [
+    "ordinary70000 toordinary75000",
+    "evaluate_velocity_chord_student.py toevaluate_physical_response_student.py"
+  ],
+  "models_constructed": 0,
+  "graph_calls": 0,
+  "native_steps": 0,
+  "launched": false
+}

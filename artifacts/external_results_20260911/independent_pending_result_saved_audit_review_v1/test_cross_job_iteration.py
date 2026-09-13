@@ -1,0 +1,83 @@
+"""Independent synthetic saved envelopes; never imports a worker or task runtime."""
+import copy
+import json
+import os
+import sys
+import unittest
+from pathlib import Path
+
+SOURCE = Path(os.environ.get('PENDING_AUDIT_SOURCE',
+    str(Path(__file__).resolve().parents[1] / 'independent_plant_pending_result_saved_audit_v1/source_draft_v1')))
+sys.path.insert(0, str(SOURCE))
+from test_worker_result_math import one_case, b64
+from worker_result_math import check, digest, encoded
+
+
+def two_completed_jobs():
+    first = list(one_case(('PUBLISHED',)))
+    second = copy.deepcopy(first)
+    w = second[0]
+
+    def shift(value):
+        if isinstance(value, dict):
+            return {k: v + 20_000_000 if k.endswith('_ns') and type(v) is int else shift(v)
+                    for k, v in value.items()}
+        if isinstance(value, list):
+            return [shift(v) for v in value]
+        return value
+
+    w = shift(w)
+    identity = w['result_retry']['last_result']['identity']
+    identity.update(sequence=1, snapshot_control=1, snapshot_physics=10, activation=2, window_id='synthetic:2')
+    job = encoded(dict(identity, snapshot_payload=b64(b'synthetic-second-owned-input')))
+    command = copy.deepcopy(first[3][1])
+    command['command_id'] = 'saved:2'
+    ready = next(v for v in w['events'] if v.get('reason') == 'WORKER_RESULT_READY')
+    result = encoded(dict(identity=identity, command=command, completed_ns=ready['completed_ns']))
+    for row in w['events']:
+        if 'activation' in row:
+            row['activation'] = 2
+        if 'key' in row:
+            row['key'] = 2
+        if 'job_sha256' in row:
+            row['job_sha256'] = digest(job)
+        if 'result_sha256' in row:
+            row['result_sha256'] = digest(result)
+        if 'payload_sha256' in row:
+            row['payload_sha256'] = digest(job if row['direction'] == 'worker-jobs' else result)
+        if 'iteration' in row:
+            row['iteration'] = 1
+    ready.update(identity=identity, payload=b64(result))
+    descriptor = w['result_retry']['last_result']
+    descriptor['source'].update(key=2, payload=b64(job), payload_sha256=digest(job))
+    descriptor.update(identity=identity, payload=b64(result), payload_sha256=digest(result), last_iteration=1)
+    counts = w['result_retry']['counts']
+    for name in counts:
+        counts[name] += first[0]['result_retry']['counts'][name]
+    w['polls'] = 2
+    w['start_ns'] = first[0]['start_ns']
+    w['events'] = first[0]['events'] + w['events']
+    return [w, {1:first[1][1], 2:identity}, {'1':first[2]['1'], '2':job},
+            [None, first[3][1], command], first[4], first[5], [first[6][0], digest(result)]]
+
+
+class CrossJobIterationTests(unittest.TestCase):
+    def test_chronological_two_job_fixture_passes(self):
+        result = check(*two_completed_jobs())
+        self.assertEqual(result['computed_results'], 2)
+        self.assertEqual(result['publication_attempts'], 2)
+        self.assertTrue(result['counters_exact'])
+
+    def test_reversed_unique_iteration_ordinals_rejected(self):
+        values = two_completed_jobs()
+        publications = [v for v in values[0]['events'] if v.get('reason') == 'WORKER_RESULT_PUBLICATION']
+        self.assertEqual([v['iteration'] for v in publications], [0, 1])
+        publications[0]['iteration'] = 1
+        publications[1]['iteration'] = 0
+        values[0]['result_retry']['last_result']['last_iteration'] = 0
+        with self.assertRaises(AssertionError):
+            check(*values)
+
+
+if __name__ == '__main__':
+    unittest.main()

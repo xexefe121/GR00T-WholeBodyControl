@@ -1,0 +1,34 @@
+{
+  "kind": "g1_true23_ieee_training_precision_v1",
+  "requested_state": {
+    "global_fp32": "ieee",
+    "cuda_matmul_fp32": "ieee",
+    "cudnn_fp32": "ieee",
+    "cudnn_conv_fp32": "ieee",
+    "cudnn_rnn_fp32": "ieee",
+    "cudnn_benchmark": true,
+    "cudnn_deterministic": false,
+    "deterministic_algorithms": false,
+    "default_dtype": "torch.float32",
+    "cuda_autocast": false
+  },
+  "environment_overrides": {
+    "TORCH_ALLOW_TF32_CUBLAS_OVERRIDE": null,
+    "NVIDIA_TF32_OVERRIDE": null
+  },
+  "torch_version": "2.9.0+cu128",
+  "torch_cuda_version": "12.8",
+  "mjlab_helper_path": "/mnt/z/codex/GR00T-WholeBodyControl/external_dependencies/mjlab/src/mjlab/utils/torch.py",
+  "mjlab_helper_sha256": "87e0673c850ae6cd5306c9533c928ddb570396323b904f7bbbab589990bc44b1",
+  "changed_from_inherited_backend_defaults": [
+    "global_fp32",
+    "cuda_matmul_fp32",
+    "cudnn_fp32",
+    "cudnn_conv_fp32",
+    "cudnn_rnn_fp32"
+  ],
+  "applies_before_anchor_creation_and_rollouts": true,
+  "existing_tf32_checkpoint_relabelled": false,
+  "hardware_authorized": false,
+  "deployment_ready": false
+}

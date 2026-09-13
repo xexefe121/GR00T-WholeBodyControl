@@ -1,0 +1,72 @@
+{
+  "kind": "one_causal_actual3805_last_target_hold_seed",
+  "initial_control": 3805,
+  "requested_controls": 30,
+  "actual_controls_executed": 0,
+  "full_horizon_physical_pass": false,
+  "physics_steps": 205,
+  "full_controls": 20,
+  "partial_substeps": 5,
+  "failure": {
+    "kind": "physical_feasibility",
+    "control": 20,
+    "global_control": 3825,
+    "substep": 5,
+    "range_excess": 0.0032152429110609004,
+    "speed_ratio": 0.17158795795566942,
+    "effort_ratio": 0.41976539533607016,
+    "height": 0.25134916216355535,
+    "tilt": 0.7309616944997197,
+    "joints": [
+      {
+        "name": "right_ankle_pitch_joint",
+        "q": 0.5268152429110609,
+        "lower": -0.87267,
+        "upper": 0.5236,
+        "target": 0.4441009141253696
+      }
+    ]
+  },
+  "unchanged_v4_allmargin_relativefoot_objective_cost": null,
+  "range_excess_max": 0.0032152429110609004,
+  "speed_ratio_max": 0.255359065163037,
+  "effort_ratio_max": 1.0,
+  "warning_counts": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "warning_lastinfo": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "clock_max_error": 9.521272659185342e-13,
+  "final_root_height": 0.25134916216355535,
+  "final_root_vertical_velocity": -1.2694582542778587,
+  "targets": "lastACTUALLYapplied23targets heldconstant; no futureplannedprefix, noBFM, nooptimizer",
+  "history": "exact actual3805 history restored; normalizedheldtarget actions recorded withoutclipping, inferenceunused",
+  "no_statewrites_after_initialization": true,
+  "no_source_goal_or_model_change": true,
+  "no_full_source_qualification": true,
+  "elapsed_seconds": 3.9767951000000004,
+  "trace_sha256": "ccacc1f9f47f5919cbab029e597c82ee799a6b771fc3e986f29c2d92f333df02",
+  "hashes": {
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/actual3805_hold_seed_v1/probe_hold.py": "88cbf49f387e07a4a339744d446c55c22bf826e8349f21ac8c4037c68f935d05",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/hard_feasibility_restoration_continuation_3740_v1/trace.npz": "029928f7832a886c59fadc1c8f5bc82a3b845108111547b2c313ba5fecb7474d",
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/hard_feasibility_restoration_continuation_3740_v1/report.json": "4c27ce46a193128d9fbc6556207bda3e3ad22cdafbe9dbd64358c73617bf01b4",
+    "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_floor_inputs_v1/pico/reference.npz": "a1b3bd672551acc800e8b28d4d3d2b68c044f7a80ab3b8fb798d46c9dda70c24",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/contract.json": "d1641ce4f2e9016f5008e5d4be3cc24ded46d7f9daf9cfddaab84095f98eb99b",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/prepared_model_arrays.npz": "38b4eb8f2f42030b76ffb106c016acb6be92253d4c42971529f739962cc68cdb"
+  }
+}

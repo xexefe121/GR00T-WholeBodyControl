@@ -1,0 +1,635 @@
+{
+  "kind": "bounded_actual_state_hard_feasibility_probe",
+  "actual_control": 3740,
+  "original_source_seconds": 67.8,
+  "horizon": 30,
+  "commit": 5,
+  "iterations": 5,
+  "threads": 8,
+  "source_frame_initial": 3750,
+  "planning_seconds": 3.2208745000000008,
+  "feasible_incumbent_found": true,
+  "cost": 544.0151999646488,
+  "solver": {
+    "initial_rollout": {
+      "feasible": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "first_violation": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "peaks": {
+        "range_excess_rad": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "speed_ratio": [
+          0.1990528085604045,
+          0.1990528085604045,
+          0.1990528085604045,
+          0.1990528085604045,
+          0.1990528085604045,
+          0.1990528085604045,
+          0.1990528085604045,
+          0.1990528085604045,
+          0.1990528085604045
+        ],
+        "effort_ratio": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "inspection": "every2ms including the initial state; invalid lanes latched"
+    },
+    "iterations": [
+      {
+        "iteration": 0,
+        "accepted": true,
+        "regularization": 1.0,
+        "rollout_feasibility": {
+          "feasible": [
+            false,
+            false,
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "first_violation": [
+            {
+              "control": 11,
+              "substep": 6,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.00044868320875401935,
+              "speed_ratio": 0.3518530903093048,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.38220505283838024,
+              "root_tilt_rad": 0.44009396348172225
+            },
+            {
+              "control": 9,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.008536253770891622,
+              "speed_ratio": 0.1855098309444446,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.43484317970065817,
+              "root_tilt_rad": 0.35174863596443884
+            },
+            {
+              "control": 18,
+              "substep": 10,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 4.662691885237713e-05,
+              "speed_ratio": 0.10649273710096363,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.49205800337615485,
+              "root_tilt_rad": 0.287009709409987
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.00044868320875401935,
+              0.008536253770891622,
+              4.662691885237713e-05,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "speed_ratio": [
+              0.9659990321007605,
+              0.3520276449409612,
+              0.18848317333366998,
+              0.49575924661831705,
+              0.19743460389700335,
+              0.19824696915618267,
+              0.19864983622630264,
+              0.19885130925236938,
+              0.19895205562326723
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "selected_lane": 3,
+        "cost": 3147.2041158727484
+      },
+      {
+        "iteration": 1,
+        "accepted": true,
+        "regularization": 0.1,
+        "rollout_feasibility": {
+          "feasible": [
+            false,
+            false,
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "first_violation": [
+            {
+              "control": 9,
+              "substep": 8,
+              "reasons": [
+                "joint_speed"
+              ],
+              "range_excess_rad": 0.0,
+              "speed_ratio": 1.026012228412768,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.36592235769379006,
+              "root_tilt_rad": 0.4018375689471352
+            },
+            {
+              "control": 9,
+              "substep": 9,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.026064505641492097,
+              "speed_ratio": 0.5005812662558393,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.42252101132812514,
+              "root_tilt_rad": 0.3265778002276026
+            },
+            {
+              "control": 16,
+              "substep": 8,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.0008071255978444603,
+              "speed_ratio": 0.09268567594322726,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.4581645830830874,
+              "root_tilt_rad": 0.2707645056026766
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.0,
+              0.026064505641492097,
+              0.0008071255978444603,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "speed_ratio": [
+              1.026012228412768,
+              0.5005812662558393,
+              0.2374525198614192,
+              0.4469444768775664,
+              0.4854114258742218,
+              0.5112446859474213,
+              0.4688536014350572,
+              0.4714212027326562,
+              0.47421542927419924
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "selected_lane": 3,
+        "cost": 2442.0750467696835
+      },
+      {
+        "iteration": 2,
+        "accepted": true,
+        "regularization": 0.01,
+        "rollout_feasibility": {
+          "feasible": [
+            false,
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "first_violation": [
+            {
+              "control": 5,
+              "substep": 3,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.002635360894325922,
+              "speed_ratio": 0.2550453415528136,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.3704941307300072,
+              "root_tilt_rad": 0.358746705028509
+            },
+            {
+              "control": 12,
+              "substep": 10,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.0019370698585254864,
+              "speed_ratio": 0.2680495498579907,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.4185761721415682,
+              "root_tilt_rad": 0.32310279338031817
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.002635360894325922,
+              0.0019370698585254864,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "speed_ratio": [
+              0.41184402765060724,
+              0.36655194210644804,
+              0.37941464893594523,
+              0.40798926913804745,
+              0.45043449121795803,
+              0.45984399885196253,
+              0.4413956957923362,
+              0.4441616207166942,
+              0.4456577096272083
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "selected_lane": 2,
+        "cost": 1392.8039080110634
+      },
+      {
+        "iteration": 3,
+        "accepted": true,
+        "regularization": 0.001,
+        "rollout_feasibility": {
+          "feasible": [
+            false,
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "first_violation": [
+            {
+              "control": 15,
+              "substep": 1,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.00047022284397113534,
+              "speed_ratio": 0.8774760327109294,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.3170110580935313,
+              "root_tilt_rad": 0.4252829256702232
+            },
+            {
+              "control": 22,
+              "substep": 2,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.02297965027712845,
+              "speed_ratio": 0.4132088168102485,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.39006874950006365,
+              "root_tilt_rad": 0.29563989151884157
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.00047022284397113534,
+              0.02297965027712845,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "speed_ratio": [
+              0.8774760327109294,
+              0.5496705724363941,
+              0.3589667581456194,
+              0.3533296407675933,
+              0.35831540670006706,
+              0.3958945523976588,
+              0.3749545579948072,
+              0.4043637741953071,
+              0.4024900617730217
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "selected_lane": 2,
+        "cost": 845.9639492310574
+      },
+      {
+        "iteration": 4,
+        "accepted": true,
+        "regularization": 0.0001,
+        "rollout_feasibility": {
+          "feasible": [
+            false,
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "first_violation": [
+            {
+              "control": 22,
+              "substep": 2,
+              "reasons": [
+                "joint_speed"
+              ],
+              "range_excess_rad": 0.0,
+              "speed_ratio": 1.010631903875668,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.3467490271409757,
+              "root_tilt_rad": 0.38953141954252346
+            },
+            {
+              "control": 28,
+              "substep": 10,
+              "reasons": [
+                "joint_range"
+              ],
+              "range_excess_rad": 0.006803502208293621,
+              "speed_ratio": 0.3315390832468184,
+              "effort_ratio": 1.0,
+              "root_height_m": 0.36737772774473176,
+              "root_tilt_rad": 0.36977256959667965
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "peaks": {
+            "range_excess_rad": [
+              0.0,
+              0.006803502208293621,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "speed_ratio": [
+              1.010631903875668,
+              0.6805224693481253,
+              0.22067879526080958,
+              0.2852560086772139,
+              0.3021146784157233,
+              0.3103221274331809,
+              0.34639570568272626,
+              0.3164772236090883,
+              0.3175852453040299
+            ],
+            "effort_ratio": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "inspection": "every2ms including the initial state; invalid lanes latched"
+        },
+        "selected_lane": 2,
+        "cost": 544.0151999646488
+      }
+    ],
+    "cached_seed_revalidated": false,
+    "incumbent_gain_semantics": "last accepted rollout's generating backward sweep",
+    "status": "feasible_incumbent",
+    "accepted_cost": 544.0151999646488
+  },
+  "imminent_control_checks": [
+    {
+      "feasible": true,
+      "first_violation": null,
+      "checked_physics_steps": 10,
+      "physical_clock_advanced": false
+    },
+    {
+      "feasible": true,
+      "first_violation": null,
+      "checked_physics_steps": 10,
+      "physical_clock_advanced": false
+    },
+    {
+      "feasible": true,
+      "first_violation": null,
+      "checked_physics_steps": 10,
+      "physical_clock_advanced": false
+    },
+    {
+      "feasible": true,
+      "first_violation": null,
+      "checked_physics_steps": 10,
+      "physical_clock_advanced": false
+    },
+    {
+      "feasible": true,
+      "first_violation": null,
+      "checked_physics_steps": 10,
+      "physical_clock_advanced": false
+    }
+  ],
+  "executed_controls": 5,
+  "failure": null,
+  "future_preview_packet_seconds": 0.74,
+  "future_raw_pose_support_seconds": 0.76,
+  "native_warning_counts": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "full_lifecycle_run": false,
+  "full_source_completed": false,
+  "recovery_qualified": false,
+  "deployment_ready": false,
+  "hardware_authorized": false,
+  "input_hashes": {
+    "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/recovery_probe_v1/actual_3740_integration_state.npz": "52060ba5f7892aa97808a0cda623af5a5ab0875a268340acaad6197f9d7878d6",
+    "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_floor_inputs_v1/pico/reference.npz": "a1b3bd672551acc800e8b28d4d3d2b68c044f7a80ab3b8fb798d46c9dda70c24",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/probe_g1_true23_mpc_hard_feasibility.py": "d8c00c4131b5e45c6d581ec9df14651bcea6e6730655842e38fba3286805aa42",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_mjbatch_ilqr_core.py": "1efc9cb21e446d8e41e3d3acebe05d12b951e8a0002b264ddf0a6b723e32f45a",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_mjbatch_mpc.py": "7695d03787de93dc3d4b1fb2001d6b6b0dcdb9016af9c96734e8f7d94a5e5dde",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_mjbatch_model.py": "716829e5a4c24e584d503c9b1743f905c457ad631fe44631e98555ede5f295d7"
+  },
+  "motion_override": {
+    "path": "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_floor_inputs_v1/pico/reference.npz",
+    "reference_sha256": "a1b3bd672551acc800e8b28d4d3d2b68c044f7a80ab3b8fb798d46c9dda70c24",
+    "portable_receipt_sha256": "a02da5b44b0a5112dd1be236a32fcd9ddb731068a2f9c59cb8b0eaade859c59e",
+    "base_native_reference_sha256": "72ae0f04333ebc18e03fbe2a6e5640c895ceda9e37ce83418f4bca6e9540d953",
+    "original29_sha256": "58c65ea2805cfe740989661fe26d09e9b8d9b5f1e2c5ac0697167074fef82c5e",
+    "reference_floor_transform": {
+      "kind": "causal_upward_whole_pose_translation",
+      "lift_min_m": 0.02,
+      "lift_max_m": 0.07538641412457402,
+      "physical_floor_changed": false,
+      "root_relative_intent_preserved": true,
+      "joints_unchanged": true,
+      "source_timing_changed": false,
+      "transform_receipt_file": "floor_transform_receipt.json",
+      "transform_receipt_sha256": "7b38b99a4bd029adefb698b825cbd5c0587a24e7d0b1c1f0827789ec0bb4023d",
+      "frame_lift_file": "frame_lift.npz",
+      "frame_lift_sha256": "0d32b2079a9af1d9d0c13d75cec0d5667fe550bf4f892e8407d0a1ffa0d9f465",
+      "transform_receipt_path": "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_floor_inputs_v1/pico/floor_transform_receipt.json",
+      "frame_lift_path": "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_floor_inputs_v1/pico/frame_lift.npz",
+      "input_reference_sha256": "571fb2723f9a8a9f99c35e724e3dd7e9d88c384152ba0777595fece4cae1cfb9",
+      "pose_preview_frames": 0,
+      "exported_linear_velocity_future_pose_support_frames": 1,
+      "exported_linear_velocity_future_pose_support_seconds": 0.02,
+      "independent_numeric_whole_pose_and_native_clearance_validation": true
+    }
+  },
+  "trace_sha256": "57e8cda801cac60123d071079ee1a6557f760383b6d788db8199726dff709db3"
+}

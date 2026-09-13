@@ -1,0 +1,91 @@
+{
+  "owner_verification_passed": true,
+  "report_sha256": "1d2f6f0e8fbee8e165b731c603f241885cb8f96ab385d9753feecd682011fd59",
+  "checkpoint_sha256": "ad6d657affba0796e7313d85ace240cd31d46e188c577da049880a7a031aecba",
+  "onnx_sha256": "d35bf48cc1f755edef14dbe47a84f912ab2775c3a29a315f375d1c6d1918e088",
+  "exit_sha256": "a009f9fc62e64951de12177153ae79ed5bb3b6bd0c6e48380bc064d524e71c40",
+  "request_sha256": "c77506075081e608133eba7921e9ff6842464e069b31e01bafae12d9f0442a0e",
+  "frozen_receipt_sha256": "ff918ef575c276bc4ed0ee262217163f5c65146faee1829d791d8ad793a6b226",
+  "clearance_sha256": "68d1175f70ff2d41ce26e5d92d350e97f4374fc1878d01eac780f92c5abab6ff",
+  "counters": {
+    "training_head_rows_attempted": 70550000,
+    "training_head_rows_returned": 70550000,
+    "diagnostic_torch_rows_attempted": 460740,
+    "diagnostic_torch_rows_returned": 460740,
+    "ORT_calls_attempted": 601,
+    "ORT_calls_returned": 601
+  },
+  "parity": {
+    "passed": true,
+    "maximum_preclamp_rad": 6.7099973684037195e-06,
+    "tolerance_rad": 1e-05,
+    "comparisons": {
+      "nominal_GPU_CPU": 5.357594798027776e-06,
+      "nominal_GPU_ORT": 5.908916747898729e-06,
+      "nominal_CPU_ORT": 6.033796083215748e-06,
+      "velocity_GPU_CPU": 6.7099973684037195e-06,
+      "velocity_GPU_ORT": 6.553950917975726e-06,
+      "velocity_CPU_ORT": 5.535695112968142e-06,
+      "physical_GPU_CPU": 4.9414709302197934e-06,
+      "physical_GPU_ORT": 4.993486413695791e-06,
+      "physical_CPU_ORT": 5.492782747751335e-06
+    },
+    "nonfinite_comparisons": [],
+    "bitexact_claim": false,
+    "partition": "each corpus independently, batch256"
+  },
+  "summary": {
+    "initial_metrics": {
+      "nominal_objective": 0.0572117251654466,
+      "full_velocity_objective": 3.93326021876797e-05,
+      "physical_objective": 0.0002357191382712074,
+      "nominal_equal_cell_preclip_RMSE_rad": 0.7894051280041002,
+      "nominal_clipped_rows": 6404
+    },
+    "final_metrics": {
+      "nominal_objective": 0.0014692213347492118,
+      "full_velocity_objective": 5.558931284759087e-05,
+      "physical_objective": 0.00019344341161008,
+      "nominal_equal_cell_preclip_RMSE_rad": 0.10994536929132888,
+      "nominal_clipped_rows": 4988
+    }
+  },
+  "output_sha256": {
+    "fit/data_identities.npz": "61b7347fed92052989aeb2300cfa48020bb9b9ec348da341d64f0cee7e651397",
+    "fit/export_parity.json": "277b18ec37d9074e29befc035b393bbd54b8c0704735ae150e62a299cd1e9488",
+    "fit/final_CPU_nominal.npy": "c44b3b1ba5e989a2a40f2ac9cc65b53aa3067551cfc5fa8bcfaf6ec9c094094d",
+    "fit/final_CPU_physical.npy": "53e255dca0cffb4cf5016bca82b7eaf4c5991257b19f3abec9485bdfc06b9f93",
+    "fit/final_CPU_velocity.npy": "17cecd3b831911bb02fb0da7bbad267d0ae308ae752c0d9b88eac42ecc8be4bf",
+    "fit/final_GPU_nominal.npy": "af5bb7aaf974f339bca7e0d12f2182fb220e5487e6415aad7818caddb3d630d8",
+    "fit/final_GPU_physical.npy": "8f5b7334dfcdc744cf669cb7d584e6f5be797156bdd3ce0d8816f0be132abe8b",
+    "fit/final_GPU_velocity.npy": "29e26be77f43035e7456e6b348c34223292f5fc133cdd32356484d52543d070f",
+    "fit/final_metrics.json": "ba4a589f45d02a1f92e49d8d0e9aac30bff05b723c27796cb6de0c32bc6e62f3",
+    "fit/final_ORT_nominal.npy": "babd3834ea6982ba2cfbd3948f5f11b6d337d51cf6dbea72861664c0791813ad",
+    "fit/final_ORT_physical.npy": "07f9bbc51f56a78c205adb444579de687c92788673420d4219413d2088861733",
+    "fit/final_ORT_velocity.npy": "1babfa3113085c991a234c52536900325f27abd3c55d301948a8089c0ed6a430",
+    "fit/initial_GPU_nominal.npy": "ff65a86b9df00007a955852f9b3db9b885dc0ab45155a78014e8d022548c8712",
+    "fit/initial_GPU_physical.npy": "e3d0a14161be02440e3acf1f95ef9944d8c3f360ed4d3b27bf215a435ada9700",
+    "fit/initial_GPU_velocity.npy": "6b8ad0e15837e7f51ed048352e2ce088d474e50ea659ecc85980cfeb308b31f1",
+    "fit/initial_metrics.json": "3e1b8712ec62dc06b3da75db1738625ca3e5329d3b94d71a37eb2f221445bb1c",
+    "fit/initialization.pt": "f7134b2d1c5e85721d097bbc430c74c39b5e8e1f541527816cf50d0b20a765ad",
+    "fit/nominal_cell_losses.npy": "0de33e6e1f79e8e1724238e461023435987143d1eec73a7c096f83d59f21fd00",
+    "fit/nominal_normalized_labels.npy": "75baa1c933c4b2d598dca7c3c3181bda1f3b7502dcde18568bdabd06ad7aad8c",
+    "fit/normalization.npz": "1baf7a2918fe2322ad0ef9583a29902eb7c3d8f8d37000c6bb9fd502d6746079",
+    "fit/optimization_completed.json": "1023be9325c30c2abe8b203c7ed33edc26f866a1886b51fa9392ecb3c85fb9a6",
+    "fit/physical_cell_losses.npy": "291ac37033385d60607f4af474c74bdad88c47ff34812b9d0659905b7b6516d5",
+    "fit/progress.json": "73631f178800ea7152692dc4f61aec82f591a51731f11bb309015fdffa5e8fe2",
+    "fit/replayed_axes.npy": "6ddd90fbbea2fac5cf32f9268d85ad34e5e8950637c20702930ac2acb7a92f3f",
+    "fit/replayed_center_rows.npy": "470dbc61202d99e2c9dc801ef17db764d58626264a115a9fb15df5bff1645118",
+    "fit/report.json": "1d2f6f0e8fbee8e165b731c603f241885cb8f96ab385d9753feecd682011fd59",
+    "fit/request.json": "d1c6788ce0bbd58e68ea19cafbfcb76ec54755c05cef3926ca8f786bcde30c28",
+    "fit/runtime.json": "855fdeb01936e774f30e5bf3a2029aaa37cb32461bfe69a121c10b12577b29be",
+    "fit/student_head.onnx": "d35bf48cc1f755edef14dbe47a84f912ab2775c3a29a315f375d1c6d1918e088",
+    "fit/student_head.pt": "ad6d657affba0796e7313d85ace240cd31d46e188c577da049880a7a031aecba",
+    "fit/training_progress.npy": "2cf5821de1a71f3631ca34164f44e8afdb425195b9ccf71a5f2a533628bfa6b1",
+    "fit/velocity_cell_losses.npy": "9062635c0d181c1288412ab2ad3e488e6603f3180a26e5ee94ec667eedbdd337"
+  },
+  "task_model_calls": 0,
+  "optimizer_updates": 0,
+  "native_steps": 0,
+  "behavioral_qualification": false
+}

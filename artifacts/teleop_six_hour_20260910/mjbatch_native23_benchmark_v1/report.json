@@ -1,0 +1,131 @@
+{
+  "python": "3.11.15",
+  "executable": "/root/.venvs/g1_true23_mjbatch/bin/python",
+  "mujoco": "3.11.0",
+  "numpy": "2.4.6",
+  "logical_cpus": 16,
+  "native_dimensions": [
+    30,
+    29,
+    23
+  ],
+  "physics_timestep_s": 0.002,
+  "pd_substep_recompute": true,
+  "target_hold_controls": 10,
+  "model_and_config_sha256": {
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/data/robots/g1/g1_23dof_rev_1_0.xml": "38d6b06557da07210dc7c2fc9702e0f46764a81e82dacd39e82835b6a8c3db97",
+    "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/config/sim_validation/g1_23dof_mujoco_sim2sim.json": "bc4dab246e709604f435dea7c584adc01f1c38a6abb6ac1bc22fc699c42272c3"
+  },
+  "concurrent_gpu_training_and_cpu_jobs": true,
+  "benchmarking_only": true,
+  "mjbatch": "0.1.0",
+  "batch_single_parity": {
+    "qpos": {
+      "max_abs": 0.0,
+      "bit_exact": true
+    },
+    "qvel": {
+      "max_abs": 0.0,
+      "bit_exact": true
+    },
+    "ctrl": {
+      "max_abs": 0.0,
+      "bit_exact": true
+    },
+    "qfrc_actuator": {
+      "max_abs": 0.0,
+      "bit_exact": true
+    },
+    "time": {
+      "max_abs": 0.0,
+      "bit_exact": true
+    }
+  },
+  "throughput": [
+    {
+      "batch_size": 1,
+      "physics_steps_per_sim": 300,
+      "repeats": 3,
+      "plain_seconds_median": 0.029241755000384728,
+      "plain_physics_steps_per_second": 10259.302151873339,
+      "batches": [
+        {
+          "threads": 1,
+          "seconds_median": 0.026453346999915084,
+          "physics_steps_per_second": 11340.719947497117,
+          "speedup_vs_plain": 1.1054085141089556,
+          "equivalent_50hz_controls_per_second": 1134.0719947497116
+        }
+      ]
+    },
+    {
+      "batch_size": 8,
+      "physics_steps_per_sim": 300,
+      "repeats": 3,
+      "plain_seconds_median": 0.22716088700008186,
+      "plain_physics_steps_per_second": 10565.199104893156,
+      "batches": [
+        {
+          "threads": 1,
+          "seconds_median": 0.19690603099979853,
+          "physics_steps_per_second": 12188.555057526173,
+          "speedup_vs_plain": 1.1536512408820747,
+          "equivalent_50hz_controls_per_second": 1218.8555057526173
+        },
+        {
+          "threads": 8,
+          "seconds_median": 0.18309177399987675,
+          "physics_steps_per_second": 13108.18038172275,
+          "speedup_vs_plain": 1.2406941176955049,
+          "equivalent_50hz_controls_per_second": 1310.818038172275
+        }
+      ]
+    },
+    {
+      "batch_size": 32,
+      "physics_steps_per_sim": 300,
+      "repeats": 3,
+      "plain_seconds_median": 1.1009126220001235,
+      "plain_physics_steps_per_second": 8720.038092177421,
+      "batches": [
+        {
+          "threads": 1,
+          "seconds_median": 0.8091785329997947,
+          "physics_steps_per_second": 11863.883690056364,
+          "speedup_vs_plain": 1.3605311771171305,
+          "equivalent_50hz_controls_per_second": 1186.3883690056364
+        },
+        {
+          "threads": 8,
+          "seconds_median": 0.2930580310003279,
+          "physics_steps_per_second": 32758.017131389443,
+          "speedup_vs_plain": 3.7566369303794707,
+          "equivalent_50hz_controls_per_second": 3275.8017131389443
+        }
+      ]
+    },
+    {
+      "batch_size": 64,
+      "physics_steps_per_sim": 300,
+      "repeats": 3,
+      "plain_seconds_median": 2.2569088390000616,
+      "plain_physics_steps_per_second": 8507.2111324207,
+      "batches": [
+        {
+          "threads": 1,
+          "seconds_median": 1.424168125000051,
+          "physics_steps_per_second": 13481.554363533667,
+          "speedup_vs_plain": 1.584720792006197,
+          "equivalent_50hz_controls_per_second": 1348.1554363533667
+        },
+        {
+          "threads": 8,
+          "seconds_median": 0.43799419999959355,
+          "physics_steps_per_second": 43836.196917716756,
+          "speedup_vs_plain": 5.152828140194907,
+          "equivalent_50hz_controls_per_second": 4383.619691771676
+        }
+      ]
+    }
+  ]
+}

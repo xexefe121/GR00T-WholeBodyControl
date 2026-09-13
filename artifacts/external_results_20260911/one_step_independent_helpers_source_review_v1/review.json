@@ -1,0 +1,38 @@
+{
+  "kind": "independent_one_control_branch_audit_helper_source_review",
+  "passed": true,
+  "source_review_pass": true,
+  "utc": "2026-09-11T09:25:52.902384+00:00",
+  "hashes": {
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_resume_20260911\\branch_audit_oracle.py": "57e2756a3774c1918ad53f33a4436539040742d30adbd727d52373d840cfaac3",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\teleop_resume_20260911\\branch_label_audit.py": "f99e2ca2b90fa6f71163cc7754441198e2c52f2dc0bb9cea9dd09311463e0ace",
+    "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\gear_sonic\\utils\\g1_true23_feasibility_referee.py": "0027210cda5a44255debecd7151ecd454e2281a5ff4e3137641d102701fb1330",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\bfm_entry250_actual_oracle_v1\\source_snapshot_v1\\gear_sonic\\utils\\g1_true23_mjbatch_ilqr_core.py": "1efc9cb21e446d8e41e3d3acebe05d12b951e8a0002b264ddf0a6b723e32f45a",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\velocity_chord_student_v1\\source_snapshot_v3\\student_linear_runtime.py": "35b3e3dd4f4c2966ae224a77afc5213d02cead3200bf63218fb0aab26710f543",
+    "E:\\codex-artifacts\\sonic23_teleop_resume_20260911\\velocity_chord_student_v1\\source_snapshot_v3\\gear_sonic\\utils\\g1_true23_bfm_seed_observations.py": "a3c68a9aefad87c3dbda5b515f34a968923e9d35234a278b01b727d73062f68d"
+  },
+  "scope": "Read-only source and AST review of endpoint observation adapter and saved branch algebra; no helper execution, model inference, optimizer, or physics.",
+  "findings": [],
+  "oracle_checks": [
+    "Exact source SHA pin matches original referee.",
+    "Insertion is one guarded observation immediately before sole final return; removal recovers entire original function AST.",
+    "Private state exists on every normal return and trace dict exists when retain_trace is true; retain_trace false retains original None result.",
+    "Final state uses original _integration_state and warning copies; PD, step loop, strict predicates, first-failure behavior and source-unchanged assertions remain intact."
+  ],
+  "algebra_checks": [
+    "Original Planner.difference quaternion helpers and full58 tangent order preserved with native free-base index layout.",
+    "Outgoing raw proposal/native target clip/raw combined prior use original runtime operation order; applied-prior inverse remains a diagnostic.",
+    "History advances once from original precontrol measured terms and incoming prior, retaining canonical alphabetical flatten order; next actor history uses command c-1 and separate previous action is command c.",
+    "Endpoint state52 and1069 features use resulting q/dq/prior/base, original goal at c+12, and clipped derived previous target.",
+    "Teacher uses center_index+1 exact dataset/control adjacency and saved successor planned state, signed gain and planned target; feedback clip plus native clip unchanged.",
+    "Replan-boundary, zero-gain and both clipping masks retained; no assumed modulo5 plan lookup."
+  ],
+  "caller_requirements": [
+    "Caller must bind immutable centers, native contract, original GoalFeatures/state_and_terms sources and valid within-dataset row mapping before helper use.",
+    "Endpoint actor authenticity and physics qualification are separate audit stages; these source helpers alone do not prove either."
+  ],
+  "draft_main_audit_finding": "Sent root exact actual70000 witness aliases: physics_warning_counts and physics_actuator_torque; query1/query250 schemas physics_warning_number and physics_actuator_force confirmed separately.",
+  "reviewer_inference_calls": 0,
+  "reviewer_optimizer_updates": 0,
+  "reviewer_native_steps": 0
+}
