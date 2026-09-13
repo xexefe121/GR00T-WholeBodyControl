@@ -67,6 +67,14 @@ class NativePreviewGuard:
         self.native_parallelism=native_parallelism
         self.delay=delay_substeps;self.previous=None
         self.native=NativePreviewBackend(library,self) if library is not None else None
+        self.last_diagnostic=None
+        self.joint_names=[model.joint(i).name for i in range(1,24)]
+
+    def _checked_preview(self, target):
+        low,high=self._preview(target)
+        if any(np.shape(x)!=(23,) or not np.isfinite(x).all() for x in (low,high)):
+            raise ValueError('Nonfinite or malformed native preview')
+        return low,high
 
     def _preview(self, target):
         if self.native is not None:return self.native.preview(target)
@@ -86,6 +94,7 @@ class NativePreviewGuard:
 
     def apply(self, qpos, qvel, requested,previous=None):
         started=time.perf_counter()
+        self.last_diagnostic=None
         qpos,qvel,requested=map(lambda x:np.asarray(x,dtype=float),(qpos,qvel,requested))
         if qpos.shape!=(30,) or qvel.shape!=(29,) or requested.shape!=(23,) or not all(
                 np.isfinite(x).all() for x in (qpos,qvel,requested)):
@@ -99,8 +108,9 @@ class NativePreviewGuard:
             self.seed.qpos[:]=qpos;self.seed.qvel[:]=qvel
             mujoco.mj_forward(self.model,self.seed)
         candidate=np.clip(requested,self.limits[:,0],self.limits[:,1])
-        low,high=self._preview(candidate);calls=1
+        low,high=self._checked_preview(candidate);calls=1
         best=candidate.copy();best_error=max(float(low.max()),float(high.max()))
+        best_low,best_high=low.copy(),high.copy()
         original_error=best_error
         for _ in range(self.iterations):
             error=np.maximum(low,high);active=error>0
@@ -110,7 +120,7 @@ class NativePreviewGuard:
             probe[active]-=direction[active]*.02
             probe=np.clip(probe,self.limits[:,0],self.limits[:,1])
             distance=np.abs(probe-candidate)
-            probe_low,probe_high=self._preview(probe);calls+=1
+            probe_low,probe_high=self._checked_preview(probe);calls+=1
             same_boundary=np.where(direction>0,probe_high,probe_low)
             response=(error-same_boundary)/np.maximum(distance,1e-9)
             # Simultaneous inward probes estimate only currently limiting
@@ -119,7 +129,7 @@ class NativePreviewGuard:
             proposal=candidate.copy()
             proposal[active]-=direction[active]*np.clip(correction[active],.002,.4)
             proposal=np.clip(proposal,self.limits[:,0],self.limits[:,1])
-            proposed_low,proposed_high=self._preview(proposal);calls+=1
+            proposed_low,proposed_high=self._checked_preview(proposal);calls+=1
             proposed_error=max(float(proposed_low.max()),float(proposed_high.max()))
             probe_error=max(float(probe_low.max()),float(probe_high.max()))
             if probe_error<proposed_error:
@@ -127,7 +137,17 @@ class NativePreviewGuard:
             if proposed_error>=best_error:break
             candidate,low,high=proposal,proposed_low,proposed_high
             best,best_error=candidate.copy(),proposed_error
+            best_low,best_high=low.copy(),high.copy()
         change=np.abs(best-requested)
+        joint=int(np.argmax(np.maximum(best_low,best_high)))
+        self.last_diagnostic=dict(qpos=qpos.copy(),qvel=qvel.copy(),
+            previous_target=None if self.previous is None else self.previous.copy(),
+            previous_target_valid=self.previous is not None,
+            requested_target=requested.copy(),candidate_target=best.copy(),
+            predicted_lower_excess_rad=best_low,predicted_upper_excess_rad=best_high,
+            limiting_joint_index=joint,limiting_joint_name=self.joint_names[joint],
+            limiting_boundary='lower' if best_low[joint]>=best_high[joint] else 'upper',
+            preview_steps=self.steps,delay_substeps=self.delay,reserve_rad=self.reserve)
         return best,dict(enabled=True,preview_calls=calls,maximum_preview_calls=1+2*self.iterations,
             horizon_seconds=(self.steps+self.delay)*.002,measured_state_only=True,reference_preview_frames=0,
             maximum_application_delay_substeps=self.delay,application_schedules='immediate and maximum delay',

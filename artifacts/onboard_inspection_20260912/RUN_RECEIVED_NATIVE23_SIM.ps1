@@ -7,6 +7,8 @@ param(
     [switch]$TaskCommands,
     [switch]$NativeTargets,
     [switch]$NativePreviewGuard,
+    [ValidateSet('strict','diagnostic-only')]
+    [string]$PreviewFailurePolicy = 'strict',
     [switch]$NativeStandingCapture,
     [ValidateRange(0,6)]
     [int]$NativePreviewDelaySubsteps = 0,
@@ -31,6 +33,8 @@ $ErrorActionPreference = 'Stop'
 $taskRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 $taskFirmware = 'E:\codex-artifacts\sonic23_teleop_resume_20260911\onboard_factory_firmware_v1'
 $taskPython = 'C:\Users\camer\AppData\Local\Programs\Python\Python310\python.exe'
+if ($NativePreviewGuard) { $IndependentClock = $true }
+if ($PreviewFailurePolicy -eq 'diagnostic-only' -and -not $NativePreviewGuard) { throw 'Diagnostic-only requires -NativePreviewGuard.' }
 if ($NativePreviewGuard -and -not $NativeTargets) { throw '-NativePreviewGuard requires -NativeTargets.' }
 if ($NativeStandingCapture -and -not $NativeTargets) { throw '-NativeStandingCapture requires -NativeTargets.' }
 if (($NativePreviewDelaySubsteps -ne 0 -or $NativePreviewLibrary) -and -not $NativePreviewGuard) { throw 'Native preview settings require -NativePreviewGuard.' }
@@ -90,7 +94,7 @@ if ($IndependentClock) {
     if ($NativeTargets) {
         $taskArgs += @('--native-targets', '--bank', '/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/causal_dynamics_v1/focused_walk002_task_closure_bank_v1')
     }
-    if ($NativePreviewGuard) { $taskArgs += '--native-preview-guard' }
+    if ($NativePreviewGuard) { $taskArgs += @('--native-preview-guard','--preview-failure-policy',$PreviewFailurePolicy) }
     if ($NativeStandingCapture) { $taskArgs += '--native-standing-capture' }
     if ($NativePreviewGuard) { $taskArgs += @('--native-preview-delay-substeps', $NativePreviewDelaySubsteps.ToString()) }
     if ($NativePreviewLibrary) { $taskArgs += @('--native-preview-library', (Convert-TaskWslPath (Resolve-Path -LiteralPath $NativePreviewLibrary).Path)) }

@@ -1,0 +1,37 @@
+{
+  "task": "simulator-only Pico preview rejection repair",
+  "implemented": true,
+  "simulation_ready": false,
+  "input": "recorded Pico-derived simulation replay; not live headset or robot validation",
+  "unit_tests_passed": 21,
+  "native_integration_cases_passed": 2,
+  "native_python_parity_cases_passed": 12,
+  "archived_applied_replay_exact_steps": 31830,
+  "robot_actions": false,
+  "runs": {
+    "older_v1": {
+      "stop_reason": "complete",
+      "physical_steps": 80300,
+      "physical_complete": true,
+      "tracking_passed": false,
+      "standing_passed": true,
+      "timing_passed": true,
+      "maximum_range_excess": 0.0
+    },
+    "strict_newer_v1": {
+      "stop_reason": "preview_rejected",
+      "physical_steps": 31696,
+      "physical_complete": false,
+      "tracking_passed": false,
+      "standing_passed": false,
+      "timing_passed": false,
+      "maximum_range_excess": 0.0
+    }
+  },
+  "video_durations_seconds": {
+    "older_v1": 160.6,
+    "strict_newer_v1": 63.392
+  },
+  "evidence_directory": "E:\\codex-artifacts\\native23_preview_repair_20260913",
+  "launcher": "Z:\\codex\\GR00T-WholeBodyControl-sonic-transfer-23dof\\artifacts\\onboard_inspection_20260912\\RUN_PICO_PREVIEW_REPAIR.ps1"
+}

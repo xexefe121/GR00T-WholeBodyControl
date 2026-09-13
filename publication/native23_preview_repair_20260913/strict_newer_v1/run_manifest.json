@@ -1,0 +1,142 @@
+{
+  "runner_contract_version": "native23-sim-preview-v1",
+  "arguments": {
+    "actor": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/onboard_factory_firmware_v1/native_target_ppo_v2/actor_00185.onnx",
+    "output": "/mnt/e/codex-artifacts/native23_preview_repair_20260913/strict_newer_v1",
+    "bank": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/causal_dynamics_v1/focused_walk002_task_closure_bank_v1",
+    "clip": "pico",
+    "controls": null,
+    "hold": 30,
+    "standing": false,
+    "initial_velocity": 0.0,
+    "fault_control": null,
+    "affinity": true,
+    "native_conditioned": false,
+    "factory_locomotion": false,
+    "locomotion_conditioned": false,
+    "task_commands": true,
+    "native_targets": true,
+    "native_preview_guard": true,
+    "preview_failure_policy": "strict",
+    "native_standing_capture": true,
+    "native_preview_delay_substeps": 6,
+    "native_preview_library": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/onboard_factory_firmware_v1/native_preview_backend_v2/libtrue23preview.so",
+    "feedback": "ground-truth",
+    "sensor_effects": null,
+    "input": "recorded",
+    "packet_replay": null,
+    "live_url": "tcp://127.0.0.1:5557",
+    "rearm_file": null,
+    "target_filter_alpha": 1.0,
+    "fault_standing_capture": false,
+    "plant_spin_us": 0,
+    "lookahead_library": null,
+    "lookahead_steps": 30,
+    "factory_config": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/onboard_factory_firmware_v1/decoded_configs/policies/human_loco/fsm_human_loco_config.yaml",
+    "realtime_priority": true,
+    "library": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/onboard_factory_firmware_v1/factory_clock_v4/libtrue23clock.so"
+  },
+  "files": [
+    {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_resume_20260911/run_causal_native_clock.py",
+      "sha256": "37f99cadcf78121451a2aa76584fad478bfb8e839fa64b266b8ce12ba47c4ee0",
+      "bytes": 49445
+    },
+    {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/onboard_factory_firmware_v1/native_target_ppo_v2/actor_00185.onnx",
+      "sha256": "5840f82bb555333334bda57060f78b5bbab647b2e6b7496df7dab89be70a4902",
+      "bytes": 3063892
+    },
+    {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/onboard_factory_firmware_v1/factory_clock_v4/libtrue23clock.so",
+      "sha256": "1bfe34fe1187ba46f5431f5931cb07e1c265d8445c32fddb28671f96f4c2aff6",
+      "bytes": 24864
+    },
+    {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/causal_dynamics_v1/focused_walk002_task_closure_bank_v1/pico.npz",
+      "sha256": "b8d426d5a71f2dfbf196d355478f43e8950f917743c63ad77252ff792544ebb5",
+      "bytes": 8677602
+    },
+    {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/causal_dynamics_v1/focused_walk002_task_closure_bank_v1/bank.json",
+      "sha256": "78148a46f6dbb04dc991cfd200808f22263e1b848f0b06b68c268dca065d0a8b",
+      "bytes": 3723
+    },
+    {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/native_prepared.xml",
+      "sha256": "03fd1633c0f5080eb21c1b9786143eeaa36c8eed2eb388d1346581ae33bd76fa",
+      "bytes": 22517
+    },
+    {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/prepared_model_arrays.npz",
+      "sha256": "38b4eb8f2f42030b76ffb106c016acb6be92253d4c42971529f739962cc68cdb",
+      "bytes": 17812
+    },
+    {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/contract.json",
+      "sha256": "d1641ce4f2e9016f5008e5d4be3cc24ded46d7f9daf9cfddaab84095f98eb99b",
+      "bytes": 4686
+    },
+    {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/pico/timeline.json",
+      "sha256": "293d1dbe71ec170b910a4e6ce5e851bbcd248a1eff380d8aefdccc00998f38a6",
+      "bytes": 65915
+    },
+    {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/teleop_six_hour_20260910/mjbatch_native23_inputs_v1/pico/original29.npz",
+      "sha256": "58c65ea2805cfe740989661fe26d09e9b8d9b5f1e2c5ac0697167074fef82c5e",
+      "bytes": 3070342
+    },
+    {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_six_hour_20260910/mjbatch_intent_floor_inputs_v1/pico/reference.npz",
+      "sha256": "a1b3bd672551acc800e8b28d4d3d2b68c044f7a80ab3b8fb798d46c9dda70c24",
+      "bytes": 16493474
+    },
+    {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_native_preview_guard.py",
+      "sha256": "0326705ad06a61121c3cf6997642db1567148137eea5aaae6d1ba6d1113ed72f",
+      "bytes": 9764
+    },
+    {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_sim_preview.py",
+      "sha256": "f0b60f3f5509d75fa3d5170feafb88445dff74f5054b95421f82e58b5f3cdf88",
+      "bytes": 3563
+    },
+    {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_native_targets.py",
+      "sha256": "b429ba238668c90aa3c4c74526812b25a644ffc5473ab9b6a7dcb1fb6ba34874",
+      "bytes": 9466
+    },
+    {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_task_commands.py",
+      "sha256": "ac24a3b012bfcdcaefc098d1a6877c58632de029ce64528854d19c81d5e2a104",
+      "bytes": 8887
+    },
+    {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_locomotion_conditioned.py",
+      "sha256": "551d4547f92e1243bce18c5ecaf2908ddff76a469adf1b2314c34b925c332a8d",
+      "bytes": 9056
+    },
+    {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_controller_state.py",
+      "sha256": "f2814a493069e79b2ec1947e15a9112b4512e13608110a36b3d7a80e08bbe97a",
+      "bytes": 6882
+    },
+    {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_causal_controller.py",
+      "sha256": "c1625a395b99caa149f4e50bfe3ba7de0cba72efc67fe8ce6a0c35e1270f66ba",
+      "bytes": 3689
+    },
+    {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/onboard_factory_firmware_v1/native_preview_backend_v2/libtrue23preview.so",
+      "sha256": "662d92dedea387c151838af0aba2d6c67acf7a0d097dacb23e914d7f41d77715",
+      "bytes": 16904
+    },
+    {
+      "path": "/mnt/e/codex-artifacts/sonic23_teleop_resume_20260911/onboard_factory_firmware_v1/decoded_configs/policies/human_loco/fsm_human_loco_config.yaml",
+      "sha256": "dd09faa669514082788e1debcd820b65243d7511afa75ea793617649f8af2bb2",
+      "bytes": 5107
+    }
+  ],
+  "initialization": "fresh MjData, bank states[10] FP64 q/v, declared velocity delta, mj_forward"
+}

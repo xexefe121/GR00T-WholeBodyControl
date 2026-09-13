@@ -29,6 +29,8 @@ def main():
                 error=float(abs(expected-actual).max());maximum_error=max(maximum_error,error)
                 assert error<1e-8,(clip,control,error)
                 assert abs(python_status['predicted_excess_rad']-status['predicted_excess_rad'])<1e-8
+                for key in ('predicted_lower_excess_rad','predicted_upper_excess_rad'):
+                    np.testing.assert_allclose(reference.last_diagnostic[key],native.last_diagnostic[key],atol=1e-8,rtol=0)
                 assert status['preview_calls']<=7 and status['native_preview_backend']
                 assert np.all(actual>=native.limits[:,0]) and np.all(actual<=native.limits[:,1])
                 rows.append(dict(clip=clip,control=control,target_error=error,python_ms=python_status['elapsed_ms'],
