@@ -42,7 +42,7 @@ def wrapper_contract(controller):
     import mujoco
     compiled=np.empty(mujoco.mj_sizeModel(model),dtype=np.uint8)
     mujoco.mj_saveModel(model,buffer=compiled)
-    return dict(wrapper_version=2,snapshot_version=SNAPSHOT_VERSION,boundary=BOUNDARY,native_contract_sha256=legacy_digest,
+    wrapper=dict(wrapper_version=2,snapshot_version=SNAPSHOT_VERSION,boundary=BOUNDARY,native_contract_sha256=legacy_digest,
         full_native_contract_sha256=digest.hexdigest(),compiled_model_sha256=hashlib.sha256(compiled.tobytes()).hexdigest(),
         factory_configuration_sha256=hashlib.sha256(json.dumps(controller.policy.cfg,sort_keys=True,allow_nan=False).encode()).hexdigest(),
         factory_profile=controller.policy.profile,root_velocity_feedback=controller.root_velocity_feedback,
@@ -51,6 +51,9 @@ def wrapper_contract(controller):
         preview=None if guard is None else dict(steps=guard.steps,delay=guard.delay,iterations=guard.iterations,reserve=guard.reserve),
         standing_capture=controller.native_standing_capture,fault_standing_capture=controller.fault_standing_capture,
         factory_prior_filter_alpha=.9,future_reference_frames=0)
+    braking=getattr(controller,'sustained_braking_filter',None)
+    if braking is not None:wrapper['sustained_braking_filter']=braking.configuration()
+    return wrapper
 
 
 def take_fields(owner,names):
@@ -87,6 +90,8 @@ def snapshot_controller(controller,now):
         history=dict(prior=r.history.prior.copy(),terms=[x.copy() for x in r.history.terms]),
         body=take_fields(controller.body_goal,BODY_FIELDS),
         noise=None if controller.noise_rng is None else copy.deepcopy(controller.noise_rng.bit_generator.state))
+    braking=getattr(controller,'sustained_braking_filter',None)
+    if braking is not None:state['sustained_braking_filter']=braking.snapshot()
     return ControllerSnapshot(SNAPSHOT_VERSION,BOUNDARY,float(now),wrapper_contract(controller),state)
 
 
@@ -95,6 +100,10 @@ def restore_controller(controller,snapshot):
         raise ValueError('Unsupported native23 controller snapshot')
     if snapshot.wrapper!=wrapper_contract(controller):raise ValueError('Controller snapshot wrapper mismatch')
     state=copy.deepcopy(snapshot.state);r=controller.receiver
+    braking=getattr(controller,'sustained_braking_filter',None)
+    if braking is not None:
+        if 'sustained_braking_filter' not in state:raise ValueError('Missing filter state')
+        braking.restore(state['sustained_braking_filter'])
     if state.get('reference_configuration')!=reference_configuration(controller):
         raise ValueError('Controller snapshot standing/task configuration mismatch')
     if len(state['history']['terms'])!=len(r.history.terms):raise ValueError('Snapshot history layout mismatch')

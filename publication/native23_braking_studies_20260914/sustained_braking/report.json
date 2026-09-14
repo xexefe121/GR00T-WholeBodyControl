@@ -1,0 +1,167 @@
+{
+  "status": "completed_fixed_design_rejected",
+  "runs": [
+    {
+      "physical_seconds": 0.02,
+      "physical_complete": false,
+      "tracking_passed": false,
+      "standing_passed": false,
+      "timing_status": "not_evaluated_offline_counterfactual",
+      "failure": {
+        "kind": "preview_rejected",
+        "control": 1
+      },
+      "intervention_controls": 1,
+      "intervention_attempts": 2,
+      "intervention_seconds": 0.02,
+      "correction_abs_p50_p95_max": [
+        0.3518912403583525,
+        0.3518912403583525,
+        0.3518912403583525
+      ],
+      "decision": "not_promoted_stop_fixed_design",
+      "schedule": "archived_delays_v1",
+      "restoration": {
+        "passed": true,
+        "cases": [
+          {
+            "mode": "TRACK",
+            "control": 0,
+            "exact": true,
+            "physics_steps": 10
+          },
+          {
+            "mode": "TRACK",
+            "control": 1,
+            "exact": true,
+            "physics_steps": 0
+          },
+          {
+            "mode": "BRAKE",
+            "control": 1,
+            "exact": true,
+            "physics_steps": 0
+          }
+        ]
+      },
+      "all_terminal_failures_without_physical_prediction_failure": true,
+      "best_candidate_passing_pairs": 42
+    },
+    {
+      "physical_seconds": 0.02,
+      "physical_complete": false,
+      "tracking_passed": false,
+      "standing_passed": false,
+      "timing_status": "not_evaluated_offline_counterfactual",
+      "failure": {
+        "kind": "preview_rejected",
+        "control": 1
+      },
+      "intervention_controls": 1,
+      "intervention_attempts": 2,
+      "intervention_seconds": 0.02,
+      "correction_abs_p50_p95_max": [
+        0.3518912403583525,
+        0.3518912403583525,
+        0.3518912403583525
+      ],
+      "decision": "not_promoted_stop_fixed_design",
+      "schedule": "alternating_delays_v1",
+      "restoration": {
+        "passed": true,
+        "cases": [
+          {
+            "mode": "TRACK",
+            "control": 0,
+            "exact": true,
+            "physics_steps": 10
+          },
+          {
+            "mode": "TRACK",
+            "control": 1,
+            "exact": true,
+            "physics_steps": 0
+          },
+          {
+            "mode": "BRAKE",
+            "control": 1,
+            "exact": true,
+            "physics_steps": 0
+          }
+        ]
+      },
+      "all_terminal_failures_without_physical_prediction_failure": true,
+      "best_candidate_passing_pairs": 42
+    }
+  ],
+  "configuration": {
+    "version": 1,
+    "joint": "right_shoulder_roll_joint",
+    "horizon_seconds": 0.08,
+    "delay_pairs": 49,
+    "tail_delay": "next delay repeated for remaining two updates",
+    "backup_acceleration_position_gain": 400.0,
+    "backup_acceleration_velocity_gain": 40.0,
+    "capture_margin_rad": 0.15,
+    "terminal_margin_rad": 0.02,
+    "terminal_speed_rad_s": 0.25,
+    "terminal_consecutive_endpoints": 2,
+    "release_margin_rad": 0.12,
+    "release_speed_rad_s": 0.1,
+    "release_consecutive_updates": 3,
+    "release_target_step_rad": 0.15,
+    "reserve_rad": 0.0001,
+    "candidate_uniform_points": 9,
+    "simulation_only": true,
+    "formal_safety_guarantee": false,
+    "backend_sha256": "43650aaec0493b08b002cb4e68f4d2798bc90d3a52e11ded7694ea800194d552"
+  },
+  "decisive_result": "At the second command, no sampled continuation achieved the declared settling condition across all 49 delay pairs, despite passing original physical prediction limits. This design regresses at startup and is not promoted.",
+  "changing_delay_runtime_qualification": "Both schedules stopped before the second command was applied; 49 delay-pair predictions were exercised, sustained changing-delay execution was not established.",
+  "original_start_full_motion_attempted": true,
+  "whole_motion_completed": false,
+  "release_mode_reached": false,
+  "release_unit_tests_passed": true,
+  "physical_robot_actions": false,
+  "production_filter_default": "disabled",
+  "gains_limits_actor_changed": false,
+  "test_summary": {
+    "passed": 32,
+    "skipped": 3,
+    "skip_reason": "MJLab unavailable in Windows test environment"
+  },
+  "prediction_parity": {
+    "passed": true,
+    "cases": [
+      {
+        "control": 3159,
+        "delay_pairs": 49,
+        "passing_pairs": 20,
+        "maximum_error": 0.0
+      },
+      {
+        "control": 3168,
+        "delay_pairs": 49,
+        "passing_pairs": 0,
+        "maximum_error": 0.0
+      },
+      {
+        "control": 3169,
+        "delay_pairs": 49,
+        "passing_pairs": 0,
+        "maximum_error": 0.0
+      }
+    ],
+    "mujoco_version": "3.2.3"
+  },
+  "stopping_rule_followed": true,
+  "timing_run_skipped_because_behavior_failed": true,
+  "baseline_compatibility": {
+    "passed": true,
+    "physics_steps": 30,
+    "exact": true,
+    "filter_enabled": false,
+    "unchanged_wrapper_when_disabled": true,
+    "full_archived_study_repeated": false
+  }
+}

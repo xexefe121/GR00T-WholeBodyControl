@@ -1,0 +1,208 @@
+{
+  "experiment": "bounded native23 shoulder recovery",
+  "status": "complete_no_candidate_promoted",
+  "input_run": "/mnt/e/codex-artifacts/native23_preview_repair_20260913/strict_newer_v1",
+  "exact_replay": {
+    "passed": true,
+    "physics_steps": 31696,
+    "maximum_errors": {
+      "qpos": 0.0,
+      "qvel": 0.0,
+      "commanded_torque": 0.0
+    },
+    "controller_history": false
+  },
+  "full_controller_restore_verified": true,
+  "feasibility": [
+    {
+      "control": "3169",
+      "milliseconds_before_rejection": "0",
+      "candidates": "318",
+      "all_seven_delays_passed": "0",
+      "runtime_compatible": "0",
+      "passed_0ms": "286",
+      "passed_2ms": "283",
+      "passed_4ms": "279",
+      "passed_6ms": "272",
+      "passed_8ms": "259",
+      "passed_10ms": "228",
+      "passed_12ms": "0"
+    },
+    {
+      "control": "3168",
+      "milliseconds_before_rejection": "20",
+      "candidates": "317",
+      "all_seven_delays_passed": "314",
+      "runtime_compatible": "314",
+      "passed_0ms": "314",
+      "passed_2ms": "314",
+      "passed_4ms": "315",
+      "passed_6ms": "315",
+      "passed_8ms": "315",
+      "passed_10ms": "317",
+      "passed_12ms": "317"
+    },
+    {
+      "control": "3167",
+      "milliseconds_before_rejection": "40",
+      "candidates": "325",
+      "all_seven_delays_passed": "325",
+      "runtime_compatible": "325",
+      "passed_0ms": "325",
+      "passed_2ms": "325",
+      "passed_4ms": "325",
+      "passed_6ms": "325",
+      "passed_8ms": "325",
+      "passed_10ms": "325",
+      "passed_12ms": "325"
+    },
+    {
+      "control": "3164",
+      "milliseconds_before_rejection": "100",
+      "candidates": "307",
+      "all_seven_delays_passed": "307",
+      "runtime_compatible": "307",
+      "passed_0ms": "307",
+      "passed_2ms": "307",
+      "passed_4ms": "307",
+      "passed_6ms": "307",
+      "passed_8ms": "307",
+      "passed_10ms": "307",
+      "passed_12ms": "307"
+    },
+    {
+      "control": "3159",
+      "milliseconds_before_rejection": "200",
+      "candidates": "319",
+      "all_seven_delays_passed": "319",
+      "runtime_compatible": "319",
+      "passed_0ms": "319",
+      "passed_2ms": "319",
+      "passed_4ms": "319",
+      "passed_6ms": "319",
+      "passed_8ms": "319",
+      "passed_10ms": "319",
+      "passed_12ms": "319"
+    }
+  ],
+  "total_distinct_boundary_candidates": 1586,
+  "total_target_delay_trials": 11102,
+  "fresh_baseline_seconds": 63.38,
+  "continuations": [
+    {
+      "candidate": 0,
+      "target_rad": -1.2468128723144531,
+      "intervention_control": 3168,
+      "short_preview_all_seven_delays_passed": true,
+      "physical_seconds": 63.5,
+      "seconds_beyond_fresh_baseline": 0.11999999999999744,
+      "physical_complete": false,
+      "tracking_passed": false,
+      "standing_passed": false,
+      "standing_status": "not_reached",
+      "timing_status": "not_evaluated_offline_counterfactual",
+      "stop_reason": "preview_rejected",
+      "stop_control": 3175,
+      "terminal_joint_name": "right_shoulder_roll_joint",
+      "terminal_boundary": "lower",
+      "terminal_preview_excess_rad": 0.007220433712541219,
+      "physical_branch_reproduced_exactly": true,
+      "source_metrics": {
+        "passed": false,
+        "source_controls": 2825,
+        "requested_source_controls": 5780,
+        "root_p95_m": 0.21907278901590455,
+        "yaw_p95_deg": 13.355497117436517,
+        "hand_head_relative_p95_m": [
+          0.12447889224380436,
+          0.1478368239876761,
+          0.10283024561991222
+        ],
+        "foot_relative_p95_m": [
+          0.24925199654352148,
+          0.3093425828558482
+        ],
+        "leg_rmse_rad": 0.27280858433377553
+      }
+    },
+    {
+      "candidate": 1,
+      "target_rad": -0.5430489429618668,
+      "intervention_control": 3168,
+      "short_preview_all_seven_delays_passed": true,
+      "physical_seconds": 79.72,
+      "seconds_beyond_fresh_baseline": 16.339999999999996,
+      "physical_complete": false,
+      "tracking_passed": false,
+      "standing_passed": false,
+      "standing_status": "not_reached",
+      "timing_status": "not_evaluated_offline_counterfactual",
+      "stop_reason": "preview_rejected",
+      "stop_control": 3986,
+      "terminal_joint_name": "right_shoulder_roll_joint",
+      "terminal_boundary": "lower",
+      "terminal_preview_excess_rad": 0.008029529079691233,
+      "physical_branch_reproduced_exactly": true,
+      "source_metrics": {
+        "passed": false,
+        "source_controls": 3636,
+        "requested_source_controls": 5780,
+        "root_p95_m": 0.36434294398976763,
+        "yaw_p95_deg": 12.815289040101948,
+        "hand_head_relative_p95_m": [
+          0.21871234249923088,
+          0.2104592644835375,
+          0.15785381796032313
+        ],
+        "foot_relative_p95_m": [
+          0.3040341664573946,
+          0.37945028650555085
+        ],
+        "leg_rmse_rad": 0.3412091310277666
+      }
+    },
+    {
+      "candidate": 2,
+      "target_rad": 1.5882,
+      "intervention_control": 3168,
+      "short_preview_all_seven_delays_passed": true,
+      "physical_seconds": 63.54,
+      "seconds_beyond_fresh_baseline": 0.1599999999999966,
+      "physical_complete": false,
+      "tracking_passed": false,
+      "standing_passed": false,
+      "standing_status": "not_reached",
+      "timing_status": "not_evaluated_offline_counterfactual",
+      "stop_reason": "preview_rejected",
+      "stop_control": 3177,
+      "terminal_joint_name": "right_shoulder_roll_joint",
+      "terminal_boundary": "lower",
+      "terminal_preview_excess_rad": 0.013018167151917837,
+      "physical_branch_reproduced_exactly": true,
+      "source_metrics": {
+        "passed": false,
+        "source_controls": 2827,
+        "requested_source_controls": 5780,
+        "root_p95_m": 0.21885708081992097,
+        "yaw_p95_deg": 13.331612826314597,
+        "hand_head_relative_p95_m": [
+          0.12446940523137895,
+          0.15066321151090112,
+          0.10280520641890226
+        ],
+        "foot_relative_p95_m": [
+          0.249214699580838,
+          0.3092829862368951
+        ],
+        "leg_rmse_rad": 0.2729659073207674
+      }
+    }
+  ],
+  "decision": "Investigate a state-based predictive braking trigger that acts before late rejection and remains effective over subsequent commands; no successful sustained recovery demonstrated here.",
+  "scope_stopped": true,
+  "finite_sampling_is_not_impossibility_proof": true,
+  "timestamp_intervention_is_not_deployable": true,
+  "independent_timing_qualified": false,
+  "full_body_teleop_qualified": false,
+  "tests_passed": 26
+}

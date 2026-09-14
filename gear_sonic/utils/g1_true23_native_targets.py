@@ -126,12 +126,18 @@ class NativeTargetController(TaskCommandController):
         result.status['native_target_actuation']=dict(original_benchmark_pd=True,target_margin_rad=0.,
             additional_limit_brake=False,original_physical_limits=True,qualified=False)
         if self.preview_guard is not None:
-            target,details=self.preview_guard.apply(qpos,qvel,result.targets,previous=self.previous_native)
+            braking=getattr(self,'sustained_braking_filter',None)
+            if braking is None:
+                target,details=self.preview_guard.apply(qpos,qvel,result.targets,previous=self.previous_native)
+            else:
+                target,details=braking.apply(qpos,qvel,result.targets,self.preview_guard)
             from gear_sonic.utils.g1_true23_causal_controller import ControllerCommand
             result=ControllerCommand(target,dict(result.status,native_preview_guard=details))
         return result
 
     def commit_applied(self,qpos,qvel,target):
+        braking=getattr(self,'sustained_braking_filter',None)
+        if braking is not None:braking.commit_applied(target)
         self.previous_native=np.asarray(target,np.float64).copy()
         super().commit_applied(qpos,qvel,target)
 

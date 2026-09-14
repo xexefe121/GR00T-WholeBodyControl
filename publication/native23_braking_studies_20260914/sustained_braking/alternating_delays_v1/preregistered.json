@@ -1,0 +1,57 @@
+{
+  "configuration": {
+    "version": 1,
+    "joint": "right_shoulder_roll_joint",
+    "horizon_seconds": 0.08,
+    "delay_pairs": 49,
+    "tail_delay": "next delay repeated for remaining two updates",
+    "backup_acceleration_position_gain": 400.0,
+    "backup_acceleration_velocity_gain": 40.0,
+    "capture_margin_rad": 0.15,
+    "terminal_margin_rad": 0.02,
+    "terminal_speed_rad_s": 0.25,
+    "terminal_consecutive_endpoints": 2,
+    "release_margin_rad": 0.12,
+    "release_speed_rad_s": 0.1,
+    "release_consecutive_updates": 3,
+    "release_target_step_rad": 0.15,
+    "reserve_rad": 0.0001,
+    "candidate_uniform_points": 9,
+    "simulation_only": true,
+    "formal_safety_guarantee": false,
+    "backend_sha256": "43650aaec0493b08b002cb4e68f4d2798bc90d3a52e11ded7694ea800194d552"
+  },
+  "input_run": "/mnt/e/codex-artifacts/native23_preview_repair_20260913/strict_newer_v1",
+  "delay_schedule": "alternating_0_12ms",
+  "total_requested_controls": 8030,
+  "total_seconds": 160.6,
+  "terminal_hold_seconds": 30,
+  "source_files": [
+    {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/artifacts/onboard_inspection_20260912/run_sustained_braking.py",
+      "sha256": "c278cbe5db094446059e3c89853b071ddff20fa0b32840357c13cd8252f83b8f"
+    },
+    {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_sustained_braking.py",
+      "sha256": "1397b5e6ded2edb9e7f5dcf819db3c5bb9d80750d7510b785a3526fe93355b9a"
+    },
+    {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/native23_sustained_prediction.c",
+      "sha256": "a42c31f331e1d3a9cad8fe10498e16a9860c88ad1c97a560637fb6192c625bfd"
+    },
+    {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_native_targets.py",
+      "sha256": "92f176e79db785358b6f4c55ece93083bb91b4f11d88d38cf3ff4a1f56bcf88a"
+    },
+    {
+      "path": "/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/utils/g1_true23_controller_state.py",
+      "sha256": "80b0202f1742c55b2433e89d248188f42e83835f781b8f069ab3d78d6da5c6e5"
+    }
+  ],
+  "stopping_rule": "One fixed design, original-start full-motion attempt; stop on strict rejection or physical failure. No tuning after outcome.",
+  "current_prediction_initialization": "fresh MjData q/v and mj_forward; no plant warmstart used by filter",
+  "continuation": "same captured shoulder goal, bias-compensated acceleration feedback recomputed every 20ms; other 22 current actor targets held fixed",
+  "terminal_condition": "shoulder margin >=.02rad and abs speed <=.25rad/s at both 60ms and 80ms",
+  "scope": "49 current/next delay pairs, next delay held for third/fourth update; not all longer jitter sequences",
+  "timing_qualified": false
+}
