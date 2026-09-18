@@ -45,7 +45,10 @@ list(REMOVE_ITEM PROJECT_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/g1_true23_live_sha
 list(REMOVE_ITEM PROJECT_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/g1_true23_active_gantry.cpp)
 list(REMOVE_ITEM PROJECT_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/g1_true23_native124_active_gantry.cpp)
 list(REMOVE_ITEM PROJECT_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/g1_true23_gantry_hold_smoke.cpp)
+list(REMOVE_ITEM PROJECT_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/g1_true23_bfm_lowcmd_loop.cpp)
 list(REMOVE_ITEM PROJECT_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/g1_mode_probe.cpp)
+list(REMOVE_ITEM PROJECT_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/g1_restore_walkrun.cpp)
+list(REMOVE_ITEM PROJECT_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/g1_fsm_command.cpp)
 
 
 # Optional AddressSanitizer support
@@ -398,6 +401,36 @@ set_target_properties(
     CXX_STANDARD_REQUIRED ON
     CXX_EXTENSIONS OFF)
 
+add_executable(
+  g1_fsm_command
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/g1_fsm_command.cpp)
+target_link_libraries(g1_fsm_command PRIVATE unitree_sdk2)
+set_target_properties(
+  g1_fsm_command
+  PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/target/release/"
+    OUTPUT_NAME g1_fsm_command
+    BUILD_RPATH "/usr/local/lib;/usr/local/lib64"
+    INSTALL_RPATH "/usr/local/lib;/usr/local/lib64"
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED ON
+    CXX_EXTENSIONS OFF)
+
+add_executable(
+  g1_restore_walkrun
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/g1_restore_walkrun.cpp)
+target_link_libraries(g1_restore_walkrun PRIVATE unitree_sdk2)
+set_target_properties(
+  g1_restore_walkrun
+  PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/target/release/"
+    OUTPUT_NAME g1_restore_walkrun
+    BUILD_RPATH "/usr/local/lib;/usr/local/lib64"
+    INSTALL_RPATH "/usr/local/lib;/usr/local/lib64"
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED ON
+    CXX_EXTENSIONS OFF)
+
 # Separate pinned native124 stage-one gantry runtime. It reuses the reviewed
 # active safety core but cannot accept causal-pair promotion artifacts.
 add_executable(
@@ -501,6 +534,34 @@ set_target_properties(
     CXX_STANDARD 20
     CXX_STANDARD_REQUIRED ON
     CXX_EXTENSIONS OFF)
+
+# Fix 4 timing qualification path.  This is deliberately a replay-only loop:
+# it can publish only to the domain-232 loopback timing topic, never rt/lowcmd.
+add_executable(
+  g1_true23_bfm_lowcmd_loop
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/g1_true23_bfm_lowcmd_loop.cpp)
+target_include_directories(
+  g1_true23_bfm_lowcmd_loop
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/ ${ZMQ_INCLUDE_DIR})
+target_link_libraries(
+  g1_true23_bfm_lowcmd_loop
+  PRIVATE unitree_sdk2 Threads::Threads ${ZMQ_LIBRARY})
+target_compile_options(
+  g1_true23_bfm_lowcmd_loop
+  PRIVATE -fno-fast-math -fno-finite-math-only)
+set_target_properties(
+  g1_true23_bfm_lowcmd_loop
+  PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/target/release/"
+    OUTPUT_NAME g1_true23_bfm_lowcmd_loop
+    BUILD_RPATH "/usr/local/lib;/usr/local/lib64"
+    INSTALL_RPATH "/usr/local/lib;/usr/local/lib64"
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED ON
+    CXX_EXTENSIONS OFF)
+add_test(
+  NAME true23_bfm_lowcmd_loop_help
+  COMMAND g1_true23_bfm_lowcmd_loop --help)
 add_test(
   NAME true23_gantry_hold_smoke_help
   COMMAND g1_true23_gantry_hold_smoke --help)

@@ -12,6 +12,8 @@
 #include <unitree/robot/channel/channel_subscriber.hpp>
 #include <unitree/robot/channel/channel_factory.hpp>
 #include <zmq.h>
+#include <mujoco/mujoco.h>
+#include <Eigen/Dense>
 
 #include <algorithm>
 #include <array>
@@ -50,6 +52,7 @@ inline constexpr std::uint32_t kStateMagic = 0x34535442U;   // BTS4
 inline constexpr std::uint32_t kTargetMagic = 0x34544742U;  // BGT4
 inline constexpr std::size_t kJoints = 23;
 inline constexpr std::int64_t kPeriodNs = 2'000'000;
+inline constexpr std::size_t kSolePoints = 8;
 
 #pragma pack(push, 1)
 struct ReplayHeader {
@@ -86,12 +89,35 @@ struct TargetWire {
   std::array<float, kJoints> kp;
   std::array<float, kJoints> kd;
 };
+
+// This uses double intentionally. The estimator state must cross the process
+// boundary without converting through the float32 LowState-shaped sample.
+struct EstimatorSnapshotWire {
+  std::array<double, 3> position_start;
+  std::array<double, 3> velocity_start;
+  std::array<double, 3> accel_bias_body;
+  std::array<double, 4> quaternion_start;
+  std::array<double, kSolePoints> support_weights;
+  double timestamp_s;
+};
+
+struct StateWire {
+  std::uint32_t magic;
+  std::uint32_t version;
+  std::uint64_t sequence;
+  std::uint64_t sent_mono_ns;
+  std::uint64_t sent_wall_ns;
+  ReplaySample sample;
+  EstimatorSnapshotWire estimator;
+};
 #pragma pack(pop)
 
 static_assert(std::is_trivially_copyable_v<ReplaySample>);
 static_assert(std::is_trivially_copyable_v<TargetWire>);
 static_assert(sizeof(ReplaySample) == 232);
 static_assert(sizeof(TargetWire) == 308);
+static_assert(sizeof(EstimatorSnapshotWire) == 176);
+static_assert(sizeof(StateWire) == 440);
 
 std::uint32_t Crc32(const void* bytes, std::uint32_t words) {
   const auto* input = static_cast<const std::uint8_t*>(bytes);
@@ -197,15 +223,182 @@ class DdsSampleSource final : public SampleSource {
   std::shared_ptr<unitree::robot::ChannelSubscriber<LowState>> subscriber_;
 };
 
+class Native23ImuOdometry final {
+ public:
+  explicit Native23ImuOdometry(const std::string& model_path) {
+    char error[1024]{};
+    model_ = mj_loadModel(model_path.c_str(), nullptr);
+    if (model_ == nullptr) throw std::runtime_error("cannot load compiled MuJoCo model: " + model_path);
+    if (model_->nq != 30 || model_->nv != 29 || model_->nu != 23) throw std::runtime_error("odometry model is not native23");
+    data_ = mj_makeData(model_);
+    if (data_ == nullptr) throw std::runtime_error("mj_makeData failed");
+    gravity_ = Eigen::Map<const Eigen::Vector3d>(model_->opt.gravity);
+    const int site = mj_name2id(model_, mjOBJ_SITE, "imu_in_pelvis");
+    if (site < 0) throw std::runtime_error("imu_in_pelvis site missing");
+    imu_offset_ = Eigen::Map<const Eigen::Vector3d>(model_->site_pos + 3 * site);
+    const mjtNum* site_quat = model_->site_quat + 4 * site;
+    if (std::abs(site_quat[0] - 1.0) > 1e-12 || std::abs(site_quat[1]) > 1e-12 ||
+        std::abs(site_quat[2]) > 1e-12 || std::abs(site_quat[3]) > 1e-12) {
+      throw std::runtime_error("imu site rotation differs from identity");
+    }
+    int point_index = 0;
+    for (const char* side : {"left", "right"}) {
+      const std::string body_name = std::string(side) + "_ankle_roll_link";
+      const int body = mj_name2id(model_, mjOBJ_BODY, body_name.c_str());
+      if (body < 0) throw std::runtime_error("sole body missing: " + body_name);
+      int count = 0;
+      for (int geom = 0; geom < model_->ngeom; ++geom) {
+        if (model_->geom_bodyid[geom] != body || model_->geom_type[geom] != mjGEOM_SPHERE || model_->geom_contype[geom] == 0) continue;
+        if (point_index == static_cast<int>(kSolePoints)) throw std::runtime_error("too many sole points");
+        point_bodies_[point_index] = body;
+        points_[point_index] = Eigen::Map<const Eigen::Vector3d>(model_->geom_pos + 3 * geom);
+        radii_[point_index] = model_->geom_size[3 * geom];
+        ++point_index; ++count;
+      }
+      if (count != 4) throw std::runtime_error("four sole points required per foot");
+    }
+  }
+
+  ~Native23ImuOdometry() {
+    if (data_ != nullptr) mj_deleteData(data_);
+    if (model_ != nullptr) mj_deleteModel(model_);
+  }
+
+  Native23ImuOdometry(const Native23ImuOdometry&) = delete;
+  Native23ImuOdometry& operator=(const Native23ImuOdometry&) = delete;
+
+  EstimatorSnapshotWire Update(const ReplaySample& sample) {
+    const double timestamp = sample.timestamp_s;
+    if (!std::isfinite(timestamp)) throw std::runtime_error("nonfinite odometry timestamp");
+    Eigen::Vector4d quat;
+    for (int i = 0; i < 4; ++i) quat[i] = sample.quat[i];
+    Eigen::Vector3d omega, specific;
+    for (int i = 0; i < 3; ++i) { omega[i] = sample.gyro[i]; specific[i] = sample.accel[i]; }
+    const double norm = quat.norm();
+    if (!std::isfinite(norm) || norm < 1e-8 || !omega.allFinite() || !specific.allFinite()) throw std::runtime_error("nonfinite odometry sample");
+    quat /= norm;
+    const bool first = !has_timestamp_;
+    const double dt = first ? 0.0 : timestamp - timestamp_;
+    if (!first && !(dt > 0.0 && dt <= .050)) throw std::runtime_error("nonmonotonic or stale odometry sample");
+    if (first) {
+      const Eigen::Matrix3d rotation = QuaternionMatrix(quat);
+      const double yaw = std::atan2(rotation(1, 0), rotation(0, 0));
+      initial_heading_ << std::cos(yaw / 2.0), 0.0, 0.0, -std::sin(yaw / 2.0);
+    }
+    quaternion_start_ = QuaternionMultiply(initial_heading_, quat);
+    const Eigen::Matrix3d rotation = QuaternionMatrix(quaternion_start_);
+
+    std::fill_n(data_->qpos, 3, 0.0);
+    for (int i = 0; i < 4; ++i) data_->qpos[3 + i] = quaternion_start_[i];
+    for (int i = 0; i < 23; ++i) data_->qpos[7 + i] = sample.q[i];
+    std::fill_n(data_->qvel, 3, 0.0);
+    for (int i = 0; i < 3; ++i) data_->qvel[3 + i] = omega[i];
+    for (int i = 0; i < 23; ++i) data_->qvel[6 + i] = sample.dq[i];
+    mj_kinematics(model_, data_); mj_comPos(model_, data_);
+
+    Eigen::Matrix<double, kSolePoints, 3> offsets, relative_velocity;
+    for (int i = 0; i < static_cast<int>(kSolePoints); ++i) {
+      const int body = point_bodies_[i];
+      const Eigen::Map<const Eigen::Vector3d> xpos(data_->xpos + 3 * body);
+      const Eigen::Map<const Eigen::Matrix<double, 3, 3, Eigen::RowMajor>> xmat(data_->xmat + 9 * body);
+      const Eigen::Vector3d offset = xpos + xmat * points_[i];
+      offsets.row(i) = offset.transpose();
+      mj_jac(model_, data_, jacp_.data(), jacr_.data(), offset.data(), body);
+      relative_velocity.row(i) = (jacp_ * Eigen::Map<const Eigen::Matrix<double, 29, 1>>(data_->qvel)).transpose();
+    }
+    if (first) position_[2] = -(offsets.col(2).array() - radii_.array()).minCoeff();
+    const Eigen::Vector3d previous_velocity = x_.head<3>();
+    if (!first) {
+      const Eigen::Vector3d alpha = (omega - previous_gyro_) / dt;
+      const double mix = dt / (.020 + dt);
+      filtered_alpha_ = (1.0 - mix) * filtered_alpha_ + mix * alpha;
+      const Eigen::Vector3d lever = filtered_alpha_.cross(imu_offset_) + omega.cross(omega.cross(imu_offset_));
+      const Eigen::Vector3d acceleration = rotation * (specific - lever - x_.tail<3>()) + gravity_;
+      x_.head<3>() += acceleration * dt;
+      Eigen::Matrix<double, 6, 6> transition = Eigen::Matrix<double, 6, 6>::Identity();
+      transition.block<3, 3>(0, 3) = -rotation * dt;
+      Eigen::Matrix<double, 6, 6> process = Eigen::Matrix<double, 6, 6>::Zero();
+      for (int i = 0; i < 3; ++i) { process(i, i) = .20 * .20 * dt * dt; process(i + 3, i + 3) = .001 * .001 * dt; }
+      covariance_ = transition * covariance_ * transition.transpose() + process;
+    }
+    const Eigen::Matrix<double, kSolePoints, 1> height = (offsets.col(2).array() - radii_.array() - (offsets.col(2).array() - radii_.array()).minCoeff()).matrix();
+    Eigen::Matrix<double, kSolePoints, 1> speed;
+    std::array<bool, kSolePoints> active{};
+    for (int i = 0; i < static_cast<int>(kSolePoints); ++i) {
+      speed[i] = (relative_velocity.row(i).transpose() + x_.head<3>()).norm();
+      active[i] = height[i] <= (previous_active_[i] ? .020 : .012) && speed[i] <= (previous_active_[i] ? .40 : .30);
+    }
+    weights_.setZero();
+    bool any_active = std::any_of(active.begin(), active.end(), [](bool value) { return value; });
+    if (any_active) {
+      double sum = 0.0;
+      for (int i = 0; i < static_cast<int>(kSolePoints); ++i) {
+        weights_[i] = active[i] ? std::exp(-std::pow(height[i] / .0075, 2) - std::pow(speed[i] / .12, 2)) : 0.0;
+        sum += weights_[i];
+      }
+      if (sum > 1e-20) {
+        weights_ /= sum;
+        Eigen::Vector3d measured_velocity = Eigen::Vector3d::Zero();
+        for (int i = 0; i < static_cast<int>(kSolePoints); ++i) measured_velocity += -relative_velocity.row(i).transpose() * weights_[i];
+        double scatter = 0.0;
+        for (int i = 0; i < static_cast<int>(kSolePoints); ++i) scatter += weights_[i] * (-relative_velocity.row(i).transpose() - measured_velocity).squaredNorm();
+        const Eigen::Matrix3d observed_cov = Eigen::Matrix3d::Identity() * (.025 * .025 + scatter);
+        const Eigen::Matrix<double, 3, 6> h = (Eigen::Matrix<double, 3, 6>() << Eigen::Matrix3d::Identity(), Eigen::Matrix3d::Zero()).finished();
+        const Eigen::Matrix3d innovation = h * covariance_ * h.transpose() + observed_cov;
+        const Eigen::Matrix<double, 6, 3> gain = innovation.ldlt().solve(h * covariance_).transpose();
+        x_ += gain * (measured_velocity - x_.head<3>());
+        const Eigen::Matrix<double, 6, 6> correction = Eigen::Matrix<double, 6, 6>::Identity() - gain * h;
+        covariance_ = correction * covariance_ * correction.transpose() + gain * observed_cov * gain.transpose();
+      } else { active.fill(false); any_active = false; }
+    }
+    if (!any_active) ++no_contact_updates_;
+    if (!first) position_ += .5 * (previous_velocity + x_.head<3>()) * dt;
+    previous_active_ = active; previous_gyro_ = omega; timestamp_ = timestamp; has_timestamp_ = true; ++updates_;
+    if (!x_.allFinite() || !position_.allFinite()) throw std::runtime_error("nonfinite odometry estimate");
+    EstimatorSnapshotWire result{};
+    for (int i = 0; i < 3; ++i) { result.position_start[i] = position_[i]; result.velocity_start[i] = x_[i]; result.accel_bias_body[i] = x_[i + 3]; }
+    for (int i = 0; i < 4; ++i) result.quaternion_start[i] = quaternion_start_[i];
+    for (int i = 0; i < static_cast<int>(kSolePoints); ++i) result.support_weights[i] = weights_[i];
+    result.timestamp_s = timestamp_;
+    return result;
+  }
+
+ private:
+  static Eigen::Vector4d QuaternionMultiply(const Eigen::Vector4d& left, const Eigen::Vector4d& right) {
+    const double w1 = left[0], x1 = left[1], y1 = left[2], z1 = left[3];
+    const double w2 = right[0], x2 = right[1], y2 = right[2], z2 = right[3];
+    return Eigen::Vector4d(w1*w2-x1*x2-y1*y2-z1*z2, w1*x2+x1*w2+y1*z2-z1*y2, w1*y2-x1*z2+y1*w2+z1*x2, w1*z2+x1*y2-y1*x2+z1*w2);
+  }
+  static Eigen::Matrix3d QuaternionMatrix(Eigen::Vector4d value) {
+    value /= value.norm(); const double w=value[0], x=value[1], y=value[2], z=value[3];
+    Eigen::Matrix3d result;
+    result << 1-2*(y*y+z*z), 2*(x*y-w*z), 2*(x*z+w*y), 2*(x*y+w*z), 1-2*(x*x+z*z), 2*(y*z-w*x), 2*(x*z-w*y), 2*(y*z+w*x), 1-2*(x*x+y*y);
+    return result;
+  }
+  mjModel* model_ = nullptr; mjData* data_ = nullptr;
+  Eigen::Vector3d gravity_, imu_offset_, position_ = Eigen::Vector3d::Zero(), previous_gyro_ = Eigen::Vector3d::Zero(), filtered_alpha_ = Eigen::Vector3d::Zero();
+  Eigen::Vector4d initial_heading_ = Eigen::Vector4d::Zero(), quaternion_start_ = Eigen::Vector4d::Zero();
+  Eigen::Matrix<double, 6, 1> x_ = Eigen::Matrix<double, 6, 1>::Zero();
+  Eigen::Matrix<double, 6, 6> covariance_ = (Eigen::Matrix<double, 6, 1>() << .02*.02, .02*.02, .02*.02, .10*.10, .10*.10, .10*.10).finished().asDiagonal();
+  // mj_jac fills C-order (3, nv), as does the NumPy scratch array in the
+  // reference implementation.  The row-major storage is therefore part of
+  // equivalence, not merely an optimisation choice.
+  Eigen::Matrix<double, 3, 29, Eigen::RowMajor> jacp_ = Eigen::Matrix<double, 3, 29, Eigen::RowMajor>::Zero(), jacr_ = Eigen::Matrix<double, 3, 29, Eigen::RowMajor>::Zero();
+  std::array<int, kSolePoints> point_bodies_{}; std::array<Eigen::Vector3d, kSolePoints> points_{}; Eigen::Matrix<double, kSolePoints, 1> radii_ = Eigen::Matrix<double, kSolePoints, 1>::Zero(), weights_ = Eigen::Matrix<double, kSolePoints, 1>::Zero();
+  std::array<bool, kSolePoints> previous_active_{}; double timestamp_ = 0.0; bool has_timestamp_ = false; std::uint64_t updates_ = 0, no_contact_updates_ = 0;
+};
+
 struct Arguments {
   std::string source = "replay";
   std::string replay;
   std::string initial_command;
+  std::string model;
   std::string state_endpoint;
   std::string target_endpoint;
   std::string output;
   std::uint64_t ticks = 0;
   bool lockstep = false;
+  bool record_estimator_snapshots = false;
 };
 
 Arguments Parse(int argc, char** argv) {
@@ -219,21 +412,24 @@ Arguments Parse(int argc, char** argv) {
     if (option == "--help" || option == "-h") {
       std::cout << "Fix 5 native 500 Hz loop. LowCmd DDS is compiled to domain 232, lo, and a test-only topic.\n"
                    "--source <replay|dds> --replay <flat.bin> --initial-command <command.bin> "
+                   "--model <compiled.mjb> "
                    "--state-endpoint <tcp://bind-address:port> --target-endpoint <tcp://bind-address:port> "
                    "--output <dir> [--ticks N] [--lockstep]\n";
       std::exit(0);
     } else if (option == "--source") result.source = value(index, option);
     else if (option == "--replay") result.replay = value(index, option);
     else if (option == "--initial-command") result.initial_command = value(index, option);
+    else if (option == "--model") result.model = value(index, option);
     else if (option == "--state-endpoint") result.state_endpoint = value(index, option);
     else if (option == "--target-endpoint") result.target_endpoint = value(index, option);
     else if (option == "--output") result.output = value(index, option);
     else if (option == "--ticks") result.ticks = std::stoull(value(index, option));
     else if (option == "--lockstep") result.lockstep = true;
+    else if (option == "--record-estimator-snapshots") result.record_estimator_snapshots = true;
     else throw std::runtime_error("unknown option: " + option);
   }
   if ((result.source != "replay" && result.source != "dds") ||
-      (result.source == "replay" && result.replay.empty()) || result.initial_command.empty() || result.state_endpoint.empty() ||
+      (result.source == "replay" && result.replay.empty()) || result.initial_command.empty() || result.model.empty() || result.state_endpoint.empty() ||
       result.target_endpoint.empty() || result.output.empty()) throw std::runtime_error("required argument missing");
   const auto is_tcp = [](const std::string& endpoint) { return endpoint.rfind("tcp://", 0) == 0; };
   if (!is_tcp(result.state_endpoint) || !is_tcp(result.target_endpoint))
@@ -280,6 +476,7 @@ void SummaryJson(std::ofstream& report, std::string_view name, const std::vector
 int Run(const Arguments& args) {
   std::filesystem::create_directories(args.output);
   InitialCommand command = LoadInitial(args.initial_command);
+  Native23ImuOdometry estimator(args.model);
   sched_param fifo{}; fifo.sched_priority = 10;
   if (sched_setscheduler(0, SCHED_FIFO, &fifo) != 0) std::cerr << "SCHED_FIFO unavailable: " << std::strerror(errno) << "\n";
 
@@ -314,6 +511,12 @@ int Run(const Arguments& args) {
   std::ofstream ticks(args.output + "/loop_ticks.csv");
   if (!ticks) throw std::runtime_error("cannot create loop_ticks.csv");
   ticks << "tick,start_lateness_ms,work_ms,send_gap_ms,target_age_ms,ipc_round_trip_ms\n";
+  std::ofstream snapshots;
+  if (args.record_estimator_snapshots) {
+    snapshots.open(args.output + "/estimator_snapshots.csv");
+    if (!snapshots) throw std::runtime_error("cannot create estimator_snapshots.csv");
+    snapshots << std::setprecision(17) << "tick,position_x,position_y,position_z,velocity_x,velocity_y,velocity_z,bias_x,bias_y,bias_z,quat_w,quat_x,quat_y,quat_z,weight_0,weight_1,weight_2,weight_3,weight_4,weight_5,weight_6,weight_7,timestamp_s\n";
+  }
   std::vector<double> lateness, work, gaps, ages, round_trips;
   std::uint64_t missed = 0, dropped_state = 0, received_targets = 0;
   std::uint64_t sequence = 0, last_target_sequence = std::numeric_limits<std::uint64_t>::max();
@@ -329,21 +532,26 @@ int Run(const Arguments& args) {
     ReplaySample sample{};
     const bool have_sample = source->Next(sample);
     if (!have_sample && args.source == "replay") break;
-    std::array<std::byte, sizeof(std::uint32_t) * 2 + sizeof(std::uint64_t) * 3 + sizeof(ReplaySample)> state{};
-    std::byte* cursor = state.data();
-    const std::uint32_t state_magic = kStateMagic, version = 1;
-    std::memcpy(cursor, &state_magic, sizeof(state_magic)); cursor += sizeof(state_magic);
-    std::memcpy(cursor, &version, sizeof(version)); cursor += sizeof(version);
-    std::memcpy(cursor, &sequence, sizeof(sequence)); cursor += sizeof(sequence);
-    const std::uint64_t sent_mono = static_cast<std::uint64_t>(MonotonicNs());
-    std::memcpy(cursor, &sent_mono, sizeof(sent_mono)); cursor += sizeof(sent_mono);
-    const std::uint64_t sent_wall = static_cast<std::uint64_t>(RealtimeNs());
-    std::memcpy(cursor, &sent_wall, sizeof(sent_wall)); cursor += sizeof(sent_wall);
-    std::memcpy(cursor, &sample, sizeof(sample));
+    EstimatorSnapshotWire snapshot{};
+    if (have_sample) snapshot = estimator.Update(sample);
+    StateWire state{};
+    state.magic = kStateMagic; state.version = 2; state.sequence = sequence;
+    state.sent_mono_ns = static_cast<std::uint64_t>(MonotonicNs());
+    state.sent_wall_ns = static_cast<std::uint64_t>(RealtimeNs());
+    state.sample = sample; state.estimator = snapshot;
     if (have_sample) {
-      if (zmq_send(state_socket, state.data(), state.size(), ZMQ_DONTWAIT) < 0 && errno == EAGAIN) ++dropped_state;
-      state_sent_mono_ns.push_back(sent_mono);
+      if (zmq_send(state_socket, &state, sizeof(state), ZMQ_DONTWAIT) < 0 && errno == EAGAIN) ++dropped_state;
+      state_sent_mono_ns.push_back(state.sent_mono_ns);
       ++sequence;
+    }
+    if (args.record_estimator_snapshots && have_sample && tick % 10 == 0) {
+      snapshots << tick;
+      for (double value : state.estimator.position_start) snapshots << ',' << value;
+      for (double value : state.estimator.velocity_start) snapshots << ',' << value;
+      for (double value : state.estimator.accel_bias_body) snapshots << ',' << value;
+      for (double value : state.estimator.quaternion_start) snapshots << ',' << value;
+      for (double value : state.estimator.support_weights) snapshots << ',' << value;
+      snapshots << ',' << state.estimator.timestamp_s << '\n';
     }
 
     TargetWire incoming{};

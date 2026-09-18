@@ -1047,3 +1047,177 @@ running on the Orin under `nohup`.
 `ssh unitree@192.168.123.164 'pkill -f bfm_orin_bench; rm -rf /home/unitree/bfm_orin_bench'`
 The separate, working Fix 5 loop deployment at `/home/unitree/bfm_teleop_fix5/`
 should be kept.
+
+### 2026-09-18 — C: freed, and the effect on the 50 Hz stalls
+
+The Windows system drive had 0.53 GB free of 295 GB, which is a credible cause of
+the intermittent ~100 ms process stalls. Two steps were taken.
+
+Codex removed only regenerable caches and completed crash dumps (Gradle, Cargo,
+Conda, dump files), reclaiming about 7.7 GB and reaching 7.99 GB free. It
+classified everything else as needing a decision and deleted none of it.
+
+`C:\Users\camer\sonic23_sim_artifacts` (6,091 files, 47,390,816,502 bytes) was
+then moved to `N:\sonic23_sim_artifacts` and replaced with a directory junction
+at the original path. The copy was verified to match exactly on file count and
+total bytes before the source was removed. **C: now has 52.2 GB free.** The
+hard-coded `C:\Users\camer\sonic23_sim_artifacts\...` paths in the BFM evaluators
+continue to resolve, and the observable evaluator reproduces walk002 exactly
+(leg 0.18202273382760834, arm 0.04273216819201739, root p95 0.36741054963315306).
+
+**Effect on the stalls, measured locally** (the robot Ethernet cable is
+disconnected, so the 500 Hz loop ran in WSL on this same PC, which adds local
+load the robot-hosted runs do not have):
+
+| BFM 50 Hz on Windows | Before (quiet, robot-hosted loop) | After cleanup (WSL-hosted loop) |
+|---|---:|---:|
+| Deadline misses | 17 | **7** |
+| Work p50 / p95 | 12.17 / 14.10 ms | 12.92 / 14.01 ms |
+| Work max | **118.45 ms** | **42.48 ms** |
+
+Teleop admission was perfect (5,780 accepted, 0 gate rejections, 5,773 policy
+updates), so the Fix 6 clock alignment holds.
+
+Disk pressure was a real contributor — the worst stall fell by roughly a factor
+of three — but it is not the whole cause. Seven late updates and a 42 ms stall
+remain. The clean comparison, with the loop back on the robot and no WSL load on
+this PC, needs the Ethernet cable reconnected.
+
+### 2026-09-18 — Full test sweep with the robot connected
+
+**Correction to earlier results: the robot's own software was not running during
+the first six "zero miss" runs.** The Orin had just booted (`uptime` 0 minutes)
+when those were measured. It now runs its normal stack — `livox_ros_drive` at
+about 115 percent CPU, plus `unitree_slam`, `map_management`, `path_management`,
+`pub_graph` and `videohub_pc4`, roughly 1.5 cores in total. The earlier figures
+were taken on an idle robot and were not representative.
+
+**Re-measured under that real load, the 500 Hz loop still holds**, 30 s alone,
+15,000 ticks each:
+
+| Placement | Misses | Gap p95 / max | Start max |
+|---|---:|---|---:|
+| unpinned | **0** | 2.021 / 2.262 ms | 0.152 ms |
+| `taskset -c 7` | **0** | 2.019 / 3.282 ms | 1.516 ms |
+| `taskset -c 6,7` | **0** | 2.021 / 2.853 ms | 0.931 ms |
+
+Pinning does not help and unpinned is best; the loop's own work peaks at 0.42 ms
+of its 2 ms period. The robot side is not the constraint.
+
+**Two full qualification attempts after the C: cleanup** (loop on the robot,
+policy on this PC):
+
+| Attempt / run | Robot 500 Hz misses; gap max | PC 50 Hz misses; work p50/p95/max |
+|---|---|---|
+| first, run_01 | 28; 57.500 ms | 13; 12.25/13.55/62.21 ms |
+| first, run_02 | 1; 4.594 ms | 361; 12.79/16.75/128.74 ms |
+| second, run_01 | **0**; 2.478 ms | 133; 13.45/15.88/51.33 ms |
+| second, run_02 | 1; 4.787 ms | 31; 13.01/14.75/52.30 ms |
+
+The robot loop's 28 misses in the first attempt coincided with the PC policy
+stalling badly in the same window; with the PC idle it returns to zero.
+
+**The PC-side miss count is unstable across runs — 7, 13, 31, 133, 361 — and the
+reason is margin.** BFM's 50 Hz step costs 13.0–13.5 ms at the median and
+14.7–15.9 ms at p95 against a 20 ms budget, leaving roughly 4 ms of headroom, so
+any Windows scheduling hiccup above that becomes a miss. Freeing C: removed the
+worst stalls (118 ms fell to 42–52 ms) but not the mechanism.
+
+**Functional state, all passing:**
+
+| Check | Result |
+|---|---|
+| Unit suites (stream/brake + LowCmd safety) | 39 passed |
+| Observable evaluator, walk002 ideal | completed 1417; leg 0.18202273382760834; arm 0.04273216819201739; root p95 0.36741054963315306 — matches exactly |
+| Stream `normal` | passed, 1824 controls, standing verified, zero range excess |
+| Stream `pause` | passed, fault latched, standing verified, zero range excess |
+| Stream `disconnect` | passed, fault latched, standing verified, zero range excess |
+| Stream `resume` | passed, fault latched, standing verified, zero range excess |
+
+**Remaining gap to a clean qualification is entirely the PC-side 50 Hz margin.**
+Two ways to widen it, in order of effect: move the estimator (about 5.3 ms of the
+13 ms) into the native 500 Hz loop on the robot, where the loop currently uses
+0.42 ms of its 2 ms period; or move the policy off Windows so that scheduling
+stalls of 40–60 ms stop happening at all.
+
+### 2026-09-18 — Fix 7: estimator on the robot
+
+**G1 maximum difference was `1.1435297153639112e-14`; the new policy-step p50/p95 was `7.532200004789047/10.240184975555167 ms` in qualification run 1 (`9.23480000346899/13.639785010309428 ms` in run 2); G5 did not pass.** This entry records an incomplete qualification, not approval to use the new path.
+
+**MuJoCo and model transfer.** Official MuJoCo 3.2.3 Linux aarch64 was downloaded directly on the Orin and unpacked privately at `/home/unitree/bfm_teleop_fix5/thirdparty/mujoco`; no source build, sudo, system installation, or change to `/home/unitree/g1_true23_onboard` occurred. The release library contains the verified `3.2.3` version string. On Windows, the BFM model was prepared through `prepare_true23_model` with its normal physics overrides, then saved through `mj_saveModel` as the 95 MB `g1_true23_bfm.mjb`. Its compiled-model SHA-256 is `ab505f992ce0f9da9d8df7bd9e983d5fd33459a045fb702054eb7c0c2a823253`. The copied MJB has exactly that SHA-256 on the Orin. This is an equivalent compiled-model identity check because the Python identity is the SHA-256 of the byte buffer emitted by `mj_saveModel`, and the transferred file is that same buffer. The mesh directory was not transferred.
+
+**Port and protocol.** `Native23ImuOdometry` is now a private C++ MuJoCo/Eigen component in the 500 Hz test loop. It loads only the compiled MJB; per tick it sets the FK scratch state, calls `mj_kinematics`, `mj_comPos`, and `mj_jac`, then performs the unchanged double-precision support selection, covariance, gain, rejection, and integration order. The state wire is version 2 and adds 22 float64 snapshot values: position, velocity, accelerometer bias, registered quaternion, eight support weights, and timestamp. The Windows policy defaults to that snapshot and neither constructs nor updates `Native23IMUOdometry` on that path; it still loads the model for the unchanged final-target brake. `--estimator-source python` remains the explicit rollback/comparison mode. The loop remains compiled to domain 232, loopback, and `rt/fix5_timing_no_robot_lowcmd`.
+
+**G1 passed.** The robot ran the first 57,800 samples (115.6 s) lock-step and wrote every 50 Hz snapshot. Maximum absolute differences versus Python were: position `3.885780586188048e-16`, velocity `3.3306690738754696e-16`, bias `2.3332030751888055e-16`, quaternion `2.220446049250313e-16`, support weights `1.1435297153639112e-14`, and timestamp `0.0`. No field exceeded `1e-9`.
+
+**G2 passed.** With native snapshots substituted in lock-step, all 5,780 emitted 23-joint targets matched the Python-estimator sequence exactly: maximum elementwise difference `0.0`; no first differing control.
+
+**G3 passed on the clean unpinned repeat.** The required 15,000-tick normal-load run had zero missed deadlines, work p95/max `0.162534/0.433423 ms`, and a `2.685409 ms` largest LowCmd gap. Two earlier diagnostics are retained as failures: the first wrote G1 CSV snapshots in the timed loop (986 misses), and the first clean repeat had 41 scheduling misses despite work p95 `0.15843765 ms`. Snapshot recording is now G1-only and never enabled in the timed path.
+
+**G4 passed.** Windows observable `walk002` ideal completed `1417` controls with leg `0.18202273382760834`, arm `0.04273216819201739`, and root p95 `0.36741054963315306`. Stream `walk002` normal passed with `1824` controls. The stream/brake suite and native LowCmd static safety test passed: `39 passed`.
+
+**G5 failed; criterion unchanged.** Fresh output at `E:\codex-artifacts\bfm_teleop_20260917\fix7\qualification` recorded both runs. The directly comparable pre-Fix-7 full-sweep runs were `13.45/15.88/51.33 ms` and `13.01/14.75/52.30 ms` policy-work p50/p95/max; after moving the estimator, run 1 was `7.532200004789047/10.240184975555167/23.27450001030229 ms` and run 2 was `9.23480000346899/13.639785010309428/21.26850001513958 ms`. Run 1 received 5,738 targets and had zero native misses with a `3.772580 ms` maximum LowCmd gap, but had 2 Windows 50 Hz misses. Run 2 received 5,480 targets, had 203 native misses and a `12.163688 ms` LowCmd gap, and had 4 Windows 50 Hz misses. The qualifying requirements remain at least 5,700 targets, zero 500 Hz misses, zero 50 Hz misses, and maximum LowCmd gap below 4 ms.
+
+**Removal and rollback.** To roll back policy computation without changing the native binary, run the split policy with `--estimator-source python`; version-2 messages still carry but ignore the native snapshot. To remove the private Fix 7 deployment only, remove `/home/unitree/bfm_teleop_fix5/thirdparty/mujoco`, `/home/unitree/bfm_teleop_fix5/source/g1_true23_bfm.mjb`, and the rebuilt Fix 5 deployment files; do not remove or modify `/home/unitree/g1_true23_onboard`.
+
+### 2026-09-18 — Fix 7: estimator on the robot, qualification addendum
+
+**G1 maximum difference was `1.1435297153639112e-14`; new policy step p50/p95 was `8.044499991228804/11.668369990366047 ms` in run 1 and `8.725599996978417/11.565829998289702 ms` in run 2; G5 did not pass.** This is the fresh output under `E:\codex-artifacts\bfm_teleop_20260917\fix7\g5_onboard_timing` and supplements the earlier Fix 7 timing attempt.
+
+The private official 3.2.3 aarch64 MuJoCo release and mesh-free MJB transfer remain as described above. The copied MJB SHA-256 is the Windows `compiled_model_sha256`, `ab505f992ce0f9da9d8df7bd9e983d5fd33459a045fb702054eb7c0c2a823253`. The C++ port calls `mj_kinematics`, `mj_comPos`, and `mj_jac` in the native 500 Hz loop, uses double/Eigen covariance algebra, and sends the complete float64 snapshot in version-2 state messages. The default policy consumes it; `--estimator-source python` remains rollback.
+
+G1 and G2 passed exactly as above. A production-path G3 repeat, with snapshot CSV recording disabled, passed: 15,000 ticks, zero misses, native work p95 `0.16944755 ms`, max `0.908512 ms`, and maximum LowCmd gap `2.824931 ms`. G4 passed unchanged: 39 tests including LowCmd safety, observable walk002 ideal `1417` / `0.18202273382760834` / `0.04273216819201739` / `0.36741054963315306`, and normal stream `1824` controls.
+
+G5 failed without changing its criterion. Run 1 had 5,537 targets, 47 native misses, 6 Windows misses, and a 7.863760 ms largest LowCmd gap; run 2 had 5,571 targets, 96 native misses, 1 Windows miss, and an 8.519113 ms largest gap. The policy work is materially lower than the pre-Fix-7 full-sweep p50/p95 figures (`13.45/15.88` and `13.01/14.75 ms`), but the native scheduling stalls and the remaining Windows misses mean the two-run qualification is not valid. No robot-facing topic or interface was used.
+
+### 2026-09-18 — Fix 7 follow-up: where the remaining misses actually come from
+
+**The native misses recorded in Fix 7's G5 are external CPU starvation on the Orin, not the ported estimator, and CPU pinning makes them worse rather than better.** The estimator port itself is sound: G1 agreed to `1.1435297153639112e-14`, G2 targets matched exactly, and the Windows policy step fell from `13.45/15.88 ms` p50/p95 to `7.53-8.73/10.24-11.67 ms`.
+
+**Miss pattern.** In `g5_onboard_timing`, the misses are not spread over the run; they are concentrated in a single burst each. Run 1 lost 45 of its 47 ticks between tick 13552 and tick 14712, a window of about 2.3 s, with only three isolated misses elsewhere. Run 2 lost 91 of 96 between tick 49321 and tick 49916, about 1.2 s. The loop's own work at every one of those ticks was at most `0.172 ms` against a 2 ms period, while start lateness reached `17.91 ms` in run 1 and `25.75 ms` in run 2. The loop was therefore ready and cheap, and simply was not scheduled.
+
+**Scheduling headroom is unavailable to us as an unprivileged user.** On the robot `ulimit -r` reports a soft and hard real-time priority limit of `0`, so `SCHED_FIFO` cannot be requested, and `sudo -n` fails because a password is required. The kernel command line contains no `isolcpus`. At the time of measurement `livox_ros_drive` was consuming about 115% CPU, with `videohub_pc4` at about 18% and a further Python process at about 15%.
+
+**Pinning was tested and rejected.** Three consecutive 57,800-tick runs under the same load, differing only in CPU affinity, gave: unpinned zero misses with start lateness max `1.059 ms`, work p95/max `0.164/1.434 ms` and largest LowCmd gap `3.380 ms`; `taskset -c 7` twenty misses with start lateness max `7.455 ms` and gap `9.423 ms`; `taskset -c 6,7` 1,471 misses with start lateness max `74.138 ms` and gap `25.572 ms`. The kernel's own balancing is better than any affinity mask we can impose, so affinity should not be used. The unpinned result also confirms that the configuration with the estimator inside the loop can meet the criterion when the machine is not busy.
+
+**Validity threshold caveat.** Both G5 runs were additionally marked invalid by the harness `targets_received >= 5700` rule. Run 1 recorded `policy_updates` of 5,539 against 5,780 nominal, so the policy's timed window began roughly 4.8 s after the loop's, and the threshold is not reachable under the current start sequencing regardless of jitter. The threshold needs to be derived from the measured overlap rather than fixed.
+
+**What remains.** Two independent jitter sources, neither of which is the estimator. On the robot, occasional multi-second starvation bursts that require real-time scheduling, which requires root on the robot. On this PC, Windows stalls that still put policy work max at `26.79 ms` and start lateness max at `15.42 ms` against a 20 ms budget, with 6 and 1 deadline misses in the two runs.
+
+### 2026-09-18 — Robot-side fix: real-time scheduling for the 500 Hz loop
+
+**Running the native loop under `SCHED_FIFO` priority 80 eliminates the starvation bursts completely: two consecutive 57,800-tick runs under the robot's normal load had zero deadline misses, start lateness maxima of `0.157 ms` and `0.086 ms`, and largest LowCmd gaps of `2.413 ms` and `2.356 ms`.** The directly comparable unprivileged run taken minutes earlier under the same load had 230 misses, start lateness max `25.230 ms`, and gap max `13.399 ms`.
+
+**Why it was not simply available.** The Orin kernel is built with `CONFIG_RT_GROUP_SCHED=y`, and `/sys/fs/cgroup/cpu,cpuacct/user.slice/cpu.rt_runtime_us` is `0`, so no process in any user session may run at a real-time policy — `chrt` fails with `Operation not permitted` even as root. The root cgroup holds the full `950000` of `1000000 us`, and `system.slice` is likewise `0`. The unprivileged `ulimit -r` of `0` is a second, independent barrier.
+
+**What was changed, and how to undo it.** One runtime value was written on the robot: `/sys/fs/cgroup/cpu,cpuacct/user.slice/cpu.rt_runtime_us` was set from `0` to `200000`, granting user sessions up to 200 ms of real-time CPU per 1 s period. Writing `0` back to that file restores the original state, and the value resets to `0` on reboot in any case, so it must be re-applied per boot. Nothing else on the robot was modified: no service, no unit file, no limits configuration, and nothing under `/home/unitree/g1_true23_onboard`. The loop was then started with `chrt -f 80`. The loop's duty cycle is about 8% of one core (work p95 `0.091-0.159 ms` per 2 ms period), well inside the granted bandwidth, and the kernel's real-time throttling remains in force as a backstop.
+
+**Follow-up needed.** Launching through `sudo chrt` requires the robot password at every run. The durable arrangement is to grant the loop binary `CAP_SYS_NICE` once with `setcap cap_sys_nice+ep`, and to have the loop call `sched_setscheduler` for itself at start-up, falling back to normal scheduling with a recorded warning when the capability or the cgroup bandwidth is absent. The per-boot `cpu.rt_runtime_us` grant is still required in that arrangement.
+
+**Also established.** CPU affinity is counterproductive on this machine and must not be used: at identical load, unpinned gave zero misses, `taskset -c 7` gave 20 misses with gap max `9.423 ms`, and `taskset -c 6,7` gave 1,471 misses with start lateness max `74.138 ms`.
+
+**Durable form, applied and measured.** The loop already attempted `sched_setscheduler(SCHED_FIFO, 10)` and `mlockall` at start-up and had been failing both, printing `SCHED_FIFO unavailable: Operation not permitted` and `mlockall unavailable: Cannot allocate memory` into its own stdout on every run since deployment. The second failure is a separate latent defect: the `memlock` limit is 64 MB while the compiled model alone is 95 MB, so no page of the loop, including the estimator's model, was ever locked. Granting the binary both capabilities once with `setcap cap_sys_nice,cap_ipc_lock+ep` makes its existing code path succeed with no source change and no `sudo` at run time. Measured immediately afterwards under load `4.66`: zero misses, start lateness max `0.046 ms`, work p95/max `0.096/0.454 ms`, largest LowCmd gap `2.378 ms`, and neither warning present. The existing `run_loop.sh` therefore now obtains real-time scheduling by itself.
+
+Two conditions must hold for this to keep working. The `cpu.rt_runtime_us` grant on `user.slice` is lost on reboot and must be re-applied. File capabilities are lost whenever the binary is rebuilt or replaced, so `setcap` must be re-applied after every deployment; the loop reports this itself, because the two start-up warnings reappear in its stdout when the capabilities are missing.
+
+### 2026-09-18 — Fix 8: the Windows stalls were start transients and idle-core wake-ups, and the qualification now passes
+
+**The two-run on-robot qualification passed for the first time: both runs valid, zero 500 Hz misses, zero 50 Hz misses, and largest LowCmd gaps of `2.386 ms` and `2.340 ms`.** Policy work p99 was `8.275 ms` and `8.329 ms` against a 20 ms budget, with maxima of `10.406 ms` and `10.820 ms` and start lateness maxima of `0.170 ms` and `0.359 ms`. Targets received were 5,764 and 5,758.
+
+**The stalls were not what they looked like.** With the per-control trace, a 5,780-control run had exactly one deadline miss, at control 0, whose work was `23.501 ms`; control 1 then inherited `14.360 ms` of start lateness. Every other control in that run peaked at `17.05 ms` of work and `1.08 ms` of lateness. So the budget was never structurally short after Fix 7; three separate start-up effects and one steady-state effect were being read as generic "Windows jitter".
+
+**First: the first control paid every lazy initialisation.** Control 0's phase accounting covered only `4.12 ms` of its `23.50 ms`, and its inference phase read `0.0 ms`, because `policy_step` returns immediately until the admission gate is ready. The measurement machinery's own first ctypes and query calls made up most of the rest. The policy now performs a complete warm-up before the timed clock starts: the telemetry counters are sampled three times, the first state message is decoded, and the BFM actor is driven once with correctly shaped inputs, including a zero 256-wide goal vector, followed by the brake and the target packing. It runs on throwaway copies — a copied history, a copied action, a fresh brake — and sends nothing, so no observable state changes.
+
+**Second: the first inference landed mid-run.** Because the gate only becomes ready once teleop packets arrive, the first real inference happened at control 7 and cost `59.12 ms` there. Driving the actor directly in the warm-up, rather than through `policy_step`, removes this; `policy_step`'s early return is what made a warm-up through it useless.
+
+**Third: the warm-up itself created a backlog.** Lowstates continue to arrive at 500 Hz while the warm-up runs, so control 0 opened by decoding everything that had queued — 227 messages in one run. The policy now drains to the newest state before starting the clock, which is what a control uses anyway, since the receive loop keeps only the last sample of its batch. With `--estimator-source python` the backlog is deliberately left in place, because that estimator integrates every sample.
+
+**Fourth: waiting let the cores sleep.** After the three fixes above, isolated controls still showed 9-11 ms of start lateness on a machine with about twelve idle cores and no competing process in the captured activity snapshots. The waitable timer was already the high-resolution variant, so the latency was the wake-up out of a deep idle state. `SimulationPacer` now takes an optional `spin_margin_s`: it waits as before up to that margin, then busy-waits the final stretch, keeping the thread runnable and the core awake. The policy exposes it as `--pacer-spin-ms`, default `0.0`, so every existing caller is unchanged; the qualification uses `1.0`.
+
+**Measured, three runs each on the local replay.** Baseline after Fix 7: 1, 0 and 2 misses, work p99 `8.67/8.38/8.21 ms`, start lateness max `2.88/1.01/7.73 ms`. With warm-up and drain: 0, 0 and 1 misses, p99 `8.48/8.33/8.14 ms`, lateness max `9.16/1.08/11.06 ms`. With the 1 ms spin added: 0, 0 and 0 misses, p99 `8.65/8.92/8.11 ms`, lateness p95 `0.00 ms` in all three and max `9.52/1.15/0.17 ms`.
+
+**What did not help, and is not used.** `REALTIME_PRIORITY_CLASS` with a time-critical thread, 0.5 ms timer resolution, and `OMP_WAIT_POLICY=PASSIVE`, tested together, left 1, 1 and 2 misses with control 0 still an outlier — that combination addresses neither the start transients nor the idle wake-up. CPU affinity was not adopted, consistent with the robot-side result where it was actively harmful.
+
+**Regressions unchanged.** Observable `walk002` ideal: completed `1417`, leg `0.18202273382760834`, arm `0.04273216819201739`, root p95 `0.36741054963315306`, matching to every digit. Stream `walk002` normal: `1824` controls, no latched fault, no physical failure, full source consumption. Unit suites including the native LowCmd static safety test: `39 passed`.
+
+**Note on the robot precondition.** The robot had rebooted before this qualification, so `cpu.rt_runtime_us` on `user.slice` was back to `0` and had to be re-granted; the binary's file capabilities survived, as expected. `gear_sonic/scripts/orin_enable_realtime.sh` applies both. Without the grant the native loop starves and the qualification fails for reasons that have nothing to do with the policy.

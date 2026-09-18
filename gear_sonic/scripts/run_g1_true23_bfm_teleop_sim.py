@@ -158,13 +158,15 @@ class WindowsRealtimeScope:
         self.kernel.SetProcessAffinityMask.argtypes = [wintypes.HANDLE, ctypes.c_size_t]
         self.kernel.SetProcessAffinityMask.restype = wintypes.BOOL
         self.process = self.kernel.GetCurrentProcess()
-        if self.priority == "high":
+        if self.priority in ("high", "realtime"):
             self.old_priority = self.kernel.GetPriorityClass(self.process)
-            if not self.old_priority or not self.kernel.SetPriorityClass(self.process, 0x00000080):
+            priority_class = 0x00000100 if self.priority == "realtime" else 0x00000080
+            if not self.old_priority or not self.kernel.SetPriorityClass(self.process, priority_class):
                 raise ctypes.WinError(ctypes.get_last_error())
             self.thread = self.kernel.GetCurrentThread()
             self.old_thread_priority = self.kernel.GetThreadPriority(self.thread)
-            if self.old_thread_priority == 0x7FFFFFFF or not self.kernel.SetThreadPriority(self.thread, 2):
+            thread_priority = 15 if self.priority == "realtime" else 2
+            if self.old_thread_priority == 0x7FFFFFFF or not self.kernel.SetThreadPriority(self.thread, thread_priority):
                 raise ctypes.WinError(ctypes.get_last_error())
         if self.affinity == "role-separated":
             process_mask = ctypes.c_size_t()
@@ -228,6 +230,15 @@ def publish(args):
     socket.linger = 0
     socket.bind(args.endpoint)
     try:
+        if args.ready_file is not None:
+            args.ready_file.parent.mkdir(parents=True, exist_ok=True)
+            args.ready_file.write_text(json.dumps({"pid": os.getpid(), "state": "bound_and_source_loaded"}) + "\n")
+        if args.start_file is not None:
+            deadline = time.monotonic() + args.start_timeout_seconds
+            while not args.start_file.exists():
+                if time.monotonic() >= deadline:
+                    raise TimeoutError(f"publisher start barrier was not released: {args.start_file}")
+                time.sleep(0.01)
         # Bind before waiting so an already-started subscriber can complete its
         # subscription handshake.  The source clock itself begins after delay.
         if args.start_delay:
@@ -528,6 +539,9 @@ def main():
     pub.add_argument("--fault-at", type=float, default=9.0)
     pub.add_argument("--fault-duration", type=float, default=0.5)
     pub.add_argument("--start-delay", type=float, default=0.0)
+    pub.add_argument("--ready-file", type=Path, help="write after the PUB socket is bound and source data is loaded")
+    pub.add_argument("--start-file", type=Path, help="do not begin the source clock until this barrier file exists")
+    pub.add_argument("--start-timeout-seconds", type=float, default=60.0)
     pub.add_argument("--data-root", type=Path, help="explicit reference-data root; required for WSL replay")
     pub.add_argument("--realtime-priority", choices=("normal", "high"), default="high")
     pub.add_argument("--affinity", choices=("none", "role-separated"), default="none")

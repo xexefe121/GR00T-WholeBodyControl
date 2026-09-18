@@ -44,6 +44,9 @@ for ($index = 1; $index -le $RunCount; $index++) {
     $run = Join-Path $Output $name
     $native = Join-Path $run 'native'
     $policyDir = Join-Path $run 'policy'
+    $policyReady = Join-Path $run 'policy_initialized.json'
+    $publisherReady = Join-Path $run 'publisher_bound.json'
+    $sourceStart = Join-Path $run 'release_source_clock'
     New-Item -ItemType Directory -Path $native | Out-Null
     $remoteRun = "$remoteRoot/runs/$name"
     $runStatePort = $StatePort + 10 * $index
@@ -55,16 +58,26 @@ for ($index = 1; $index -le $RunCount; $index++) {
         '-m','gear_sonic.scripts.run_g1_true23_bfm_split_policy','run',
         '--placement','windows','--state-endpoint',$state,'--target-endpoint',$target,
         '--teleop-endpoint',"tcp://127.0.0.1:$runTeleopPort",'--output',$policyDir,
-        '--duration-seconds','115.6','--priority','high','--torch-threads','4'
+        '--duration-seconds','115.6','--priority','high','--torch-threads','4','--pacer-spin-ms','1.0',
+        '--ready-file',$policyReady
     ) -WorkingDirectory $repo -PassThru -RedirectStandardOutput (Join-Path $run 'policy.log') -RedirectStandardError (Join-Path $run 'policy.err')
     $publisher = Start-Process -FilePath python -ArgumentList @(
         '-m','gear_sonic.scripts.run_g1_true23_bfm_teleop_sim','publish',
-        '--clip','pico','--endpoint',"tcp://127.0.0.1:$runTeleopPort",'--start-delay','12',
+        '--clip','pico','--endpoint',"tcp://127.0.0.1:$runTeleopPort",'--start-delay','0',
+        '--ready-file',$publisherReady,'--start-file',$sourceStart,
         '--data-root','C:\Users\camer\sonic23_sim_artifacts\internet_pico_20260909_v1'
     ) -WorkingDirectory $repo -PassThru -RedirectStandardOutput (Join-Path $run 'publisher.log') -RedirectStandardError (Join-Path $run 'publisher.err')
-    # Model construction is outside the measured 50 Hz region.  Start the loop
-    # only after the policy has had its established preparation window.
-    Start-Sleep -Seconds 12
+    # Do not use an arbitrary sleep here.  The old 12-second delay began the
+    # publisher source clock after the policy window had already started.  Both
+    # sockets and both expensive initializers now acknowledge readiness before
+    # the source clock is released and the native replay is launched.
+    $readyDeadline = [DateTime]::UtcNow.AddSeconds(90)
+    while (!(Test-Path -LiteralPath $policyReady) -or !(Test-Path -LiteralPath $publisherReady)) {
+        if ([DateTime]::UtcNow -ge $readyDeadline) { throw 'policy/publisher readiness barrier timed out' }
+        Start-Sleep -Milliseconds 25
+    }
+    Start-Sleep -Milliseconds 500 # Allow the established SUB/PUB subscription handshake to settle.
+    New-Item -ItemType File -Path $sourceStart | Out-Null
     $remoteCommand = "bash $remoteRoot/run_loop.sh $name 57800 $runStatePort $runTargetPort"
     $loop = Start-RemoteLoop $remoteCommand $run
     try { $loop.WaitForExit(); $policy.WaitForExit(); $publisher.WaitForExit() } finally {
