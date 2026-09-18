@@ -3,14 +3,16 @@ param(
     [int]$RunCount = 2,
     [int]$StatePort = 5560,
     [int]$TargetPort = 5561,
-    [int]$TeleopPort = 5562
+    [int]$TeleopPort = 5562,
+    [switch]$Trace,
+    [string]$RemoteRoot = '/home/unitree/bfm_teleop_fix5'
 )
 # Fix 5 qualification: policy remains on Windows; the loop runs on the G1.
 # The loop binary is hard-wired to the domain-232 loopback test publisher.
 $ErrorActionPreference = 'Stop'
 $repo = 'Z:\codex\GR00T-WholeBodyControl-sonic-transfer-23dof'
 $robot = '192.168.123.164'
-$remoteRoot = '/home/unitree/bfm_teleop_fix5'
+$remoteRoot = $RemoteRoot
 $sshHelper = '/mnt/z/codex/GR00T-WholeBodyControl-sonic-transfer-23dof/gear_sonic/scripts/fix5_onboard_ssh.sh'
 $binary = "$remoteRoot/build/g1_true23_bfm_lowcmd_loop"
 $replay = "$remoteRoot/source/pico_lowstate_500hz.flatbin"
@@ -54,13 +56,14 @@ for ($index = 1; $index -le $RunCount; $index++) {
     $runTeleopPort = $TeleopPort + 10 * $index
     $state = "tcp://${robot}:$runStatePort"
     $target = "tcp://${robot}:$runTargetPort"
-    $policy = Start-Process -FilePath python -ArgumentList @(
+    $policyArgs = @(
         '-m','gear_sonic.scripts.run_g1_true23_bfm_split_policy','run',
         '--placement','windows','--state-endpoint',$state,'--target-endpoint',$target,
         '--teleop-endpoint',"tcp://127.0.0.1:$runTeleopPort",'--output',$policyDir,
         '--duration-seconds','115.6','--priority','high','--torch-threads','4','--pacer-spin-ms','1.0',
-        '--ready-file',$policyReady
-    ) -WorkingDirectory $repo -PassThru -RedirectStandardOutput (Join-Path $run 'policy.log') -RedirectStandardError (Join-Path $run 'policy.err')
+        '--ready-file',$policyReady)
+    if ($Trace) { $policyArgs += '--trace-windows' }
+    $policy = Start-Process -FilePath python -ArgumentList $policyArgs -WorkingDirectory $repo -PassThru -RedirectStandardOutput (Join-Path $run 'policy.log') -RedirectStandardError (Join-Path $run 'policy.err')
     $publisher = Start-Process -FilePath python -ArgumentList @(
         '-m','gear_sonic.scripts.run_g1_true23_bfm_teleop_sim','publish',
         '--clip','pico','--endpoint',"tcp://127.0.0.1:$runTeleopPort",'--start-delay','0',

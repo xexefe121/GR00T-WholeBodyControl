@@ -23,11 +23,14 @@
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
+#include <condition_variable>
+#include <deque>
 #include <fstream>
 #include <filesystem>
 #include <iomanip>
 #include <iostream>
 #include <limits>
+#include <map>
 #include <memory>
 #include <mutex>
 #include <numeric>
@@ -267,6 +270,17 @@ class Native23ImuOdometry final {
   Native23ImuOdometry(const Native23ImuOdometry&) = delete;
   Native23ImuOdometry& operator=(const Native23ImuOdometry&) = delete;
 
+  std::array<std::array<double, 2>, kJoints> JointLimits() const {
+    std::array<std::array<double, 2>, kJoints> limits{};
+    // qpos[7 + joint] is the scalar coordinate for model joint 1 + joint;
+    // joint zero is the free pelvis joint.
+    for (std::size_t joint = 0; joint < kJoints; ++joint) {
+      limits[joint] = {model_->jnt_range[2 * (joint + 1)],
+                       model_->jnt_range[2 * (joint + 1) + 1]};
+    }
+    return limits;
+  }
+
   EstimatorSnapshotWire Update(const ReplaySample& sample) {
     const double timestamp = sample.timestamp_s;
     if (!std::isfinite(timestamp)) throw std::runtime_error("nonfinite odometry timestamp");
@@ -396,10 +410,18 @@ struct Arguments {
   std::string state_endpoint;
   std::string target_endpoint;
   std::string output;
+  int dds_domain = kSafeDomain;
+  std::string dds_interface = "lo";
+  double duration_seconds = 0.0;
   std::uint64_t ticks = 0;
   bool lockstep = false;
   bool record_estimator_snapshots = false;
+  bool probe_readonly = false;
 };
+
+bool IsLoopbackInterface(const std::string& interface) {
+  return interface == "lo" || interface == "lo0";
+}
 
 Arguments Parse(int argc, char** argv) {
   Arguments result;
@@ -410,11 +432,13 @@ Arguments Parse(int argc, char** argv) {
   for (int index = 1; index < argc; ++index) {
     const std::string option = argv[index];
     if (option == "--help" || option == "-h") {
-      std::cout << "Fix 5 native 500 Hz loop. LowCmd DDS is compiled to domain 232, lo, and a test-only topic.\n"
+      std::cout << "Fix 5 native 500 Hz loop. A LowCmd publisher exists only for domain 232 on a loopback interface.\n"
                    "--source <replay|dds> --replay <flat.bin> --initial-command <command.bin> "
                    "--model <compiled.mjb> "
                    "--state-endpoint <tcp://bind-address:port> --target-endpoint <tcp://bind-address:port> "
-                   "--output <dir> [--ticks N] [--lockstep]\n";
+                   "--output <dir> [--ticks N] [--lockstep] [--dds-domain N] [--dds-interface IFACE]\n"
+                   "--probe-readonly --duration-seconds N --model <compiled.mjb> --output <dir> "
+                   "[--dds-domain N] [--dds-interface IFACE]\n";
       std::exit(0);
     } else if (option == "--source") result.source = value(index, option);
     else if (option == "--replay") result.replay = value(index, option);
@@ -423,10 +447,21 @@ Arguments Parse(int argc, char** argv) {
     else if (option == "--state-endpoint") result.state_endpoint = value(index, option);
     else if (option == "--target-endpoint") result.target_endpoint = value(index, option);
     else if (option == "--output") result.output = value(index, option);
+    else if (option == "--dds-domain") result.dds_domain = std::stoi(value(index, option));
+    else if (option == "--dds-interface") result.dds_interface = value(index, option);
+    else if (option == "--duration-seconds") result.duration_seconds = std::stod(value(index, option));
     else if (option == "--ticks") result.ticks = std::stoull(value(index, option));
     else if (option == "--lockstep") result.lockstep = true;
     else if (option == "--record-estimator-snapshots") result.record_estimator_snapshots = true;
+    else if (option == "--probe-readonly") result.probe_readonly = true;
     else throw std::runtime_error("unknown option: " + option);
+  }
+  if (result.probe_readonly) {
+    if (result.model.empty() || result.output.empty() || !(result.duration_seconds > 0.0) ||
+        !std::isfinite(result.duration_seconds)) {
+      throw std::runtime_error("--probe-readonly requires --model, --output, and positive --duration-seconds");
+    }
+    return result;
   }
   if ((result.source != "replay" && result.source != "dds") ||
       (result.source == "replay" && result.replay.empty()) || result.initial_command.empty() || result.model.empty() || result.state_endpoint.empty() ||
@@ -473,16 +508,237 @@ void SummaryJson(std::ofstream& report, std::string_view name, const std::vector
          << (values.empty() ? 0.0 : *std::max_element(values.begin(), values.end())) << "}";
 }
 
+struct ProbeObservation {
+  ReplaySample sample{};
+  std::uint32_t tick = 0;
+  std::uint8_t mode_machine = 0;
+  std::size_t motor_slots = 0;
+  double quaternion_norm = std::numeric_limits<double>::quiet_NaN();
+  std::int64_t received_ns = 0;
+  bool convertible = false;
+};
+
+// This subscriber is deliberately independent of SampleSource.  It retains
+// every callback until the probe consumes it, rather than the timing loop's
+// latest-sample behaviour, so the report can account for all real arrivals.
+class ReadOnlyProbeSource final {
+ public:
+  ReadOnlyProbeSource() {
+    subscriber_ = std::make_shared<unitree::robot::ChannelSubscriber<LowState>>(
+        std::string(kLowStateTopic));
+    subscriber_->InitChannel([this](const void* message) { OnMessage(message); }, 1);
+  }
+  ~ReadOnlyProbeSource() = default;
+  bool WaitNext(ProbeObservation& observation, std::chrono::milliseconds timeout) {
+    std::unique_lock lock(mutex_);
+    if (!condition_.wait_for(lock, timeout, [this] { return !queue_.empty(); })) return false;
+    observation = queue_.front();
+    queue_.pop_front();
+    return true;
+  }
+  std::uint64_t queue_drops() const {
+    std::lock_guard lock(mutex_);
+    return queue_drops_;
+  }
+
+ private:
+  void OnMessage(const void* message) {
+    if (message == nullptr) return;
+    const auto& state = *static_cast<const LowState*>(message);
+    ProbeObservation observation{};
+    observation.received_ns = MonotonicNs();
+    observation.sample.timestamp_s = static_cast<double>(observation.received_ns) / 1e9;
+    observation.tick = state.tick();
+    observation.mode_machine = state.mode_machine();
+    observation.motor_slots = state.motor_state().size();
+    const auto& quaternion = state.imu_state().quaternion();
+    for (std::size_t i = 0; i < observation.sample.quat.size(); ++i) {
+      observation.sample.quat[i] = quaternion[i];
+    }
+    observation.quaternion_norm = std::sqrt(
+        std::inner_product(observation.sample.quat.begin(), observation.sample.quat.end(),
+                           observation.sample.quat.begin(), 0.0));
+    std::copy_n(state.imu_state().gyroscope().begin(), observation.sample.gyro.size(),
+                observation.sample.gyro.begin());
+    std::copy_n(state.imu_state().accelerometer().begin(), observation.sample.accel.size(),
+                observation.sample.accel.begin());
+    constexpr std::array<int, kJoints> kHardwareSlots = {
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 16, 17, 18, 19, 22, 23, 24, 25, 26};
+    const auto required_slots = *std::max_element(kHardwareSlots.begin(), kHardwareSlots.end()) + 1;
+    observation.convertible = observation.motor_slots >= static_cast<std::size_t>(required_slots);
+    if (observation.convertible) {
+      for (std::size_t joint = 0; joint < kJoints; ++joint) {
+        const auto& motor = state.motor_state()[kHardwareSlots[joint]];
+        observation.sample.q[joint] = motor.q();
+        observation.sample.dq[joint] = motor.dq();
+      }
+    }
+    std::lock_guard lock(mutex_);
+    constexpr std::size_t kMaximumQueuedSamples = 4096;
+    if (queue_.size() == kMaximumQueuedSamples) {
+      queue_.pop_front();
+      ++queue_drops_;
+    }
+    queue_.push_back(observation);
+    condition_.notify_one();
+  }
+  mutable std::mutex mutex_;
+  std::condition_variable condition_;
+  std::deque<ProbeObservation> queue_;
+  std::uint64_t queue_drops_ = 0;
+  std::shared_ptr<unitree::robot::ChannelSubscriber<LowState>> subscriber_;
+};
+
+void WriteProbeSummary(std::ofstream& report, std::string_view name,
+                       const std::vector<double>& values) {
+  report << "\"" << name << "\":{\"count\":" << values.size()
+         << ",\"min\":" << (values.empty() ? 0.0 : *std::min_element(values.begin(), values.end()))
+         << ",\"p50\":" << Percentile(values, .50)
+         << ",\"p95\":" << Percentile(values, .95)
+         << ",\"p99\":" << Percentile(values, .99)
+         << ",\"max\":" << (values.empty() ? 0.0 : *std::max_element(values.begin(), values.end()))
+         << "}";
+}
+
+int RunReadOnlyProbe(const Arguments& args) {
+  std::filesystem::create_directories(args.output);
+  std::cout << "DDS endpoint: domain=" << args.dds_domain << " interface=" << args.dds_interface
+            << "; mode=read-only probe; LowCmd publisher exists=false\n";
+  unitree::robot::ChannelFactory::Instance()->Init(args.dds_domain, args.dds_interface.c_str());
+  Native23ImuOdometry estimator(args.model);
+  const auto limits = estimator.JointLimits();
+  ReadOnlyProbeSource source;
+  std::ofstream trace(args.output + "/real_lowstate_estimator_trace.csv");
+  if (!trace) throw std::runtime_error("cannot create real_lowstate_estimator_trace.csv");
+  trace << std::setprecision(17)
+        << "sample,elapsed_s,pelvis_height_m,horizontal_position_m,speed_mps,bias_x,bias_y,bias_z"
+        << ",weight_0,weight_1,weight_2,weight_3,weight_4,weight_5,weight_6,weight_7\n";
+
+  std::vector<double> intervals_ms, work_ms, quaternion_deviation, height_m, speed_mps, bias_mps2;
+  std::array<std::vector<double>, kSolePoints> weights;
+  std::array<double, kJoints> joint_min, joint_max;
+  joint_min.fill(std::numeric_limits<double>::infinity());
+  joint_max.fill(-std::numeric_limits<double>::infinity());
+  std::map<unsigned int, std::uint64_t> modes;
+  std::uint64_t received = 0, converted = 0, invalid_layout = 0, gaps_over_3ms = 0, gaps_over_10ms = 0;
+  std::size_t min_slots = std::numeric_limits<std::size_t>::max(), max_slots = 0;
+  std::int64_t first_received_ns = 0, previous_received_ns = 0, last_received_ns = 0;
+  Eigen::Vector2d first_horizontal = Eigen::Vector2d::Zero(), last_horizontal = Eigen::Vector2d::Zero();
+  const std::int64_t acquisition_started_ns = MonotonicNs();
+  const std::int64_t stop_ns = acquisition_started_ns + static_cast<std::int64_t>(args.duration_seconds * 1e9);
+  while (MonotonicNs() < stop_ns) {
+    ProbeObservation observation;
+    if (!source.WaitNext(observation, std::chrono::milliseconds(100))) continue;
+    ++received;
+    ++modes[observation.mode_machine];
+    min_slots = std::min(min_slots, observation.motor_slots);
+    max_slots = std::max(max_slots, observation.motor_slots);
+    if (std::isfinite(observation.quaternion_norm)) quaternion_deviation.push_back(std::abs(observation.quaternion_norm - 1.0));
+    if (previous_received_ns != 0) {
+      const double interval = static_cast<double>(observation.received_ns - previous_received_ns) / 1e6;
+      intervals_ms.push_back(interval);
+      if (interval > 3.0) ++gaps_over_3ms;
+      if (interval > 10.0) ++gaps_over_10ms;
+    }
+    previous_received_ns = observation.received_ns;
+    last_received_ns = observation.received_ns;
+    if (first_received_ns == 0) first_received_ns = observation.received_ns;
+    if (!observation.convertible) { ++invalid_layout; continue; }
+    for (std::size_t joint = 0; joint < kJoints; ++joint) {
+      joint_min[joint] = std::min(joint_min[joint], static_cast<double>(observation.sample.q[joint]));
+      joint_max[joint] = std::max(joint_max[joint], static_cast<double>(observation.sample.q[joint]));
+    }
+    const auto work_start = MonotonicNs();
+    const EstimatorSnapshotWire snapshot = estimator.Update(observation.sample);
+    work_ms.push_back(static_cast<double>(MonotonicNs() - work_start) / 1e6);
+    ++converted;
+    const Eigen::Vector2d horizontal(snapshot.position_start[0], snapshot.position_start[1]);
+    if (converted == 1) first_horizontal = horizontal;
+    last_horizontal = horizontal;
+    height_m.push_back(snapshot.position_start[2]);
+    speed_mps.push_back(Eigen::Vector3d(snapshot.velocity_start[0], snapshot.velocity_start[1], snapshot.velocity_start[2]).norm());
+    bias_mps2.push_back(Eigen::Vector3d(snapshot.accel_bias_body[0], snapshot.accel_bias_body[1], snapshot.accel_bias_body[2]).norm());
+    for (std::size_t point = 0; point < kSolePoints; ++point) weights[point].push_back(snapshot.support_weights[point]);
+    if (converted == 1 || converted % 50 == 0) {
+      trace << converted << ',' << static_cast<double>(observation.received_ns - first_received_ns) / 1e9
+            << ',' << snapshot.position_start[2] << ',' << horizontal.norm() << ',' << speed_mps.back();
+      for (double value : snapshot.accel_bias_body) trace << ',' << value;
+      for (double value : snapshot.support_weights) trace << ',' << value;
+      trace << '\n';
+    }
+  }
+  const double observed_seconds = first_received_ns == 0 || last_received_ns <= first_received_ns ? 0.0 :
+      static_cast<double>(last_received_ns - first_received_ns) / 1e9;
+  const double horizontal_drift = converted < 2 ? 0.0 : (last_horizontal - first_horizontal).norm();
+  std::ofstream report(args.output + "/real_lowstate_probe_report.json");
+  if (!report) throw std::runtime_error("cannot create real_lowstate_probe_report.json");
+  report << std::setprecision(12) << "{\n\"kind\":\"g1_true23_real_lowstate_read_only\",\n"
+         << "\"dds_domain\":" << args.dds_domain << ",\"dds_interface\":\"" << args.dds_interface << "\",\n"
+         << "\"lowcmd_publisher_exists\":false,\"lowcmd_messages_sent\":0,\n"
+         << "\"requested_duration_s\":" << args.duration_seconds << ",\"observed_duration_s\":" << observed_seconds
+         << ",\"samples_received\":" << received << ",\"samples_converted\":" << converted
+         << ",\"invalid_joint_layout_samples\":" << invalid_layout << ",\"probe_queue_drops\":" << source.queue_drops()
+         << ",\"measured_rate_hz\":" << (observed_seconds > 0.0 ? static_cast<double>(received - 1) / observed_seconds : 0.0) << ",\n";
+  WriteProbeSummary(report, "inter_sample_interval_ms", intervals_ms);
+  report << ",\"gaps_over_3ms\":" << gaps_over_3ms << ",\"gaps_over_10ms\":" << gaps_over_10ms << ",\n";
+  report << "\"decode_sanity\":{\"motor_slots_min\":" << (received ? min_slots : 0) << ",\"motor_slots_max\":" << max_slots << ",\"mode_machine_counts\":{";
+  bool first_mode = true;
+  for (const auto& [mode, count] : modes) { report << (first_mode ? "" : ",") << "\"" << mode << "\":" << count; first_mode = false; }
+  report << "},"; WriteProbeSummary(report, "imu_quaternion_norm_deviation", quaternion_deviation); report << "},\n";
+  report << "\"joint_position_ranges_rad\":[";
+  for (std::size_t joint = 0; joint < kJoints; ++joint) {
+    const double excess = received == invalid_layout ? 0.0 : std::max({0.0, limits[joint][0] - joint_min[joint], joint_max[joint] - limits[joint][1]});
+    report << (joint ? "," : "") << "{\"joint\":" << joint << ",\"min\":" << joint_min[joint] << ",\"max\":" << joint_max[joint]
+           << ",\"model_lower\":" << limits[joint][0] << ",\"model_upper\":" << limits[joint][1] << ",\"max_excess\":" << excess << "}";
+  }
+  report << "],\n\"estimator\":{\"horizontal_drift_m\":" << horizontal_drift << ",\"horizontal_drift_m_per_min\":"
+         << (observed_seconds > 0.0 ? horizontal_drift * 60.0 / observed_seconds : 0.0) << ",";
+  WriteProbeSummary(report, "pelvis_height_above_initial_sole_floor_m", height_m); report << ',';
+  WriteProbeSummary(report, "speed_magnitude_mps", speed_mps); report << ',';
+  WriteProbeSummary(report, "accelerometer_bias_magnitude_mps2", bias_mps2); report << ",\"support_weights\":{";
+  for (std::size_t point = 0; point < kSolePoints; ++point) { if (point) report << ','; WriteProbeSummary(report, "point_" + std::to_string(point), weights[point]); }
+  report << "}},\n\"timing_comparison\":{";
+  WriteProbeSummary(report, "estimator_update_work_ms", work_ms);
+  report << ",\"start_lateness_ms\":null,\"lowcmd_gap_ms\":null,\"ipc_round_trip_ms\":null,\"target_age_ms\":null"
+         << "}\n}\n";
+  std::cout << "Read-only probe completed: received=" << received << " converted=" << converted
+            << " rate_hz=" << (observed_seconds > 0.0 ? static_cast<double>(received - 1) / observed_seconds : 0.0)
+            << " publisher_exists=false\n";
+  return received > 0 && converted == received && source.queue_drops() == 0 ? 0 : 2;
+}
+
+void WriteSafeLoopbackLowCmd(
+    const Arguments& args,
+    const std::shared_ptr<unitree::robot::ChannelPublisher<LowCmd>>& publisher,
+    const InitialCommand& command) {
+  // The predicate is intentionally repeated at the send site.  A null
+  // publisher is not the safety mechanism; this explicit domain-and-interface
+  // check is, and it remains true even if a future edit changes ownership.
+  if (args.dds_domain == kSafeDomain && IsLoopbackInterface(args.dds_interface) && publisher) {
+    publisher->Write(MakeLowCmd(command));
+  }
+}
+
 int Run(const Arguments& args) {
+  if (args.probe_readonly) return RunReadOnlyProbe(args);
   std::filesystem::create_directories(args.output);
   InitialCommand command = LoadInitial(args.initial_command);
   Native23ImuOdometry estimator(args.model);
   sched_param fifo{}; fifo.sched_priority = 10;
   if (sched_setscheduler(0, SCHED_FIFO, &fifo) != 0) std::cerr << "SCHED_FIFO unavailable: " << std::strerror(errno) << "\n";
 
-  unitree::robot::ChannelFactory::Instance()->Init(kSafeDomain, "lo");
-  auto dds = std::make_shared<unitree::robot::ChannelPublisher<LowCmd>>(std::string(kSafeTopic));
-  dds->InitChannel();
+  unitree::robot::ChannelFactory::Instance()->Init(args.dds_domain, args.dds_interface.c_str());
+  std::shared_ptr<unitree::robot::ChannelPublisher<LowCmd>> dds;
+  // LowCmd publisher construction is confined to the one harmless endpoint.
+  // All other DDS endpoints are subscriber-only as far as this executable is
+  // concerned: no publisher object exists, so it has no command path.
+  if (args.dds_domain == kSafeDomain && IsLoopbackInterface(args.dds_interface)) {
+    dds = std::make_shared<unitree::robot::ChannelPublisher<LowCmd>>(std::string(kSafeTopic));
+    dds->InitChannel();
+  }
+  std::cout << "DDS endpoint: domain=" << args.dds_domain << " interface=" << args.dds_interface
+            << "; mode=" << (dds ? "timing loop with loopback test publisher" : "subscriber-only")
+            << "; LowCmd publisher exists=" << (dds ? "true" : "false") << "\n";
   std::unique_ptr<SampleSource> source;
   if (args.source == "replay") source = std::make_unique<ReplaySampleSource>(args.replay);
   else source = std::make_unique<DdsSampleSource>();
@@ -575,7 +831,7 @@ int Run(const Arguments& args) {
         }
       }
     }
-    dds->Write(MakeLowCmd(command));
+    WriteSafeLoopbackLowCmd(args, dds, command);
     const std::int64_t sent = MonotonicNs();
     const double work_ms = static_cast<double>(sent - tick_start) / 1e6;
     const double gap_ms = last_send == 0 ? 0.0 : static_cast<double>(sent - last_send) / 1e6;
@@ -588,7 +844,9 @@ int Run(const Arguments& args) {
   std::ofstream report(args.output + "/loop_report.json");
   report << std::setprecision(12) << "{\n\"kind\":\"g1_true23_bfm_fix5_native_500hz\",\n"
          << "\"source\":\"" << args.source << "\",\n"
-         << "\"dds_safety\":\"domain 232, topic rt/fix5_timing_no_robot_lowcmd, interface lo; compiled fixed\",\n"
+         << "\"dds_domain\":" << args.dds_domain << ",\"dds_interface\":\"" << args.dds_interface << "\",\n"
+         << "\"dds_safety\":\"LowCmd publisher exists only for domain 232 on loopback; test topic is fixed\",\n"
+         << "\"lowcmd_publisher_exists\":" << (dds ? "true" : "false") << ",\n"
          << "\"ticks\":" << lateness.size() << ",\"deadline_misses\":" << missed
          << ",\"state_send_eagain_drops\":" << dropped_state << ",\"targets_received\":" << received_targets << ",\n";
   SummaryJson(report, "start_lateness_ms", lateness); report << ','; SummaryJson(report, "work_ms", work); report << ',';

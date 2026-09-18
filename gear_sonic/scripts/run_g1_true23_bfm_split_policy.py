@@ -740,7 +740,7 @@ def policy_process(args):
     teleop_clock = TeleopClockAlignment()
     teleop_gate_audit = GateAdmissionAudit()
     history, action = BFMHistory(), np.zeros(23, np.float32)
-    pending_states, pending_teleop = [], []
+    pending_states, pending_teleop, prefetched_teleop = [], [], []
     expected_sequence = 0
     state_gaps = state_decode_errors = teleop_rejected = teleop_accepted = target_eagain = 0
     path = {"start_lateness_ms": [], "work_ms": [], "deadline_misses": 0, "policy_updates": 0}
@@ -822,14 +822,24 @@ def policy_process(args):
                 while states.poll(0):
                     first_message = states.recv()
                     warmup["states_discarded"] = warmup.get("states_discarded", 0) + 1
+            # Teleop packets queue up the same way, and decoding them was the
+            # largest unmeasured cost left in control 0: 50.9 ms of work with
+            # every phase at zero.  Decode whatever is already waiting now and
+            # hand it to control 0, which admits it at its own clock.
+            while teleop.poll(0):
+                try:
+                    prefetched_teleop.append(decode_packet(teleop.recv_json()))
+                except (ValueError, TypeError, KeyError):
+                    teleop_rejected += 1
+            warmup["teleop_prefetched"] = len(prefetched_teleop)
             start = time.perf_counter()
             for control in range(round(args.duration_seconds / DT)):
                 due = start + control * DT
                 pacer.sleep_until(due)
                 begun = time.perf_counter()
                 counters_before = telemetry.sample() if args.trace_windows else None
-                phases = {"state_receive_ms": 0.0, "feature_goal_ms": 0.0, "bfm_inference_ms": 0.0,
-                          "brake_ms": 0.0, "target_send_ms": 0.0}
+                phases = {"state_receive_ms": 0.0, "teleop_receive_ms": 0.0, "feature_goal_ms": 0.0,
+                          "bfm_inference_ms": 0.0, "brake_ms": 0.0, "target_send_ms": 0.0}
                 state_phase_start = time.perf_counter_ns()
                 path["start_lateness_ms"].append(max(0.0, (begun - due) * 1000.0))
                 messages = [first_message] if control == 0 else []
@@ -858,6 +868,15 @@ def policy_process(args):
                 pending_states.clear()
                 phases["state_receive_ms"] = (time.perf_counter_ns() - state_phase_start) / 1_000_000.0
                 now = control * DT
+                teleop_phase_start = time.perf_counter_ns()
+                # Packets decoded during the warm-up are admitted here, at this
+                # control's clock, so that the epoch anchoring is exactly what it
+                # would have been had they been decoded in this loop.
+                for packet in prefetched_teleop:
+                    pending_teleop.append((
+                        packet, teleop_clock.observe(packet, now, gate), teleop_clock.gate_source_time_offset(gate)
+                    ))
+                prefetched_teleop.clear()
                 while teleop.poll(0):
                     try:
                         packet = decode_packet(teleop.recv_json())
@@ -866,6 +885,7 @@ def policy_process(args):
                         ))
                     except (ValueError, TypeError, KeyError):
                         teleop_rejected += 1
+                phases["teleop_receive_ms"] = (time.perf_counter_ns() - teleop_phase_start) / 1_000_000.0
                 delivered = 0
                 while (
                     delivered < len(pending_teleop)

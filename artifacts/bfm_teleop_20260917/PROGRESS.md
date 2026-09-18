@@ -1221,3 +1221,109 @@ Two conditions must hold for this to keep working. The `cpu.rt_runtime_us` grant
 **Regressions unchanged.** Observable `walk002` ideal: completed `1417`, leg `0.18202273382760834`, arm `0.04273216819201739`, root p95 `0.36741054963315306`, matching to every digit. Stream `walk002` normal: `1824` controls, no latched fault, no physical failure, full source consumption. Unit suites including the native LowCmd static safety test: `39 passed`.
 
 **Note on the robot precondition.** The robot had rebooted before this qualification, so `cpu.rt_runtime_us` on `user.slice` was back to `0` and had to be re-granted; the binary's file capabilities survived, as expected. `gear_sonic/scripts/orin_enable_realtime.sh` applies both. Without the grant the native loop starves and the qualification fails for reasons that have nothing to do with the policy.
+
+### 2026-09-18 — Fix 9: real LowState, read-only
+
+**Real samples were received for 60.0 s at 1,020.16 Hz, and the estimator stayed finite and bounded, but its horizontal estimate drifted 0.23965 m/min.** This is the first measurement against live sensors rather than the 115.6 s replay. It is read-only: the final run reported `LowCmd publisher exists=false` and `lowcmd_messages_sent=0`.
+
+**Real DDS endpoint.** The installed passive telemetry reader at
+`/home/unitree/rocco-jev-sensors/telemetry_reader.py` was read without
+modification. It calls `ChannelFactoryInitialize(0, "eth0")` and subscribes to
+`rt/lowstate`. The robot's `eth0` is up on the Unitree network and owns
+`192.168.123.164` (and the additional `192.168.123.18` address). The same
+reader independently reported mode machine 4 and 35 message motor slots. The
+probe therefore used domain 0 / `eth0`, never domain 232 / loopback.
+
+**Safety invariant.** `g1_true23_bfm_lowcmd_loop` now accepts
+`--dds-domain` (default 232) and `--dds-interface` (default `lo`) and passes
+them to `ChannelFactory::Instance()->Init`. A `ChannelPublisher<LowCmd>` is
+constructed only inside the predicate `dds_domain == 232 &&
+IsLoopbackInterface(dds_interface)`. The send site repeats that predicate as
+well as requiring a non-null publisher. On every other endpoint the process
+prints subscriber-only mode and has no publisher object or command send path.
+The default replay path therefore remains domain 232, `lo`, and the fixed
+`rt/fix5_timing_no_robot_lowcmd` test topic. The read-only probe is a separate
+execution mode: it creates only a LowState subscriber, no ZMQ command sockets,
+no initial command, and no publisher. Its static safety test now proves both
+publisher construction and the sole `Write` call are inside a guard that tests
+both the domain and loopback interface.
+
+**Probe result.** Final evidence is on the robot at
+`/home/unitree/bfm_teleop_fix5/runs/fix9_real_lowstate_valid_20260918/`:
+`real_lowstate_probe_report.json` and the 20 Hz
+`real_lowstate_estimator_trace.csv`. The report is valid JSON. It received and
+converted all 61,210 samples; no sample had an invalid layout and the bounded
+subscriber queue dropped none. Inter-arrival time was 0.971 ms p50, 1.389 ms
+p95, 3.235 ms p99, and 13.530 ms maximum; there were 803 intervals above 3 ms
+and 12 above 10 ms. This real callback rate is about twice the recorded
+replay's 500 Hz rate and is a material integration difference: the existing
+500 Hz timing loop consumes its latest received sample rather than every one
+of these approximately 1 kHz callbacks.
+
+Decode sanity was clean. Every message had 35 motor slots, every mode-machine
+value was 4, quaternion norm error was `4.44e-8` p50 and `1.41e-7` maximum,
+and all 23 mapped positions remained within the MJB joint limits (zero maximum
+range excess). The estimator's pelvis height above its initial modeled sole
+floor ranged from 0.78556 to 0.81931 m (0.80227 m p50). Speed magnitude was
+0.00431 m/s p50, 0.00648 m/s p95, and 0.01052 m/s maximum. Accelerometer-bias
+magnitude settled near 0.148 m/s² (0.14986 m/s² p95). All eight support weights
+remained non-zero and stable enough to distribute weight across both modeled
+soles; their median range was 0.09283–0.14706. The estimator update itself cost
+0.01475 ms p50, 0.02211 ms p95, 0.03721 ms p99, and 3.69758 ms maximum. Replay
+timing fields that require a scheduled loop or command exchange
+(`start_lateness_ms`, `lowcmd_gap_ms`, `ipc_round_trip_ms`, and
+`target_age_ms`) are explicitly null in this subscriber-only report.
+
+**Interpretation.** The low joint excursion (at most 0.00030 rad on the mapped
+joints), low estimated speed, stable IMU norm, and persistent eight-point
+geometric support selection are consistent with a stationary, supported
+configuration. The data alone cannot certify whether the robot was upright,
+seated, or otherwise externally supported, so this is not called a standing
+result. The root estimate did not diverge, but 0.23965 m/min of horizontal
+drift is significant for a robot that appears stationary. It should be treated
+as a real-sensor limitation requiring follow-up before interpreting root
+position as stationary ground truth. The 1 kHz real stream versus the 500 Hz
+replay is also a policy risk: the deployed 500 Hz loop will decimate it, so
+replay equivalence does not establish behaviour at the real estimator update
+rate.
+
+**Build and real-time state.** The isolated binary under
+`/home/unitree/bfm_teleop_fix5` was rebuilt three times while correcting the
+probe report and shutdown path; no file under `/home/unitree/g1_true23_onboard`
+was modified. After every rebuild, `SUDO_PASS=123 bash
+gear_sonic/scripts/orin_enable_realtime.sh` was run. It restored
+`cap_ipc_lock,cap_sys_nice+ep` on the binary and confirmed the `user.slice`
+real-time grant was 200000 us. The final replay loop stdout contained neither
+`SCHED_FIFO unavailable` nor `mlockall unavailable`.
+
+**Regression results.** The stream/brake suite plus the extended LowCmd static
+safety suite passed: **40 passed** (the previous 39 plus the new guard test).
+Observable `walk002` ideal was unchanged: completed 1417, leg
+0.18202273382760834, arm 0.04273216819201739, and root p95
+0.36741054963315306. Stream `walk002` normal passed with 1824 controls,
+complete source consumption, no latched fault, and zero range excess.
+
+**The required two-run timing qualification did not pass on this rerun; the
+criterion was not relaxed.** New isolated evidence is
+`E:\codex-artifacts\bfm_teleop_20260917\fix9_regression_20260918`. Both runs
+were valid exchanges (5,735 and 5,769 targets), had zero 500 Hz misses, and
+had maximum LowCmd gaps of 2.382011 and 2.396284 ms. Windows nevertheless had
+2 and 1 50 Hz misses, respectively (work maxima 47.1869 and 22.3636 ms), so
+the qualification is failed despite clean robot-side timing. This is the same
+Windows scheduling sensitivity previously identified, not an estimator or
+native-loop deadline failure, but it remains a failure until two consecutive
+runs meet every unchanged criterion.
+
+### 2026-09-18 — Fix 10: the last large stalls were unmeasured teleop decoding
+
+**The two-run qualification passes again and with far more margin: zero 500 Hz misses, zero 50 Hz misses, LowCmd gaps of `2.410 ms` and `2.376 ms`, policy work p99 of `8.75 ms` and `8.53 ms`, and maxima of `11.42 ms` and `11.06 ms` against the 20 ms budget.** Before this change the worst control in a run reached `54.05 ms`.
+
+**Why Fix 8's three clean runs were partly luck.** Re-running the qualification on an otherwise idle machine gave one clean run and one with two misses whose worst control was `54.05 ms`; a traced set of three runs then gave 3, 2 and 0 misses. So roughly every other run was absorbing one very large stall, which the earlier three-run sample had simply missed.
+
+**The stall was in a stage nobody was measuring.** With the per-control trace, the worst control of one run showed `50.91 ms` of work with *every* phase reading approximately zero, no context switches, and 115 soft faults. The phase accounting covered state receive, feature and goal construction, inference, brake and target send, but not the teleop stage: `teleop.recv_json()` followed by `decode_packet` for every queued packet. At control 0 that queue held everything the publisher had sent since the readiness barrier — 326 packets in one run — and decoding them all inside the first control produced the 50 ms.
+
+**Fix.** The warm-up now also drains and decodes whatever teleop packets are already queued, before the timed clock starts. Those packets are not admitted there: they are handed to control 0, which runs them through `teleop_clock.observe` at its own clock, so the epoch anchoring introduced in Fix 6 is exactly what it would have been. The teleop stage also gained its own `teleop_receive_ms` phase, so this class of cost can never again be invisible.
+
+**Result.** Control 0 no longer appears as an outlier in any run. Across the traced set, two of three runs were clean and the third's worst control had every phase inflated roughly threefold at once — state receive `4.01 ms`, feature and goal `6.32 ms`, inference `4.10 ms` — which is external interference slowing the whole thread, not a stage of our own. The official two-run qualification then passed as recorded above.
+
+**Still open from Fix 9, and more important than this.** The real robot publishes `rt/lowstate` at about 1,020 Hz, not the replay's 500 Hz, and the estimator's horizontal estimate drifts `0.23965 m/min` while the robot is stationary. Neither is addressed here.
