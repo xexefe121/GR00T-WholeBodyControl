@@ -1641,3 +1641,13 @@ Clamp order was wrong twice, and the new assertion caught both. Clamping to the 
 **How the run ended, and what it means.** `measured joint velocity exceeds limit`. The clip is a walking motion and the robot is suspended, so the legs swing without ground contact and reach higher velocities than they would bearing weight. The limit is correct; the configuration is what makes it easy to reach. Longer runs want either a smaller policy step, a slower clip, or the feet actually loaded.
 
 **State left behind.** Nothing running on the robot, no motion mode held, robot limp in the gantry harness. `ai` mode can be restored with the motion switcher when the robot should hold itself again.
+
+### 2026-09-20 — Correction: the teleop run was stopped by the operator, not by the clip
+
+**The previous entry's account of how the run ended is wrong and is corrected here. The operator pressed the physical E-stop to end the run. The `measured joint velocity exceeds limit` abort was the robot reacting to that stop, not BFM driving the joints too fast.** The earlier claim that "the clip became dynamic enough to trip it legitimately" was an inference made without asking, and it was incorrect.
+
+Two conclusions drawn from that false premise are withdrawn. The first is that the `0.035 rad` policy step is near some natural limit for a suspended robot; nothing in this run establishes that, because the run did not end on its own. The second is the suggested remedy of lowering the step further, slowing the clip, or loading the feet in order to run longer; none of that is supported, because the duration was set by the operator's hand, not by the robot's behaviour.
+
+What the run does establish stands unchanged: the full path ran on hardware, a recorded clip drove the 23-DoF BFM policy, which drove the real robot through the native 500 Hz loop, with 5,384 targets delivered, zero deadline misses, and real torque at the joints. How long it can sustain that is simply not yet known.
+
+The E-stop also worked as the last line of defence, which is worth recording on its own: the operator could end a live policy-driven run instantly, without depending on the software abort path.
