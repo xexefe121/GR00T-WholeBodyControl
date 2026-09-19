@@ -1619,3 +1619,25 @@ The third was the estimator treating a repeated sample timestamp as fatal. The r
 **The remaining blocker, stated precisely.** `CheckMode` reports no mode held, so Unitree's motion-control service has released the joints. `LowState` reports every motor with `mode=1` and normal temperatures. Our messages carry a CRC computed identically to the SDK's `crc32_core`, `mode_machine` taken from the observed state, and per-motor `mode=1`. Despite that, commanded stiffness produces no torque. The robot requires an enable that has not been satisfied - on G1 this is the remote's debug-mode entry - and the operator pressing L2+R2 did not change the behaviour. Until a command produces measurable torque, no further ladder progress is meaningful.
 
 **Suggested next step.** Rather than re-running the whole ladder to test an enable, build a minimal actuation probe: command one arm joint a few hundredths of a radian with modest stiffness and watch `tau_est` and `q`. It answers the only open question in seconds and is far smaller than a bring-up.
+
+### 2026-09-20 — BFM teleop ran on the physical robot
+
+**The full path ran end to end on hardware: a recorded PICO clip drove the 23-DoF BFM policy on this PC, which drove the real G1 through the native 500 Hz loop, for about a minute with 5,384 targets delivered and zero deadline misses, ending on a genuine joint-velocity safety abort rather than a defect.** Measured during the run: knee torque `-23.379 Nm`, hip `+9.956 Nm`, ankle `+7.960 Nm`, joint velocities around `1.1 rad/s`, with joints tracking the clip.
+
+**What finally unlocked actuation.** The robot must be in debug mode, and the documented sequence requires it to be suspended *and already in the damping state*: `L2+B` for damping, then `L2+R2` for debug mode, with `L2+A` posing a diagnostic position as confirmation. The earlier attempt pressed `L2+R2` after the `ai` mode had been released through the SDK, so no controller was running to receive it. Unitree's own `g1_ankle_swing_example`, built from the vendored SDK and run once, confirmed low-level control was live by producing `±10.8 Nm` and moving the knee from `0.99` to `-0.08 rad`.
+
+**Four defects between "commands accepted" and "robot moves", each found by making the loop say what it was doing.**
+
+The estimator treated a repeated LowState timestamp as fatal. The robot publishes at about 1 kHz while the loop consumes the latest sample every 2 ms, so the same sample is seen twice and `dt` is zero. A repeat now returns the previous estimate; a backwards or oversized step is still fatal.
+
+The command was allowed to outrun the robot. A suspended G1's ankles sag away from the commanded angle, and a ramp that kept walking regardless reached the `0.35 rad` position-error abort by itself - the abort reported a fault that was really the command leaving the robot behind. Commands are now held within `0.25 rad` of the measured position, which stalls the ramp on a joint that cannot follow while leaving the fault limit untouched.
+
+The brake could not do its job. The policy stage aborted on the *raw* target exceeding the `0.100 rad` step bound, which is exactly what BFM's first target does when handing over from the default pose, while the stage already clamped the emitted command. The check now applies to the emitted command, which is the property that protects the robot.
+
+Clamp order was wrong twice, and the new assertion caught both. Clamping to the follow margin after the brake, and to model joint limits after the brake, each moved the command further than the brake allowed. The order is now follow margin, then model limits, then brake last. The permitted range also includes wherever the joint actually is, because a real joint can rest outside the compiled model's range and must not make every command a fault. Finally the step check is made in double before the float store: a clamp landing exactly on the bound rounds a few times `1e-8` past it in float, which is not a brake failure.
+
+**Gentler first-run parameter.** `--policy-brake-step` was added, defaulting to the qualified `0.100 rad`. The hardware run used `0.035`, which lowers commanded joint velocity without touching the `6 rad/s` measured-velocity abort. At `0.100` the abort fired within seconds; at `0.035` the policy stage sustained about a minute before the clip became dynamic enough to trip it legitimately.
+
+**How the run ended, and what it means.** `measured joint velocity exceeds limit`. The clip is a walking motion and the robot is suspended, so the legs swing without ground contact and reach higher velocities than they would bearing weight. The limit is correct; the configuration is what makes it easy to reach. Longer runs want either a smaller policy step, a slower clip, or the feet actually loaded.
+
+**State left behind.** Nothing running on the robot, no motion mode held, robot limp in the gantry harness. `ai` mode can be restored with the motion switcher when the robot should hold itself again.

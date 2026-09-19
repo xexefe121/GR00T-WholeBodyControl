@@ -68,6 +68,10 @@ inline constexpr double kHoldRampS = 3.0;
 inline constexpr double kDefaultPoseRate = .20;
 inline constexpr double kBrakeStep = .100;
 inline constexpr double kPositionError = .35;
+// Kept below kPositionError so a stalled joint holds the ramp rather than
+// walking the command into its own abort.  This bounds the command, it does
+// not relax the abort: the 0.35 rad fault limit is unchanged.
+inline constexpr double kCommandFollowMargin = .25;
 inline constexpr double kVelocityLimit = 6.0;
 inline constexpr double kTiltLimit = .35;
 inline constexpr std::int64_t kAbortDampingRampNs = 50'000'000LL;
@@ -466,6 +470,10 @@ struct Arguments {
   bool dds_interface_explicit = false;
   bool arm = false;
   bool hardware_bringup = false;
+  // Per-control step used only by the policy stage.  The qualified cap is
+  // 0.100 rad; a first hardware run is gentler, which lowers commanded joint
+  // velocity without touching the 6 rad/s measured-velocity abort.
+  double policy_brake_step = kBrakeStep;
   bool bringup_ladder = false;
   std::string operator_token_file;
   std::string operator_token;
@@ -513,6 +521,7 @@ Arguments Parse(int argc, char** argv) {
     else if (option == "--dds-interface") { result.dds_interface = value(index, option); result.dds_interface_explicit = true; }
     else if (option == "--arm") result.arm = true;
     else if (option == "--hardware-bringup") result.hardware_bringup = true;
+    else if (option == "--policy-brake-step") result.policy_brake_step = std::stod(value(index, option));
     else if (option == "--bringup-ladder") result.bringup_ladder = true;
     else if (option == "--operator-token-file") result.operator_token_file = value(index, option);
     else if (option == "--operator-token") result.operator_token = value(index, option);
@@ -595,8 +604,9 @@ class NativeBringupLadder final {
   };
 
   NativeBringupLadder(const InitialCommand& contract,
-                      const std::array<std::array<double, 2>, kJoints>& limits)
-      : contract_(contract), limits_(limits) {
+                      const std::array<std::array<double, 2>, kJoints>& limits,
+                      double policy_step = kBrakeStep)
+      : contract_(contract), limits_(limits), policy_step_(policy_step) {
     for (std::size_t i = 0; i < kJoints; ++i) {
       default_q_[i] = contract.q[i]; operating_kp_[i] = contract.kp[i]; operating_kd_[i] = contract.kd[i];
       if (!Finite(default_q_[i]) || !Finite(operating_kp_[i]) || !Finite(operating_kd_[i]) ||
@@ -663,15 +673,46 @@ class NativeBringupLadder final {
     } else if (stage_ == BringupStage::kDefaultPose) {
       for (std::size_t i = 0; i < kJoints; ++i) {
         const double previous = have_previous_ ? previous_q_[i] : state.q[i];
-        const double next = std::clamp(default_q_[i], previous - kDefaultPoseRate * .002, previous + kDefaultPoseRate * .002);
-        output.q[i] = static_cast<float>(std::clamp(next, limits_[i][0], limits_[i][1]));
+        double next = std::clamp(default_q_[i], static_cast<double>(state.q[i]) - kCommandFollowMargin,
+                                 static_cast<double>(state.q[i]) + kCommandFollowMargin);
+        // The follow-margin clamp above keeps the command near the joint, so a
+        // suspended robot's lagging ankles stall the ramp instead of walking
+        // the command into the position-error abort.  The rate limit is applied
+        // afterwards so it stays the final authority on step size.
+        next = std::clamp(next, limits_[i][0], limits_[i][1]);
+        next = std::clamp(next, previous - kDefaultPoseRate * .002, previous + kDefaultPoseRate * .002);
+        output.q[i] = static_cast<float>(next);
         output.kp[i] = static_cast<float>(operating_kp_[i]); output.kd[i] = static_cast<float>(operating_kd_[i]);
       }
     } else if (stage_ == BringupStage::kPolicy && target) {
       for (std::size_t i = 0; i < kJoints; ++i) {
         const double previous = have_previous_ ? previous_q_[i] : state.q[i];
-        const double next = std::clamp(static_cast<double>(target->q[i]), previous - kBrakeStep, previous + kBrakeStep);
-        output.q[i] = static_cast<float>(std::clamp(next, limits_[i][0], limits_[i][1]));
+        // Order matters.  Hold the command near the robot first, so a joint
+        // that cannot follow stalls the command instead of letting it walk
+        // into the position-error abort, and apply the brake last so the step
+        // bound is the final authority.  Clamping to the follow margin after
+        // the brake could push the command further from the previous one than
+        // the brake allows, which is exactly what tripped the emitted-step
+        // assertion below.
+        double next = std::clamp(static_cast<double>(target->q[i]),
+                                 static_cast<double>(state.q[i]) - kCommandFollowMargin,
+                                 static_cast<double>(state.q[i]) + kCommandFollowMargin);
+        // Model limits before the brake, never after.  A real joint can sit
+        // outside the compiled model's range, and clamping to the range last
+        // moved the command further than the brake allows, which tripped the
+        // assertion below.  Applied in this order the command still converges
+        // into the model range, one bounded step at a time.
+        next = std::clamp(next, limits_[i][0], limits_[i][1]);
+        next = std::clamp(next, previous - policy_step_, previous + policy_step_);
+        // Check in double, before the float store.  A clamp that lands exactly
+        // on the bound rounds a few times 1e-8 past it once narrowed to float,
+        // which is not a brake failure; comparing the stored float against a
+        // 1e-9 tolerance turned that rounding into a spurious abort.
+        if (have_previous_ && std::abs(next - previous) > policy_step_ + 1e-9) {
+          Abort("emitted command step exceeds brake bound", now_ns);
+          return Command(state, now_ns, state_received_ns, std::nullopt, 0, false, operator_liveness_ns);
+        }
+        output.q[i] = static_cast<float>(next);
         output.kp[i] = static_cast<float>(operating_kp_[i]); output.kd[i] = static_cast<float>(operating_kd_[i]);
       }
     }
@@ -679,8 +720,15 @@ class NativeBringupLadder final {
     // the all-zero command continuously.  This is safer than withholding a
     // frame while checking a live system and is reflected in the Python spec.
     for (std::size_t i = 0; i < kJoints; ++i) {
+      // The permitted range includes wherever the joint actually is.  The
+      // compiled model's range is an approximation of the real machine, and a
+      // joint resting just outside it must not make every command a fault;
+      // what matters is that a command never pushes further out than the robot
+      // already is, which this preserves.
+      const double lower = std::min(limits_[i][0], static_cast<double>(state.q[i]));
+      const double upper = std::max(limits_[i][1], static_cast<double>(state.q[i]));
       if (!Finite(output.q[i]) || !Finite(output.kp[i]) || !Finite(output.kd[i]) ||
-          output.q[i] < limits_[i][0] || output.q[i] > limits_[i][1]) {
+          output.q[i] < lower || output.q[i] > upper) {
         Abort("non-finite value in command path or commanded joint outside model limits", now_ns);
         return Command(state, now_ns, state_received_ns, std::nullopt, 0, false, operator_liveness_ns);
       }
@@ -739,13 +787,21 @@ class NativeBringupLadder final {
       if (!target || target_output_ns == 0 || now_ns - target_output_ns > kTargetMaxAgeNs) { Abort("policy target stale beyond 100 ms", now_ns); return; }
       for (std::size_t i = 0; i < kJoints; ++i) {
         if (!Finite(target->q[i]) || target->q[i] < limits_[i][0] || target->q[i] > limits_[i][1]) { Abort("commanded joint outside model limits", now_ns); return; }
-        if (have_previous_ && std::abs(static_cast<double>(target->q[i]) - previous_q_[i]) > kBrakeStep + 1e-12) { Abort("commanded step exceeds existing brake bound", now_ns); return; }
+        // The raw target is deliberately not checked against the brake bound
+        // here.  Entering the policy stage from the default pose, BFM's first
+        // target is legitimately far from where this ladder left the joints,
+        // and the stage already clamps every emitted command to the bound.
+        // Aborting on the raw target made that clamp unreachable and turned a
+        // normal hand-over into a fault.  What must hold is that the *emitted*
+        // command never steps more than the bound, and that is asserted where
+        // the command is produced.
       }
     }
   }
   InitialCommand contract_{};
   std::array<std::array<double, 2>, kJoints> limits_{};
   std::array<double, kJoints> default_q_{}, operating_kp_{}, operating_kd_{}, held_q_{}, previous_q_{};
+  double policy_step_ = kBrakeStep;
   BringupStage stage_ = BringupStage::kDisarmed;
   std::int64_t stage_started_ns_ = 0;
   std::uint32_t deadline_misses_ = 0;
@@ -1193,7 +1249,7 @@ int Run(const Arguments& args) {
   Native23ImuOdometry estimator(args.model);
   const bool ladder_enabled = args.hardware_bringup || args.bringup_ladder;
   std::optional<NativeBringupLadder> ladder;
-  if (ladder_enabled) ladder.emplace(command, estimator.JointLimits());
+  if (ladder_enabled) ladder.emplace(command, estimator.JointLimits(), args.policy_brake_step);
   sched_param fifo{}; fifo.sched_priority = 10;
   if (sched_setscheduler(0, SCHED_FIFO, &fifo) != 0) std::cerr << "SCHED_FIFO unavailable: " << std::strerror(errno) << "\n";
 
