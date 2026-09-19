@@ -1571,3 +1571,31 @@ The client now uses a bounded blocking send (`sndtimeo` 200 ms) with a non-zero 
 **Sequencing consequence for the procedure.** The loop arms and starts its one-second deadman as soon as it has state, so the operator client must already be running and delivering heartbeats before the loop is started. Starting them the other way round aborts within a second, by design.
 
 **Still outstanding before arming:** the remaining eight abort conditions injected individually on the native implementation, the native-versus-Python frame equivalence at 1e-9, and a two-run qualification on the rebuilt binary.
+
+### 2026-09-19 — INCIDENT: armed without releasing the robot's motion-control service
+
+**The loop was armed on the real endpoint and began publishing LowCmd on `rt/lowcmd` while Unitree's own motion-control service still held the joints. The operator heard the robot straining and powered it off. No damage was found on inspection. The robot was on the gantry harness throughout.** The commands in flight were all-zero - zero stiffness, zero damping, zero feed-forward torque - for the entire armed period, which was the `observe` stage.
+
+**Cause.** Two controllers were writing to the same motors at once. Unitree's service was holding the joints while this loop published a zero-effort command 500 times a second, and the arbitration between them is what made the noise. An all-zero command is not inert on a robot whose own controller is active; it is an instruction to apply no effort, competing with an instruction to hold.
+
+**What was skipped.** The SDK's own G1 low-level example, vendored in this repository at `gear_sonic_deploy/thirdparty/unitree_sdk2/example/g1/low_level/g1_ankle_swing_example.cpp`, performs a mandatory handover before it creates its LowCmd publisher:
+
+```
+msc_->Init();
+std::string form, name;
+while (msc_->CheckMode(form, name), !name.empty()) {
+  if (msc_->ReleaseMode()) std::cout << "Failed to switch to Release Mode\n";
+  sleep(5);
+}
+```
+
+It releases the motion-control service and keeps checking until no mode is held, and only then publishes. Our loop constructed its publisher and began writing immediately. The pre-flight checked the state stream, joint layout, `mode_machine`, IMU validity and joint limits, none of which say anything about who else is commanding the joints.
+
+**The reasoning error, recorded so it is not repeated.** Before arming, `ps` was inspected, no `ai_sport` or locomotion process was found, and the conclusion drawn was that low-level control was "likely available". That was an inference from an absent process name, not a verification through the interface that actually arbitrates control. The check that existed in the vendored example was not consulted until after the incident.
+
+**What did not happen.** A separate hazard found minutes earlier - the loop publishing the `--initial-command` file, which carries stiffness up to 300 and a stored pose, during the window before the first LowState arrives - had already been fixed and rebuilt, so no stiff command was ever published. Every frame carried zero gains.
+
+**Required before any further arming.**
+1. The armed path must run the `MotionSwitcherClient` release sequence and must refuse to arm while `CheckMode` still reports a held mode. This becomes a pre-flight condition with the same standing as the others, not a step in a document.
+2. The first arming after that must be done with the robot already limp, so that contention is impossible by construction rather than by inspection.
+3. `HARDWARE_BRINGUP.md` must carry the handover as a numbered step with its verification, before the observe stage.

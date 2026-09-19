@@ -8,6 +8,7 @@
 
 #include <unitree/idl/hg/LowCmd_.hpp>
 #include <unitree/idl/hg/LowState_.hpp>
+#include <unitree/robot/b2/motion_switcher/motion_switcher_client.hpp>
 #include <unitree/robot/channel/channel_publisher.hpp>
 #include <unitree/robot/channel/channel_subscriber.hpp>
 #include <unitree/robot/channel/channel_factory.hpp>
@@ -19,6 +20,7 @@
 #include <array>
 #include <cerrno>
 #include <chrono>
+#include <thread>
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
@@ -1172,6 +1174,35 @@ int Run(const Arguments& args) {
       for (const auto& failure : failures) refusal << " " << failure << ";";
       throw std::runtime_error(refusal.str());
     }
+    // Unitree's own motion-control service must hand the joints over before a
+    // single LowCmd is published.  Publishing while it still holds them means
+    // two controllers writing the same motors at 500 Hz, which on 2026-09-19
+    // made the robot strain audibly even though every command carried zero
+    // stiffness, zero damping and zero torque.  This is the sequence the
+    // vendored SDK example performs before it creates its own publisher.
+    {
+      unitree::robot::b2::MotionSwitcherClient switcher;
+      switcher.SetTimeout(5.0f);
+      switcher.Init();
+      std::string form, name;
+      bool released = false;
+      for (int attempt = 0; attempt < 6; ++attempt) {
+        switcher.CheckMode(form, name);
+        if (name.empty()) { released = true; break; }
+        std::cout << "motion-control service holds mode \"" << name << "\"; releasing
+";
+        switcher.ReleaseMode();
+        std::this_thread::sleep_for(std::chrono::seconds(2));
+      }
+      if (!released) {
+        switcher.CheckMode(form, name);
+        throw std::runtime_error(
+            "real endpoint arming refused: motion-control service still holds mode \"" + name +
+            "\"; the robot has not handed over the joints");
+      }
+      std::cout << "motion-control service released; no mode held
+";
+    }
     real_endpoint_armed = true;
     observed_mode_machine = *preflight_mode;
   }
@@ -1343,6 +1374,14 @@ int Run(const Arguments& args) {
     if (ladder_enabled && have_latest_state) {
       command = ladder->Command(latest_state, MonotonicNs(), last_state_received_ns, latest_target,
                                 last_target_output_ns, deadline_missed, last_operator_liveness_ns);
+    } else if (ladder_enabled) {
+      // Before the first LowState the ladder has nothing to act on, and the
+      // command still carries whatever --initial-command held: that file has
+      // stiffness up to 300 and a stored pose, which would be published to a
+      // real endpoint at the instant of arming and would drive the joints to
+      // that pose before the zero-torque stage ever ran.  Publish an all-zero
+      // command until the ladder owns the output.
+      command.q = {}; command.kp = {}; command.kd = {};
     }
     WriteSafeLoopbackLowCmd(args, dds, command, real_endpoint_armed, observed_mode_machine);
     const std::int64_t sent = MonotonicNs();
