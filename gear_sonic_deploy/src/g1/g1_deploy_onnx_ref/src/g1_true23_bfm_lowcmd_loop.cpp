@@ -54,9 +54,22 @@ inline constexpr int kSafeDomain = 232;
 inline constexpr std::uint32_t kReplayMagic = 0x344D4642U;  // BFM4
 inline constexpr std::uint32_t kStateMagic = 0x34535442U;   // BTS4
 inline constexpr std::uint32_t kTargetMagic = 0x34544742U;  // BGT4
+inline constexpr std::uint32_t kControlMagic = 0x34434742U; // BGC4
 inline constexpr std::size_t kJoints = 23;
 inline constexpr std::int64_t kPeriodNs = 2'000'000;
 inline constexpr std::size_t kSolePoints = 8;
+inline constexpr std::int64_t kStateMaxAgeNs = 20'000'000LL;
+inline constexpr std::int64_t kTargetMaxAgeNs = 100'000'000LL;
+inline constexpr std::int64_t kOperatorLivenessMaxAgeNs = 1'000'000'000LL;
+inline constexpr double kDampingKd = 1.0;
+inline constexpr double kHoldRampS = 3.0;
+inline constexpr double kDefaultPoseRate = .20;
+inline constexpr double kBrakeStep = .100;
+inline constexpr double kPositionError = .35;
+inline constexpr double kVelocityLimit = 6.0;
+inline constexpr double kTiltLimit = .35;
+inline constexpr std::int64_t kAbortDampingRampNs = 50'000'000LL;
+inline constexpr std::int64_t kAbortZeroTorqueAfterNs = 250'000'000LL;
 
 #pragma pack(push, 1)
 struct ReplayHeader {
@@ -94,6 +107,20 @@ struct TargetWire {
   std::array<float, kJoints> kd;
 };
 
+// The PC is only an operator input source.  Receipt time is recorded by the
+// native loop; no PC clock is trusted for the deadman timeout.  `advance` is
+// edge-triggered, while heartbeat and abort may be repeated safely.
+struct ControlWire {
+  std::uint32_t magic;
+  std::uint32_t version;
+  std::uint64_t sequence;
+  // This is populated only by a same-host loopback verifier.  A PC connected
+  // across Ethernet must leave it zero: CLOCK_MONOTONIC epochs are host-local
+  // and must never be used to claim a cross-host one-way latency.
+  std::uint64_t sent_monotonic_ns;
+  std::uint32_t operation;  // 0 heartbeat, 1 advance, 2 manual abort
+};
+
 // This uses double intentionally. The estimator state must cross the process
 // boundary without converting through the float32 LowState-shaped sample.
 struct EstimatorSnapshotWire {
@@ -118,8 +145,10 @@ struct StateWire {
 
 static_assert(std::is_trivially_copyable_v<ReplaySample>);
 static_assert(std::is_trivially_copyable_v<TargetWire>);
+static_assert(std::is_trivially_copyable_v<ControlWire>);
 static_assert(sizeof(ReplaySample) == 232);
 static_assert(sizeof(TargetWire) == 308);
+static_assert(sizeof(ControlWire) == 28);
 static_assert(sizeof(EstimatorSnapshotWire) == 176);
 static_assert(sizeof(StateWire) == 440);
 
@@ -411,6 +440,7 @@ struct Arguments {
   std::string model;
   std::string state_endpoint;
   std::string target_endpoint;
+  std::string operator_endpoint;
   std::string output;
   int dds_domain = kSafeDomain;
   std::string dds_interface = "lo";
@@ -418,6 +448,7 @@ struct Arguments {
   bool dds_interface_explicit = false;
   bool arm = false;
   bool hardware_bringup = false;
+  bool bringup_ladder = false;
   std::string operator_token_file;
   std::string operator_token;
   double duration_seconds = 0.0;
@@ -445,6 +476,7 @@ Arguments Parse(int argc, char** argv) {
                    "--source <replay|dds> --replay <flat.bin> --initial-command <command.bin> "
                    "--model <compiled.mjb> "
                    "--state-endpoint <tcp://bind-address:port> --target-endpoint <tcp://bind-address:port> "
+                   "[--bringup-ladder --operator-endpoint <tcp://bind-address:port>] "
                    "--output <dir> [--ticks N] [--lockstep] [--dds-domain N] [--dds-interface IFACE]\n"
                    "--probe-readonly --duration-seconds N --model <compiled.mjb> --output <dir> "
                    "[--dds-domain N] [--dds-interface IFACE]\n"
@@ -457,11 +489,13 @@ Arguments Parse(int argc, char** argv) {
     else if (option == "--model") result.model = value(index, option);
     else if (option == "--state-endpoint") result.state_endpoint = value(index, option);
     else if (option == "--target-endpoint") result.target_endpoint = value(index, option);
+    else if (option == "--operator-endpoint") result.operator_endpoint = value(index, option);
     else if (option == "--output") result.output = value(index, option);
     else if (option == "--dds-domain") { result.dds_domain = std::stoi(value(index, option)); result.dds_domain_explicit = true; }
     else if (option == "--dds-interface") { result.dds_interface = value(index, option); result.dds_interface_explicit = true; }
     else if (option == "--arm") result.arm = true;
     else if (option == "--hardware-bringup") result.hardware_bringup = true;
+    else if (option == "--bringup-ladder") result.bringup_ladder = true;
     else if (option == "--operator-token-file") result.operator_token_file = value(index, option);
     else if (option == "--operator-token") result.operator_token = value(index, option);
     else if (option == "--duration-seconds") result.duration_seconds = std::stod(value(index, option));
@@ -492,8 +526,11 @@ Arguments Parse(int argc, char** argv) {
   if ((result.source != "replay" && result.source != "dds") ||
       (result.source == "replay" && result.replay.empty()) || result.initial_command.empty() || result.model.empty() || result.state_endpoint.empty() ||
       result.target_endpoint.empty() || result.output.empty()) throw std::runtime_error("required argument missing");
+  if ((result.hardware_bringup || result.bringup_ladder) && result.operator_endpoint.empty())
+    throw std::runtime_error("native bring-up ladder requires --operator-endpoint");
   const auto is_tcp = [](const std::string& endpoint) { return endpoint.rfind("tcp://", 0) == 0; };
-  if (!is_tcp(result.state_endpoint) || !is_tcp(result.target_endpoint))
+  if (!is_tcp(result.state_endpoint) || !is_tcp(result.target_endpoint) ||
+      (!result.operator_endpoint.empty() && !is_tcp(result.operator_endpoint)))
     throw std::runtime_error("Fix 5 state and target endpoints must be tcp:// bind endpoints");
   return result;
 }
@@ -505,6 +542,188 @@ InitialCommand LoadInitial(const std::string& path) {
     throw std::runtime_error("invalid initial command file");
   return command;
 }
+
+enum class BringupStage : std::uint32_t {
+  kDisarmed, kObserve, kZeroTorque, kDamping, kPositionHold, kDefaultPose,
+  kPolicy, kAbortDamping, kAbortZeroTorque, kAborted,
+};
+
+const char* BringupStageName(BringupStage stage) {
+  switch (stage) {
+    case BringupStage::kDisarmed: return "disarmed";
+    case BringupStage::kObserve: return "observe";
+    case BringupStage::kZeroTorque: return "zero_torque";
+    case BringupStage::kDamping: return "damping";
+    case BringupStage::kPositionHold: return "position_hold";
+    case BringupStage::kDefaultPose: return "default_pose";
+    case BringupStage::kPolicy: return "policy";
+    case BringupStage::kAbortDamping: return "abort_damping";
+    case BringupStage::kAbortZeroTorque: return "abort_zero_torque";
+    case BringupStage::kAborted: return "aborted";
+  }
+  return "invalid";
+}
+
+// This is the native equivalent of utils/g1_true23_bringup.py.  It owns all
+// stage changes, every watchdog, and the final command calculation inside the
+// 500 Hz loop.  PC messages can request advance/abort or refresh liveness,
+// but cannot decide whether a command remains safe.
+class NativeBringupLadder final {
+ public:
+  struct Transition {
+    std::int64_t timestamp_ns;
+    BringupStage stage;
+    std::string detail;
+  };
+
+  NativeBringupLadder(const InitialCommand& contract,
+                      const std::array<std::array<double, 2>, kJoints>& limits)
+      : contract_(contract), limits_(limits) {
+    for (std::size_t i = 0; i < kJoints; ++i) {
+      default_q_[i] = contract.q[i]; operating_kp_[i] = contract.kp[i]; operating_kd_[i] = contract.kd[i];
+      if (!Finite(default_q_[i]) || !Finite(operating_kp_[i]) || !Finite(operating_kd_[i]) ||
+          limits_[i][0] >= limits_[i][1] || default_q_[i] < limits_[i][0] || default_q_[i] > limits_[i][1]) {
+        throw std::runtime_error("invalid bring-up contract or model limits");
+      }
+    }
+  }
+
+  void Arm(std::int64_t now_ns) {
+    if (stage_ != BringupStage::kDisarmed) throw std::runtime_error("operator must start a new process to arm again");
+    Enter(BringupStage::kObserve, now_ns, "operator armed; observe only");
+  }
+
+  void Advance(const ReplaySample& state, std::int64_t now_ns) {
+    if (Aborted()) return;  // A late PC packet cannot revive a latched abort.
+    BringupStage next = BringupStage::kDisarmed;
+    switch (stage_) {
+      case BringupStage::kObserve: next = BringupStage::kZeroTorque; break;
+      case BringupStage::kZeroTorque: next = BringupStage::kDamping; break;
+      case BringupStage::kDamping: next = BringupStage::kPositionHold; break;
+      case BringupStage::kPositionHold: next = BringupStage::kDefaultPose; break;
+      case BringupStage::kDefaultPose: next = BringupStage::kPolicy; break;
+      default: return;
+    }
+    if (next == BringupStage::kPositionHold) {
+      for (std::size_t i = 0; i < kJoints; ++i) held_q_[i] = previous_q_[i] = state.q[i];
+      have_previous_ = true;
+    }
+    Enter(next, now_ns, "fresh explicit operator advance");
+  }
+
+  void Abort(std::string_view reason, std::int64_t now_ns) {
+    if (!Aborted()) {
+      abort_reason_ = std::string(reason);
+      abort_timestamp_ns_ = now_ns;
+      Enter(BringupStage::kAbortDamping, now_ns, std::string("abort: ") + abort_reason_);
+    }
+  }
+
+  InitialCommand Command(const ReplaySample& state, std::int64_t now_ns,
+                         std::int64_t state_received_ns, const std::optional<TargetWire>& target,
+                         std::int64_t target_output_ns, bool deadline_missed,
+                         std::int64_t operator_liveness_ns) {
+    CheckAbort(state, now_ns, state_received_ns, target, target_output_ns, deadline_missed, operator_liveness_ns);
+    if (stage_ == BringupStage::kAbortDamping && now_ns - stage_started_ns_ >= kAbortDampingRampNs)
+      Enter(BringupStage::kAbortZeroTorque, now_ns, "damping ramp complete");
+    if (stage_ == BringupStage::kAbortZeroTorque && now_ns - stage_started_ns_ >= kAbortZeroTorqueAfterNs)
+      Enter(BringupStage::kAborted, now_ns, "zero torque continuing; re-arm required");
+
+    InitialCommand output{};
+    output.magic = kTargetMagic; output.version = 1;
+    for (std::size_t i = 0; i < kJoints; ++i) output.q[i] = have_previous_ ? static_cast<float>(previous_q_[i]) : state.q[i];
+    if (stage_ == BringupStage::kDamping || stage_ == BringupStage::kAbortDamping) {
+      const double alpha = stage_ == BringupStage::kAbortDamping ? std::clamp(
+          static_cast<double>(now_ns - stage_started_ns_) / static_cast<double>(kAbortDampingRampNs), 0.0, 1.0) : 1.0;
+      for (float& kd : output.kd) kd = static_cast<float>(kDampingKd * alpha);
+    } else if (stage_ == BringupStage::kPositionHold) {
+      const double alpha = std::min(static_cast<double>(now_ns - stage_started_ns_) / (kHoldRampS * 1e9), 1.0);
+      for (std::size_t i = 0; i < kJoints; ++i) {
+        output.q[i] = static_cast<float>(held_q_[i]); output.kp[i] = static_cast<float>(operating_kp_[i] * alpha);
+        output.kd[i] = static_cast<float>(operating_kd_[i]);
+      }
+    } else if (stage_ == BringupStage::kDefaultPose) {
+      for (std::size_t i = 0; i < kJoints; ++i) {
+        const double previous = have_previous_ ? previous_q_[i] : state.q[i];
+        const double next = std::clamp(default_q_[i], previous - kDefaultPoseRate * .002, previous + kDefaultPoseRate * .002);
+        output.q[i] = static_cast<float>(std::clamp(next, limits_[i][0], limits_[i][1]));
+        output.kp[i] = static_cast<float>(operating_kp_[i]); output.kd[i] = static_cast<float>(operating_kd_[i]);
+      }
+    } else if (stage_ == BringupStage::kPolicy && target) {
+      for (std::size_t i = 0; i < kJoints; ++i) {
+        const double previous = have_previous_ ? previous_q_[i] : state.q[i];
+        const double next = std::clamp(static_cast<double>(target->q[i]), previous - kBrakeStep, previous + kBrakeStep);
+        output.q[i] = static_cast<float>(std::clamp(next, limits_[i][0], limits_[i][1]));
+        output.kp[i] = static_cast<float>(operating_kp_[i]); output.kd[i] = static_cast<float>(operating_kd_[i]);
+      }
+    }
+    // Observe, zero torque, and both zero-torque abort terminal stages emit
+    // the all-zero command continuously.  This is safer than withholding a
+    // frame while checking a live system and is reflected in the Python spec.
+    for (std::size_t i = 0; i < kJoints; ++i) {
+      if (!Finite(output.q[i]) || !Finite(output.kp[i]) || !Finite(output.kd[i]) ||
+          output.q[i] < limits_[i][0] || output.q[i] > limits_[i][1]) {
+        Abort("non-finite value in command path or commanded joint outside model limits", now_ns);
+        return Command(state, now_ns, state_received_ns, std::nullopt, 0, false, operator_liveness_ns);
+      }
+      previous_q_[i] = output.q[i];
+    }
+    have_previous_ = true;
+    return output;
+  }
+
+  BringupStage stage() const { return stage_; }
+  const std::string& last_event() const { return last_event_; }
+  const std::vector<Transition>& transitions() const { return transitions_; }
+  const std::string& abort_reason() const { return abort_reason_; }
+  std::int64_t abort_timestamp_ns() const { return abort_timestamp_ns_; }
+
+ private:
+  static bool Finite(double value) { return std::isfinite(value); }
+  bool Aborted() const { return stage_ == BringupStage::kAbortDamping || stage_ == BringupStage::kAbortZeroTorque || stage_ == BringupStage::kAborted; }
+  void Enter(BringupStage next, std::int64_t now_ns, std::string event) {
+    stage_ = next;
+    stage_started_ns_ = now_ns;
+    last_event_ = std::move(event);
+    transitions_.push_back(Transition{now_ns, stage_, last_event_});
+  }
+  void CheckAbort(const ReplaySample& state, std::int64_t now_ns, std::int64_t state_received_ns,
+                  const std::optional<TargetWire>& target, std::int64_t target_output_ns,
+                  bool deadline_missed, std::int64_t operator_liveness_ns) {
+    if (stage_ == BringupStage::kDisarmed || Aborted()) return;
+    if (state_received_ns == 0 || now_ns - state_received_ns > kStateMaxAgeNs) { Abort("LowState is older than 20 ms", now_ns); return; }
+    for (std::size_t i = 0; i < kJoints; ++i) {
+      if (!Finite(state.q[i]) || !Finite(state.dq[i]) || state.q[i] < limits_[i][0] || state.q[i] > limits_[i][1]) { Abort("non-finite state or measured joint outside model limits", now_ns); return; }
+    }
+    double quat_norm_sq = 0.0;
+    for (float value : state.quat) { if (!Finite(value)) { Abort("non-finite value in command path", now_ns); return; } quat_norm_sq += value * value; }
+    const double tilt = std::acos(std::clamp(1.0 - 2.0 * (state.quat[1] * state.quat[1] + state.quat[2] * state.quat[2]), -1.0, 1.0));
+    if (!Finite(tilt) || tilt > kTiltLimit) { Abort("estimated tilt exceeds limit", now_ns); return; }
+    for (float velocity : state.dq) if (std::abs(velocity) > kVelocityLimit) { Abort("measured joint velocity exceeds limit", now_ns); return; }
+    if (have_previous_) for (std::size_t i = 0; i < kJoints; ++i) if (std::abs(static_cast<double>(state.q[i]) - previous_q_[i]) > kPositionError) { Abort("measured joint position error exceeds limit", now_ns); return; }
+    deadline_misses_ = deadline_missed ? deadline_misses_ + 1 : 0;
+    if (deadline_misses_ > 1) { Abort("more than one consecutive deadline miss", now_ns); return; }
+    if (operator_liveness_ns == 0 || now_ns - operator_liveness_ns > kOperatorLivenessMaxAgeNs) { Abort("operator liveness lost", now_ns); return; }
+    if (stage_ == BringupStage::kPolicy) {
+      if (!target || target_output_ns == 0 || now_ns - target_output_ns > kTargetMaxAgeNs) { Abort("policy target stale beyond 100 ms", now_ns); return; }
+      for (std::size_t i = 0; i < kJoints; ++i) {
+        if (!Finite(target->q[i]) || target->q[i] < limits_[i][0] || target->q[i] > limits_[i][1]) { Abort("commanded joint outside model limits", now_ns); return; }
+        if (have_previous_ && std::abs(static_cast<double>(target->q[i]) - previous_q_[i]) > kBrakeStep + 1e-12) { Abort("commanded step exceeds existing brake bound", now_ns); return; }
+      }
+    }
+  }
+  InitialCommand contract_{};
+  std::array<std::array<double, 2>, kJoints> limits_{};
+  std::array<double, kJoints> default_q_{}, operating_kp_{}, operating_kd_{}, held_q_{}, previous_q_{};
+  BringupStage stage_ = BringupStage::kDisarmed;
+  std::int64_t stage_started_ns_ = 0;
+  std::uint32_t deadline_misses_ = 0;
+  bool have_previous_ = false;
+  std::string last_event_;
+  std::vector<Transition> transitions_;
+  std::string abort_reason_;
+  std::int64_t abort_timestamp_ns_ = 0;
+};
 
 LowCmd MakeLowCmd(const InitialCommand& command, std::uint8_t observed_mode_machine = 0) {
   LowCmd result;
@@ -932,6 +1151,9 @@ int Run(const Arguments& args) {
   std::filesystem::create_directories(args.output);
   InitialCommand command = LoadInitial(args.initial_command);
   Native23ImuOdometry estimator(args.model);
+  const bool ladder_enabled = args.hardware_bringup || args.bringup_ladder;
+  std::optional<NativeBringupLadder> ladder;
+  if (ladder_enabled) ladder.emplace(command, estimator.JointLimits());
   sched_param fifo{}; fifo.sched_priority = 10;
   if (sched_setscheduler(0, SCHED_FIFO, &fifo) != 0) std::cerr << "SCHED_FIFO unavailable: " << std::strerror(errno) << "\n";
 
@@ -972,16 +1194,21 @@ int Run(const Arguments& args) {
   if (!context) throw std::runtime_error("zmq_ctx_new failed");
   void* state_socket = zmq_socket(context, ZMQ_PUSH);
   void* target_socket = zmq_socket(context, ZMQ_PULL);
+  void* operator_socket = ladder_enabled ? zmq_socket(context, ZMQ_PULL) : nullptr;
   // 65,536 fixed-size samples are under 16 MiB.  This bounded queue lets the
   // 500 Hz owner continue through an occasional policy stall without blocking
   // or discarding the recorded lowstate stream.
   const int zero = 0, hwm = 65536;
   zmq_setsockopt(state_socket, ZMQ_LINGER, &zero, sizeof(zero));
   zmq_setsockopt(target_socket, ZMQ_LINGER, &zero, sizeof(zero));
+  if (operator_socket) zmq_setsockopt(operator_socket, ZMQ_LINGER, &zero, sizeof(zero));
   zmq_setsockopt(state_socket, ZMQ_SNDHWM, &hwm, sizeof(hwm));
   zmq_setsockopt(target_socket, ZMQ_RCVHWM, &hwm, sizeof(hwm));
+  if (operator_socket) zmq_setsockopt(operator_socket, ZMQ_RCVHWM, &hwm, sizeof(hwm));
   if (zmq_bind(state_socket, args.state_endpoint.c_str()) != 0 || zmq_bind(target_socket, args.target_endpoint.c_str()) != 0)
     throw std::runtime_error("cannot bind Fix 5 TCP endpoint");
+  if (operator_socket && zmq_bind(operator_socket, args.operator_endpoint.c_str()) != 0)
+    throw std::runtime_error("cannot bind native operator-control endpoint");
 
   // Lock memory only after DDS and ZMQ have created their threads. With
   // MCL_FUTURE in force every new thread stack must also be locked, and an
@@ -998,23 +1225,32 @@ int Run(const Arguments& args) {
     if (!snapshots) throw std::runtime_error("cannot create estimator_snapshots.csv");
     snapshots << std::setprecision(17) << "tick,position_x,position_y,position_z,velocity_x,velocity_y,velocity_z,bias_x,bias_y,bias_z,quat_w,quat_x,quat_y,quat_z,weight_0,weight_1,weight_2,weight_3,weight_4,weight_5,weight_6,weight_7,timestamp_s\n";
   }
-  std::vector<double> lateness, work, gaps, ages, round_trips;
-  std::uint64_t missed = 0, dropped_state = 0, received_targets = 0;
+  std::vector<double> lateness, work, gaps, ages, round_trips, manual_abort_delivery_latencies;
+  std::uint64_t missed = 0, dropped_state = 0, received_targets = 0, received_operator_controls = 0;
+  std::uint64_t observed_operator_frames = 0;
+  int last_operator_frame_bytes = -1;
+  std::uint32_t last_operator_frame_magic = 0, last_operator_frame_version = 0;
+  std::uint32_t last_operator_frame_first_bytes = 0;
   std::uint64_t sequence = 0, last_target_sequence = std::numeric_limits<std::uint64_t>::max();
   std::vector<std::uint64_t> state_sent_mono_ns;
   std::int64_t last_send = 0;
+  std::int64_t last_state_received_ns = 0, last_target_output_ns = 0, last_operator_liveness_ns = 0;
+  std::optional<TargetWire> latest_target;
+  ReplaySample latest_state{};
+  bool have_latest_state = false;
   const std::int64_t start = MonotonicNs();
   const auto max_ticks = args.ticks == 0 ? std::numeric_limits<std::uint64_t>::max() : args.ticks;
   for (std::uint64_t tick = 0; tick < max_ticks; ++tick) {
     const std::int64_t due = start + static_cast<std::int64_t>(tick) * kPeriodNs;
     if (!args.lockstep) SleepUntil(due);
     const std::int64_t tick_start = MonotonicNs();
+    const bool deadline_missed = tick_start > due + kPeriodNs;
     const double late_ms = std::max(0.0, static_cast<double>(tick_start - due) / 1e6);
     ReplaySample sample{};
     const bool have_sample = source->Next(sample);
     if (!have_sample && args.source == "replay") break;
     EstimatorSnapshotWire snapshot{};
-    if (have_sample) snapshot = estimator.Update(sample);
+    if (have_sample) { snapshot = estimator.Update(sample); latest_state = sample; have_latest_state = true; last_state_received_ns = tick_start; }
     StateWire state{};
     state.magic = kStateMagic; state.version = 2; state.sequence = sequence;
     state.sent_mono_ns = static_cast<std::uint64_t>(MonotonicNs());
@@ -1035,10 +1271,55 @@ int Run(const Arguments& args) {
       snapshots << ',' << state.estimator.timestamp_s << '\n';
     }
 
+    if (ladder_enabled && ladder->stage() == BringupStage::kDisarmed && have_latest_state) {
+      ladder->Arm(tick_start);
+      // The control process cannot transmit until this loop has bound its
+      // PULL socket.  Start the one-second deadman window here rather than
+      // treating the first 2 ms tick as a lost supervisor.
+      last_operator_liveness_ns = tick_start;
+    }
+    ControlWire operator_control{};
+    // Count every frame the socket yields, not only well-formed ones, and keep
+    // the last observed size.  A frame rejected for its size or its header used
+    // to vanish without incrementing any counter, which made a silent operator
+    // channel indistinguishable from an idle one.  The frame is received into a
+    // byte buffer and copied, so the wire layout is explicit rather than a
+    // reinterpretation of the receive buffer.
+    while (operator_socket) {
+      std::array<std::uint8_t, sizeof(ControlWire)> operator_frame{};
+      const int operator_bytes = zmq_recv(operator_socket, operator_frame.data(), operator_frame.size(), ZMQ_DONTWAIT);
+      if (operator_bytes < 0) break;
+      if (operator_bytes == static_cast<int>(operator_frame.size()))
+        std::memcpy(&operator_control, operator_frame.data(), sizeof(operator_control));
+      last_operator_frame_first_bytes = 0;
+      for (int byte = 0; byte < 4 && byte < operator_bytes; ++byte)
+        last_operator_frame_first_bytes |= static_cast<std::uint32_t>(operator_frame[byte]) << (8 * byte);
+      ++observed_operator_frames;
+      last_operator_frame_bytes = operator_bytes;
+      if (operator_bytes != static_cast<int>(sizeof(operator_control))) continue;
+      last_operator_frame_magic = operator_control.magic;
+      last_operator_frame_version = operator_control.version;
+      if (operator_control.magic != kControlMagic || operator_control.version != 2) continue;
+      ++received_operator_controls;
+      last_operator_liveness_ns = MonotonicNs();
+      if (operator_control.operation == 2) {
+        ladder->Abort("manual operator abort", last_operator_liveness_ns);
+        // A value is recorded only by the dedicated same-host loopback test.
+        // The production PC client sends zero because cross-host monotonic
+        // clocks cannot establish a trustworthy one-way latency.
+        if (operator_control.sent_monotonic_ns != 0 &&
+            last_operator_liveness_ns >= static_cast<std::int64_t>(operator_control.sent_monotonic_ns)) {
+          manual_abort_delivery_latencies.push_back(
+              static_cast<double>(last_operator_liveness_ns - static_cast<std::int64_t>(operator_control.sent_monotonic_ns)) / 1e6);
+        }
+      }
+      else if (operator_control.operation == 1 && have_latest_state) ladder->Advance(latest_state, last_operator_liveness_ns);
+    }
     TargetWire incoming{};
     while (zmq_recv(target_socket, &incoming, sizeof(incoming), ZMQ_DONTWAIT) == static_cast<int>(sizeof(incoming))) {
       if (incoming.magic != kTargetMagic || incoming.version != 1) continue;
       command.q = incoming.q; command.kp = incoming.kp; command.kd = incoming.kd;
+      latest_target = incoming;
       ++received_targets;
       if (incoming.state_sequence != last_target_sequence) {
         last_target_sequence = incoming.state_sequence;
@@ -1052,9 +1333,16 @@ int Run(const Arguments& args) {
           const auto offset = ((static_cast<std::int64_t>(incoming.policy_state_receive_mono_ns) - sent_state) +
                                (static_cast<std::int64_t>(incoming.policy_output_mono_ns) - now_mono)) / 2;
           const auto output_native = static_cast<std::int64_t>(incoming.policy_output_mono_ns) - offset;
-          if (output_native <= now_mono) ages.push_back(static_cast<double>(now_mono - output_native) / 1e6);
+          if (output_native <= now_mono) {
+            ages.push_back(static_cast<double>(now_mono - output_native) / 1e6);
+            last_target_output_ns = output_native;
+          }
         }
       }
+    }
+    if (ladder_enabled && have_latest_state) {
+      command = ladder->Command(latest_state, MonotonicNs(), last_state_received_ns, latest_target,
+                                last_target_output_ns, deadline_missed, last_operator_liveness_ns);
     }
     WriteSafeLoopbackLowCmd(args, dds, command, real_endpoint_armed, observed_mode_machine);
     const std::int64_t sent = MonotonicNs();
@@ -1073,11 +1361,36 @@ int Run(const Arguments& args) {
          << "\"dds_safety\":\"LowCmd publisher exists only for domain 232 on loopback; test topic is fixed\",\n"
          << "\"lowcmd_publisher_exists\":" << (dds ? "true" : "false") << ",\n"
          << "\"ticks\":" << lateness.size() << ",\"deadline_misses\":" << missed
-         << ",\"state_send_eagain_drops\":" << dropped_state << ",\"targets_received\":" << received_targets << ",\n";
+         << ",\"state_send_eagain_drops\":" << dropped_state << ",\"targets_received\":" << received_targets
+         << ",\"observed_operator_frames\":" << observed_operator_frames
+         << ",\"last_operator_frame_magic\":" << last_operator_frame_magic
+         << ",\"last_operator_frame_first_bytes\":" << last_operator_frame_first_bytes
+         << ",\"last_operator_frame_version\":" << last_operator_frame_version
+         << ",\"last_operator_frame_bytes\":" << last_operator_frame_bytes
+         << ",\"control_frames_received\":" << received_operator_controls
+         << ",\"operator_controls_received\":" << received_operator_controls
+         << ",\"current_stage\":\"" << (ladder_enabled ? BringupStageName(ladder->stage()) : "disabled") << "\""
+         << ",\"native_bringup_stage\":\"" << (ladder_enabled ? BringupStageName(ladder->stage()) : "disabled") << "\""
+         << ",\"native_bringup_event\":\"" << (ladder_enabled ? ladder->last_event() : "") << "\""
+         << ",\"abort_reason\":\"" << (ladder_enabled ? ladder->abort_reason() : "") << "\""
+         << ",\"abort_timestamp_monotonic_ns\":" << (ladder_enabled ? ladder->abort_timestamp_ns() : 0) << ",\n";
+  report << "\"stage_transition_history\":[";
+  if (ladder_enabled) {
+    for (std::size_t index = 0; index < ladder->transitions().size(); ++index) {
+      const auto& transition = ladder->transitions()[index];
+      if (index) report << ',';
+      report << "{\"timestamp_monotonic_ns\":" << transition.timestamp_ns
+             << ",\"stage\":\"" << BringupStageName(transition.stage)
+             << "\",\"detail\":\"" << transition.detail << "\"}";
+    }
+  }
+  report << "],\n\"manual_abort_delivery_latency_ms\":{\"samples\":" << manual_abort_delivery_latencies.size() << ',';
+  SummaryJson(report, "summary", manual_abort_delivery_latencies);
+  report << "},\n";
   SummaryJson(report, "start_lateness_ms", lateness); report << ','; SummaryJson(report, "work_ms", work); report << ',';
   SummaryJson(report, "lowcmd_gap_ms", gaps); report << ','; SummaryJson(report, "ipc_round_trip_ms", round_trips); report << ',';
   SummaryJson(report, "target_age_ms", ages); report << "\n}\n";
-  zmq_close(state_socket); zmq_close(target_socket); zmq_ctx_term(context);
+  zmq_close(state_socket); zmq_close(target_socket); if (operator_socket) zmq_close(operator_socket); zmq_ctx_term(context);
   std::cout << "Fix 5 native loop completed " << lateness.size() << " ticks; misses=" << missed << "\n";
   return missed == 0 ? 0 : 2;
 }
