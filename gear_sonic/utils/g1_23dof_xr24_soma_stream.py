@@ -35,6 +35,7 @@ from gear_sonic.utils.g1_23dof_contract import (
 from gear_sonic.utils.g1_23dof_pico_retargeted_producer import (
     PINNED_CONFIG_SHA256,
     PINNED_SOMA_COMMIT,
+    SOMA_MJ29_JOINT_NAMES,
     SOMA_MJ29_TO_CANONICAL_IL29,
     validate_raw_capture,
 )
@@ -470,6 +471,7 @@ class _True23BodyTermBuilder:
         self._state = self._model.state()
         self._joint_qd = wp.zeros(self._model.joint_dof_count, dtype=wp.float32)
         leaf_names = [str(label).rsplit("/", 1)[-1] for label in pipeline.robot_builder.body_label]
+        self._leaf_names = leaf_names
         required = (
             "pelvis",
             "left_wrist_roll_link",
@@ -486,6 +488,38 @@ class _True23BodyTermBuilder:
             (0.18, 0.025, 0.0),
             (0.0, 0.0, 0.35),
         )
+
+    def build_full_body(self, root7_mj29, timing):
+        """Current original29 geometry for native23 simulation, without zeroed axes.
+
+        This optional extension leaves the pinned legacy three-point payload
+        unchanged. Newton uses XYZW; the receiver converts explicitly to WXYZ.
+        """
+        q = self._np.asarray(root7_mj29, dtype=self._np.float32).copy()
+        if q.shape != (36,) or not self._np.isfinite(q).all():
+            raise ValueError("full-body source requires finite root7 + original29")
+        names = self._leaf_names
+        task_names = ("left_wrist_yaw_link", "right_wrist_yaw_link", "torso_link")
+        if len(set(names)) != len(names) or any(name not in names for name in task_names):
+            raise ValueError("original29 full-body source geometry lacks unique task bodies")
+        self._newton.eval_fk(self._model, self._wp.array(q, dtype=self._wp.float32),
+                             self._joint_qd, self._state)
+        bodies = self._np.asarray(self._state.body_q.numpy(), dtype=self._np.float64).reshape(-1, 7)
+        positions, quaternions = [], []
+        for name, offset in zip(task_names, self._offsets, strict=True):
+            body = bodies[names.index(name)]
+            positions.append((body[:3] + self._np.asarray(_quat_rotate(body[3:], offset))).tolist())
+            quaternions.append(body[3:].tolist())
+        return dict(schema_version=1, kind="native23_current_original29_body_pose",
+                    source_frame_index=int(timing["source_frame_index"]),
+                    reference_monotonic_ns=int(timing["reference_monotonic_ns"]),
+                    capture_monotonic_ns=int(timing["capture_monotonic_ns"]),
+                    joint_names=list(SOMA_MJ29_JOINT_NAMES), joint_position=q[7:].tolist(),
+                    body_names=names.copy(), body_position_w=bodies[:, :3].tolist(),
+                    body_quaternion_xyzw=bodies[:, 3:].tolist(),
+                    task_names=["left_hand", "right_hand", "head"],
+                    task_position_w=positions, task_quaternion_xyzw=quaternions,
+                    original29_axes_preserved=True)
 
     def build(
         self,
@@ -652,11 +686,13 @@ class PinnedSomaRollingRetargeter:
         *,
         soma_source_root: Path,
         _solver_iterations: int = 24,
+        include_native_body: bool = False,
     ):
         if _solver_iterations != 24 and _solver_iterations not in (EXPERIMENTAL_SOMA_ITERATION_PROFILES):
             raise ValueError("unsupported SOMA solver iteration count")
         self.soma_source_root = soma_source_root.resolve()
         self.solver_iterations = _solver_iterations
+        self.include_native_body = bool(include_native_body)
         self.retarget_contract = soma_rolling_retarget_contract(_solver_iterations)
         self.runtime_report = _validate_pinned_soma_runtime(self.soma_source_root)
         self._frame_builder = _SomaLocalFrameBuilder(self.soma_source_root)
@@ -816,6 +852,7 @@ class PinnedSomaRollingRetargeter:
         self._verify_joint_limits(row)
         assert self._body_builder is not None
         body_term = self._body_builder.build(row, sample)
+        native_body = self._body_builder.build_full_body(row, sample) if self.include_native_body else None
         finished_ns = time.monotonic_ns()
         duration_ns = finished_ns - started_ns
         self._durations_ns.append(duration_ns)
@@ -850,6 +887,7 @@ class PinnedSomaRollingRetargeter:
             "body_term_duration_ns": finished_ns - solver_finished_ns,
             "initialization_solver_steps": initialization_steps,
             "body_term": body_term,
+            **({"native23_body_pose": native_body} if native_body is not None else {}),
             "producer_sha256": _module_sha256(),
             "retarget_contract_sha256": self.retarget_contract["contract_sha256"],
             "status": ROLLING_SOMA_STATUS,
@@ -927,12 +965,13 @@ class PinnedSomaRollingRetargeter:
 class ExperimentalSomaRollingRetargeter(PinnedSomaRollingRetargeter):
     """Distinct non-promotable IK-iteration experiment; never pinned exact."""
 
-    def __init__(self, *, soma_source_root: Path, solver_iterations: int):
+    def __init__(self, *, soma_source_root: Path, solver_iterations: int, include_native_body: bool = False):
         if solver_iterations not in EXPERIMENTAL_SOMA_ITERATION_PROFILES:
             raise ValueError("experimental solver iterations must be 16 or 12")
         super().__init__(
             soma_source_root=soma_source_root,
             _solver_iterations=solver_iterations,
+            include_native_body=include_native_body,
         )
 
 

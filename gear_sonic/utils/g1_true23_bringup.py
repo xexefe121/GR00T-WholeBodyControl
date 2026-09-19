@@ -273,8 +273,13 @@ class BringupLadder:
         mode_machine = state.mode_machine
         q = state.q.copy() if self._previous_q is None else self._previous_q.copy()
         kp = np.zeros(JOINTS); kd = np.zeros(JOINTS); tau = np.zeros(JOINTS)
+        # Observe is deliberately a commanded safe stage in the native path.
+        # Publishing a zero-torque frame at the loop rate prevents a previous
+        # external LowCmd from surviving while the operator checks the live
+        # pre-flight.  It otherwise has the same zero-gain semantics as the
+        # explicit zero-torque stage.
         if self.stage is Stage.OBSERVE:
-            return None
+            pass
         if self.stage in (Stage.ZERO_TORQUE, Stage.ABORT_ZERO_TORQUE, Stage.ABORTED):
             pass
         elif self.stage in (Stage.DAMPING, Stage.ABORT_DAMPING):

@@ -207,7 +207,9 @@ def pose_path_derivatives(model, qpos, dt):
     return qvel, np.gradient(qvel, dt, axis=0, edge_order=2)
 
 
-def audit_reference_support(model, motion, torque_limits, *, gap_tolerance_m=0.002, reference_dynamics=False):
+def audit_reference_support(
+    model, motion, torque_limits, *, gap_tolerance_m=0.002, reference_dynamics=False, record_solver_failures=False
+):
     """Audit every pose, without editing or stepping the model.
 
     A conditional pass is NOT dynamic feasibility or a permitted robot action.
@@ -217,6 +219,8 @@ def audit_reference_support(model, motion, torque_limits, *, gap_tolerance_m=0.0
         raise ValueError("candidate floor gap tolerance must be between 0 and 0.01 m")
     if not isinstance(reference_dynamics, bool):
         raise ValueError("reference dynamics selection must be boolean")
+    if not isinstance(record_solver_failures, bool):
+        raise ValueError("solver failure recording selection must be boolean")
     qpos = motion_qpos(model, motion)
     if model.nv != 29 or model.neq or model.ntendon:
         raise ValueError("support screen requires unconstrained native23 articulation")
@@ -249,7 +253,20 @@ def audit_reference_support(model, motion, torque_limits, *, gap_tolerance_m=0.0
         mujoco.mj_mulM(candidate_model, data, inertia_force, qacc[index])
         required = inertia_force + data.qfrc_bias - data.qfrc_passive
         force_map, contacts = floor_contact_map(candidate_model, data, plane, gap_tolerance_m)
-        solution = minimum_effort_support(required, force_map, torque_limits, model.dof_frictionloss[6:])
+        try:
+            solution = minimum_effort_support(required, force_map, torque_limits, model.dof_frictionloss[6:])
+        except RuntimeError as error:
+            if not record_solver_failures:
+                raise
+            # Keep every frame and the error. Numerical uncertainty is neither
+            # a support certificate nor a mathematical infeasibility proof.
+            solution = dict(
+                status="numerically_indeterminate_support",
+                minimum_peak_effort_ratio=None,
+                within_supplied_effort_limits=False,
+                solver_error=str(error),
+                infeasibility_proven=False,
+            )
         rows.append(
             {
                 "frame": index,
@@ -276,6 +293,16 @@ def audit_reference_support(model, motion, torque_limits, *, gap_tolerance_m=0.0
         "candidate_model_mjb_sha256": compiled_model_sha256(candidate_model),
         "frames_checked": len(rows),
         "frames_dropped": 0,
+        **(
+            {
+                "solver_failures_recorded_as_indeterminate": True,
+                "frames_with_indeterminate_support": sum(
+                    row["status"] == "numerically_indeterminate_support" for row in rows
+                ),
+            }
+            if record_solver_failures
+            else {}
+        ),
         "frames_with_no_candidate_contact": sum(not row["candidate_contact_count"] for row in rows),
         "frames_with_no_support_solution": sum(row["minimum_peak_effort_ratio"] is None for row in rows),
         "frames_with_solution_above_effort_limits": sum(

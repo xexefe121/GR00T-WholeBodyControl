@@ -315,7 +315,9 @@ class UnitreeZeroVelocityFallbackPolicy:
     def __init__(self, policy_path: Path, *, session_options: ort.SessionOptions | None = None):
         if sha256_file(policy_path) != VELOCITY_FALLBACK_SHA256:
             raise ValueError("Unitree velocity fallback policy hash changed")
-        self.session = ort.InferenceSession(str(policy_path), sess_options=session_options, providers=["CPUExecutionProvider"])
+        self.session = ort.InferenceSession(
+            str(policy_path), sess_options=session_options, providers=["CPUExecutionProvider"]
+        )
         inputs = self.session.get_inputs()
         outputs = self.session.get_outputs()
         if (
@@ -548,7 +550,9 @@ class CleanTrue23MujocoController:
         q29[NATIVE_TO_IL29] = q_native - DEFAULT_NATIVE
         dq29[NATIVE_TO_IL29] = dq_native
         action29[NATIVE_TO_IL29] = self.previous_safe_native
-        _, angular_world = _body_velocity(self.module, self.model, self.data, "pelvis", (0.0, 0.0, 0.0))
+        _, angular_world = _body_velocity(
+            self.module, self.model, self.data, getattr(self, "diagnostic_pelvis_name", "pelvis"), (0.0, 0.0, 0.0)
+        )
         angular = world_angular_velocity_to_body(self.data.qpos[3:7], angular_world)
         gravity = _projected_gravity(self.data.qpos[3:7])
         result = np.concatenate((angular, q29, dq29, action29, gravity)).astype(np.float32)

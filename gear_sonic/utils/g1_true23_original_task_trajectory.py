@@ -33,6 +33,7 @@ class OriginalTaskConfig:
     maximum_iterations: int = 24
     maximum_root_offset_m: float = 0.08
     maximum_root_rotation_l1_rad: float = 0.45
+    maximum_base_tilt_rad: float = 0.5
     maximum_joint_change_rad: float = 0.6
     root_offset_velocity_m_s: float = 0.75
     root_offset_acceleration_m_s2: float = 6.0
@@ -52,7 +53,9 @@ class OriginalTaskConfig:
             if isinstance(value, bool) or not np.isfinite(value) or value <= 0:
                 raise ValueError("task-fit settings must be finite and positive")
         if self.maximum_root_rotation_l1_rad >= 0.5 or not 0 < self.serialization_margin_fraction < 1:
-            raise ValueError("attitude correction must stay inside the existing 0.5-rad screen with a margin")
+            raise ValueError("relative attitude correction requires its existing bound and serialization margin")
+        if self.maximum_base_tilt_rad > 0.5:
+            raise ValueError("absolute base tilt cannot exceed the existing 0.5-rad nominal envelope")
         if self.joint_velocity_rad_s > 5 or self.joint_acceleration_rad_s2 > 80:
             raise ValueError("task fitting cannot increase existing joint velocity/acceleration limits")
 
@@ -97,7 +100,16 @@ TASK_SCALES = {
 class OriginalTaskPath:
     """Immutable original targets and exact task Jacobians for all 29 variables."""
 
-    def __init__(self, source_model, target_model, source_qpos, seed_joints, *, config=OriginalTaskConfig()):
+    def __init__(
+        self,
+        source_model,
+        target_model,
+        source_qpos,
+        seed_joints,
+        *,
+        config=OriginalTaskConfig(),
+        seed_root_quaternion_wxyz=None,
+    ):
         self.config = config
         self.source = np.array(source_qpos, dtype=float, copy=True)
         seed = np.array(seed_joints, dtype=float, copy=True)
@@ -135,6 +147,16 @@ class OriginalTaskPath:
             mujoco.mj_forward(source_model, source_data)
             self.targets.append(retarget._task_targets(source_model, source_data, self.tasks))
         self.initial = np.column_stack((np.zeros((len(seed), 6)), seed))
+        if seed_root_quaternion_wxyz is not None:
+            root_seed = np.array(seed_root_quaternion_wxyz, dtype=float, copy=True)
+            if (
+                root_seed.shape != (len(seed), 4)
+                or not np.isfinite(root_seed).all()
+                or not np.allclose(np.linalg.norm(root_seed, axis=1), 1, atol=1e-4, rtol=0)
+            ):
+                raise ValueError("root seed requires one finite normalized WXYZ quaternion per source frame")
+            seed_rotation = Rotation.from_quat(root_seed[:, [1, 2, 3, 0]])
+            self.initial[:, 3:6] = (seed_rotation * self.source_rotation.inv()).as_rotvec()
         low, high = retarget.safe_target_joint_bounds(
             target_model, native_action_clip=9.5, safe_limit_guard_rad=0.05
         )
@@ -171,7 +193,10 @@ class OriginalTaskPath:
         self.initial_velocity = (self.initial[1] - self.initial[0]) / 0.02
         self.posture_weight = np.tile(np.r_[np.full(3, 100.0), np.full(3, 2.0), np.full(23, 0.1)], len(seed))
         if not self.audit(self.initial)["passed"]:
-            raise ValueError("seed must satisfy unchanged whole-path position/derivative bounds")
+            raise ValueError(
+                "seed must satisfy whole-path bounds and absolute base tilt; "
+                "an explicit feasible root seed may be supplied, not a larger tilt limit"
+            )
 
     def qpos(self, variables):
         x = np.asarray(variables, dtype=float)
@@ -192,12 +217,39 @@ class OriginalTaskPath:
             tolerance=2e-7,
         )
         l1 = float(np.abs(variables[:, 3:6]).sum(axis=1).max())
+        cosine, _ = self.base_tilt_linearization(variables, derivatives=False)
+        tilt = np.arccos(np.clip(cosine, -1, 1))
+        maximum_tilt = float(tilt.max())
+        tilt_passed = maximum_tilt <= self.config.maximum_base_tilt_rad + 2e-7
         return {
-            "passed": temporal.passed and l1 <= self.config.maximum_root_rotation_l1_rad + 2e-7,
+            "passed": temporal.passed and l1 <= self.config.maximum_root_rotation_l1_rad + 2e-7 and tilt_passed,
             "temporal": asdict(temporal),
             "maximum_root_rotation_l1_rad": l1,
+            "maximum_absolute_base_tilt_rad": maximum_tilt,
+            "absolute_base_tilt_limit_rad": self.config.maximum_base_tilt_rad,
+            "absolute_base_tilt_passed": tilt_passed,
             "rotation_derivatives_are_rotvec_coordinates_not_physical_angular_acceleration": True,
         }
+
+    def base_tilt_linearization(self, variables, *, derivatives=True):
+        """World Z of the rotated pelvis axis, with exact rotvec-coordinate Jacobian.
+
+        Bounding a change in rotation is not an absolute tilt bound. The QP
+        linearizes this cosine constraint; nonlinear audits and line search
+        remain authoritative, including after motion serialization.
+        """
+        x = np.asarray(variables, dtype=float)
+        if x.shape != self.initial.shape or not np.isfinite(x).all():
+            raise ValueError("base tilt requires all finite frame variables")
+        axes = (Rotation.from_rotvec(x[:, 3:6]) * self.source_rotation).apply([0.0, 0.0, 1.0])
+        if not derivatives:
+            return axes[:, 2], None
+        blocks = []
+        for vector, axis in zip(x[:, 3:6], axes, strict=True):
+            row = np.zeros((1, 29))
+            row[0, 3:6] = (-skew(axis) @ so3_left_jacobian(vector))[2]
+            blocks.append(sparse.csc_matrix(row))
+        return axes[:, 2], sparse.block_diag(blocks, format="csc")
 
     def evaluate(self, variables, *, derivatives=True):
         poses = self.qpos(variables)
@@ -310,19 +362,28 @@ def solve_task_step(problem, current, residual, jacobian):
     facets = np.zeros((8, 29))
     facets[:, 3:6] = list(product((-1.0, 1.0), repeat=3))
     rotation_bound = sparse.kron(sparse.eye(len(current)), sparse.csc_matrix(facets), format="csc")
+    tilt_cosine, tilt_jacobian = problem.base_tilt_linearization(current)
+    tilt_origin = tilt_jacobian @ current.ravel()
+    tilt_lower_increment = np.cos(cfg.maximum_base_tilt_rad * margin) - tilt_cosine
     n, m = current.size, len(residual)
     equality = jacobian @ current.ravel() - residual
     matrix = sparse.vstack(
         (
             sparse.hstack((temporal, sparse.csc_matrix((temporal.shape[0], m)))),
             sparse.hstack((rotation_bound, sparse.csc_matrix((rotation_bound.shape[0], m)))),
+            sparse.hstack((tilt_jacobian, sparse.csc_matrix((len(current), m)))),
             sparse.hstack((jacobian, -sparse.eye(m))),
         ),
         format="csc",
     )
-    absolute_lower = np.r_[lower.ravel(), np.full(rotation_bound.shape[0], -np.inf), equality]
+    absolute_lower = np.r_[
+        lower.ravel(), np.full(rotation_bound.shape[0], -np.inf), tilt_lower_increment + tilt_origin, equality
+    ]
     absolute_upper = np.r_[
-        upper.ravel(), np.full(rotation_bound.shape[0], cfg.maximum_root_rotation_l1_rad), equality
+        upper.ravel(),
+        np.full(rotation_bound.shape[0], cfg.maximum_root_rotation_l1_rad),
+        np.full(len(current), np.inf),
+        equality,
     ]
     # Solve for a correction, not absolute joint angles multiplied by large
     # task Jacobians. This is the SAME QP after a change of origin. Normalizing
@@ -335,15 +396,25 @@ def solve_task_step(problem, current, residual, jacobian):
         objective_scale * np.r_[problem.posture_weight, np.ones(m)],
         objective_scale * np.r_[problem.posture_weight * (current - problem.initial).ravel(), np.zeros(m)],
         matrix,
-        np.r_[lower.ravel() - temporal_origin, np.full(rotation_bound.shape[0], -np.inf), -residual],
+        np.r_[
+            lower.ravel() - temporal_origin,
+            np.full(rotation_bound.shape[0], -np.inf),
+            tilt_lower_increment,
+            -residual,
+        ],
         np.r_[
             upper.ravel() - temporal_origin,
             cfg.maximum_root_rotation_l1_rad - rotation_origin,
+            np.full(len(current), np.inf),
             -residual,
         ],
     )
     report.update(
-        formulation="current_increment_with_original_absolute_row_reaudit", objective_scale=objective_scale
+        formulation="current_increment_with_original_absolute_row_reaudit",
+        objective_scale=objective_scale,
+        absolute_base_tilt_linearization_enabled=True,
+        linearized_base_tilt_limit_with_serialization_margin_rad=cfg.maximum_base_tilt_rad * margin,
+        nonlinear_base_tilt_requires_separate_path_audit=True,
     )
     if solution is None:
         return None, report
@@ -395,7 +466,7 @@ def fit_original_task_path(problem, *, progress=None):
         if failure is not None:
             break
     return current, {
-        "kind": "g1_true23_original_planner_se3_task_fit_v1",
+        "kind": "g1_true23_original_planner_se3_task_fit_v2",
         "config": asdict(problem.config),
         "before": before,
         "after": problem.metrics(current),
@@ -407,6 +478,7 @@ def fit_original_task_path(problem, *, progress=None):
         "time_scale": 1.0,
         "native_joint_count": 23,
         "root_attitude_reference_optimization_enabled": True,
+        "absolute_base_tilt_enforced_separately_from_rotation_change": True,
         "contact_force_or_controller_qualification_performed": False,
         "teacher_accepted": False,
         "hardware_authorized": False,
