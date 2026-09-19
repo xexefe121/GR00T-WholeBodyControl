@@ -325,7 +325,19 @@ class Native23ImuOdometry final {
     quat /= norm;
     const bool first = !has_timestamp_;
     const double dt = first ? 0.0 : timestamp - timestamp_;
-    if (!first && !(dt > 0.0 && dt <= .050)) throw std::runtime_error("nonmonotonic or stale odometry sample");
+    // The robot publishes LowState at about 1 kHz while this loop consumes the
+    // latest sample every 2 ms, so the same sample is sometimes seen twice and
+    // dt is zero.  That is an ordinary consequence of the two rates, not a
+    // fault, and killing a running control loop over it is the wrong response:
+    // the ladder's own 20 ms state-staleness abort already catches a stream
+    // that has genuinely stopped.  Repeat the previous estimate instead, and
+    // count it.  A backwards or implausibly large step is still fatal.
+    if (!first && dt <= 0.0) {
+      if (dt < 0.0) throw std::runtime_error("nonmonotonic odometry sample");
+      ++repeated_samples_;
+      return last_snapshot_;
+    }
+    if (!first && dt > .050) throw std::runtime_error("stale odometry sample");
     if (first) {
       const Eigen::Matrix3d rotation = QuaternionMatrix(quat);
       const double yaw = std::atan2(rotation(1, 0), rotation(0, 0));
@@ -406,8 +418,11 @@ class Native23ImuOdometry final {
     for (int i = 0; i < 4; ++i) result.quaternion_start[i] = quaternion_start_[i];
     for (int i = 0; i < static_cast<int>(kSolePoints); ++i) result.support_weights[i] = weights_[i];
     result.timestamp_s = timestamp_;
+    last_snapshot_ = result;
     return result;
   }
+
+  std::uint64_t repeated_samples() const { return repeated_samples_; }
 
  private:
   static Eigen::Vector4d QuaternionMultiply(const Eigen::Vector4d& left, const Eigen::Vector4d& right) {
@@ -432,6 +447,7 @@ class Native23ImuOdometry final {
   Eigen::Matrix<double, 3, 29, Eigen::RowMajor> jacp_ = Eigen::Matrix<double, 3, 29, Eigen::RowMajor>::Zero(), jacr_ = Eigen::Matrix<double, 3, 29, Eigen::RowMajor>::Zero();
   std::array<int, kSolePoints> point_bodies_{}; std::array<Eigen::Vector3d, kSolePoints> points_{}; Eigen::Matrix<double, kSolePoints, 1> radii_ = Eigen::Matrix<double, kSolePoints, 1>::Zero(), weights_ = Eigen::Matrix<double, kSolePoints, 1>::Zero();
   std::array<bool, kSolePoints> previous_active_{}; double timestamp_ = 0.0; bool has_timestamp_ = false; std::uint64_t updates_ = 0, no_contact_updates_ = 0;
+  EstimatorSnapshotWire last_snapshot_{}; std::uint64_t repeated_samples_ = 0;
 };
 
 struct Arguments {
@@ -702,7 +718,20 @@ class NativeBringupLadder final {
     const double tilt = std::acos(std::clamp(1.0 - 2.0 * (state.quat[1] * state.quat[1] + state.quat[2] * state.quat[2]), -1.0, 1.0));
     if (!Finite(tilt) || tilt > kTiltLimit) { Abort("estimated tilt exceeds limit", now_ns); return; }
     for (float velocity : state.dq) if (std::abs(velocity) > kVelocityLimit) { Abort("measured joint velocity exceeds limit", now_ns); return; }
-    if (have_previous_) for (std::size_t i = 0; i < kJoints; ++i) if (std::abs(static_cast<double>(state.q[i]) - previous_q_[i]) > kPositionError) { Abort("measured joint position error exceeds limit", now_ns); return; }
+    // Name the joint and the error.  A bare "position error exceeds limit"
+    // says a joint could not follow but not which one or by how much, which is
+    // the first thing anyone needs in order to act on it.
+    if (have_previous_) for (std::size_t i = 0; i < kJoints; ++i) {
+      const double error = static_cast<double>(state.q[i]) - previous_q_[i];
+      if (std::abs(error) > kPositionError) {
+        std::ostringstream reason;
+        reason << "measured joint position error exceeds limit: joint " << i
+               << " commanded " << previous_q_[i] << " measured " << state.q[i]
+               << " error " << error;
+        Abort(reason.str(), now_ns);
+        return;
+      }
+    }
     deadline_misses_ = deadline_missed ? deadline_misses_ + 1 : 0;
     if (deadline_misses_ > 1) { Abort("more than one consecutive deadline miss", now_ns); return; }
     if (operator_liveness_ns == 0 || now_ns - operator_liveness_ns > kOperatorLivenessMaxAgeNs) { Abort("operator liveness lost", now_ns); return; }
@@ -908,8 +937,17 @@ std::optional<std::uint8_t> LiveBringupPreflight(const Arguments& args, const Na
                                                   std::vector<std::string>& failures) {
   ReadOnlyProbeSource source;
   ProbeObservation observation{};
+  // DDS discovery takes tens to hundreds of milliseconds after this subscriber
+  // is created, so the first sample cannot be held to the 20 ms freshness
+  // bound: doing so refused every arming attempt while the robot was in fact
+  // publishing LowState at about 1 kHz.  Wait for the stream to appear, then
+  // apply the unchanged freshness rule to a sample taken once it is running.
+  if (!source.WaitNext(observation, std::chrono::milliseconds(3000))) {
+    failures.emplace_back("no live LowState within 3 s of subscribing"); return std::nullopt;
+  }
   if (!source.WaitNext(observation, std::chrono::milliseconds(20))) {
-    failures.emplace_back("no live LowState within 20 ms"); return std::nullopt;
+    failures.emplace_back("established LowState stream did not deliver a sample within 20 ms");
+    return std::nullopt;
   }
   if (!observation.convertible) failures.emplace_back("LowState does not contain the required 23-joint layout");
   if (observation.mode_machine != 4) failures.emplace_back("LowState mode_machine is not recognised (expected 4)");
@@ -1189,8 +1227,7 @@ int Run(const Arguments& args) {
       for (int attempt = 0; attempt < 6; ++attempt) {
         switcher.CheckMode(form, name);
         if (name.empty()) { released = true; break; }
-        std::cout << "motion-control service holds mode \"" << name << "\"; releasing
-";
+        std::cout << "motion-control service holds mode \"" << name << "\"; releasing\n";
         switcher.ReleaseMode();
         std::this_thread::sleep_for(std::chrono::seconds(2));
       }
@@ -1200,8 +1237,7 @@ int Run(const Arguments& args) {
             "real endpoint arming refused: motion-control service still holds mode \"" + name +
             "\"; the robot has not handed over the joints");
       }
-      std::cout << "motion-control service released; no mode held
-";
+      std::cout << "motion-control service released; no mode held\n";
     }
     real_endpoint_armed = true;
     observed_mode_machine = *preflight_mode;
@@ -1392,6 +1428,18 @@ int Run(const Arguments& args) {
     if (sent > due + kPeriodNs) ++missed;
     ticks << tick << ',' << late_ms << ',' << work_ms << ',' << gap_ms << ','
           << (ages.empty() ? 0.0 : ages.back()) << ',' << (round_trips.empty() ? 0.0 : round_trips.back()) << '\n';
+    // Live status, so an operator does not have to wait for the end-of-run
+    // report to learn which stage the ladder is in.  Written to tmpfs twice a
+    // second, which keeps it out of the disk path and off the critical path.
+    if (ladder_enabled && tick % 250 == 0) {
+      std::ofstream status("/dev/shm/g1_bringup_status.json", std::ios::trunc);
+      if (status) {
+        status << "{\"tick\":" << tick << ",\"stage\":\"" << BringupStageName(ladder->stage())
+               << "\",\"event\":\"" << ladder->last_event() << "\",\"abort_reason\":\""
+               << ladder->abort_reason() << "\",\"operator_frames\":" << received_operator_controls
+               << ",\"targets_received\":" << received_targets << ",\"deadline_misses\":" << missed << "}\n";
+      }
+    }
   }
   std::ofstream report(args.output + "/loop_report.json");
   report << std::setprecision(12) << "{\n\"kind\":\"g1_true23_bfm_fix5_native_500hz\",\n"

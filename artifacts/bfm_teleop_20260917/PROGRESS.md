@@ -1599,3 +1599,23 @@ It releases the motion-control service and keeps checking until no mode is held,
 1. The armed path must run the `MotionSwitcherClient` release sequence and must refuse to arm while `CheckMode` still reports a held mode. This becomes a pre-flight condition with the same standing as the others, not a step in a document.
 2. The first arming after that must be done with the robot already limp, so that contention is impossible by construction rather than by inspection.
 3. `HARDWARE_BRINGUP.md` must carry the handover as a numbered step with its verification, before the observe stage.
+
+### 2026-09-20 — The full ladder runs on hardware; the robot accepts commands and applies no torque
+
+**Every layer this project owns is now proven on the real robot: arming, the motion-service handover, the six-stage ladder through position hold, the operator channel, real-time scheduling with zero missed deadlines, and the aborts. The one remaining blocker is on the robot: the control board accepts our LowCmd and applies no torque from it.** The evidence is a commanded-versus-measured error of `0.350008 rad` on joint 10 with a contract stiffness near 300, where the measured torque was `0.034 Nm`. A hundred newton-metres was called for and effectively nothing was produced.
+
+**What ran.** Armed on domain 0 over `eth0`, the ladder advanced observe, zero torque, damping and position hold on explicit operator commands, held position with zero deadline misses, and then aborted during the move to default pose - correctly, because the command walked away from a joint that never followed. Across the evening the loop commanded the robot for roughly fifteen minutes in total with LowCmd gaps at `1.999 ms` median and `2.597 ms` maximum against a 4 ms limit.
+
+**Three defects found and fixed while getting there.**
+
+The first was the operator control channel, which had never delivered a single frame. `zmq.Again` on a PUSH socket with no peer killed the sender thread on its first send, and the client went on reporting success. It now blocks with a bounded timeout, re-queues commands, and reports non-delivery.
+
+The second was the loop publishing the `--initial-command` file - stiffness up to 300 and a stored pose - during the window before the first LowState arrives. On a real endpoint that would have driven the joints toward a stored pose at the instant of arming, before the zero-torque stage ran. It now publishes an all-zero command until the ladder owns the output.
+
+The third was the estimator treating a repeated sample timestamp as fatal. The robot publishes LowState at about 1 kHz while the loop consumes the latest sample every 2 ms, so the same sample is sometimes seen twice and `dt` is zero. That killed a running control loop mid-ladder. A repeat now returns the previous estimate and is counted; a backwards or implausibly large step is still fatal, and the 20 ms staleness abort still catches a dead stream.
+
+**Diagnostics added.** The loop writes live stage, event, abort reason, operator-frame and miss counts to `/dev/shm/g1_bringup_status.json` twice a second, so an operator no longer waits for the end-of-run report to learn the stage. The position-error abort now names the joint, the commanded value, the measured value and the error, which is what turned "something did not follow" into "joint 10, 0.35 rad, no torque".
+
+**The remaining blocker, stated precisely.** `CheckMode` reports no mode held, so Unitree's motion-control service has released the joints. `LowState` reports every motor with `mode=1` and normal temperatures. Our messages carry a CRC computed identically to the SDK's `crc32_core`, `mode_machine` taken from the observed state, and per-motor `mode=1`. Despite that, commanded stiffness produces no torque. The robot requires an enable that has not been satisfied - on G1 this is the remote's debug-mode entry - and the operator pressing L2+R2 did not change the behaviour. Until a command produces measurable torque, no further ladder progress is meaningful.
+
+**Suggested next step.** Rather than re-running the whole ladder to test an enable, build a minimal actuation probe: command one arm joint a few hundredths of a radian with modest stiffness and watch `tau_est` and `q`. It answers the only open question in seconds and is far smaller than a bring-up.
