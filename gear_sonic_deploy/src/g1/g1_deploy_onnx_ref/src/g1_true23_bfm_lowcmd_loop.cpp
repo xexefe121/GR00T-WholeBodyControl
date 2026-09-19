@@ -35,6 +35,7 @@
 #include <mutex>
 #include <numeric>
 #include <optional>
+#include <sstream>
 #include <stdexcept>
 #include <string>
 #include <string_view>
@@ -405,6 +406,7 @@ class Native23ImuOdometry final {
 struct Arguments {
   std::string source = "replay";
   std::string replay;
+  std::string offline_capture;
   std::string initial_command;
   std::string model;
   std::string state_endpoint;
@@ -412,11 +414,18 @@ struct Arguments {
   std::string output;
   int dds_domain = kSafeDomain;
   std::string dds_interface = "lo";
+  bool dds_domain_explicit = false;
+  bool dds_interface_explicit = false;
+  bool arm = false;
+  bool hardware_bringup = false;
+  std::string operator_token_file;
+  std::string operator_token;
   double duration_seconds = 0.0;
   std::uint64_t ticks = 0;
   bool lockstep = false;
   bool record_estimator_snapshots = false;
   bool probe_readonly = false;
+  std::uint64_t decimation = 1;
 };
 
 bool IsLoopbackInterface(const std::string& interface) {
@@ -438,18 +447,25 @@ Arguments Parse(int argc, char** argv) {
                    "--state-endpoint <tcp://bind-address:port> --target-endpoint <tcp://bind-address:port> "
                    "--output <dir> [--ticks N] [--lockstep] [--dds-domain N] [--dds-interface IFACE]\n"
                    "--probe-readonly --duration-seconds N --model <compiled.mjb> --output <dir> "
-                   "[--dds-domain N] [--dds-interface IFACE]\n";
+                   "[--dds-domain N] [--dds-interface IFACE]\n"
+                   "--offline-capture <LCS1 file> --decimation N --model <compiled.mjb> --output <dir>\n";
       std::exit(0);
     } else if (option == "--source") result.source = value(index, option);
     else if (option == "--replay") result.replay = value(index, option);
+    else if (option == "--offline-capture") result.offline_capture = value(index, option);
     else if (option == "--initial-command") result.initial_command = value(index, option);
     else if (option == "--model") result.model = value(index, option);
     else if (option == "--state-endpoint") result.state_endpoint = value(index, option);
     else if (option == "--target-endpoint") result.target_endpoint = value(index, option);
     else if (option == "--output") result.output = value(index, option);
-    else if (option == "--dds-domain") result.dds_domain = std::stoi(value(index, option));
-    else if (option == "--dds-interface") result.dds_interface = value(index, option);
+    else if (option == "--dds-domain") { result.dds_domain = std::stoi(value(index, option)); result.dds_domain_explicit = true; }
+    else if (option == "--dds-interface") { result.dds_interface = value(index, option); result.dds_interface_explicit = true; }
+    else if (option == "--arm") result.arm = true;
+    else if (option == "--hardware-bringup") result.hardware_bringup = true;
+    else if (option == "--operator-token-file") result.operator_token_file = value(index, option);
+    else if (option == "--operator-token") result.operator_token = value(index, option);
     else if (option == "--duration-seconds") result.duration_seconds = std::stod(value(index, option));
+    else if (option == "--decimation") result.decimation = std::stoull(value(index, option));
     else if (option == "--ticks") result.ticks = std::stoull(value(index, option));
     else if (option == "--lockstep") result.lockstep = true;
     else if (option == "--record-estimator-snapshots") result.record_estimator_snapshots = true;
@@ -463,6 +479,16 @@ Arguments Parse(int argc, char** argv) {
     }
     return result;
   }
+  if (!result.offline_capture.empty()) {
+    if (result.model.empty() || result.output.empty() || result.decimation == 0) {
+      throw std::runtime_error("--offline-capture requires --model, --output, and positive --decimation");
+    }
+    return result;
+  }
+  if (result.arm && !result.hardware_bringup)
+    throw std::runtime_error("--arm is accepted only with --hardware-bringup; no implicit real endpoint exists");
+  if (result.hardware_bringup && result.source != "dds")
+    throw std::runtime_error("--hardware-bringup requires --source dds; recorded replay cannot arm a real endpoint");
   if ((result.source != "replay" && result.source != "dds") ||
       (result.source == "replay" && result.replay.empty()) || result.initial_command.empty() || result.model.empty() || result.state_endpoint.empty() ||
       result.target_endpoint.empty() || result.output.empty()) throw std::runtime_error("required argument missing");
@@ -480,12 +506,24 @@ InitialCommand LoadInitial(const std::string& path) {
   return command;
 }
 
-LowCmd MakeLowCmd(const InitialCommand& command) {
+LowCmd MakeLowCmd(const InitialCommand& command, std::uint8_t observed_mode_machine = 0) {
   LowCmd result;
   result.mode_pr() = 0;
-  result.mode_machine() = 0;
+  // HG commands must carry the state mode that was accepted at pre-flight;
+  // mode 0 is retained for the old loopback-only timing path.
+  result.mode_machine() = observed_mode_machine;
+  // LowCmd has 35 slots while this deployment owns only 23.  Initialise every
+  // unused slot explicitly as disabled/zero before filling the mapped motors;
+  // never rely on an IDL constructor's default representation for a command.
+  for (auto& motor : result.motor_cmd()) {
+    motor.mode() = 0; motor.q() = 0.0F; motor.dq() = 0.0F; motor.tau() = 0.0F;
+    motor.kp() = 0.0F; motor.kd() = 0.0F;
+  }
+  constexpr std::array<int, kJoints> kHardwareSlots = {
+      0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 16, 17, 18, 19, 22, 23, 24, 25, 26};
   for (std::size_t i = 0; i < kJoints; ++i) {
-    auto& motor = result.motor_cmd().at(i);
+    auto& motor = result.motor_cmd().at(kHardwareSlots[i]);
+    motor.mode() = 1;
     motor.q() = command.q[i]; motor.dq() = 0.0F; motor.tau() = 0.0F;
     motor.kp() = command.kp[i]; motor.kd() = command.kd[i];
   }
@@ -513,10 +551,34 @@ struct ProbeObservation {
   std::uint32_t tick = 0;
   std::uint8_t mode_machine = 0;
   std::size_t motor_slots = 0;
+  // LowState has no message-time field.  The estimator deliberately uses the
+  // monotonic callback time below, so retain it exactly for offline replay.
+  std::array<float, 35> motor_q{}, motor_dq{}, motor_ddq{}, motor_tau_est{};
   double quaternion_norm = std::numeric_limits<double>::quiet_NaN();
   std::int64_t received_ns = 0;
   bool convertible = false;
 };
+
+#pragma pack(push, 1)
+struct LowStateCaptureHeader {
+  std::uint32_t magic = 0x3153434cU;  // LCS1
+  std::uint32_t version = 1;
+  std::uint64_t sample_count = 0;
+  std::uint64_t record_bytes = 0;
+};
+
+struct LowStateCaptureRecord {
+  std::int64_t received_monotonic_ns = 0;
+  std::uint32_t tick = 0;
+  std::uint8_t mode_machine = 0;
+  std::uint8_t motor_slots = 0;
+  std::array<float, 4> imu_quat{};
+  std::array<float, 3> imu_gyro{}, imu_accel{};
+  std::array<float, 35> motor_q{}, motor_dq{}, motor_ddq{}, motor_tau_est{};
+};
+#pragma pack(pop)
+
+static_assert(std::is_trivially_copyable_v<LowStateCaptureRecord>);
 
 // This subscriber is deliberately independent of SampleSource.  It retains
 // every callback until the probe consumes it, rather than the timing loop's
@@ -566,6 +628,13 @@ class ReadOnlyProbeSource final {
         0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 16, 17, 18, 19, 22, 23, 24, 25, 26};
     const auto required_slots = *std::max_element(kHardwareSlots.begin(), kHardwareSlots.end()) + 1;
     observation.convertible = observation.motor_slots >= static_cast<std::size_t>(required_slots);
+    for (std::size_t slot = 0; slot < state.motor_state().size(); ++slot) {
+      const auto& motor = state.motor_state()[slot];
+      observation.motor_q[slot] = motor.q();
+      observation.motor_dq[slot] = motor.dq();
+      observation.motor_ddq[slot] = motor.ddq();
+      observation.motor_tau_est[slot] = motor.tau_est();
+    }
     if (observation.convertible) {
       for (std::size_t joint = 0; joint < kJoints; ++joint) {
         const auto& motor = state.motor_state()[kHardwareSlots[joint]];
@@ -589,6 +658,54 @@ class ReadOnlyProbeSource final {
   std::shared_ptr<unitree::robot::ChannelSubscriber<LowState>> subscriber_;
 };
 
+// These checks intentionally remain independent of the publisher predicate.
+// A future change must satisfy both this pre-flight and the construction/send
+// guard below before it can reach the real HG topic.
+std::vector<std::string> RealArmRequestFailures(const Arguments& args) {
+  std::vector<std::string> failures;
+  if (!args.arm) failures.emplace_back("missing --arm");
+  if (!args.dds_domain_explicit) failures.emplace_back("--dds-domain was not explicit");
+  if (!args.dds_interface_explicit) failures.emplace_back("--dds-interface was not explicit");
+  if (IsLoopbackInterface(args.dds_interface) || args.dds_domain == kSafeDomain)
+    failures.emplace_back("real arming requires a non-loopback DDS endpoint");
+  if (args.operator_token_file.empty()) failures.emplace_back("missing --operator-token-file");
+  if (args.operator_token.empty()) failures.emplace_back("missing --operator-token");
+  if (!args.operator_token_file.empty() && !args.operator_token.empty()) {
+    try {
+      std::ifstream token_file(args.operator_token_file);
+      std::string token; std::getline(token_file, token);
+      const auto age = std::chrono::duration_cast<std::chrono::seconds>(
+          std::filesystem::file_time_type::clock::now() - std::filesystem::last_write_time(args.operator_token_file)).count();
+      if (!token_file || age < 0 || age > 60) failures.emplace_back("operator token file is not fresh (maximum age 60 s)");
+      else if (token != args.operator_token) failures.emplace_back("operator token does not match token file");
+    } catch (const std::exception&) { failures.emplace_back("operator token file cannot be read"); }
+  }
+  return failures;
+}
+
+std::optional<std::uint8_t> LiveBringupPreflight(const Arguments& args, const Native23ImuOdometry& estimator,
+                                                  std::vector<std::string>& failures) {
+  ReadOnlyProbeSource source;
+  ProbeObservation observation{};
+  if (!source.WaitNext(observation, std::chrono::milliseconds(20))) {
+    failures.emplace_back("no live LowState within 20 ms"); return std::nullopt;
+  }
+  if (!observation.convertible) failures.emplace_back("LowState does not contain the required 23-joint layout");
+  if (observation.mode_machine != 4) failures.emplace_back("LowState mode_machine is not recognised (expected 4)");
+  if (!std::isfinite(observation.quaternion_norm) || std::abs(observation.quaternion_norm - 1.0) > .01)
+    failures.emplace_back("LowState IMU quaternion is non-finite or not unit length within 0.01");
+  const auto limits = estimator.JointLimits();
+  for (std::size_t joint = 0; joint < kJoints; ++joint) {
+    if (!std::isfinite(observation.sample.q[joint]) || !std::isfinite(observation.sample.dq[joint]) ||
+        observation.sample.q[joint] < limits[joint][0] || observation.sample.q[joint] > limits[joint][1]) {
+      failures.emplace_back("LowState mapped joint is non-finite or outside model limits"); break;
+    }
+  }
+  if (MonotonicNs() - observation.received_ns > 20'000'000LL)
+    failures.emplace_back("LowState is older than 20 ms");
+  return failures.empty() ? std::optional<std::uint8_t>(observation.mode_machine) : std::nullopt;
+}
+
 void WriteProbeSummary(std::ofstream& report, std::string_view name,
                        const std::vector<double>& values) {
   report << "\"" << name << "\":{\"count\":" << values.size()
@@ -608,6 +725,11 @@ int RunReadOnlyProbe(const Arguments& args) {
   Native23ImuOdometry estimator(args.model);
   const auto limits = estimator.JointLimits();
   ReadOnlyProbeSource source;
+  std::fstream capture(args.output + "/real_lowstate_capture.lcs", std::ios::binary | std::ios::out | std::ios::trunc);
+  if (!capture) throw std::runtime_error("cannot create real_lowstate_capture.lcs");
+  LowStateCaptureHeader capture_header{};
+  capture_header.record_bytes = sizeof(LowStateCaptureRecord);
+  capture.write(reinterpret_cast<const char*>(&capture_header), sizeof(capture_header));
   std::ofstream trace(args.output + "/real_lowstate_estimator_trace.csv");
   if (!trace) throw std::runtime_error("cannot create real_lowstate_estimator_trace.csv");
   trace << std::setprecision(17)
@@ -643,6 +765,21 @@ int RunReadOnlyProbe(const Arguments& args) {
     previous_received_ns = observation.received_ns;
     last_received_ns = observation.received_ns;
     if (first_received_ns == 0) first_received_ns = observation.received_ns;
+    LowStateCaptureRecord capture_record{};
+    capture_record.received_monotonic_ns = observation.received_ns;
+    capture_record.tick = observation.tick;
+    capture_record.mode_machine = observation.mode_machine;
+    capture_record.motor_slots = static_cast<std::uint8_t>(observation.motor_slots);
+    capture_record.imu_quat = observation.sample.quat;
+    capture_record.imu_gyro = observation.sample.gyro;
+    capture_record.imu_accel = observation.sample.accel;
+    capture_record.motor_q = observation.motor_q;
+    capture_record.motor_dq = observation.motor_dq;
+    capture_record.motor_ddq = observation.motor_ddq;
+    capture_record.motor_tau_est = observation.motor_tau_est;
+    capture.write(reinterpret_cast<const char*>(&capture_record), sizeof(capture_record));
+    if (!capture) throw std::runtime_error("failed while writing real_lowstate_capture.lcs");
+    ++capture_header.sample_count;
     if (!observation.convertible) { ++invalid_layout; continue; }
     for (std::size_t joint = 0; joint < kJoints; ++joint) {
       joint_min[joint] = std::min(joint_min[joint], static_cast<double>(observation.sample.q[joint]));
@@ -669,12 +806,17 @@ int RunReadOnlyProbe(const Arguments& args) {
   }
   const double observed_seconds = first_received_ns == 0 || last_received_ns <= first_received_ns ? 0.0 :
       static_cast<double>(last_received_ns - first_received_ns) / 1e9;
+  capture.seekp(0);
+  capture.write(reinterpret_cast<const char*>(&capture_header), sizeof(capture_header));
+  capture.close();
   const double horizontal_drift = converted < 2 ? 0.0 : (last_horizontal - first_horizontal).norm();
   std::ofstream report(args.output + "/real_lowstate_probe_report.json");
   if (!report) throw std::runtime_error("cannot create real_lowstate_probe_report.json");
   report << std::setprecision(12) << "{\n\"kind\":\"g1_true23_real_lowstate_read_only\",\n"
          << "\"dds_domain\":" << args.dds_domain << ",\"dds_interface\":\"" << args.dds_interface << "\",\n"
          << "\"lowcmd_publisher_exists\":false,\"lowcmd_messages_sent\":0,\n"
+         << "\"capture_file\":\"real_lowstate_capture.lcs\",\"capture_format\":\"LCS1: callback_monotonic_ns,tick,IMU,q/dq/ddq/tau_est for all 35 motor slots\",\n"
+         << "\"lowstate_message_timestamp_available\":false,\"estimator_timestamp_source\":\"callback CLOCK_MONOTONIC\",\n"
          << "\"requested_duration_s\":" << args.duration_seconds << ",\"observed_duration_s\":" << observed_seconds
          << ",\"samples_received\":" << received << ",\"samples_converted\":" << converted
          << ",\"invalid_joint_layout_samples\":" << invalid_layout << ",\"probe_queue_drops\":" << source.queue_drops()
@@ -707,20 +849,86 @@ int RunReadOnlyProbe(const Arguments& args) {
   return received > 0 && converted == received && source.queue_drops() == 0 ? 0 : 2;
 }
 
+// Pure file replay for rate measurements.  This mode does not initialise DDS,
+// create ZeroMQ sockets, construct a publisher, or otherwise touch the robot.
+int RunOfflineCaptureProbe(const Arguments& args) {
+  std::filesystem::create_directories(args.output);
+  std::ifstream capture(args.offline_capture, std::ios::binary);
+  LowStateCaptureHeader header{};
+  if (!capture.read(reinterpret_cast<char*>(&header), sizeof(header)) || header.magic != 0x3153434cU ||
+      header.version != 1 || header.record_bytes != sizeof(LowStateCaptureRecord) || header.sample_count < 2) {
+    throw std::runtime_error("invalid LCS1 offline capture");
+  }
+  std::cout << "Offline LCS1 rate probe; DDS disabled; LowCmd publisher exists=false\n";
+  Native23ImuOdometry estimator(args.model);
+  constexpr std::array<int, kJoints> kHardwareSlots = {
+      0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 16, 17, 18, 19, 22, 23, 24, 25, 26};
+  std::vector<double> work_ms, speed_mps, bias_mps2;
+  std::array<std::vector<double>, kSolePoints> weights;
+  Eigen::Vector2d first_horizontal = Eigen::Vector2d::Zero(), last_horizontal = Eigen::Vector2d::Zero();
+  std::int64_t first_timestamp_ns = 0, last_timestamp_ns = 0;
+  std::uint64_t updates = 0;
+  for (std::uint64_t index = 0; index < header.sample_count; ++index) {
+    LowStateCaptureRecord record{};
+    if (!capture.read(reinterpret_cast<char*>(&record), sizeof(record))) throw std::runtime_error("truncated LCS1 offline capture");
+    if (index % args.decimation) continue;
+    if (record.motor_slots < 27) throw std::runtime_error("LCS1 record has incomplete motor layout");
+    ReplaySample sample{};
+    sample.timestamp_s = static_cast<double>(record.received_monotonic_ns) / 1e9;
+    sample.quat = record.imu_quat; sample.gyro = record.imu_gyro; sample.accel = record.imu_accel;
+    for (std::size_t joint = 0; joint < kJoints; ++joint) {
+      sample.q[joint] = record.motor_q[kHardwareSlots[joint]];
+      sample.dq[joint] = record.motor_dq[kHardwareSlots[joint]];
+    }
+    const auto begin_ns = MonotonicNs();
+    const EstimatorSnapshotWire snapshot = estimator.Update(sample);
+    work_ms.push_back(static_cast<double>(MonotonicNs() - begin_ns) / 1e6);
+    const Eigen::Vector2d horizontal(snapshot.position_start[0], snapshot.position_start[1]);
+    if (updates == 0) { first_horizontal = horizontal; first_timestamp_ns = record.received_monotonic_ns; }
+    last_horizontal = horizontal; last_timestamp_ns = record.received_monotonic_ns;
+    speed_mps.push_back(Eigen::Vector3d(snapshot.velocity_start[0], snapshot.velocity_start[1], snapshot.velocity_start[2]).norm());
+    bias_mps2.push_back(Eigen::Vector3d(snapshot.accel_bias_body[0], snapshot.accel_bias_body[1], snapshot.accel_bias_body[2]).norm());
+    for (std::size_t point = 0; point < kSolePoints; ++point) weights[point].push_back(snapshot.support_weights[point]);
+    ++updates;
+  }
+  const double seconds = static_cast<double>(last_timestamp_ns - first_timestamp_ns) / 1e9;
+  const double drift = (last_horizontal - first_horizontal).norm();
+  std::ofstream report(args.output + "/offline_capture_rate_report.json");
+  if (!report) throw std::runtime_error("cannot write offline_capture_rate_report.json");
+  report << std::setprecision(12) << "{\n\"kind\":\"g1_true23_offline_lcs1_rate_probe\",\n"
+         << "\"capture\":\"" << args.offline_capture << "\",\"decimation\":" << args.decimation
+         << ",\"updates\":" << updates << ",\"elapsed_s\":" << seconds
+         << ",\"effective_rate_hz\":" << (seconds > 0.0 ? static_cast<double>(updates - 1) / seconds : 0.0)
+         << ",\"lowcmd_publisher_exists\":false,\"lowcmd_messages_sent\":0,\n"
+         << "\"horizontal_drift_m\":" << drift << ",\"horizontal_drift_m_per_min\":" << (seconds > 0.0 ? drift * 60.0 / seconds : 0.0) << ",\n";
+  WriteProbeSummary(report, "speed_magnitude_mps", speed_mps); report << ',';
+  WriteProbeSummary(report, "accelerometer_bias_magnitude_mps2", bias_mps2); report << ',';
+  WriteProbeSummary(report, "estimator_update_work_ms", work_ms); report << ",\"support_weights\":{";
+  for (std::size_t point = 0; point < kSolePoints; ++point) { if (point) report << ','; WriteProbeSummary(report, "point_" + std::to_string(point), weights[point]); }
+  report << "}\n}\n";
+  std::cout << "Offline rate probe completed: decimation=" << args.decimation << " updates=" << updates
+            << " drift_m_per_min=" << (seconds > 0.0 ? drift * 60.0 / seconds : 0.0)
+            << " publisher_exists=false\n";
+  return 0;
+}
+
 void WriteSafeLoopbackLowCmd(
     const Arguments& args,
     const std::shared_ptr<unitree::robot::ChannelPublisher<LowCmd>>& publisher,
-    const InitialCommand& command) {
+    const InitialCommand& command, bool real_endpoint_armed, std::uint8_t observed_mode_machine) {
   // The predicate is intentionally repeated at the send site.  A null
   // publisher is not the safety mechanism; this explicit domain-and-interface
   // check is, and it remains true even if a future edit changes ownership.
-  if (args.dds_domain == kSafeDomain && IsLoopbackInterface(args.dds_interface) && publisher) {
-    publisher->Write(MakeLowCmd(command));
+  if (((args.dds_domain == kSafeDomain && IsLoopbackInterface(args.dds_interface)) ||
+       (args.hardware_bringup && args.arm && args.dds_domain_explicit && args.dds_interface_explicit &&
+        !IsLoopbackInterface(args.dds_interface) && real_endpoint_armed)) && publisher) {
+    publisher->Write(MakeLowCmd(command, observed_mode_machine));
   }
 }
 
 int Run(const Arguments& args) {
   if (args.probe_readonly) return RunReadOnlyProbe(args);
+  if (!args.offline_capture.empty()) return RunOfflineCaptureProbe(args);
   std::filesystem::create_directories(args.output);
   InitialCommand command = LoadInitial(args.initial_command);
   Native23ImuOdometry estimator(args.model);
@@ -729,11 +937,28 @@ int Run(const Arguments& args) {
 
   unitree::robot::ChannelFactory::Instance()->Init(args.dds_domain, args.dds_interface.c_str());
   std::shared_ptr<unitree::robot::ChannelPublisher<LowCmd>> dds;
+  bool real_endpoint_armed = false;
+  std::uint8_t observed_mode_machine = 0;
+  const bool real_endpoint_request = args.hardware_bringup &&
+      !(args.dds_domain == kSafeDomain && IsLoopbackInterface(args.dds_interface));
+  if (real_endpoint_request) {
+    std::vector<std::string> failures = RealArmRequestFailures(args);
+    const auto preflight_mode = LiveBringupPreflight(args, estimator, failures);
+    if (!failures.empty() || !preflight_mode) {
+      std::ostringstream refusal;
+      refusal << "real endpoint arming refused:";
+      for (const auto& failure : failures) refusal << " " << failure << ";";
+      throw std::runtime_error(refusal.str());
+    }
+    real_endpoint_armed = true;
+    observed_mode_machine = *preflight_mode;
+  }
   // LowCmd publisher construction is confined to the one harmless endpoint.
   // All other DDS endpoints are subscriber-only as far as this executable is
   // concerned: no publisher object exists, so it has no command path.
-  if (args.dds_domain == kSafeDomain && IsLoopbackInterface(args.dds_interface)) {
-    dds = std::make_shared<unitree::robot::ChannelPublisher<LowCmd>>(std::string(kSafeTopic));
+  if ((args.dds_domain == kSafeDomain && IsLoopbackInterface(args.dds_interface)) || real_endpoint_armed) {
+    dds = std::make_shared<unitree::robot::ChannelPublisher<LowCmd>>(
+        real_endpoint_armed ? "rt/lowcmd" : std::string(kSafeTopic));
     dds->InitChannel();
   }
   std::cout << "DDS endpoint: domain=" << args.dds_domain << " interface=" << args.dds_interface
@@ -831,7 +1056,7 @@ int Run(const Arguments& args) {
         }
       }
     }
-    WriteSafeLoopbackLowCmd(args, dds, command);
+    WriteSafeLoopbackLowCmd(args, dds, command, real_endpoint_armed, observed_mode_machine);
     const std::int64_t sent = MonotonicNs();
     const double work_ms = static_cast<double>(sent - tick_start) / 1e6;
     const double gap_ms = last_send == 0 ? 0.0 : static_cast<double>(sent - last_send) / 1e6;

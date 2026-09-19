@@ -1,0 +1,30 @@
+# G1 hardware bring-up procedure
+
+This procedure is for a supervised future attempt. It was not run while producing Fix 12. Do not substitute a replay or loopback result for these checks.
+
+Before arming, put one person at the physical stop and one person at the operator terminal. Keep the gantry harness connected, correctly tensioned, and capable of catching the robot if it goes limp. Clear people, tools, cables, and furniture from the full fall and arm-swing area. Confirm that the robot is standing freely on the floor, not supported by a person, and that the harness attachment cannot snag.
+
+Confirm the deployed binary is the reviewed binary and that its file capabilities and real-time grant are present. After any rebuild or reboot, run `SUDO_PASS=123 bash gear_sonic/scripts/orin_enable_realtime.sh`. Start a non-actuating loopback qualification and inspect stdout: it must contain neither `SCHED_FIFO unavailable` nor `mlockall unavailable`. Do not proceed on a timing run that misses either the 500 Hz or 50 Hz requirement, or whose largest LowCmd gap is 4 ms or more.
+
+Confirm the live endpoint explicitly: DDS domain 0 and interface `eth0`. Never rely on a default. Confirm the current LowState layout has all 35 motor slots, mode machine 4, finite IMU values, quaternion norm within 0.01 of one, and all mapped joints within the current 23-DoF model ranges. The state must be less than 20 ms old. These are pre-flight conditions, not warnings that may be waived.
+
+Create a new operator-token file on the robot immediately before arming. Read its exact contents from the terminal or from the person who created it; do not use shell history. The process must receive `--arm`, an explicit `--dds-domain`, an explicit `--dds-interface`, the token-file path, and the matching token value. The file must be no more than 60 seconds old. Any refusal is a stop: correct the named condition, create a new token, and start again. Do not try to reuse an earlier token.
+
+The operator advances the ladder once per deliberate action. There is no automatic advance.
+
+1. Observe for at least 10 seconds. The console reports the complete pre-flight result. There is no publisher and no LowCmd in this stage.
+2. Advance to zero torque. The controller continuously sends zero stiffness, zero damping, and zero feed-forward torque for at least 5 seconds. Watch every joint and the harness. No mapped joint may move more than 0.002 rad. Any movement is an abort.
+3. Advance to damping. The controller continuously sends zero stiffness, damping gain 1.0, and zero feed-forward torque for at least 5 seconds. This is the abort destination; verify that it is stable before continuing.
+4. Advance to position hold. The controller samples the current 23 joint positions once. It commands those exact positions while ramping the contract gains from zero to their operating values over 3 seconds. Watch for a hold at the existing pose, not a movement toward a nominal pose.
+5. Advance to default pose. The controller moves from that held pose to the 23-DoF contract default pose at no more than 0.20 rad/s per joint. The existing 0.100-rad bounded-brake cap is active on every command step.
+6. Advance to policy only after the default pose has been reached and observed stable. Recorded BFM clips, never a live headset, are the source. The brake remains active throughout.
+
+At every active stage the controller continues publishing at 500 Hz. Do not stop a process as a way to stop the robot: the robot may hold its last command.
+
+Manual abort is always the physical stop under the supervising operator's hand. Use it first if anything is unexpected; it does not require the policy process, its network connection, or its heartbeat. The command-path manual abort also latches an immediate transition to damping, ramps to damping over 50 ms, then sends continuous zero torque after 250 ms. Once aborted, the process cannot return to a higher stage. A new operator token and a new arm operation from Observe are required.
+
+The automatic aborts use the following fixed bounds. They are conservative for this 23-DoF G1: 20 ms LowState age is ten 500 Hz periods and detects loss well before the robot's own stale last command can persist; 100 ms policy age is five 50 Hz policy periods and prevents an old clip target from surviving a transport failure. More than one consecutive native deadline miss aborts, preserving margin below the qualified 4 ms maximum LowCmd gap. A target outside the exact 23-DoF MuJoCo range or any non-finite value aborts rather than clips a corrupt command. A 0.100-rad target increment is the existing qualified BFM bounded-brake cap, not a newly relaxed value. Position error above 0.35 rad is deliberately larger than the approximately 0.22-rad measured-to-default transition seen in the captured standing state but small enough to detect a failed hold before a large joint excursion. Joint velocity above 6 rad/s is below the slowest 20 rad/s contract velocity limit and leaves substantial actuator and mechanical margin. Tilt above 0.35 rad (20 degrees) is far below the 1.0-rad simulation termination angle and gives the harness time to catch a loss of uprightness. Operator liveness expires after one second, short enough to detect a lost supervisor while allowing a normal local heartbeat.
+
+Every abort looks the same at the terminal: a timestamped reason, the transition to damping, then a timestamped zero-torque transition and a latched refusal of every advance. Stop advancing, use the physical stop if there is motion, secure the robot with the harness, and record the event log. Do not re-arm until the cause is understood and a fresh supervised plan has been agreed.
+
+Fix 12 is offline evidence only. Before a supervised hardware attempt, build and deploy the reviewed native binary, rerun the complete loopback/offline suite on the deployed artifact, re-check the real-time capability grant, and conduct an operator-reviewed dry run of the physical-stop and liveness paths with the robot still unarmed.

@@ -1327,3 +1327,197 @@ runs meet every unchanged criterion.
 **Result.** Control 0 no longer appears as an outlier in any run. Across the traced set, two of three runs were clean and the third's worst control had every phase inflated roughly threefold at once — state receive `4.01 ms`, feature and goal `6.32 ms`, inference `4.10 ms` — which is external interference slowing the whole thread, not a stage of our own. The official two-run qualification then passed as recorded above.
 
 **Still open from Fix 9, and more important than this.** The real robot publishes `rt/lowstate` at about 1,020 Hz, not the replay's 500 Hz, and the estimator's horizontal estimate drifts `0.23965 m/min` while the robot is stationary. Neither is addressed here.
+
+### 2026-09-19 — Fix 11: real-sensor drift and sample rate
+
+**The dominant measured source of the drift is a persistent horizontal specific-force residual after accelerometer-bias correction, not sample rate; no estimator change was justified, the best deployed-rate result is `0.386456 m/min`, and the loop should continue to consume the latest `rt/lowstate` sample at 500 Hz.** This does not meet the requested `0.05 m/min` target. The result is an honest bound, not a claim that the real sensor has been corrected.
+
+#### One immutable, read-only capture
+
+The capture was made once on the robot at
+`/home/unitree/bfm_teleop_fix5/runs/fix11_real_lowstate_20260919/`, using the
+existing subscriber-only probe on DDS domain 0 / `eth0`. Its stdout says
+`LowCmd publisher exists=false`; the report records
+`lowcmd_messages_sent=0`. It collected 183,805 valid messages in
+179.999777036 s (1,021.1345982 Hz), with no invalid layout and no queue drop.
+The exact capture is copied back as
+`artifacts/bfm_teleop_20260917/fix11/capture/real_lowstate_capture.lcs.gz`
+(21,522,370 bytes compressed; 112,856,294 bytes / about 108 MiB uncompressed;
+SHA-256 of the compressed copy
+`fa2239f7f24ff811a3a7ba6a5e7ab9a5e59109d4368323d54f3d1a67f44ad986`).
+It is an LCS1 stream containing callback `CLOCK_MONOTONIC` timestamp, robot
+tick, IMU quaternion/gyro/accelerometer, and q/dq/ddq/`tau_est` for all 35
+motor slots on every sample. LowState has no message-timestamp field, so the
+callback timestamp is both the timestamp captured and the timestamp the
+estimator actually consumes. The original capture and its JSON summary remain
+on the robot. The large MJB and detailed offline report are retained under
+`E:\codex-artifacts\bfm_teleop_20260917\fix11\` because the workspace volume
+did not have enough free space for another 91 MiB model copy.
+
+The stream is unequivocally quiet in joint space: the largest mapped joint
+peak-to-peak range is 0.00038350 rad, mode machine is 4 on all messages, and
+the registered IMU attitude varies by at most 0.00187 rad on each Euler axis.
+It is therefore consistent with a stationary upright configuration. The
+capture does **not** contain a foot-force, contact, or ground-reaction field.
+It does contain non-zero, stable motor torque estimates: sums of absolute
+mapped leg `tau_est` have medians 21.3199 (left) and 18.2063 (right), while
+the arm median is 6.5724 in their published motor-torque units. This supports
+the statement that the legs were holding a static load, but it cannot be
+converted to vertical foot force or a fraction of body weight without motor
+torque calibration, linkage loads, and a force/contact measurement. Thus the
+data are compatible with feet bearing some load while the gantry shares load;
+they cannot distinguish full foot loading, partial unloading, or a fully
+supported harness. Confidence in the stationary/no-motion conclusion is high;
+confidence in a numerical foot-load fraction is none.
+
+#### Rate experiment — all three runs are offline replay of that one capture
+
+| Capture decimation | Effective rate | Horizontal drift (m/min) | Speed magnitude p50 / p95 (m/s) | Bias magnitude p50 / p95 (m/s²) | Eight supports | Native estimator work p95 / max (ms) |
+|---|---:|---:|---:|---:|---|---:|
+| every sample | 1021.135 Hz | 0.386364 | 0.006527 / 0.008309 | 0.147679 / 0.150638 | all non-zero throughout | 0.006496 / 0.514188 |
+| every second, deployed behavior | 510.567 Hz | 0.386456 | 0.006564 / 0.008487 | 0.147868 / 0.150518 | all non-zero throughout | 0.006528 / 0.078178 |
+| every fourth | 255.284 Hz | 0.384584 | 0.006633 / 0.009162 | 0.147612 / 0.149836 | all non-zero throughout | 0.006529 / 0.153382 |
+
+The drift changes by only 0.00187 m/min (0.48 percent) across a 4× rate
+change. Rate therefore does **not** explain the drift. The per-update native
+cost is well inside the 2 ms period at every tested rate. At the real stream
+rate, processing every callback would also spend about twice the estimator CPU
+per second for no measured drift benefit and would change the established
+500 Hz deployment semantics. Keep the 500 Hz loop and consume its latest
+sample; no loop-rate code change was made, so a new 15,000-tick rate-change
+qualification was not applicable.
+
+#### Attribution at the deployed rate
+
+At 510.567 Hz the accelerometer-bias estimate moves from zero to
+`[-0.123925, -0.052732, -0.064055] m/s²` and then settles rather than wanders:
+the final-quarter component standard deviations are only
+`[0.000637, 0.000883, 0.000671] m/s²`. It nevertheless leaves a mean horizontal
+specific-force residual in the start frame of
+`[+0.00033479, -0.00016435] m/s²`, norm `0.00037296 m/s²`; its p95 component
+magnitude is represented in the full residual distribution with standard
+deviation 0.06631 m/s² and extrema -0.31181 to +0.30159 m/s². If that small
+mean residual were freely integrated for this 180 s record, it would imply
+6.0419 m of displacement. The observed 1.15937 m is 19.2 percent of that
+unconstrained value because the kinematic support update repeatedly damps the
+velocity. The residual is therefore quantitatively sufficient to account for
+all of the measured 1.15937 m / 0.386456 m/min drift; this experiment cannot
+separate its remaining contribution from unobserved physical support motion.
+
+The support selector chooses every one of the eight sole candidates on every
+update (all-nonzero fraction 1.0; medians 0.10139–0.14322). This is a geometric
+height-and-speed decision, not a contact measurement. It is behaving exactly
+as designed for a fixed-foot stance, but it is not evidence that either foot
+was actually carrying full weight. If the harness unloaded the feet enough for
+them to move relative to the floor, the zero-velocity constraint would be
+invalid; LowState provides no force evidence with which to prove or disprove
+that condition. Consequently support mis-selection is a material unresolved
+observability limitation, not an established cause.
+
+The registered quaternion is a fixed 0.179558 rad heading registration from
+the raw IMU quaternion, with only 0.00000084 rad standard deviation; its
+start-to-end yaw change is -0.000434 rad. There is no slow registration drift.
+Yaw about gravity cannot project gravity horizontally; only unmeasured
+roll/pitch error could do that. The raw and registered roll/pitch excursions
+are both below 0.00187 rad and are identical by construction, so this capture
+cannot independently calibrate their absolute error. The integrated pelvis
+height is 0.77181–0.78671 m (p50 0.77976 m), whereas the joints are nearly
+constant; height is initialized from sole kinematics and subsequently
+integrated, so it is not an independent ground-contact check. The largest
+correlation of a joint's noise with horizontal speed is only -0.204 (mapped
+joint 0), with no single-joint signature that explains the drift.
+
+The defensible dominant finding is therefore the residual specific force after
+the filter's estimated bias, amplified by the absence of an external position
+or verified-contact measurement. A defect in the port and a sample-rate
+artifact are ruled out by the matching native offline replays; a force-based
+support diagnosis is not possible from this topic.
+
+#### Change, equivalence, and regressions
+
+Only diagnostic plumbing changed: the subscriber-only probe now records LCS1
+raw captures, and an `--offline-capture` mode replays that file without
+initialising DDS, ZeroMQ, or any publisher. `Native23ImuOdometry` and its C++
+port's prediction, covariance, support selection, gain, rejection, and
+integration order were not changed. The pre-existing recorded-replay G1
+equivalence gate therefore remains the applicable algorithm proof
+(maximum difference `1.1435297153639112e-14`, below `1e-9`), and no target
+sequence can change for unchanged inputs. As a fresh cross-check, the Python
+and native offline replays give the same deployed-rate drift,
+0.386456371631 m/min, to the shown precision.
+
+After rebuilding the private binary, `SUDO_PASS=123 bash
+gear_sonic/scripts/orin_enable_realtime.sh` restored the 200000 us
+`user.slice` grant and `cap_ipc_lock,cap_sys_nice+ep`; nothing under
+`/home/unitree/g1_true23_onboard` changed. The 40-test stream/brake plus
+native LowCmd static-safety suite passed. The guard still proves that the only
+LowCmd publisher and its sole write are both restricted to domain 232 and a
+loopback interface. `walk002` ideal is unchanged: completed 1417, leg
+0.18202273382760834, arm 0.04273216819201739, root p95
+0.36741054963315306. The authoritative stream evaluator also passed normal
+`walk002`: 1824 controls, no latched fault, no physical failure, and complete
+source consumption.
+
+At the deployed-rate bound, a five-minute session can accumulate about
+1.932 m of goal-frame offset. Until a trusted foot-force/contact or external
+position reference is added, the operational options are to re-anchor the
+teleop reference at known-stationary moments, bound uninterrupted session
+length, or explicitly supply a verified support/contact signal. No BFM
+weight, brake, gate, or threshold was changed, and no robot-facing message was
+published.
+
+### 2026-09-19 — What the real-sensor drift actually costs the controller
+
+**Root drift of the measured magnitude does not break tracking, because the goal correction re-anchors against the teleop reference every control.** This closes the question Fix 11 left open, and it is the reason the drift is not a teleop blocker.
+
+The closed-loop observable evaluator was run under `fixed_bias_noise`, whose model applies a fixed accelerometer bias of `[0.03, -0.02, 0.02] m/s²`, a fixed gyro bias, `0.05 deg/s` of yaw drift, and per-sample noise — the same order as the real IMU, whose raw bias magnitude settled near `0.148 m/s²` with a post-correction horizontal residual of `0.000373 m/s²`.
+
+On `walk002`, against the unchanged ideal reference of completed 1417, leg `0.18202273382760834`, arm `0.04273216819201739`, root p95 `0.36741054963315306`, the biased run completed the same 1417 controls with no physical failure, leg RMSE `0.1887` (3.7% worse), arm RMSE `0.0421` (1.5% better, i.e. unchanged within noise), and root p95 `0.3990` (8.6% worse). On the full `pico` teleop stream, the biased run completed all 6,530 controls with no failure, consuming all 5,780 source controls, with leg RMSE `0.16257451654837854`, arm RMSE `0.07056934689425572`, root p95 `0.5095115598167532`, and an accumulated odometry error of `0.282 m` by the end of the 115.6 s run.
+
+The mechanism is that `received_goal` applies a position gain of 1.0 and a yaw gain of 2.0 toward the received reference, so an accumulating root estimate does not accumulate into the command. The practical consequence is that the drift bound from Fix 11 constrains how far the robot's *believed* position may wander during a session, not how well it tracks the operator. Re-anchoring remains the mitigation if absolute position is ever needed.
+
+**Operator-supplied facts recorded here for later reference.** During the Fix 9 and Fix 11 captures the robot was standing on the floor on its own feet and was simultaneously attached to a gantry safety harness, so the feet may have been partially unloaded. `LowState` publishes no foot-force field, so the capture cannot quantify that. The chosen teleop command source is recorded motion clips rather than a live headset, which is the source the existing publisher already provides.
+
+### 2026-09-19 — Fix 12: command path, bring-up ladder and abort
+
+**Nothing was armed and no robot-facing message was published; a fail-closed command-path model, native HG publisher gates, staged bring-up ladder, abort state machine, loopback command record, and offline proofs were built.** The replay proof consumed the Fix 11 capture with DDS disabled, so it cannot have contacted the robot.
+
+#### Arming and publisher construction
+
+The loopback timing path is unchanged: domain 232 on `lo`/`lo0` constructs its fixed test-topic publisher exactly as before. A request for the real endpoint is refused unless all independent conditions pass: `--arm`; explicit `--dds-domain` and `--dds-interface`; a supplied token that exactly matches an operator-token file less than 60 seconds old; and a live pre-flight. The pre-flight requires the mapped 23-joint layout, recognised `mode_machine == 4`, finite IMU quaternion with norm error at most 0.01, finite mapped joint values inside the MuJoCo limits, and a LowState no older than 20 ms. Refusal reports every failed condition.
+
+The native `unitree_hg` constructor now sets `mode_pr = 0`, copies the accepted LowState `mode_machine`, uses the verified 23-to-35 slot mapping `(0..12, 15..19, 22..26)`, sets each mapped motor command to enabled mode, and computes the vendor CRC over all message words excluding the final CRC word. The static test checks those details and requires pre-flight completion before a real publisher can be constructed or sent.
+
+#### Ladder and abort contract
+
+The operator state machine is strictly ordered and has no automatic advance: Observe, zero torque, damping, position hold, default pose, then policy. Observe has no command. Zero torque continuously emits zero `kp`, `kd`, and feed-forward torque. Damping has zero stiffness, damping 1.0, and zero feed-forward torque. Position hold samples q exactly once and ramps the contract gains monotonically from zero over 3 s while retaining that q. The default-pose transition is capped at 0.20 rad/s per joint. Policy uses recorded BFM targets and never emits more than the unchanged 0.100-rad bounded-brake increment. Every stage transition has a timestamped event; an active command stage emits continuously at the 500 Hz command rate.
+
+Abort is latched: it begins a 50 ms ramp to damping, changes to continuous zero torque after 250 ms, and cannot advance again. The manual abort is deliberately independent of the policy process; the operator procedure requires the physical stop under the supervisor's hand. The same state machine tests the software abort request separately.
+
+The fixed abort bounds are: LowState age over 20 ms; policy target age over 100 ms; more than one consecutive deadline miss; any commanded q outside model limits; a prospective command increment above 0.100 rad; measured position error above 0.35 rad; measured velocity above 6 rad/s; estimated tilt above 0.35 rad (20 degrees); any non-finite path value; and lost operator liveness for more than 1 s. These are appropriate conservatisms for the G1: 20 ms is ten 500-Hz periods, 100 ms is five 50-Hz policy periods, two missed native periods preserve margin below the 4 ms qualification gap, 6 rad/s is below the slowest 20 rad/s joint contract, and 20 degrees is well below the 1-rad simulated fall bound. The 0.35-rad tracking allowance is larger than the roughly 0.22-rad captured standing-to-default displacement but small enough to diagnose a failed hold before a large excursion. Full rationale and the human procedure are in `HARDWARE_BRINGUP.md`.
+
+#### Offline proof
+
+`python -m gear_sonic.scripts.prove_g1_true23_bringup_offline --output artifacts/bfm_teleop_20260917/fix12_offline_run` replayed all 183,805 LCS1 records, retaining every second sample for the deployed approximately-500-Hz latest-sample semantic. It constructed no DDS object and recorded 91,851 exact command records for the loopback topic in `fix12_offline_run/loopback_lowcmd_sequence.npz`: 52 zero-torque, 51 damping, 1,545 position-hold, 963 default-pose, and 89,240 policy commands. The stationary capture supplies timing, layout, mode, and IMU state. Since it cannot also show a moving robot tracking the pose transition, the motion stages use an explicitly labelled deterministic command-tracking measurement shadow; this is an offline command-path proof, not a claim of hardware motion.
+
+The recorded-sequence assertions all passed: zero torque has zero stiffness, damping, and torque; damping has zero stiffness and torque; position-hold q is exactly the sampled q and its gain ramp is monotone and bounded; default-pose q increments remain at or below 0.20 rad/s times the 2 ms period; and every policy increment is at or below 0.100 rad. Each of the ten abort inputs was injected independently and verified to enter damping then refuse resume. Each single missing arming condition was independently refused. The Unitree CRC core has a non-zero known-vector test, and the native static test verifies message fields, mapping, and CRC call site.
+
+The stream/brake suite, the new ladder suite, and extended native LowCmd static guard passed: `60 passed` in 4.22 s. No BFM weight, estimator, gate, brake threshold, or tracking code changed. The previously recorded observable `walk002` ideal remains completed 1417, leg `0.18202273382760834`, arm `0.04273216819201739`, root p95 `0.36741054963315306`; normal stream `walk002` remains 1824 controls. The two-run timing qualification is unchanged: each valid run needs at least 5,700 targets, zero 500-Hz misses, zero 50-Hz misses, and largest LowCmd gap below 4 ms.
+
+Before any supervised hardware attempt, deploy and build the reviewed native artifact, restore and verify its real-time capability and `user.slice` grant with `SUDO_PASS=123 bash gear_sonic/scripts/orin_enable_realtime.sh`, repeat the deployed loopback proof, verify the physical stop and operator-liveness path while unarmed, then conduct Observe with the gantry harness fitted and a supervisor on the stop. No hardware attempt is authorised by this Fix 12 evidence.
+
+The local WSL compile was deliberately isolated under `/tmp/fix12_bfm_build` and did not touch a robot binary or invoke DDS. It stopped before compilation because that WSL environment lacks CycloneDDS' `dds/topic/TopicTraits.hpp`; this is an environment dependency failure, not a passing native build. The reviewed native artifact must therefore be built and verified on the provisioned robot build environment before the supervised attempt described above.
+
+### 2026-09-19 — Fix 12 built on the robot, and the tail latency that now matters most
+
+**The Fix 12 command-path source compiles and links on the robot, real-time grant and capabilities were restored after the rebuild, and the native loop is unaffected: zero 500 Hz misses with LowCmd gaps of `2.382 ms` and `2.348 ms`.** The Windows policy had zero misses in one run and one in the other, with p99 `8.31 ms` in both.
+
+**Build.** The WSL environment cannot build the native loop because it lacks the CycloneDDS headers, so the updated source was pushed to the isolated deployment at `/home/unitree/bfm_teleop_fix5/source` and built there with the existing `fix7_onboard_build.sh`, against the SDK inside the protected checkout, which was read and not written. It linked against `libmujoco.so.3.2.3` as before. The rebuild dropped the binary's file capabilities as expected; `cap_sys_nice,cap_ipc_lock+ep` and the `user.slice` real-time grant were both restored before any timing measurement.
+
+**A run immediately after the build showed 514 policy misses with p99 `29.03 ms`.** That was contention, not a regression: no stray processes were found afterwards and the clean repeat gave p99 `8.31 ms` in both runs. It is recorded because it shows how sensitive this measurement is to anything else running on the Windows machine.
+
+**The number that now matters most is target age, not deadline misses.** In the two clean runs the robot's newest available target was `0.919 ms` and `1.233 ms` old at the median and `1.930 ms` and `1.963 ms` at p95, but `62.898 ms` and `74.928 ms` at maximum. The Ethernet round trip behaved the same way: `8.02/10.03 ms` and `10.00/10.05 ms` at p50/p95, with maxima of `132.011 ms` and `156.020 ms`. Note that the run with *zero* policy deadline misses still had a 62.9 ms target-age maximum, so this tail is not the same phenomenon as a missed 50 Hz deadline; it includes the network path.
+
+**What that means for hardware.** The native loop keeps issuing LowCmd every 2 ms regardless, so the robot is never left uncommanded, and the bounded brake limits how far any single target can move it. The exposure is that the robot may act on a target up to roughly 75 ms old, about three and a half control periods. The Fix 12 abort set already contains a stale-target condition; its bound must be chosen against these measurements rather than guessed, and the choice is a trade: a bound below the observed maximum will abort roughly once per run, and a bound above it tolerates a stale command for that long.
+
+**This is the strongest remaining argument for moving the policy off Windows** - either onto a Linux host on the same network, or onto the robot if a GPU path for BFM is ever established. It is not a timing-budget problem any more; the budget is comfortable at p99 `8.31 ms` of 20 ms. It is a tail-latency problem in the Windows scheduling and network path.
