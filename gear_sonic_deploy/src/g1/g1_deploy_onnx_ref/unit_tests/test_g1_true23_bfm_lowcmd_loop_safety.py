@@ -66,3 +66,49 @@ def test_hg_message_uses_mapped_slots_observed_machine_mode_and_crc():
     assert "motor_cmd().at(kHardwareSlots[i])" in make_lowcmd
     assert "motor.mode() = 1" in make_lowcmd
     assert "result.crc() = Crc32" in make_lowcmd
+
+
+def test_native_loop_owns_ladder_and_all_abort_decisions():
+    text = source()
+    assert "class NativeBringupLadder" in text
+    assert "kTargetMaxAgeNs = 100'000'000LL" in text
+    for required in (
+        "LowState is older than 20 ms", "policy target stale beyond 100 ms",
+        "more than one consecutive deadline miss", "commanded joint outside model limits",
+        # The brake check applies to the emitted command, not the raw policy
+        # target: aborting on the raw target made the clamp unreachable at the
+        # hand-over from the default pose (2026-09-20).
+        "emitted command step exceeds brake bound", "measured joint position error exceeds limit",
+        "measured joint velocity exceeds limit", "estimated tilt exceeds limit",
+        "non-finite state or measured joint outside model limits", "operator liveness lost",
+        "kAbortDampingRampNs", "kAbortZeroTorqueAfterNs", "ControlWire",
+    ):
+        assert required in text
+    assert "command = ladder->Command" in text
+    assert "last_operator_liveness_ns = MonotonicNs()" in text
+
+
+def test_policy_stage_applies_the_brake_last():
+    """The brake must be the final clamp, so nothing after it can exceed the step bound.
+
+    Twice on 2026-09-20 a clamp applied after the brake - first the follow
+    margin, then the model joint limits - moved the command further than the
+    brake allows.  The step is also checked in double before the float store.
+    """
+    text = source()
+    policy = text[text.index("kPolicy && target"):]
+    policy = policy[:policy.index("output.kp[i] = static_cast<float>(operating_kp_[i]); output.kd[i]")]
+    margin = policy.index("kCommandFollowMargin")
+    limits = policy.index("next = std::clamp(next, limits_[i][0], limits_[i][1]);")
+    brake = policy.index("next = std::clamp(next, previous - policy_step_, previous + policy_step_);")
+    check = policy.index("std::abs(next - previous) > policy_step_ + 1e-9")
+    store = policy.index("output.q[i] = static_cast<float>(next);")
+    assert margin < limits < brake < check < store
+
+
+def test_velocity_abort_needs_sustained_overspeed_but_keeps_its_limit():
+    """A foot landing spikes an ankle for a tick; a runaway is sustained."""
+    text = source()
+    assert "kVelocityLimit" in text
+    assert "inline constexpr int kVelocityExceededTicks = 10;" in text
+    assert "++velocity_exceeded_ > kVelocityExceededTicks" in text

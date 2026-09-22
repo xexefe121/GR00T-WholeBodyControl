@@ -72,6 +72,9 @@ inline constexpr double kPositionError = .35;
 // walking the command into its own abort.  This bounds the command, it does
 // not relax the abort: the 0.35 rad fault limit is unchanged.
 inline constexpr double kCommandFollowMargin = .25;
+// Ten ticks is 20 ms: long enough to ride out a foot-contact transient,
+// far shorter than any joint could run away at over 6 rad/s.
+inline constexpr int kVelocityExceededTicks = 10;
 inline constexpr double kVelocityLimit = 6.0;
 inline constexpr double kTiltLimit = .35;
 inline constexpr std::int64_t kAbortDampingRampNs = 50'000'000LL;
@@ -765,7 +768,33 @@ class NativeBringupLadder final {
     for (float value : state.quat) { if (!Finite(value)) { Abort("non-finite value in command path", now_ns); return; } quat_norm_sq += value * value; }
     const double tilt = std::acos(std::clamp(1.0 - 2.0 * (state.quat[1] * state.quat[1] + state.quat[2] * state.quat[2]), -1.0, 1.0));
     if (!Finite(tilt) || tilt > kTiltLimit) { Abort("estimated tilt exceeds limit", now_ns); return; }
-    for (float velocity : state.dq) if (std::abs(velocity) > kVelocityLimit) { Abort("measured joint velocity exceeds limit", now_ns); return; }
+    // Name the joint and the speed, for the same reason the position-error
+    // abort does: "a joint moved too fast" does not say which one, how fast, or
+    // what it was being asked to do, and that is the whole diagnosis.
+    // A foot meeting the floor snaps the ankle roll through neutral for a tick
+    // or two: joint 11 was measured at -6.10 rad/s passing through 0.029 rad as
+    // the sole landed.  That is contact, not a runaway, and aborting on a
+    // single sample stops every attempt to stand on the robot's own feet.  A
+    // runaway is sustained, so require the limit to be exceeded on consecutive
+    // ticks before treating it as one.  The limit itself is unchanged, and
+    // remains far below the contract's own 20 rad/s.
+    bool over_speed = false;
+    for (std::size_t i = 0; i < kJoints; ++i) {
+      if (std::abs(static_cast<double>(state.dq[i])) > kVelocityLimit) {
+        over_speed = true;
+        if (++velocity_exceeded_ > kVelocityExceededTicks) {
+          std::ostringstream reason;
+          reason << "measured joint velocity exceeds limit for " << velocity_exceeded_
+                 << " consecutive ticks: joint " << i << " velocity " << state.dq[i]
+                 << " rad/s, measured " << state.q[i]
+                 << ", last commanded " << (have_previous_ ? previous_q_[i] : state.q[i]);
+          Abort(reason.str(), now_ns);
+          return;
+        }
+        break;
+      }
+    }
+    if (!over_speed) velocity_exceeded_ = 0;
     // Name the joint and the error.  A bare "position error exceeds limit"
     // says a joint could not follow but not which one or by how much, which is
     // the first thing anyone needs in order to act on it.
@@ -802,6 +831,7 @@ class NativeBringupLadder final {
   std::array<std::array<double, 2>, kJoints> limits_{};
   std::array<double, kJoints> default_q_{}, operating_kp_{}, operating_kd_{}, held_q_{}, previous_q_{};
   double policy_step_ = kBrakeStep;
+  int velocity_exceeded_ = 0;
   BringupStage stage_ = BringupStage::kDisarmed;
   std::int64_t stage_started_ns_ = 0;
   std::uint32_t deadline_misses_ = 0;
@@ -1011,9 +1041,21 @@ std::optional<std::uint8_t> LiveBringupPreflight(const Arguments& args, const Na
     failures.emplace_back("LowState IMU quaternion is non-finite or not unit length within 0.01");
   const auto limits = estimator.JointLimits();
   for (std::size_t joint = 0; joint < kJoints; ++joint) {
+    // Strict on purpose.  On 2026-09-20 this refused to arm, a 0.15 rad
+    // tolerance was added on the assumption the robot was merely resting just
+    // outside the model's range, and the named failure then showed the waist
+    // yaw at -2.71 rad: the torso was physically twisted about 155 degrees in
+    // the harness.  The strict check had been right.  The failure names the
+    // joint and its range so the operator can see what to correct by hand.
+    const double slack = 0.0;
     if (!std::isfinite(observation.sample.q[joint]) || !std::isfinite(observation.sample.dq[joint]) ||
-        observation.sample.q[joint] < limits[joint][0] || observation.sample.q[joint] > limits[joint][1]) {
-      failures.emplace_back("LowState mapped joint is non-finite or outside model limits"); break;
+        observation.sample.q[joint] < limits[joint][0] - slack ||
+        observation.sample.q[joint] > limits[joint][1] + slack) {
+      std::ostringstream detail;
+      detail << "LowState mapped joint " << joint << " is non-finite or outside model limits: measured "
+             << observation.sample.q[joint] << ", model range [" << limits[joint][0] << ", "
+             << limits[joint][1] << "], tolerance " << slack;
+      failures.emplace_back(detail.str()); break;
     }
   }
   if (MonotonicNs() - observation.received_ns > 20'000'000LL)
@@ -1493,7 +1535,13 @@ int Run(const Arguments& args) {
         status << "{\"tick\":" << tick << ",\"stage\":\"" << BringupStageName(ladder->stage())
                << "\",\"event\":\"" << ladder->last_event() << "\",\"abort_reason\":\""
                << ladder->abort_reason() << "\",\"operator_frames\":" << received_operator_controls
-               << ",\"targets_received\":" << received_targets << ",\"deadline_misses\":" << missed << "}\n";
+               << ",\"targets_received\":" << received_targets << ",\"deadline_misses\":" << missed
+               // The stale-target abort fires on this, so an operator watching a
+               // live run must be able to see it rise rather than learn its
+               // value only from a report the run never gets to write.
+               << ",\"target_age_ms\":" << (ages.empty() ? -1.0 : ages.back())
+               << ",\"ipc_round_trip_ms\":" << (round_trips.empty() ? -1.0 : round_trips.back())
+               << "}\n";
       }
     }
   }

@@ -38,7 +38,8 @@ def to_policy(ladder, now=100.0):
 
 def test_ladder_requires_fresh_explicit_actions_and_emits_promised_commands():
     ladder = armed()
-    assert ladder.command(state(), 100.0, operator_liveness_s=100.0) is None
+    observe = ladder.command(state(), 100.0, operator_liveness_s=100.0)
+    assert np.all(observe.kp == 0) and np.all(observe.kd == 0) and np.all(observe.tau == 0)
     ladder.advance(state(), 100.001)
     zero = ladder.command(state(100.002), 100.002, operator_liveness_s=100.002)
     assert np.all(zero.kp == 0) and np.all(zero.kd == 0) and np.all(zero.tau == 0)
