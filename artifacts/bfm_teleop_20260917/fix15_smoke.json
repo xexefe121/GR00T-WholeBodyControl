@@ -1,0 +1,33 @@
+{
+  "kind": "g1_true23_pico_bfm_packet_bridge_v1",
+  "source": "recorded_pico_derived_motion",
+  "bind": "tcp://127.0.0.1:5591",
+  "epoch": 0,
+  "packets_published": 20,
+  "validation_failures_before_publication": 0,
+  "validation_failure_reasons": {},
+  "capture_to_publication": {
+    "p50_ms": 7.5,
+    "p95_ms": 14.05,
+    "max_ms": 15.0
+  },
+  "floor": {
+    "method": "v4_critically_damped_causal_filter",
+    "omega_per_second": 15.0,
+    "fixed_buffer_m": 0.02,
+    "clearance_guard_m": 1e-06,
+    "minimum_before_m": 0.003002512203964994,
+    "minimum_after_m": 0.02300251220396501,
+    "frames_below_floor_after": 0
+  },
+  "packet_gate_audit": {
+    "admitted": 20,
+    "rejected_reasons": {}
+  },
+  "authorization": {
+    "dds_opened": false,
+    "lowcmd_opened": false,
+    "robot_commands_published": false,
+    "hardware_authorized": false
+  }
+}

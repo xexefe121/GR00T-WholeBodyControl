@@ -1,0 +1,142 @@
+{
+  "kind": "bfmzero_received_stream_simulation_v1",
+  "mode": "complete",
+  "controls": 1573,
+  "physics_steps": 15730,
+  "physics_steps_per_control": 10,
+  "control_hz": 50,
+  "physics_hz": 500,
+  "received_source_buffer_seconds": 0.14,
+  "stale_seconds": 0.1,
+  "epochs": [
+    {
+      "epoch": 0,
+      "received": 1417,
+      "consumed": 1417,
+      "ignored": 0,
+      "rejected": 0,
+      "final_received": true,
+      "full_source_consumed": true,
+      "fault": null,
+      "calibration": null
+    }
+  ],
+  "any_fault_latched": false,
+  "physical_failure": null,
+  "full_uninterrupted_source_consumed": true,
+  "standing_return_verified": true,
+  "range_excess_max_rad": 0.0,
+  "range_excess_controls": 0,
+  "effort_ratio_max": 0.9355101869464509,
+  "brake_step_rad": 0.1,
+  "brake_engagement_controls": 0,
+  "brake_target_step_max_rad": 0.0,
+  "velocity_ratio_max": 0.3658745770150765,
+  "events": [
+    {
+      "kind": "source_control_started",
+      "time": 0.14036429999396205,
+      "epoch": 0,
+      "received_window": 8
+    },
+    {
+      "kind": "active_bfm_standing_transition",
+      "reason": "normal_received_end_of_stream",
+      "time": 28.48018799998681,
+      "control": 1424,
+      "target_qpos": [
+        0.39043550601021604,
+        0.011977437581641825,
+        0.76,
+        0.9823623869126021,
+        0.0,
+        0.0,
+        -0.18698700698009743,
+        -0.312,
+        0.0,
+        0.0,
+        0.669,
+        -0.363,
+        0.0,
+        -0.312,
+        0.0,
+        0.0,
+        0.669,
+        -0.363,
+        0.0,
+        0.0,
+        0.2,
+        0.2,
+        0.0,
+        0.6,
+        0.0,
+        0.2,
+        -0.2,
+        0.0,
+        0.6,
+        0.0
+      ],
+      "simulator_state_rewritten": false,
+      "root_force_applied": false
+    },
+    {
+      "kind": "measured_standing_verified",
+      "time": 31.460276299996185,
+      "mode": "complete",
+      "consecutive_controls": 50
+    }
+  ],
+  "ground_truth_pose_feedback": false,
+  "simulator_pose_writes_after_initialization": 0,
+  "root_assistance_forces": 0,
+  "controller_fallback": false,
+  "deployment_ready": false,
+  "hardware_authorized": false,
+  "scenario": "normal",
+  "paced": true,
+  "received_samples": 1417,
+  "dropped_or_reordered_samples": 0,
+  "teleop_packets_gate_rejected": 0,
+  "teleop_gate_rejection_reasons": {},
+  "teleop_clock_alignment": {
+    "method": "first_packet_reception_offset_per_gate_epoch",
+    "anchors": [
+      {
+        "epoch": 0,
+        "offset": 0.0,
+        "received_at": 0.0,
+        "source_time": 0.0
+      }
+    ]
+  },
+  "late_control_deadlines": 1573,
+  "missed_control_deadlines": 9,
+  "control_start_late_ms_p95_max": [
+    0.5627399925141939,
+    5.470699998550117
+  ],
+  "full_loop_ms_p50_p95_max": [
+    14.886899996781722,
+    16.578259994275868,
+    25.45040000404697
+  ],
+  "source_phase_metrics": {
+    "source_controls": 1417,
+    "leg_rmse": 0.11052627355650949,
+    "arm_rmse": 0.1673062531364588,
+    "root_p95": 0.2574394699341393
+  },
+  "leg_rmse": 0.11052627355650949,
+  "arm_rmse": 0.1673062531364588,
+  "root_p95": 0.2574394699341393,
+  "root_xy_feedback_source": "causal Native23IMUOdometry from simulated pelvis IMU and joint states",
+  "runtime_controls": {
+    "automatic_gc_disabled_during_control_loop": true,
+    "gc_working_set_start_bytes": 667930624,
+    "gc_working_set_end_bytes": 653303808,
+    "pacing_timer": "high-resolution waitable timer",
+    "process_priority": "high",
+    "affinity": "none",
+    "applied_affinity_mask": null
+  }
+}
